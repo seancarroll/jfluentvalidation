@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <artifactId>jfluentvalidation-parent</artifactId>
+        <groupId>com.seancarroll</groupId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>jfluentvalidation-bom</artifactId>
+    <packaging>pom</packaging>
+    <name>jFluentValidation BOM</name>
+    <description>
+        Bill of materials to make sure a consistent set of versions is used for jFluentValidation modules.
+    </description>
+
+    <properties>
+        <guava.version>26.0-jre</guava.version>
+        <bytebuddy.version>1.8.22</bytebuddy.version>
+        <asm.version>6.2.1</asm.version>
+        <hibernate.version>6.0.12.Final</hibernate.version>
+        <jackson.version>2.9.7</jackson.version>
+        <guava.version>26.0-jre</guava.version>
+        <spring.version>2.0.5.RELEASE</spring.version>
+        <slf4j.version>1.7.25</slf4j.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>net.bytebuddy</groupId>
+            <artifactId>byte-buddy</artifactId>
+            <version>${bytebuddy.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.ow2.asm</groupId>
+            <artifactId>asm</artifactId>
+            <version>${asm.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+            <version>2.0.1.Final</version>
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>${guava.version}</version>
+        </dependency>
+
+
+        <!--TODO: should we make this optional? -->
+        <!--whats the best way to allow clients to swap out or upgrade?-->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>${hibernate.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.glassfish</groupId>
+            <artifactId>javax.el</artifactId>
+            <version>3.0.0</version>
+        </dependency>
+    </dependencies>
+
+</project>

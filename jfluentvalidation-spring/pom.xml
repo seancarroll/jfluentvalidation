@@ -11,5 +11,12 @@
 
     <artifactId>jfluentvalidation-spring</artifactId>
 
+    <properties>
+    </properties>
+
+    <dependencies>
+
+
+    </dependencies>
 
 </project>
