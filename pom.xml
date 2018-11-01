@@ -9,6 +9,29 @@
     <packaging>pom</packaging>
     <version>0.0.1-SNAPSHOT</version>
 
+    <modules>
+        <module>jfluentvalidation-core</module>
+        <module>jfluentvalidation-spring</module>
+        <module>jfluentvalidation-bom</module>
+    </modules>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <junit.version>5.3.1</junit.version>
+        <assertj.version>3.10.0</assertj.version>
+        <mockito.version>2.23.0</mockito.version>
+    </properties>
+
+    <developers>
+        <developer>
+            <name>Sean Carroll</name>
+            <timezone>America/Chicago</timezone>
+        </developer>
+    </developers>
+
     <scm>
         <connection>scm:git:git://github.com/seancarroll/jfluentvalidation.git</connection>
         <developerConnection>scm:git:git@github.com:seancarroll/jfluentvalidation.git</developerConnection>
@@ -21,43 +44,26 @@
         <url>https://github.com/seancarroll/jfluentValidation/issues</url>
     </issueManagement>
 
-    <modules>
-        <module>jfluentvalidation-core</module>
-        <module>jfluentvalidation-spring</module>
-        <module>jfluentvalidation-bom</module>
-    </modules>
-
-    <developers>
-        <developer>
-            <name>Sean Carroll</name>
-            <timezone>America/Chicago</timezone>
-        </developer>
-    </developers>
-
-    <properties>
-        <!--<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>-->
-        <!--<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>-->
-        <!--<maven.compile.source>1.8</maven.compile.source>-->
-        <!--<maven.compile.target>1.8</maven.compile.target>-->
-
-        <!--<guava.version>26.0-jre</guava.version>-->
-        <!--<bytebuddy.version>1.8.22</bytebuddy.version>-->
-        <!--<asm.version>6.2.1</asm.version>-->
-        <!--<hibernate.version>6.0.12.Final</hibernate.version>-->
-
-        <!--<slf4j.version>1.7.25</slf4j.version>-->
-        <!--<junit.version>5.3.1</junit.version>-->
-        <!--<mockito.version>2.22.0</mockito.version>-->
-        <!--<assertj.version>3.11.1</assertj.version>-->
-
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
-
-        <junit.version>5.3.1</junit.version>
-        <mockito.version>2.23.0</mockito.version>
-    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>${assertj.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>${mockito.version}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 
     <profiles>
         <profile>
@@ -87,40 +93,6 @@
             </build>
         </profile>
     </profiles>
-
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.junit.jupiter</groupId>
-                <artifactId>junit-jupiter-api</artifactId>
-                <version>${junit.version}</version>
-                <scope>test</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>org.mockito</groupId>
-                <artifactId>mockito-core</artifactId>
-                <version>${mockito.version}</version>
-                <scope>test</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId>
-            <version>${junit.version}</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-core</artifactId>
-            <version>${mockito.version}</version>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
 
     <build>
         <pluginManagement>
@@ -201,12 +173,12 @@
                 <plugin>
                     <groupId>org.owasp</groupId>
                     <artifactId>dependency-check-maven</artifactId>
-                    <version>3.3.1</version>
+                    <version>3.3.4</version>
                 </plugin>
                 <plugin>
                     <groupId>com.github.spotbugs</groupId>
                     <artifactId>spotbugs-maven-plugin</artifactId>
-                    <version>3.1.6</version>
+                    <version>3.1.7</version>
                 </plugin>
                 <!--TODO: do we use this?-->
                 <plugin>
@@ -351,6 +323,10 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>com.github.spotbugs</groupId>
+                <artifactId>spotbugs-maven-plugin</artifactId>
+            </plugin>
         </plugins>
 
     </build>
@@ -401,206 +377,4 @@
             </plugin>
         </plugins>
     </reporting>
-
-
-    <!--<build>-->
-
-        <!--<pluginManagement>-->
-            <!--<plugins>-->
-                <!--<plugin>-->
-                    <!--<groupId>com.github.spotbugs</groupId>-->
-                    <!--<artifactId>spotbugs-maven-plugin</artifactId>-->
-                    <!--<version>3.1.6</version>-->
-                <!--</plugin>-->
-            <!--</plugins>-->
-        <!--</pluginManagement>-->
-
-        <!--<plugins>-->
-            <!--<plugin>-->
-                <!--<groupId>org.apache.maven.plugins</groupId>-->
-                <!--<artifactId>maven-compiler-plugin</artifactId>-->
-                <!--<configuration>-->
-                    <!--<source>1.8</source>-->
-                    <!--<target>1.8</target>-->
-                    <!--<encoding>${project.build.sourceEncoding}</encoding>-->
-                <!--</configuration>-->
-            <!--</plugin>-->
-            <!--<plugin>-->
-                <!--<groupId>org.apache.maven.plugins</groupId>-->
-                <!--<artifactId>maven-jar-plugin</artifactId>-->
-                <!--<configuration>-->
-                    <!--<archive>-->
-                        <!--<manifestEntries>-->
-                            <!--<Automatic-Module-Name>org.assertj.core</Automatic-Module-Name>-->
-                        <!--</manifestEntries>-->
-                    <!--</archive>-->
-                <!--</configuration>-->
-            <!--</plugin>-->
-            <!--<plugin>-->
-                <!--<groupId>org.apache.maven.plugins</groupId>-->
-                <!--<artifactId>maven-surefire-plugin</artifactId>-->
-                <!--<version>2.22.0</version>-->
-            <!--</plugin>-->
-            <!--<plugin>-->
-                <!--<groupId>com.github.spotbugs</groupId>-->
-                <!--<artifactId>spotbugs-maven-plugin</artifactId>-->
-                <!--<version>3.1.6</version>-->
-            <!--</plugin>-->
-            <!--<plugin>-->
-                <!--<groupId>org.apache.maven.plugins</groupId>-->
-                <!--<artifactId>maven-pmd-plugin</artifactId>-->
-                <!--<version>3.10.0</version>-->
-            <!--</plugin>-->
-            <!--<plugin>-->
-                <!--<groupId>org.jacoco</groupId>-->
-                <!--<artifactId>jacoco-maven-plugin</artifactId>-->
-                <!--<version>0.8.2</version>-->
-            <!--</plugin>-->
-
-            <!--<plugin>-->
-                <!--<groupId>org.apache.maven.plugins</groupId>-->
-                <!--<artifactId>maven-javadoc-plugin</artifactId>-->
-                <!--<version>3.0.1</version>-->
-                <!--<configuration>-->
-                <!--</configuration>-->
-            <!--</plugin>-->
-
-            <!--<plugin>-->
-                <!--<groupId>org.apache.maven.plugins</groupId>-->
-                <!--<artifactId>maven-checkstyle-plugin</artifactId>-->
-                <!--<version>3.0.0</version>-->
-                <!--<executions>-->
-                    <!--<execution>-->
-                        <!--<id>validate</id>-->
-                        <!--<phase>validate</phase>-->
-                        <!--<configuration>-->
-                            <!--<configLocation>checkstyle.xml</configLocation>-->
-                            <!--<encoding>UTF-8</encoding>-->
-                            <!--<consoleOutput>true</consoleOutput>-->
-                            <!--<failsOnError>true</failsOnError>-->
-                            <!--<linkXRef>false</linkXRef>-->
-                        <!--</configuration>-->
-                        <!--<goals>-->
-                            <!--<goal>check</goal>-->
-                        <!--</goals>-->
-                    <!--</execution>-->
-                <!--</executions>-->
-            <!--</plugin>-->
-        <!--</plugins>-->
-    <!--</build>-->
-
-    <!--<dependencies>-->
-
-        <!--<dependency>-->
-            <!--<groupId>net.bytebuddy</groupId>-->
-            <!--<artifactId>byte-buddy</artifactId>-->
-            <!--<version>${bytebuddy.version}</version>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>org.ow2.asm</groupId>-->
-            <!--<artifactId>asm</artifactId>-->
-            <!--<version>${asm.version}</version>-->
-        <!--</dependency>-->
-
-        <!--<dependency>-->
-            <!--<groupId>javax.validation</groupId>-->
-            <!--<artifactId>validation-api</artifactId>-->
-            <!--<version>2.0.1.Final</version>-->
-            <!--<optional>true</optional>-->
-        <!--</dependency>-->
-
-        <!--<dependency>-->
-            <!--<groupId>com.google.guava</groupId>-->
-            <!--<artifactId>guava</artifactId>-->
-            <!--<version>${guava.version}</version>-->
-        <!--</dependency>-->
-
-
-        <!--&lt;!&ndash;TODO: should we make this optional? &ndash;&gt;-->
-        <!--&lt;!&ndash;whats the best way to allow clients to swap out or upgrade?&ndash;&gt;-->
-        <!--<dependency>-->
-            <!--<groupId>org.hibernate</groupId>-->
-            <!--<artifactId>hibernate-validator</artifactId>-->
-            <!--<version>${hibernate.version}</version>-->
-            <!--<scope>test</scope>-->
-        <!--</dependency>-->
-
-        <!--<dependency>-->
-            <!--<groupId>org.glassfish</groupId>-->
-            <!--<artifactId>javax.el</artifactId>-->
-            <!--<version>3.0.0</version>-->
-        <!--</dependency>-->
-
-        <!--<dependency>-->
-            <!--<groupId>org.slf4j</groupId>-->
-            <!--<artifactId>slf4j-api</artifactId>-->
-            <!--<version>${slf4j.version}</version>-->
-        <!--</dependency>-->
-
-        <!--<dependency>-->
-            <!--<groupId>org.junit.jupiter</groupId>-->
-            <!--<artifactId>junit-jupiter-api</artifactId>-->
-            <!--<version>${junit.version}</version>-->
-            <!--<scope>test</scope>-->
-        <!--</dependency>-->
-
-        <!--<dependency>-->
-            <!--<groupId>org.mockito</groupId>-->
-            <!--<artifactId>mockito-core</artifactId>-->
-            <!--<version>${mockito.version}</version>-->
-            <!--<scope>test</scope>-->
-        <!--</dependency>-->
-
-        <!--<dependency>-->
-            <!--<groupId>org.assertj</groupId>-->
-            <!--<artifactId>assertj-core</artifactId>-->
-            <!--<version>${assertj.version}</version>-->
-            <!--<scope>test</scope>-->
-        <!--</dependency>-->
-
-    <!--</dependencies>-->
-
-    <!--<reporting>-->
-        <!--<plugins>-->
-            <!--<plugin>-->
-                <!--<groupId>org.apache.maven.plugins</groupId>-->
-                <!--<artifactId>maven-checkstyle-plugin</artifactId>-->
-                <!--<version>3.0.0</version>-->
-                <!--<reportSets>-->
-                    <!--<reportSet>-->
-                        <!--<reports>-->
-                            <!--<report>checkstyle</report>-->
-                        <!--</reports>-->
-                    <!--</reportSet>-->
-                <!--</reportSets>-->
-            <!--</plugin>-->
-            <!--<plugin>-->
-                <!--<groupId>com.github.spotbugs</groupId>-->
-                <!--<artifactId>spotbugs-maven-plugin</artifactId>-->
-                <!--<version>3.1.6</version>-->
-            <!--</plugin>-->
-
-
-            <!--<plugin>-->
-                <!--<groupId>org.apache.maven.plugins</groupId>-->
-                <!--<artifactId>maven-javadoc-plugin</artifactId>-->
-                <!--<version>3.0.1</version>-->
-                <!--<configuration>-->
-                <!--</configuration>-->
-            <!--</plugin>-->
-
-            <!--<plugin>-->
-                <!--<groupId>org.jacoco</groupId>-->
-                <!--<artifactId>jacoco-maven-plugin</artifactId>-->
-                <!--<reportSets>-->
-                    <!--<reportSet>-->
-                        <!--<reports>-->
-                            <!--<report>report</report>-->
-                        <!--</reports>-->
-                    <!--</reportSet>-->
-                <!--</reportSets>-->
-            <!--</plugin>-->
-        <!--</plugins>-->
-    <!--</reporting>-->
-
 </project>
