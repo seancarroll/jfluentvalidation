@@ -5,8 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <artifactId>jfluentvalidation-parent</artifactId>
         <groupId>com.seancarroll</groupId>
+        <artifactId>jfluentvalidation-parent</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
@@ -18,56 +18,62 @@
     </description>
 
     <properties>
-        <guava.version>26.0-jre</guava.version>
-        <bytebuddy.version>1.8.22</bytebuddy.version>
+        <!--TODO: do we need asm or byte buddy?-->
         <asm.version>6.2.1</asm.version>
-        <hibernate.version>6.0.12.Final</hibernate.version>
-        <jackson.version>2.9.7</jackson.version>
-        <guava.version>26.0-jre</guava.version>
-        <spring.version>2.0.5.RELEASE</spring.version>
+        <byte-buddy.version>1.9.6</byte-buddy.version>
+        <!--TODO: can we avoid bringing in guava as a dependency?-->
+        <guava.version>27.0.1-jre</guava.version>
+        <hibernate-validator.version>6.0.14.Final</hibernate-validator.version>
+        <jackson.version>2.9.8</jackson.version>
+        <javax.el.version>3.0.0</javax.el.version>
+        <objenesis.version>3.0.1</objenesis.version>
         <slf4j.version>1.7.25</slf4j.version>
+        <spring.version>2.1.1.RELEASE</spring.version>
+        <validation-api.version>2.0.1.Final</validation-api.version>
     </properties>
 
-    <dependencies>
-        <dependency>
-            <groupId>net.bytebuddy</groupId>
-            <artifactId>byte-buddy</artifactId>
-            <version>${bytebuddy.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.ow2.asm</groupId>
-            <artifactId>asm</artifactId>
-            <version>${asm.version}</version>
-        </dependency>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.ow2.asm</groupId>
+                <artifactId>asm</artifactId>
+                <version>${asm.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.bytebuddy</groupId>
+                <artifactId>byte-buddy</artifactId>
+                <version>${byte-buddy.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava.version}</version>
+            </dependency>
+            <!--TODO: should we make this optional? -->
+            <!--whats the best way to allow clients to swap out or upgrade?-->
+            <dependency>
+                <groupId>org.hibernate.validator</groupId>
+                <artifactId>hibernate-validator</artifactId>
+                <version>${hibernate-validator.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.glassfish</groupId>
+                <artifactId>javax.el</artifactId>
+                <version>${javax.el.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.objenesis</groupId>
+                <artifactId>objenesis</artifactId>
+                <version>${objenesis.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>javax.validation</groupId>
+                <artifactId>validation-api</artifactId>
+                <version>${validation-api.version}</version>
+                <optional>true</optional>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
-        <dependency>
-            <groupId>javax.validation</groupId>
-            <artifactId>validation-api</artifactId>
-            <version>2.0.1.Final</version>
-            <optional>true</optional>
-        </dependency>
-
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>${guava.version}</version>
-        </dependency>
-
-
-        <!--TODO: should we make this optional? -->
-        <!--whats the best way to allow clients to swap out or upgrade?-->
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-validator</artifactId>
-            <version>${hibernate.version}</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.glassfish</groupId>
-            <artifactId>javax.el</artifactId>
-            <version>3.0.0</version>
-        </dependency>
-    </dependencies>
 
 </project>

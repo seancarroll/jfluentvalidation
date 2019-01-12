@@ -1,4 +1,7 @@
 package jfluentvalidation.constraints;
 
-public interface Constraint {
+public interface Constraint<T> {
+
+    boolean IsValid(T instance);
+
 }

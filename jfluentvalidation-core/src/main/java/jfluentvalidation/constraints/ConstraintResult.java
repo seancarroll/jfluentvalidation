@@ -1,4 +1,4 @@
 package jfluentvalidation.constraints;
 
-public class AbstractStringConstraint {
+public class ConstraintResult {
 }
