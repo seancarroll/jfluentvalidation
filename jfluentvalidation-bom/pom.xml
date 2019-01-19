@@ -20,7 +20,7 @@
     <properties>
         <!--TODO: do we need asm or byte buddy?-->
         <asm.version>6.2.1</asm.version>
-        <byte-buddy.version>1.9.6</byte-buddy.version>
+        <byte-buddy.version>1.9.7</byte-buddy.version>
         <!--TODO: can we avoid bringing in guava as a dependency?-->
         <guava.version>27.0.1-jre</guava.version>
         <hibernate-validator.version>6.0.14.Final</hibernate-validator.version>
