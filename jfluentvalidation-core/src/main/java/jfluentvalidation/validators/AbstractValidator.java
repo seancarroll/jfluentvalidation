@@ -1,6 +1,10 @@
 package jfluentvalidation.validators;
 
+import jfluentvalidation.ValidationException;
+import jfluentvalidation.ValidationFailure;
+import jfluentvalidation.constraints.Constraint;
 import jfluentvalidation.core.StringSubject;
+import jfluentvalidation.core.Subject;
 import net.bytebuddy.ByteBuddy;
 import net.bytebuddy.description.method.MethodDescription;
 import net.bytebuddy.description.modifier.Visibility;
@@ -8,7 +12,6 @@ import net.bytebuddy.dynamic.DynamicType;
 import net.bytebuddy.dynamic.loading.ClassInjector;
 import net.bytebuddy.dynamic.loading.ClassLoadingStrategy;
 import net.bytebuddy.implementation.FieldAccessor;
-import net.bytebuddy.implementation.InvocationHandlerAdapter;
 import net.bytebuddy.implementation.MethodDelegation;
 import net.bytebuddy.matcher.ElementMatcher;
 import net.bytebuddy.matcher.ElementMatchers;
@@ -16,7 +19,9 @@ import org.objenesis.Objenesis;
 import org.objenesis.ObjenesisStd;
 
 import java.lang.reflect.*;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -24,6 +29,10 @@ import java.util.function.Supplier;
 import static java.lang.System.out;
 import static net.bytebuddy.matcher.ElementMatchers.named;
 import static net.bytebuddy.matcher.ElementMatchers.not;
+
+//TODO: check these out
+//import javax.validation.Constraint;
+//import javax.validation.ConstraintValidator;
 
 public abstract class AbstractValidator<T> {
 
@@ -34,6 +43,21 @@ public abstract class AbstractValidator<T> {
     public volatile T source;
     public T proxy;
     public T proxyType;
+    // TODO: will likely need a wrapper/container around a subject
+    private List<Subject<?, ?>> subjects = new ArrayList<>();
+
+    // QUESTION: where do you belong?
+    private Function<T, ?> func;
+
+    // QUESTION:  Should we wrap in a Locale aware interpolator? What does spring do?
+    // private MessageInterpolator messageInterpolator = new ResourceBundleMessageInterpolator();
+
+    // AggregateResourceBundleLocator, CachingResourceBundleLocator, DelegatingResourceBundleLocator, PlatformResourceBundleLocator
+    // springs MessageSourceResourceBundleLocator
+    // Spring validationMessageSource
+    // private ResourceBundleLocator resourceBundleLocator = new ResourceBundleLocator();
+
+
     // private final Errors proxyErrors = new Errors();
     // private final Errors errors = new Errors();
     Class<T> type;
@@ -63,48 +87,6 @@ public abstract class AbstractValidator<T> {
         LOOKUP = lookup;
     }
 
-    protected AbstractValidator(T source) {
-
-        Class<T> type = (Class<T>)source.getClass();
-
-        final DynamicType.Unloaded<T> unloaded = new ByteBuddy()
-            .subclass((Class<T>)source.getClass())
-            .method(METHOD_FILTER)
-            .intercept(InvocationHandlerAdapter.of(interceptor))
-            .make();
-
-        final ClassLoadingStrategy<ClassLoader> classLoadingStrategy = chooseClassLoadingStrategy(type);
-
-        if (classLoadingStrategy != null) {
-            proxy = OBJENESIS.newInstance(unloaded
-                //.load(useOSGiClassLoaderBridging ? BridgeClassLoaderFactory.getClassLoader(type) : type.getClassLoader(), classLoadingStrategy)
-                .load(type.getClassLoader(), classLoadingStrategy)
-                .getLoaded());
-        } else {
-            proxy = OBJENESIS.newInstance(unloaded
-                .load(type.getClassLoader())
-                .getLoaded());
-        }
-
-        final Class<?>  loaded = new ByteBuddy()
-            .subclass((Class<T>)source.getClass())
-            .method(METHOD_FILTER)
-            .intercept(InvocationHandlerAdapter.of(interceptor))
-            .make()
-            .load(PropertyNameCapturer.class.getClassLoader(), ClassLoadingStrategy.Default.WRAPPER)
-            .getLoaded();
-
-        try {
-            Class<T> typed = (Class<T>) loaded;
-            proxyType = typed.newInstance();
-            if (proxyType != null) {
-
-            }
-        } catch (Exception ex) {
-            System.out.println(ex);
-        }
-    }
-
     private static <T> ClassLoadingStrategy<ClassLoader> chooseClassLoadingStrategy(Class<T> type) {
         try {
             final ClassLoadingStrategy<ClassLoader> strategy;
@@ -129,10 +111,8 @@ public abstract class AbstractValidator<T> {
     }
 
     public StringSubject ruleFor(Function<T, String> func) {
-        // MethodHandles.Lookup lookup = MethodHandles.lookup();
-        // LambdaMetafactory.metafactory(lookup, )
-        // String actual = func.apply(proxy);
-        // String actual2 = func.apply(proxyType);
+
+        this.func = func;
 
         type = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
 
@@ -154,6 +134,9 @@ public abstract class AbstractValidator<T> {
         Class<T> typed = null;
         try {
             typed = (Class<T>) proxyType;
+            // This allows me to get the property name. Is there a way I can do this when validate is called?
+            // Do I need to wrap it in a proxy like this? Can I wrap the actual instance in a proxy? Can I avoid the proxy all together?
+            func.apply(typed.newInstance());
         } catch (Exception ex) {
             System.out.println(ex);
         }
@@ -176,7 +159,50 @@ public abstract class AbstractValidator<T> {
         // and it returns RuleBuilder
         // RuleBuilder has a PropertyRule and Parent Validator
         // for us to get type will what I have for jmediator work? If not, https://stackoverflow.com/questions/3403909/get-generic-type-of-class-at-runtime
-        return new StringSubject(func);
+        StringSubject subject = new StringSubject(func);
+        subjects.add(subject);
+        return subject;
+
+
+        // originally was in the constructor
+//        Class<T> type = (Class<T>)source.getClass();
+//
+//        final DynamicType.Unloaded<T> unloaded = new ByteBuddy()
+//            .subclass((Class<T>)source.getClass())
+//            .method(METHOD_FILTER)
+//            .intercept(InvocationHandlerAdapter.of(interceptor))
+//            .make();
+//
+//        final ClassLoadingStrategy<ClassLoader> classLoadingStrategy = chooseClassLoadingStrategy(type);
+//
+//        if (classLoadingStrategy != null) {
+//            proxy = OBJENESIS.newInstance(unloaded
+//                //.load(useOSGiClassLoaderBridging ? BridgeClassLoaderFactory.getClassLoader(type) : type.getClassLoader(), classLoadingStrategy)
+//                .load(type.getClassLoader(), classLoadingStrategy)
+//                .getLoaded());
+//        } else {
+//            proxy = OBJENESIS.newInstance(unloaded
+//                .load(type.getClassLoader())
+//                .getLoaded());
+//        }
+//
+//        final Class<?>  loaded = new ByteBuddy()
+//            .subclass((Class<T>)source.getClass())
+//            .method(METHOD_FILTER)
+//            .intercept(InvocationHandlerAdapter.of(interceptor))
+//            .make()
+//            .load(PropertyNameCapturer.class.getClassLoader(), ClassLoadingStrategy.Default.WRAPPER)
+//            .getLoaded();
+//
+//        try {
+//            Class<T> typed = (Class<T>) loaded;
+//            proxyType = typed.newInstance();
+//            if (proxyType != null) {
+//
+//            }
+//        } catch (Exception ex) {
+//            System.out.println(ex);
+//        }
     }
 
     public void ruleFor(String s) {
@@ -215,10 +241,57 @@ public abstract class AbstractValidator<T> {
         }
     }
 
-    public void validate(T entity) {
-
+    public List<ValidationFailure> validate(T entity) {
         getMembers((Class<T>) entity.getClass());
 
+        Object o = func.apply(entity);
+        List<ValidationFailure> failures = new ArrayList();
+        for (Subject<?, ?> subject : subjects) {
+            for (Constraint c : subject.getConstraints()) {
+                boolean isValid = c.isValid(o);
+                if (!isValid) {
+                    failures.add(new ValidationFailure("", o));
+                }
+            }
+        }
+
+        return failures;
+    }
+
+    // TODO: do we want to allow passing a list of ruleSet? Would avoid the string split
+    // Is that a good enough reason?
+    public List<ValidationFailure> validate(T entity, String ruleSet) {
+        getMembers((Class<T>) entity.getClass());
+
+        List<ValidationFailure> failures = new ArrayList();
+        for (Subject subject : subjects) {
+
+        }
+
+        return failures;
+    }
+
+
+    public void validateAndThrow(T entity) {
+        List<ValidationFailure> failures = new ArrayList();
+        for (Subject subject : subjects) {
+
+        }
+
+        if (!failures.isEmpty()) {
+            throw new ValidationException(failures);
+        }
+    }
+
+    public void validateAndThrow(T entity, String ruleSet) {
+        List<ValidationFailure> failures = new ArrayList();
+        for (Subject subject : subjects) {
+
+        }
+
+        if (!failures.isEmpty()) {
+            throw new ValidationException(failures);
+        }
     }
 
     public T getMembers(Class<T> type) {

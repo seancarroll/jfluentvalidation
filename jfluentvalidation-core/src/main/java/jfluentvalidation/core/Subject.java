@@ -23,7 +23,7 @@ import java.util.function.Function;
  */
 public class Subject<S extends Subject<S, A>, A> {
 
-    protected List<Constraint> constraints = new ArrayList<>();
+    protected List<Constraint<?>> constraints = new ArrayList<>();
 
     protected final S myself;
     protected final A actual;
@@ -49,6 +49,14 @@ public class Subject<S extends Subject<S, A>, A> {
         constraints.add(instance -> instance != null);
         return myself;
     }
+
+
+    public List<Constraint<?>> getConstraints() {
+        return constraints;
+    }
+
+
+
 
 //    // truth called this standardIsEqualTo
 //    private void isEqualTo(@NullableDecl Object expected) {
