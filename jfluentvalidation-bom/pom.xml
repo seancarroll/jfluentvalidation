@@ -28,7 +28,7 @@
         <javax.el.version>3.0.0</javax.el.version>
         <objenesis.version>3.0.1</objenesis.version>
         <slf4j.version>1.7.25</slf4j.version>
-        <spring.version>2.1.1.RELEASE</spring.version>
+        <spring.version>2.1.2.RELEASE</spring.version>
         <validation-api.version>2.0.1.Final</validation-api.version>
     </properties>
 
