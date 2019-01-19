@@ -23,22 +23,22 @@ public class PropertyNameCapturingInterceptor {
         return null;
     }
 
-    private static String getPropertyName(Method method) {
+    public static String getPropertyName(Method method) {
         final boolean hasGetterSignature = method.getParameterTypes().length == 0
             && method.getReturnType() != null;
 
         String name = method.getName();
         String propName = null;
 
-        if ( hasGetterSignature ) {
-            if ( name.startsWith( "get" ) && hasGetterSignature ) {
-                propName = name.substring( 3, 4 ).toLowerCase() + name.substring( 4 );
+        if (hasGetterSignature) {
+            if (name.startsWith("get") && hasGetterSignature) {
+                propName = name.substring(3, 4).toLowerCase() + name.substring(4);
+            } else if (name.startsWith("is") && hasGetterSignature) {
+                propName = name.substring(2, 3).toLowerCase() + name.substring(3);
             }
-            else if ( name.startsWith( "is" ) && hasGetterSignature ) {
-                propName = name.substring( 2, 3 ).toLowerCase() + name.substring( 3 );
-            }
-        }
-        else {
+            // TODO: should be just return name? Support getting value from field or property that does not conform to java bean style?
+        } else {
+            // TODO: throw
             // throw new HibernateException( "Only property getter methods are expected to be passed" );
         }
 
