@@ -5,7 +5,7 @@
 Potential things to include
 
 * Ability to chain multiple validations
-* When method that applies validation(s) conditionally (see fluent validator)
+* When method that applies validation(s) conditionally (see fluent validator DelegatingValidator) maybe we call this a Soft Constraint
 * Allow user to pass a custom validation to validate. 
 * Allow user to pass in a predicate as a validator
 * Apply constraints for each item in a collection (list/array/set/etc). Similar to fluentvalidation's RuleForEach. 

@@ -10,3 +10,23 @@ TODO: check to see what other localization/internationalization libraries exist 
 
 Is there a java specification outside of JSR 380? 
 
+JSR 341: Expression Language 3.0 https://jcp.org/en/jsr/detail?id=341
+
+
+
+https://docs.jboss.org/hibernate/stable/validator/reference/en-US/html_single/#section-custom-message-interpolation
+
+Configuration#getDefaultMessageInterpolator()
+
+ResourceBundleMessageInterpolator
+
+ResourceBundleLocator
+
+validationMessageSource - is this responsible for the localization strategy of finding match based on removing periods?
+
+
+
+Validation message properties files can be found in: hibernate-validator/engine/src/main/resources/org/hibernate/validator
+
+Hibernate has a ValidationMessages class under hibernate-validator/engine/test/org/hibernate/validator/ValidationMessages.java 
+which extends ResourceBundle. Might be worth looking at in more depth to see if it helps us at all

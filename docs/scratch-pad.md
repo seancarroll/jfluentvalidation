@@ -67,3 +67,15 @@ Validator personValidator = new Validator(Person.class)
     .include(fullName)
     .include(address);
 ```
+
+
+
+Do we want to avoid hard-coded hibernate validator dependency? Spring does this via HibernateValidatorDelegate
+
+SpringValidatorAdapter
+
+MessageSourceResolvable
+
+DefaultMessageCodesResolver
+
+
