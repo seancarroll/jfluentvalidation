@@ -95,3 +95,20 @@ https://stackoverflow.com/questions/47104098/using-bytebuddy-to-intercept-setter
 https://github.com/raphw/byte-buddy/issues/323
 https://groups.google.com/forum/#!topic/byte-buddy/nBuGgkW63vQ
 https://stackoverflow.com/questions/40292185/how-to-create-a-dynamic-proxy-using-bytebuddy
+
+https://stackoverflow.com/questions/36872794/bytebuddy-how-to-implement-field-access-interceptor
+http://in.relation.to/2016/04/14/emulating-property-literals-with-java-8-method-references/
+
+
+
+// TODO: what to do with Subject? What should be contained in Subject?
+// fluentvalidation has PropertyRule which get member and a cached accessor (propertyFunc)
+// also includes...
+// lambda expression used to create the rule
+// function to get the cascade mode
+// type to Validate
+// container Type that owns the property
+// signature is for RuleFor is public IRuleBuilderInitial<T, TProperty> RuleFor<TProperty>(Expression<Func<T, TProperty>> expression)
+// and it returns RuleBuilder
+// RuleBuilder has a PropertyRule and Parent Validator
+// for us to get type will what I have for jmediator work? If not, https://stackoverflow.com/questions/3403909/get-generic-type-of-class-at-runtime

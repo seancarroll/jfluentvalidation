@@ -15,19 +15,16 @@ class StringConstraintTest {
     void test() {
         Person m = new Person("sean", 32, "");
 
+        // TODO: better way than creating a validator like this?
+        // the fluent validator approach might be a good way to do it
+        // although it might be nice to be able to create a validator without having a custom validator class
+        // that we need to instantiate
         PersonValidator validator = new PersonValidator();
-        // TODO: how to get property/field name?
-        // serialized lambdas dont provide an actual impl method name with anonymous lambdas
-        // bytebuddy proxy method interceptors do seem to work
         validator.ruleFor(p -> p.getName()).isEmpty().startsWith("s").length(0, 4);
-        // validator.ruleFor(m.getName()); //.isNotEmpty();
+
         List<ValidationFailure> validationFailures = validator.validate(m);
 
         assertEquals(1, validationFailures.size());
-
-        // TODO: check what hibernate returns
-        // how to override/provide error code or error message
-        // Set<ConstraintViolation<Person>> constraints = validator.validate();
     }
 
     private class PersonValidator extends AbstractValidator<Person> {
