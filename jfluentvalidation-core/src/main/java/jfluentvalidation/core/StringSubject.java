@@ -29,15 +29,6 @@ public class StringSubject extends ComparableSubject<StringSubject, String> {
         return myself;
     }
 
-    public StringSubject startsWith(String prefix) {
-        return startsWith(prefix, 0);
-    }
-
-    public StringSubject startsWith(String prefix, int offset) {
-        constraints.add(new StartsWithConstraint(prefix));
-        return myself;
-    }
-
     public StringSubject minLength(int minLength) {
         constraints.add(new LengthConstraint(minLength, -1));
         return myself;
@@ -55,6 +46,15 @@ public class StringSubject extends ComparableSubject<StringSubject, String> {
 
     public StringSubject length(int minLength, int maxLength) {
         constraints.add(new LengthConstraint(minLength, maxLength));
+        return myself;
+    }
+
+    public StringSubject startsWith(String prefix) {
+        return startsWith(prefix, 0);
+    }
+
+    public StringSubject startsWith(String prefix, int offset) {
+        constraints.add(new StartsWithConstraint(prefix));
         return myself;
     }
 
@@ -108,7 +108,6 @@ public class StringSubject extends ComparableSubject<StringSubject, String> {
             return instance.startsWith(prefix, offset);
         }
     }
-
 
     private class LengthConstraint implements Constraint<String> {
 

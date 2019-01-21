@@ -8,7 +8,12 @@ public class ValidationFailure {
     private Object attemptedValue;
 
     public ValidationFailure(String propertyName, Object attemptedValue) {
+        this(propertyName, null, attemptedValue);
+    }
+
+    public ValidationFailure(String propertyName, String errorMessage, Object attemptedValue) {
         this.propertyName = propertyName;
+        this.errorMessage = errorMessage;
         this.attemptedValue = attemptedValue;
     }
 

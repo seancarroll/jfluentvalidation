@@ -88,3 +88,10 @@ what does guava do for StringBuilder?
 
 
 ParameterMessageInterpolator vs javax.el.ExpressionFactory
+
+
+https://stackoverflow.com/questions/37719089/how-to-efficiently-wrap-pojo-with-bytebuddy
+https://stackoverflow.com/questions/47104098/using-bytebuddy-to-intercept-setter
+https://github.com/raphw/byte-buddy/issues/323
+https://groups.google.com/forum/#!topic/byte-buddy/nBuGgkW63vQ
+https://stackoverflow.com/questions/40292185/how-to-create-a-dynamic-proxy-using-bytebuddy

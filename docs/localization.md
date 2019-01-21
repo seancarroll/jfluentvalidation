@@ -16,14 +16,26 @@ JSR 341: Expression Language 3.0 https://jcp.org/en/jsr/detail?id=341
 
 https://docs.jboss.org/hibernate/stable/validator/reference/en-US/html_single/#section-custom-message-interpolation
 
+// Hibernate Validator
 Configuration#getDefaultMessageInterpolator()
 
 ResourceBundleMessageInterpolator
 
 ResourceBundleLocator
 
+// Spring
 validationMessageSource - is this responsible for the localization strategy of finding match based on removing periods?
 
+DefaultMessageCodesResolver
+
+
+
+// Fluent Validator
+PropertyValidator
+
+MessageBuilderContext
+
+MessageFormatter
 
 
 Validation message properties files can be found in: hibernate-validator/engine/src/main/resources/org/hibernate/validator
