@@ -6,12 +6,8 @@ import java.util.function.Function;
 
 public class StringSubject extends ComparableSubject<StringSubject, String> {
 
-    public StringSubject(Function func) {
-        super(StringSubject.class, "", func);
-    }
-
-    public StringSubject(String actual) {
-        super(StringSubject.class, actual);
+    public StringSubject(Function func, String propertyName) {
+        super(StringSubject.class, func, propertyName);
     }
 
     public StringSubject isLessThan(String value) {

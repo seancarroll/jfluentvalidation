@@ -47,7 +47,7 @@ public abstract class AbstractValidator<T> {
         this.proxy = PropertyLiteralHelper.getPropertyNameCapturer(type);
         String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
 
-        StringSubject subject = new StringSubject(func);
+        StringSubject subject = new StringSubject(func, propertyName);
         subjects.add(subject);
         return subject;
     }

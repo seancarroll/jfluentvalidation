@@ -23,18 +23,16 @@ import java.util.function.Function;
  */
 public class Subject<S extends Subject<S, A>, A> {
 
+    protected final S myself;
+    protected Function<Object, A> func;
+    protected String propertyName;
     protected List<Constraint<?>> constraints = new ArrayList<>();
 
-    protected final S myself;
-    protected final A actual;
-    protected Function<Object, A> func;
-
-    public Subject(Class<?> selfType, A actual, Function<Object, A> func) {
+    public Subject(Class<?> selfType, Function<Object, A> func, String propertyName) {
         this.myself = (S) selfType.cast(this);
-        this.actual = actual;
         this.func = func;
+        this.propertyName = propertyName;
     }
-
 
     /** Fails if the subject is not null. */
     public S isNull() {
