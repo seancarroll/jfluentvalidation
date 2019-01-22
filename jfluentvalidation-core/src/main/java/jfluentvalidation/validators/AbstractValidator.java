@@ -20,9 +20,6 @@ public abstract class AbstractValidator<T> {
     public T proxy; // source
     Class<T> type;
 
-    // QUESTION: where do you belong?
-    private Function<T, ?> func;
-
     // TODO: will likely need a wrapper/container around a subject
     private List<Subject<?, ?>> subjects = new ArrayList<>();
 
@@ -40,8 +37,6 @@ public abstract class AbstractValidator<T> {
 
     // TODO: should cache bytebuddy proxies either via a hashmap or bytebuddy TypeCache
     public StringSubject ruleFor(Function<T, String> func) {
-
-        this.func = func;
         this.type = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
         // TODO: I really dont like this. based on testing it needs to be static but can improve this via a cache or something
         this.proxy = PropertyLiteralHelper.getPropertyNameCapturer(type);
@@ -70,10 +65,9 @@ public abstract class AbstractValidator<T> {
 
     public List<ValidationFailure> validate(T entity) {
 
-        // TODO: this shouldnt be here as well have one for each ruleFor
-        Object o = func.apply(entity);
         List<ValidationFailure> failures = new ArrayList();
         for (Subject<?, ?> subject : subjects) {
+            Object o = subject.getPropertyFunc().apply(entity);
             for (Constraint c : subject.getConstraints()) {
                 boolean isValid = c.isValid(o);
                 if (!isValid) {

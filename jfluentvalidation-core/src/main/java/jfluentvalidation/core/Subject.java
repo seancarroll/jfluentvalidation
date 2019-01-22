@@ -24,13 +24,13 @@ import java.util.function.Function;
 public class Subject<S extends Subject<S, A>, A> {
 
     protected final S myself;
-    protected Function<Object, A> func;
+    protected Function<Object, A> propertyFunc;
     protected String propertyName;
     protected List<Constraint<?>> constraints = new ArrayList<>();
 
-    public Subject(Class<?> selfType, Function<Object, A> func, String propertyName) {
+    public Subject(Class<?> selfType, Function<Object, A> propertyFunc, String propertyName) {
         this.myself = (S) selfType.cast(this);
-        this.func = func;
+        this.propertyFunc = propertyFunc;
         this.propertyName = propertyName;
     }
 
@@ -48,6 +48,9 @@ public class Subject<S extends Subject<S, A>, A> {
         return myself;
     }
 
+    public Function<Object, A> getPropertyFunc() {
+        return propertyFunc;
+    }
 
     public List<Constraint<?>> getConstraints() {
         return constraints;
