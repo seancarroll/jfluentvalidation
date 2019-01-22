@@ -1,6 +1,6 @@
 package jfluentvalidation.core;
 
-import jfluentvalidation.constraints.Constraint;
+import jfluentvalidation.constraints.strings.*;
 
 import java.util.function.Function;
 
@@ -54,77 +54,6 @@ public class StringSubject extends ComparableSubject<StringSubject, String> {
         return myself;
     }
 
-    private class IsEmptyConstraint implements Constraint<String> {
 
-        @Override
-        public boolean isValid(String instance) {
-            return instance.isEmpty();
-        }
-    }
-
-    private class IsNotEmptyConstraint implements Constraint<String> {
-
-        @Override
-        public boolean isValid(String instance) {
-            return !instance.isEmpty();
-        }
-    }
-
-    private class LessThanConstraint implements Constraint<String> {
-
-        private final String value;
-
-        public LessThanConstraint(String value) {
-            this.value = value;
-        }
-
-        @Override
-        public boolean isValid(String instance) {
-            return instance.compareTo(value) < 0;
-        }
-    }
-
-    private class StartsWithConstraint implements Constraint<String> {
-
-        private final String prefix;
-        private final int offset;
-
-        public StartsWithConstraint(String prefix) {
-            this(prefix, 0);
-        }
-
-        public StartsWithConstraint(String prefix, int offset) {
-            this.prefix = prefix;
-            this.offset = offset;
-        }
-
-        @Override
-        public boolean isValid(String instance) {
-            // TODO: this probably should be based on a comparison strategy
-            return instance.startsWith(prefix, offset);
-        }
-    }
-
-    private class LengthConstraint implements Constraint<String> {
-
-        private final int min;
-        private final int max;
-
-        public LengthConstraint(int min, int max) {
-            this.min = min;
-            this.max = max;
-        }
-
-        @Override
-        public boolean isValid(String instance) {
-
-            int length = instance.length();
-            if (length < min || (length > max && max != -1)) {
-                return false;
-            }
-
-            return true;
-        }
-    }
 
 }
