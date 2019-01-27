@@ -10,5 +10,19 @@ public class AbstractConstraint {
     private Object[] messageArgs;
     private Predicate whenClause;
 
+    public String getRuleSet() {
+        return ruleSet;
+    }
 
+    public String getCustomMessage() {
+        return customMessage;
+    }
+
+    public Object[] getMessageArgs() {
+        return messageArgs;
+    }
+
+    public Predicate getWhenClause() {
+        return whenClause;
+    }
 }

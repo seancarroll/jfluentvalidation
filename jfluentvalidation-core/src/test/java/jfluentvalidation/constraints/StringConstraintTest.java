@@ -20,7 +20,10 @@ class StringConstraintTest {
         // although it might be nice to be able to create a validator without having a custom validator class
         // that we need to instantiate
         PersonValidator validator = new PersonValidator();
-        validator.ruleFor(p -> p.getName()).isEmpty().startsWith("s").length(0, 4);
+
+        validator.ruleForString(p -> p.getName()).isEmpty().startsWith("s").length(0, 4);
+        validator.ruleForString(p -> p.getAddress()).isNotNull();
+        // validator.ruleForInteger(p -> p.getAge()).isPositive();
 
         List<ValidationFailure> validationFailures = validator.validate(m);
 

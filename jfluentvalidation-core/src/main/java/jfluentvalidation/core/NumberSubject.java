@@ -1,5 +1,7 @@
 package jfluentvalidation.core;
 
+// TODO: what should this extend from? Do we need an abstract class?
+// should it match java's type hierarchy? NumberSubject as an abstract class and Integer implementing Comparable?
 public interface NumberSubject<S extends NumberSubject<S, A>, A extends Number> {
 
     S isZero();

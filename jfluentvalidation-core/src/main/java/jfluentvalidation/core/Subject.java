@@ -28,6 +28,8 @@ public class Subject<S extends Subject<S, A>, A> {
     protected String propertyName;
     protected List<Constraint<?>> constraints = new ArrayList<>();
 
+    protected Constraint<?> currentConstraint;
+
     public Subject(Class<?> selfType, Function<Object, A> propertyFunc, String propertyName) {
         this.myself = (S) selfType.cast(this);
         this.propertyFunc = propertyFunc;
@@ -57,6 +59,15 @@ public class Subject<S extends Subject<S, A>, A> {
     }
 
 
+    protected void addConstraint(Constraint<?> constraint) {
+        currentConstraint = constraint;
+        constraints.add(constraint);
+    }
+
+    protected S withMessage(String message) {
+        // set message
+        return myself;
+    }
 
 
 //    // truth called this standardIsEqualTo
@@ -82,4 +93,9 @@ public class Subject<S extends Subject<S, A>, A> {
     // doesNotHave
     // is
 
+
+//    when
+//    unless
+//    withMessage
+//    withErrorCode
 }

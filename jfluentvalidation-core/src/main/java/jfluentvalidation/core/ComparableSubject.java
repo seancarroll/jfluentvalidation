@@ -1,11 +1,22 @@
 package jfluentvalidation.core;
 
-import java.util.function.Function;
+public interface ComparableSubject<S extends ComparableSubject<S, T>, T extends Comparable> {
 
-public abstract class ComparableSubject<S extends ComparableSubject<S, T>, T extends Comparable>
-    extends Subject<S, T> {
+    S isEqualAccordingToCompareTo(T other);
 
-    public ComparableSubject(Class<?> selfType, Function<Object, T> func, String propertyName) {
-        super(selfType, func, propertyName);
-    }
+    S isNotEqualAccordingToCompareTo(T other);
+
+    S isLessThan(T other);
+
+    S isLessThanOrEqualTo(T other);
+
+    S isGreaterThan(T other);
+
+    S isGreaterThanOrEqualTo(T other);
+
+    S isBetween(T startInclusive, T endInclusive);
+
+    S isStrictlyBetween(T startExclusive, T endExclusive);
+
+    S isBetween(T start, T end, boolean inclusiveStart, boolean inclusiveEnd);
 }
