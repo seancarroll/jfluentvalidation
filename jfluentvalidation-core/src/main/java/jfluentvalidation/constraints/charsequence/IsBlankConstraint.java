@@ -4,7 +4,6 @@ import jfluentvalidation.constraints.Constraint;
 
 public class IsBlankConstraint implements Constraint<CharSequence> {
 
-
     // TODO: update logic to not be a copy of commons-lang
     @Override
     public boolean isValid(CharSequence instance) {
