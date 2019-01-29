@@ -1,11 +1,16 @@
 package jfluentvalidation.core;
 
-public class IntegerSubject implements NumberSubject<IntegerSubject, Integer>  {
+import jfluentvalidation.constraints.comparable.IsGreaterThanConstraint;
 
-//    public IntegerSubject(Integer actual) {
-//        super(actual, IntegerSubject.class);
-//    }
-//
+import java.util.function.Function;
+
+// TODO: what should the type hierarchy be?
+public class IntegerSubject extends Subject<IntegerSubject, Integer> implements NumberSubject<IntegerSubject, Integer>, ComparableSubject<IntegerSubject, Integer>  {
+
+    public IntegerSubject(Function func, String propertyName) {
+        super(IntegerSubject.class, func, propertyName);
+    }
+
 //    public IntegerSubject(AtomicInteger actual) {
 //        this(actual == null ? null : actual.get());
 //    }
@@ -33,7 +38,8 @@ public class IntegerSubject implements NumberSubject<IntegerSubject, Integer>  {
 
     @Override
     public IntegerSubject isPositive() {
-        return null;
+        constraints.add(new IsGreaterThanConstraint(0));
+        return myself;
     }
 
     @Override
@@ -72,4 +78,48 @@ public class IntegerSubject implements NumberSubject<IntegerSubject, Integer>  {
     }
 
 
+    @Override
+    public IntegerSubject isEqualAccordingToCompareTo(Integer other) {
+        return null;
+    }
+
+    @Override
+    public IntegerSubject isNotEqualAccordingToCompareTo(Integer other) {
+        return null;
+    }
+
+    @Override
+    public IntegerSubject isLessThan(Integer other) {
+        return null;
+    }
+
+    @Override
+    public IntegerSubject isLessThanOrEqualTo(Integer other) {
+        return null;
+    }
+
+    @Override
+    public IntegerSubject isGreaterThan(Integer other) {
+        return null;
+    }
+
+    @Override
+    public IntegerSubject isGreaterThanOrEqualTo(Integer other) {
+        return null;
+    }
+
+    @Override
+    public IntegerSubject isBetween(Integer startInclusive, Integer endInclusive) {
+        return null;
+    }
+
+    @Override
+    public IntegerSubject isStrictlyBetween(Integer startExclusive, Integer endExclusive) {
+        return null;
+    }
+
+    @Override
+    public IntegerSubject isBetween(Integer start, Integer end, boolean inclusiveStart, boolean inclusiveEnd) {
+        return null;
+    }
 }

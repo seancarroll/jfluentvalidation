@@ -12,6 +12,17 @@ public class PropertyNameCapturingInterceptor {
     public static Object intercept(@This PropertyNameCapturer capturer, @Origin Method method) {
         String propertyName = getPropertyName(method);
         capturer.setPropertyName(propertyName);
+
+        Class<?> returnType = method.getReturnType();
+        if (returnType == byte.class) {
+            return (byte) 0;
+        } else if (returnType == char.class) {
+            return (char) 0;
+        } else if (returnType == int.class) {
+            return 0;
+        } else if (returnType == short.class) {
+            return (short) 0;
+        }
         return null;
     }
 

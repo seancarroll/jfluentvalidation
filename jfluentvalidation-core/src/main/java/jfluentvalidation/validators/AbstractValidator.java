@@ -81,7 +81,15 @@ public abstract class AbstractValidator<T> {
 
     // stackify overcoming type erasure
     public IntegerSubject ruleForInteger(Function<T, Integer> func) {
-        return null;
+        this.type = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+
+        // TODO: I really dont like this. based on testing it needs to be static but can improve this via a cache or something
+        this.proxy = PropertyLiteralHelper.getPropertyNameCapturer(type);
+        String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
+
+        IntegerSubject subject = new IntegerSubject(func, propertyName);
+        subjects.add(subject);
+        return subject;
     }
 
 
