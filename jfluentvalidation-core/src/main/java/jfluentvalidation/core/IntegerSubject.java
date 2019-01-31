@@ -1,6 +1,6 @@
 package jfluentvalidation.core;
 
-import jfluentvalidation.constraints.comparable.IsGreaterThanConstraint;
+import jfluentvalidation.constraints.comparable.*;
 
 import java.util.function.Function;
 
@@ -11,29 +11,30 @@ public class IntegerSubject extends Subject<IntegerSubject, Integer> implements 
         super(IntegerSubject.class, func, propertyName);
     }
 
-//    public IntegerSubject(AtomicInteger actual) {
-//        this(actual == null ? null : actual.get());
-//    }
-
-
     @Override
     public IntegerSubject isZero() {
-        return null;
+        // TODO: what should the localization key be for this?
+        // Do we want to tie it to constraint name?
+        constraints.add(new IsEqualAccordingToCompareToConstraint(0));
+        return myself;
     }
 
     @Override
     public IntegerSubject isNotZero() {
-        return null;
+        constraints.add(new IsNotEqualAccordingToCompareToConstraint(0));
+        return myself;
     }
 
     @Override
     public IntegerSubject isOne() {
-        return null;
+        constraints.add(new IsEqualAccordingToCompareToConstraint(1));
+        return myself;
     }
 
     @Override
     public IntegerSubject isNotOne() {
-        return null;
+        constraints.add(new IsNotEqualAccordingToCompareToConstraint(0));
+        return myself;
     }
 
     @Override
@@ -44,26 +45,29 @@ public class IntegerSubject extends Subject<IntegerSubject, Integer> implements 
 
     @Override
     public IntegerSubject isNotPositive() {
-        return null;
+        constraints.add(new IsLessThanOrEqualToConstraint(0));
+        return myself;
     }
 
     @Override
     public IntegerSubject isNegative() {
-        return null;
+        constraints.add(new IsLessThanConstraint(0));
+        return myself;
     }
 
     @Override
     public IntegerSubject isNotNegative() {
+        constraints.add(new IsGreaterThanOrEqualToConstraint(0));
+        return myself;
+    }
+
+    @Override
+    public IntegerSubject isBetween(IntegerSubject start, IntegerSubject end) {
         return null;
     }
 
     @Override
-    public IntegerSubject isBetween() {
-        return null;
-    }
-
-    @Override
-    public IntegerSubject isStrictlyBetween() {
+    public IntegerSubject isStrictlyBetween(IntegerSubject start, IntegerSubject end) {
         return null;
     }
 
@@ -110,16 +114,19 @@ public class IntegerSubject extends Subject<IntegerSubject, Integer> implements 
 
     @Override
     public IntegerSubject isBetween(Integer startInclusive, Integer endInclusive) {
-        return null;
+        constraints.add(new IsBetweenConstraint(startInclusive, endInclusive, true, true));
+        return myself;
     }
 
     @Override
     public IntegerSubject isStrictlyBetween(Integer startExclusive, Integer endExclusive) {
-        return null;
+        constraints.add(new IsBetweenConstraint(startExclusive, endExclusive, true, true));
+        return myself;
     }
 
     @Override
     public IntegerSubject isBetween(Integer start, Integer end, boolean inclusiveStart, boolean inclusiveEnd) {
-        return null;
+        constraints.add(new IsBetweenConstraint(start, end, inclusiveStart, inclusiveEnd));
+        return myself;
     }
 }

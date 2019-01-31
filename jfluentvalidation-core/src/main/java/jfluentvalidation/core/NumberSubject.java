@@ -20,10 +20,10 @@ public interface NumberSubject<S extends NumberSubject<S, A>, A extends Number> 
 
     S isNotNegative();
 
-    S isBetween();
+    S isBetween(S start, S end);
 
     // TODO: alternative name
-    S isStrictlyBetween();
+    S isStrictlyBetween(S start, S end);
 
     // TODO: alternative name
     S isCloseTo();
