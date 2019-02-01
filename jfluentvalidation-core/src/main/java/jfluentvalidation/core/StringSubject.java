@@ -7,12 +7,14 @@ import jfluentvalidation.constraints.charsequence.StartsWithConstraint;
 import java.util.function.Function;
 import java.util.regex.Pattern;
 
-public class StringSubject extends Subject<StringSubject, String> implements CharSequenceSubject<StringSubject, String>, ComparableSubject<StringSubject, String>  {
+public class StringSubject extends Subject<StringSubject, String> implements CharSequenceSubject<StringSubject, String>, ComparableSubject<StringSubject, String> {
 
     public StringSubject(Function func, String propertyName) {
         super(StringSubject.class, func, propertyName);
     }
 
+    // TODO: isNullOrEmpty vs isBlank
+    // TODO: if we keep then we need a isNotNullOrEmpty
     @Override
     public StringSubject isNullOrEmpty() {
         return null;
