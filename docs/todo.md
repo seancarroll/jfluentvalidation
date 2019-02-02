@@ -1,3 +1,21 @@
 # TODOs
 
-1. add Guard/Ensure class. Probably dont need to bring in guava for this and only a few String/Object helper methods
+- [x] add Guard/Ensure class. Probably dont need to bring in guava for this and only a few String/Object helper methods
+  - what about toString help classes...alternative?
+- [ ] Various equals constraints
+  - [ ] compareTo() == 0
+  - [ ] ==
+  - [ ] .equals
+- [ ] Finish most of the main high level subjects
+  - boolean
+  - date
+  - collections (arrays, list, map, set)
+- [ ] implement ability to compare other fields via lambda expressions
+- [ ] implement ruleForEach
+- [ ] implement soft constraints (when clause)
+- [ ] implement including other validators
+- [ ] localization
+- [ ] Extensions
+  - joda
+  - framework specific (spring, dropwizard, jersey, play, micronaut)
+- [ ] add performance benchmark test and results
