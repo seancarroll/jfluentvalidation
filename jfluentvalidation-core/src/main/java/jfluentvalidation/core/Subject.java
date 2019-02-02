@@ -10,6 +10,7 @@ package jfluentvalidation.core;
 // Following assertj style we could have an Constraint interface an an abstract class AbstractConstraint
 
 import jfluentvalidation.constraints.Constraint;
+import jfluentvalidation.constraints.object.IsEqualsConstraint;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +38,10 @@ public class Subject<S extends Subject<S, A>, A> {
     }
 
     /** Fails if the subject is not null. */
+    // TODO: lets performance test the following
+    // 1. constraints.add(instance -> instance == null)
+    // 2. new IsNullConstraint
+    // 3. static IsNullConstraint
     public S isNull() {
         // standardIsEqualTo(null);
         constraints.add(instance -> instance == null);
@@ -50,6 +55,13 @@ public class Subject<S extends Subject<S, A>, A> {
         return myself;
     }
 
+    // TODO: is there a better way to do this? What are some alternatives?
+    public S isEquals(A other) {
+        constraints.add(new IsEqualsConstraint<>(other));
+        return myself;
+    }
+
+
     public Function<Object, A> getPropertyFunc() {
         return propertyFunc;
     }
@@ -57,7 +69,6 @@ public class Subject<S extends Subject<S, A>, A> {
     public List<Constraint<?>> getConstraints() {
         return constraints;
     }
-
 
     protected void addConstraint(Constraint<?> constraint) {
         currentConstraint = constraint;
