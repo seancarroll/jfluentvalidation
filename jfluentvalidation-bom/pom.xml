@@ -18,8 +18,6 @@
     </description>
 
     <properties>
-        <!--TODO: do we need asm or byte buddy?-->
-        <asm.version>6.2.1</asm.version>
         <byte-buddy.version>1.9.8</byte-buddy.version>
         <errorprone.version>2.3.2</errorprone.version>
         <!--TODO: can we avoid bringing in guava as a dependency?-->
@@ -35,11 +33,6 @@
 
     <dependencyManagement>
         <dependencies>
-            <dependency>
-                <groupId>org.ow2.asm</groupId>
-                <artifactId>asm</artifactId>
-                <version>${asm.version}</version>
-            </dependency>
             <dependency>
                 <groupId>net.bytebuddy</groupId>
                 <artifactId>byte-buddy</artifactId>
