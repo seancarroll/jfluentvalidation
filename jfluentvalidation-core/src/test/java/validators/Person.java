@@ -5,6 +5,7 @@ public class Person {
     private String name;
     private int age;
     private String address;
+    private boolean isMarried;
 
     public Person() {}
 
@@ -28,5 +29,13 @@ public class Person {
 
     public String getAddress() {
         return address;
+    }
+
+    public boolean isMarried() {
+        return isMarried;
+    }
+
+    public void setMarried(boolean married) {
+        isMarried = married;
     }
 }

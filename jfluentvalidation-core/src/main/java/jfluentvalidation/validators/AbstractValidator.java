@@ -3,10 +3,7 @@ package jfluentvalidation.validators;
 import jfluentvalidation.ValidationException;
 import jfluentvalidation.ValidationFailure;
 import jfluentvalidation.constraints.Constraint;
-import jfluentvalidation.core.CharSequenceSubject;
-import jfluentvalidation.core.IntegerSubject;
-import jfluentvalidation.core.StringSubject;
-import jfluentvalidation.core.Subject;
+import jfluentvalidation.core.*;
 
 import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
@@ -65,7 +62,6 @@ public abstract class AbstractValidator<T> {
     public CharSequenceSubject<?, ? extends CharSequence> ruleForStringBuffer(Function<T, StringBuffer> stringBuffer) {
         return null;
     }
-
     // QUESTION: this is one hacky way to get around type erasure and types not reified
     // but this no longer works when there are multiple ruleFor methods....why?
 //    @FunctionalInterface
@@ -91,6 +87,19 @@ public abstract class AbstractValidator<T> {
         subjects.add(subject);
         return subject;
     }
+
+    public BooleanSubject ruleForBoolean(Function<T, Boolean> func) {
+        this.type = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+
+        // TODO: I really dont like this. based on testing it needs to be static but can improve this via a cache or something
+        this.proxy = PropertyLiteralHelper.getPropertyNameCapturer(type);
+        String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
+
+        BooleanSubject subject = new BooleanSubject(func, propertyName);
+        subjects.add(subject);
+        return subject;
+    }
+
 
 
     private static <T> String getPropertyName(Class<?> proxyType, Function<T, String> func) {

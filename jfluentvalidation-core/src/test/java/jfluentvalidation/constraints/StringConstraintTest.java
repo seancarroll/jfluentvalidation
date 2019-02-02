@@ -24,6 +24,7 @@ class StringConstraintTest {
         validator.ruleForString(p -> p.getName()).isEmpty().startsWith("s").length(0, 4);
         validator.ruleForString(p -> p.getAddress()).isNotNull();
         validator.ruleForInteger(p -> p.getAge()).isPositive();
+        validator.ruleForBoolean(p -> p.isMarried()).isFalse();
 
         List<ValidationFailure> validationFailures = validator.validate(m);
 
