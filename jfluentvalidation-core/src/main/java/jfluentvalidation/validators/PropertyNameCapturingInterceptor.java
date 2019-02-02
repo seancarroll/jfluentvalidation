@@ -22,6 +22,8 @@ public class PropertyNameCapturingInterceptor {
             return 0;
         } else if (returnType == short.class) {
             return (short) 0;
+        } else if (returnType == boolean.class) {
+            return false;
         }
         return null;
     }
