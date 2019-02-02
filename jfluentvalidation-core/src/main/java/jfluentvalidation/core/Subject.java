@@ -11,6 +11,8 @@ package jfluentvalidation.core;
 
 import jfluentvalidation.constraints.Constraint;
 import jfluentvalidation.constraints.object.IsEqualsConstraint;
+import jfluentvalidation.constraints.object.IsNotNullConstraint;
+import jfluentvalidation.constraints.object.IsNullConstraint;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,14 +46,16 @@ public class Subject<S extends Subject<S, A>, A> {
     // 3. static IsNullConstraint
     public S isNull() {
         // standardIsEqualTo(null);
-        constraints.add(instance -> instance == null);
+        // constraints.add(instance -> instance == null);
+        constraints.add(new IsNullConstraint());
         return myself;
     }
 
     /** Fails if the subject is null. */
     public S isNotNull() {
         // standardIsNotEqualTo(null);
-        constraints.add(instance -> instance != null);
+        // constraints.add(instance -> instance != null);
+        constraints.add(new IsNotNullConstraint());
         return myself;
     }
 
