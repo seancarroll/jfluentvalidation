@@ -2,7 +2,6 @@ package jfluentvalidation.internal;
 
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 
-// TODO: use guava or not
 public final class Ensure {
 
     private Ensure() {

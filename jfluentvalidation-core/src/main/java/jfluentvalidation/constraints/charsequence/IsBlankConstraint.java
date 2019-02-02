@@ -2,6 +2,9 @@ package jfluentvalidation.constraints.charsequence;
 
 import jfluentvalidation.constraints.Constraint;
 
+/**
+ * Checks if a CharSequence is empty (""), null or whitespace only.
+ */
 public class IsBlankConstraint implements Constraint<CharSequence> {
 
     // TODO: update logic to not be a copy of commons-lang

@@ -21,7 +21,6 @@ public class ContainsPatternConstraint implements Constraint<CharSequence> {
 
     @Override
     public boolean isValid(CharSequence instance) {
-
 //        checkRegexIsNotNull(regex);
 //        assertNotNull(info, actual);
         return pattern.matcher(instance).find();
