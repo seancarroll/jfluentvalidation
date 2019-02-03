@@ -1,22 +1,22 @@
 package jfluentvalidation.core;
 
-public interface ComparableSubject<S extends ComparableSubject<S, T>, T extends Comparable> {
+public interface ComparableSubject<S extends ComparableSubject<S, A>, A extends Comparable> {
 
-    S isEqualAccordingToCompareTo(T other);
+    S isEqualAccordingToCompareTo(A other);
 
-    S isNotEqualAccordingToCompareTo(T other);
+    S isNotEqualAccordingToCompareTo(A other);
 
-    S isLessThan(T other);
+    S isLessThan(A other);
 
-    S isLessThanOrEqualTo(T other);
+    S isLessThanOrEqualTo(A other);
 
-    S isGreaterThan(T other);
+    S isGreaterThan(A other);
 
-    S isGreaterThanOrEqualTo(T other);
+    S isGreaterThanOrEqualTo(A other);
 
-    S isBetween(T startInclusive, T endInclusive);
+    S isBetween(A startInclusive, A endInclusive);
 
-    S isStrictlyBetween(T startExclusive, T endExclusive);
+    S isStrictlyBetween(A startExclusive, A endExclusive);
 
-    S isBetween(T start, T end, boolean inclusiveStart, boolean inclusiveEnd);
+    S isBetween(A start, A end, boolean inclusiveStart, boolean inclusiveEnd);
 }
