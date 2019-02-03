@@ -137,4 +137,14 @@ public abstract class AbstractComparableNumber<S extends AbstractComparableNumbe
     public S isNotCloseTo() {
         return null;
     }
+
+    @Override
+    public S isNotBetween(A startInclusive, A endInclusive) {
+        return null;
+    }
+
+    @Override
+    public S isNotBetween(A start, A end, boolean inclusiveStart, boolean inclusiveEnd) {
+        return null;
+    }
 }

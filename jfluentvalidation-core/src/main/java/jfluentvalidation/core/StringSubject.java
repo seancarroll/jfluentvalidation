@@ -348,6 +348,16 @@ public class StringSubject extends Subject<StringSubject, String> implements Cha
         return null;
     }
 
+    @Override
+    public StringSubject isNotBetween(String startInclusive, String endInclusive) {
+        return null;
+    }
+
+    @Override
+    public StringSubject isNotBetween(String start, String end, boolean inclusiveStart, boolean inclusiveEnd) {
+        return null;
+    }
+
 //    public StringSubject isEmpty() {
 //        constraints.add(new IsEmptyConstraint());
 //        return myself;

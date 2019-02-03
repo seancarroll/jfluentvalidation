@@ -53,4 +53,14 @@ public class UriSubject extends Subject<UriSubject, URI> implements ComparableSu
     public UriSubject isBetween(URI start, URI end, boolean inclusiveStart, boolean inclusiveEnd) {
         return null;
     }
+
+    @Override
+    public UriSubject isNotBetween(URI startInclusive, URI endInclusive) {
+        return null;
+    }
+
+    @Override
+    public UriSubject isNotBetween(URI start, URI end, boolean inclusiveStart, boolean inclusiveEnd) {
+        return null;
+    }
 }
