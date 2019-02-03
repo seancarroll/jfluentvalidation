@@ -48,8 +48,17 @@ public class AbstractComparableSubject<S extends AbstractComparableSubject<S, A>
         return null;
     }
 
+    @Override
+    public S isNotBetween(A startInclusive, A endInclusive) {
+        return null;
+    }
 
-//    @Override
+    @Override
+    public S isNotBetween(A start, A end, boolean inclusiveStart, boolean inclusiveEnd) {
+        return null;
+    }
+
+    //    @Override
 //    public S isEqualAccordingToCompareTo(A other) {
 //        return null;
 //    }

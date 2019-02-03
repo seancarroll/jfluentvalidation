@@ -19,4 +19,8 @@ public interface ComparableSubject<S extends ComparableSubject<S, A>, A extends 
     S isStrictlyBetween(A startExclusive, A endExclusive);
 
     S isBetween(A start, A end, boolean inclusiveStart, boolean inclusiveEnd);
+
+    S isNotBetween(A startInclusive, A endInclusive);
+
+    S isNotBetween(A start, A end, boolean inclusiveStart, boolean inclusiveEnd);
 }

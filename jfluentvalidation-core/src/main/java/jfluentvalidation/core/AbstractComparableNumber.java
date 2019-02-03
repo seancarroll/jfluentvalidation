@@ -66,6 +66,18 @@ public abstract class AbstractComparableNumber<S extends AbstractComparableNumbe
         return myself;
     }
 
+    public S isNotBetwen(A start, A end) {
+        // TODO: should it be inclusive start and end?
+        constraints.add(new IsNotBetweenConstraint(start, end, true, true));
+        return myself;
+    }
+
+    public S isNotBetwen(A start, A end, boolean inclusiveStart, boolean inclusiveEnd) {
+        // TODO: should it be inclusive start and end?
+        constraints.add(new IsNotBetweenConstraint(start, end, inclusiveStart, inclusiveEnd));
+        return myself;
+    }
+
     @Override
     public S isZero() {
         // TODO: what should the localization key be for this?

@@ -24,6 +24,7 @@ public class BooleanSubject extends Subject<BooleanSubject, Boolean> implements 
 
     // TODO: do these makes sense for boolean? While boolean does implement Comparable perhaps here is another way to
     // split compareTo from these others? Maybe they belong to ComparableNumber?
+    // the isBetween and isNotBetween dont make sense to me for boolean
     @Override
     public BooleanSubject isEqualAccordingToCompareTo(Boolean other) {
         return null;
@@ -66,6 +67,16 @@ public class BooleanSubject extends Subject<BooleanSubject, Boolean> implements 
 
     @Override
     public BooleanSubject isBetween(Boolean start, Boolean end, boolean inclusiveStart, boolean inclusiveEnd) {
+        return null;
+    }
+
+    @Override
+    public BooleanSubject isNotBetween(Boolean startInclusive, Boolean endInclusive) {
+        return null;
+    }
+
+    @Override
+    public BooleanSubject isNotBetween(Boolean start, Boolean end, boolean inclusiveStart, boolean inclusiveEnd) {
         return null;
     }
 }
