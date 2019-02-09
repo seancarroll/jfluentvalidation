@@ -1,5 +1,10 @@
 package jfluentvalidation.core;
 
+import jfluentvalidation.constraints.time.IsAfterOffsetTimeConstraint;
+import jfluentvalidation.constraints.time.IsAfterOrEqualOffsetTimeConstraint;
+import jfluentvalidation.constraints.time.IsBeforeOffsetTimeConstraint;
+import jfluentvalidation.constraints.time.IsBeforeOrEqualOffsetTimeConstraint;
+
 import java.time.OffsetTime;
 import java.util.function.Function;
 
@@ -8,8 +13,48 @@ public class OffsetTimeSubject
     extends Subject<OffsetTimeSubject, OffsetTime>
     implements ComparableSubject<OffsetTimeSubject, OffsetTime> {
 
-    public OffsetTimeSubject(Function<Object, OffsetTime> propertyFunc, String propertyName) {
+    public OffsetTimeSubject(Function propertyFunc, String propertyName) {
         super(OffsetTime.class, propertyFunc, propertyName);
+    }
+
+    public OffsetTimeSubject isBefore(OffsetTime other) {
+        constraints.add(new IsBeforeOffsetTimeConstraint(other));
+        return  myself;
+    }
+
+    public OffsetTimeSubject isBeforeOrEqual(OffsetTime other) {
+        constraints.add(new IsBeforeOrEqualOffsetTimeConstraint(other));
+        return  myself;
+    }
+
+    public OffsetTimeSubject isAfter(OffsetTime other) {
+        constraints.add(new IsAfterOffsetTimeConstraint(other));
+        return  myself;
+    }
+
+    public OffsetTimeSubject isAfterOrEqual(OffsetTime other) {
+        constraints.add(new IsAfterOrEqualOffsetTimeConstraint(other));
+        return  myself;
+    }
+
+    public OffsetTimeSubject isInTheFuture() {
+        // TODO: clock from context/provider
+        return isAfter(OffsetTime.now());
+    }
+
+    public OffsetTimeSubject isInTheFutureOrPresent() {
+        // TODO: clock from context/provider
+        return isAfterOrEqual(OffsetTime.now());
+    }
+
+    public OffsetTimeSubject isInThePast() {
+        // TODO: clock from context/provider
+        return isBefore(OffsetTime.now());
+    }
+
+    public OffsetTimeSubject isInThePastOrPresent() {
+        // TODO: clock from context/provider
+        return isBeforeOrEqual(OffsetTime.now());
     }
 
     @Override

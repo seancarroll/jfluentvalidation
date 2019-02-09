@@ -1,5 +1,10 @@
 package jfluentvalidation.core;
 
+import jfluentvalidation.constraints.time.IsAfterOrEqualZonedDateTimeConstraint;
+import jfluentvalidation.constraints.time.IsAfterZonedDateTimeConstraint;
+import jfluentvalidation.constraints.time.IsBeforeOrEqualZonedDateTimeConstraint;
+import jfluentvalidation.constraints.time.IsBeforeZonedDateTimeConstraint;
+
 import java.time.ZonedDateTime;
 import java.util.function.Function;
 
@@ -8,8 +13,48 @@ public class ZonedDateTimeSubject
     extends Subject<ZonedDateTimeSubject, ZonedDateTime>
     implements ComparableSubject<ZonedDateTimeSubject, ZonedDateTime> {
 
-    public ZonedDateTimeSubject(Function<Object, ZonedDateTime> propertyFunc, String propertyName) {
+    public ZonedDateTimeSubject(Function propertyFunc, String propertyName) {
         super(ZonedDateTimeSubject.class, propertyFunc, propertyName);
+    }
+
+    public ZonedDateTimeSubject isBefore(ZonedDateTime zonedDateTime) {
+        constraints.add(new IsBeforeZonedDateTimeConstraint(zonedDateTime));
+        return  myself;
+    }
+
+    public ZonedDateTimeSubject isBeforeOrEqual(ZonedDateTime zonedDateTime) {
+        constraints.add(new IsBeforeOrEqualZonedDateTimeConstraint(zonedDateTime));
+        return  myself;
+    }
+
+    public ZonedDateTimeSubject isAfter(ZonedDateTime zonedDateTime) {
+        constraints.add(new IsAfterZonedDateTimeConstraint(zonedDateTime));
+        return  myself;
+    }
+
+    public ZonedDateTimeSubject isAfterOrEqual(ZonedDateTime zonedDateTime) {
+        constraints.add(new IsAfterOrEqualZonedDateTimeConstraint(zonedDateTime));
+        return  myself;
+    }
+
+    public ZonedDateTimeSubject isInTheFuture() {
+        // TODO: clock from context/provider
+        return isAfter(ZonedDateTime.now());
+    }
+
+    public ZonedDateTimeSubject isInTheFutureOrPresent() {
+        // TODO: clock from context/provider
+        return isAfterOrEqual(ZonedDateTime.now());
+    }
+
+    public ZonedDateTimeSubject isInThePast() {
+        // TODO: clock from context/provider
+        return isBefore(ZonedDateTime.now());
+    }
+
+    public ZonedDateTimeSubject isInThePastOrPresent() {
+        // TODO: clock from context/provider
+        return isBeforeOrEqual(ZonedDateTime.now());
     }
 
     @Override
