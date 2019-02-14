@@ -19,6 +19,7 @@
 
     <properties>
         <byte-buddy.version>1.9.8</byte-buddy.version>
+        <checker-qual.version>2.6.0</checker-qual.version>
         <errorprone.version>2.3.2</errorprone.version>
         <!--TODO: can we avoid bringing in guava as a dependency?-->
         <guava.version>27.0.1-jre</guava.version>
@@ -33,6 +34,12 @@
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>org.checkerframework</groupId>
+                <artifactId>checker-qual</artifactId>
+                <version>${checker-qual.version}</version>
+            </dependency>
+
             <dependency>
                 <groupId>net.bytebuddy</groupId>
                 <artifactId>byte-buddy</artifactId>
