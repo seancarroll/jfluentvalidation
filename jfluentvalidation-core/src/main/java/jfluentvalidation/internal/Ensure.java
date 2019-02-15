@@ -24,28 +24,36 @@ public final class Ensure {
         return reference;
     }
 
-    public static void positive(int number, String argumentName) {
+    @CanIgnoreReturnValue
+    public static int positive(int number, String argumentName) {
         if (number <= 0) {
             throw new IllegalArgumentException(argumentName + " should be positive.");
         }
+        return number;
     }
 
-    public static void positive(long number, String argumentName) {
+    @CanIgnoreReturnValue
+    public static long positive(long number, String argumentName) {
         if (number <= 0) {
             throw new IllegalArgumentException(argumentName + " should be positive.");
         }
+        return number;
     }
 
-    public static void nonnegative(int number, String argumentName) {
+    @CanIgnoreReturnValue
+    public static int nonnegative(int number, String argumentName) {
         if (number < 0) {
             throw new IllegalArgumentException(argumentName + " should be non negative.");
         }
+        return number;
     }
 
-    public static void nonnegative(long number, String argumentName) {
+    @CanIgnoreReturnValue
+    public static long nonnegative(long number, String argumentName) {
         if (number < 0) {
             throw new IllegalArgumentException(argumentName + " should be non negative.");
         }
+        return number;
     }
 
     public static void argument(boolean expression) {
