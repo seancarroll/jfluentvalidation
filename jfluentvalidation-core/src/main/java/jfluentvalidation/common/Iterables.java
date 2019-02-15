@@ -1,5 +1,7 @@
 package jfluentvalidation.common;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -7,7 +9,7 @@ import java.util.List;
 import static jfluentvalidation.common.MoreCollections.safeContains;
 
 // https://github.com/apache/commons-collections/blob/master/src/main/java/org/apache/commons/collections4/IterableUtils.java
-public class Iterables {
+public final class Iterables {
 
     private Iterables() {
         // statics only
@@ -19,9 +21,8 @@ public class Iterables {
             : Iterators.size(iterable.iterator());
     }
 
-    public static boolean contains(Iterable<?> iterable, /*@NullableDecl*/ Object element) {
+    public static boolean contains(Iterable<?> iterable, @Nullable Object element) {
         if (iterable instanceof Collection) {
-            // return ((Collection<E>) iterable).contains(object);
             Collection<?> collection = (Collection)iterable;
             return safeContains(collection, element);
         } else {
@@ -29,7 +30,14 @@ public class Iterables {
         }
     }
 
-    static <T> Collection<T> toCollection(Iterable<T> iterable) {
+    public static boolean isEmpty(Iterable<?> iterable) {
+        if (iterable instanceof Collection) {
+            return ((Collection<?>) iterable).isEmpty();
+        }
+        return !iterable.iterator().hasNext();
+    }
+
+    public static <T> Collection<T> toCollection(Iterable<T> iterable) {
         if (iterable instanceof Collection) {
             return (Collection<T>) iterable;
         } else {

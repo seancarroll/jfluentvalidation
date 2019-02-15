@@ -5,7 +5,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.Iterator;
 import java.util.Objects;
 
-public class Iterators {
+public final class Iterators {
 
     private Iterators() {
         // statics only
