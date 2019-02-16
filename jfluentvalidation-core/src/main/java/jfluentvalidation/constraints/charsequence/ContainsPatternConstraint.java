@@ -1,6 +1,7 @@
 package jfluentvalidation.constraints.charsequence;
 
 import jfluentvalidation.constraints.Constraint;
+import jfluentvalidation.internal.Ensure;
 
 import java.util.regex.Pattern;
 
@@ -12,17 +13,15 @@ public class ContainsPatternConstraint implements Constraint<CharSequence> {
     private final Pattern pattern;
 
     public ContainsPatternConstraint(CharSequence regex) {
-        this(Pattern.compile(regex.toString()));
+        this(Pattern.compile(Ensure.notNull(regex).toString()));
     }
 
     public ContainsPatternConstraint(Pattern pattern) {
-        this.pattern = pattern;
+        this.pattern = Ensure.notNull(pattern);
     }
 
     @Override
     public boolean isValid(CharSequence instance) {
-//        checkRegexIsNotNull(regex);
-//        assertNotNull(info, actual);
         return pattern.matcher(instance).find();
     }
 }

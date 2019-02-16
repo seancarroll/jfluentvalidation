@@ -1,6 +1,7 @@
 package jfluentvalidation.constraints.charsequence;
 
 import jfluentvalidation.constraints.Constraint;
+import jfluentvalidation.internal.Ensure;
 
 public class StartsWithConstraint implements Constraint<CharSequence> {
 
@@ -12,8 +13,10 @@ public class StartsWithConstraint implements Constraint<CharSequence> {
     }
 
     public StartsWithConstraint(CharSequence prefix, int offset) {
+        // TODO: ensure prefix not null?
+        // TODO: ensure offset non-negative?
         this.prefix = prefix;
-        this.offset = offset;
+        this.offset = Ensure.nonnegative(offset, "offset");
     }
 
     @Override
