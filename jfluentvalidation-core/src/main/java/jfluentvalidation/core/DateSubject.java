@@ -14,7 +14,6 @@ public class DateSubject extends Subject<DateSubject, Date> implements Comparabl
     }
 
     public DateSubject isBefore(Date other) {
-        
         constraints.add(new IsLessThanConstraint(other));
         return myself;
     }

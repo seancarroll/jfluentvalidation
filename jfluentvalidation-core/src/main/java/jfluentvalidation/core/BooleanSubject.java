@@ -9,6 +9,7 @@ public class BooleanSubject extends Subject<BooleanSubject, Boolean> implements 
     }
 
     // TODO: isEqual and isNotEqual
+
     public BooleanSubject isTrue() {
         // TODO: should we just use a isEquals(true) constraint or have a IsTrue() constraint?
         //constraints.add(IsEqualsConstraint(true));
@@ -25,6 +26,7 @@ public class BooleanSubject extends Subject<BooleanSubject, Boolean> implements 
     // TODO: do these makes sense for boolean? While boolean does implement Comparable perhaps here is another way to
     // split compareTo from these others? Maybe they belong to ComparableNumber?
     // the isBetween and isNotBetween dont make sense to me for boolean
+    // Maybe ComparableSubject just has compareTo and all the other methods dont need to belong to an interface?
     @Override
     public BooleanSubject isEqualAccordingToCompareTo(Boolean other) {
         return null;

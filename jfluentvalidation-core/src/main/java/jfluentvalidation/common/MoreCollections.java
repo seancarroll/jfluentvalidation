@@ -38,4 +38,12 @@ public final class MoreCollections {
         }
         return items;
     }
+
+//    from assertj
+//    public static <T> T[] prepend(T first, T... rest) {
+//        T[] result = (T[]) new Object[1 + rest.length];
+//        result[0] = first;
+//        System.arraycopy(rest, 0, result, 1, rest.length);
+//        return result;
+//    }
 }

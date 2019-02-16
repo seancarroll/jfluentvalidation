@@ -2,6 +2,12 @@ package jfluentvalidation.constraints.iterable;
 
 import jfluentvalidation.constraints.Constraint;
 
+/**
+ * TODO: From Google Truth...we want similar behavior
+ * Checks that the subject contains no elements that correspond to any of the given elements.
+ * (Duplicates are irrelevant to this test, which fails if any of the subject elements
+ * correspond to any of the given elements.)
+ */
 public class ContainsNoneInConstraint implements Constraint<Iterable<?>> {
 
     private final Iterable<?> excluded;

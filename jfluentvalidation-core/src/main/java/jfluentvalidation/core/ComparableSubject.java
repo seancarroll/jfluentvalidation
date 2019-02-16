@@ -14,6 +14,10 @@ public interface ComparableSubject<S extends ComparableSubject<S, A>, A extends 
 
     S isGreaterThanOrEqualTo(A other);
 
+    // TODO: review. Do most things use inclusive start and an exclusive end? Duration.between does. others?
+    // Duration.between()
+    // Period.between()
+    // ChronoUnit between
     S isBetween(A startInclusive, A endInclusive);
 
     S isStrictlyBetween(A startExclusive, A endExclusive);

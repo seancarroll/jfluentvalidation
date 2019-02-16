@@ -34,6 +34,7 @@ public class Subject<S extends Subject<S, A>, A> {
     protected Constraint<?> currentConstraint;
 
     public Subject(Class<?> selfType, Function<Object, A> propertyFunc, String propertyName) {
+
         this.myself = (S) selfType.cast(this);
         this.propertyFunc = propertyFunc;
         this.propertyName = propertyName;
@@ -64,7 +65,6 @@ public class Subject<S extends Subject<S, A>, A> {
         constraints.add(new IsEqualsConstraint<>(other));
         return myself;
     }
-
 
     public Function<Object, A> getPropertyFunc() {
         return propertyFunc;

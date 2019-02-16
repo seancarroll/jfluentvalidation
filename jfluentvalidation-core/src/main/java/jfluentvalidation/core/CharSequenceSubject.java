@@ -127,4 +127,6 @@ public interface CharSequenceSubject<S extends CharSequenceSubject<S, A>, A exte
     S isLowerCase();
 
     S isUpperCase();
+
+    // TODO: isEmail();
 }

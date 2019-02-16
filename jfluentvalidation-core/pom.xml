@@ -33,6 +33,7 @@
     </dependencyManagement>
 
     <dependencies>
+
         <dependency>
             <groupId>net.bytebuddy</groupId>
             <artifactId>byte-buddy</artifactId>
@@ -52,9 +53,6 @@
             <artifactId>objenesis</artifactId>
         </dependency>
 
-
-
-        <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
