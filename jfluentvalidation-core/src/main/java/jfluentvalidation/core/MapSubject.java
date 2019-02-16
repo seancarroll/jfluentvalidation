@@ -29,12 +29,12 @@ public class MapSubject extends Subject<MapSubject, Map<?, ?>> {
         return myself;
     }
 
-    public final MapSubject containsEnty(Object key, Object value) {
+    public final MapSubject containsEntry(Object key, Object value) {
 
         return myself;
     }
 
-    public final MapSubject doesNotContainsEnty(Object key, Object value) {
+    public final MapSubject doesNotContainsEntry(Object key, Object value) {
 
         return myself;
     }
@@ -63,4 +63,25 @@ public class MapSubject extends Subject<MapSubject, Map<?, ?>> {
 
         return myself;
     }
+
+    // doesNotContainsKey
+    // doesNotContainKeys
+    // containsOnlyKeys
+    // containsValue
+    // containsValues
+    // doesNotContainValue
+    // containsOnly(Map.Entry<? extends K, ? extends V>... entries)
+    // isEqualTo
+    // isIn(Iterable<?> values)
+    // isIn(Object... values)
+    // isNotEqualTo
+    // isNotIn(Iterable<?> values)
+    // isNotIn(Object...values)
+    // isNotNull
+    // hasEntrySatisfying(K key, Condition<? super V> valueCondition)
+    // hasEntrySatisfying(K key, Consumer<? super V> valueRequirements)
+    // hasEntrySatisfying(Condition<? super Map.Entry<K, V>> entryCondition)
+    // hasEntrySatisfying(Condition<? super K> keyCondition, Condition<? super V> valueCondition)
+    // hasKeySatisfying(Condition<? super K> keyCondition)
+    // hasValueSatisfying(Condition<? super V> valueCondition)
 }
