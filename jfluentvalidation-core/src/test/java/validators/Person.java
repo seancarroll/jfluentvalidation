@@ -1,11 +1,14 @@
 package validators;
 
+import java.time.ZonedDateTime;
+
 public class Person {
 
     private String name;
     private int age;
     private String address;
     private boolean isMarried;
+    private ZonedDateTime signedIn = ZonedDateTime.now();
 
     public Person() {}
 
@@ -37,5 +40,13 @@ public class Person {
 
     public void setMarried(boolean married) {
         isMarried = married;
+    }
+
+    public ZonedDateTime getSignedIn() {
+        return signedIn;
+    }
+
+    public void setSignedIn(ZonedDateTime signedIn) {
+        this.signedIn = signedIn;
     }
 }
