@@ -6,6 +6,7 @@ import jfluentvalidation.constraints.Constraint;
 import jfluentvalidation.core.*;
 
 import java.lang.reflect.ParameterizedType;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
@@ -74,7 +75,7 @@ public abstract class AbstractValidator<T> {
 //        Integer apply(T t);
 //    }
 
-
+    // TODO: how to encapsulate type/proxy/propertyName/Subject?
     // stackify overcoming type erasure
     public IntegerSubject ruleForInteger(Function<T, Integer> func) {
         this.type = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
@@ -100,8 +101,21 @@ public abstract class AbstractValidator<T> {
         return subject;
     }
 
+    public ZonedDateTimeSubject ruleForZonedDateTime(Function<T, ZonedDateTime> func) {
+        this.type = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
 
+        // TODO: I really dont like this. based on testing it needs to be static but can improve this via a cache or something
+        this.proxy = PropertyLiteralHelper.getPropertyNameCapturer(type);
+        String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
 
+        ZonedDateTimeSubject subject = new ZonedDateTimeSubject(func, propertyName);
+        subjects.add(subject);
+        return subject;
+    }
+
+    // TODO: I think we can remove this
+    // This was used when we were creating the byte buddy proxy in this class and passed it to this method
+    // as the proxyType however we've since moved the logic out.
     private static <T> String getPropertyName(Class<?> proxyType, Function<T, String> func) {
         try {
             Class<T> typed = (Class<T>) proxyType;
