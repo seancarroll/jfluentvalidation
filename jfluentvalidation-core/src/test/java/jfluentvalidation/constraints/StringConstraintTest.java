@@ -5,6 +5,7 @@ import jfluentvalidation.validators.AbstractValidator;
 import org.junit.jupiter.api.Test;
 import validators.Person;
 
+import java.time.ZonedDateTime;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -25,6 +26,7 @@ class StringConstraintTest {
         validator.ruleForString(p -> p.getAddress()).isNotNull();
         validator.ruleForInteger(p -> p.getAge()).isPositive();
         validator.ruleForBoolean(p -> p.isMarried()).isFalse();
+        validator.ruleForZonedDateTime(p -> p.getSignedIn()).isAfter(ZonedDateTime.now().minusDays(1));
 
         List<ValidationFailure> validationFailures = validator.validate(m);
 
