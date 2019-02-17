@@ -68,4 +68,14 @@ public final class Ensure {
         }
     }
 
+    // TODO: do we need this? dont know where this should actually go
+    public static CharSequence[] validCharSequenceArray(CharSequence[] sequences) {
+        notNull(sequences);
+        argument(sequences.length == 0, "Sequences should not be empty");
+        // TODO: turn this into arrayDoesNotContainNulls?
+        for (int i = 0; i < sequences.length; i++) {
+            notNull(sequences[i], "CharSequence elements should not be null but found one at index " + i);
+        }
+        return sequences;
+    }
 }
