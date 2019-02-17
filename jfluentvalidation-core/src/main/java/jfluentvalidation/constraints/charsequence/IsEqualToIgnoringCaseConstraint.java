@@ -11,7 +11,7 @@ public class IsEqualToIgnoringCaseConstraint implements Constraint<CharSequence>
     }
 
     @Override
-    public boolean isValid(CharSequence instance) {
-        return instance.toString().equalsIgnoreCase(other.toString());
+    public boolean isValid(CharSequence value) {
+        return value.toString().equalsIgnoreCase(other.toString());
     }
 }

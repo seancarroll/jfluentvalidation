@@ -21,7 +21,7 @@ public class ContainsPatternConstraint implements Constraint<CharSequence> {
     }
 
     @Override
-    public boolean isValid(CharSequence instance) {
-        return pattern.matcher(instance).find();
+    public boolean isValid(CharSequence value) {
+        return pattern.matcher(value).find();
     }
 }

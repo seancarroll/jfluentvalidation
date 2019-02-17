@@ -17,7 +17,7 @@ public class ContainsNoneInConstraint implements Constraint<Iterable<?>> {
     }
 
     @Override
-    public boolean isValid(Iterable<?> instance) {
+    public boolean isValid(Iterable<?> value) {
 
 //        Collection<?> actual = iterableToCollection(actual());
 //        Collection<Object> present = new ArrayList<>();

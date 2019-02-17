@@ -18,7 +18,7 @@ public class IsEmailConstraint implements Constraint<CharSequence> {
     private static final Pattern DEFAULT_EMAIL = Pattern.compile("");
 
     @Override
-    public boolean isValid(CharSequence instance) {
+    public boolean isValid(CharSequence value) {
         return false;
     }
 }

@@ -13,7 +13,7 @@ public class HasSameLengthAsConstraint implements Constraint<CharSequence> {
     }
 
     @Override
-    public boolean isValid(CharSequence instance) {
-        return instance.length() == other.length();
+    public boolean isValid(CharSequence value) {
+        return value.length() == other.length();
     }
 }

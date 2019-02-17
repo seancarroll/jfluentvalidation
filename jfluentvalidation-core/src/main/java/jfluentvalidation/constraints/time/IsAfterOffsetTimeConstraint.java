@@ -13,7 +13,7 @@ public class IsAfterOffsetTimeConstraint implements Constraint<OffsetTime> {
     }
 
     @Override
-    public boolean isValid(OffsetTime instance) {
-        return instance.isAfter(other);
+    public boolean isValid(OffsetTime value) {
+        return value.isAfter(other);
     }
 }

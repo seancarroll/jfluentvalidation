@@ -12,7 +12,7 @@ public class ContainsConstraint implements Constraint<Iterable<?>> {
     }
 
     @Override
-    public boolean isValid(Iterable<?> instance) {
-        return Iterables.contains(instance, element);
+    public boolean isValid(Iterable<?> value) {
+        return Iterables.contains(value, element);
     }
 }

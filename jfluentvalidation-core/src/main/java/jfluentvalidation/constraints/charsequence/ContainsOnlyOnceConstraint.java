@@ -13,19 +13,18 @@ public class ContainsOnlyOnceConstraint implements Constraint<CharSequence> {
         this.sequence = Ensure.notNull(sequence);
     }
 
-    // TODO: update so not completely lang-commons
-    // TODO: should we just bring in commons-lang????
     @Override
-    public boolean isValid(CharSequence instance) {
-        if (Strings.isNull(instance)) {
+    public boolean isValid(CharSequence value) {
+        if (Strings.isNull(value)) {
             return false;
         }
 
-        // TODO: do we want to count all instances?
+        String sequenceAsString = sequence.toString();
+        String instanceAsString = value.toString();
+
+        // TODO: do we want to count all instances and include in message/context
         int count = 0;
         int fromIndex = 0;
-        String sequenceAsString = sequence.toString();
-        String instanceAsString = instance.toString();
         while ((fromIndex = instanceAsString.indexOf(sequenceAsString, fromIndex)) != -1 ) {
             count++;
             if (count >= 2) {
@@ -33,25 +32,6 @@ public class ContainsOnlyOnceConstraint implements Constraint<CharSequence> {
             }
             fromIndex += sequenceAsString.length();
         }
-
-
-
-//        int lastIndex = 0;
-//        int count = 0;
-//
-//        // TODO: Improve...I'm sure this can be better
-//        String sequenceAsString = sequence.toString();
-//        String instanceAsString = instance.toString();
-//        while (lastIndex != -1) {
-//            lastIndex = instanceAsString.indexOf(sequenceAsString, lastIndex);
-//            if (lastIndex != -1) {
-//                count++;
-//                if (count >= 2) {
-//                    return false;
-//                }
-//                lastIndex += sequenceAsString.length();
-//            }
-//        }
 
         return count == 1;
     }

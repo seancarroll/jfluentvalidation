@@ -22,7 +22,7 @@ public class ContainsAllInConstraint implements Constraint<Iterable<?>> {
     }
 
     @Override
-    public boolean isValid(Iterable<?> instance) {
+    public boolean isValid(Iterable<?> value) {
         return false;
     }
 }

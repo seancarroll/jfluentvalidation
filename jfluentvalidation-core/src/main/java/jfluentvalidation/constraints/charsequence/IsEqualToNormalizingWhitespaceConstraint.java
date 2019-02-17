@@ -13,7 +13,7 @@ public class IsEqualToNormalizingWhitespaceConstraint implements Constraint<Char
     }
 
     @Override
-    public boolean isValid(CharSequence instance) {
+    public boolean isValid(CharSequence value) {
 
 //        if (actual == null) return expected == null;
 //        checkCharSequenceIsNotNull(expected);

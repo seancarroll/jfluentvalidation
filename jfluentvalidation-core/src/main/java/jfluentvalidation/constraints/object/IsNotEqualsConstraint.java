@@ -13,7 +13,7 @@ public class IsNotEqualsConstraint implements Constraint<Object> {
     }
 
     @Override
-    public boolean isValid(Object instance) {
-        return !Objects.equals(instance, other);
+    public boolean isValid(Object value) {
+        return !Objects.equals(value, other);
     }
 }

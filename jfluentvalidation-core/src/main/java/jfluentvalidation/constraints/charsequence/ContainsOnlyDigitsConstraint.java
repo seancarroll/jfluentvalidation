@@ -7,16 +7,16 @@ public class ContainsOnlyDigitsConstraint implements Constraint<CharSequence> {
 
     // TODO: null/empty
     @Override
-    public boolean isValid(CharSequence instance) {
-        if (Strings.isNullOrEmpty(instance)) {
+    public boolean isValid(CharSequence value) {
+        if (Strings.isNullOrEmpty(value)) {
             return false;
         }
 
         // instance.chars().allMatch(Character::isDigit)
 
         // TODO: should we return index of non-digit characters?
-        for (int i = 0; i < instance.length(); i++) {
-            if (!Character.isDigit(instance.charAt(i))) {
+        for (int i = 0; i < value.length(); i++) {
+            if (!Character.isDigit(value.charAt(i))) {
                 return false;
             }
         }

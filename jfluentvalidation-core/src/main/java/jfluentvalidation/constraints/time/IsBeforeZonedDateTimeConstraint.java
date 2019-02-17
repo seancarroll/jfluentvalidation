@@ -13,7 +13,7 @@ public class IsBeforeZonedDateTimeConstraint implements Constraint<ZonedDateTime
     }
 
     @Override
-    public boolean isValid(ZonedDateTime instance) {
-        return instance.isBefore(other);
+    public boolean isValid(ZonedDateTime value) {
+        return value.isBefore(other);
     }
 }

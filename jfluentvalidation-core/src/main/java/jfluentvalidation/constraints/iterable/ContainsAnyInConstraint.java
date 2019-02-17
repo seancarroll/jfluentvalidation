@@ -17,9 +17,9 @@ public class ContainsAnyInConstraint implements Constraint<Iterable<?>> {
     }
 
     @Override
-    public boolean isValid(Iterable<?> instance) {
+    public boolean isValid(Iterable<?> value) {
         // TODO: does it make sense to move this out somewhere common?
-        Collection<?> actual = Iterables.toCollection(instance);
+        Collection<?> actual = Iterables.toCollection(value);
         for (Object item : expected) {
             if (actual.contains(item)) {
                 return true;

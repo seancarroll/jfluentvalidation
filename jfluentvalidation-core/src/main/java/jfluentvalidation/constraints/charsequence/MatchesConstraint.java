@@ -19,7 +19,7 @@ public class MatchesConstraint implements Constraint<CharSequence> {
     }
 
     @Override
-    public boolean isValid(CharSequence instance) {
-        return pattern.matcher(instance).matches();
+    public boolean isValid(CharSequence value) {
+        return pattern.matcher(value).matches();
     }
 }

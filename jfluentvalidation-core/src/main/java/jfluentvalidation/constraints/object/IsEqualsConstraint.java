@@ -13,7 +13,7 @@ public class IsEqualsConstraint<S> implements Constraint<S> {
     }
 
     @Override
-    public boolean isValid(S instance) {
-        return Objects.equals(instance, other);
+    public boolean isValid(S value) {
+        return Objects.equals(value, other);
     }
 }

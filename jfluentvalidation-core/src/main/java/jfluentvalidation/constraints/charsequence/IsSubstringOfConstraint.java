@@ -12,13 +12,13 @@ public class IsSubstringOfConstraint implements Constraint<CharSequence> {
 
     // TODO: comparison strategy
     @Override
-    public boolean isValid(CharSequence instance) {
+    public boolean isValid(CharSequence value) {
 
 //        assertNotNull(info, actual);
 //        checkNotNull(sequence, "Expecting CharSequence not to be null");
 //        if (stringContains(sequence.toString(), actual.toString())) return;
 
-        instance.toString().contains(sequence);
+        value.toString().contains(sequence);
 
         return false;
     }

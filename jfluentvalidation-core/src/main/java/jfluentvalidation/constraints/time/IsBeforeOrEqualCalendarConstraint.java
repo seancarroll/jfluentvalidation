@@ -13,7 +13,7 @@ public class IsBeforeOrEqualCalendarConstraint implements Constraint<Calendar> {
     }
 
     @Override
-    public boolean isValid(Calendar instance) {
-        return !instance.after(other);
+    public boolean isValid(Calendar value) {
+        return !value.after(other);
     }
 }

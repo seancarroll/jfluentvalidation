@@ -13,7 +13,7 @@ public class IsEqualAccordingToCompareToConstraint implements Constraint<Compara
     }
 
     @Override
-    public boolean isValid(Comparable instance) {
-        return instance.compareTo(other) == 0;
+    public boolean isValid(Comparable value) {
+        return value.compareTo(other) == 0;
     }
 }

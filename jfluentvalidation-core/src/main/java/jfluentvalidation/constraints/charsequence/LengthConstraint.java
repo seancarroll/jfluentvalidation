@@ -15,9 +15,9 @@ public class LengthConstraint implements Constraint<CharSequence> {
     }
 
     @Override
-    public boolean isValid(CharSequence instance) {
+    public boolean isValid(CharSequence value) {
 
-        int length = instance.length();
+        int length = value.length();
         if (length < min || (length > max && max != -1)) {
             return false;
         }

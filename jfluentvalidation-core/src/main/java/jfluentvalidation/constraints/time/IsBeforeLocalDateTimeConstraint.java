@@ -13,7 +13,7 @@ public class IsBeforeLocalDateTimeConstraint implements Constraint<LocalDateTime
     }
 
     @Override
-    public boolean isValid(LocalDateTime instance) {
-        return instance.isBefore(other);
+    public boolean isValid(LocalDateTime value) {
+        return value.isBefore(other);
     }
 }

@@ -11,7 +11,7 @@ public class IsLessThanConstraint implements Constraint<Comparable<?>> {
     }
 
     @Override
-    public boolean isValid(Comparable<?> instance) {
+    public boolean isValid(Comparable<?> value) {
         return false;
     }
 }

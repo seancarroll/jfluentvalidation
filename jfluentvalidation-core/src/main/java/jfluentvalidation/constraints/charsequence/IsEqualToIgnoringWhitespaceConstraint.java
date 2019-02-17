@@ -13,8 +13,8 @@ public class IsEqualToIgnoringWhitespaceConstraint implements Constraint<CharSeq
     }
 
     @Override
-    public boolean isValid(CharSequence instance) {
-        if (instance == null) return expected == null;
+    public boolean isValid(CharSequence value) {
+        if (value == null) return expected == null;
         // checkCharSequenceIsNotNull(expected);
         // return removeAllWhitespaces(actual).equals(removeAllWhitespaces(expected));
         return false;

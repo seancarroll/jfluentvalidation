@@ -12,7 +12,7 @@ public class HasLengthGreaterThan implements Constraint<CharSequence> {
     }
 
     @Override
-    public boolean isValid(CharSequence instance) {
-        return instance.length() > length;
+    public boolean isValid(CharSequence value) {
+        return value.length() > length;
     }
 }

@@ -14,8 +14,8 @@ public class HasSizeConstraint implements Constraint<Iterable<?>> {
     }
 
     @Override
-    public boolean isValid(Iterable<?> instance) {
-        return Iterables.size(instance) == expectedSize;
+    public boolean isValid(Iterable<?> value) {
+        return Iterables.size(value) == expectedSize;
     }
 
 }

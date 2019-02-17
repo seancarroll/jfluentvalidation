@@ -12,7 +12,7 @@ public class ContainsIgnoreCaseConstraint implements Constraint<CharSequence> {
     }
 
     @Override
-    public boolean isValid(CharSequence instance) {
-        return instance.toString().toLowerCase().contains(charSequence.toString().toLowerCase());
+    public boolean isValid(CharSequence value) {
+        return value.toString().toLowerCase().contains(charSequence.toString().toLowerCase());
     }
 }

@@ -13,7 +13,7 @@ public class IsBeforeOrEqualLocalTimeConstraint implements Constraint<LocalTime>
     }
 
     @Override
-    public boolean isValid(LocalTime instance) {
-        return !instance.isAfter(other);
+    public boolean isValid(LocalTime value) {
+        return !value.isAfter(other);
     }
 }

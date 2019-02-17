@@ -4,8 +4,8 @@ import jfluentvalidation.constraints.Constraint;
 
 public class IsUpperCaseConstraint implements Constraint<CharSequence> {
     @Override
-    public boolean isValid(CharSequence instance) {
+    public boolean isValid(CharSequence value) {
         // TODO: should this use locale?
-        return instance.equals(instance.toString().toUpperCase());
+        return value.equals(value.toString().toUpperCase());
     }
 }

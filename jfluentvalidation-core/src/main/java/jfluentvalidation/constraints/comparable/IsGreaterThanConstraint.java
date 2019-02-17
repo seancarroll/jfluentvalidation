@@ -11,7 +11,7 @@ public class IsGreaterThanConstraint implements Constraint<Comparable> {
     }
 
     @Override
-    public boolean isValid(Comparable instance) {
-        return instance.compareTo(other) > 0;
+    public boolean isValid(Comparable value) {
+        return value.compareTo(other) > 0;
     }
 }

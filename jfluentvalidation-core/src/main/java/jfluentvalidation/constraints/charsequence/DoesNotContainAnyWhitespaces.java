@@ -5,7 +5,7 @@ import jfluentvalidation.constraints.Constraint;
 public class DoesNotContainAnyWhitespaces implements Constraint<CharSequence> {
 
     @Override
-    public boolean isValid(CharSequence instance) {
+    public boolean isValid(CharSequence value) {
         return false;
     }
 }

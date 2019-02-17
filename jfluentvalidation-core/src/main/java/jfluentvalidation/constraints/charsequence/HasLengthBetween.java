@@ -13,8 +13,8 @@ public class HasLengthBetween implements Constraint<CharSequence> {
     }
 
     @Override
-    public boolean isValid(CharSequence instance) {
-        int len = instance.length();
+    public boolean isValid(CharSequence value) {
+        int len = value.length();
         return len >= min && len <= max;
     }
 }

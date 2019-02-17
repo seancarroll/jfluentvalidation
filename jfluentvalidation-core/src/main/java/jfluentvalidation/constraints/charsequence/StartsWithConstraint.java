@@ -18,8 +18,8 @@ public class StartsWithConstraint implements Constraint<CharSequence> {
     }
 
     @Override
-    public boolean isValid(CharSequence instance) {
+    public boolean isValid(CharSequence value) {
         // TODO: this probably should be based on a comparison strategy
-        return instance.toString().startsWith(prefix.toString(), offset);
+        return value.toString().startsWith(prefix.toString(), offset);
     }
 }

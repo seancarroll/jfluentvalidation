@@ -14,11 +14,11 @@ public class ContainsConstraint implements Constraint<CharSequence> {
     }
 
     @Override
-    public boolean isValid(CharSequence instance) {
+    public boolean isValid(CharSequence value) {
 
         // TODO: Its probably best that we capture all of the sequence that are not in the string
         // How to do that? some sort of context? Map<Object, Object> which can be used within the localization string?
-        String instanceAsString = instance.toString();
+        String instanceAsString = value.toString();
         for (CharSequence sequence : sequences) {
             if (!instanceAsString.contains(sequence)) {
                 return false;

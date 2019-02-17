@@ -13,7 +13,7 @@ public class IsAfterLocalDateConstraint implements Constraint<LocalDate> {
     }
 
     @Override
-    public boolean isValid(LocalDate instance) {
-        return instance.isAfter(other);
+    public boolean isValid(LocalDate value) {
+        return value.isAfter(other);
     }
 }
