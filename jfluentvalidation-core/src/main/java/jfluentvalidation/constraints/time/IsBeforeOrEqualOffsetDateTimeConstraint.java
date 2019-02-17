@@ -1,6 +1,7 @@
 package jfluentvalidation.constraints.time;
 
 import jfluentvalidation.constraints.Constraint;
+import jfluentvalidation.internal.Ensure;
 
 import java.time.OffsetDateTime;
 
@@ -9,7 +10,7 @@ public class IsBeforeOrEqualOffsetDateTimeConstraint implements Constraint<Offse
     private final OffsetDateTime other;
 
     public IsBeforeOrEqualOffsetDateTimeConstraint(OffsetDateTime other) {
-        this.other = other;
+        this.other = Ensure.notNull(other);
     }
 
     @Override
