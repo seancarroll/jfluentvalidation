@@ -13,9 +13,7 @@ public class StartsWithConstraint implements Constraint<CharSequence> {
     }
 
     public StartsWithConstraint(CharSequence prefix, int offset) {
-        // TODO: ensure prefix not null?
-        // TODO: ensure offset non-negative?
-        this.prefix = prefix;
+        this.prefix = Ensure.notNull(prefix);
         this.offset = Ensure.nonnegative(offset, "offset");
     }
 
