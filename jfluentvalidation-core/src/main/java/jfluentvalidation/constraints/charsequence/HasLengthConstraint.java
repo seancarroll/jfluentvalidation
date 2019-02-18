@@ -4,7 +4,7 @@ import jfluentvalidation.constraints.Constraint;
 import jfluentvalidation.internal.Ensure;
 
 /**
- * Check that the size of the given {@code CharSequence} being validated is equal to the given length.
+ * Check that the length of the given {@code CharSequence} being validated is equal to the given length.
  */
 public class HasLengthConstraint implements Constraint<CharSequence> {
 
