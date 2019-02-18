@@ -3,6 +3,9 @@ package jfluentvalidation.constraints.charsequence;
 import jfluentvalidation.constraints.Constraint;
 import jfluentvalidation.internal.Ensure;
 
+/**
+ * Check that the size of the given {@code CharSequence} being validated is greater than the given size
+ */
 public class HasLengthGreaterThan implements Constraint<CharSequence> {
 
     private final int length;
