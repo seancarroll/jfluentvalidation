@@ -3,6 +3,9 @@ package jfluentvalidation.constraints.charsequence;
 import jfluentvalidation.common.Strings;
 import jfluentvalidation.constraints.Constraint;
 
+/**
+ * Check that the given {@code CharSequence} being validated contains only digits.
+ */
 public class ContainsOnlyDigitsConstraint implements Constraint<CharSequence> {
 
     // TODO: null/empty

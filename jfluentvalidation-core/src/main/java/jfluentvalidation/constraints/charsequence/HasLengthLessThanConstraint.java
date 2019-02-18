@@ -2,6 +2,9 @@ package jfluentvalidation.constraints.charsequence;
 
 import jfluentvalidation.constraints.Constraint;
 
+/**
+ * Check that the size of the given {@code CharSequence} being validated is less than the given size
+ */
 public class HasLengthLessThanConstraint implements Constraint<CharSequence> {
 
     private final int length;

@@ -3,6 +3,9 @@ package jfluentvalidation.constraints.charsequence;
 import jfluentvalidation.constraints.Constraint;
 import jfluentvalidation.internal.Ensure;
 
+/**
+ * Check that the given {@code CharSequence} being validated ends with the given suffix.
+ */
 public class EndsWithConstraint implements Constraint<CharSequence> {
 
     private final CharSequence suffix;

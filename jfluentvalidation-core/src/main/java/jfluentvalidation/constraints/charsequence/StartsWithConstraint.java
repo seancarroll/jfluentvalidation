@@ -3,6 +3,9 @@ package jfluentvalidation.constraints.charsequence;
 import jfluentvalidation.constraints.Constraint;
 import jfluentvalidation.internal.Ensure;
 
+/**
+ * Checks that the given {@code CharSequence} being validated starts with the given prefix.
+ */
 public class StartsWithConstraint implements Constraint<CharSequence> {
 
     private final CharSequence prefix;
