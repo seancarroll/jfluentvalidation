@@ -3,6 +3,7 @@ package jfluentvalidation.constraints.charsequence;
 import jfluentvalidation.constraints.Constraint;
 import jfluentvalidation.internal.Ensure;
 
+// TODO: do we need this along with all the other Length constraints?
 public class LengthConstraint implements Constraint<CharSequence> {
 
     private final int min;
@@ -10,8 +11,8 @@ public class LengthConstraint implements Constraint<CharSequence> {
 
     public LengthConstraint(int min, int max) {
         this.min = Ensure.nonnegative(min, "min");
-        this.max = Ensure.nonnegative(max, "max");
-        Ensure.argument(max < min);
+        this.max = max;
+        Ensure.argument(max != -1 && max < min);
     }
 
     @Override

@@ -1,13 +1,14 @@
 package jfluentvalidation.constraints.charsequence;
 
 import jfluentvalidation.constraints.Constraint;
+import jfluentvalidation.internal.Ensure;
 
 public class IsSubstringOfConstraint implements Constraint<CharSequence> {
 
     private final CharSequence sequence;
 
     public IsSubstringOfConstraint(CharSequence sequence) {
-        this.sequence = sequence;
+        this.sequence = Ensure.notNull(sequence);
     }
 
     // TODO: comparison strategy
