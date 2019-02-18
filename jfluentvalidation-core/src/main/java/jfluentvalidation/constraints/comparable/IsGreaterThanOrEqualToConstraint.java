@@ -1,13 +1,16 @@
 package jfluentvalidation.constraints.comparable;
 
 import jfluentvalidation.constraints.Constraint;
+import jfluentvalidation.internal.Ensure;
+
+import javax.annotation.Nonnull;
 
 public class IsGreaterThanOrEqualToConstraint implements Constraint<Comparable> {
 
-    private final Comparable other;
+    private final Comparable<?> other;
 
-    public IsGreaterThanOrEqualToConstraint(Comparable other) {
-        this.other = other;
+    public IsGreaterThanOrEqualToConstraint(@Nonnull Comparable<?> other) {
+        this.other = Ensure.notNull(other);
     }
 
     @Override

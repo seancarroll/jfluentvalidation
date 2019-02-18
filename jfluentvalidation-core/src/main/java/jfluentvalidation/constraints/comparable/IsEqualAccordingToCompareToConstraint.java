@@ -1,15 +1,16 @@
 package jfluentvalidation.constraints.comparable;
 
 import jfluentvalidation.constraints.Constraint;
+import jfluentvalidation.internal.Ensure;
+
+import javax.annotation.Nonnull;
 
 public class IsEqualAccordingToCompareToConstraint implements Constraint<Comparable> {
 
-    // A raw type is necessary because we can't make assumptions on object to be compared.
-    @SuppressWarnings("rawtypes")
-    private final Comparable other;
+    private final Comparable<?> other;
 
-    public IsEqualAccordingToCompareToConstraint(Comparable other) {
-        this.other = other;
+    public IsEqualAccordingToCompareToConstraint(@Nonnull Comparable<?> other) {
+        this.other = Ensure.notNull(other);
     }
 
     @Override
