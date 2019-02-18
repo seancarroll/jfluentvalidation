@@ -12,7 +12,7 @@ public class LengthConstraint implements Constraint<CharSequence> {
     public LengthConstraint(int min, int max) {
         this.min = Ensure.nonnegative(min, "min");
         this.max = max;
-        Ensure.argument(max != -1 && max < min);
+        Ensure.argument(max != -1 || max >= min);
     }
 
     @Override
