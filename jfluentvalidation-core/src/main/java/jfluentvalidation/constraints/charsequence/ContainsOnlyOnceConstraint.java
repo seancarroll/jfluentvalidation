@@ -5,6 +5,11 @@ import jfluentvalidation.constraints.Constraint;
 import jfluentvalidation.internal.Ensure;
 
 // TODO: allow custom comparison strategy
+
+/**
+ * Check that the given {@code CharSequence} being validated contains the given sequence only once.
+ *
+ */
 public class ContainsOnlyOnceConstraint implements Constraint<CharSequence> {
 
     private final CharSequence sequence;

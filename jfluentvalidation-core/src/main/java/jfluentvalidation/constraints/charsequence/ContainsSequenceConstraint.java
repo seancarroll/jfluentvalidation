@@ -4,6 +4,11 @@ import jfluentvalidation.constraints.Constraint;
 
 // TODO: given we have multiple of these based on type need to either change the name to include the type we are comparing
 // or I guess we could make this take an object and have logic to determine type and perform the appropriate validation
+
+/**
+ * Check that the given {@code CharSequence} being validated contains the given sequence of charSequence
+ * without any other charSequences between them.
+ */
 public class ContainsSequenceConstraint implements Constraint<CharSequence> {
 
     private final CharSequence[] sequences;

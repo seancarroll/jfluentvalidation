@@ -3,6 +3,10 @@ package jfluentvalidation.constraints.charsequence;
 import jfluentvalidation.constraints.Constraint;
 import jfluentvalidation.internal.Ensure;
 
+/**
+ * Checks that the given {@code CharSequence} being validated contains the given sequence, ignoring case.
+ *
+ */
 public class ContainsIgnoreCaseConstraint implements Constraint<CharSequence> {
 
     private final CharSequence charSequence;

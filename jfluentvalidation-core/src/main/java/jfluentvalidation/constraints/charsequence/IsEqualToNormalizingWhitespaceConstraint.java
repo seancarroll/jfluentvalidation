@@ -4,6 +4,7 @@ import jfluentvalidation.constraints.Constraint;
 
 import static java.lang.Character.isWhitespace;
 
+// TODO: implement!
 public class IsEqualToNormalizingWhitespaceConstraint implements Constraint<CharSequence> {
 
     private final CharSequence expected;

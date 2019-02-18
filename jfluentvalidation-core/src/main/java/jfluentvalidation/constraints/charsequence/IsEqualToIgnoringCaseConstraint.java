@@ -2,6 +2,9 @@ package jfluentvalidation.constraints.charsequence;
 
 import jfluentvalidation.constraints.Constraint;
 
+/**
+ * Checks that the given {@code CharSequence} being validated equals the given sequence, ignoring case.
+ */
 public class IsEqualToIgnoringCaseConstraint implements Constraint<CharSequence> {
 
     private final CharSequence other;
