@@ -4,6 +4,10 @@ import jfluentvalidation.constraints.Constraint;
 
 import java.util.Objects;
 
+/**
+ * Check that the given {@code Object} being validated is equal to the given object.
+ * @param <S>
+ */
 public class IsEqualsConstraint<S> implements Constraint<S> {
 
     private final S other;

@@ -4,6 +4,9 @@ import jfluentvalidation.constraints.Constraint;
 
 import java.util.Objects;
 
+/**
+ * Check that the given {@code Object} being validated is not equal to the given object.
+ */
 public class IsNotEqualsConstraint implements Constraint<Object> {
 
     private final Object other;
