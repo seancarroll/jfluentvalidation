@@ -1,4 +1,12 @@
 package jfluentvalidation.constraints.map;
 
-public class ContainsKeyConstraint {
+import jfluentvalidation.constraints.Constraint;
+
+import java.util.Map;
+
+public class ContainsKeyConstraint implements Constraint<Map<?,?>> {
+    @Override
+    public boolean isValid(Map<?, ?> value) {
+        return false;
+    }
 }
