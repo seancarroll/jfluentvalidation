@@ -1,6 +1,8 @@
 package validators;
 
 import java.time.ZonedDateTime;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Person {
 
@@ -9,6 +11,7 @@ public class Person {
     private String address;
     private boolean isMarried;
     private ZonedDateTime signedIn = ZonedDateTime.now();
+    private Map<String, String> pets = new HashMap<>();
 
     public Person() {}
 
@@ -48,5 +51,13 @@ public class Person {
 
     public void setSignedIn(ZonedDateTime signedIn) {
         this.signedIn = signedIn;
+    }
+
+    public Map<String, String> getPets() {
+        return pets;
+    }
+
+    public void setPets(Map<String, String> pets) {
+        this.pets = pets;
     }
 }

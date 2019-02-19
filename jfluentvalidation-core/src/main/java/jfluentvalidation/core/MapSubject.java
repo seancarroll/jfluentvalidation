@@ -1,26 +1,31 @@
 package jfluentvalidation.core;
 
+import jfluentvalidation.constraints.map.ContainsValueConstraint;
+import jfluentvalidation.constraints.map.HasSizeConstraint;
+import jfluentvalidation.constraints.map.IsEmptyConstraint;
+import jfluentvalidation.constraints.map.IsNotEmptyConstraint;
+
 import java.util.Map;
 import java.util.function.Function;
 
-public class MapSubject extends Subject<MapSubject, Map<?, ?>> {
+public class MapSubject<K, V> extends Subject<MapSubject<K, V>, Map<K, V>> {
 
     public MapSubject(Function propertyFunc, String propertyName) {
         super(MapSubject.class, propertyFunc, propertyName);
     }
 
     public final MapSubject isEmpty() {
-
+        constraints.add(new IsEmptyConstraint());
         return myself;
     }
 
     public final MapSubject isNotEmpty() {
-
+        constraints.add(new IsNotEmptyConstraint());
         return myself;
     }
 
-    public final MapSubject hasSize() {
-
+    public final MapSubject hasSize(int expectedSize) {
+        constraints.add(new HasSizeConstraint(expectedSize));
         return myself;
     }
 
@@ -63,6 +68,15 @@ public class MapSubject extends Subject<MapSubject, Map<?, ?>> {
 
         return myself;
     }
+
+
+
+
+    public final MapSubject containsValue(V value) {
+        constraints.add(new ContainsValueConstraint(value));
+        return myself;
+    }
+
 
     // doesNotContainsKey
     // doesNotContainKeys

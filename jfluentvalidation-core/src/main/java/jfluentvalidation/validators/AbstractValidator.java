@@ -9,6 +9,7 @@ import java.lang.reflect.ParameterizedType;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -112,6 +113,19 @@ public abstract class AbstractValidator<T> {
         subjects.add(subject);
         return subject;
     }
+
+    public <K, V> MapSubject<K, V> ruleForMap(Function<T, Map<K, V>> func) {
+        this.type = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+
+        // TODO: I really dont like this. based on testing it needs to be static but can improve this via a cache or something
+        this.proxy = PropertyLiteralHelper.getPropertyNameCapturer(type);
+        String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
+
+        MapSubject<K, V> subject = new MapSubject<>(func, propertyName);
+        subjects.add(subject);
+        return subject;
+    }
+
 
     // TODO: I think we can remove this
     // This was used when we were creating the byte buddy proxy in this class and passed it to this method

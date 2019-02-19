@@ -27,6 +27,7 @@ class StringConstraintTest {
         validator.ruleForInteger(p -> p.getAge()).isPositive();
         validator.ruleForBoolean(p -> p.isMarried()).isFalse();
         validator.ruleForZonedDateTime(p -> p.getSignedIn()).isAfter(ZonedDateTime.now().minusDays(1));
+        validator.ruleForMap(p -> p.getPets()).isEmpty();
 
         List<ValidationFailure> validationFailures = validator.validate(m);
 
