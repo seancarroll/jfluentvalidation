@@ -98,4 +98,20 @@ public class MapSubject<K, V> extends Subject<MapSubject<K, V>, Map<K, V>> {
     // hasEntrySatisfying(Condition<? super K> keyCondition, Condition<? super V> valueCondition)
     // hasKeySatisfying(Condition<? super K> keyCondition)
     // hasValueSatisfying(Condition<? super V> valueCondition)
+
+
+    @Override
+    public MapSubject<K, V> isNull() {
+        return super.isNull();
+    }
+
+    @Override
+    public MapSubject<K, V> isNotNull() {
+        return super.isNotNull();
+    }
+
+    @Override
+    public MapSubject<K, V> isEquals(Map<K, V> other) {
+        return super.isEquals(other);
+    }
 }

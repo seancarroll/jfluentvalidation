@@ -16,62 +16,62 @@ public class IterableSubject<T> extends Subject<IterableSubject<T>, Iterable<T>>
         super(IterableSubject.class, propertyFunc, propertyName);
     }
 
-    public final IterableSubject isEmpty() {
+    public final IterableSubject<T> isEmpty() {
         constraints.add(new IsEmptyConstraint());
         return myself;
     }
 
-    public final IterableSubject isNotEmpty() {
+    public final IterableSubject<T> isNotEmpty() {
         constraints.add(new IsNotEmptyConstraint());
         return myself;
     }
 
-    public final IterableSubject hasSize(int expectedSize) {
+    public final IterableSubject<T> hasSize(int expectedSize) {
         constraints.add(new HasSizeConstraint(expectedSize));
         return myself;
     }
 
-    public final IterableSubject contains(Object element) {
+    public final IterableSubject<T> contains(Object element) {
         constraints.add(new ContainsConstraint(element));
         return myself;
     }
 
-    public final IterableSubject doesNotContain(Object element) {
+    public final IterableSubject<T> doesNotContain(Object element) {
         constraints.add(new DoesNotContainConstraint(element));
         return myself;
     }
 
-    public final IterableSubject containsAnyOf(Object first, Object second, Object... rest) {
+    public final IterableSubject<T> containsAnyOf(Object first, Object second, Object... rest) {
         // Google Truth has a decent accumulate method in SubjectUtils
         return myself;
     }
 
-    public final IterableSubject containsAnyIn(Iterable<?> expected) {
+    public final IterableSubject<T> containsAnyIn(Iterable<?> expected) {
         constraints.add(new ContainsAnyInConstraint(expected));
         return myself;
     }
 
-    public final IterableSubject containsAnyIn(Object[] expected) {
+    public final IterableSubject<T> containsAnyIn(Object[] expected) {
         constraints.add(new ContainsAnyInConstraint(Arrays.asList(expected)));
         return myself;
     }
 
-    public final IterableSubject containsAllOf(Object first, Object second, Object... rest) {
+    public final IterableSubject<T> containsAllOf(Object first, Object second, Object... rest) {
 
         return myself;
     }
 
-    public final IterableSubject containsAllIn(Iterable<?> expected) {
+    public final IterableSubject<T> containsAllIn(Iterable<?> expected) {
         constraints.add(new ContainsAnyInConstraint(expected));
         return myself;
     }
 
-    public final IterableSubject containsAllIn(Object[] expected) {
+    public final IterableSubject<T> containsAllIn(Object[] expected) {
         constraints.add(new ContainsAllInConstraint(Arrays.asList(expected)));
         return myself;
     }
 
-    public final IterableSubject containsExactly(Object... exactly) {
+    public final IterableSubject<T> containsExactly(Object... exactly) {
         // TODO: null check necessary?
         // TODO: remove guava newArrayList
         List<Object> expected = exactly == null
@@ -81,34 +81,34 @@ public class IterableSubject<T> extends Subject<IterableSubject<T>, Iterable<T>>
         return myself;
     }
 
-    public final IterableSubject containsExactlyElementsIn(Iterable<?> expected) {
+    public final IterableSubject<T> containsExactlyElementsIn(Iterable<?> expected) {
         constraints.add(new ContainsExactlyElementsInConstraint(expected));
         return myself;
     }
 
-    public final IterableSubject containsExactlyElementsIn(Object[] expected) {
+    public final IterableSubject<T> containsExactlyElementsIn(Object[] expected) {
         constraints.add(new ContainsExactlyElementsInConstraint(Arrays.asList(expected)));
         return myself;
     }
 
-    public final IterableSubject containsNoneOf(Object first, Object second, Object... rest) {
+    public final IterableSubject<T> containsNoneOf(Object first, Object second, Object... rest) {
 
         return myself;
     }
 
-    public final IterableSubject containsNoneIn(Iterable<?> excluded) {
+    public final IterableSubject<T> containsNoneIn(Iterable<?> excluded) {
         constraints.add(new ContainsNoneInConstraint(excluded));
         return myself;
     }
 
-    public final IterableSubject containsNoneIn(Object[] excluded) {
+    public final IterableSubject<T> containsNoneIn(Object[] excluded) {
         constraints.add(new ContainsNoneInConstraint(Arrays.asList(excluded)));
         return myself;
     }
 
     // isOrdered
 
-
+    
     @Override
     public IterableSubject<T> isNull() {
         return super.isNull();
