@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import validators.Person;
 
 import java.time.ZonedDateTime;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -15,6 +16,7 @@ class StringConstraintTest {
     @Test
     void test() {
         Person m = new Person("sean", 32, "");
+        m.setChilren(Arrays.asList("Bobby", "Sally"));
 
         // TODO: better way than creating a validator like this?
         // the fluent validator approach might be a good way to do it
@@ -28,6 +30,7 @@ class StringConstraintTest {
         validator.ruleForBoolean(p -> p.isMarried()).isFalse();
         validator.ruleForZonedDateTime(p -> p.getSignedIn()).isAfter(ZonedDateTime.now().minusDays(1));
         validator.ruleForMap(p -> p.getPets()).isEmpty();
+        validator.ruleForIterable(p -> p.getChilren()).isNotNull().isNotEmpty();
 
         List<ValidationFailure> validationFailures = validator.validate(m);
 

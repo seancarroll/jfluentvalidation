@@ -126,6 +126,18 @@ public abstract class AbstractValidator<T> {
         return subject;
     }
 
+    public <R> IterableSubject ruleForIterable(Function<T, R> func) {
+        this.type = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+
+        // TODO: I really dont like this. based on testing it needs to be static but can improve this via a cache or something
+        this.proxy = PropertyLiteralHelper.getPropertyNameCapturer(type);
+        String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
+
+        IterableSubject subject = new IterableSubject(func, propertyName);
+        subjects.add(subject);
+        return subject;
+    }
+
 
     // TODO: I think we can remove this
     // This was used when we were creating the byte buddy proxy in this class and passed it to this method
