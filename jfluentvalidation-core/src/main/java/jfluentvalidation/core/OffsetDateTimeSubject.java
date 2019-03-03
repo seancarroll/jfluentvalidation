@@ -14,7 +14,7 @@ public class OffsetDateTimeSubject
     implements ComparableSubject<OffsetDateTimeSubject, OffsetDateTime> {
 
     public OffsetDateTimeSubject(Function propertyFunc, String propertyName) {
-        super(OffsetDateTime.class, propertyFunc, propertyName);
+        super(OffsetDateTimeSubject.class, propertyFunc, propertyName);
     }
 
     public OffsetDateTimeSubject isBefore(OffsetDateTime offsetDateTime) {

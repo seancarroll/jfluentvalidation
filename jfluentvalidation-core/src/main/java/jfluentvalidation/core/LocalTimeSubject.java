@@ -14,7 +14,7 @@ public class LocalTimeSubject
     implements ComparableSubject<LocalTimeSubject, LocalTime> {
 
     public LocalTimeSubject(Function propertyFunc, String propertyName) {
-        super(LocalTime.class, propertyFunc, propertyName);
+        super(LocalTimeSubject.class, propertyFunc, propertyName);
     }
 
     // before and after use compareTo...do we want to keep both?

@@ -11,7 +11,7 @@ public class LocalDateTimeSubject
     implements ComparableSubject<LocalDateTimeSubject, LocalDateTime> {
 
     public LocalDateTimeSubject(Function propertyFunc, String propertyName) {
-        super(LocalDateTime.class, propertyFunc, propertyName);
+        super(LocalDateTimeSubject.class, propertyFunc, propertyName);
     }
 
     public LocalDateTimeSubject isBefore(LocalDateTime other) {
