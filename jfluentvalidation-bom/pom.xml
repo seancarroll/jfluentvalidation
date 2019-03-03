@@ -20,12 +20,13 @@
     <properties>
         <byte-buddy.version>1.9.10</byte-buddy.version>
         <checker-qual.version>2.6.0</checker-qual.version>
-        <errorprone.version>2.3.2</errorprone.version>
+        <errorprone.version>2.3.3</errorprone.version>
         <!--TODO: can we avoid bringing in guava as a dependency?-->
         <guava.version>27.0.1-jre</guava.version>
         <hibernate-validator.version>6.0.14.Final</hibernate-validator.version>
         <jackson.version>2.9.8</jackson.version>
         <javax.el.version>3.0.0</javax.el.version>
+        <!--TODO: do we need objenesis?-->
         <objenesis.version>3.0.1</objenesis.version>
         <slf4j.version>1.7.25</slf4j.version>
         <spring.version>2.1.2.RELEASE</spring.version>
