@@ -2,7 +2,11 @@ package jfluentvalidation.common;
 
 import org.checkerframework.checker.nullness.qual.Nullable;
 
-public class Strings {
+public final class Strings {
+
+    private Strings() {
+        // statics only
+    }
 
     public static boolean isNull(@Nullable CharSequence charSequence) {
         return charSequence == null;
