@@ -9,10 +9,11 @@ import java.util.function.Function;
 import static com.google.common.collect.Lists.newArrayList;
 import static java.util.Arrays.asList;
 
-public class IterableSubject extends Subject<IterableSubject, Iterable<?>> {
+// QUESTION: should we add generic T?
+public class IterableSubject<T> extends Subject<IterableSubject<T>, Iterable<T>> {
 
     public IterableSubject(Function propertyFunc, String propertyName) {
-        super(Iterable.class, propertyFunc, propertyName);
+        super(IterableSubject.class, propertyFunc, propertyName);
     }
 
     public final IterableSubject isEmpty() {
