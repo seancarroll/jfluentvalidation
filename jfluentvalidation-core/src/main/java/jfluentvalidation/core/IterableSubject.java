@@ -107,4 +107,20 @@ public class IterableSubject<T> extends Subject<IterableSubject<T>, Iterable<T>>
     }
 
     // isOrdered
+
+
+    @Override
+    public IterableSubject<T> isNull() {
+        return super.isNull();
+    }
+
+    @Override
+    public IterableSubject<T> isNotNull() {
+        return super.isNotNull();
+    }
+
+    @Override
+    public IterableSubject<T> isEquals(Iterable<T> other) {
+        return super.isEquals(other);
+    }
 }
