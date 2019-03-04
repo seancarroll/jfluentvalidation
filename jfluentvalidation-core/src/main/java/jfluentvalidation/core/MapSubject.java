@@ -14,65 +14,63 @@ public class MapSubject<K, V> extends Subject<MapSubject<K, V>, Map<K, V>> {
         super(MapSubject.class, propertyFunc, propertyName);
     }
 
-    public final MapSubject isEmpty() {
+    public final MapSubject<K, V> isEmpty() {
         constraints.add(new IsEmptyConstraint());
         return myself;
     }
 
-    public final MapSubject isNotEmpty() {
+    public final MapSubject<K, V> isNotEmpty() {
         constraints.add(new IsNotEmptyConstraint());
         return myself;
     }
 
-    public final MapSubject hasSize(int expectedSize) {
+    public final MapSubject<K, V> hasSize(int expectedSize) {
         constraints.add(new HasSizeConstraint(expectedSize));
         return myself;
     }
 
-    public final MapSubject containsKey(Object key) {
+    public final MapSubject<K, V> containsKey(Object key) {
 
         return myself;
     }
 
-    public final MapSubject containsEntry(Object key, Object value) {
+    public final MapSubject<K, V> containsEntry(Object key, Object value) {
 
         return myself;
     }
 
-    public final MapSubject doesNotContainsEntry(Object key, Object value) {
+    public final MapSubject<K, V> doesNotContainsEntry(Object key, Object value) {
 
         return myself;
     }
 
     // Fails if the map is not empty...This seems strange
-    public final MapSubject containsExactly() {
+    public final MapSubject<K, V> containsExactly() {
         return myself;
     }
 
-    public final MapSubject containsExactly(Object key, Object value, Object... rest) {
+    public final MapSubject<K, V> containsExactly(Object key, Object value, Object... rest) {
         return myself;
     }
 
-    public final MapSubject containsExactlyEntriesIn(Map<?, ?> expectedMap) {
+    public final MapSubject<K, V> containsExactlyEntriesIn(Map<?, ?> expectedMap) {
 
         return myself;
     }
 
-    public final MapSubject containsExactlyEntriesInAnyOrder(Map<?, ?> expected) {
+    public final MapSubject<K, V> containsExactlyEntriesInAnyOrder(Map<?, ?> expected) {
 
         return myself;
     }
 
     // TODO: review Google Truth MapSubject MapDifference
-    public final MapSubject doesNotContainEntry(Object key, Object value) {
+    public final MapSubject<K, V> doesNotContainEntry(Object key, Object value) {
 
         return myself;
     }
 
 
-
-
-    public final MapSubject containsValue(V value) {
+    public final MapSubject<K, V> containsValue(V value) {
         constraints.add(new ContainsValueConstraint(value));
         return myself;
     }
