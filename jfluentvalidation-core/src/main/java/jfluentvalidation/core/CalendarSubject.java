@@ -13,7 +13,7 @@ public class CalendarSubject
     implements ComparableSubject<CalendarSubject, Calendar> {
 
     public CalendarSubject(Function propertyFunc, String propertyName) {
-        super(Calendar.class, propertyFunc, propertyName);
+        super(CalendarSubject.class, propertyFunc, propertyName);
     }
 
     public CalendarSubject isBefore(Calendar other) {
