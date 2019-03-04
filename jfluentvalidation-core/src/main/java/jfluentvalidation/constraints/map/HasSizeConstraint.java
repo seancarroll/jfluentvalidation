@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * Check that the size of the given {@code CharSequence} being validated is equal to the given size.
  */
-public class HasSizeConstraint implements Constraint<Map<?,?>> {
+public class HasSizeConstraint implements Constraint<Map<?, ?>> {
 
     private final int size;
 
