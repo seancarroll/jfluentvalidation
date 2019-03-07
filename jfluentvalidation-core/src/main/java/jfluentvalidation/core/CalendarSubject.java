@@ -58,56 +58,56 @@ public class CalendarSubject
 
     @Override
     public CalendarSubject isEqualAccordingToCompareTo(Calendar other) {
-        return null;
+        return myself;
     }
 
     @Override
     public CalendarSubject isNotEqualAccordingToCompareTo(Calendar other) {
-        return null;
+        return myself;
     }
 
     @Override
     public CalendarSubject isLessThan(Calendar other) {
-        return null;
+        return myself;
     }
 
     @Override
     public CalendarSubject isLessThanOrEqualTo(Calendar other) {
-        return null;
+        return myself;
     }
 
     @Override
     public CalendarSubject isGreaterThan(Calendar other) {
-        return null;
+        return myself;
     }
 
     @Override
     public CalendarSubject isGreaterThanOrEqualTo(Calendar other) {
-        return null;
+        return myself;
     }
 
     @Override
     public CalendarSubject isBetween(Calendar startInclusive, Calendar endInclusive) {
-        return null;
+        return myself;
     }
 
     @Override
     public CalendarSubject isStrictlyBetween(Calendar startExclusive, Calendar endExclusive) {
-        return null;
+        return myself;
     }
 
     @Override
     public CalendarSubject isBetween(Calendar start, Calendar end, boolean inclusiveStart, boolean inclusiveEnd) {
-        return null;
+        return myself;
     }
 
     @Override
     public CalendarSubject isNotBetween(Calendar startInclusive, Calendar endInclusive) {
-        return null;
+        return myself;
     }
 
     @Override
     public CalendarSubject isNotBetween(Calendar start, Calendar end, boolean inclusiveStart, boolean inclusiveEnd) {
-        return null;
+        return myself;
     }
 }
