@@ -29,56 +29,56 @@ public class BooleanSubject extends Subject<BooleanSubject, Boolean> implements 
     // Maybe ComparableSubject just has compareTo and all the other methods dont need to belong to an interface?
     @Override
     public BooleanSubject isEqualAccordingToCompareTo(Boolean other) {
-        return null;
+        return myself;
     }
 
     @Override
     public BooleanSubject isNotEqualAccordingToCompareTo(Boolean other) {
-        return null;
+        return myself;
     }
 
     @Override
     public BooleanSubject isLessThan(Boolean other) {
-        return null;
+        return myself;
     }
 
     @Override
     public BooleanSubject isLessThanOrEqualTo(Boolean other) {
-        return null;
+        return myself;
     }
 
     @Override
     public BooleanSubject isGreaterThan(Boolean other) {
-        return null;
+        return myself;
     }
 
     @Override
     public BooleanSubject isGreaterThanOrEqualTo(Boolean other) {
-        return null;
+        return myself;
     }
 
     @Override
     public BooleanSubject isBetween(Boolean startInclusive, Boolean endInclusive) {
-        return null;
+        return myself;
     }
 
     @Override
     public BooleanSubject isStrictlyBetween(Boolean startExclusive, Boolean endExclusive) {
-        return null;
+        return myself;
     }
 
     @Override
     public BooleanSubject isBetween(Boolean start, Boolean end, boolean inclusiveStart, boolean inclusiveEnd) {
-        return null;
+        return myself;
     }
 
     @Override
     public BooleanSubject isNotBetween(Boolean startInclusive, Boolean endInclusive) {
-        return null;
+        return myself;
     }
 
     @Override
     public BooleanSubject isNotBetween(Boolean start, Boolean end, boolean inclusiveStart, boolean inclusiveEnd) {
-        return null;
+        return myself;
     }
 }

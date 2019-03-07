@@ -56,56 +56,56 @@ public class LocalDateTimeSubject
 
     @Override
     public LocalDateTimeSubject isEqualAccordingToCompareTo(LocalDateTime other) {
-        return null;
+        return myself;
     }
 
     @Override
     public LocalDateTimeSubject isNotEqualAccordingToCompareTo(LocalDateTime other) {
-        return null;
+        return myself;
     }
 
     @Override
     public LocalDateTimeSubject isLessThan(LocalDateTime other) {
-        return null;
+        return myself;
     }
 
     @Override
     public LocalDateTimeSubject isLessThanOrEqualTo(LocalDateTime other) {
-        return null;
+        return myself;
     }
 
     @Override
     public LocalDateTimeSubject isGreaterThan(LocalDateTime other) {
-        return null;
+        return myself;
     }
 
     @Override
     public LocalDateTimeSubject isGreaterThanOrEqualTo(LocalDateTime other) {
-        return null;
+        return myself;
     }
 
     @Override
     public LocalDateTimeSubject isBetween(LocalDateTime startInclusive, LocalDateTime endInclusive) {
-        return null;
+        return myself;
     }
 
     @Override
     public LocalDateTimeSubject isStrictlyBetween(LocalDateTime startExclusive, LocalDateTime endExclusive) {
-        return null;
+        return myself;
     }
 
     @Override
     public LocalDateTimeSubject isBetween(LocalDateTime start, LocalDateTime end, boolean inclusiveStart, boolean inclusiveEnd) {
-        return null;
+        return myself;
     }
 
     @Override
     public LocalDateTimeSubject isNotBetween(LocalDateTime startInclusive, LocalDateTime endInclusive) {
-        return null;
+        return myself;
     }
 
     @Override
     public LocalDateTimeSubject isNotBetween(LocalDateTime start, LocalDateTime end, boolean inclusiveStart, boolean inclusiveEnd) {
-        return null;
+        return myself;
     }
 }

@@ -59,56 +59,56 @@ public class ZonedDateTimeSubject
 
     @Override
     public ZonedDateTimeSubject isEqualAccordingToCompareTo(ZonedDateTime other) {
-        return null;
+        return myself;
     }
 
     @Override
     public ZonedDateTimeSubject isNotEqualAccordingToCompareTo(ZonedDateTime other) {
-        return null;
+        return myself;
     }
 
     @Override
     public ZonedDateTimeSubject isLessThan(ZonedDateTime other) {
-        return null;
+        return myself;
     }
 
     @Override
     public ZonedDateTimeSubject isLessThanOrEqualTo(ZonedDateTime other) {
-        return null;
+        return myself;
     }
 
     @Override
     public ZonedDateTimeSubject isGreaterThan(ZonedDateTime other) {
-        return null;
+        return myself;
     }
 
     @Override
     public ZonedDateTimeSubject isGreaterThanOrEqualTo(ZonedDateTime other) {
-        return null;
+        return myself;
     }
 
     @Override
     public ZonedDateTimeSubject isBetween(ZonedDateTime startInclusive, ZonedDateTime endInclusive) {
-        return null;
+        return myself;
     }
 
     @Override
     public ZonedDateTimeSubject isStrictlyBetween(ZonedDateTime startExclusive, ZonedDateTime endExclusive) {
-        return null;
+        return myself;
     }
 
     @Override
     public ZonedDateTimeSubject isBetween(ZonedDateTime start, ZonedDateTime end, boolean inclusiveStart, boolean inclusiveEnd) {
-        return null;
+        return myself;
     }
 
     @Override
     public ZonedDateTimeSubject isNotBetween(ZonedDateTime startInclusive, ZonedDateTime endInclusive) {
-        return null;
+        return myself;
     }
 
     @Override
     public ZonedDateTimeSubject isNotBetween(ZonedDateTime start, ZonedDateTime end, boolean inclusiveStart, boolean inclusiveEnd) {
-        return null;
+        return myself;
     }
 }

@@ -59,56 +59,56 @@ public class OffsetDateTimeSubject
 
     @Override
     public OffsetDateTimeSubject isEqualAccordingToCompareTo(OffsetDateTime other) {
-        return null;
+        return myself;
     }
 
     @Override
     public OffsetDateTimeSubject isNotEqualAccordingToCompareTo(OffsetDateTime other) {
-        return null;
+        return myself;
     }
 
     @Override
     public OffsetDateTimeSubject isLessThan(OffsetDateTime other) {
-        return null;
+        return myself;
     }
 
     @Override
     public OffsetDateTimeSubject isLessThanOrEqualTo(OffsetDateTime other) {
-        return null;
+        return myself;
     }
 
     @Override
     public OffsetDateTimeSubject isGreaterThan(OffsetDateTime other) {
-        return null;
+        return myself;
     }
 
     @Override
     public OffsetDateTimeSubject isGreaterThanOrEqualTo(OffsetDateTime other) {
-        return null;
+        return myself;
     }
 
     @Override
     public OffsetDateTimeSubject isBetween(OffsetDateTime startInclusive, OffsetDateTime endInclusive) {
-        return null;
+        return myself;
     }
 
     @Override
     public OffsetDateTimeSubject isStrictlyBetween(OffsetDateTime startExclusive, OffsetDateTime endExclusive) {
-        return null;
+        return myself;
     }
 
     @Override
     public OffsetDateTimeSubject isBetween(OffsetDateTime start, OffsetDateTime end, boolean inclusiveStart, boolean inclusiveEnd) {
-        return null;
+        return myself;
     }
 
     @Override
     public OffsetDateTimeSubject isNotBetween(OffsetDateTime startInclusive, OffsetDateTime endInclusive) {
-        return null;
+        return myself;
     }
 
     @Override
     public OffsetDateTimeSubject isNotBetween(OffsetDateTime start, OffsetDateTime end, boolean inclusiveStart, boolean inclusiveEnd) {
-        return null;
+        return myself;
     }
 }

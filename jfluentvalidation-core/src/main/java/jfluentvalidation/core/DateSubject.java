@@ -68,47 +68,47 @@ public class DateSubject extends Subject<DateSubject, Date> implements Comparabl
 
     @Override
     public DateSubject isEqualAccordingToCompareTo(Date other) {
-        return null;
+        return myself;
     }
 
     @Override
     public DateSubject isNotEqualAccordingToCompareTo(Date other) {
-        return null;
+        return myself;
     }
 
     @Override
     public DateSubject isLessThan(Date other) {
-        return null;
+        return myself;
     }
 
     @Override
     public DateSubject isLessThanOrEqualTo(Date other) {
-        return null;
+        return myself;
     }
 
     @Override
     public DateSubject isGreaterThan(Date other) {
-        return null;
+        return myself;
     }
 
     @Override
     public DateSubject isGreaterThanOrEqualTo(Date other) {
-        return null;
+        return myself;
     }
 
     @Override
     public DateSubject isBetween(Date startInclusive, Date endInclusive) {
-        return null;
+        return myself;
     }
 
     @Override
     public DateSubject isStrictlyBetween(Date startExclusive, Date endExclusive) {
-        return null;
+        return myself;
     }
 
     @Override
     public DateSubject isBetween(Date start, Date end, boolean inclusiveStart, boolean inclusiveEnd) {
-        return null;
+        return myself;
     }
 
     public DateSubject isNotBetween(Date start, Date end) {
