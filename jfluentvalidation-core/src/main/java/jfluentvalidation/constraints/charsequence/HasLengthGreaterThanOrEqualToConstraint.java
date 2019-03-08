@@ -5,11 +5,11 @@ import jfluentvalidation.constraints.Constraint;
 /**
  * Check that the length of the given {@code CharSequence} being validated is greater than or equal to the given size
  */
-public class HasLengthGreaterThanOrEqualTo implements Constraint<CharSequence> {
+public class HasLengthGreaterThanOrEqualToConstraint implements Constraint<CharSequence> {
 
     private final int length;
 
-    public HasLengthGreaterThanOrEqualTo(int length) {
+    public HasLengthGreaterThanOrEqualToConstraint(int length) {
         this.length = length;
     }
 

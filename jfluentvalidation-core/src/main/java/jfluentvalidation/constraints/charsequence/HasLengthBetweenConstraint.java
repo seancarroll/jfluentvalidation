@@ -6,12 +6,12 @@ import jfluentvalidation.constraints.Constraint;
 /**
  * Check that the length of the given {@code CharSequence} being validated is between the given lower and higher boundaries (inclusive).
  */
-public class HasLengthBetween implements Constraint<CharSequence> {
+public class HasLengthBetweenConstraint implements Constraint<CharSequence> {
 
     private final int min;
     private final int max;
 
-    public HasLengthBetween(int min, int max) {
+    public HasLengthBetweenConstraint(int min, int max) {
         this.min = min;
         this.max = max;
     }
