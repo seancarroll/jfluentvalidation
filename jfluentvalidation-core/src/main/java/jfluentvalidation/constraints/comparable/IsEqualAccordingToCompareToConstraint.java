@@ -5,16 +5,17 @@ import jfluentvalidation.internal.Ensure;
 
 import javax.annotation.Nonnull;
 
-public class IsEqualAccordingToCompareToConstraint implements Constraint<Comparable> {
+// TODO: is this the correct way of doing this?
+public class IsEqualAccordingToCompareToConstraint<T extends Comparable<T>> implements Constraint<T> {
 
-    private final Comparable<?> other;
+    private final T other;
 
-    public IsEqualAccordingToCompareToConstraint(@Nonnull Comparable<?> other) {
+    public IsEqualAccordingToCompareToConstraint(@Nonnull T other) {
         this.other = Ensure.notNull(other);
     }
 
     @Override
-    public boolean isValid(Comparable value) {
+    public boolean isValid(T value) {
         return value.compareTo(other) == 0;
     }
 }

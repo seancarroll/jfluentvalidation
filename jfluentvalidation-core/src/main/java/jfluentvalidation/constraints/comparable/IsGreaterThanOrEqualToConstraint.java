@@ -5,16 +5,16 @@ import jfluentvalidation.internal.Ensure;
 
 import javax.annotation.Nonnull;
 
-public class IsGreaterThanOrEqualToConstraint implements Constraint<Comparable> {
+public class IsGreaterThanOrEqualToConstraint<T extends Comparable<T>> implements Constraint<T> {
 
-    private final Comparable<?> other;
+    private final T other;
 
-    public IsGreaterThanOrEqualToConstraint(@Nonnull Comparable<?> other) {
+    public IsGreaterThanOrEqualToConstraint(@Nonnull T other) {
         this.other = Ensure.notNull(other);
     }
 
     @Override
-    public boolean isValid(Comparable value) {
+    public boolean isValid(T value) {
         return value.compareTo(other) >= 0;
     }
 }

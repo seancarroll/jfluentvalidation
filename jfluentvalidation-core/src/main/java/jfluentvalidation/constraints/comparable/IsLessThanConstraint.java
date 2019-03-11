@@ -5,16 +5,16 @@ import jfluentvalidation.internal.Ensure;
 
 import javax.annotation.Nonnull;
 
-public class IsLessThanConstraint implements Constraint<Comparable<?>> {
+public class IsLessThanConstraint<T extends Comparable<T>> implements Constraint<T> {
 
-    private final Comparable<?> other;
+    private final T other;
 
-    public IsLessThanConstraint(@Nonnull Comparable<?> other) {
+    public IsLessThanConstraint(@Nonnull T other) {
         this.other = Ensure.notNull(other);
     }
 
     @Override
-    public boolean isValid(Comparable<?> value) {
+    public boolean isValid(T value) {
         return false;
     }
 }
