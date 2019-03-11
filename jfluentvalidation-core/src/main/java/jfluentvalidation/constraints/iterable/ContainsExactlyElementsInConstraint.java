@@ -16,16 +16,16 @@ import jfluentvalidation.constraints.Constraint;
  * #containsExactlyElementsIn(Object[])}. It makes clear that the given array is a list of
  * elements, not an element itself. This helps human readers and avoids a compiler warning.
  */
-public class ContainsExactlyElementsInConstraint implements Constraint<Iterable<?>> {
+public class ContainsExactlyElementsInConstraint<T> implements Constraint<Iterable<? super T>> {
 
-    private final Iterable<?> expected;
+    private final Iterable<? super T> expected;
 
-    public ContainsExactlyElementsInConstraint(Iterable<?> expected) {
+    public ContainsExactlyElementsInConstraint(Iterable<? super T> expected) {
         this.expected = expected;
     }
 
     @Override
-    public boolean isValid(Iterable<?> value) {
+    public boolean isValid(Iterable<? super T> value) {
         return false;
     }
 }

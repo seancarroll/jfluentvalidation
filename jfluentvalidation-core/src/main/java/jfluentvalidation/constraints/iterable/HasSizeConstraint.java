@@ -4,7 +4,7 @@ import jfluentvalidation.common.Iterables;
 import jfluentvalidation.constraints.Constraint;
 import jfluentvalidation.internal.Ensure;
 
-public class HasSizeConstraint implements Constraint<Iterable<?>> {
+public class HasSizeConstraint<T> implements Constraint<Iterable<? super T>> {
 
     private final int expectedSize;
 
@@ -14,7 +14,7 @@ public class HasSizeConstraint implements Constraint<Iterable<?>> {
     }
 
     @Override
-    public boolean isValid(Iterable<?> value) {
+    public boolean isValid(Iterable<? super T> value) {
         return Iterables.size(value) == expectedSize;
     }
 

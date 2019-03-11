@@ -8,16 +8,16 @@ import jfluentvalidation.constraints.Constraint;
  * (Duplicates are irrelevant to this test, which fails if any of the subject elements
  * correspond to any of the given elements.)
  */
-public class ContainsNoneInConstraint implements Constraint<Iterable<?>> {
+public class ContainsNoneInConstraint<T> implements Constraint<Iterable<? super T>> {
 
-    private final Iterable<?> excluded;
+    private final Iterable<? super T> excluded;
 
-    public ContainsNoneInConstraint(Iterable<?> excluded) {
+    public ContainsNoneInConstraint(Iterable<? super T> excluded) {
         this.excluded = excluded;
     }
 
     @Override
-    public boolean isValid(Iterable<?> value) {
+    public boolean isValid(Iterable<? super T> value) {
 
 //        Collection<?> actual = iterableToCollection(actual());
 //        Collection<Object> present = new ArrayList<>();

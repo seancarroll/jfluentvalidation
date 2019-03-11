@@ -13,16 +13,16 @@ import jfluentvalidation.constraints.Constraint;
  * on the object returned by this method. The expected elements must appear in the given order
  * within the actual elements, but they are not required to be consecutive.
  */
-public class ContainsAllInConstraint implements Constraint<Iterable<?>> {
+public class ContainsAllInConstraint<T> implements Constraint<Iterable<? super T>> {
 
-    private final Iterable<?> expectedIterable;
+    private final Iterable<? super T> expectedIterable;
 
-    public ContainsAllInConstraint(Iterable<?> expectedIterable) {
+    public ContainsAllInConstraint(Iterable<? super T> expectedIterable) {
         this.expectedIterable = expectedIterable;
     }
 
     @Override
-    public boolean isValid(Iterable<?> value) {
+    public boolean isValid(Iterable<? super T> value) {
         return false;
     }
 }

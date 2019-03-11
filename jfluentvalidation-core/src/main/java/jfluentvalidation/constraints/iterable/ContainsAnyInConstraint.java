@@ -8,18 +8,18 @@ import java.util.Collection;
 /**
  * Checks that the subject contains at least one element that corresponds to at least one of the expected elements.
  */
-public class ContainsAnyInConstraint implements Constraint<Iterable<?>> {
+public class ContainsAnyInConstraint<T> implements Constraint<Iterable<? super T>> {
 
-    private final Iterable<?> expected;
+    private final Iterable<? super T> expected;
 
-    public ContainsAnyInConstraint(Iterable<?> expected) {
+    public ContainsAnyInConstraint(Iterable<? super T> expected) {
         this.expected = expected;
     }
 
     @Override
-    public boolean isValid(Iterable<?> value) {
+    public boolean isValid(Iterable<? super T> value) {
         // TODO: does it make sense to move this out somewhere common?
-        Collection<?> actual = Iterables.toCollection(value);
+        Collection<T> actual = (Collection<T>) Iterables.toCollection(value);
         for (Object item : expected) {
             if (actual.contains(item)) {
                 return true;
