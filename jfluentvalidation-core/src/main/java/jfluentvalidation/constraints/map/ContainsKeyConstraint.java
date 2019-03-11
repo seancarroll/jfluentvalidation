@@ -4,9 +4,13 @@ import jfluentvalidation.constraints.Constraint;
 
 import java.util.Map;
 
-public class ContainsKeyConstraint implements Constraint<Map<?,?>> {
+// TODO: generics
+public class ContainsKeyConstraint<K, V> implements Constraint<Map<K, V>> {
+
+    // TODO: constructor
+
     @Override
-    public boolean isValid(Map<?, ?> value) {
+    public boolean isValid(Map<K, V> value) {
         return false;
     }
 }

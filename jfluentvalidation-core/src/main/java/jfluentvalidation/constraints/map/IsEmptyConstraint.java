@@ -7,10 +7,10 @@ import java.util.Map;
 /**
  * Check that the given {@code Map} being validated is empty.
  */
-public class IsEmptyConstraint implements Constraint<Map<?, ?>> {
+public class IsEmptyConstraint<K, V> implements Constraint<Map<K, V>> {
 
     @Override
-    public boolean isValid(Map<?, ?> value) {
+    public boolean isValid(Map<K, V> value) {
         return value.isEmpty();
     }
 }

@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * Check that the size of the given {@code CharSequence} being validated is equal to the given size.
  */
-public class HasSizeConstraint implements Constraint<Map<?, ?>> {
+public class HasSizeConstraint<K, V> implements Constraint<Map<K, V>> {
 
     private final int size;
 
@@ -17,7 +17,7 @@ public class HasSizeConstraint implements Constraint<Map<?, ?>> {
     }
 
     @Override
-    public boolean isValid(Map<?, ?> value) {
+    public boolean isValid(Map<K, V> value) {
         return value.size() == size;
     }
 }
