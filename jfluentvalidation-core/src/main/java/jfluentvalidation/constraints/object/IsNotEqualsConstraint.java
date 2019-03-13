@@ -6,17 +6,18 @@ import java.util.Objects;
 
 /**
  * Check that the given {@code Object} being validated is not equal to the given object.
+ * @param <S>
  */
-public class IsNotEqualsConstraint implements Constraint<Object> {
+public class IsNotEqualsConstraint<S> implements Constraint<S> {
 
-    private final Object other;
+    private final S other;
 
-    public IsNotEqualsConstraint(Object other) {
+    public IsNotEqualsConstraint(S other) {
         this.other = other;
     }
 
     @Override
-    public boolean isValid(Object value) {
+    public boolean isValid(S value) {
         return !Objects.equals(value, other);
     }
 }
