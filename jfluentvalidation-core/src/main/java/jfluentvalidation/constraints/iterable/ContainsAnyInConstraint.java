@@ -10,17 +10,18 @@ import java.util.Collection;
  */
 public class ContainsAnyInConstraint<T> implements Constraint<Iterable<? super T>> {
 
-    private final Iterable<? super T> expected;
+    private final Iterable<? extends T> expected;
 
-    public ContainsAnyInConstraint(Iterable<? super T> expected) {
+    public ContainsAnyInConstraint(Iterable<? extends T> expected) {
         this.expected = expected;
     }
 
     @Override
     public boolean isValid(Iterable<? super T> value) {
         // TODO: does it make sense to move this out somewhere common?
+        // TODO: collect all items that failed the constraint
         Collection<T> actual = (Collection<T>) Iterables.toCollection(value);
-        for (Object item : expected) {
+        for (T item : expected) {
             if (actual.contains(item)) {
                 return true;
             }

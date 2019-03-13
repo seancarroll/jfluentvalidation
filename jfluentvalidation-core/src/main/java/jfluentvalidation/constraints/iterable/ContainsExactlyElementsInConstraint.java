@@ -18,9 +18,9 @@ import jfluentvalidation.constraints.Constraint;
  */
 public class ContainsExactlyElementsInConstraint<T> implements Constraint<Iterable<? super T>> {
 
-    private final Iterable<? super T> expected;
+    private final Iterable<? extends T> expected;
 
-    public ContainsExactlyElementsInConstraint(Iterable<? super T> expected) {
+    public ContainsExactlyElementsInConstraint(Iterable<? extends T> expected) {
         this.expected = expected;
     }
 

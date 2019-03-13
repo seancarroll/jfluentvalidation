@@ -15,9 +15,9 @@ import jfluentvalidation.constraints.Constraint;
  */
 public class ContainsAllInConstraint<T> implements Constraint<Iterable<? super T>> {
 
-    private final Iterable<? super T> expectedIterable;
+    private final Iterable<? extends T> expectedIterable;
 
-    public ContainsAllInConstraint(Iterable<? super T> expectedIterable) {
+    public ContainsAllInConstraint(Iterable<? extends T> expectedIterable) {
         this.expectedIterable = expectedIterable;
     }
 

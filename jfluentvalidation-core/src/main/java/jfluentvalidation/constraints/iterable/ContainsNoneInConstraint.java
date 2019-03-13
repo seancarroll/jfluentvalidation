@@ -10,9 +10,9 @@ import jfluentvalidation.constraints.Constraint;
  */
 public class ContainsNoneInConstraint<T> implements Constraint<Iterable<? super T>> {
 
-    private final Iterable<? super T> excluded;
+    private final Iterable<? extends T> excluded;
 
-    public ContainsNoneInConstraint(Iterable<? super T> excluded) {
+    public ContainsNoneInConstraint(Iterable<? extends T> excluded) {
         this.excluded = excluded;
     }
 
