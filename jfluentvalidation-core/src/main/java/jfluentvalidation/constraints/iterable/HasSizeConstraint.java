@@ -9,8 +9,7 @@ public class HasSizeConstraint<T> implements Constraint<Iterable<? super T>> {
     private final int expectedSize;
 
     public HasSizeConstraint(int expectedSize) {
-        Ensure.nonnegative(expectedSize, "expectedSize");
-        this.expectedSize = expectedSize;
+        this.expectedSize = Ensure.nonnegative(expectedSize, "expectedSize");
     }
 
     @Override
