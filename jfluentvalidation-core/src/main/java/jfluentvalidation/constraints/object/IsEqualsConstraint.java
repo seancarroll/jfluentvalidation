@@ -6,18 +6,18 @@ import java.util.Objects;
 
 /**
  * Check that the given {@code Object} being validated is equal to the given object.
- * @param <S>
+ * @param <T> the target type supported by an implementation
  */
-public class IsEqualsConstraint<S> implements Constraint<S> {
+public class IsEqualsConstraint<T> implements Constraint<T> {
 
-    private final S other;
+    private final T other;
 
-    public IsEqualsConstraint(S other) {
+    public IsEqualsConstraint(T other) {
         this.other = other;
     }
 
     @Override
-    public boolean isValid(S value) {
+    public boolean isValid(T value) {
         return Objects.equals(value, other);
     }
 }
