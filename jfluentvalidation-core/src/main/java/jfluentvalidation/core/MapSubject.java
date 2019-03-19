@@ -76,7 +76,8 @@ public class MapSubject<K, V> extends Subject<MapSubject<K, V>, Map<K, V>> {
     }
 
 
-    // doesNotContainsKey
+    // TODO: add methods
+    // doesNotContainKey
     // doesNotContainKeys
     // containsOnlyKeys
     // containsValue
@@ -112,4 +113,22 @@ public class MapSubject<K, V> extends Subject<MapSubject<K, V>, Map<K, V>> {
     public MapSubject<K, V> isEquals(Map<K, V> other) {
         return super.isEquals(other);
     }
+
+
+//    TODO: forEachEntry
+//    TODO: forEachKey
+//    TODO: forEachValue
+//    public final MapSubject<K, V> forEach(Predicate<? super T> predicate, Constraint<? super T>... constraintsToAdd) {
+//        // TODO: what should we do here? What about a something like CollectionConstraint? CollectionItemConstraint?
+//        // fluentValidation has PropertyRule and CollectionPropertyRule so maybe CollectionConstraint doesn't suck too much
+//        constraints.add(new CollectionConstraint<>(predicate, constraintsToAdd));
+//        return myself;
+//    }
+//
+//    public final MapSubject<K, V> forEach(Constraint<? super T>... constraintsToAdd) {
+//        // TODO: what should we do here? What about a something like CollectionConstraint? CollectionItemConstraint?
+//        // fluentValidation has PropertyRule and CollectionPropertyRule so maybe CollectionConstraint doesn't suck too much
+//        constraints.add(new CollectionConstraint<>(constraintsToAdd));
+//        return myself;
+//    }
 }

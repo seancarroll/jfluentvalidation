@@ -1,6 +1,8 @@
 package jfluentvalidation.constraints.comparable;
 
-// TODO: should we use generics?
+/**
+ *
+ */
 public final class ComparableConstraints {
 
     public static <T extends Comparable<? super T>> IsBetweenConstraint isBetween(T start, T end, boolean inclusiveStart, boolean inclusiveEnd) {

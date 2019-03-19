@@ -4,6 +4,12 @@ import java.util.function.Predicate;
 
 // QUESTION: Is this a good name?
 // fluentvalidation calls this a DelegatingValidator
+// QUESTION: is this even a good abstraction?
+
+/**
+ *
+ * @param <T> the target type supported by an implementation
+ */
 public class SoftConstraint<T> implements Constraint<T> {
 
     private final Predicate<T> condition;

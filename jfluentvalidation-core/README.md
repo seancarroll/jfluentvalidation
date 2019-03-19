@@ -49,3 +49,8 @@ https://github.com/cronn-de/reflection-util
 https://stackoverflow.com/questions/47104098/using-bytebuddy-to-intercept-setter
 
 https://www.lyh.me/lambda-serialization.html#.XCb-nRNKgWo
+
+
+
+- TODO: need to override Subject methods on superclasses
+- TODO: static methods to create constraints

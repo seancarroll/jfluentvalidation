@@ -1,6 +1,8 @@
 package jfluentvalidation.constraints;
 
 import jfluentvalidation.ValidationFailure;
+import jfluentvalidation.constraints.object.IsNotNullConstraint;
+import jfluentvalidation.constraints.object.ObjectConstraints;
 import jfluentvalidation.validators.AbstractValidator;
 import org.junit.jupiter.api.Test;
 import validators.Person;
@@ -9,12 +11,18 @@ import java.time.ZonedDateTime;
 import java.util.Arrays;
 import java.util.List;
 
+import static jfluentvalidation.constraints.charsequence.CharSequenceConstraints.startsWith;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class StringConstraintTest {
 
     @Test
     void test() {
+
+        IsNotNullConstraint<String> innc = ObjectConstraints.isNotNull();
+        innc.isValid(null);
+
+
         Person m = new Person("sean", 32, "");
         m.setChilren(Arrays.asList("Bobby", "Sally"));
 
@@ -31,6 +39,9 @@ class StringConstraintTest {
         validator.ruleForZonedDateTime(p -> p.getSignedIn()).isAfter(ZonedDateTime.now().minusDays(1));
         validator.ruleForMap(p -> p.getPets()).isEmpty();
         validator.ruleForIterable(p -> p.getChilren()).isNotNull().isNotEmpty();
+        // TODO: how do we think we should implement a way to add constraints for each item in a collection?
+        // One idea...
+        validator.ruleForIterable(p -> p.getChilren()).forEach(startsWith("a"));
 
         List<ValidationFailure> validationFailures = validator.validate(m);
 

@@ -1,10 +1,13 @@
 package jfluentvalidation.core;
 
+import jfluentvalidation.constraints.Constraint;
 import jfluentvalidation.constraints.iterable.*;
+import jfluentvalidation.constraints.CollectionConstraint;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Function;
+import java.util.function.Predicate;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static java.util.Arrays.asList;
@@ -108,7 +111,21 @@ public class IterableSubject<T> extends Subject<IterableSubject<T>, Iterable<T>>
 
     // isOrdered
 
-    
+
+    public final IterableSubject<T> forEach(Predicate<? super T> predicate, Constraint<? super T>... constraintsToAdd) {
+        // TODO: what should we do here? What about a something like CollectionConstraint? CollectionItemConstraint?
+        // fluentValidation has PropertyRule and CollectionPropertyRule so maybe CollectionConstraint doesn't suck too much
+        constraints.add(new CollectionConstraint<>(predicate, constraintsToAdd));
+        return myself;
+    }
+
+    public final IterableSubject<T> forEach(Constraint<? super T>... constraintsToAdd) {
+        // TODO: what should we do here? What about a something like CollectionConstraint? CollectionItemConstraint?
+        // fluentValidation has PropertyRule and CollectionPropertyRule so maybe CollectionConstraint doesn't suck too much
+        constraints.add(new CollectionConstraint<>(constraintsToAdd));
+        return myself;
+    }
+
     @Override
     public IterableSubject<T> isNull() {
         return super.isNull();

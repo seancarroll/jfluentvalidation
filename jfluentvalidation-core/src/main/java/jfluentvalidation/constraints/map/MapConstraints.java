@@ -2,7 +2,13 @@ package jfluentvalidation.constraints.map;
 
 import java.util.Map;
 
+/**
+ *
+ */
 public final class MapConstraints {
+
+    private static final IsEmptyConstraint IS_EMPTY_CONSTRAINT = new IsEmptyConstraint();
+    private static final IsNotEmptyConstraint IS_NOT_EMPTY_CONSTRAINT = new IsNotEmptyConstraint();
 
     public static <K,V>  ContainsEntryConstraint containsEntry(Map.Entry<K, V> entry) {
         return new ContainsEntryConstraint();
@@ -21,13 +27,11 @@ public final class MapConstraints {
     }
 
     public static IsEmptyConstraint isEmpty() {
-        // TODO: use a final static version of this
-        return new IsEmptyConstraint();
+        return IS_EMPTY_CONSTRAINT;
     }
 
     public static IsNotEmptyConstraint isNotEmpty() {
-        // TODO: use a final static version of this
-        return new IsNotEmptyConstraint();
+        return IS_NOT_EMPTY_CONSTRAINT;
     }
 
     private MapConstraints() {

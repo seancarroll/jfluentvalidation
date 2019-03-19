@@ -76,6 +76,22 @@ public abstract class AbstractValidator<T> {
 //        Integer apply(T t);
 //    }
 
+//    @FunctionalInterface
+//    private interface  StringFunction<T> extends Function<T, String> { }
+//
+//    @FunctionalInterface
+//    private interface IntegerFunction<T> extends Function<T, Integer> { }
+
+//    @FunctionalInterface
+//    private interface ToStringFunction<T> {
+//        String applyAsString(T value);
+//    }
+//
+//    @FunctionalInterface
+//    private interface ToBooleanFunction<T> {
+//        boolean applyAsBoolean(T value);
+//    }
+
     // TODO: how to encapsulate type/proxy/propertyName/Subject?
     // stackify overcoming type erasure
     public IntegerSubject ruleForInteger(Function<T, Integer> func) {
@@ -126,18 +142,38 @@ public abstract class AbstractValidator<T> {
         return subject;
     }
 
-    public <R> IterableSubject ruleForIterable(Function<T, R> func) {
+    public <R> IterableSubject<R> ruleForIterable(Function<T, Iterable<R>> func) {
         this.type = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
 
         // TODO: I really dont like this. based on testing it needs to be static but can improve this via a cache or something
         this.proxy = PropertyLiteralHelper.getPropertyNameCapturer(type);
         String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
 
-        IterableSubject subject = new IterableSubject(func, propertyName);
+        IterableSubject<R> subject = new IterableSubject<>(func, propertyName);
         subjects.add(subject);
         return subject;
     }
 
+
+    // this follows Java Stream which has flatMap / flatMapToDouble / flatMapToInt / flatMapToLong and also includes a
+    // forEach(Consumer<? super T> action) method
+//    public <R> CollectionForEachSubject<R> forEach(Function<T, Iterable<R>> func) {
+//        this.type = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+//
+//        // TODO: I really dont like this. based on testing it needs to be static but can improve this via a cache or something
+//        this.proxy = PropertyLiteralHelper.getPropertyNameCapturer(type);
+//        String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
+//
+//        CollectionForEachSubject<R> subject = new CollectionForEachSubject<>(func, propertyName);
+//        subjects.add(subject);
+//        return subject;
+//    }
+
+
+    public AbstractValidator<T> include(AbstractValidator<T> validator) {
+        // TODO: implement this
+        return this;
+    }
 
     // TODO: I think we can remove this
     // This was used when we were creating the byte buddy proxy in this class and passed it to this method
@@ -215,7 +251,7 @@ public abstract class AbstractValidator<T> {
 //    }
 
 
-    //    TODO: a when clause similiar to
+    //    TODO: a when clause similar to
 //    When(x => x.Address != null, () => {
 //        RuleFor(x => x.Address.Postcode).NotNull();
 //        RuleFor(x => x.Address.Country.Name).NotNull().When(x => x.Address.Country != null);

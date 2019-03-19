@@ -8,7 +8,9 @@ import jfluentvalidation.constraints.charsequence.StartsWithConstraint;
 import java.util.function.Function;
 import java.util.regex.Pattern;
 
-public class StringSubject extends Subject<StringSubject, String> implements CharSequenceSubject<StringSubject, String>, ComparableSubject<StringSubject, String> {
+public class StringSubject
+    extends Subject<StringSubject, String>
+    implements CharSequenceSubject<StringSubject, String>, ComparableSubject<StringSubject, String> {
 
     public StringSubject(Function func, String propertyName) {
         super(StringSubject.class, func, propertyName);

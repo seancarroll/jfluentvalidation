@@ -27,6 +27,7 @@ public interface Constraint<T> {
     // 2. ClockProvider
 
 
+    // TODO: still not happy with the parameter name
     /**
      * Implements the validation logic.
      *
