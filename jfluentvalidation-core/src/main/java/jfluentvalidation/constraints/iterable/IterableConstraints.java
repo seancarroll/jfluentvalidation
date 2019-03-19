@@ -1,7 +1,12 @@
 package jfluentvalidation.constraints.iterable;
 
-// TODO: generics
+/**
+ *
+ */
 public final class IterableConstraints {
+
+    private static final IsEmptyConstraint IS_EMPTY_CONSTRAINT = new IsEmptyConstraint();
+    private static final IsNotEmptyConstraint IS_NOT_EMPTY_CONSTRAINT = new IsNotEmptyConstraint();
 
     public static <T> ContainsAllInConstraint containsAllIn(Iterable<? super T> expectedIterable) {
         return new ContainsAllInConstraint(expectedIterable);
@@ -28,13 +33,11 @@ public final class IterableConstraints {
     }
 
     public static IsEmptyConstraint isEmpty() {
-        // TODO: use a final static version of this
-        return new IsEmptyConstraint();
+        return IS_EMPTY_CONSTRAINT;
     }
 
     public static IsNotEmptyConstraint isNotEmpty() {
-        // TODO: use a final static version of this
-        return new IsNotEmptyConstraint();
+        return IS_NOT_EMPTY_CONSTRAINT;
     }
 
     private IterableConstraints() {
