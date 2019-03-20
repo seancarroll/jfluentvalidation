@@ -31,6 +31,10 @@ public class ValidationContext<T> {
         this.instanceToValidate = instanceToValidate;
     }
 
+    public T getInstanceToValidate() {
+        return instanceToValidate;
+    }
+
     public Map<String, Object> getContextData() {
         return contextData;
     }
