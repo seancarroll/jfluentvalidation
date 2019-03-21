@@ -1,5 +1,6 @@
 package jfluentvalidation.validators;
 
+import com.google.common.base.Splitter;
 import jfluentvalidation.ValidationException;
 import jfluentvalidation.ValidationFailure;
 import jfluentvalidation.constraints.Constraint;
@@ -19,6 +20,9 @@ import java.util.function.Predicate;
 //import javax.validation.ConstraintValidator;
 
 public abstract class AbstractValidator<T> {
+
+    // TODO: I would prefer to not include guava so lets create our own splitter
+    private static final Splitter RULESET_SPLITTER = Splitter.on(',').omitEmptyStrings().trimResults();
 
     public T proxy; // source
     Class<T> type;
@@ -64,33 +68,6 @@ public abstract class AbstractValidator<T> {
     public CharSequenceSubject<?, ? extends CharSequence> ruleForStringBuffer(Function<T, StringBuffer> stringBuffer) {
         return null;
     }
-    // QUESTION: this is one hacky way to get around type erasure and types not reified
-    // but this no longer works when there are multiple ruleFor methods....why?
-//    @FunctionalInterface
-//    public interface StringFunction<T> {
-//        String apply(T t);
-//    }
-//
-//    @FunctionalInterface
-//    public interface IntegerFunction<T> {
-//        Integer apply(T t);
-//    }
-
-//    @FunctionalInterface
-//    private interface  StringFunction<T> extends Function<T, String> { }
-//
-//    @FunctionalInterface
-//    private interface IntegerFunction<T> extends Function<T, Integer> { }
-
-//    @FunctionalInterface
-//    private interface ToStringFunction<T> {
-//        String applyAsString(T value);
-//    }
-//
-//    @FunctionalInterface
-//    private interface ToBooleanFunction<T> {
-//        boolean applyAsBoolean(T value);
-//    }
 
     // TODO: how to encapsulate type/proxy/propertyName/Subject?
     // stackify overcoming type erasure
@@ -193,6 +170,9 @@ public abstract class AbstractValidator<T> {
         return null;
     }
 
+
+    // TODO: should this return ValidationResult or a list of validationfailures?
+    // FluentValidator has IValidationRule return IEnumerable<ValidationFailure> while IValidator returns ValidationResult
     public List<ValidationFailure> validate(T entity) {
 
         List<ValidationFailure> failures = new ArrayList();
@@ -210,9 +190,11 @@ public abstract class AbstractValidator<T> {
         return failures;
     }
 
-    // TODO: do we want to allow passing a list of ruleSet? Would avoid the string split
-    // Is that a good enough reason?
     public List<ValidationFailure> validate(T entity, String ruleSet) {
+        return validate(entity, RULESET_SPLITTER.splitToList(ruleSet));
+    }
+
+    public List<ValidationFailure> validate(T entity, List<String> ruleSet) {
 
         List<ValidationFailure> failures = new ArrayList();
         for (Subject subject : subjects) {
