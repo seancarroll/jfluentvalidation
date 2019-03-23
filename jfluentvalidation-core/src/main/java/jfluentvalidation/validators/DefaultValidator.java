@@ -20,7 +20,7 @@ import java.util.function.Predicate;
 //import javax.validation.ConstraintValidator;
 
 
-public class AbstractValidator<T> {
+public class DefaultValidator<T> {
 
     // TODO: I would prefer to not include guava so lets create our own splitter
     private static final Splitter RULESET_SPLITTER = Splitter.on(',').omitEmptyStrings().trimResults();
@@ -155,7 +155,7 @@ public class AbstractValidator<T> {
 //    }
 
 
-    public AbstractValidator<T> include(AbstractValidator<T> validator) {
+    public DefaultValidator<T> include(DefaultValidator<T> validator) {
         // TODO: implement this
         return this;
     }
