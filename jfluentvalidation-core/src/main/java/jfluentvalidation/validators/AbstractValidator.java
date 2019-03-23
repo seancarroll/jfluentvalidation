@@ -5,8 +5,8 @@ import jfluentvalidation.ValidationException;
 import jfluentvalidation.ValidationFailure;
 import jfluentvalidation.constraints.Constraint;
 import jfluentvalidation.core.*;
+import net.jodah.typetools.TypeResolver;
 
-import java.lang.reflect.ParameterizedType;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +19,8 @@ import java.util.function.Predicate;
 //import javax.validation.Constraint;
 //import javax.validation.ConstraintValidator;
 
-public abstract class AbstractValidator<T> {
+
+public class AbstractValidator<T> {
 
     // TODO: I would prefer to not include guava so lets create our own splitter
     private static final Splitter RULESET_SPLITTER = Splitter.on(',').omitEmptyStrings().trimResults();
@@ -44,8 +45,8 @@ public abstract class AbstractValidator<T> {
 
     // TODO: should cache bytebuddy proxies either via a hashmap or bytebuddy TypeCache
     public StringSubject ruleForString(Function<T, String> func) {
-
-        this.type = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+        this.type = (Class<T>) TypeResolver.resolveRawArguments(Function.class, func.getClass())[0];
+        //this.type = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
 
         // TODO: I really dont like this. based on testing it needs to be static but can improve this via a cache or something
         this.proxy = PropertyLiteralHelper.getPropertyNameCapturer(type);
@@ -72,7 +73,8 @@ public abstract class AbstractValidator<T> {
     // TODO: how to encapsulate type/proxy/propertyName/Subject?
     // stackify overcoming type erasure
     public IntegerSubject ruleForInteger(Function<T, Integer> func) {
-        this.type = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+        this.type = (Class<T>) TypeResolver.resolveRawArguments(Function.class, func.getClass())[0];
+        //this.type = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
 
         // TODO: I really dont like this. based on testing it needs to be static but can improve this via a cache or something
         this.proxy = PropertyLiteralHelper.getPropertyNameCapturer(type);
@@ -84,7 +86,8 @@ public abstract class AbstractValidator<T> {
     }
 
     public BooleanSubject ruleForBoolean(Function<T, Boolean> func) {
-        this.type = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+        this.type = (Class<T>) TypeResolver.resolveRawArguments(Function.class, func.getClass())[0];
+        // this.type = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
 
         // TODO: I really dont like this. based on testing it needs to be static but can improve this via a cache or something
         this.proxy = PropertyLiteralHelper.getPropertyNameCapturer(type);
@@ -96,7 +99,8 @@ public abstract class AbstractValidator<T> {
     }
 
     public ZonedDateTimeSubject ruleForZonedDateTime(Function<T, ZonedDateTime> func) {
-        this.type = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+        this.type = (Class<T>) TypeResolver.resolveRawArguments(Function.class, func.getClass())[0];
+        // this.type = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
 
         // TODO: I really dont like this. based on testing it needs to be static but can improve this via a cache or something
         this.proxy = PropertyLiteralHelper.getPropertyNameCapturer(type);
@@ -108,7 +112,8 @@ public abstract class AbstractValidator<T> {
     }
 
     public <K, V> MapSubject<K, V> ruleForMap(Function<T, Map<K, V>> func) {
-        this.type = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+        this.type = (Class<T>) TypeResolver.resolveRawArguments(Function.class, func.getClass())[0];
+        // this.type = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
 
         // TODO: I really dont like this. based on testing it needs to be static but can improve this via a cache or something
         this.proxy = PropertyLiteralHelper.getPropertyNameCapturer(type);
@@ -120,7 +125,8 @@ public abstract class AbstractValidator<T> {
     }
 
     public <R> IterableSubject<R> ruleForIterable(Function<T, Iterable<R>> func) {
-        this.type = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+        this.type = (Class<T>) TypeResolver.resolveRawArguments(Function.class, func.getClass())[0];
+        // this.type = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
 
         // TODO: I really dont like this. based on testing it needs to be static but can improve this via a cache or something
         this.proxy = PropertyLiteralHelper.getPropertyNameCapturer(type);

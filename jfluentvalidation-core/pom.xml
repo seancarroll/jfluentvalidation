@@ -54,6 +54,12 @@
             <version>27.0.1-jre</version>
         </dependency>
 
+        <dependency>
+            <groupId>net.jodah</groupId>
+            <artifactId>typetools</artifactId>
+            <version>0.6.1</version>
+        </dependency>
+
     </dependencies>
 
     <build>
