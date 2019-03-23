@@ -124,6 +124,8 @@ public class AbstractValidator<T> {
         return subject;
     }
 
+    // TODO: how do we think we should implement a way to add constraints for each item in a collection?
+    // One idea...
     public <R> IterableSubject<R> ruleForIterable(Function<T, Iterable<R>> func) {
         this.type = (Class<T>) TypeResolver.resolveRawArguments(Function.class, func.getClass())[0];
         // this.type = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
