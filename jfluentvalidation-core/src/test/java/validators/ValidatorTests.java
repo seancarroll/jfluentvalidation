@@ -1,7 +1,7 @@
 package validators;
 
 import jfluentvalidation.ValidationFailure;
-import jfluentvalidation.validators.AbstractValidator;
+import jfluentvalidation.validators.DefaultValidator;
 import org.junit.jupiter.api.Test;
 
 import java.time.ZonedDateTime;
@@ -16,7 +16,7 @@ class ValidatorTests {
     void noCustomClass() {
         Person person = new Person("sean", 32, "");
 
-        AbstractValidator<Person> validator = new AbstractValidator<>();
+        DefaultValidator<Person> validator = new DefaultValidator<>();
         validator.ruleForString(p -> p.getName()).isNotEmpty().startsWith("s").length(5, 10);
         validator.ruleForInteger(p -> p.getAge()).isPositive();
         validator.ruleForString(Person::getAddress).isEmpty();
@@ -39,7 +39,7 @@ class ValidatorTests {
         assertEquals(1, validationFailures.size());
     }
 
-    private class PersonValidator extends AbstractValidator<Person> {
+    private class PersonValidator extends DefaultValidator<Person> {
 
         protected PersonValidator() {
             ruleForString(p -> p.getName()).isEmpty().startsWith("s").length(0, 4);
