@@ -71,4 +71,5 @@ public class Person {
     public void setPets(Map<String, String> pets) {
         this.pets = pets;
     }
+
 }

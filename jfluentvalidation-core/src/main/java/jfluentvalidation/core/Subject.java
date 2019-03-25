@@ -17,6 +17,7 @@ import jfluentvalidation.constraints.object.IsNullConstraint;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
+import java.util.function.Predicate;
 
 /**
  * An object that lets you perform validation checks on the value under test.
@@ -80,7 +81,30 @@ public class Subject<S extends Subject<S, A>, A> {
     }
 
     protected S withMessage(String message) {
+        // TODO: implement
         // set message
+        return myself;
+    }
+
+    protected S when(Predicate<A> predicate) {
+        // TODO: implement
+        return myself;
+    }
+
+    // TODO: enum instead of boolean applyToAll?
+    protected S when(Predicate<A> predicate, boolean applyToAll) {
+        // TODO: implement
+        return myself;
+    }
+
+    protected S unless(Predicate<A> predicate) {
+        // TODO: implement
+        return myself;
+    }
+
+    // TODO: enum instead of boolean applyToAll?
+    protected S unless(Predicate<A> predicate, boolean applyToAll) {
+        // TODO: implement
         return myself;
     }
 

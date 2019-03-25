@@ -36,4 +36,14 @@ public interface Constraint<T> {
      */
     boolean isValid(T value);
 
+//    // TODO: including T value in the method signature for now to make it easier to refactor logic to validate method
+//    // however I think the plan is to have it be included in the validation context somehow
+//    /**
+//     * Performs validation
+//     * @param value object to validate
+//     * @param context The validation context
+//     * @return A collection of validation failures
+//     */
+//    List<ValidationFailure> validate(T value, ValidationContext context);
+
 }

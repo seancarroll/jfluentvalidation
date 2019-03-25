@@ -16,7 +16,7 @@
 - [ ] implement soft constraints (when clause)
 - [ ] implement including other validators
 - [ ] localization
-- [ ] Extensions - How would this work? Is there something else we can look at for inspiration?
+- [ ] Extensions - How would this work? Is there something else we can look at for inspiration? Review javax.enterprise.inject.spi Extension and hibernate validators ValidationExtension
   - [ ] joda
   - [ ] framework specific (spring, dropwizard, jersey, play, micronaut)
 - [ ] add performance benchmark test and results
@@ -29,3 +29,9 @@ ThaiBuddhistDate
 HijrahDate
 
 TODO: do we want Iterator as a first class constraint?
+
+Where to put validation configuration such as clock provider?
+
+- Update AbstractValidator to Default/Standard as I think I would like to support build a validator from that. 
+  Include test and have sample in docs. Also show a way to create a custom validator 
+- Handle method references (include test and have it in docs)

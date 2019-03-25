@@ -427,3 +427,7 @@ public interface ValidationRule {
 
 }
 ```
+
+
+
+fluentvalidator PropertyValidator is the class that calls IsValid which returns `Enumerable.Empty<ValidationFailure>()` if valid otherwise calls `CreateValidationError(context)` which ends up building the ValidationFailure based on the context object

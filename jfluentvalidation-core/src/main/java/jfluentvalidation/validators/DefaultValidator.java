@@ -43,6 +43,17 @@ public class DefaultValidator<T> {
     // private final Errors errors = new Errors();
 
 
+    // TODO: this doesnt work
+//    public DefaultValidator() {
+//        Function<Void, DefaultValidator<T>> f = (ignore) -> new DefaultValidator<T>();
+//        Class<?>[] typeArguments = TypeResolver.resolveRawArguments(Function.class, f.getClass());
+//        this.type = (Class<T>) typeArguments[0];
+//        //this.type = (Class<T>) TypeResolver.resolveRawArguments(DefaultValidator.class, getClass())[0];
+//        this.proxy = PropertyLiteralHelper.getPropertyNameCapturer(type);
+//    }
+
+
+    // TODO: we shouldnt set type and proxy here
     // TODO: should cache bytebuddy proxies either via a hashmap or bytebuddy TypeCache
     public StringSubject ruleForString(Function<T, String> func) {
         this.type = (Class<T>) TypeResolver.resolveRawArguments(Function.class, func.getClass())[0];
