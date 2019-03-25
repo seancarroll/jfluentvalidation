@@ -1,7 +1,7 @@
 package validators;
 
 import jfluentvalidation.ValidationFailure;
-import jfluentvalidation.validators.DefaultValidator;
+import jfluentvalidation.validators.AbstractValidator;
 import org.junit.jupiter.api.Test;
 
 import java.time.ZonedDateTime;
@@ -12,19 +12,20 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ValidatorTests {
 
-    @Test
-    void noCustomClass() {
-        Person person = new Person("sean", 32, "");
-
-        DefaultValidator<Person> validator = new DefaultValidator<>();
-        validator.ruleForString(p -> p.getName()).isNotEmpty().startsWith("s").length(5, 10);
-        validator.ruleForInteger(p -> p.getAge()).isPositive();
-        validator.ruleForString(Person::getAddress).isEmpty();
-
-        List<ValidationFailure> validationFailures = validator.validate(person);
-
-        assertEquals(1, validationFailures.size());
-    }
+//    TODO: would love to find a suitable way to support this usage pattern
+//    @Test
+//    void noCustomClass() {
+//        Person person = new Person("sean", 32, "");
+//
+//        DefaultValidator<Person> validator = new DefaultValidator<>();
+//        validator.ruleForString(p -> p.getName()).isNotEmpty().startsWith("s").length(5, 10);
+//        validator.ruleForInteger(p -> p.getAge()).isPositive();
+//        validator.ruleForString(Person::getAddress).isEmpty();
+//
+//        List<ValidationFailure> validationFailures = validator.validate(person);
+//
+//        assertEquals(1, validationFailures.size());
+//    }
 
 
     @Test
@@ -39,9 +40,10 @@ class ValidatorTests {
         assertEquals(1, validationFailures.size());
     }
 
-    private class PersonValidator extends DefaultValidator<Person> {
+    private class PersonValidator extends AbstractValidator<Person> {
 
         protected PersonValidator() {
+            super();
             ruleForString(p -> p.getName()).isEmpty().startsWith("s").length(0, 4);
             ruleForString(p -> p.getAddress()).isNotNull();
             ruleForInteger(p -> p.getAge()).isPositive();
