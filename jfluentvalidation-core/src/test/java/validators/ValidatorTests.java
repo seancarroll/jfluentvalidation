@@ -43,6 +43,7 @@ class ValidatorTests {
     private class PersonValidator extends AbstractValidator<Person> {
 
         protected PersonValidator() {
+            // TODO: ugh! I dont like this. How to avoid?
             super();
             ruleForString(p -> p.getName()).isEmpty().startsWith("s").length(0, 4);
             ruleForString(p -> p.getAddress()).isNotNull();
