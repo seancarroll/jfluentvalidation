@@ -108,6 +108,13 @@ public class Subject<S extends Subject<S, A>, A> {
         return myself;
     }
 
+    //    RuleFor(x => x.Postcode).Must(BeAValidPostcode).WithMessage("Please specify a valid postcode");
+    public S must(Predicate<A> predicate) {
+
+        return myself;
+    }
+
+
 
 //    // truth called this standardIsEqualTo
 //    private void isEqualTo(@NullableDecl Object expected) {
