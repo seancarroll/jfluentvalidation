@@ -109,6 +109,14 @@ public abstract class AbstractValidator<T> {
         return subject;
     }
 
+    public ObjectSubject ruleForObject(Function<T, Object> func) {
+        String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
+
+        ObjectSubject subject = new ObjectSubject(func, propertyName);
+        subjects.add(subject);
+        return subject;
+    }
+
     public <K, V> MapSubject<K, V> ruleForMap(Function<T, Map<K, V>> func) {
         String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
 
@@ -239,6 +247,15 @@ public abstract class AbstractValidator<T> {
 
     }
 
+//    unless(x => x.Address == null, () => {
+//        RuleFor(x => x.Address.Postcode).NotNull();
+//        RuleFor(x => x.Address.Country.Name).NotNull().When(x => x.Address.Country != null);
+//        RuleFor(x => x.Address.Line1).NotNull().When(x => x.Address.Line2 != null);
+//    });
+    public void unless(Predicate<T> predicate, Consumer<T> consumer) {
+
+    }
+
 //    RuleSet("Names", () => {
 //        RuleFor(x => x.Surname).NotEqual("foo");
 //        RuleFor(x => x.Forename).NotEqual("foo");
@@ -246,7 +263,5 @@ public abstract class AbstractValidator<T> {
     public void ruleSet(String ruleSetName, Consumer<T> consumer) {
 
     }
-
-//    TODO: add unless clause
 
 }
