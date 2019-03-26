@@ -16,7 +16,7 @@ public class LambdasTest {
 
     @Test
     public void t() {
-        Person p = new Person("sean", 32, "");
+        Person p = new Person("sean", 32, null);
         SerializableFunction<Person, String> f = a -> a.getName();
         LambdaInfo info = reflect(f);
         if (info == null) {

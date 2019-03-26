@@ -10,7 +10,7 @@ public class Person {
 
     private String name;
     private int age;
-    private String address;
+    private Address address;
     private boolean isMarried;
     private ZonedDateTime signedIn = ZonedDateTime.now();
     private List<String> chilren = new ArrayList<>();
@@ -18,7 +18,7 @@ public class Person {
 
     public Person() {}
 
-    public Person(String name, int age, String address) {
+    public Person(String name, int age, Address address) {
         this.name = name;
         this.age = age;
         this.address = address;
@@ -36,7 +36,7 @@ public class Person {
         return age;
     }
 
-    public String getAddress() {
+    public Address getAddress() {
         return address;
     }
 

@@ -12,7 +12,7 @@ public class DebuggableBiConsumerTest {
 
     @Test
     public void test() {
-        Person p = new Person("Sean", 32, "address");
+        Person p = new Person("Sean", 32, null);
         DebuggableSupplier<String> nameSupplier1 = () -> p.getName();
         DebuggableSupplier<String> nameSupplier2 = () -> { throw new RuntimeException(); };
         set(p, Person::setName, nameSupplier1);
