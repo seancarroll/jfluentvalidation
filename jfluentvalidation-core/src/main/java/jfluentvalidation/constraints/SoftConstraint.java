@@ -12,10 +12,10 @@ import java.util.function.Predicate;
  */
 public class SoftConstraint<T> implements Constraint<T> {
 
-    private final Predicate<T> condition;
-    private final Constraint<T> innerConstraint;
+    private final Predicate<? super T> condition;
+    private final Constraint<? super T> innerConstraint;
 
-    public SoftConstraint(Predicate<T> condition, Constraint<T> innerConstraint) {
+    public SoftConstraint(Predicate<? super T> condition, Constraint<? super T> innerConstraint) {
         this.condition = condition;
         this.innerConstraint = innerConstraint;
     }
