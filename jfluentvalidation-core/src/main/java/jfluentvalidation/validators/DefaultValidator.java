@@ -3,8 +3,10 @@ package jfluentvalidation.validators;
 import com.google.common.base.Splitter;
 import jfluentvalidation.ValidationException;
 import jfluentvalidation.ValidationFailure;
-import jfluentvalidation.constraints.Constraint;
 import jfluentvalidation.core.*;
+import jfluentvalidation.rules.MapPropertyRule;
+import jfluentvalidation.rules.PropertyRule;
+import jfluentvalidation.rules.Rule;
 import net.jodah.typetools.TypeResolver;
 
 import java.time.ZonedDateTime;
@@ -19,8 +21,7 @@ import java.util.function.Predicate;
 //import javax.validation.Constraint;
 //import javax.validation.ConstraintValidator;
 
-
-public abstract class AbstractValidator<T> {
+public class AbstractValidator<T> implements Validator<T> {
 
     // TODO: I would prefer to not include guava so lets create our own splitter
     private static final Splitter RULESET_SPLITTER = Splitter.on(',').omitEmptyStrings().trimResults();
@@ -30,6 +31,7 @@ public abstract class AbstractValidator<T> {
 
     // TODO: will likely need a wrapper/container around a subject
     private List<Subject<?, ?>> subjects = new ArrayList<>();
+    private List<Rule<?, ?>> rules = new ArrayList<>();
 
     // QUESTION:  Should we wrap in a Locale aware interpolator? What does spring do?
     // private MessageInterpolator messageInterpolator = new ResourceBundleMessageInterpolator();
@@ -43,14 +45,19 @@ public abstract class AbstractValidator<T> {
     // private final Errors errors = new Errors();
 
 
-    // TODO: this doesnt work
-//    public DefaultValidator() {
-//        Function<Void, DefaultValidator<T>> f = (ignore) -> new DefaultValidator<T>();
-//        Class<?>[] typeArguments = TypeResolver.resolveRawArguments(Function.class, f.getClass());
-//        this.type = (Class<T>) typeArguments[0];
-//        //this.type = (Class<T>) TypeResolver.resolveRawArguments(DefaultValidator.class, getClass())[0];
-//        this.proxy = PropertyLiteralHelper.getPropertyNameCapturer(type);
-//    }
+    // TODO: this doesnt work. Is there a way to accomplish having a Default/StandardValidator which doesnt require a custom validator class?
+    public AbstractValidator(Class<T> clazz) {
+        //Function<Void, DefaultValidator<T>> f = (ignore) -> new DefaultValidator<T>();
+        //Class<?>[] typeArguments = TypeResolver.resolveRawArguments(Function.class, f.getClass());
+        //this.type = (Class<T>) typeArguments[0];
+        //this.type = (Class<T>) TypeResolver.resolveRawArguments(DefaultValidator.class, getClass())[0];
+        this.type = clazz;
+        this.proxy = PropertyLiteralHelper.getPropertyNameCapturer(type);
+    }
+
+    public static <T> AbstractValidator<T> forClass(Class<T> clazz) {
+        return new AbstractValidator<>(clazz);
+    }
 
     // TODO: I really dislike this pattern because it forces derived classes to call super
     // I'd love to come up with a way to
@@ -67,6 +74,7 @@ public abstract class AbstractValidator<T> {
 
         StringSubject subject = new StringSubject(func, propertyName);
         subjects.add(subject);
+        rules.add(new PropertyRule<>(subject));
         return subject;
     }
 
@@ -122,6 +130,7 @@ public abstract class AbstractValidator<T> {
 
         MapSubject<K, V> subject = new MapSubject<>(func, propertyName);
         subjects.add(subject);
+        rules.add(new MapPropertyRule<>(subject));
         return subject;
     }
 
@@ -135,6 +144,22 @@ public abstract class AbstractValidator<T> {
         return subject;
     }
 
+    // TODO: does this cover all types of collections? Arrays, iterators, iterables, collections, maps, sets, etc?
+    // TODO: how do we want users to set where predicate? pass it in as parameter? part of the fluent builder?
+    // TODO: Not sure this is feasible. The problem is that we dont know/cant return the appropriate subject for the
+    //  item type to make the fluent builder work...unless I'm not aware of some cool trick which is certainly possible
+//    public <R> IterableSubject<R> ruleForEachItem(Function<T, Iterable<R>> func) {
+//        // TODO: implement
+//        String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
+//
+//        return null;
+//    }
+//
+//    // TODO: how do we want users to set where predicate? pass it in as parameter? part of the fluent builder?
+//    public <K, V> MapSubject<K, V> ruleForEachEntry(Function<T, Map<K, V>> func) {
+//        // TODO: implement
+//        return null;
+//    }
 
     // this follows Java Stream which has flatMap / flatMapToDouble / flatMapToInt / flatMapToLong and also includes a
     // forEach(Consumer<? super T> action) method
@@ -155,86 +180,6 @@ public abstract class AbstractValidator<T> {
         // TODO: implement this
         return this;
     }
-
-    // TODO: I think we can remove this
-    // This was used when we were creating the byte buddy proxy in this class and passed it to this method
-    // as the proxyType however we've since moved the logic out.
-    private static <T> String getPropertyName(Class<?> proxyType, Function<T, String> func) {
-        try {
-            Class<T> typed = (Class<T>) proxyType;
-            // This allows me to get the property name. Is there a way I can do this when validate is called?
-            // Do I need to wrap it in a proxy like this? Can I wrap the actual instance in a proxy? Can I avoid the proxy all together?
-            T capturer = typed.newInstance();
-            func.apply(capturer);
-
-            return ((PropertyNameCapturer) capturer).getPropertyName();
-        } catch (Exception ex) {
-            System.out.println(ex);
-        }
-        return null;
-    }
-
-
-    // TODO: should this return ValidationResult or a list of validationfailures?
-    // FluentValidator has IValidationRule return IEnumerable<ValidationFailure> while IValidator returns ValidationResult
-    public List<ValidationFailure> validate(T entity) {
-
-        List<ValidationFailure> failures = new ArrayList();
-        for (Subject<?, ?> subject : subjects) {
-            Object o = subject.getPropertyFunc().apply(entity);
-            for (Constraint c : subject.getConstraints()) {
-                boolean isValid = c.isValid(o);
-                if (!isValid) {
-                    String errorMessage = c.getClass().getName() + "." + entity.getClass().getName() + ".";
-                    failures.add(new ValidationFailure("", o));
-                }
-            }
-        }
-
-        return failures;
-    }
-
-    public List<ValidationFailure> validate(T entity, String ruleSet) {
-        return validate(entity, RULESET_SPLITTER.splitToList(ruleSet));
-    }
-
-    public List<ValidationFailure> validate(T entity, List<String> ruleSet) {
-
-        List<ValidationFailure> failures = new ArrayList();
-        for (Subject subject : subjects) {
-
-        }
-
-        return failures;
-    }
-
-
-    public void validateAndThrow(T entity) {
-        List<ValidationFailure> failures = validate(entity);
-        if (!failures.isEmpty()) {
-            throw new ValidationException(failures);
-        }
-    }
-
-    public void validateAndThrow(T entity, String ruleSet) {
-        List<ValidationFailure> failures = new ArrayList();
-        for (Subject subject : subjects) {
-
-        }
-
-        if (!failures.isEmpty()) {
-            throw new ValidationException(failures);
-        }
-    }
-
-
-//    public void ruleForEach(Function<T, Collection> func) {
-//
-//    }
-//
-//    public void ruleForEach(Function<T, Map> func) {
-//
-//    }
 
 
     //    TODO: a when clause similar to
@@ -263,5 +208,90 @@ public abstract class AbstractValidator<T> {
     public void ruleSet(String ruleSetName, Consumer<T> consumer) {
 
     }
+
+
+    // TODO: I think we can remove this
+    // This was used when we were creating the byte buddy proxy in this class and passed it to this method
+    // as the proxyType however we've since moved the logic out.
+    private static <T> String getPropertyName(Class<?> proxyType, Function<T, String> func) {
+        try {
+            Class<T> typed = (Class<T>) proxyType;
+            // This allows me to get the property name. Is there a way I can do this when validate is called?
+            // Do I need to wrap it in a proxy like this? Can I wrap the actual instance in a proxy? Can I avoid the proxy all together?
+            T capturer = typed.newInstance();
+            func.apply(capturer);
+
+            return ((PropertyNameCapturer) capturer).getPropertyName();
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+        return null;
+    }
+
+
+    // TODO: should this return ValidationResult or List<ValidationFailure>?
+    // FluentValidator has IValidationRule return IEnumerable<ValidationFailure> while IValidator returns ValidationResult
+    public List<ValidationFailure> validate(T entity) {
+
+
+//        for (Subject<?, ?> subject : subjects) {
+//            Object o = subject.getPropertyFunc().apply(entity);
+//            for (Constraint c : subject.getConstraints()) {
+//                boolean isValid = c.isValid(o);
+//                if (!isValid) {
+//                    String errorMessage = c.getClass().getName() + "." + entity.getClass().getName() + ".";
+//                    failures.add(new ValidationFailure("", o));
+//                }
+//            }
+//        }
+
+        return validate(new ValidationContext(entity));
+    }
+
+    public List<ValidationFailure> validate(ValidationContext validationContext) {
+        List<ValidationFailure> failures = new ArrayList();
+        for (Rule<?, ?> rule : rules) {
+            failures.addAll(rule.validate(validationContext));
+        }
+
+        return failures;
+    }
+
+    public List<ValidationFailure> validate(T entity, String ruleSet) {
+        return validate(entity, RULESET_SPLITTER.splitToList(ruleSet));
+    }
+
+    public List<ValidationFailure> validate(T entity, List<String> ruleSet) {
+        List<ValidationFailure> failures = new ArrayList();
+        for (Subject subject : subjects) {
+
+        }
+
+        return failures;
+    }
+
+
+    public void validateAndThrow(T entity) {
+        List<ValidationFailure> failures = validate(entity);
+        if (!failures.isEmpty()) {
+            throw new ValidationException(failures);
+        }
+    }
+
+    public void validateAndThrow(T entity, String ruleSet) {
+        validateAndThrow(entity, RULESET_SPLITTER.splitToList(ruleSet));
+    }
+
+    public void validateAndThrow(T entity, List<String> ruleSet) {
+        List<ValidationFailure> failures = new ArrayList();
+        for (Subject subject : subjects) {
+
+        }
+
+        if (!failures.isEmpty()) {
+            throw new ValidationException(failures);
+        }
+    }
+
 
 }
