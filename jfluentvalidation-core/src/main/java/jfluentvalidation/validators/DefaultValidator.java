@@ -4,9 +4,7 @@ import com.google.common.base.Splitter;
 import jfluentvalidation.ValidationException;
 import jfluentvalidation.ValidationFailure;
 import jfluentvalidation.core.*;
-import jfluentvalidation.rules.MapPropertyRule;
-import jfluentvalidation.rules.PropertyRule;
-import jfluentvalidation.rules.Rule;
+import jfluentvalidation.rules.*;
 import net.jodah.typetools.TypeResolver;
 
 import java.time.ZonedDateTime;
@@ -21,7 +19,7 @@ import java.util.function.Predicate;
 //import javax.validation.Constraint;
 //import javax.validation.ConstraintValidator;
 
-public class AbstractValidator<T> implements Validator<T> {
+public class DefaultValidator<T> implements Validator<T> {
 
     // TODO: I would prefer to not include guava so lets create our own splitter
     private static final Splitter RULESET_SPLITTER = Splitter.on(',').omitEmptyStrings().trimResults();
@@ -44,27 +42,20 @@ public class AbstractValidator<T> implements Validator<T> {
     // private final Errors proxyErrors = new Errors();
     // private final Errors errors = new Errors();
 
-
-    // TODO: this doesnt work. Is there a way to accomplish having a Default/StandardValidator which doesnt require a custom validator class?
-    public AbstractValidator(Class<T> clazz) {
-        //Function<Void, DefaultValidator<T>> f = (ignore) -> new DefaultValidator<T>();
-        //Class<?>[] typeArguments = TypeResolver.resolveRawArguments(Function.class, f.getClass());
-        //this.type = (Class<T>) typeArguments[0];
-        //this.type = (Class<T>) TypeResolver.resolveRawArguments(DefaultValidator.class, getClass())[0];
+    public DefaultValidator(Class<T> clazz) {
         this.type = clazz;
         this.proxy = PropertyLiteralHelper.getPropertyNameCapturer(type);
     }
 
-    public static <T> AbstractValidator<T> forClass(Class<T> clazz) {
-        return new AbstractValidator<>(clazz);
+    public static <T> DefaultValidator<T> forClass(Class<T> clazz) {
+        return new DefaultValidator<>(clazz);
     }
 
-    // TODO: I really dislike this pattern because it forces derived classes to call super
-    // I'd love to come up with a way to
-    // A) support the ability for this class to not be abstract and allow for it to be a default implementation
-    // B) not require derived class to remember to call super. Could a factory or static factory help here? Other potential solutions?
-    public AbstractValidator() {
-        this.type = (Class<T>) TypeResolver.resolveRawArguments(AbstractValidator.class, getClass())[0];
+    // TODO: I dislike this because it forces derived classes to call super
+    // I'd love to come up with a way to not require derived class to remember to call super.
+    // Could a factory or static factory help here? Other potential solutions?
+    protected DefaultValidator() {
+        this.type = (Class<T>) TypeResolver.resolveRawArguments(DefaultValidator.class, getClass())[0];
         this.proxy = PropertyLiteralHelper.getPropertyNameCapturer(type);
     }
 
@@ -98,6 +89,7 @@ public class AbstractValidator<T> implements Validator<T> {
 
         IntegerSubject subject = new IntegerSubject(func, propertyName);
         subjects.add(subject);
+        rules.add(new PropertyRule<>(subject));
         return subject;
     }
 
@@ -141,6 +133,7 @@ public class AbstractValidator<T> implements Validator<T> {
 
         IterableSubject<R> subject = new IterableSubject<>(func, propertyName);
         subjects.add(subject);
+        rules.add(new IterablePropertyRule<>(subject));
         return subject;
     }
 
@@ -176,9 +169,8 @@ public class AbstractValidator<T> implements Validator<T> {
 //    }
 
 
-    public AbstractValidator<T> include(AbstractValidator<T> validator) {
-        // TODO: implement this
-        return this;
+    public void include(Validator<T> validator) {
+        rules.add(new IncludeRule<>(validator));
     }
 
 
@@ -205,8 +197,9 @@ public class AbstractValidator<T> implements Validator<T> {
 //        RuleFor(x => x.Surname).NotEqual("foo");
 //        RuleFor(x => x.Forename).NotEqual("foo");
 //    });
-    public void ruleSet(String ruleSetName, Consumer<T> consumer) {
-
+    public void ruleSet(String ruleSetName, Runnable runnable) {
+        // rules.add(new RunnableRule(runnable, Arrays.asList(ruleSetName)));
+        runnable.run();
     }
 
 
@@ -229,6 +222,7 @@ public class AbstractValidator<T> implements Validator<T> {
     }
 
 
+    // TODO: do we need/want this many validate methods?
     // TODO: should this return ValidationResult or List<ValidationFailure>?
     // FluentValidator has IValidationRule return IEnumerable<ValidationFailure> while IValidator returns ValidationResult
     public List<ValidationFailure> validate(T entity) {
@@ -249,12 +243,7 @@ public class AbstractValidator<T> implements Validator<T> {
     }
 
     public List<ValidationFailure> validate(ValidationContext validationContext) {
-        List<ValidationFailure> failures = new ArrayList();
-        for (Rule<?, ?> rule : rules) {
-            failures.addAll(rule.validate(validationContext));
-        }
-
-        return failures;
+        return validate(validationContext, RuleSet.DEFAULT_LIST);
     }
 
     public List<ValidationFailure> validate(T entity, String ruleSet) {
@@ -262,9 +251,16 @@ public class AbstractValidator<T> implements Validator<T> {
     }
 
     public List<ValidationFailure> validate(T entity, List<String> ruleSet) {
-        List<ValidationFailure> failures = new ArrayList();
-        for (Subject subject : subjects) {
+        return validate(new ValidationContext<>(entity), ruleSet);
+    }
 
+    public List<ValidationFailure> validate(ValidationContext validationContext, List<String> ruleSet) {
+        List<ValidationFailure> failures = new ArrayList();
+        for (Rule<?, ?> rule : rules) {
+            // TODO: move this logic to a better place
+            if (ruleSet.isEmpty() || ruleSet.stream().anyMatch(rule.getRuleset()::contains)) {
+                failures.addAll(rule.validate(validationContext));
+            }
         }
 
         return failures;
@@ -272,10 +268,11 @@ public class AbstractValidator<T> implements Validator<T> {
 
 
     public void validateAndThrow(T entity) {
-        List<ValidationFailure> failures = validate(entity);
-        if (!failures.isEmpty()) {
-            throw new ValidationException(failures);
-        }
+        validateAndThrow(new ValidationContext(entity));
+    }
+
+    public void validateAndThrow(ValidationContext validationContext) {
+        validateAndThrow(validationContext, RuleSet.DEFAULT_LIST);
     }
 
     public void validateAndThrow(T entity, String ruleSet) {
@@ -283,15 +280,21 @@ public class AbstractValidator<T> implements Validator<T> {
     }
 
     public void validateAndThrow(T entity, List<String> ruleSet) {
-        List<ValidationFailure> failures = new ArrayList();
-        for (Subject subject : subjects) {
+        validateAndThrow(new ValidationContext<>(entity), ruleSet);
+    }
 
+    public void validateAndThrow(ValidationContext validationContext, List<String> ruleSet) {
+        List<ValidationFailure> failures = new ArrayList();
+        for (Rule<?, ?> rule : rules) {
+            // TODO: move this logic to a better place
+            if (ruleSet.isEmpty() || ruleSet.stream().anyMatch(rule.getRuleset()::contains)) {
+                failures.addAll(rule.validate(validationContext));
+            }
         }
 
         if (!failures.isEmpty()) {
             throw new ValidationException(failures);
         }
     }
-
 
 }
