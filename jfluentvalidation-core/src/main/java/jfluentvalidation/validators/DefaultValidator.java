@@ -137,38 +137,6 @@ public class DefaultValidator<T> implements Validator<T> {
         return subject;
     }
 
-    // TODO: does this cover all types of collections? Arrays, iterators, iterables, collections, maps, sets, etc?
-    // TODO: how do we want users to set where predicate? pass it in as parameter? part of the fluent builder?
-    // TODO: Not sure this is feasible. The problem is that we dont know/cant return the appropriate subject for the
-    //  item type to make the fluent builder work...unless I'm not aware of some cool trick which is certainly possible
-//    public <R> IterableSubject<R> ruleForEachItem(Function<T, Iterable<R>> func) {
-//        // TODO: implement
-//        String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
-//
-//        return null;
-//    }
-//
-//    // TODO: how do we want users to set where predicate? pass it in as parameter? part of the fluent builder?
-//    public <K, V> MapSubject<K, V> ruleForEachEntry(Function<T, Map<K, V>> func) {
-//        // TODO: implement
-//        return null;
-//    }
-
-    // this follows Java Stream which has flatMap / flatMapToDouble / flatMapToInt / flatMapToLong and also includes a
-    // forEach(Consumer<? super T> action) method
-//    public <R> CollectionForEachSubject<R> forEach(Function<T, Iterable<R>> func) {
-//        this.type = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
-//
-//        // TODO: I really dont like this. based on testing it needs to be static but can improve this via a cache or something
-//        this.proxy = PropertyLiteralHelper.getPropertyNameCapturer(type);
-//        String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
-//
-//        CollectionForEachSubject<R> subject = new CollectionForEachSubject<>(func, propertyName);
-//        subjects.add(subject);
-//        return subject;
-//    }
-
-
     public void include(Validator<T> validator) {
         rules.add(new IncludeRule<>(validator));
     }
@@ -202,43 +170,10 @@ public class DefaultValidator<T> implements Validator<T> {
         runnable.run();
     }
 
-
-    // TODO: I think we can remove this
-    // This was used when we were creating the byte buddy proxy in this class and passed it to this method
-    // as the proxyType however we've since moved the logic out.
-    private static <T> String getPropertyName(Class<?> proxyType, Function<T, String> func) {
-        try {
-            Class<T> typed = (Class<T>) proxyType;
-            // This allows me to get the property name. Is there a way I can do this when validate is called?
-            // Do I need to wrap it in a proxy like this? Can I wrap the actual instance in a proxy? Can I avoid the proxy all together?
-            T capturer = typed.newInstance();
-            func.apply(capturer);
-
-            return ((PropertyNameCapturer) capturer).getPropertyName();
-        } catch (Exception ex) {
-            System.out.println(ex);
-        }
-        return null;
-    }
-
-
     // TODO: do we need/want this many validate methods?
     // TODO: should this return ValidationResult or List<ValidationFailure>?
     // FluentValidator has IValidationRule return IEnumerable<ValidationFailure> while IValidator returns ValidationResult
     public List<ValidationFailure> validate(T entity) {
-
-
-//        for (Subject<?, ?> subject : subjects) {
-//            Object o = subject.getPropertyFunc().apply(entity);
-//            for (Constraint c : subject.getConstraints()) {
-//                boolean isValid = c.isValid(o);
-//                if (!isValid) {
-//                    String errorMessage = c.getClass().getName() + "." + entity.getClass().getName() + ".";
-//                    failures.add(new ValidationFailure("", o));
-//                }
-//            }
-//        }
-
         return validate(new ValidationContext(entity));
     }
 
@@ -258,7 +193,7 @@ public class DefaultValidator<T> implements Validator<T> {
         List<ValidationFailure> failures = new ArrayList();
         for (Rule<?, ?> rule : rules) {
             // TODO: move this logic to a better place
-            if (ruleSet.isEmpty() || ruleSet.stream().anyMatch(rule.getRuleset()::contains)) {
+            if (ruleSet.isEmpty() || ruleSet.stream().anyMatch(rule.getRuleSet()::contains)) {
                 failures.addAll(rule.validate(validationContext));
             }
         }
@@ -287,7 +222,7 @@ public class DefaultValidator<T> implements Validator<T> {
         List<ValidationFailure> failures = new ArrayList();
         for (Rule<?, ?> rule : rules) {
             // TODO: move this logic to a better place
-            if (ruleSet.isEmpty() || ruleSet.stream().anyMatch(rule.getRuleset()::contains)) {
+            if (ruleSet.isEmpty() || ruleSet.stream().anyMatch(rule.getRuleSet()::contains)) {
                 failures.addAll(rule.validate(validationContext));
             }
         }

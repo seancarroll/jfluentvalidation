@@ -65,12 +65,8 @@ public class IterablePropertyRule<T, P> implements Rule<T, Iterable<P>> {
     }
 
     @Override
-    public List<String> getRuleset() {
+    public List<String> getRuleSet() {
         return ruleSet;
     }
 
-//    @Override
-//    public Subject<?, Iterable<P>> getSubject() {
-//        return subject;
-//    }
 }

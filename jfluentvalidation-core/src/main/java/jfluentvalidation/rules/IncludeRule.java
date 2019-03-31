@@ -30,13 +30,8 @@ public class IncludeRule<T, P> implements Rule<T, P> {
     }
 
     @Override
-    public List<String> getRuleset() {
+    public List<String> getRuleSet() {
         return ruleSet;
     }
 
-    // TODO: hmmm...not sure what to do here. do we need this if we are passing the subject via the context?
-//    @Override
-//    public Subject<?, P> getSubject() {
-//        return null;
-//    }
 }

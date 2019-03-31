@@ -56,12 +56,8 @@ public class MapPropertyRule<T, K, V> implements Rule<T, Map<K, V>> {
     }
 
     @Override
-    public List<String> getRuleset() {
+    public List<String> getRuleSet() {
         return ruleSet;
     }
 
-//    @Override
-//    public Subject<?, Map<K, V>> getSubject() {
-//        return subject;
-//    }
 }

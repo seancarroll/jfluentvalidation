@@ -40,12 +40,8 @@ public class PropertyRule<T, P> implements Rule<T, P> {
     }
 
     @Override
-    public List<String> getRuleset() {
+    public List<String> getRuleSet() {
         return ruleSet;
     }
 
-//    @Override
-//    public Subject<?, P> getSubject() {
-//        return subject;
-//    }
 }

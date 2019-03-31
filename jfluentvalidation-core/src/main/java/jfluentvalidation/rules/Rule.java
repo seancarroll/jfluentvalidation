@@ -23,10 +23,6 @@ public interface Rule<T, P> {
      * Name of the rule-set to which this rule belongs.
      * @return
      */
-    List<String> getRuleset();
-
-    // TODO: add ruleset?
-
-//    Subject<?, P> getSubject();
+    List<String> getRuleSet();
 
 }
