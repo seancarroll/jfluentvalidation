@@ -7,10 +7,8 @@ import jfluentvalidation.core.*;
 import jfluentvalidation.rules.*;
 import net.jodah.typetools.TypeResolver;
 
-import java.time.ZonedDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.time.*;
+import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -59,8 +57,37 @@ public class DefaultValidator<T> implements Validator<T> {
         this.proxy = PropertyLiteralHelper.getPropertyNameCapturer(type);
     }
 
-    // TODO: should cache bytebuddy proxies either via a hashmap or bytebuddy TypeCache
-    public StringSubject ruleForString(Function<T, String> func) {
+
+    public BooleanSubject ruleForBoolean(Function<T, Boolean> func) {
+        String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
+
+        BooleanSubject subject = new BooleanSubject(func, propertyName);
+        subjects.add(subject);
+        rules.add(new PropertyRule<>(subject));
+        return subject;
+    }
+
+    // TODO: ruleForByteArray
+
+    public ByteSubject ruleForByte(Function<T, Byte> func) {
+        String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
+
+        ByteSubject subject = new ByteSubject(func, propertyName);
+        subjects.add(subject);
+        rules.add(new PropertyRule<>(subject));
+        return subject;
+    }
+
+    public CalendarSubject ruleForCalendar(Function<T, Calendar> func) {
+        String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
+
+        CalendarSubject subject = new CalendarSubject(func, propertyName);
+        subjects.add(subject);
+        rules.add(new PropertyRule<>(subject));
+        return subject;
+    }
+
+    public CharSequenceSubject<?, ? extends CharSequence> ruleForCharSequence(Function<T, CharSequence> func) {
         String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
 
         StringSubject subject = new StringSubject(func, propertyName);
@@ -69,18 +96,36 @@ public class DefaultValidator<T> implements Validator<T> {
         return subject;
     }
 
-    public CharSequenceSubject<?, ? extends CharSequence> ruleForCharSequence(Function<T, CharSequence> charSequence) {
+    public DateSubject ruleForDate(Function<T, Date> func) {
+        String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
 
-        return null;
+        DateSubject subject = new DateSubject(func, propertyName);
+        subjects.add(subject);
+        rules.add(new PropertyRule<>(subject));
+        return subject;
     }
 
-    public CharSequenceSubject<?, ? extends StringBuilder> ruleForStringBuilder(Function<T, StringBuilder> stringBuilder) {
-        return null;
+    public DoubleSubject ruleForDouble(Function<T, Double> func) {
+        String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
+
+        DoubleSubject subject = new DoubleSubject(func, propertyName);
+        subjects.add(subject);
+        rules.add(new PropertyRule<>(subject));
+        return subject;
     }
 
-    public CharSequenceSubject<?, ? extends CharSequence> ruleForStringBuffer(Function<T, StringBuffer> stringBuffer) {
-        return null;
+    // TODO: ruleForFile
+
+    public FloatSubject ruleForFloat(Function<T, Float> func) {
+        String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
+
+        FloatSubject subject = new FloatSubject(func, propertyName);
+        subjects.add(subject);
+        rules.add(new PropertyRule<>(subject));
+        return subject;
     }
+
+    // TODO: ruleForInputStream
 
     // TODO: how to encapsulate type/proxy/propertyName/Subject?
     // stackify overcoming type erasure
@@ -93,27 +138,50 @@ public class DefaultValidator<T> implements Validator<T> {
         return subject;
     }
 
-    public BooleanSubject ruleForBoolean(Function<T, Boolean> func) {
+    // TODO: how do we think we should implement a way to add constraints for each item in a collection?
+    // One idea...
+    public <R> IterableSubject<R> ruleForIterable(Function<T, Iterable<R>> func) {
         String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
 
-        BooleanSubject subject = new BooleanSubject(func, propertyName);
+        IterableSubject<R> subject = new IterableSubject<>(func, propertyName);
         subjects.add(subject);
+        rules.add(new IterablePropertyRule<>(subject));
         return subject;
     }
 
-    public ZonedDateTimeSubject ruleForZonedDateTime(Function<T, ZonedDateTime> func) {
+    public LocalDateSubject ruleForLocalDate(Function<T, LocalDate> func) {
         String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
 
-        ZonedDateTimeSubject subject = new ZonedDateTimeSubject(func, propertyName);
+        LocalDateSubject subject = new LocalDateSubject(func, propertyName);
         subjects.add(subject);
+        rules.add(new PropertyRule<>(subject));
         return subject;
     }
 
-    public ObjectSubject ruleForObject(Function<T, Object> func) {
+    public LocalDateTimeSubject ruleForLocalDateTime(Function<T, LocalDateTime> func) {
         String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
 
-        ObjectSubject subject = new ObjectSubject(func, propertyName);
+        LocalDateTimeSubject subject = new LocalDateTimeSubject(func, propertyName);
         subjects.add(subject);
+        rules.add(new PropertyRule<>(subject));
+        return subject;
+    }
+
+    public LocalTimeSubject ruleForLocalTime(Function<T, LocalTime> func) {
+        String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
+
+        LocalTimeSubject subject = new LocalTimeSubject(func, propertyName);
+        subjects.add(subject);
+        rules.add(new PropertyRule<>(subject));
+        return subject;
+    }
+
+    public LongSubject ruleForLong(Function<T, Long> func) {
+        String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
+
+        LongSubject subject = new LongSubject(func, propertyName);
+        subjects.add(subject);
+        rules.add(new PropertyRule<>(subject));
         return subject;
     }
 
@@ -126,14 +194,82 @@ public class DefaultValidator<T> implements Validator<T> {
         return subject;
     }
 
-    // TODO: how do we think we should implement a way to add constraints for each item in a collection?
-    // One idea...
-    public <R> IterableSubject<R> ruleForIterable(Function<T, Iterable<R>> func) {
+    public ObjectSubject ruleForObject(Function<T, Object> func) {
         String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
 
-        IterableSubject<R> subject = new IterableSubject<>(func, propertyName);
+        ObjectSubject subject = new ObjectSubject(func, propertyName);
         subjects.add(subject);
-        rules.add(new IterablePropertyRule<>(subject));
+        rules.add(new PropertyRule<>(subject));
+        return subject;
+    }
+
+    public OffsetDateTimeSubject ruleForOffsetDateTime(Function<T, OffsetDateTime> func) {
+        String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
+
+        OffsetDateTimeSubject subject = new OffsetDateTimeSubject(func, propertyName);
+        subjects.add(subject);
+        rules.add(new PropertyRule<>(subject));
+        return subject;
+    }
+
+    public OffsetTimeSubject ruleForOffsetTime(Function<T, OffsetTime> func) {
+        String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
+
+        OffsetTimeSubject subject = new OffsetTimeSubject(func, propertyName);
+        subjects.add(subject);
+        rules.add(new PropertyRule<>(subject));
+        return subject;
+    }
+
+    public ShortSubject ruleForShort(Function<T, Short> func) {
+        String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
+
+        ShortSubject subject = new ShortSubject(func, propertyName);
+        subjects.add(subject);
+        rules.add(new PropertyRule<>(subject));
+        return subject;
+    }
+
+    // TODO: should cache bytebuddy proxies either via a hashmap or bytebuddy TypeCache
+    public StringSubject ruleForString(Function<T, String> func) {
+        String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
+
+        StringSubject subject = new StringSubject(func, propertyName);
+        subjects.add(subject);
+        rules.add(new PropertyRule<>(subject));
+        return subject;
+    }
+
+    // TODO: do we need a StringBuilderSubject?
+    public CharSequenceSubject ruleForStringBuilder(Function<T, StringBuilder> func) {
+        String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
+
+        StringSubject subject = new StringSubject(func, propertyName);
+        subjects.add(subject);
+        rules.add(new PropertyRule<>(subject));
+        return subject;
+    }
+
+    // TODO: do we need a StringBufferSubject?
+    public CharSequenceSubject ruleForStringBuffer(Function<T, StringBuffer> func) {
+        String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
+
+        StringSubject subject = new StringSubject(func, propertyName);
+        subjects.add(subject);
+        rules.add(new PropertyRule<>(subject));
+        return subject;
+    }
+
+    // TODO: UriSubject
+
+    // TODO: UrlSubject
+
+    public ZonedDateTimeSubject ruleForZonedDateTime(Function<T, ZonedDateTime> func) {
+        String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
+
+        ZonedDateTimeSubject subject = new ZonedDateTimeSubject(func, propertyName);
+        subjects.add(subject);
+        rules.add(new PropertyRule<>(subject));
         return subject;
     }
 
