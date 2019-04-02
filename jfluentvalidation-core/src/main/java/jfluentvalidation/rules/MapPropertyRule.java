@@ -20,7 +20,7 @@ public class MapPropertyRule<T, K, V> implements Rule<T, Map<K, V>> {
 
     private final Subject<?, Map<K, V>> subject;
     private final Predicate<Map.Entry<K, V>> predicate;
-    private final List<String> ruleSet = RuleSet.DEFAULT_LIST;
+    private List<String> ruleSet = RuleSet.DEFAULT_LIST;
 
     /**
      *
@@ -58,6 +58,11 @@ public class MapPropertyRule<T, K, V> implements Rule<T, Map<K, V>> {
     @Override
     public List<String> getRuleSet() {
         return ruleSet;
+    }
+
+    @Override
+    public void setRuleSet(List<String> ruleSet) {
+        this.ruleSet = ruleSet;
     }
 
 }

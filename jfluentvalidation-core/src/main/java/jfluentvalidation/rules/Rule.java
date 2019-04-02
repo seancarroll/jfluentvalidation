@@ -25,4 +25,6 @@ public interface Rule<T, P> {
      */
     List<String> getRuleSet();
 
+    void setRuleSet(List<String> ruleSet);
+
 }

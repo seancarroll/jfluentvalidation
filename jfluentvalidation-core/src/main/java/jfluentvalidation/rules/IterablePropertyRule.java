@@ -20,7 +20,7 @@ public class IterablePropertyRule<T, P> implements Rule<T, Iterable<P>> {
 
     private final IterableSubject<P> subject;
     private final Predicate<P> predicate;
-    private final List<String> ruleSet = RuleSet.DEFAULT_LIST;
+    private List<String> ruleSet = RuleSet.DEFAULT_LIST;
 
     /**
      *
@@ -67,6 +67,11 @@ public class IterablePropertyRule<T, P> implements Rule<T, Iterable<P>> {
     @Override
     public List<String> getRuleSet() {
         return ruleSet;
+    }
+
+    @Override
+    public void setRuleSet(List<String> ruleSet) {
+        this.ruleSet = ruleSet;
     }
 
 }

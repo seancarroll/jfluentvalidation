@@ -16,7 +16,7 @@ import java.util.List;
 public class PropertyRule<T, P> implements Rule<T, P> {
 
     private final Subject<?, P> subject;
-    private final List<String> ruleSet = RuleSet.DEFAULT_LIST;
+    private List<String> ruleSet = RuleSet.DEFAULT_LIST;
 
     public PropertyRule(Subject<?, P> subject) {
         this.subject = subject;
@@ -42,6 +42,11 @@ public class PropertyRule<T, P> implements Rule<T, P> {
     @Override
     public List<String> getRuleSet() {
         return ruleSet;
+    }
+
+    @Override
+    public void setRuleSet(List<String> ruleSet) {
+        this.ruleSet = ruleSet;
     }
 
 }
