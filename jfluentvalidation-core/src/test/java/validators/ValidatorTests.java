@@ -70,12 +70,35 @@ class ValidatorTests {
         assertEquals(0, validationFailures.size());
     }
 
+//    @Test
+//    void ruleSet() {
+//        Person person = new Person("sean", 32, null);
+//
+//        DefaultValidator<Person> validator = new DefaultValidator<>(Person.class);
+//
+//        // TODO: this doesnt work :(
+////        validator.ruleSet("name", () -> {
+////            ruleForString(p -> p.getName()).isNotEmpty().startsWith("s").length(5, 10);
+////        });
+//
+//        List<ValidationFailure> validationFailures = validator.validate(person);
+//
+//        assertEquals(1, validationFailures.size());
+//    }
+
+    @Test
+    void customValidatorRuleSet() {
+        Person person = new Person("sean", 32, null);
+
+        PersonValidator validator = new PersonValidator();
+        List<ValidationFailure> validationFailures = validator.validate(person, "address");
+
+        assertEquals(1, validationFailures.size());
+    }
 
     private class PersonValidator extends DefaultValidator<Person> {
 
         public PersonValidator() {
-            // TODO: ugh! I dont like this. How to avoid requiring a call to super?
-            super();
             ruleForString(p -> p.getName()).isEmpty().startsWith("s").length(0, 4);
             // ruleForString(p -> p.getAddress()).isNotNull();
             ruleForObject(p -> p.getAddress()).isNull();
@@ -87,8 +110,8 @@ class ValidatorTests {
 
             include(new PersonAgeValidator());
 
-            ruleSet("rules", () -> {
-                ruleForObject(p -> p.getAddress()).isNull();
+            ruleSet("address", () ->  {
+                ruleForObject(p -> p.getAddress()).isNotNull();
             });
         }
     }
@@ -96,7 +119,6 @@ class ValidatorTests {
     private class PersonAgeValidator extends DefaultValidator<Person> {
 
         public PersonAgeValidator() {
-            super();
             // TODO: is kind of sucks...is there a better way to do this?
             //ruleForInteger(Person::getAge).must(this::beOver18);
 

@@ -27,7 +27,7 @@ public class DefaultValidator<T> implements Validator<T> {
 
     // TODO: will likely need a wrapper/container around a subject
     private List<Subject<?, ?>> subjects = new ArrayList<>();
-    private List<Rule<?, ?>> rules = new ArrayList<>();
+    private RuleSetCollection rules = new RuleSetCollection();
 
     // QUESTION:  Should we wrap in a Locale aware interpolator? What does spring do?
     // private MessageInterpolator messageInterpolator = new ResourceBundleMessageInterpolator();
@@ -278,7 +278,6 @@ public class DefaultValidator<T> implements Validator<T> {
     }
 
 
-    //    TODO: a when clause similar to
 //    When(x => x.Address != null, () => {
 //        RuleFor(x => x.Address.Postcode).NotNull();
 //        RuleFor(x => x.Address.Country.Name).NotNull().When(x => x.Address.Country != null);
@@ -303,7 +302,11 @@ public class DefaultValidator<T> implements Validator<T> {
 //    });
     public void ruleSet(String ruleSetName, Runnable runnable) {
         // rules.add(new RunnableRule(runnable, Arrays.asList(ruleSetName)));
+        // TODO: this sucks. How can we improve this?
+        rules.setRuleSet(Arrays.asList(ruleSetName));
+        //rules.add(new RuleSetRule<>(type, Arrays.asList(ruleSetName), runnable));
         runnable.run();
+        rules.defaultRuleSet();
     }
 
     // TODO: do we need/want this many validate methods?

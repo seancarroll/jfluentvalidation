@@ -11,4 +11,6 @@ public interface Validator<T> {
 
     List<ValidationFailure> validate(ValidationContext context);
 
+    // make default?
+    List<ValidationFailure> validate(ValidationContext context, List<String> ruleSet);
 }
