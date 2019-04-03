@@ -335,25 +335,50 @@ public class DefaultValidator<T> implements Validator<T> {
         rules.deregisterItemAddedCallback();
     }
 
+
     // TODO: do we need/want this many validate methods?
     // TODO: should this return ValidationResult or List<ValidationFailure>?
     // FluentValidator has IValidationRule return IEnumerable<ValidationFailure> while IValidator returns ValidationResult
+
+    /**
+     *
+     * @param entity
+     * @return
+     */
     public List<ValidationFailure> validate(T entity) {
         return validate(new ValidationContext(entity));
+    }
+
+    /**
+     *
+     * @param entity
+     * @param ruleSet
+     * @return
+     */
+    public List<ValidationFailure> validate(T entity, String ruleSet) {
+        return validate(entity, RULESET_SPLITTER.splitToList(ruleSet));
+    }
+
+    /**
+     *
+     * @param entity
+     * @param ruleSet
+     * @return
+     */
+    public List<ValidationFailure> validate(T entity, List<String> ruleSet) {
+        return validate(new ValidationContext<>(entity), ruleSet);
     }
 
     public List<ValidationFailure> validate(ValidationContext validationContext) {
         return validate(validationContext, RuleSet.DEFAULT_LIST);
     }
 
-    public List<ValidationFailure> validate(T entity, String ruleSet) {
-        return validate(entity, RULESET_SPLITTER.splitToList(ruleSet));
-    }
-
-    public List<ValidationFailure> validate(T entity, List<String> ruleSet) {
-        return validate(new ValidationContext<>(entity), ruleSet);
-    }
-
+    /**
+     * Performs validation and then throws an exception if validation fails.
+     * @param validationContext
+     * @param ruleSet a ruleset when need to validate against.
+     * @return A list of validation failures A ValidationResult object containing any validation failures.
+     */
     public List<ValidationFailure> validate(ValidationContext validationContext, List<String> ruleSet) {
         Ensure.notNull(validationContext, "Cannot pass null context to Validate.");
 
@@ -372,32 +397,43 @@ public class DefaultValidator<T> implements Validator<T> {
         return failures;
     }
 
-
+    /**
+     *
+     * @param entity
+     */
     public void validateAndThrow(T entity) {
         validateAndThrow(new ValidationContext(entity));
     }
 
-    public void validateAndThrow(ValidationContext validationContext) {
-        validateAndThrow(validationContext, RuleSet.DEFAULT_LIST);
-    }
-
+    /**
+     *
+     * @param entity
+     * @param ruleSet
+     */
     public void validateAndThrow(T entity, String ruleSet) {
         validateAndThrow(entity, RULESET_SPLITTER.splitToList(ruleSet));
     }
 
+    /**
+     *
+     * @param entity
+     * @param ruleSet
+     */
     public void validateAndThrow(T entity, List<String> ruleSet) {
         validateAndThrow(new ValidationContext<>(entity), ruleSet);
     }
 
-    public void validateAndThrow(ValidationContext validationContext, List<String> ruleSet) {
-        List<ValidationFailure> failures = new ArrayList();
-        for (Rule<?, ?> rule : rules) {
-            // TODO: move this logic to a better place
-            if (ruleSet.isEmpty() || ruleSet.stream().anyMatch(rule.getRuleSet()::contains)) {
-                failures.addAll(rule.validate(validationContext));
-            }
-        }
+    void validateAndThrow(ValidationContext validationContext) {
+        validateAndThrow(validationContext, RuleSet.DEFAULT_LIST);
+    }
 
+    /**
+     * Performs validation and then throws an exception if validation fails.
+     * @param validationContext
+     * @param ruleSet a ruleset when need to validate against.
+     */
+    void validateAndThrow(ValidationContext validationContext, List<String> ruleSet) {
+        List<ValidationFailure> failures = validate(validationContext, ruleSet);
         if (!failures.isEmpty()) {
             throw new ValidationException(failures);
         }
