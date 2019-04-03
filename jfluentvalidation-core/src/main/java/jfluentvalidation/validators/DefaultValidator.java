@@ -1,7 +1,6 @@
 package jfluentvalidation.validators;
 
 import com.google.common.base.Splitter;
-import jfluentvalidation.ValidationException;
 import jfluentvalidation.ValidationFailure;
 import jfluentvalidation.core.*;
 import jfluentvalidation.internal.Ensure;
@@ -300,6 +299,7 @@ public class DefaultValidator<T> implements Validator<T> {
         // Is that even a good idea?
         for (Rule<?, ?> rule : rulesToUpdate) {
             System.out.println(rule);
+            // rule.applyCondition(predicate);
         }
     }
 
@@ -423,20 +423,5 @@ public class DefaultValidator<T> implements Validator<T> {
         validateAndThrow(new ValidationContext<>(entity), ruleSet);
     }
 
-    void validateAndThrow(ValidationContext validationContext) {
-        validateAndThrow(validationContext, RuleSet.DEFAULT_LIST);
-    }
-
-    /**
-     * Performs validation and then throws an exception if validation fails.
-     * @param validationContext
-     * @param ruleSet a ruleset when need to validate against.
-     */
-    void validateAndThrow(ValidationContext validationContext, List<String> ruleSet) {
-        List<ValidationFailure> failures = validate(validationContext, ruleSet);
-        if (!failures.isEmpty()) {
-            throw new ValidationException(failures);
-        }
-    }
 
 }
