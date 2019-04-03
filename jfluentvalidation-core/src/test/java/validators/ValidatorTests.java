@@ -96,6 +96,16 @@ class ValidatorTests {
         assertEquals(1, validationFailures.size());
     }
 
+    @Test
+    void whenTest() {
+        Address address = new Address("", "", "", "");
+
+        AddressValidator validator = new AddressValidator();
+        List<ValidationFailure> validationFailures = validator.validate(address);
+
+        assertEquals(1, validationFailures.size());
+    }
+
     private class PersonValidator extends DefaultValidator<Person> {
 
         public PersonValidator() {
@@ -109,6 +119,9 @@ class ValidatorTests {
             ruleForIterable(p -> p.getChilren()).isNotNull().forEach(startsWith("S"));
 
             include(new PersonAgeValidator());
+
+//            TODO: how to mix and match ruleset with when?
+//            TODO: how to include validator for a nested field such as address?
 
             ruleSet("address", () ->  {
                 ruleForObject(p -> p.getAddress()).isNotNull();
@@ -143,7 +156,7 @@ class ValidatorTests {
     // Fluentvalidator has both include (used for the same type) and setValidator (used for different types)
     private class AddressValidator extends DefaultValidator<Address> {
         public AddressValidator() {
-            when(address -> address != null, address -> {
+            when(address -> address != null, () -> {
                 ruleForString(a -> a.getStreet1()).isNotNull();
                 ruleForString(a -> a.getCity()).isNotNull();
                 ruleForString(a -> a.getState()).isNotNull();

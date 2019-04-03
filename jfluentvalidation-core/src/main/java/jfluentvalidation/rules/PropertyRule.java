@@ -39,6 +39,9 @@ public class PropertyRule<T, P> implements Rule<T, P> {
         return failures;
     }
 
+    // TODO: do we need to expose subject? How can we apply a predicate and have it propagate appropriately?
+    // Do we have something like FluentValidation's ApplyCondition method to this class?
+
     @Override
     public List<String> getRuleSet() {
         return ruleSet;

@@ -144,6 +144,7 @@ public class Subject<S extends Subject<S, A>, A> {
     // doesNotHave
     // is
 
+    // TODO: should this have ruleSet?
 
 //    when
 //    unless

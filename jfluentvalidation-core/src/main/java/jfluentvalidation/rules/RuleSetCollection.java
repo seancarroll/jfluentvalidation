@@ -1,23 +1,28 @@
 package jfluentvalidation.rules;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.function.Consumer;
 
 public class RuleSetCollection extends ArrayList<Rule<?, ?>> {
 
-    private List<String> ruleSet = RuleSet.DEFAULT_LIST;
+    // TODO: do we want to use a weakreference
+    // private WeakReference<Consumer<Rule<?, ?>>> itemAddedCallback;
+    private Consumer<Rule<?, ?>> itemAddedCallback;
 
-    public void setRuleSet(List<String> ruleSet) {
-        this.ruleSet = ruleSet;
+    public void registerItemAddedCallback(Consumer<Rule<?, ?>> itemAddedCallback) {
+        this.itemAddedCallback = itemAddedCallback;
     }
 
-    public void defaultRuleSet() {
-        this.ruleSet = RuleSet.DEFAULT_LIST;
+    public void deregisterItemAddedCallback() {
+        this.itemAddedCallback = null;
     }
 
     @Override
     public boolean add(Rule rule) {
-        rule.setRuleSet(ruleSet);
+        if (itemAddedCallback != null) {
+            itemAddedCallback.accept(rule);
+        }
         return super.add(rule);
     }
+
 }

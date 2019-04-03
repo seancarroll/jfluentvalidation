@@ -4,12 +4,12 @@ import com.google.common.base.Splitter;
 import jfluentvalidation.ValidationException;
 import jfluentvalidation.ValidationFailure;
 import jfluentvalidation.core.*;
+import jfluentvalidation.internal.Ensure;
 import jfluentvalidation.rules.*;
 import net.jodah.typetools.TypeResolver;
 
 import java.time.*;
 import java.util.*;
-import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
@@ -278,13 +278,29 @@ public class DefaultValidator<T> implements Validator<T> {
     }
 
 
+//    Fluentvalidation AbstractValidator#228
 //    When(x => x.Address != null, () => {
 //        RuleFor(x => x.Address.Postcode).NotNull();
 //        RuleFor(x => x.Address.Country.Name).NotNull().When(x => x.Address.Country != null);
 //        RuleFor(x => x.Address.Line1).NotNull().When(x => x.Address.Line2 != null);
 //    });
-    public void when(Predicate<T> predicate, Consumer<T> consumer) {
+    /**
+     * Defines a condition that applies to several rules
+     * @param predicate The condition that should apply to multiple rules
+     * @param runnable Action that encapsulates the rules.
+     */
+    public void when(Predicate<T> predicate, Runnable runnable) {
+        List<Rule<?, ?>> rulesToUpdate = new ArrayList<>();
+        rules.registerItemAddedCallback(rulesToUpdate::add);
+        runnable.run();
+        rules.deregisterItemAddedCallback();
 
+        // TODO: update each rule in rulesToUpdate with predicate
+        // TODO: is there a way we can group these all under something instead of iterating through rules?
+        // Is that even a good idea?
+        for (Rule<?, ?> rule : rulesToUpdate) {
+            System.out.println(rule);
+        }
     }
 
 //    unless(x => x.Address == null, () => {
@@ -292,21 +308,31 @@ public class DefaultValidator<T> implements Validator<T> {
 //        RuleFor(x => x.Address.Country.Name).NotNull().When(x => x.Address.Country != null);
 //        RuleFor(x => x.Address.Line1).NotNull().When(x => x.Address.Line2 != null);
 //    });
-    public void unless(Predicate<T> predicate, Consumer<T> consumer) {
-
+    /**
+     * Defines an inverse condition that applies to several rules
+     * @param predicate The condition that should be applied to multiple rules
+     * @param runnable Action that encapsulates the rules.
+     */
+    public void unless(Predicate<T> predicate, Runnable runnable) {
+        // The `Unless` method is simply the opposite of `When`
+        when(predicate.negate(), runnable);
     }
 
 //    RuleSet("Names", () => {
 //        RuleFor(x => x.Surname).NotEqual("foo");
 //        RuleFor(x => x.Forename).NotEqual("foo");
 //    });
+    /**
+     * Defines a RuleSet that can be used to group together several validators.
+     * @param ruleSetName The name of the ruleset.
+     * @param runnable Action that encapsulates the rules in the ruleset.
+     */
     public void ruleSet(String ruleSetName, Runnable runnable) {
-        // rules.add(new RunnableRule(runnable, Arrays.asList(ruleSetName)));
         // TODO: this sucks. How can we improve this?
-        rules.setRuleSet(Arrays.asList(ruleSetName));
-        //rules.add(new RuleSetRule<>(type, Arrays.asList(ruleSetName), runnable));
+        List<String> ruleSet = Arrays.asList(ruleSetName);
+        rules.registerItemAddedCallback((rule) -> rule.setRuleSet(ruleSet));
         runnable.run();
-        rules.defaultRuleSet();
+        rules.deregisterItemAddedCallback();
     }
 
     // TODO: do we need/want this many validate methods?
@@ -329,6 +355,12 @@ public class DefaultValidator<T> implements Validator<T> {
     }
 
     public List<ValidationFailure> validate(ValidationContext validationContext, List<String> ruleSet) {
+        Ensure.notNull(validationContext, "Cannot pass null context to Validate.");
+
+        // TODO: add preValidate method?
+
+        Ensure.notNull(validationContext.getInstanceToValidate(), "Cannot pass null model to Validate");
+
         List<ValidationFailure> failures = new ArrayList();
         for (Rule<?, ?> rule : rules) {
             // TODO: move this logic to a better place
