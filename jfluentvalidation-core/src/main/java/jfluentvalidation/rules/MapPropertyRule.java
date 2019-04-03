@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
 
+// TODO: should we extend from PropertyRule?
+
 /**
  *
  * @param <T>
@@ -63,6 +65,11 @@ public class MapPropertyRule<T, K, V> implements Rule<T, Map<K, V>> {
     @Override
     public void setRuleSet(List<String> ruleSet) {
         this.ruleSet = ruleSet;
+    }
+
+    @Override
+    public void applyCondition(Predicate<T> predicate) {
+
     }
 
 }

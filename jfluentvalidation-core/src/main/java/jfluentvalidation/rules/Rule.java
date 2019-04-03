@@ -4,11 +4,12 @@ import jfluentvalidation.ValidationFailure;
 import jfluentvalidation.validators.ValidationContext;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 /**
  *
- * @param <T>
- * @param <P>
+ * @param <T> the type to validate
+ * @param <P> the property type
  */
 public interface Rule<T, P> {
 
@@ -26,5 +27,12 @@ public interface Rule<T, P> {
     List<String> getRuleSet();
 
     void setRuleSet(List<String> ruleSet);
+
+    // TODO: add ApplyConditionTo applyConditionTo = ApplyConditionTo.AllValidators???
+    /**
+     * Applies a condition to the rule
+     * @param predicate
+     */
+    void applyCondition(Predicate<T> predicate);
 
 }

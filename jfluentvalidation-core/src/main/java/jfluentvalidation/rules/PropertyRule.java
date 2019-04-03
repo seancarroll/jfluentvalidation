@@ -7,6 +7,7 @@ import jfluentvalidation.validators.ValidationContext;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 /**
  *
@@ -51,5 +52,17 @@ public class PropertyRule<T, P> implements Rule<T, P> {
     public void setRuleSet(List<String> ruleSet) {
         this.ruleSet = ruleSet;
     }
+
+    // I think there are two separate scenarios for the when clause
+    // 1. targeting the instance to validate and used as part of the validator when grouping
+    // 2. targeting a subject used as part of the fluent builder
+    @Override
+    public void applyCondition(Predicate<T> predicate) {
+        for (Constraint<? super P> constraint : subject.getConstraints()) {
+            // SoftConstraint<T> softConstraint = new SoftConstraint<>(predicate, constraint);
+
+        }
+    }
+
 
 }

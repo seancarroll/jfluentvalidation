@@ -5,7 +5,9 @@ import jfluentvalidation.validators.ValidationContext;
 import jfluentvalidation.validators.Validator;
 
 import java.util.List;
+import java.util.function.Predicate;
 
+// TODO: should this extend PropertyRule?
 /**
  *
  * @param <T>
@@ -37,6 +39,11 @@ public class IncludeRule<T, P> implements Rule<T, P> {
     @Override
     public void setRuleSet(List<String> ruleSet) {
         this.ruleSet = ruleSet;
+    }
+
+    @Override
+    public void applyCondition(Predicate<T> predicate) {
+
     }
 
 }

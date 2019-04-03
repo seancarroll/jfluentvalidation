@@ -6,6 +6,13 @@ import java.util.function.Predicate;
 // fluentvalidation calls this a DelegatingValidator
 // QUESTION: is this even a good abstraction?
 
+// TODO: I think I f'ed this up
+// The common scenario would be for something like
+// RuleFor(x => x.Address.Country.Name).NotNull().When(x => x.Address.Country != null);
+// In this example the the x is of type Person not of type String (Country)
+// Another example
+// RuleFor(x => x.Discount).NotEqual(0).When(x => x.HasDiscount);
+
 /**
  *
  * @param <T> the target type supported by an implementation

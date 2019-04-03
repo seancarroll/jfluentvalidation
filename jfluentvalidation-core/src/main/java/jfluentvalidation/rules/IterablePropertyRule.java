@@ -74,4 +74,9 @@ public class IterablePropertyRule<T, P> implements Rule<T, Iterable<P>> {
         this.ruleSet = ruleSet;
     }
 
+    @Override
+    public void applyCondition(Predicate<T> predicate) {
+
+    }
+
 }
