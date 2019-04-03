@@ -69,7 +69,8 @@ public class MapPropertyRule<T, K, V> implements Rule<T, Map<K, V>> {
 
     @Override
     public void applyCondition(Predicate<T> predicate) {
-
+        // TODO: implement
+        throw new RuntimeException("applyCondition is not implemented");
     }
 
 }

@@ -58,10 +58,12 @@ public class PropertyRule<T, P> implements Rule<T, P> {
     // 2. targeting a subject used as part of the fluent builder
     @Override
     public void applyCondition(Predicate<T> predicate) {
-        for (Constraint<? super P> constraint : subject.getConstraints()) {
-            // SoftConstraint<T> softConstraint = new SoftConstraint<>(predicate, constraint);
-
-        }
+        // TODO: implement
+        throw new RuntimeException("applyCondition is not implemented");
+//        for (Constraint<? super P> constraint : subject.getConstraints()) {
+//            // SoftConstraint<T> softConstraint = new SoftConstraint<>(predicate, constraint);
+//
+//        }
     }
 
 

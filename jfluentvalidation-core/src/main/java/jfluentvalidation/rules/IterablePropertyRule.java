@@ -76,7 +76,8 @@ public class IterablePropertyRule<T, P> implements Rule<T, Iterable<P>> {
 
     @Override
     public void applyCondition(Predicate<T> predicate) {
-
+        // TODO: implement
+        throw new RuntimeException("applyCondition is not implemented");
     }
 
 }

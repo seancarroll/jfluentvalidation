@@ -43,7 +43,8 @@ public class IncludeRule<T, P> implements Rule<T, P> {
 
     @Override
     public void applyCondition(Predicate<T> predicate) {
-
+        // TODO: implement
+        throw new RuntimeException("applyCondition is not implemented");
     }
 
 }
