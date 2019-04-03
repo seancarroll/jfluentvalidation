@@ -9,6 +9,7 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
+// TODO: delete
 public class ExtractingNamesTest {
 
 //    public static void main(String[] args) {

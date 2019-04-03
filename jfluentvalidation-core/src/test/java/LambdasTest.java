@@ -10,6 +10,7 @@ import java.lang.reflect.Method;
 import java.util.Objects;
 import java.util.function.Function;
 
+// TODO: delete
 public class LambdasTest {
     private static final Logger log = LoggerFactory.getLogger(LambdasTest.class);
 

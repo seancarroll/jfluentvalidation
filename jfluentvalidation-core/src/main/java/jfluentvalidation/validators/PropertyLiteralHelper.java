@@ -41,6 +41,22 @@ public class PropertyLiteralHelper {
             .getLoaded();
 
         try {
+            // TODO: is there a way to either not force the class to have a public no-arg constructor?
+            // It would be nice if we could support private no-arg constructor at the very least but my preference
+            // would be not to require anything.
+
+//            Constructor ctor = proxyType.getConstructor();
+//            ctor.setAccessible(true);
+//            return ctor.newInstance();
+//
+//            @SuppressWarnings("unchecked")
+//            Class<T> typed = (Class<T>) proxyType;
+//            Constructor<T> ctor = typed.getConstructor();
+//            ctor.setAccessible(true);
+//            return ctor.newInstance();
+//            //return typed.newInstance();
+
+
             @SuppressWarnings("unchecked")
             Class<T> typed = (Class<T>) proxyType;
             return typed.newInstance();
