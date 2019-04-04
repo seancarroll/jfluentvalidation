@@ -36,6 +36,16 @@ public interface Constraint<T> {
      */
     boolean isValid(T value);
 
+
+//    /**
+//     * Implements the validation logic.
+//     *
+//     * @param value object to validate
+//     * @return {@code false} if {@code value} does not pass the constraint
+//     */
+//    boolean isValid(T value, ValidationContext context);
+
+
 //    // TODO: including T value in the method signature for now to make it easier to refactor logic to validate method
 //    // however I think the plan is to have it be included in the validation context somehow
 //    /**

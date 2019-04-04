@@ -8,6 +8,7 @@ import java.lang.reflect.Method;
 import java.util.function.BiConsumer;
 import java.util.function.Supplier;
 
+// TODO: delete
 public class DebuggableBiConsumerTest {
 
     @Test

@@ -8,6 +8,10 @@ public class Address {
     private String state;
     private String zip;
 
+    // TODO: if a constructor isnt provided validator proxy will blow up.
+    // Is there a way to get around required a pubic no-arg constructor
+    public Address() {}
+
     public Address(String street1, String city, String state, String zip) {
         this.street1 = street1;
         this.city = city;

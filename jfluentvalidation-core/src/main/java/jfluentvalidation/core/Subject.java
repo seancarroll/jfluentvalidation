@@ -10,6 +10,7 @@ package jfluentvalidation.core;
 // Following assertj style we could have an Constraint interface an an abstract class AbstractConstraint
 
 import jfluentvalidation.constraints.Constraint;
+import jfluentvalidation.constraints.PredicateConstraint;
 import jfluentvalidation.constraints.object.IsEqualsConstraint;
 import jfluentvalidation.constraints.object.IsNotNullConstraint;
 import jfluentvalidation.constraints.object.IsNullConstraint;
@@ -30,12 +31,10 @@ public class Subject<S extends Subject<S, A>, A> {
     protected final S myself;
     protected Function<Object, A> propertyFunc;
     protected String propertyName;
-    protected List<Constraint<?>> constraints = new ArrayList<>();
-
-    protected Constraint<?> currentConstraint;
+    protected List<Constraint<? super A>> constraints = new ArrayList<>();
+    protected Constraint<A> currentConstraint;
 
     public Subject(Class<?> selfType, Function<Object, A> propertyFunc, String propertyName) {
-
         this.myself = (S) selfType.cast(this);
         this.propertyFunc = propertyFunc;
         this.propertyName = propertyName;
@@ -71,11 +70,19 @@ public class Subject<S extends Subject<S, A>, A> {
         return propertyFunc;
     }
 
-    public List<Constraint<?>> getConstraints() {
+    public String getPropertyName() {
+        return propertyName;
+    }
+
+    public void setPropertyName(String propertyName) {
+        this.propertyName = propertyName;
+    }
+
+    public List<Constraint<? super A>> getConstraints() {
         return constraints;
     }
 
-    protected void addConstraint(Constraint<?> constraint) {
+    protected void addConstraint(Constraint<A> constraint) {
         currentConstraint = constraint;
         constraints.add(constraint);
     }
@@ -87,8 +94,7 @@ public class Subject<S extends Subject<S, A>, A> {
     }
 
     protected S when(Predicate<A> predicate) {
-        // TODO: implement
-        return myself;
+        return when(predicate, true);
     }
 
     // TODO: enum instead of boolean applyToAll?
@@ -98,8 +104,7 @@ public class Subject<S extends Subject<S, A>, A> {
     }
 
     protected S unless(Predicate<A> predicate) {
-        // TODO: implement
-        return myself;
+        return unless(predicate, true);
     }
 
     // TODO: enum instead of boolean applyToAll?
@@ -108,12 +113,12 @@ public class Subject<S extends Subject<S, A>, A> {
         return myself;
     }
 
+
     //    RuleFor(x => x.Postcode).Must(BeAValidPostcode).WithMessage("Please specify a valid postcode");
     public S must(Predicate<A> predicate) {
-
+        constraints.add(new PredicateConstraint<>(predicate));
         return myself;
     }
-
 
 
 //    // truth called this standardIsEqualTo
@@ -139,6 +144,7 @@ public class Subject<S extends Subject<S, A>, A> {
     // doesNotHave
     // is
 
+    // TODO: should this have ruleSet?
 
 //    when
 //    unless

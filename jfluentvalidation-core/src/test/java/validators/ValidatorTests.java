@@ -1,52 +1,114 @@
 package validators;
 
 import jfluentvalidation.ValidationFailure;
-import jfluentvalidation.validators.AbstractValidator;
+import jfluentvalidation.validators.DefaultValidator;
 import org.junit.jupiter.api.Test;
 
 import java.time.ZonedDateTime;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Predicate;
 
+import static jfluentvalidation.constraints.charsequence.CharSequenceConstraints.startsWith;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ValidatorTests {
 
-//    TODO: would love to find a suitable way to support this usage pattern
-//    Could we just force callers to pass the type into the constructor? Seems silly but do other libraries do this?
+    @Test
+    void defaultValidator() {
+        Person person = new Person("sean", 32, null);
+
+        DefaultValidator<Person> validator = new DefaultValidator<>(Person.class);
+        validator.ruleForString(p -> p.getName()).isNotEmpty().startsWith("s").length(5, 10);
+        validator.ruleForInteger(p -> p.getAge()).isPositive();
+
+        List<ValidationFailure> validationFailures = validator.validate(person);
+
+        assertEquals(1, validationFailures.size());
+    }
+
+    @Test
+    void staticFactory() {
+        Person person = new Person("sean", 32, null);
+
+        DefaultValidator<Person> validator = DefaultValidator.forClass(Person.class);
+        validator.ruleForString(p -> p.getName()).isNotEmpty().startsWith("s").length(5, 10);
+        validator.ruleForInteger(p -> p.getAge()).isPositive();
+
+        List<ValidationFailure> validationFailures = validator.validate(person);
+
+        assertEquals(1, validationFailures.size());
+    }
+
+    @Test
+    void customValidator() {
+        Person person = new Person("sean", 32, null);
+        person.setChilren(Arrays.asList("Shawn", "Sally"));
+
+        Map<String, String> pets = new HashMap<>();
+        pets.put("otis", "dog");
+        pets.put("milo", "cat");
+        person.setPets(pets);
+
+        PersonValidator validator = new PersonValidator();
+
+        List<ValidationFailure> validationFailures = validator.validate(person);
+
+        assertEquals(1, validationFailures.size());
+    }
+
+    @Test
+    void ageValidator() {
+        Person person = new Person("sean", 32, null);
+
+        PersonAgeValidator validator = new PersonAgeValidator();
+
+        List<ValidationFailure> validationFailures = validator.validate(person);
+
+        assertEquals(0, validationFailures.size());
+    }
+
 //    @Test
-//    void noCustomClass() {
-//        Person person = new Person("sean", 32, "");
+//    void ruleSet() {
+//        Person person = new Person("sean", 32, null);
 //
-//        DefaultValidator<Person> validator = new DefaultValidator<>();
-//        validator.ruleForString(p -> p.getName()).isNotEmpty().startsWith("s").length(5, 10);
-//        validator.ruleForInteger(p -> p.getAge()).isPositive();
-//        validator.ruleForString(Person::getAddress).isEmpty();
+//        DefaultValidator<Person> validator = new DefaultValidator<>(Person.class);
+//
+//        // TODO: this doesnt work :(
+////        validator.ruleSet("name", () -> {
+////            ruleForString(p -> p.getName()).isNotEmpty().startsWith("s").length(5, 10);
+////        });
 //
 //        List<ValidationFailure> validationFailures = validator.validate(person);
 //
 //        assertEquals(1, validationFailures.size());
 //    }
 
-
     @Test
-    void customValidator() {
-        Person m = new Person("sean", 32, null);
-        m.setChilren(Arrays.asList("Shawn", "Sally"));
+    void customValidatorRuleSet() {
+        Person person = new Person("sean", 32, null);
 
         PersonValidator validator = new PersonValidator();
-
-        List<ValidationFailure> validationFailures = validator.validate(m);
+        List<ValidationFailure> validationFailures = validator.validate(person, "address");
 
         assertEquals(1, validationFailures.size());
     }
 
-    private class PersonValidator extends AbstractValidator<Person> {
+    @Test
+    void whenTest() {
+        Address address = new Address("", "", "", "");
+
+        AddressValidator validator = new AddressValidator();
+        List<ValidationFailure> validationFailures = validator.validate(address);
+
+        assertEquals(1, validationFailures.size());
+    }
+
+    private class PersonValidator extends DefaultValidator<Person> {
 
         public PersonValidator() {
-            // TODO: ugh! I dont like this. How to avoid requiring a call to super?
-            super();
             ruleForString(p -> p.getName()).isEmpty().startsWith("s").length(0, 4);
             // ruleForString(p -> p.getAddress()).isNotNull();
             ruleForObject(p -> p.getAddress()).isNull();
@@ -54,16 +116,22 @@ class ValidatorTests {
             ruleForBoolean(p -> p.isMarried()).isFalse();
             ruleForZonedDateTime(p -> p.getSignedIn()).isAfter(ZonedDateTime.now().minusDays(1));
             ruleForMap(p -> p.getPets()).isEmpty();
-            ruleForIterable(p -> p.getChilren()).isNotNull().isNotEmpty();
+            ruleForIterable(p -> p.getChilren()).isNotNull().forEach(startsWith("S"));
 
-            //include(new PersonAgeValidator());
+            include(new PersonAgeValidator());
+
+//            TODO: how to mix and match ruleset with when?
+//            TODO: how to include validator for a nested field such as address?
+
+            ruleSet("address", () ->  {
+                ruleForObject(p -> p.getAddress()).isNotNull();
+            });
         }
     }
 
-    private class PersonAgeValidator extends AbstractValidator<Person> {
+    private class PersonAgeValidator extends DefaultValidator<Person> {
 
         public PersonAgeValidator() {
-            super();
             // TODO: is kind of sucks...is there a better way to do this?
             //ruleForInteger(Person::getAge).must(this::beOver18);
 
@@ -71,7 +139,7 @@ class ValidatorTests {
             // ruleForInteger(Person::getAge).must(a -> beOver18(a));
 
             // this is pretty good.
-            // ruleForInteger(Person::getAge).must(isOver18());
+            ruleForInteger(Person::getAge).must(isOver18());
         }
 
         protected boolean beOver18(int year) {
@@ -86,9 +154,9 @@ class ValidatorTests {
 
     // TODO: should this also be part of the `include` API or should be be something else?
     // Fluentvalidator has both include (used for the same type) and setValidator (used for different types)
-    private class AddressValidator extends AbstractValidator<Address> {
+    private class AddressValidator extends DefaultValidator<Address> {
         public AddressValidator() {
-            when(address -> address != null, address -> {
+            when(address -> address != null, () -> {
                 ruleForString(a -> a.getStreet1()).isNotNull();
                 ruleForString(a -> a.getCity()).isNotNull();
                 ruleForString(a -> a.getState()).isNotNull();
