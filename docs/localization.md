@@ -42,3 +42,6 @@ Validation message properties files can be found in: hibernate-validator/engine/
 
 Hibernate has a ValidationMessages class under hibernate-validator/engine/test/org/hibernate/validator/ValidationMessages.java 
 which extends ResourceBundle. Might be worth looking at in more depth to see if it helps us at all
+
+in order to do localization similar to spring we need to keep the full lambda/method reference path. 
+We can get the top level type because we know what T is but I think we need to keep track of anything they dot into 

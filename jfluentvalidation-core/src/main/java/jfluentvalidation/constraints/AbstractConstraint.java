@@ -3,7 +3,8 @@ package jfluentvalidation.constraints;
 import java.util.function.Predicate;
 
 // TODO: does this make sense to have?
-public class AbstractConstraint {
+// Lets see how things start coming together and if we need this
+public abstract class AbstractConstraint {
 
     private String ruleSet;
     private String customMessage; // failure message / constraint message. Can this also be a localization message source key?

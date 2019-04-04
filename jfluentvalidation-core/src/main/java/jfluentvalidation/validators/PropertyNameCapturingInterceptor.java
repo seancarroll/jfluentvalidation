@@ -6,6 +6,9 @@ import net.bytebuddy.implementation.bind.annotation.This;
 
 import java.lang.reflect.Method;
 
+/**
+ *
+ */
 public class PropertyNameCapturingInterceptor {
 
     @RuntimeType
@@ -28,6 +31,11 @@ public class PropertyNameCapturingInterceptor {
         return null;
     }
 
+    /**
+     *
+     * @param method
+     * @return
+     */
     public static String getPropertyName(Method method) {
         final boolean hasGetterSignature = method.getParameterTypes().length == 0 && method.getReturnType() != null;
 

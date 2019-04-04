@@ -1,5 +1,6 @@
 package jfluentvalidation.validators;
 
+
 public interface PropertyNameCapturer {
 
     String getPropertyName();
