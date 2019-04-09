@@ -4,6 +4,7 @@ import jfluentvalidation.ValidationFailure;
 import jfluentvalidation.validators.ValidationContext;
 
 import java.util.List;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 /**
@@ -27,6 +28,13 @@ public interface Rule<T, P> {
     List<String> getRuleSet();
 
     void setRuleSet(List<String> ruleSet);
+
+    // TODO: maybe this isnt here but on PropertyRule and I update ValidationContext to use PropertyRule
+    /**
+     *
+     * @return
+     */
+    Function<Object, P> getPropertyFunc();
 
     // TODO: add ApplyConditionTo applyConditionTo = ApplyConditionTo.AllValidators???
     /**

@@ -2,9 +2,10 @@ package jfluentvalidation.constraints.charsequence;
 
 import jfluentvalidation.constraints.Constraint;
 import jfluentvalidation.internal.Ensure;
+import jfluentvalidation.validators.RuleContext;
 
 // TODO: do we need this along with all the other Length constraints?
-public class LengthConstraint implements Constraint<CharSequence> {
+public class LengthConstraint<T> implements Constraint<T, CharSequence> {
 
     private final int min;
     private final int max;
@@ -16,9 +17,9 @@ public class LengthConstraint implements Constraint<CharSequence> {
     }
 
     @Override
-    public boolean isValid(CharSequence value) {
+    public boolean isValid(RuleContext<T, CharSequence> validationContext) {
 
-        int length = value.length();
+        int length = validationContext.getPropertyValue().length();
         if (length < min || (length > max && max != -1)) {
             return false;
         }

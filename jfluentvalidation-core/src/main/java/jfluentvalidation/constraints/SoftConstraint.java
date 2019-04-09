@@ -1,5 +1,7 @@
 package jfluentvalidation.constraints;
 
+import jfluentvalidation.validators.RuleContext;
+
 import java.util.function.Predicate;
 
 // QUESTION: Is this a good name?
@@ -17,20 +19,20 @@ import java.util.function.Predicate;
  *
  * @param <T> the target type supported by an implementation
  */
-public class SoftConstraint<T> implements Constraint<T> {
+public class SoftConstraint<T, P> implements Constraint<T, P> {
 
-    private final Predicate<? super T> condition;
-    private final Constraint<? super T> innerConstraint;
+    private final Predicate<T> condition;
+    private final Constraint<T, P> innerConstraint;
 
-    public SoftConstraint(Predicate<? super T> condition, Constraint<? super T> innerConstraint) {
+    public SoftConstraint(Predicate<T> condition, Constraint<T, P> innerConstraint) {
         this.condition = condition;
         this.innerConstraint = innerConstraint;
     }
 
     @Override
-    public boolean isValid(T instance) {
-        if (condition.test(instance)) {
-            return innerConstraint.isValid(instance);
+    public boolean isValid(RuleContext<T, P> validationContext) {
+        if (condition.test(validationContext.getInstanceToValidate())) {
+            return innerConstraint.isValid(validationContext);
         }
 
         return true;

@@ -28,11 +28,12 @@ import java.util.function.Predicate;
  */
 public class Subject<S extends Subject<S, A>, A> {
 
+    // TODO: does the subject need propertyFunc, propertyName, constraints, currentConstraint or can these be moved elsewhere?
     protected final S myself;
     protected Function<Object, A> propertyFunc;
     protected String propertyName;
-    protected List<Constraint<? super A>> constraints = new ArrayList<>();
-    protected Constraint<A> currentConstraint;
+    protected List<Constraint<?, ? super A>> constraints = new ArrayList<>();
+    protected Constraint<?, A> currentConstraint;
 
     public Subject(Class<?> selfType, Function<Object, A> propertyFunc, String propertyName) {
         this.myself = (S) selfType.cast(this);
@@ -78,11 +79,11 @@ public class Subject<S extends Subject<S, A>, A> {
         this.propertyName = propertyName;
     }
 
-    public List<Constraint<? super A>> getConstraints() {
+    public List<Constraint<?, ? super A>> getConstraints() {
         return constraints;
     }
 
-    protected void addConstraint(Constraint<A> constraint) {
+    protected void addConstraint(Constraint<?, A> constraint) {
         currentConstraint = constraint;
         constraints.add(constraint);
     }

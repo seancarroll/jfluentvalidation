@@ -1,6 +1,7 @@
 package jfluentvalidation.constraints.charsequence;
 
 import jfluentvalidation.constraints.Constraint;
+import jfluentvalidation.validators.RuleContext;
 
 import java.util.regex.Pattern;
 
@@ -10,7 +11,7 @@ import java.util.regex.Pattern;
 /**
  * Check that the given {@code CharSequence} being validated matches the given regular expression.
  */
-public class MatchesConstraint implements Constraint<CharSequence> {
+public class MatchesConstraint<T> implements Constraint<T, CharSequence> {
 
     private final Pattern pattern;
 
@@ -23,7 +24,7 @@ public class MatchesConstraint implements Constraint<CharSequence> {
     }
 
     @Override
-    public boolean isValid(CharSequence value) {
-        return pattern.matcher(value).matches();
+    public boolean isValid(RuleContext<T, CharSequence> validationContext) {
+        return pattern.matcher(validationContext.getPropertyValue()).matches();
     }
 }

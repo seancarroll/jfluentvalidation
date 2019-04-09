@@ -1,6 +1,7 @@
 package jfluentvalidation.constraints.charsequence;
 
 import jfluentvalidation.constraints.Constraint;
+import jfluentvalidation.validators.RuleContext;
 
 import java.util.regex.Pattern;
 
@@ -8,7 +9,7 @@ import java.util.regex.Pattern;
 // https://github.com/apache/commons-validator/blob/8d0b6a146f9a60339b4db581b7697deaaf1b252b/src/main/java/org/apache/commons/validator/routines/EmailValidator.java
 // fluentvalidators EmailValidator
 // not comprehensive but good enough
-public class IsEmailConstraint implements Constraint<CharSequence> {
+public class IsEmailConstraint<T> implements Constraint<T, CharSequence> {
 
     // TODO: do we want the ability for users to override and if so how?
     // Possible suggestionss are
@@ -18,7 +19,7 @@ public class IsEmailConstraint implements Constraint<CharSequence> {
     private static final Pattern DEFAULT_EMAIL = Pattern.compile("");
 
     @Override
-    public boolean isValid(CharSequence value) {
+    public boolean isValid(RuleContext<T, CharSequence> validationContext) {
         return false;
     }
 }

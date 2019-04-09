@@ -1,6 +1,9 @@
 package jfluentvalidation.core;
 
-import jfluentvalidation.constraints.time.*;
+import jfluentvalidation.constraints.time.IsAfterLocalDateTimeConstraint;
+import jfluentvalidation.constraints.time.IsAfterOrEqualLocalDateTimeConstraint;
+import jfluentvalidation.constraints.time.IsBeforeLocalDateTimeConstraint;
+import jfluentvalidation.constraints.time.IsBeforeOrEqualLocalDateTimeConstraint;
 
 import java.time.LocalDateTime;
 import java.util.function.Function;

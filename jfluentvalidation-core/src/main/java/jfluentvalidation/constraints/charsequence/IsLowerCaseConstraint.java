@@ -1,15 +1,16 @@
 package jfluentvalidation.constraints.charsequence;
 
 import jfluentvalidation.constraints.Constraint;
+import jfluentvalidation.validators.RuleContext;
 
 /**
  * Check that the given {@code CharSequence} being validated contains only lowercase characters.
  */
-public class IsLowerCaseConstraint implements Constraint<CharSequence> {
+public class IsLowerCaseConstraint<T> implements Constraint<T, CharSequence> {
 
     @Override
-    public boolean isValid(CharSequence value) {
+    public boolean isValid(RuleContext<T, CharSequence> validationContext) {
         // TODO: should this use locale?
-        return value.equals(value.toString().toLowerCase());
+        return validationContext.getPropertyValue().equals(validationContext.getPropertyValue().toString().toLowerCase());
     }
 }

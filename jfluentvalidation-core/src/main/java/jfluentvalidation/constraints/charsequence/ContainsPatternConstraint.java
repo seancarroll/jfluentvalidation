@@ -2,6 +2,7 @@ package jfluentvalidation.constraints.charsequence;
 
 import jfluentvalidation.constraints.Constraint;
 import jfluentvalidation.internal.Ensure;
+import jfluentvalidation.validators.RuleContext;
 
 import java.util.regex.Pattern;
 
@@ -12,7 +13,7 @@ import java.util.regex.Pattern;
 /**
  * Checks that the given {@code CharSequence} being validated contains the given regular expression or {@code Patter}.
  */
-public class ContainsPatternConstraint implements Constraint<CharSequence> {
+public class ContainsPatternConstraint<T> implements Constraint<T, CharSequence> {
 
     private final Pattern pattern;
 
@@ -25,7 +26,7 @@ public class ContainsPatternConstraint implements Constraint<CharSequence> {
     }
 
     @Override
-    public boolean isValid(CharSequence value) {
-        return pattern.matcher(value).find();
+    public boolean isValid(RuleContext<T, CharSequence> validationContext) {
+        return pattern.matcher(validationContext.getPropertyValue()).find();
     }
 }

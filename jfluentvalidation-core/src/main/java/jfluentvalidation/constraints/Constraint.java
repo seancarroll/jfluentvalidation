@@ -1,10 +1,12 @@
 package jfluentvalidation.constraints;
 
+import jfluentvalidation.validators.RuleContext;
+
 /**
  * Defines the logic to validate a given constraint for a given object type {@code T}
  * @param <T> the target type supported by an implementation
  */
-public interface Constraint<T> {
+public interface Constraint<T, P> {
 
 //    From Hibernate Validator
 //    /**
@@ -28,22 +30,31 @@ public interface Constraint<T> {
 
 
     // TODO: still not happy with the parameter name
-    /**
-     * Implements the validation logic.
-     *
-     * @param value object to validate
-     * @return {@code false} if {@code value} does not pass the constraint
-     */
-    boolean isValid(T value);
-
-
 //    /**
 //     * Implements the validation logic.
 //     *
 //     * @param value object to validate
 //     * @return {@code false} if {@code value} does not pass the constraint
 //     */
-//    boolean isValid(T value, ValidationContext context);
+//    boolean isValid(T value);
+
+
+    // TODO: should it be ValidationContext<? super T, P> context?
+//    /**
+//     * Implements the validation logic.
+//     *
+//     * @param context The validation context
+//     * @return {@code false} if {@code value} does not pass the constraint
+//     */
+//    boolean isValid(RuleContext<T, P> context);
+
+    /**
+     * Implements the validation logic.
+     *
+     * @param context The validation context
+     * @return {@code false} if {@code value} does not pass the constraint
+     */
+    boolean isValid(RuleContext<T, P> context);
 
 
 //    // TODO: including T value in the method signature for now to make it easier to refactor logic to validate method

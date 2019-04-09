@@ -1,11 +1,12 @@
 package jfluentvalidation.constraints.map;
 
 import jfluentvalidation.constraints.Constraint;
+import jfluentvalidation.validators.RuleContext;
 
 import java.util.Map;
 
 // TODO: value sucks here...hmmmm
-public class ContainsValueConstraint<K, V> implements Constraint<Map<K, V>> {
+public class ContainsValueConstraint<T, K, V> implements Constraint<T, Map<K, V>> {
 
     private final V val;
 
@@ -14,7 +15,7 @@ public class ContainsValueConstraint<K, V> implements Constraint<Map<K, V>> {
     }
 
     @Override
-    public boolean isValid(Map<K, V> value) {
-        return !value.containsValue(val);
+    public boolean isValid(RuleContext<T, Map<K, V>> context) {
+        return !context.getPropertyValue().containsValue(val);
     }
 }

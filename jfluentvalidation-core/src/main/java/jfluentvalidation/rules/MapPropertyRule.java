@@ -8,6 +8,7 @@ import jfluentvalidation.validators.ValidationContext;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 // TODO: should we extend from PropertyRule?
@@ -47,7 +48,7 @@ public class MapPropertyRule<T, K, V> implements Rule<T, Map<K, V>> {
         for (Map.Entry<K, V> entry : propertyValue.entrySet()) {
 
             if (predicate == null || predicate.test(entry)) {
-                for (Constraint<? super Map<K, V>> constraint : subject.getConstraints()) {
+                for (Constraint<?, ? super Map<K, V>> constraint : subject.getConstraints()) {
 
                 }
             }
@@ -65,6 +66,11 @@ public class MapPropertyRule<T, K, V> implements Rule<T, Map<K, V>> {
     @Override
     public void setRuleSet(List<String> ruleSet) {
         this.ruleSet = ruleSet;
+    }
+
+    @Override
+    public Function<Object, Map<K, V>> getPropertyFunc() {
+        return subject.getPropertyFunc();
     }
 
     @Override

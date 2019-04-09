@@ -15,7 +15,7 @@ import static java.util.Arrays.asList;
 
 public class IterableSubject<T> extends Subject<IterableSubject<T>, Iterable<T>> {
 
-    protected List<Constraint<? super T>> itemConstraints = new ArrayList<>();
+    protected List<Constraint<?, ? super T>> itemConstraints = new ArrayList<>();
 
     public IterableSubject(Function propertyFunc, String propertyName) {
         super(IterableSubject.class, propertyFunc, propertyName);
@@ -118,7 +118,7 @@ public class IterableSubject<T> extends Subject<IterableSubject<T>, Iterable<T>>
     // as well as the items
     // Does IterableSubject need to include a collection of item constraints?
     // Should Subjects contain a rule instead of a list of constraints?
-    public final IterableSubject<T> forEach(Constraint<? super T>... constraintsToAdd) {
+    public final IterableSubject<T> forEach(Constraint<?, ? super T>... constraintsToAdd) {
         // TODO: what should we do here? What about a something like CollectionConstraint? CollectionItemConstraint?
         // fluentValidation has PropertyRule and CollectionPropertyRule so maybe CollectionConstraint doesn't suck too much
         itemConstraints.addAll(Arrays.asList(constraintsToAdd));
@@ -127,11 +127,12 @@ public class IterableSubject<T> extends Subject<IterableSubject<T>, Iterable<T>>
         return myself;
     }
 
-    public final IterableSubject<T> forEach(Predicate<? super T> predicate, Constraint<? super T>... constraintsToAdd) {
+    public final IterableSubject<T> forEach(Predicate<? super T> predicate, Constraint<?, ? super T>... constraintsToAdd) {
         // TODO: what should we do here? What about a something like CollectionConstraint? CollectionItemConstraint?
         // fluentValidation has PropertyRule and CollectionPropertyRule so maybe CollectionConstraint doesn't suck too much
-        for (Constraint<? super T> c : constraintsToAdd) {
-            itemConstraints.add(new SoftConstraint<>(predicate, c));
+        for (Constraint<?, ? super T> c : constraintsToAdd) {
+            // TODO: I cant get the generic constraints to work here. WTH did I mess up?
+            itemConstraints.add(new SoftConstraint(predicate, c));
         }
 
         //constraints.add(new IterableItemConstraint<>(predicate, constraintsToAdd));
@@ -155,7 +156,7 @@ public class IterableSubject<T> extends Subject<IterableSubject<T>, Iterable<T>>
         return super.isEquals(other);
     }
 
-    public List<Constraint<? super T>> getItemConstraints() {
+    public List<Constraint<?, ? super T>> getItemConstraints() {
         return itemConstraints;
     }
 

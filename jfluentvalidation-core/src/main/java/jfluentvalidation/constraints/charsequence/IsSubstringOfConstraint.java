@@ -2,8 +2,9 @@ package jfluentvalidation.constraints.charsequence;
 
 import jfluentvalidation.constraints.Constraint;
 import jfluentvalidation.internal.Ensure;
+import jfluentvalidation.validators.RuleContext;
 
-public class IsSubstringOfConstraint implements Constraint<CharSequence> {
+public class IsSubstringOfConstraint<T> implements Constraint<T, CharSequence> {
 
     private final CharSequence sequence;
 
@@ -13,13 +14,13 @@ public class IsSubstringOfConstraint implements Constraint<CharSequence> {
 
     // TODO: comparison strategy
     @Override
-    public boolean isValid(CharSequence value) {
+    public boolean isValid(RuleContext<T, CharSequence> validationContext) {
 
 //        assertNotNull(info, actual);
 //        checkNotNull(sequence, "Expecting CharSequence not to be null");
 //        if (stringContains(sequence.toString(), actual.toString())) return;
 
-        value.toString().contains(sequence);
+        validationContext.getPropertyValue().toString().contains(sequence);
 
         return false;
     }

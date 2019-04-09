@@ -3,10 +3,12 @@ package jfluentvalidation.rules;
 import jfluentvalidation.ValidationFailure;
 import jfluentvalidation.constraints.Constraint;
 import jfluentvalidation.core.IterableSubject;
+import jfluentvalidation.validators.RuleContext;
 import jfluentvalidation.validators.ValidationContext;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 // TODO: should we extend from PropertyRule?
@@ -43,8 +45,11 @@ public class IterablePropertyRule<T, P> implements Rule<T, Iterable<P>> {
         List<ValidationFailure> failures = new ArrayList<>();
 
         Iterable<P> propertyValue = subject.getPropertyFunc().apply(context.getInstanceToValidate());
-        for (Constraint<? super Iterable<P>> constraint : subject.getConstraints()) {
-            if (!constraint.isValid(propertyValue)) {
+        for (Constraint<?, ? super Iterable<P>> constraint : subject.getConstraints()) {
+            // TODO: is this the best way to handle this?
+            // TODO: fix unchecked call
+            RuleContext childContext = new RuleContext(context, this);
+            if (!constraint.isValid(childContext)) {
                 String errorMessage = constraint.getClass().getName() + "." + context.getInstanceToValidate().getClass().getName() + ".";
                 failures.add(new ValidationFailure(subject.getPropertyName(), errorMessage, propertyValue));
             }
@@ -52,8 +57,12 @@ public class IterablePropertyRule<T, P> implements Rule<T, Iterable<P>> {
 
         for (P item : propertyValue) {
             if (predicate == null || predicate.test(item)) {
-                for (Constraint<? super P> constraint : subject.getItemConstraints()) {
-                    if (!constraint.isValid(item)) {
+                for (Constraint<?, ? super P> constraint : subject.getItemConstraints()) {
+                    // TODO: is this the best way to handle this?
+                    ValidationContext childContext = new ValidationContext(context.getInstanceToValidate());
+                    // TODO: our current implementation for forEach adds constraints but doesnt create a new new rul
+                    // which means we cant pass this as the rule in
+                    if (!constraint.isValid(new RuleContext(childContext, this, item))) {
                         String errorMessage = constraint.getClass().getName() + "." + context.getInstanceToValidate().getClass().getName() + ".";
                         failures.add(new ValidationFailure(subject.getPropertyName(), errorMessage, item));
                     }
@@ -72,6 +81,11 @@ public class IterablePropertyRule<T, P> implements Rule<T, Iterable<P>> {
     @Override
     public void setRuleSet(List<String> ruleSet) {
         this.ruleSet = ruleSet;
+    }
+
+    @Override
+    public Function<Object, Iterable<P>> getPropertyFunc() {
+        return subject.getPropertyFunc();
     }
 
     @Override

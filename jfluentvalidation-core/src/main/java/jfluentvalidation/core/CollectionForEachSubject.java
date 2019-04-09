@@ -11,14 +11,14 @@ public abstract class CollectionForEachSubject<S extends CollectionForEachSubjec
     extends Subject<S, A> {
 
     public CollectionForEachSubject(Class<?> selfType, Function propertyFunc, String propertyName) {
-        super(CollectionForEachSubject.class, propertyFunc, propertyName);
+        super(selfType, propertyFunc, propertyName);
     }
 
     S where(Predicate<A> predicate) {
         return myself;
     }
 
-    S ruleForEach(Constraint<A> constraint) {
+    S ruleForEach(Constraint<?, A> constraint) {
         constraints.add(constraint);
         return myself;
     }

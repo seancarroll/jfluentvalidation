@@ -2,19 +2,20 @@ package jfluentvalidation.constraints.comparable;
 
 import jfluentvalidation.constraints.Constraint;
 import jfluentvalidation.internal.Ensure;
+import jfluentvalidation.validators.RuleContext;
 
 import javax.annotation.Nonnull;
 
-public class IsGreaterThanConstraint<T extends Comparable<T>> implements Constraint<T> {
+public class IsGreaterThanConstraint<T, P extends Comparable<P>> implements Constraint<T, P> {
 
-    private final T other;
+    private final P other;
 
-    public IsGreaterThanConstraint(@Nonnull T other) {
+    public IsGreaterThanConstraint(@Nonnull P other) {
         this.other = Ensure.notNull(other);
     }
 
     @Override
-    public boolean isValid(T value) {
-        return value.compareTo(other) > 0;
+    public boolean isValid(RuleContext<T, P> context) {
+        return context.getPropertyValue().compareTo(other) > 0;
     }
 }

@@ -3,6 +3,7 @@ package jfluentvalidation.constraints.charsequence;
 import jfluentvalidation.common.Strings;
 import jfluentvalidation.constraints.Constraint;
 import jfluentvalidation.internal.Ensure;
+import jfluentvalidation.validators.RuleContext;
 
 // TODO: allow custom comparison strategy
 
@@ -10,7 +11,7 @@ import jfluentvalidation.internal.Ensure;
  * Check that the given {@code CharSequence} being validated contains the given sequence only once.
  *
  */
-public class ContainsOnlyOnceConstraint implements Constraint<CharSequence> {
+public class ContainsOnlyOnceConstraint<T> implements Constraint<T, CharSequence> {
 
     private final CharSequence sequence;
 
@@ -19,13 +20,13 @@ public class ContainsOnlyOnceConstraint implements Constraint<CharSequence> {
     }
 
     @Override
-    public boolean isValid(CharSequence value) {
-        if (Strings.isNull(value)) {
+    public boolean isValid(RuleContext<T, CharSequence> validationContext) {
+        if (Strings.isNull(validationContext.getPropertyValue())) {
             return false;
         }
 
         String sequenceAsString = sequence.toString();
-        String instanceAsString = value.toString();
+        String instanceAsString = validationContext.getPropertyValue().toString();
 
         // TODO: do we want to count all instances and include in message/context
         int count = 0;

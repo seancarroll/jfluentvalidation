@@ -1,6 +1,7 @@
 package jfluentvalidation.constraints.iterable;
 
 import jfluentvalidation.constraints.Constraint;
+import jfluentvalidation.validators.RuleContext;
 
 /**
  * TODO: From Google Truth...we want similar behavior
@@ -16,16 +17,16 @@ import jfluentvalidation.constraints.Constraint;
  * #containsExactlyElementsIn(Object[])}. It makes clear that the given array is a list of
  * elements, not an element itself. This helps human readers and avoids a compiler warning.
  */
-public class ContainsExactlyElementsInConstraint<T> implements Constraint<Iterable<? super T>> {
+public class ContainsExactlyElementsInConstraint<T, P> implements Constraint<T, Iterable<? super P>> {
 
-    private final Iterable<? extends T> expected;
+    private final Iterable<? extends P> expected;
 
-    public ContainsExactlyElementsInConstraint(Iterable<? extends T> expected) {
+    public ContainsExactlyElementsInConstraint(Iterable<? extends P> expected) {
         this.expected = expected;
     }
 
     @Override
-    public boolean isValid(Iterable<? super T> value) {
+    public boolean isValid(RuleContext<T, Iterable<? super P>> context) {
         return false;
     }
 }

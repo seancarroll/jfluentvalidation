@@ -1,11 +1,12 @@
 package jfluentvalidation.constraints.charsequence;
 
 import jfluentvalidation.constraints.Constraint;
+import jfluentvalidation.validators.RuleContext;
 
 /**
  * Check that the length of the given {@code CharSequence} being validated is less than the given size
  */
-public class HasLengthLessThanConstraint implements Constraint<CharSequence> {
+public class HasLengthLessThanConstraint<T> implements Constraint<T, CharSequence> {
 
     private final int length;
 
@@ -14,7 +15,7 @@ public class HasLengthLessThanConstraint implements Constraint<CharSequence> {
     }
 
     @Override
-    public boolean isValid(CharSequence value) {
-        return value.length() < length;
+    public boolean isValid(RuleContext<T, CharSequence> validationContext) {
+        return validationContext.getPropertyValue().length() < length;
     }
 }

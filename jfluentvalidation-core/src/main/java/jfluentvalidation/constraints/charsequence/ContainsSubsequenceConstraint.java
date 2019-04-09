@@ -1,12 +1,13 @@
 package jfluentvalidation.constraints.charsequence;
 
 import jfluentvalidation.constraints.Constraint;
+import jfluentvalidation.validators.RuleContext;
 
 /**
  * Check that the given {@code CharSequence} being validated contains all the given values
  * <b>in the given order (possibly with other values between them)</b>.
  */
-public class ContainsSubsequenceConstraint implements Constraint<CharSequence> {
+public class ContainsSubsequenceConstraint<T> implements Constraint<T, CharSequence> {
 
     private final CharSequence[] sequences;
 
@@ -15,7 +16,7 @@ public class ContainsSubsequenceConstraint implements Constraint<CharSequence> {
     }
 
     @Override
-    public boolean isValid(CharSequence value) {
+    public boolean isValid(RuleContext<T, CharSequence> validationContext) {
         return false;
     }
 }

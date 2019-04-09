@@ -3,20 +3,23 @@ package jfluentvalidation.rules;
 import java.util.ArrayList;
 import java.util.function.Consumer;
 
+// TODO: should this use generics?
+
 /**
  *
+ * @param <T>
  */
-public class RuleSetCollection extends ArrayList<Rule<?, ?>> {
+public class RuleSetCollection<T> extends ArrayList<Rule<T, ?>> {
 
     // TODO: do we want to use a weakreference
     // private WeakReference<Consumer<Rule<?, ?>>> itemAddedCallback;
-    private Consumer<Rule<?, ?>> itemAddedCallback;
+    private Consumer<Rule<T, ?>> itemAddedCallback;
 
     /**
      *
      * @param itemAddedCallback
      */
-    public void registerItemAddedCallback(Consumer<Rule<?, ?>> itemAddedCallback) {
+    public void registerItemAddedCallback(Consumer<Rule<T, ?>> itemAddedCallback) {
         this.itemAddedCallback = itemAddedCallback;
     }
 
@@ -28,7 +31,7 @@ public class RuleSetCollection extends ArrayList<Rule<?, ?>> {
     }
 
     @Override
-    public boolean add(Rule rule) {
+    public boolean add(Rule<T, ?> rule) {
         if (itemAddedCallback != null) {
             itemAddedCallback.accept(rule);
         }

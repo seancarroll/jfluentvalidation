@@ -1,16 +1,17 @@
 package jfluentvalidation.constraints.comparable;
 
 import jfluentvalidation.constraints.Constraint;
+import jfluentvalidation.validators.RuleContext;
 
 import javax.annotation.Nonnull;
 
-public class IsNotBetweenConstraint<T extends Comparable<T>> implements Constraint<T> {
-    private final T start;
-    private final T end;
+public class IsNotBetweenConstraint<T, P extends Comparable<P>> implements Constraint<T, P> {
+    private final P start;
+    private final P end;
     private final boolean inclusiveStart;
     private final boolean inclusiveEnd;
 
-    public IsNotBetweenConstraint(@Nonnull T start, @Nonnull T end, boolean inclusiveStart, boolean inclusiveEnd) {
+    public IsNotBetweenConstraint(@Nonnull P start, @Nonnull P end, boolean inclusiveStart, boolean inclusiveEnd) {
         this.start = start;
         this.end = end;
         this.inclusiveStart = inclusiveStart;
@@ -18,7 +19,7 @@ public class IsNotBetweenConstraint<T extends Comparable<T>> implements Constrai
     }
 
     @Override
-    public boolean isValid(T value) {
+    public boolean isValid(RuleContext<T, P> context) {
         return false;
     }
 

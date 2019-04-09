@@ -1,15 +1,16 @@
 package jfluentvalidation.constraints.charsequence;
 
 import jfluentvalidation.constraints.Constraint;
+import jfluentvalidation.validators.RuleContext;
 
 /**
  * Check that the given {@code CharSequence} being validated is empty.
  */
-public class IsEmptyConstraint implements Constraint<CharSequence> {
+public class IsEmptyConstraint<T> implements Constraint<T, CharSequence> {
 
     @Override
-    public boolean isValid(CharSequence value) {
-        return value.toString().isEmpty();
+    public boolean isValid(RuleContext<T, CharSequence> validationContext) {
+        return validationContext.getPropertyValue().toString().isEmpty();
     }
 
 }

@@ -26,7 +26,7 @@ public class DefaultValidator<T> implements Validator<T> {
 
     // TODO: will likely need a wrapper/container around a subject
     private List<Subject<?, ?>> subjects = new ArrayList<>();
-    private RuleSetCollection rules = new RuleSetCollection();
+    private RuleSetCollection<T> rules = new RuleSetCollection();
 
     // QUESTION:  Should we wrap in a Locale aware interpolator? What does spring do?
     // private MessageInterpolator messageInterpolator = new ResourceBundleMessageInterpolator();
@@ -136,6 +136,7 @@ public class DefaultValidator<T> implements Validator<T> {
         rules.add(new PropertyRule<>(subject));
         return subject;
     }
+
 
     // TODO: how do we think we should implement a way to add constraints for each item in a collection?
     // One idea...
@@ -289,7 +290,12 @@ public class DefaultValidator<T> implements Validator<T> {
      * @param runnable Action that encapsulates the rules.
      */
     public void when(Predicate<T> predicate, Runnable runnable) {
-        List<Rule<?, ?>> rulesToUpdate = new ArrayList<>();
+        List<Rule<T, ?>> rulesToUpdate = new ArrayList<>();
+
+        // QUESTION: would the following be a better way of doing this? Run is a terrible method name
+        // rules.run(runnable, rulesToUpdate::add)
+        // This would register the callback, run the runnable and then de-register
+
         rules.registerItemAddedCallback(rulesToUpdate::add);
         runnable.run();
         rules.deregisterItemAddedCallback();
@@ -297,9 +303,8 @@ public class DefaultValidator<T> implements Validator<T> {
         // TODO: update each rule in rulesToUpdate with predicate
         // TODO: is there a way we can group these all under something instead of iterating through rules?
         // Is that even a good idea?
-        for (Rule<?, ?> rule : rulesToUpdate) {
-            System.out.println(rule);
-            // rule.applyCondition(predicate);
+        for (Rule<T, ?> rule : rulesToUpdate) {
+            rule.applyCondition(predicate);
         }
     }
 
