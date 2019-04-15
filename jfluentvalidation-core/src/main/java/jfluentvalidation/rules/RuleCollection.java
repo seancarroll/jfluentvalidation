@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.function.Consumer;
 
 // TODO: should this use generics?
-
+// TODO: ugh I think the name should just be Rule(s)Collection or Rule(s)List
 /**
  *
  * @param <T>
@@ -27,6 +27,18 @@ public class RuleSetCollection<T> extends ArrayList<Rule<T, ?>> {
      *
      */
     public void deregisterItemAddedCallback() {
+        this.itemAddedCallback = null;
+    }
+
+    // Terrible name but is this better??
+    /**
+     *
+     * @param runnable
+     * @param itemAddedCallback
+     */
+    public void run(Runnable runnable, Consumer<Rule<T, ?>> itemAddedCallback) {
+        this.itemAddedCallback = itemAddedCallback;
+        runnable.run();
         this.itemAddedCallback = null;
     }
 
