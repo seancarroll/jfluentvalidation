@@ -16,6 +16,8 @@ import java.util.function.Predicate;
 //import javax.validation.Constraint;
 //import javax.validation.ConstraintValidator;
 
+// QUESTION: FluentValidator has an AbstractValidator and then an InlineValidator while we rolled it into one DefaultValidator
+// Does this matter? Is there a trade-off? Advantages/disadvantages between the two?
 public class DefaultValidator<T> implements Validator<T> {
 
     // TODO: I would prefer to not include guava so lets create our own splitter
@@ -26,7 +28,7 @@ public class DefaultValidator<T> implements Validator<T> {
 
     // TODO: will likely need a wrapper/container around a subject
     private List<Subject<?, ?>> subjects = new ArrayList<>();
-    private RuleSetCollection<T> rules = new RuleSetCollection();
+    private RuleCollection<T> rules = new RuleCollection();
 
     // QUESTION:  Should we wrap in a Locale aware interpolator? What does spring do?
     // private MessageInterpolator messageInterpolator = new ResourceBundleMessageInterpolator();
@@ -39,18 +41,28 @@ public class DefaultValidator<T> implements Validator<T> {
     // private final Errors proxyErrors = new Errors();
     // private final Errors errors = new Errors();
 
+    /**
+     *
+     * @param clazz
+     */
     public DefaultValidator(Class<T> clazz) {
         this.type = clazz;
         this.proxy = PropertyLiteralHelper.getPropertyNameCapturer(type);
     }
 
+    /**
+     *
+     * @param clazz
+     * @param <T>
+     * @return
+     */
     public static <T> DefaultValidator<T> forClass(Class<T> clazz) {
         return new DefaultValidator<>(clazz);
     }
 
-    // TODO: I dislike this because it forces derived classes to call super
-    // I'd love to come up with a way to not require derived class to remember to call super.
-    // Could a factory or static factory help here? Other potential solutions?
+    /**
+     *
+     */
     protected DefaultValidator() {
         this.type = (Class<T>) TypeResolver.resolveRawArguments(DefaultValidator.class, getClass())[0];
         this.proxy = PropertyLiteralHelper.getPropertyNameCapturer(type);
@@ -393,8 +405,7 @@ public class DefaultValidator<T> implements Validator<T> {
 
         List<ValidationFailure> failures = new ArrayList();
         for (Rule<?, ?> rule : rules) {
-            // TODO: move this logic to a better place
-            if (ruleSet.isEmpty() || ruleSet.stream().anyMatch(rule.getRuleSet()::contains)) {
+            if (RuleSet.canExecute(ruleSet, rule)) {
                 failures.addAll(rule.validate(validationContext));
             }
         }

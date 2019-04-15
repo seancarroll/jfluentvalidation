@@ -9,7 +9,7 @@ import java.util.function.Consumer;
  *
  * @param <T>
  */
-public class RuleSetCollection<T> extends ArrayList<Rule<T, ?>> {
+public class RuleCollection<T> extends ArrayList<Rule<T, ?>> {
 
     // TODO: do we want to use a weakreference
     // private WeakReference<Consumer<Rule<?, ?>>> itemAddedCallback;
