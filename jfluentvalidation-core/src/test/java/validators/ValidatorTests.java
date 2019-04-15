@@ -70,21 +70,20 @@ class ValidatorTests {
         assertEquals(0, validationFailures.size());
     }
 
-//    @Test
-//    void ruleSet() {
-//        Person person = new Person("sean", 32, null);
-//
-//        DefaultValidator<Person> validator = new DefaultValidator<>(Person.class);
-//
-//        // TODO: this doesnt work :(
-////        validator.ruleSet("name", () -> {
-////            ruleForString(p -> p.getName()).isNotEmpty().startsWith("s").length(5, 10);
-////        });
-//
-//        List<ValidationFailure> validationFailures = validator.validate(person);
-//
-//        assertEquals(1, validationFailures.size());
-//    }
+    @Test
+    void ruleSet() {
+        Person person = new Person("sean", 32, null);
+
+        DefaultValidator<Person> validator = new DefaultValidator<>(Person.class);
+
+        validator.ruleSet("name", () -> {
+            validator.ruleForString(p -> p.getName()).isNotEmpty().startsWith("s").length(5, 10);
+        });
+
+        List<ValidationFailure> validationFailures = validator.validate(person, "name");
+
+        assertEquals(1, validationFailures.size());
+    }
 
     @Test
     void customValidatorRuleSet() {
