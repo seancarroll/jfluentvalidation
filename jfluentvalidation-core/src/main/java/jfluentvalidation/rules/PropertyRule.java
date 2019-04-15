@@ -19,6 +19,9 @@ import java.util.function.Predicate;
  */
 public class PropertyRule<T, P> implements Rule<T, P> {
 
+    // TODO: what if we replaced subject with list of constraints, the property func, and property name?
+    // problem being is how do we add constraints if not through the subject given it acts as our connector?
+    // could we have flip it and instead have Subject contain a Rule/PropertyRule?
     private final Subject<?, P> subject;
     private List<String> ruleSet = RuleSet.DEFAULT_LIST;
 

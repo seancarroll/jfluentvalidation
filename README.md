@@ -5,13 +5,28 @@ A fluent validation library for Java heavily inspired by the
 
 So what exactly does that mean? It means instead of building programmatic validators like
 
-// showcase hibernates solution
+TODO: showcase hibernate validation solution
 
-// showcase Spring's solution
+```java
+
+```
+
+
+TODO: showcase Spring's solution
+
+```java
+
+```
+
+
 
 you build validators like ...
 
-// show our solution
+TODO: show our solution
+
+```java
+
+```
 
 
 it would be a weird transition to go from this to the motivation section
