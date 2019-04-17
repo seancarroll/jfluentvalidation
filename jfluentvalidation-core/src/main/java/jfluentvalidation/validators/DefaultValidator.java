@@ -363,9 +363,10 @@ public class DefaultValidator<T> implements Validator<T> {
         // rules.run(runnable, rulesToUpdate::add)
         // This would register the callback, run the runnable and then de-register
 
-        rules.registerItemAddedCallback(rulesToUpdate::add);
-        runnable.run();
-        rules.deregisterItemAddedCallback();
+        rules.run(runnable, rulesToUpdate::add);
+//        rules.registerItemAddedCallback(rulesToUpdate::add);
+//        runnable.run();
+//        rules.deregisterItemAddedCallback();
 
         // TODO: update each rule in rulesToUpdate with predicate
         // TODO: is there a way we can group these all under something instead of iterating through rules?
@@ -402,9 +403,10 @@ public class DefaultValidator<T> implements Validator<T> {
     public void ruleSet(String ruleSetName, Runnable runnable) {
         // TODO: this sucks. How can we improve this?
         List<String> ruleSet = Arrays.asList(ruleSetName);
-        rules.registerItemAddedCallback((rule) -> rule.setRuleSet(ruleSet));
-        runnable.run();
-        rules.deregisterItemAddedCallback();
+        rules.run(runnable, (rule) -> rule.setRuleSet(ruleSet));
+//        rules.registerItemAddedCallback((rule) -> rule.setRuleSet(ruleSet));
+//        runnable.run();
+//        rules.deregisterItemAddedCallback();
     }
 
 

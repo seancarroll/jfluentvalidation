@@ -21,15 +21,10 @@ public class PropertyRule<T, P> implements Rule<T, P> {
     // TODO: what if we replaced subject with list of constraints, the property func, and property name?
     // problem being is how do we add constraints if not through the subject given it acts as our connector?
     // could we have flip it and instead have Subject contain a Rule/PropertyRule?
-//    private final Subject<?, P> subject;
     private Function<T, P> propertyFunc;
     private String propertyName;
     private List<Constraint<?, ? super P>> constraints = new ArrayList<>();
     private List<String> ruleSet = RuleSet.DEFAULT_LIST;
-
-//    public PropertyRule(Subject<?, P> subject) {
-//        this.subject = subject;
-//    }
 
     public PropertyRule(Function<T, P> propertyFunc, String propertyName) {
         this.propertyFunc = propertyFunc;
@@ -40,17 +35,13 @@ public class PropertyRule<T, P> implements Rule<T, P> {
     public List<ValidationFailure> validate(ValidationContext<T, P> context) {
         List<ValidationFailure> failures = new ArrayList<>();
 
-        P propertyValue = propertyFunc.apply(context.getInstanceToValidate()); //subject.getPropertyFunc().apply(context.getInstanceToValidate());
+        P propertyValue = propertyFunc.apply(context.getInstanceToValidate());
         for (Constraint<?, ? super P> constraint : constraints) {
-        // for (Constraint<?, ? super P> constraint : subject.getConstraints()) {
-            // boolean isValid = constraint.isValid(context.getPropertyValue());
             // TODO: is this the best way to handle this?
-            // ValidationContext childContext = new ValidationContext(this);
             RuleContext ruleContext = new RuleContext(context, this);
             boolean isValid = constraint.isValid(ruleContext);
             if (!isValid) {
                 String errorMessage = constraint.getClass().getName() + "." + context.getInstanceToValidate().getClass().getName() + ".";
-                // failures.add(new ValidationFailure(subject.getPropertyName(), errorMessage, propertyValue));
                 failures.add(new ValidationFailure(propertyName, errorMessage, propertyValue));
             }
         }
@@ -73,7 +64,6 @@ public class PropertyRule<T, P> implements Rule<T, P> {
 
     @Override
     public Function<T, P> getPropertyFunc() {
-        // return subject.getPropertyFunc();
         return propertyFunc;
     }
 
@@ -91,16 +81,11 @@ public class PropertyRule<T, P> implements Rule<T, P> {
         // throw new RuntimeException("applyCondition is not implemented");
         // TODO: just use a for loop with index instead of having to call indexOf
         for (Constraint constraint : constraints) {
-        // for (Constraint constraint : subject.getConstraints()) {
             SoftConstraint softConstraint = new SoftConstraint<>(predicate, constraint);
             int index = constraints.indexOf(constraint);
             if (index > -1) {
                 constraints.toArray()[index] = softConstraint;
             }
-            // int index = subject.getConstraints().indexOf(constraint);
-            // if (index > -1) {
-            //    subject.getConstraints().toArray()[index] = softConstraint;
-            // }
         }
     }
 

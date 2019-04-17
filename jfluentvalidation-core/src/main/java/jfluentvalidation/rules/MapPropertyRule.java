@@ -20,26 +20,10 @@ import java.util.function.Predicate;
  */
 public class MapPropertyRule<T, K, V> extends PropertyRule<T, Map<K, V>> {
 
-//    private final Subject<?, Map<K, V>> subject;
     private final Predicate<Map.Entry<K, V>> predicate;
     private List<String> ruleSet = RuleSet.DEFAULT_LIST;
     // TODO: make getter / setter
     public List<Constraint<?, Map.Entry<K, V>>> entryConstraints = new ArrayList<>();
-
-//    /**
-//     *
-//     */
-//    public MapPropertyRule(Subject<?, Map<K, V>> subject) {
-//        this(subject, null);
-//    }
-//
-//    /**
-//     * @param predicate
-//     */
-//    public MapPropertyRule(Subject<?, Map<K, V>> subject, Predicate<Map.Entry<K, V>> predicate) {
-//        this.subject = subject;
-//        this.predicate = predicate;
-//    }
 
     public MapPropertyRule(Function<T, Map<K, V>> propertyFunc, String propertyName) {
         this(propertyFunc, propertyName, null);
@@ -78,11 +62,5 @@ public class MapPropertyRule<T, K, V> extends PropertyRule<T, Map<K, V>> {
     public void setRuleSet(List<String> ruleSet) {
         this.ruleSet = ruleSet;
     }
-
-//    @Override
-//    public Function<Object, Map<K, V>> getPropertyFunc() {
-//        return subject.getPropertyFunc();
-//    }
-
 
 }

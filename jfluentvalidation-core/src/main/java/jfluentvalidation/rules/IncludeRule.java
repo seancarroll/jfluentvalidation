@@ -23,28 +23,13 @@ public class IncludeRule<T> extends PropertyRule<T, Object> {
         this(v -> v, null, validator);
     }
 
-    public IncludeRule(Function<T, Object> propertyFunc, String propertyName) {
-        this(propertyFunc, propertyName, null);
-    }
-
-    public IncludeRule(Function<T, Object> propertyFunc, String propertyName, Validator<T> validator) {
+    private IncludeRule(Function<T, Object> propertyFunc, String propertyName, Validator<T> validator) {
         super(propertyFunc, propertyName);
         this.validator = validator;
     }
 
     // TODO: fluentvalidation include rule extends property
     // return new IncludeRule(ctx => func((T)ctx.InstanceToValidate), cascadeModeThunk, typeof(T), typeof(T), typeof(TValidator));
-
-//    /**
-//     *
-//     * @param validator
-//     */
-//    public IncludeRule(Validator<T> validator) {
-//        // TODO: how to get subject?
-//        // super();
-//        this.validator = validator;
-//    }
-
 
     @Override
     public List<ValidationFailure> validate(ValidationContext<T, Object> context) {
