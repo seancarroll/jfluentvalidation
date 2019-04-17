@@ -84,10 +84,5 @@ public class MapPropertyRule<T, K, V> extends PropertyRule<T, Map<K, V>> {
 //        return subject.getPropertyFunc();
 //    }
 
-    @Override
-    public void applyCondition(Predicate<T> predicate) {
-        // TODO: implement
-        throw new RuntimeException("applyCondition is not implemented");
-    }
 
 }

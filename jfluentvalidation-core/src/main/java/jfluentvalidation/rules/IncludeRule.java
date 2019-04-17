@@ -6,7 +6,6 @@ import jfluentvalidation.validators.Validator;
 
 import java.util.List;
 import java.util.function.Function;
-import java.util.function.Predicate;
 
 // TODO: should this extend PropertyRule?
 /**
@@ -68,12 +67,6 @@ public class IncludeRule<T> extends PropertyRule<T, Object> {
     @Override
     public Function<T, Object> getPropertyFunc() {
         return null;
-    }
-
-    @Override
-    public void applyCondition(Predicate<T> predicate) {
-        // TODO: implement
-        throw new RuntimeException("applyCondition is not implemented");
     }
 
 }
