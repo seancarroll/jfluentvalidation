@@ -1,19 +1,20 @@
 package jfluentvalidation.core;
 
-import java.util.function.Function;
+import jfluentvalidation.rules.PropertyRule;
+
 import java.util.regex.Pattern;
 
+// TODO: should we delete
 // Using this pattern / style I would need one for each type I support which I think so but I guess whats the difference
 // between that and the subject patter I'm already using?
 // It's double the classes if not more to support Iterable, Array, and Map
 public class CollectionStringForEachSubject
     extends CollectionForEachSubject<CollectionStringForEachSubject, Iterable<CharSequenceSubject>>
-    implements CharSequenceSubject<CollectionStringForEachSubject, String>, ComparableSubject<StringSubject, String> {
+    implements ReadableSequence<CollectionStringForEachSubject, String>, ComparableSubject<StringSubject, String> {
 
-    public CollectionStringForEachSubject(Function func, String propertyName) {
-        super(CollectionStringForEachSubject.class, func, propertyName);
+    public CollectionStringForEachSubject(Class<?> selfType, PropertyRule<CollectionStringForEachSubject, Iterable<CharSequenceSubject>> rule) {
+        super(selfType, rule);
     }
-
 
     @Override
     public CollectionStringForEachSubject isNullOrEmpty() {

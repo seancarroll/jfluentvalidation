@@ -1,20 +1,23 @@
 package jfluentvalidation.core;
 
 import jfluentvalidation.constraints.comparable.*;
+import jfluentvalidation.rules.PropertyRule;
 
 import java.util.Date;
-import java.util.function.Function;
 
 // rather than isLessThan, isGreaterThan etc should we have isBefore, isAfter, etc? How to separate from other Comparable?
 // NumberComparable vs TemporalComparable/some other name
+/**
+ *
+ */
 public class DateSubject extends Subject<DateSubject, Date> implements ComparableSubject<DateSubject, Date> {
 
-    public DateSubject(Function propertyFunc, String propertyName) {
-        super(DateSubject.class, propertyFunc, propertyName);
+    public DateSubject(PropertyRule<?, Date> rule) {
+        super(DateSubject.class, rule);
     }
 
     public DateSubject isBefore(Date other) {
-        constraints.add(new IsLessThanConstraint(other));
+        rule.addConstraint(new IsLessThanConstraint(other));
         return myself;
     }
 
@@ -25,12 +28,12 @@ public class DateSubject extends Subject<DateSubject, Date> implements Comparabl
 
     public DateSubject isBeforeOrEqualTo(Date other) {
         // TODO: should this match or be closer to java8 Temporal classes
-        constraints.add(new IsLessThanOrEqualToConstraint(other));
+        rule.addConstraint(new IsLessThanOrEqualToConstraint(other));
         return myself;
     }
 
     public DateSubject isAfter(Date other) {
-        constraints.add(new IsGreaterThanConstraint(other));
+        rule.addConstraint(new IsGreaterThanConstraint(other));
         return myself;
     }
 
@@ -40,7 +43,7 @@ public class DateSubject extends Subject<DateSubject, Date> implements Comparabl
 //    }
 
     public DateSubject isAfterOrEqualTo(Date other) {
-        constraints.add(new IsGreaterThanOrEqualToConstraint(other));
+        rule.addConstraint(new IsGreaterThanOrEqualToConstraint(other));
         return myself;
     }
 
@@ -113,13 +116,13 @@ public class DateSubject extends Subject<DateSubject, Date> implements Comparabl
 
     public DateSubject isNotBetween(Date start, Date end) {
         // TODO: should it be inclusive start and end?
-        constraints.add(new IsNotBetweenConstraint(start, end, true, true));
+        rule.addConstraint(new IsNotBetweenConstraint(start, end, true, true));
         return myself;
     }
 
     public DateSubject isNotBetween(Date start, Date end, boolean inclusiveStart, boolean inclusiveEnd) {
         // TODO: should it be inclusive start and end?
-        constraints.add(new IsNotBetweenConstraint(start, end, inclusiveStart, inclusiveEnd));
+        rule.addConstraint(new IsNotBetweenConstraint(start, end, inclusiveStart, inclusiveEnd));
         return myself;
     }
 }

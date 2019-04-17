@@ -1,12 +1,16 @@
 package jfluentvalidation.core;
 
-import java.net.URI;
-import java.util.function.Function;
+import jfluentvalidation.rules.PropertyRule;
 
+import java.net.URI;
+
+/**
+ *
+ */
 public class UriSubject extends Subject<UriSubject, URI> implements ComparableSubject<UriSubject, URI> {
 
-    public UriSubject(Function propertyFunc, String propertyName) {
-        super(UriSubject.class, propertyFunc, propertyName);
+    public UriSubject(PropertyRule<?, URI> rule) {
+        super(UriSubject.class, rule);
     }
 
     @Override

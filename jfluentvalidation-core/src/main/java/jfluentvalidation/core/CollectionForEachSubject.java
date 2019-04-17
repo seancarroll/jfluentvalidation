@@ -2,16 +2,17 @@ package jfluentvalidation.core;
 
 
 import jfluentvalidation.constraints.Constraint;
+import jfluentvalidation.rules.PropertyRule;
 
-import java.util.function.Function;
 import java.util.function.Predicate;
 
+// TODO: should we delete
 //extends Subject<CollectionForEachSubject<A>, Iterable<? super A>
 public abstract class CollectionForEachSubject<S extends CollectionForEachSubject<S, A>, A>
     extends Subject<S, A> {
 
-    public CollectionForEachSubject(Class<?> selfType, Function propertyFunc, String propertyName) {
-        super(selfType, propertyFunc, propertyName);
+    public CollectionForEachSubject(Class<?> selfType, PropertyRule<S, A> rule) {
+        super(selfType, rule);
     }
 
     S where(Predicate<A> predicate) {
@@ -19,7 +20,9 @@ public abstract class CollectionForEachSubject<S extends CollectionForEachSubjec
     }
 
     S ruleForEach(Constraint<?, A> constraint) {
-        constraints.add(constraint);
+        // TODO: fix
+        // rule.addConstraint(constraint);
+        // constraints.add(constraint);
         return myself;
     }
 }

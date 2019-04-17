@@ -4,37 +4,41 @@ import jfluentvalidation.constraints.time.IsAfterLocalTimeConstraint;
 import jfluentvalidation.constraints.time.IsAfterOrEqualLocalTimeConstraint;
 import jfluentvalidation.constraints.time.IsBeforeLocalTimeConstraint;
 import jfluentvalidation.constraints.time.IsBeforeOrEqualLocalTimeConstraint;
+import jfluentvalidation.rules.PropertyRule;
 
 import java.time.LocalTime;
-import java.util.function.Function;
 
 // TODO: isEquals vs equals
+
+/**
+ *
+ */
 public class LocalTimeSubject
     extends Subject<LocalTimeSubject, LocalTime>
     implements ComparableSubject<LocalTimeSubject, LocalTime> {
 
-    public LocalTimeSubject(Function propertyFunc, String propertyName) {
-        super(LocalTimeSubject.class, propertyFunc, propertyName);
+    public LocalTimeSubject(PropertyRule<?, LocalTime> rule) {
+        super(LocalTimeSubject.class, rule);
     }
 
     // before and after use compareTo...do we want to keep both?
     public LocalTimeSubject isBefore(LocalTime other) {
-        constraints.add(new IsBeforeLocalTimeConstraint(other));
+        rule.addConstraint(new IsBeforeLocalTimeConstraint(other));
         return  myself;
     }
 
     public LocalTimeSubject isBeforeOrEqual(LocalTime other) {
-        constraints.add(new IsBeforeOrEqualLocalTimeConstraint(other));
+        rule.addConstraint(new IsBeforeOrEqualLocalTimeConstraint(other));
         return  myself;
     }
 
     public LocalTimeSubject isAfter(LocalTime other) {
-        constraints.add(new IsAfterLocalTimeConstraint(other));
+        rule.addConstraint(new IsAfterLocalTimeConstraint(other));
         return  myself;
     }
 
     public LocalTimeSubject isAfterOrEqual(LocalTime other) {
-        constraints.add(new IsAfterOrEqualLocalTimeConstraint(other));
+        rule.addConstraint(new IsAfterOrEqualLocalTimeConstraint(other));
         return  myself;
     }
 

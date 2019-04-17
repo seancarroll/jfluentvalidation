@@ -4,36 +4,39 @@ import jfluentvalidation.constraints.time.IsAfterCalendarConstraint;
 import jfluentvalidation.constraints.time.IsAfterOrEqualCalendarConstraint;
 import jfluentvalidation.constraints.time.IsBeforeCalendarConstraint;
 import jfluentvalidation.constraints.time.IsBeforeOrEqualCalendarConstraint;
+import jfluentvalidation.rules.PropertyRule;
 
 import java.util.Calendar;
-import java.util.function.Function;
 
+/**
+ *
+ */
 public class CalendarSubject
     extends Subject<CalendarSubject, Calendar>
     implements ComparableSubject<CalendarSubject, Calendar> {
 
-    public CalendarSubject(Function propertyFunc, String propertyName) {
-        super(CalendarSubject.class, propertyFunc, propertyName);
+    public CalendarSubject(PropertyRule<?, Calendar> rule) {
+        super(CalendarSubject.class, rule);
     }
 
     public CalendarSubject isBefore(Calendar other) {
-        constraints.add(new IsBeforeCalendarConstraint(other));
-        return  myself;
+        rule.addConstraint(new IsBeforeCalendarConstraint(other));
+        return myself;
     }
 
     public CalendarSubject isBeforeOrEqual(Calendar other) {
-        constraints.add(new IsBeforeOrEqualCalendarConstraint(other));
-        return  myself;
+        rule.addConstraint(new IsBeforeOrEqualCalendarConstraint(other));
+        return myself;
     }
 
     public CalendarSubject isAfter(Calendar other) {
-        constraints.add(new IsAfterCalendarConstraint(other));
-        return  myself;
+        rule.addConstraint(new IsAfterCalendarConstraint(other));
+        return myself;
     }
 
     public CalendarSubject isAfterOrEqual(Calendar other) {
-        constraints.add(new IsAfterOrEqualCalendarConstraint(other));
-        return  myself;
+        rule.addConstraint(new IsAfterOrEqualCalendarConstraint(other));
+        return myself;
     }
 
     public CalendarSubject isInTheFuture() {

@@ -1,10 +1,13 @@
 package jfluentvalidation.core;
 
-import java.util.function.Function;
+import jfluentvalidation.rules.PropertyRule;
 
+/**
+ *
+ */
 public class ByteSubject extends AbstractComparableNumber<ByteSubject, Byte> {
 
-    public ByteSubject(Function propertyFunc, String propertyName) {
-        super(ByteSubject.class, propertyFunc, propertyName);
+    public ByteSubject(PropertyRule<?, Byte> rule) {
+        super(ByteSubject.class, rule);
     }
 }

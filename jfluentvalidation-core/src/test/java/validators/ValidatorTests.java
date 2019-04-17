@@ -45,7 +45,7 @@ class ValidatorTests {
     @Test
     void customValidator() {
         Person person = new Person("sean", 32, null);
-        person.setChilren(Arrays.asList("Shawn", "Sally"));
+        person.setChildren(Arrays.asList("Shawn", "Sally"));
 
         Map<String, String> pets = new HashMap<>();
         pets.put("otis", "dog");
@@ -116,7 +116,7 @@ class ValidatorTests {
             ruleForBoolean(p -> p.isMarried()).isFalse();
             ruleForZonedDateTime(p -> p.getSignedIn()).isAfter(ZonedDateTime.now().minusDays(1));
             ruleForMap(p -> p.getPets()).isEmpty();
-            ruleForIterable(p -> p.getChilren()).isNotNull().forEach(startsWith("S"));
+            ruleForIterable(p -> p.getChildren()).isNotNull().forEach(startsWith("S"));
 
             include(new PersonAgeValidator());
 

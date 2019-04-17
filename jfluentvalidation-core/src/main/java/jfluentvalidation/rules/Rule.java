@@ -34,7 +34,9 @@ public interface Rule<T, P> {
      *
      * @return
      */
-    Function<Object, P> getPropertyFunc();
+    Function<T, P> getPropertyFunc();
+
+    String getPropertyName();
 
     // TODO: add ApplyConditionTo applyConditionTo = ApplyConditionTo.AllValidators???
     /**

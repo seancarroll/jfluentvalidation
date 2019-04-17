@@ -13,7 +13,7 @@ public class Person {
     private Address address;
     private boolean isMarried;
     private ZonedDateTime signedIn = ZonedDateTime.now();
-    private List<String> chilren = new ArrayList<>();
+    private List<String> children = new ArrayList<>();
     private Map<String, String> pets = new HashMap<>();
 
     public Person() {}
@@ -56,12 +56,12 @@ public class Person {
         this.signedIn = signedIn;
     }
 
-    public List<String> getChilren() {
-        return chilren;
+    public List<String> getChildren() {
+        return children;
     }
 
-    public void setChilren(List<String> chilren) {
-        this.chilren = chilren;
+    public void setChildren(List<String> children) {
+        this.children = children;
     }
 
     public Map<String, String> getPets() {

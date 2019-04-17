@@ -4,36 +4,40 @@ import jfluentvalidation.constraints.time.IsAfterLocalDateTimeConstraint;
 import jfluentvalidation.constraints.time.IsAfterOrEqualLocalDateTimeConstraint;
 import jfluentvalidation.constraints.time.IsBeforeLocalDateTimeConstraint;
 import jfluentvalidation.constraints.time.IsBeforeOrEqualLocalDateTimeConstraint;
+import jfluentvalidation.rules.PropertyRule;
 
 import java.time.LocalDateTime;
-import java.util.function.Function;
 
 // TODO: isEquals vs equals
+
+/**
+ *
+ */
 public class LocalDateTimeSubject
     extends Subject<LocalDateTimeSubject, LocalDateTime>
     implements ComparableSubject<LocalDateTimeSubject, LocalDateTime> {
 
-    public LocalDateTimeSubject(Function propertyFunc, String propertyName) {
-        super(LocalDateTimeSubject.class, propertyFunc, propertyName);
+    public LocalDateTimeSubject(PropertyRule<?, LocalDateTime> rule) {
+        super(LocalDateTimeSubject.class, rule);
     }
 
     public LocalDateTimeSubject isBefore(LocalDateTime other) {
-        constraints.add(new IsBeforeLocalDateTimeConstraint(other));
+        rule.addConstraint(new IsBeforeLocalDateTimeConstraint(other));
         return  myself;
     }
 
     public LocalDateTimeSubject isBeforeOrEqual(LocalDateTime other) {
-        constraints.add(new IsBeforeOrEqualLocalDateTimeConstraint(other));
+        rule.addConstraint(new IsBeforeOrEqualLocalDateTimeConstraint(other));
         return  myself;
     }
 
     public LocalDateTimeSubject isAfter(LocalDateTime other) {
-        constraints.add(new IsAfterLocalDateTimeConstraint(other));
+        rule.addConstraint(new IsAfterLocalDateTimeConstraint(other));
         return  myself;
     }
 
     public LocalDateTimeSubject isAfterOrEqual(LocalDateTime other) {
-        constraints.add(new IsAfterOrEqualLocalDateTimeConstraint(other));
+        rule.addConstraint(new IsAfterOrEqualLocalDateTimeConstraint(other));
         return  myself;
     }
 

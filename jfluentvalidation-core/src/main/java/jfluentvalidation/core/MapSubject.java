@@ -4,28 +4,33 @@ import jfluentvalidation.constraints.map.ContainsValueConstraint;
 import jfluentvalidation.constraints.map.HasSizeConstraint;
 import jfluentvalidation.constraints.map.IsEmptyConstraint;
 import jfluentvalidation.constraints.map.IsNotEmptyConstraint;
+import jfluentvalidation.rules.PropertyRule;
 
 import java.util.Map;
-import java.util.function.Function;
 
+/**
+ *
+ * @param <K>
+ * @param <V>
+ */
 public class MapSubject<K, V> extends Subject<MapSubject<K, V>, Map<K, V>> {
 
-    public MapSubject(Function propertyFunc, String propertyName) {
-        super(MapSubject.class, propertyFunc, propertyName);
+    public MapSubject(PropertyRule<?, Map<K, V>> rule) {
+        super(MapSubject.class, rule);
     }
 
     public final MapSubject<K, V> isEmpty() {
-        constraints.add(new IsEmptyConstraint());
+        rule.addConstraint(new IsEmptyConstraint());
         return myself;
     }
 
     public final MapSubject<K, V> isNotEmpty() {
-        constraints.add(new IsNotEmptyConstraint());
+        rule.addConstraint(new IsNotEmptyConstraint());
         return myself;
     }
 
     public final MapSubject<K, V> hasSize(int expectedSize) {
-        constraints.add(new HasSizeConstraint(expectedSize));
+        rule.addConstraint(new HasSizeConstraint(expectedSize));
         return myself;
     }
 
@@ -71,7 +76,7 @@ public class MapSubject<K, V> extends Subject<MapSubject<K, V>, Map<K, V>> {
 
 
     public final MapSubject<K, V> containsValue(V value) {
-        constraints.add(new ContainsValueConstraint(value));
+        rule.addConstraint(new ContainsValueConstraint(value));
         return myself;
     }
 

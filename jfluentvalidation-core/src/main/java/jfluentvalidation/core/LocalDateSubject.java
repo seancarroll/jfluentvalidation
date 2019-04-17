@@ -4,9 +4,9 @@ import jfluentvalidation.constraints.time.IsAfterLocalDateConstraint;
 import jfluentvalidation.constraints.time.IsAfterOrEqualLocalDateConstraint;
 import jfluentvalidation.constraints.time.IsBeforeLocalDateConstraint;
 import jfluentvalidation.constraints.time.IsBeforeOrEqualLocalDateConstraint;
+import jfluentvalidation.rules.PropertyRule;
 
 import java.time.LocalDate;
-import java.util.function.Function;
 
 // TODO: isEquals vs equals
 // From javadoc: This class does not store or represent a time or time-zone.
@@ -22,31 +22,35 @@ import java.util.function.Function;
 // is not the same
 // Hibernate validator does have a concept of getEffectiveTemporalValidationToTolerance (which is a duration)
 // which it ues when constructing the reference clock via Clock.offset
+
+/**
+ *
+ */
 public class LocalDateSubject
     extends Subject<LocalDateSubject, LocalDate>
     implements ComparableSubject<LocalDateSubject, LocalDate> {
 
-    public LocalDateSubject(Function propertyFunc, String propertyName) {
-        super(LocalDateSubject.class, propertyFunc, propertyName);
+    public LocalDateSubject(PropertyRule<?, LocalDate> rule) {
+        super(LocalDateSubject.class, rule);
     }
 
     public LocalDateSubject isBefore(LocalDate localDate) {
-        constraints.add(new IsBeforeLocalDateConstraint(localDate));
+        rule.addConstraint(new IsBeforeLocalDateConstraint(localDate));
         return  myself;
     }
 
     public LocalDateSubject isBeforeOrEqual(LocalDate localDate) {
-        constraints.add(new IsBeforeOrEqualLocalDateConstraint(localDate));
+        rule.addConstraint(new IsBeforeOrEqualLocalDateConstraint(localDate));
         return  myself;
     }
 
     public LocalDateSubject isAfter(LocalDate localDate) {
-        constraints.add(new IsAfterLocalDateConstraint(localDate));
+        rule.addConstraint(new IsAfterLocalDateConstraint(localDate));
         return  myself;
     }
 
     public LocalDateSubject isAfterOrEqual(LocalDate localDate) {
-        constraints.add(new IsAfterOrEqualLocalDateConstraint(localDate));
+        rule.addConstraint(new IsAfterOrEqualLocalDateConstraint(localDate));
         return  myself;
     }
 
