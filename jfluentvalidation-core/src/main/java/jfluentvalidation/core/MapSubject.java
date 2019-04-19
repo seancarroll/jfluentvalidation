@@ -1,12 +1,11 @@
 package jfluentvalidation.core;
 
-import jfluentvalidation.constraints.map.ContainsValueConstraint;
-import jfluentvalidation.constraints.map.HasSizeConstraint;
-import jfluentvalidation.constraints.map.IsEmptyConstraint;
-import jfluentvalidation.constraints.map.IsNotEmptyConstraint;
+import jfluentvalidation.constraints.Constraint;
+import jfluentvalidation.constraints.map.*;
 import jfluentvalidation.rules.PropertyRule;
 
 import java.util.Map;
+import java.util.function.Predicate;
 
 /**
  *
@@ -80,7 +79,6 @@ public class MapSubject<K, V> extends Subject<MapSubject<K, V>, Map<K, V>> {
         return myself;
     }
 
-
     // TODO: add methods
     // doesNotContainKey
     // doesNotContainKeys
@@ -119,21 +117,71 @@ public class MapSubject<K, V> extends Subject<MapSubject<K, V>, Map<K, V>> {
         return super.isEquals(other);
     }
 
+    /**
+     *
+     * @param constraintsToAdd
+     * @return
+     */
+    public final MapSubject<K, V> forEachEntry(Constraint<?, ? super Map.Entry<K, V>>... constraintsToAdd) {
+        // TODO: fix unchecked warning
+        rule.addConstraint(new EntryConstraint(constraintsToAdd));
+        return myself;
+    }
 
-//    TODO: forEachEntry
-//    TODO: forEachKey
-//    TODO: forEachValue
-//    public final MapSubject<K, V> forEach(Predicate<? super T> predicate, Constraint<? super T>... constraintsToAdd) {
-//        // TODO: what should we do here? What about a something like CollectionConstraint? CollectionItemConstraint?
-//        // fluentValidation has PropertyRule and CollectionPropertyRule so maybe CollectionConstraint doesn't suck too much
-//        constraints.add(new CollectionConstraint<>(predicate, constraintsToAdd));
+    /**
+     *
+     * @param predicate
+     * @param constraintsToAdd
+     * @return
+     */
+    public final MapSubject<K, V> forEachEntry(Predicate<? super Map.Entry<K, V>> predicate, Constraint<?, ? super Map.Entry<K, V>>... constraintsToAdd) {
+        rule.addConstraint(new EntryConstraint(predicate, constraintsToAdd));
+        return myself;
+    }
+
+
+    /**
+     *
+     * @param constraintsToAdd
+     * @return
+     */
+    public final MapSubject<K, V> forEachKey(Constraint<?, ? super K>... constraintsToAdd) {
+        // TODO: fix unchecked warning
+        rule.addConstraint(new KeyConstraint(constraintsToAdd));
+        return myself;
+    }
+
+//    /**
+//     *
+//     * @param predicate
+//     * @param constraintsToAdd
+//     * @return
+//     */
+//    public final MapSubject<K, V> forEachKey(Predicate<? super K> predicate, Constraint<?, ? super K>... constraintsToAdd) {
+//        rule.addConstraint(new KeyConstraint(constraintsToAdd));
 //        return myself;
 //    }
-//
-//    public final MapSubject<K, V> forEach(Constraint<? super T>... constraintsToAdd) {
-//        // TODO: what should we do here? What about a something like CollectionConstraint? CollectionItemConstraint?
-//        // fluentValidation has PropertyRule and CollectionPropertyRule so maybe CollectionConstraint doesn't suck too much
-//        constraints.add(new CollectionConstraint<>(constraintsToAdd));
+
+    /**
+     *
+     * @param constraintsToAdd
+     * @return
+     */
+    public final MapSubject<K, V> forEachValue(Constraint<?, ? super V>... constraintsToAdd) {
+        // TODO: fix unchecked warning
+        rule.addConstraint(new ValueConstraint(constraintsToAdd));
+        return myself;
+    }
+
+//    /**
+//     *
+//     * @param predicate
+//     * @param constraintsToAdd
+//     * @return
+//     */
+//    public final MapSubject<K, V> forEachValue(Predicate<? super V> predicate, Constraint<?, ? super V>... constraintsToAdd) {
+//        // TODO: fix unchecked warning
+//        rule.addConstraint(new ValueConstraint(constraintsToAdd));
 //        return myself;
 //    }
 }
