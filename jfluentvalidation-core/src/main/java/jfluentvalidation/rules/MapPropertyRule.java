@@ -2,6 +2,7 @@ package jfluentvalidation.rules;
 
 import jfluentvalidation.ValidationFailure;
 import jfluentvalidation.constraints.Constraint;
+import jfluentvalidation.validators.RuleContext;
 import jfluentvalidation.validators.ValidationContext;
 
 import java.util.ArrayList;
@@ -34,7 +35,7 @@ public class MapPropertyRule<T, K, V> extends PropertyRule<T, Map<K, V>> {
         this.predicate = predicate;
     }
 
-    // TODO: fix validate
+    // TODO: fix validate...how to handle constraints for entry / key / value?
     @Override
     public List<ValidationFailure> validate(ValidationContext<T, Map<K, V>> context) {
         List<ValidationFailure> failures = super.validate(context);
@@ -44,7 +45,11 @@ public class MapPropertyRule<T, K, V> extends PropertyRule<T, Map<K, V>> {
 
             if (predicate == null || predicate.test(entry)) {
                 for (Constraint<?, Map.Entry<K, V>> entryConstraint : entryConstraints) {
-
+                    ValidationContext childContext = new ValidationContext(context.getInstanceToValidate());
+                    if (!entryConstraint.isValid(new RuleContext(childContext, this, entry))) {
+                        String errorMessage = entryConstraint.getClass().getName() + "." + context.getInstanceToValidate().getClass().getName() + ".";
+                        failures.add(new ValidationFailure(getPropertyName(), errorMessage, entry));
+                    }
                 }
             }
 
