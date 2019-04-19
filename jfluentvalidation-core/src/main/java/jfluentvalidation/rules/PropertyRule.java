@@ -77,9 +77,7 @@ public class PropertyRule<T, P> implements Rule<T, P> {
     // 2. targeting a subject used as part of the fluent builder
     @Override
     public void applyCondition(Predicate<T> predicate) {
-        // TODO: implement
-        // throw new RuntimeException("applyCondition is not implemented");
-        // TODO: just use a for loop with index instead of having to call indexOf
+        // TODO: need to add ability to apply to only one constraint vs all constraints
         for (Constraint constraint : constraints) {
             SoftConstraint softConstraint = new SoftConstraint<>(predicate, constraint);
             int index = constraints.indexOf(constraint);
@@ -89,6 +87,7 @@ public class PropertyRule<T, P> implements Rule<T, P> {
         }
     }
 
+    // TODO: should this just be addConstraints and take a varargs?
     public void addConstraint(Constraint<?, P> constraint) {
         constraints.add(constraint);
     }

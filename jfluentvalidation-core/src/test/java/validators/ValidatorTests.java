@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
 
-import static jfluentvalidation.constraints.charsequence.CharSequenceConstraints.startsWith;
+import static jfluentvalidation.constraints.charsequence.CharSequenceConstraints.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ValidatorTests {
@@ -56,7 +56,7 @@ class ValidatorTests {
 
         List<ValidationFailure> validationFailures = validator.validate(person);
         System.out.println(validationFailures);
-        assertEquals(1, validationFailures.size());
+        assertEquals(0, validationFailures.size());
     }
 
     @Test
@@ -110,12 +110,11 @@ class ValidatorTests {
 
         public PersonValidator() {
             ruleForString(p -> p.getName()).isNotEmpty().startsWith("s").length(0, 4);
-            // ruleForString(p -> p.getAddress()).isNotNull();
             ruleForObject(p -> p.getAddress()).isNull();
             ruleForInteger(p -> p.getAge()).isPositive();
             ruleForBoolean(p -> p.isMarried()).isFalse();
             ruleForZonedDateTime(p -> p.getSignedIn()).isAfter(ZonedDateTime.now().minusDays(1));
-            ruleForMap(p -> p.getPets()).isEmpty();
+            ruleForMap(p -> p.getPets()).isNotEmpty().forEachKey(isLowerCase()).forEachValue(length(0, 5));
             ruleForIterable(p -> p.getChildren()).isNotNull().forEach(startsWith("S"));
 
             include(new PersonAgeValidator());

@@ -6,7 +6,8 @@ import jfluentvalidation.rules.PropertyRule;
 
 import java.util.function.Predicate;
 
-// TODO: should we delete
+// TODO: should we delete?...maybe keep for now and revisit later.
+// The IterableSubject forEach methods are similar to the stream forEach API so perhaps it will be natural to users
 //extends Subject<CollectionForEachSubject<A>, Iterable<? super A>
 public abstract class CollectionForEachSubject<S extends CollectionForEachSubject<S, A>, A>
     extends Subject<S, A> {

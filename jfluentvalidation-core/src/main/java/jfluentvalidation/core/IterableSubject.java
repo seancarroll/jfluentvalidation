@@ -1,12 +1,9 @@
 package jfluentvalidation.core;
 
 import jfluentvalidation.constraints.Constraint;
-import jfluentvalidation.constraints.SoftConstraint;
 import jfluentvalidation.constraints.iterable.*;
-import jfluentvalidation.rules.IterablePropertyRule;
 import jfluentvalidation.rules.PropertyRule;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
@@ -19,8 +16,6 @@ import static java.util.Arrays.asList;
  * @param <T>
  */
 public class IterableSubject<T> extends Subject<IterableSubject<T>, Iterable<? extends T>> {
-
-    protected List<Constraint<?, ? super T>> itemConstraints = new ArrayList<>();
 
     public IterableSubject(PropertyRule<?, Iterable<? extends T>> rule) {
         super(IterableSubject.class, rule);
@@ -123,24 +118,26 @@ public class IterableSubject<T> extends Subject<IterableSubject<T>, Iterable<? e
     // as well as the items
     // Does IterableSubject need to include a collection of item constraints?
     // Should Subjects contain a rule instead of a list of constraints?
+    // Does this need to be a varargs?
+    /**
+     *
+     * @param constraintsToAdd
+     * @return
+     */
     public final IterableSubject<T> forEach(Constraint<?, ? super T>... constraintsToAdd) {
-        // TODO: what should we do here? What about a something like CollectionConstraint? CollectionItemConstraint?
-        // fluentValidation has PropertyRule and CollectionPropertyRule so maybe CollectionConstraint doesn't suck too much
-        // TODO: is there a better way to handle this?
-        ((IterablePropertyRule) rule).itemConstraints.addAll(Arrays.asList(constraintsToAdd));
-        // itemConstraints.addAll(Arrays.asList(constraintsToAdd));
+        // TODO: fix unchecked warning
+        rule.addConstraint(new ItemConstraint(constraintsToAdd));
         return myself;
     }
 
+    /**
+     *
+     * @param predicate
+     * @param constraintsToAdd
+     * @return
+     */
     public final IterableSubject<T> forEach(Predicate<? super T> predicate, Constraint<?, ? super T>... constraintsToAdd) {
-        // TODO: what should we do here? What about a something like CollectionConstraint? CollectionItemConstraint?
-        // fluentValidation has PropertyRule and CollectionPropertyRule so maybe CollectionConstraint doesn't suck too much
-        for (Constraint<?, ? super T> c : constraintsToAdd) {
-            // TODO: I cant get the generic constraints to work here. WTH did I mess up?
-            itemConstraints.add(new SoftConstraint(predicate, c));
-        }
-
-        //constraints.add(new IterableItemConstraint<>(predicate, constraintsToAdd));
+        rule.addConstraint(new ItemConstraint(predicate, constraintsToAdd));
         return myself;
     }
 
@@ -159,10 +156,6 @@ public class IterableSubject<T> extends Subject<IterableSubject<T>, Iterable<? e
     @Override
     public IterableSubject<T> isEquals(Iterable<? extends T> other) {
         return super.isEquals(other);
-    }
-
-    public List<Constraint<?, ? super T>> getItemConstraints() {
-        return itemConstraints;
     }
 
 }

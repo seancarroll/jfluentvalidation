@@ -168,7 +168,8 @@ public class DefaultValidator<T> implements Validator<T> {
      */
     public <E> IterableSubject<E> ruleForIterable(Function<T, Iterable<E>> func) {
         String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
-        IterablePropertyRule<T, E> iterablePropertyRule = new IterablePropertyRule<>(func, propertyName);
+        PropertyRule<T, Iterable<E>> iterablePropertyRule = new PropertyRule<>(func, propertyName);
+//        IterablePropertyRule<T, E> iterablePropertyRule = new IterablePropertyRule<>(func, propertyName);
         rules.add(iterablePropertyRule);
         return new IterableSubject(iterablePropertyRule);
     }
@@ -230,7 +231,8 @@ public class DefaultValidator<T> implements Validator<T> {
      */
     public <K, V> MapSubject<K, V> ruleForMap(Function<T, Map<K, V>> func) {
         String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
-        MapPropertyRule<T, K, V> rule = new MapPropertyRule<>(func, propertyName);
+        // MapPropertyRule<T, K, V> rule = new MapPropertyRule<>(func, propertyName);
+        PropertyRule<T, Map<K, V>> rule = new PropertyRule<>(func, propertyName);
         rules.add(rule);
         return new MapSubject(rule);
     }
@@ -336,12 +338,14 @@ public class DefaultValidator<T> implements Validator<T> {
         return new ZonedDateTimeSubject(rule);
     }
 
+//    TODO: include validator for a different type
+
     /**
      *
      * @param validator
      */
     public void include(Validator<T> validator) {
-        rules.add(new IncludeRule<T>(validator));
+        rules.add(new IncludeRule<>(validator));
     }
 
 
