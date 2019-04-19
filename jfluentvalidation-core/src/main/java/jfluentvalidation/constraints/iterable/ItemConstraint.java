@@ -16,6 +16,10 @@ public class ItemConstraint<T, P> implements Constraint<T, Iterable<? super P>> 
     // TODO: should this just be a single constraint?
     private final Constraint<T, P>[] innerConstraints;
 
+    public ItemConstraint(Constraint<T, P>[] innerConstraints) {
+        this(null, innerConstraints);
+    }
+
     public ItemConstraint(Predicate<P> condition, Constraint<T, P>[] innerConstraints) {
         this.condition = condition;
         this.innerConstraints = innerConstraints;
@@ -28,12 +32,11 @@ public class ItemConstraint<T, P> implements Constraint<T, Iterable<? super P>> 
         Collection<P> actual = (Collection<P>) Iterables.toCollection(context.getPropertyValue());
         for (P item : actual) {
             // TODO: would it be better to default to a AlwaysTrueCondition as a NullableObject instead of null check?
-            if (condition != null && condition.test(item)) {
+            if (condition == null || condition.test(item)) {
                 for (Constraint c : innerConstraints) {
                     // TODO: better way to do this? not sure this is even correct when using the RuleContext
                     ValidationContext childContext = new ValidationContext(item);
-                    c.isValid(new RuleContext(childContext, context.getRule()));
-
+                    return c.isValid(new RuleContext(childContext, context.getRule(), item));
                 }
             }
         }

@@ -16,6 +16,10 @@ public class KeyConstraint<T, K, V> implements Constraint<T, Map<K, V>> {
     private final Predicate<? super K> condition;
     private final Constraint<T, ? super K>[] innerConstraints;
 
+    public KeyConstraint(Constraint<T, ? super K>[] innerConstraints) {
+        this(null, innerConstraints);
+    }
+
     public KeyConstraint(Predicate<? super K> condition, Constraint<T, ? super K>[] innerConstraints) {
         this.condition = condition;
         this.innerConstraints = innerConstraints;
@@ -24,13 +28,14 @@ public class KeyConstraint<T, K, V> implements Constraint<T, Map<K, V>> {
     @Override
     public boolean isValid(RuleContext<T, Map<K, V>> context) {
         // TODO: fix...need to collect results and return
+        // I Think we should return a failure for each item that fails however its impossible to do that when returning boolean
         for (K key : context.getPropertyValue().keySet()) {
             // TODO: would it be better to default to a AlwaysTrueCondition as a NullableObject instead of null check?
-            if (condition != null && condition.test(key)) {
+            if (condition == null || condition.test(key)) {
                 for (Constraint c : innerConstraints) {
                     // TODO: is there a better way to do this?
                     ValidationContext childContext = new ValidationContext<>(key);
-                    c.isValid(new RuleContext(childContext, context.getRule()));
+                    return c.isValid(new RuleContext(childContext, context.getRule(), key));
                 }
             }
         }

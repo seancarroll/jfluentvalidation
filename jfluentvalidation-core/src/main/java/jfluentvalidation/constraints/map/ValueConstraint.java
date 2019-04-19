@@ -16,6 +16,10 @@ public class ValueConstraint<T, K, V> implements Constraint<T, Map<K, V>> {
     private final Predicate<? super V> condition;
     private final Constraint<T, ? super V>[] innerConstraints;
 
+    public ValueConstraint(Constraint<T, ? super V>[] innerConstraints) {
+        this(null, innerConstraints);
+    }
+
     public ValueConstraint(Predicate<? super V> condition, Constraint<T, ? super V>[] innerConstraints) {
         this.condition = condition;
         this.innerConstraints = innerConstraints;
@@ -26,11 +30,11 @@ public class ValueConstraint<T, K, V> implements Constraint<T, Map<K, V>> {
         // TODO: fix...need to collect results and return
         for (V value : context.getPropertyValue().values()) {
             // TODO: would it be better to default to a AlwaysTrueCondition as a NullableObject instead of null check?
-            if (condition != null && condition.test(value)) {
+            if (condition == null || condition.test(value)) {
                 for (Constraint c : innerConstraints) {
                     // TODO: is there a better way to do this?
                     ValidationContext childContext = new ValidationContext(value);
-                    c.isValid(new RuleContext(childContext, context.getRule()));
+                    return c.isValid(new RuleContext(childContext, context.getRule(), value));
                 }
             }
         }

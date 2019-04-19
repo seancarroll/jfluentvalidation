@@ -13,8 +13,13 @@ import java.util.function.Predicate;
 // This looks like a more general case of ContainsEntry
 public class EntryConstraint<T, K, V> implements Constraint<T, Map<K, V>> {
 
+    // TODO: can we take care of this by using a SoftConstraint?
     private final Predicate<Map.Entry<K, V>> condition;
     private final Constraint<T, Map.Entry<K, V>>[] innerConstraints;
+
+    public EntryConstraint(Constraint<T, Map.Entry<K, V>>[] innerConstraints) {
+        this(null, innerConstraints);
+    }
 
     public EntryConstraint(Predicate<Map.Entry<K, V>> condition, Constraint<T, Map.Entry<K, V>>[] innerConstraints) {
         this.condition = condition;
@@ -26,11 +31,11 @@ public class EntryConstraint<T, K, V> implements Constraint<T, Map<K, V>> {
         // TODO: fix...need to collect results and return
         for (Map.Entry<K, V> entry : context.getPropertyValue().entrySet()) {
             // TODO: would it be better to default to a AlwaysTrueCondition as a NullableObject instead of null check?
-            if (condition != null && condition.test(entry)) {
+            if (condition == null || condition.test(entry)) {
                 for (Constraint c : innerConstraints) {
                     // TODO: is there a better way to do this?
                     ValidationContext childContext = new ValidationContext<>(entry);
-                    c.isValid(new RuleContext(childContext, context.getRule()));
+                    return c.isValid(new RuleContext(childContext, context.getRule(), entry));
                 }
             }
         }
