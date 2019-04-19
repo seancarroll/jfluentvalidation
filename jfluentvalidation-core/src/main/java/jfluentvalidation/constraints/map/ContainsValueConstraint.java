@@ -6,6 +6,7 @@ import jfluentvalidation.validators.RuleContext;
 import java.util.Map;
 
 // TODO: value sucks here...hmmmm
+// QUESTION: do we need all the Constains(Entry|Key|Value)Constraint classes?
 public class ContainsValueConstraint<T, K, V> implements Constraint<T, Map<K, V>> {
 
     private final V val;
