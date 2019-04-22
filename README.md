@@ -11,14 +11,11 @@ TODO: showcase hibernate validation solution
 
 ```
 
-
 TODO: showcase Spring's solution
 
 ```java
 
 ```
-
-
 
 you build validators like ...
 
@@ -27,7 +24,6 @@ TODO: show our solution
 ```java
 
 ```
-
 
 it would be a weird transition to go from this to the motivation section
 
@@ -94,4 +90,3 @@ Outside of Jeremy Skinner's Fluent Validation I'd like to call out some addition
 TODO:
 - research grails boot time (more than 5 min to boot home hub zone is crazy)
 - research offline mobile sync and conflict resolution
-- 
