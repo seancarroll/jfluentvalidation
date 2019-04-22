@@ -7,6 +7,10 @@ import jfluentvalidation.internal.Ensure;
 import jfluentvalidation.rules.*;
 import net.jodah.typetools.TypeResolver;
 
+import java.io.File;
+import java.io.InputStream;
+import java.net.URI;
+import java.net.URL;
 import java.time.*;
 import java.util.*;
 import java.util.function.Function;
@@ -15,6 +19,11 @@ import java.util.function.Predicate;
 //TODO: check these out
 //import javax.validation.Constraint;
 //import javax.validation.ConstraintValidator;
+
+// TODO: how to encapsulate type/proxy/propertyName/Subject?
+// stackify overcoming type erasure
+
+// TODO: should cache bytebuddy proxies either via a hashmap or bytebuddy TypeCache
 
 // QUESTION: FluentValidator has an AbstractValidator and then an InlineValidator while we rolled it into one DefaultValidator
 // Does this matter? Is there a trade-off? Advantages/disadvantages between the two?
@@ -26,8 +35,6 @@ public class DefaultValidator<T> implements Validator<T> {
     public T proxy; // source
     Class<T> type;
 
-    // TODO: will likely need a wrapper/container around a subject
-    private List<Subject<?, ?>> subjects = new ArrayList<>();
     private RuleCollection<T> rules = new RuleCollection<>();
 
     // QUESTION:  Should we wrap in a Locale aware interpolator? What does spring do?
@@ -132,7 +139,12 @@ public class DefaultValidator<T> implements Validator<T> {
         return new DoubleSubject(rule);
     }
 
-    // TODO: ruleForFile
+    public FileSubject ruleForFile(Function<T, File> func) {
+        String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
+        PropertyRule<T, File> rule = new PropertyRule<>(func, propertyName);
+        rules.add(rule);
+        return new FileSubject(rule);
+    }
 
     public FloatSubject ruleForFloat(Function<T, Float> func) {
         String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
@@ -141,10 +153,17 @@ public class DefaultValidator<T> implements Validator<T> {
         return new FloatSubject(rule);
     }
 
-    // TODO: ruleForInputStream
-
-    // TODO: how to encapsulate type/proxy/propertyName/Subject?
-    // stackify overcoming type erasure
+    /**
+     *
+     * @param func
+     * @return
+     */
+    public InputStreamSubject ruleForInputStream(Function<T, InputStream> func) {
+        String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
+        PropertyRule<T, InputStream> rule = new PropertyRule<>(func, propertyName);
+        rules.add(rule);
+        return new InputStreamSubject(rule);
+    }
 
     /**
      *
@@ -171,7 +190,6 @@ public class DefaultValidator<T> implements Validator<T> {
     public <E> IterableSubject<E> ruleForIterable(Function<T, Iterable<E>> func) {
         String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
         PropertyRule<T, Iterable<E>> iterablePropertyRule = new PropertyRule<>(func, propertyName);
-//        IterablePropertyRule<T, E> iterablePropertyRule = new IterablePropertyRule<>(func, propertyName);
         rules.add(iterablePropertyRule);
         return new IterableSubject(iterablePropertyRule);
     }
@@ -233,7 +251,6 @@ public class DefaultValidator<T> implements Validator<T> {
      */
     public <K, V> MapSubject<K, V> ruleForMap(Function<T, Map<K, V>> func) {
         String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
-        // MapPropertyRule<T, K, V> rule = new MapPropertyRule<>(func, propertyName);
         PropertyRule<T, Map<K, V>> rule = new PropertyRule<>(func, propertyName);
         rules.add(rule);
         return new MapSubject(rule);
@@ -287,7 +304,6 @@ public class DefaultValidator<T> implements Validator<T> {
         return new ShortSubject(rule);
     }
 
-    // TODO: should cache bytebuddy proxies either via a hashmap or bytebuddy TypeCache
     /**
      *
      * @param func
@@ -324,9 +340,29 @@ public class DefaultValidator<T> implements Validator<T> {
         return new CharSequenceSubject(rule);
     }
 
-    // TODO: UriSubject
+    /**
+     *
+     * @param func
+     * @return
+     */
+    public UriSubject ruleForUri(Function<T, URI> func) {
+        String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
+        PropertyRule<T, URI> rule = new PropertyRule<>(func, propertyName);
+        rules.add(rule);
+        return new UriSubject(rule);
+    }
 
-    // TODO: UrlSubject
+    /**
+     *
+     * @param func
+     * @return
+     */
+    public UrlSubject ruleForUrl(Function<T, URL> func) {
+        String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
+        PropertyRule<T, URL> rule = new PropertyRule<>(func, propertyName);
+        rules.add(rule);
+        return new UrlSubject(rule);
+    }
 
     /**
      *
