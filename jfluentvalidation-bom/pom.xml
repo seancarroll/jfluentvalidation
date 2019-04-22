@@ -19,7 +19,7 @@
 
     <properties>
         <byte-buddy.version>1.9.12</byte-buddy.version>
-        <checker-qual.version>2.6.0</checker-qual.version>
+        <checker-qual.version>2.8.0</checker-qual.version>
         <errorprone.version>2.3.3</errorprone.version>
         <!--TODO: can we avoid bringing in guava as a dependency?-->
         <guava.version>27.0.1-jre</guava.version>
