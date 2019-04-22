@@ -28,17 +28,8 @@ public class Subject<S extends Subject<S, A>, A> {
 
     // TODO: does the subject need propertyFunc, propertyName, constraints, currentConstraint or can these be moved elsewhere?
     protected final S myself;
-//    protected Function<Object, A> propertyFunc;
-//    protected String propertyName;
-//    protected List<Constraint<?, ? super A>> constraints = new ArrayList<>();
     protected PropertyRule<?, ? super A> rule;
     protected Constraint<?, A> currentConstraint;
-
-//    public Subject(Class<?> selfType, Function<Object, A> propertyFunc, String propertyName) {
-//        this.myself = (S) selfType.cast(this);
-//        this.propertyFunc = propertyFunc;
-//        this.propertyName = propertyName;
-//    }
 
     public Subject(Class<?> selfType, PropertyRule<?, A> rule) {
         this.myself = (S) selfType.cast(this);
@@ -52,8 +43,6 @@ public class Subject<S extends Subject<S, A>, A> {
     // 3. static IsNullConstraint
     public S isNull() {
         // standardIsEqualTo(null);
-        // constraints.add(instance -> instance == null);
-        // constraints.add(new IsNullConstraint());
         rule.addConstraint(new IsNullConstraint());
         return myself;
     }
@@ -61,39 +50,15 @@ public class Subject<S extends Subject<S, A>, A> {
     /** Fails if the subject is null. */
     public S isNotNull() {
         // standardIsNotEqualTo(null);
-        // constraints.add(instance -> instance != null);
-        // constraints.add(new IsNotNullConstraint());
         rule.addConstraint(new IsNotNullConstraint());
         return myself;
     }
 
     // TODO: is there a better way to do this? What are some alternatives?
     public S isEquals(A other) {
-        // constraints.add(new IsEqualsConstraint<>(other));
         rule.addConstraint(new IsEqualsConstraint<>(other));
         return myself;
     }
-
-//    public Function<Object, A> getPropertyFunc() {
-//        return propertyFunc;
-//    }
-//
-//    public String getPropertyName() {
-//        return propertyName;
-//    }
-//
-//    public void setPropertyName(String propertyName) {
-//        this.propertyName = propertyName;
-//    }
-//
-//    public List<Constraint<?, ? super A>> getConstraints() {
-//        return constraints;
-//    }
-//
-//    protected void addConstraint(Constraint<?, A> constraint) {
-//        currentConstraint = constraint;
-//        constraints.add(constraint);
-//    }
 
     protected S withMessage(String message) {
         // TODO: implement
@@ -124,10 +89,7 @@ public class Subject<S extends Subject<S, A>, A> {
 
     //    RuleFor(x => x.Postcode).Must(BeAValidPostcode).WithMessage("Please specify a valid postcode");
     public S must(Predicate<A> predicate) {
-        // constraints.add(new PredicateConstraint<>(predicate));
-        // TODO: fix...not sure how to make generics work here
-//        PredicateConstraint<?, A> predicateConstraint = new PredicateConstraint<>(predicate);
-//        rule.addConstraint(predicateConstraint);
+        // TODO: fix unchecked...not sure how to make generics work here.
         rule.addConstraint(new PredicateConstraint(predicate));
         return myself;
     }

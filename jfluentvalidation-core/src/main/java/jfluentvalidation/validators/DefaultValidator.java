@@ -80,6 +80,7 @@ public class DefaultValidator<T> implements Validator<T> {
         return new BooleanSubject(rule);
     }
 
+    // TODO: how to handle rule for Array?
     // TODO: ruleForByteArray
 
     /**
@@ -362,15 +363,7 @@ public class DefaultValidator<T> implements Validator<T> {
      */
     public void when(Predicate<T> predicate, Runnable runnable) {
         List<Rule<T, ?>> rulesToUpdate = new ArrayList<>();
-
-        // QUESTION: would the following be a better way of doing this? Run is a terrible method name
-        // rules.run(runnable, rulesToUpdate::add)
-        // This would register the callback, run the runnable and then de-register
-
         rules.run(runnable, rulesToUpdate::add);
-//        rules.registerItemAddedCallback(rulesToUpdate::add);
-//        runnable.run();
-//        rules.deregisterItemAddedCallback();
 
         // TODO: update each rule in rulesToUpdate with predicate
         // TODO: is there a way we can group these all under something instead of iterating through rules?
@@ -408,9 +401,6 @@ public class DefaultValidator<T> implements Validator<T> {
         // TODO: this sucks. How can we improve this?
         List<String> ruleSet = Arrays.asList(ruleSetName);
         rules.run(runnable, (rule) -> rule.setRuleSet(ruleSet));
-//        rules.registerItemAddedCallback((rule) -> rule.setRuleSet(ruleSet));
-//        runnable.run();
-//        rules.deregisterItemAddedCallback();
     }
 
 

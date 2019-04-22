@@ -88,7 +88,7 @@ public class PropertyRule<T, P> implements Rule<T, P> {
     }
 
     // TODO: should this just be addConstraints and take a varargs?
-    public void addConstraint(Constraint<?, P> constraint) {
+    public void addConstraint(Constraint<T, P> constraint) {
         constraints.add(constraint);
     }
 
