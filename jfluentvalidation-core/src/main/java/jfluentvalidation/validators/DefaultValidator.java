@@ -64,6 +64,7 @@ public class DefaultValidator<T> implements Validator<T> {
      *
      */
     protected DefaultValidator() {
+        // TODO: can we remove dependency on typetools and roll this ourselves?
         this.type = (Class<T>) TypeResolver.resolveRawArguments(DefaultValidator.class, getClass())[0];
         this.proxy = PropertyLiteralHelper.getPropertyNameCapturer(type);
     }
