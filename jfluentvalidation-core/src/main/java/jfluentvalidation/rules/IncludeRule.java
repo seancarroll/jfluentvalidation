@@ -45,13 +45,5 @@ public class IncludeRule<T> extends PropertyRule<T, Object> {
     public void setRuleSet(List<String> ruleSet) {
         this.ruleSet = ruleSet;
     }
-//
-//    // TODO: ugh! what to do here? given validator doesnt expose subject.
-//    // I guess I could expose subject however I have a feeling this issue is actually highlighting a problematic design
-//    // QUESTION: should Subject just be the way I build up rules?
-//    @Override
-//    public Function<T, Object> getPropertyFunc() {
-//        return null;
-//    }
 
 }

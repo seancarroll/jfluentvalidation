@@ -14,11 +14,13 @@ public class InputStreamSubject extends Subject<InputStreamSubject, InputStream>
     }
 
     public InputStreamSubject hasSameContentAs(InputStream expected) {
+        // TODO: implement
         //inputStreams.assertSameContentAs(info, actual, expected);
         return myself;
     }
 
     public InputStreamSubject hasContent(String expected) {
+        // TODO: implement
         //inputStreams.assertHasContent(info, actual, expected);
         return myself;
     }
