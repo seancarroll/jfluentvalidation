@@ -1,6 +1,7 @@
 package jfluentvalidation.constraints.iterable;
 
 import jfluentvalidation.constraints.Constraint;
+import jfluentvalidation.validators.RuleContext;
 
 // AKA containsAllOf
 /**
@@ -13,16 +14,17 @@ import jfluentvalidation.constraints.Constraint;
  * on the object returned by this method. The expected elements must appear in the given order
  * within the actual elements, but they are not required to be consecutive.
  */
-public class ContainsAllInConstraint<T> implements Constraint<Iterable<? super T>> {
+public class ContainsAllInConstraint<T, P> implements Constraint<T, Iterable<? super P>> {
 
-    private final Iterable<? extends T> expectedIterable;
+    private final Iterable<? extends P> expectedIterable;
 
-    public ContainsAllInConstraint(Iterable<? extends T> expectedIterable) {
+    public ContainsAllInConstraint(Iterable<? extends P> expectedIterable) {
         this.expectedIterable = expectedIterable;
     }
 
     @Override
-    public boolean isValid(Iterable<? super T> value) {
+    public boolean isValid(RuleContext<T, Iterable<? super P>> context) {
         return false;
     }
+
 }

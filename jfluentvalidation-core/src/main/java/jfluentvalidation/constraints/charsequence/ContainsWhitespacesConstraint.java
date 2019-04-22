@@ -2,14 +2,15 @@ package jfluentvalidation.constraints.charsequence;
 
 import jfluentvalidation.common.Strings;
 import jfluentvalidation.constraints.Constraint;
+import jfluentvalidation.validators.RuleContext;
 
 /**
  * Check that the given {@code CharSequence} being validated contains one or more whitespace characters.
  */
-public class ContainsWhitespacesConstraint implements Constraint<CharSequence> {
+public class ContainsWhitespacesConstraint<T> implements Constraint<T, CharSequence> {
 
     @Override
-    public boolean isValid(CharSequence value) {
-        return !Strings.isNullOrEmpty(value) && Strings.containsWhitespaces(value);
+    public boolean isValid(RuleContext<T, CharSequence> validationContext) {
+        return !Strings.isNullOrEmpty(validationContext.getPropertyValue()) && Strings.containsWhitespaces(validationContext.getPropertyValue());
     }
 }

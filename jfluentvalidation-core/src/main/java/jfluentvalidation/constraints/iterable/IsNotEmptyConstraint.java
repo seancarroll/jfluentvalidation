@@ -2,11 +2,12 @@ package jfluentvalidation.constraints.iterable;
 
 import jfluentvalidation.common.Iterables;
 import jfluentvalidation.constraints.Constraint;
+import jfluentvalidation.validators.RuleContext;
 
-public class IsNotEmptyConstraint<T> implements Constraint<Iterable<? super T>> {
+public class IsNotEmptyConstraint<T, P> implements Constraint<T, Iterable<? super P>> {
 
     @Override
-    public boolean isValid(Iterable<? super T> value) {
-        return !Iterables.isEmpty(value);
+    public boolean isValid(RuleContext<T, Iterable<? super P>> context) {
+        return !Iterables.isEmpty(context.getPropertyValue());
     }
 }

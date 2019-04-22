@@ -35,3 +35,8 @@ Where to put validation configuration such as clock provider?
 - Update AbstractValidator to Default/Standard as I think I would like to support build a validator from that. 
   Include test and have sample in docs. Also show a way to create a custom validator 
 - Handle method references (include test and have it in docs)
+
+
+
+must do
+- figure out include rule issue with apply condition / subject

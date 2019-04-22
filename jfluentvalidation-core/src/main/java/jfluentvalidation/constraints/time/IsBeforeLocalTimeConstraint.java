@@ -2,10 +2,11 @@ package jfluentvalidation.constraints.time;
 
 import jfluentvalidation.constraints.Constraint;
 import jfluentvalidation.internal.Ensure;
+import jfluentvalidation.validators.RuleContext;
 
 import java.time.LocalTime;
 
-public class IsBeforeLocalTimeConstraint implements Constraint<LocalTime> {
+public class IsBeforeLocalTimeConstraint<T> implements Constraint<T, LocalTime> {
 
     private final LocalTime other;
 
@@ -14,7 +15,7 @@ public class IsBeforeLocalTimeConstraint implements Constraint<LocalTime> {
     }
 
     @Override
-    public boolean isValid(LocalTime value) {
-        return value.isBefore(other);
+    public boolean isValid(RuleContext<T, LocalTime> context) {
+        return context.getPropertyValue().isBefore(other);
     }
 }

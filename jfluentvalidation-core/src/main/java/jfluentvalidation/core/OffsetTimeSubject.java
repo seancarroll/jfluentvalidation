@@ -4,36 +4,40 @@ import jfluentvalidation.constraints.time.IsAfterOffsetTimeConstraint;
 import jfluentvalidation.constraints.time.IsAfterOrEqualOffsetTimeConstraint;
 import jfluentvalidation.constraints.time.IsBeforeOffsetTimeConstraint;
 import jfluentvalidation.constraints.time.IsBeforeOrEqualOffsetTimeConstraint;
+import jfluentvalidation.rules.PropertyRule;
 
 import java.time.OffsetTime;
-import java.util.function.Function;
 
 // TODO: isEquals vs equals
+
+/**
+ *
+ */
 public class OffsetTimeSubject
     extends Subject<OffsetTimeSubject, OffsetTime>
     implements ComparableSubject<OffsetTimeSubject, OffsetTime> {
 
-    public OffsetTimeSubject(Function propertyFunc, String propertyName) {
-        super(OffsetTimeSubject.class, propertyFunc, propertyName);
+    public OffsetTimeSubject(PropertyRule<?, OffsetTime> rule) {
+        super(OffsetTimeSubject.class, rule);
     }
 
     public OffsetTimeSubject isBefore(OffsetTime other) {
-        constraints.add(new IsBeforeOffsetTimeConstraint(other));
+        rule.addConstraint(new IsBeforeOffsetTimeConstraint(other));
         return  myself;
     }
 
     public OffsetTimeSubject isBeforeOrEqual(OffsetTime other) {
-        constraints.add(new IsBeforeOrEqualOffsetTimeConstraint(other));
+        rule.addConstraint(new IsBeforeOrEqualOffsetTimeConstraint(other));
         return  myself;
     }
 
     public OffsetTimeSubject isAfter(OffsetTime other) {
-        constraints.add(new IsAfterOffsetTimeConstraint(other));
+        rule.addConstraint(new IsAfterOffsetTimeConstraint(other));
         return  myself;
     }
 
     public OffsetTimeSubject isAfterOrEqual(OffsetTime other) {
-        constraints.add(new IsAfterOrEqualOffsetTimeConstraint(other));
+        rule.addConstraint(new IsAfterOrEqualOffsetTimeConstraint(other));
         return  myself;
     }
 

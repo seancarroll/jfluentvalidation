@@ -1,5 +1,7 @@
 package jfluentvalidation;
 
+import com.google.common.base.MoreObjects;
+
 /**
  *
  */
@@ -49,6 +51,12 @@ public class ValidationFailure {
 
     @Override
     public String toString() {
-        return "";
+        // TODO: swap out guava toString builder with something else
+        return MoreObjects.toStringHelper(this)
+            .add("propertyName", getPropertyName())
+            .add("errorCode", getErrorCode())
+            .add("errorMessage", getErrorMessage())
+            .add("attemptedValue", getAttemptedValue())
+            .toString();
     }
 }

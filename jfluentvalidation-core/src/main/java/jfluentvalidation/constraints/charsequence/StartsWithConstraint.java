@@ -2,11 +2,12 @@ package jfluentvalidation.constraints.charsequence;
 
 import jfluentvalidation.constraints.Constraint;
 import jfluentvalidation.internal.Ensure;
+import jfluentvalidation.validators.RuleContext;
 
 /**
  * Checks that the given {@code CharSequence} being validated starts with the given prefix.
  */
-public class StartsWithConstraint implements Constraint<CharSequence> {
+public class StartsWithConstraint<T> implements Constraint<T, CharSequence> {
 
     private final CharSequence prefix;
     private final int offset;
@@ -21,8 +22,8 @@ public class StartsWithConstraint implements Constraint<CharSequence> {
     }
 
     @Override
-    public boolean isValid(CharSequence value) {
+    public boolean isValid(RuleContext<T, CharSequence> validationContext) {
         // TODO: this probably should be based on a comparison strategy
-        return value.toString().startsWith(prefix.toString(), offset);
+        return validationContext.getPropertyValue().toString().startsWith(prefix.toString(), offset);
     }
 }

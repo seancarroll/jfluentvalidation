@@ -3,8 +3,9 @@ package jfluentvalidation.constraints.iterable;
 import jfluentvalidation.common.Iterables;
 import jfluentvalidation.constraints.Constraint;
 import jfluentvalidation.internal.Ensure;
+import jfluentvalidation.validators.RuleContext;
 
-public class HasSizeConstraint<T> implements Constraint<Iterable<? super T>> {
+public class HasSizeConstraint<T, P> implements Constraint<T, Iterable<? super P>> {
 
     private final int expectedSize;
 
@@ -13,8 +14,8 @@ public class HasSizeConstraint<T> implements Constraint<Iterable<? super T>> {
     }
 
     @Override
-    public boolean isValid(Iterable<? super T> value) {
-        return Iterables.size(value) == expectedSize;
+    public boolean isValid(RuleContext<T, Iterable<? super P>> context) {
+        return Iterables.size(context.getPropertyValue()) == expectedSize;
     }
 
 }

@@ -1,11 +1,12 @@
 package jfluentvalidation.constraints.charsequence;
 
 import jfluentvalidation.constraints.Constraint;
+import jfluentvalidation.validators.RuleContext;
 
 import static java.lang.Character.isWhitespace;
 
 // TODO: implement!
-public class IsEqualToIgnoringWhitespaceConstraint implements Constraint<CharSequence> {
+public class IsEqualToIgnoringWhitespaceConstraint<T> implements Constraint<T, CharSequence> {
 
     private final CharSequence expected;
 
@@ -14,8 +15,8 @@ public class IsEqualToIgnoringWhitespaceConstraint implements Constraint<CharSeq
     }
 
     @Override
-    public boolean isValid(CharSequence value) {
-        if (value == null) return expected == null;
+    public boolean isValid(RuleContext<T, CharSequence> validationContext) {
+        if (validationContext.getPropertyValue() == null) return expected == null;
         // checkCharSequenceIsNotNull(expected);
         // return removeAllWhitespaces(actual).equals(removeAllWhitespaces(expected));
         return false;

@@ -1,10 +1,13 @@
 package jfluentvalidation.core;
 
-import java.util.function.Function;
+import jfluentvalidation.rules.PropertyRule;
 
+/**
+ *
+ */
 public class ObjectSubject extends Subject<ObjectSubject, Object> {
 
-    public ObjectSubject(Function propertyFunc, String propertyName) {
-        super(ObjectSubject.class, propertyFunc, propertyName);
+    public ObjectSubject(PropertyRule<?, Object> rule) {
+        super(ObjectSubject.class, rule);
     }
 }

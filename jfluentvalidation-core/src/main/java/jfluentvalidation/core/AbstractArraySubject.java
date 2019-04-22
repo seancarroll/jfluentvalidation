@@ -1,12 +1,11 @@
 package jfluentvalidation.core;
 
-import java.util.function.Function;
+import jfluentvalidation.rules.PropertyRule;
 
 // QUESTION: Should we remove this?
 abstract class AbstractArraySubject<S extends AbstractArraySubject<S, T>, T> extends Subject<S, T> {
 
-    public AbstractArraySubject(Class<?> selfType, Function<Object, T> propertyFunc, String propertyName) {
-        super(selfType, propertyFunc, propertyName);
+    public AbstractArraySubject(Class<?> selfType, PropertyRule<?, T> rule) {
+        super(selfType, rule);
     }
-
 }

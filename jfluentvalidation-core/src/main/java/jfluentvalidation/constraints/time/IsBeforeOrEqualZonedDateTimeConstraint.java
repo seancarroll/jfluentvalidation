@@ -2,10 +2,11 @@ package jfluentvalidation.constraints.time;
 
 import jfluentvalidation.constraints.Constraint;
 import jfluentvalidation.internal.Ensure;
+import jfluentvalidation.validators.RuleContext;
 
 import java.time.ZonedDateTime;
 
-public class IsBeforeOrEqualZonedDateTimeConstraint implements Constraint<ZonedDateTime> {
+public class IsBeforeOrEqualZonedDateTimeConstraint<T> implements Constraint<T, ZonedDateTime> {
 
     private final ZonedDateTime other;
 
@@ -14,7 +15,7 @@ public class IsBeforeOrEqualZonedDateTimeConstraint implements Constraint<ZonedD
     }
 
     @Override
-    public boolean isValid(ZonedDateTime value) {
-        return !value.isAfter(other);
+    public boolean isValid(RuleContext<T, ZonedDateTime> context) {
+        return !context.getPropertyValue().isAfter(other);
     }
 }

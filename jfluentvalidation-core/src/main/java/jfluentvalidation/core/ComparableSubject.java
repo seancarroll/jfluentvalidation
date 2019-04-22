@@ -1,5 +1,10 @@
 package jfluentvalidation.core;
 
+/**
+ *
+ * @param <S>
+ * @param <A>
+ */
 public interface ComparableSubject<S extends ComparableSubject<S, A>, A extends Comparable<? super A>> {
 
     S isEqualAccordingToCompareTo(A other);

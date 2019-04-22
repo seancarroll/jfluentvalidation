@@ -1,6 +1,6 @@
 package jfluentvalidation.core;
 
-import java.util.function.Function;
+import jfluentvalidation.rules.PropertyRule;
 
 // TODO: We could potentially have many different types of array
 // what makes sense to include? assertj has the following:
@@ -8,7 +8,8 @@ import java.util.function.Function;
 // this could extend an AbstractArraySubject
 public class ByteArraySubject extends Subject<ByteArraySubject, byte[]> {
 
-    public ByteArraySubject(Function propertyFunc, String propertyName) {
-        super(ByteArraySubject.class, propertyFunc, propertyName);
+    public ByteArraySubject(PropertyRule<?, byte[]> rule) {
+        super(ByteArraySubject.class, rule);
     }
+
 }

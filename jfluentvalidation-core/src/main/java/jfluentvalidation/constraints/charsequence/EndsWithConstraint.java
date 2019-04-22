@@ -2,11 +2,12 @@ package jfluentvalidation.constraints.charsequence;
 
 import jfluentvalidation.constraints.Constraint;
 import jfluentvalidation.internal.Ensure;
+import jfluentvalidation.validators.RuleContext;
 
 /**
  * Check that the given {@code CharSequence} being validated ends with the given suffix.
  */
-public class EndsWithConstraint implements Constraint<CharSequence> {
+public class EndsWithConstraint<T> implements Constraint<T, CharSequence> {
 
     private final CharSequence suffix;
 
@@ -15,7 +16,7 @@ public class EndsWithConstraint implements Constraint<CharSequence> {
     }
 
     @Override
-    public boolean isValid(CharSequence value) {
-        return value.toString().endsWith(suffix.toString());
+    public boolean isValid(RuleContext<T, CharSequence> validationContext) {
+        return validationContext.getPropertyValue().toString().endsWith(suffix.toString());
     }
 }

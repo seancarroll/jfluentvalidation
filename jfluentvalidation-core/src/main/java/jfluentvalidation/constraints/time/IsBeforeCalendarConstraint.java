@@ -2,10 +2,11 @@ package jfluentvalidation.constraints.time;
 
 import jfluentvalidation.constraints.Constraint;
 import jfluentvalidation.internal.Ensure;
+import jfluentvalidation.validators.RuleContext;
 
 import java.util.Calendar;
 
-public class IsBeforeCalendarConstraint implements Constraint<Calendar> {
+public class IsBeforeCalendarConstraint<T> implements Constraint<T, Calendar> {
 
     private final Calendar other;
 
@@ -14,7 +15,7 @@ public class IsBeforeCalendarConstraint implements Constraint<Calendar> {
     }
 
     @Override
-    public boolean isValid(Calendar value) {
-        return value.before(other);
+    public boolean isValid(RuleContext<T, Calendar> context) {
+        return context.getPropertyValue().before(other);
     }
 }

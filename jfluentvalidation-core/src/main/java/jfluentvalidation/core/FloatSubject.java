@@ -1,10 +1,13 @@
 package jfluentvalidation.core;
 
-import java.util.function.Function;
+import jfluentvalidation.rules.PropertyRule;
 
+/**
+ *
+ */
 public class FloatSubject extends AbstractComparableNumber<FloatSubject, Float> {
 
-    public FloatSubject(Function propertyFunc, String propertyName) {
-        super(FloatSubject.class, propertyFunc, propertyName);
+    public FloatSubject(PropertyRule<?, Float> rule) {
+        super(FloatSubject.class, rule);
     }
 }

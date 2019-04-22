@@ -1,13 +1,16 @@
 package jfluentvalidation.core;
 
+import jfluentvalidation.rules.PropertyRule;
+
 import java.io.InputStream;
-import java.util.function.Function;
 
-
+/**
+ *
+ */
 public class InputStreamSubject extends Subject<InputStreamSubject, InputStream> {
 
-    public InputStreamSubject(Function propertyFunc, String propertyName) {
-        super(InputStreamSubject.class, propertyFunc, propertyName);
+    public InputStreamSubject(PropertyRule<?, InputStream> rule) {
+        super(InputStreamSubject.class, rule);
     }
 
     public InputStreamSubject hasSameContentAs(InputStream expected) {

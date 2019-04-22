@@ -1,18 +1,20 @@
 package jfluentvalidation.core;
 
-import java.util.function.Function;
+import jfluentvalidation.rules.PropertyRule;
 
+/**
+ *
+ */
 public class BooleanSubject extends Subject<BooleanSubject, Boolean> implements ComparableSubject<BooleanSubject, Boolean> {
 
-    public BooleanSubject(Function propertyFunc, String propertyName) {
-        super(BooleanSubject.class, propertyFunc, propertyName);
+    public BooleanSubject(PropertyRule<?, Boolean> rule) {
+        super(BooleanSubject.class, rule);
     }
 
     // TODO: isEqual and isNotEqual
 
     public BooleanSubject isTrue() {
         // TODO: should we just use a isEquals(true) constraint or have a IsTrue() constraint?
-        //constraints.add(IsEqualsConstraint(true));
         isEquals(true);
         return myself;
     }

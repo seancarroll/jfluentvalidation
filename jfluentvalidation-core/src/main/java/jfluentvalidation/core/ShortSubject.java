@@ -1,10 +1,13 @@
 package jfluentvalidation.core;
 
-import java.util.function.Function;
+import jfluentvalidation.rules.PropertyRule;
 
+/**
+ *
+ */
 public class ShortSubject extends AbstractComparableNumber<ShortSubject, Short> {
 
-    public ShortSubject(Function propertyFunc, String propertyName) {
-        super(ShortSubject.class, propertyFunc, propertyName);
+    public ShortSubject(PropertyRule<?, Short> rule) {
+        super(ShortSubject.class, rule);
     }
 }

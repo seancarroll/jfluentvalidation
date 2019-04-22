@@ -1,5 +1,7 @@
 package jfluentvalidation.constraints.charsequence;
 
+import jfluentvalidation.validators.RuleContext;
+import jfluentvalidation.validators.ValidationContext;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -10,25 +12,29 @@ class ContainsOnlyOnceConstraintTest {
     @Test
     void shouldReturnTrueWhenActualContainsGivenStringOnlyOnce() {
         ContainsOnlyOnceConstraint constraint = new ContainsOnlyOnceConstraint("red");
-        assertTrue(constraint.isValid("credit"));
+        RuleContext context = new RuleContext(new ValidationContext("credit"), null);
+        assertTrue(constraint.isValid(context));
     }
 
     @Test
     void shouldReturnFalseWhenActualContainsGivenStringMoreThanOnce() {
         ContainsOnlyOnceConstraint constraint = new ContainsOnlyOnceConstraint("red");
-        assertFalse(constraint.isValid("creditcredit"));
+        RuleContext context = new RuleContext(new ValidationContext("credit"), null);
+        assertFalse(constraint.isValid(context));
     }
 
     @Test
     void shouldReturnFalseWhenActualContainsSequenceOnlyOnceButDifferentCase() {
         ContainsOnlyOnceConstraint constraint = new ContainsOnlyOnceConstraint("Red");
-        assertFalse(constraint.isValid("credit"));
+        RuleContext context = new RuleContext(new ValidationContext("credit"), null);
+        assertFalse(constraint.isValid(context));
     }
 
     @Test
     void shouldReturnFalseWhenActualDoesNotContainString() {
         ContainsOnlyOnceConstraint constraint = new ContainsOnlyOnceConstraint("blue");
-        assertFalse(constraint.isValid("credit"));
+        RuleContext context = new RuleContext(new ValidationContext("credit"), null);
+        assertFalse(constraint.isValid(context));
     }
 
     @Test

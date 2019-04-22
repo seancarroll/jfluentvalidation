@@ -1,6 +1,7 @@
 package jfluentvalidation.constraints.iterable;
 
 import jfluentvalidation.constraints.Constraint;
+import jfluentvalidation.validators.RuleContext;
 
 /**
  * TODO: From Google Truth...we want similar behavior
@@ -8,16 +9,16 @@ import jfluentvalidation.constraints.Constraint;
  * (Duplicates are irrelevant to this test, which fails if any of the subject elements
  * correspond to any of the given elements.)
  */
-public class ContainsNoneInConstraint<T> implements Constraint<Iterable<? super T>> {
+public class ContainsNoneInConstraint<T, P> implements Constraint<T, Iterable<? super P>> {
 
-    private final Iterable<? extends T> excluded;
+    private final Iterable<? extends P> excluded;
 
-    public ContainsNoneInConstraint(Iterable<? extends T> excluded) {
+    public ContainsNoneInConstraint(Iterable<? extends P> excluded) {
         this.excluded = excluded;
     }
 
     @Override
-    public boolean isValid(Iterable<? super T> value) {
+    public boolean isValid(RuleContext<T, Iterable<? super P>> context) {
 
 //        Collection<?> actual = iterableToCollection(actual());
 //        Collection<Object> present = new ArrayList<>();

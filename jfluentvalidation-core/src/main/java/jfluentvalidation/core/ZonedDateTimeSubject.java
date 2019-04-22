@@ -4,36 +4,41 @@ import jfluentvalidation.constraints.time.IsAfterOrEqualZonedDateTimeConstraint;
 import jfluentvalidation.constraints.time.IsAfterZonedDateTimeConstraint;
 import jfluentvalidation.constraints.time.IsBeforeOrEqualZonedDateTimeConstraint;
 import jfluentvalidation.constraints.time.IsBeforeZonedDateTimeConstraint;
+import jfluentvalidation.rules.PropertyRule;
 
 import java.time.ZonedDateTime;
-import java.util.function.Function;
 
 // TODO: isEquals vs equals
+
+/**
+ *
+ */
 public class ZonedDateTimeSubject
     extends Subject<ZonedDateTimeSubject, ZonedDateTime>
     implements ComparableSubject<ZonedDateTimeSubject, ZonedDateTime> {
 
-    public ZonedDateTimeSubject(Function propertyFunc, String propertyName) {
-        super(ZonedDateTimeSubject.class, propertyFunc, propertyName);
+
+    public ZonedDateTimeSubject(PropertyRule<?, ZonedDateTime> rule) {
+        super(ZonedDateTimeSubject.class, rule);
     }
 
     public ZonedDateTimeSubject isBefore(ZonedDateTime zonedDateTime) {
-        constraints.add(new IsBeforeZonedDateTimeConstraint(zonedDateTime));
+        rule.addConstraint(new IsBeforeZonedDateTimeConstraint(zonedDateTime));
         return  myself;
     }
 
     public ZonedDateTimeSubject isBeforeOrEqual(ZonedDateTime zonedDateTime) {
-        constraints.add(new IsBeforeOrEqualZonedDateTimeConstraint(zonedDateTime));
+        rule.addConstraint(new IsBeforeOrEqualZonedDateTimeConstraint(zonedDateTime));
         return  myself;
     }
 
     public ZonedDateTimeSubject isAfter(ZonedDateTime zonedDateTime) {
-        constraints.add(new IsAfterZonedDateTimeConstraint(zonedDateTime));
+        rule.addConstraint(new IsAfterZonedDateTimeConstraint(zonedDateTime));
         return  myself;
     }
 
     public ZonedDateTimeSubject isAfterOrEqual(ZonedDateTime zonedDateTime) {
-        constraints.add(new IsAfterOrEqualZonedDateTimeConstraint(zonedDateTime));
+        rule.addConstraint(new IsAfterOrEqualZonedDateTimeConstraint(zonedDateTime));
         return  myself;
     }
 

@@ -2,10 +2,11 @@ package jfluentvalidation.constraints.time;
 
 import jfluentvalidation.constraints.Constraint;
 import jfluentvalidation.internal.Ensure;
+import jfluentvalidation.validators.RuleContext;
 
 import java.time.OffsetTime;
 
-public class IsBeforeOrEqualOffsetTimeConstraint implements Constraint<OffsetTime> {
+public class IsBeforeOrEqualOffsetTimeConstraint<T> implements Constraint<T, OffsetTime> {
 
     private final OffsetTime other;
 
@@ -14,7 +15,7 @@ public class IsBeforeOrEqualOffsetTimeConstraint implements Constraint<OffsetTim
     }
 
     @Override
-    public boolean isValid(OffsetTime value) {
-        return !value.isAfter(other);
+    public boolean isValid(RuleContext<T, OffsetTime> context) {
+        return !context.getPropertyValue().isAfter(other);
     }
 }

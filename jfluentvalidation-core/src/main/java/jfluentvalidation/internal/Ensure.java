@@ -73,6 +73,7 @@ public final class Ensure {
         notNull(sequences);
         argument(sequences.length == 0, "Sequences should not be empty");
         // TODO: turn this into arrayDoesNotContainNulls?
+        // TODO: getting warning that i < sequences.length is always false
         for (int i = 0; i < sequences.length; i++) {
             notNull(sequences[i], "CharSequence elements should not be null but found one at index " + i);
         }

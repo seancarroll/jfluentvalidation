@@ -4,36 +4,40 @@ import jfluentvalidation.constraints.time.IsAfterOffsetDateTimeConstraint;
 import jfluentvalidation.constraints.time.IsAfterOrEqualOffsetDateTimeConstraint;
 import jfluentvalidation.constraints.time.IsBeforeOffsetDateTimeConstraint;
 import jfluentvalidation.constraints.time.IsBeforeOrEqualOffsetDateTimeConstraint;
+import jfluentvalidation.rules.PropertyRule;
 
 import java.time.OffsetDateTime;
-import java.util.function.Function;
 
 // TODO: isEquals vs equals
+
+/**
+ *
+ */
 public class OffsetDateTimeSubject
     extends Subject<OffsetDateTimeSubject, OffsetDateTime>
     implements ComparableSubject<OffsetDateTimeSubject, OffsetDateTime> {
 
-    public OffsetDateTimeSubject(Function propertyFunc, String propertyName) {
-        super(OffsetDateTimeSubject.class, propertyFunc, propertyName);
+    public OffsetDateTimeSubject(PropertyRule<?, OffsetDateTime> rule) {
+        super(OffsetDateTimeSubject.class, rule);
     }
 
     public OffsetDateTimeSubject isBefore(OffsetDateTime offsetDateTime) {
-        constraints.add(new IsBeforeOffsetDateTimeConstraint(offsetDateTime));
+        rule.addConstraint(new IsBeforeOffsetDateTimeConstraint(offsetDateTime));
         return  myself;
     }
 
     public OffsetDateTimeSubject isBeforeOrEqual(OffsetDateTime offsetDateTime) {
-        constraints.add(new IsBeforeOrEqualOffsetDateTimeConstraint(offsetDateTime));
+        rule.addConstraint(new IsBeforeOrEqualOffsetDateTimeConstraint(offsetDateTime));
         return  myself;
     }
 
     public OffsetDateTimeSubject isAfter(OffsetDateTime offsetDateTime) {
-        constraints.add(new IsAfterOffsetDateTimeConstraint(offsetDateTime));
+        rule.addConstraint(new IsAfterOffsetDateTimeConstraint(offsetDateTime));
         return  myself;
     }
 
     public OffsetDateTimeSubject isAfterOrEqual(OffsetDateTime offsetDateTime) {
-        constraints.add(new IsAfterOrEqualOffsetDateTimeConstraint(offsetDateTime));
+        rule.addConstraint(new IsAfterOrEqualOffsetDateTimeConstraint(offsetDateTime));
         return  myself;
     }
 

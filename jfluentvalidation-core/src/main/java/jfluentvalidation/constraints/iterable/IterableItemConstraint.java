@@ -1,27 +1,28 @@
 package jfluentvalidation.constraints.iterable;
 
 import jfluentvalidation.constraints.Constraint;
+import jfluentvalidation.validators.RuleContext;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
 
-public class IterableItemConstraint<P> implements Constraint<Iterable<? super P>> {
+public class IterableItemConstraint<T, P> implements Constraint<T, Iterable<? super P>> {
 
-    List<Constraint<? super P>> constraints;
+    List<Constraint<T, ? super P>> constraints;
     Predicate<? super P> predicate;
 
-    public IterableItemConstraint(Constraint<? super P>... constraints) {
+    public IterableItemConstraint(Constraint<T, ? super P>... constraints) {
         this(null, constraints);
     }
 
-    public IterableItemConstraint(Predicate<? super P> predicate, Constraint<? super P>... constraints) {
+    public IterableItemConstraint(Predicate<? super P> predicate, Constraint<T, ? super P>... constraints) {
         this.constraints = Arrays.asList(constraints);
         this.predicate = predicate;
     }
 
     @Override
-    public boolean isValid(Iterable<? super P> value) {
+    public boolean isValid(RuleContext<T, Iterable<? super P>> context) {
         return false;
     }
 }

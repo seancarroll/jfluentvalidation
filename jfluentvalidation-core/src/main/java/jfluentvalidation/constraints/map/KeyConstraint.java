@@ -1,6 +1,8 @@
 package jfluentvalidation.constraints.map;
 
 import jfluentvalidation.constraints.Constraint;
+import jfluentvalidation.validators.RuleContext;
+import jfluentvalidation.validators.ValidationContext;
 
 import java.util.Map;
 import java.util.function.Predicate;
@@ -9,24 +11,31 @@ import java.util.function.Predicate;
 // TODO: is there a way to structure this so it could be used by ContainsKeyConstraint?
 // Is that even a good idea?
 // This looks like a more general case of ContainsKey
-public class KeyConstraint<K, V> implements Constraint<Map<K, V>> {
+public class KeyConstraint<T, K, V> implements Constraint<T, Map<K, V>> {
 
     private final Predicate<? super K> condition;
-    private final Constraint<? super K>[] innerConstraints;
+    private final Constraint<T, ? super K>[] innerConstraints;
 
-    public KeyConstraint(Predicate<? super K> condition, Constraint<? super K>[] innerConstraints) {
+    public KeyConstraint(Constraint<T, ? super K>[] innerConstraints) {
+        this(null, innerConstraints);
+    }
+
+    public KeyConstraint(Predicate<? super K> condition, Constraint<T, ? super K>[] innerConstraints) {
         this.condition = condition;
         this.innerConstraints = innerConstraints;
     }
 
     @Override
-    public boolean isValid(Map<K, V> map) {
+    public boolean isValid(RuleContext<T, Map<K, V>> context) {
         // TODO: fix...need to collect results and return
-        for (K key : map.keySet()) {
+        // I Think we should return a failure for each item that fails however its impossible to do that when returning boolean
+        for (K key : context.getPropertyValue().keySet()) {
             // TODO: would it be better to default to a AlwaysTrueCondition as a NullableObject instead of null check?
-            if (condition != null && condition.test(key)) {
+            if (condition == null || condition.test(key)) {
                 for (Constraint c : innerConstraints) {
-                    c.isValid(key);
+                    // TODO: is there a better way to do this?
+                    ValidationContext childContext = new ValidationContext<>(key);
+                    return c.isValid(new RuleContext(childContext, context.getRule(), key));
                 }
             }
         }
