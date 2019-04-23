@@ -4,13 +4,13 @@ import jfluentvalidation.rules.PropertyRule;
 
 import java.net.URL;
 
-public class UrlSubject extends Subject<UrlSubject, URL> {
+public class UrlSubject<T> extends Subject<UrlSubject<T>, T, URL> {
 
-    public UrlSubject(PropertyRule<?, URL> rule) {
+    public UrlSubject(PropertyRule<T, URL> rule) {
         super(UrlSubject.class, rule);
     }
 
-    public UrlSubject hasProtocol(String expected) {
+    public UrlSubject<T> hasProtocol(String expected) {
         // rule.addConstraint();
         return myself;
     }

@@ -8,11 +8,11 @@ import jfluentvalidation.rules.PropertyRule;
  * @param <S>
  * @param <A>
  */
-public abstract class AbstractComparableNumber<S extends AbstractComparableNumber<S, A>, A extends Number & Comparable<? super A>>
-    extends Subject<S, A>
-    implements NumberSubject<S, A>, ComparableSubject<S, A> {
+public abstract class AbstractComparableNumber<S extends AbstractComparableNumber<S, T, A>, T, A extends Number & Comparable<? super A>>
+    extends Subject<S, T, A>
+    implements NumberSubject<S, A>, ComparableSubject<S, T, A> {
 
-    public AbstractComparableNumber(Class<?> selfType, PropertyRule<?, A> rule) {
+    public AbstractComparableNumber(Class<?> selfType, PropertyRule<T, A> rule) {
         super(selfType, rule);
     }
 

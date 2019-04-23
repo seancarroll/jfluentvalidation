@@ -5,9 +5,9 @@ import jfluentvalidation.rules.PropertyRule;
 /**
  *
  */
-public class LongSubject extends AbstractComparableNumber<LongSubject, Long> {
+public class LongSubject<T> extends AbstractComparableNumber<LongSubject<T>, T, Long> {
 
-    public LongSubject(PropertyRule<?, Long> rule) {
+    public LongSubject(PropertyRule<T, Long> rule) {
         super(LongSubject.class, rule);
     }
 }

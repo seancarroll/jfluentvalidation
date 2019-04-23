@@ -19,9 +19,9 @@ import jfluentvalidation.validators.RuleContext;
  */
 public class ContainsExactlyElementsInConstraint<T, P> implements Constraint<T, Iterable<? super P>> {
 
-    private final Iterable<? extends P> expected;
+    private final Iterable<? super P> expected;
 
-    public ContainsExactlyElementsInConstraint(Iterable<? extends P> expected) {
+    public ContainsExactlyElementsInConstraint(Iterable<? super P> expected) {
         this.expected = expected;
     }
 

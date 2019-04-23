@@ -12,70 +12,70 @@ import java.util.function.Predicate;
  * @param <K>
  * @param <V>
  */
-public class MapSubject<K, V> extends Subject<MapSubject<K, V>, Map<K, V>> {
+public class MapSubject<T, K, V> extends Subject<MapSubject<T, K, V>, T, Map<K, V>> {
 
-    public MapSubject(PropertyRule<?, Map<K, V>> rule) {
+    public MapSubject(PropertyRule<T, Map<K, V>> rule) {
         super(MapSubject.class, rule);
     }
 
-    public final MapSubject<K, V> isEmpty() {
-        rule.addConstraint(new IsEmptyConstraint());
+    public final MapSubject<T, K, V> isEmpty() {
+        rule.addConstraint(new IsEmptyConstraint<>());
         return myself;
     }
 
-    public final MapSubject<K, V> isNotEmpty() {
-        rule.addConstraint(new IsNotEmptyConstraint());
+    public final MapSubject<T, K, V> isNotEmpty() {
+        rule.addConstraint(new IsNotEmptyConstraint<>());
         return myself;
     }
 
-    public final MapSubject<K, V> hasSize(int expectedSize) {
-        rule.addConstraint(new HasSizeConstraint(expectedSize));
+    public final MapSubject<T, K, V> hasSize(int expectedSize) {
+        rule.addConstraint(new HasSizeConstraint<>(expectedSize));
         return myself;
     }
 
-    public final MapSubject<K, V> containsKey(Object key) {
-
-        return myself;
-    }
-
-    public final MapSubject<K, V> containsEntry(Object key, Object value) {
+    public final MapSubject<T, K, V> containsKey(Object key) {
 
         return myself;
     }
 
-    public final MapSubject<K, V> doesNotContainsEntry(Object key, Object value) {
+    public final MapSubject<T, K, V> containsEntry(Object key, Object value) {
+
+        return myself;
+    }
+
+    public final MapSubject<T, K, V> doesNotContainsEntry(Object key, Object value) {
 
         return myself;
     }
 
     // Fails if the map is not empty...This seems strange
-    public final MapSubject<K, V> containsExactly() {
+    public final MapSubject<T, K, V> containsExactly() {
         return myself;
     }
 
-    public final MapSubject<K, V> containsExactly(Object key, Object value, Object... rest) {
+    public final MapSubject<T, K, V> containsExactly(Object key, Object value, Object... rest) {
         return myself;
     }
 
-    public final MapSubject<K, V> containsExactlyEntriesIn(Map<?, ?> expectedMap) {
+    public final MapSubject<T, K, V> containsExactlyEntriesIn(Map<?, ?> expectedMap) {
 
         return myself;
     }
 
-    public final MapSubject<K, V> containsExactlyEntriesInAnyOrder(Map<?, ?> expected) {
+    public final MapSubject<T, K, V> containsExactlyEntriesInAnyOrder(Map<?, ?> expected) {
 
         return myself;
     }
 
     // TODO: review Google Truth MapSubject MapDifference
-    public final MapSubject<K, V> doesNotContainEntry(Object key, Object value) {
+    public final MapSubject<T, K, V> doesNotContainEntry(Object key, Object value) {
 
         return myself;
     }
 
 
-    public final MapSubject<K, V> containsValue(V value) {
-        rule.addConstraint(new ContainsValueConstraint(value));
+    public final MapSubject<T, K, V> containsValue(V value) {
+        rule.addConstraint(new ContainsValueConstraint<>(value));
         return myself;
     }
 
@@ -103,17 +103,17 @@ public class MapSubject<K, V> extends Subject<MapSubject<K, V>, Map<K, V>> {
 
 
     @Override
-    public MapSubject<K, V> isNull() {
+    public MapSubject<T, K, V> isNull() {
         return super.isNull();
     }
 
     @Override
-    public MapSubject<K, V> isNotNull() {
+    public MapSubject<T, K, V> isNotNull() {
         return super.isNotNull();
     }
 
     @Override
-    public MapSubject<K, V> isEquals(Map<K, V> other) {
+    public MapSubject<T, K, V> isEquals(Map<K, V> other) {
         return super.isEquals(other);
     }
 
@@ -122,9 +122,9 @@ public class MapSubject<K, V> extends Subject<MapSubject<K, V>, Map<K, V>> {
      * @param constraintsToAdd
      * @return
      */
-    public final MapSubject<K, V> forEachEntry(Constraint<?, ? super Map.Entry<K, V>>... constraintsToAdd) {
+    public final MapSubject<T, K, V> forEachEntry(Constraint<T, Map.Entry<K, V>>... constraintsToAdd) {
         // TODO: fix unchecked warning
-        rule.addConstraint(new EntryConstraint(constraintsToAdd));
+        rule.addConstraint(new EntryConstraint<>(constraintsToAdd));
         return myself;
     }
 
@@ -134,8 +134,8 @@ public class MapSubject<K, V> extends Subject<MapSubject<K, V>, Map<K, V>> {
      * @param constraintsToAdd
      * @return
      */
-    public final MapSubject<K, V> forEachEntry(Predicate<? super Map.Entry<K, V>> predicate, Constraint<?, ? super Map.Entry<K, V>>... constraintsToAdd) {
-        rule.addConstraint(new EntryConstraint(predicate, constraintsToAdd));
+    public final MapSubject<T, K, V> forEachEntry(Predicate<Map.Entry<K, V>> predicate, Constraint<T, Map.Entry<K, V>>... constraintsToAdd) {
+        rule.addConstraint(new EntryConstraint<>(predicate, constraintsToAdd));
         return myself;
     }
 
@@ -145,9 +145,9 @@ public class MapSubject<K, V> extends Subject<MapSubject<K, V>, Map<K, V>> {
      * @param constraintsToAdd
      * @return
      */
-    public final MapSubject<K, V> forEachKey(Constraint<?, ? super K>... constraintsToAdd) {
+    public final MapSubject<T, K, V> forEachKey(Constraint<T, K>... constraintsToAdd) {
         // TODO: fix unchecked warning
-        rule.addConstraint(new KeyConstraint(constraintsToAdd));
+        rule.addConstraint(new KeyConstraint<>(constraintsToAdd));
         return myself;
     }
 
@@ -167,9 +167,9 @@ public class MapSubject<K, V> extends Subject<MapSubject<K, V>, Map<K, V>> {
      * @param constraintsToAdd
      * @return
      */
-    public final MapSubject<K, V> forEachValue(Constraint<?, ? super V>... constraintsToAdd) {
+    public final MapSubject<T, K, V> forEachValue(Constraint<T, V>... constraintsToAdd) {
         // TODO: fix unchecked warning
-        rule.addConstraint(new ValueConstraint(constraintsToAdd));
+        rule.addConstraint(new ValueConstraint<>(constraintsToAdd));
         return myself;
     }
 

@@ -11,9 +11,9 @@ import jfluentvalidation.validators.RuleContext;
  */
 public class ContainsNoneInConstraint<T, P> implements Constraint<T, Iterable<? super P>> {
 
-    private final Iterable<? extends P> excluded;
+    private final Iterable<? super P> excluded;
 
-    public ContainsNoneInConstraint(Iterable<? extends P> excluded) {
+    public ContainsNoneInConstraint(Iterable<? super P> excluded) {
         this.excluded = excluded;
     }
 

@@ -5,9 +5,9 @@ import jfluentvalidation.rules.PropertyRule;
 /**
  *
  */
-public class ByteSubject extends AbstractComparableNumber<ByteSubject, Byte> {
+public class ByteSubject<T> extends AbstractComparableNumber<ByteSubject<T>, T, Byte> {
 
-    public ByteSubject(PropertyRule<?, Byte> rule) {
+    public ByteSubject(PropertyRule<T, Byte> rule) {
         super(ByteSubject.class, rule);
     }
 }

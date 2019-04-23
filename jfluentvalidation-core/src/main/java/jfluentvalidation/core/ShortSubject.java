@@ -5,9 +5,9 @@ import jfluentvalidation.rules.PropertyRule;
 /**
  *
  */
-public class ShortSubject extends AbstractComparableNumber<ShortSubject, Short> {
+public class ShortSubject<T> extends AbstractComparableNumber<ShortSubject<T>, T, Short> {
 
-    public ShortSubject(PropertyRule<?, Short> rule) {
+    public ShortSubject(PropertyRule<T, Short> rule) {
         super(ShortSubject.class, rule);
     }
 }

@@ -5,8 +5,8 @@ package jfluentvalidation.core;
  * @param <S>
  * @param <A>
  */
-public class AbstractComparableSubject<S extends AbstractComparableSubject<S, A>, A extends Comparable<? super A>>
-    implements ComparableSubject<S, A> {
+public class AbstractComparableSubject<S extends AbstractComparableSubject<S, T, A>, T, A extends Comparable<? super A>>
+    implements ComparableSubject<S, T, A> {
 
     @Override
     public S isEqualAccordingToCompareTo(A other) {

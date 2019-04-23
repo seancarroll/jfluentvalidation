@@ -7,9 +7,9 @@ import jfluentvalidation.rules.PropertyRule;
 /**
  *
  */
-public class IntegerSubject extends AbstractComparableNumber<IntegerSubject, Integer> {
+public class IntegerSubject<T> extends AbstractComparableNumber<IntegerSubject<T>, T, Integer> {
 
-    public IntegerSubject(PropertyRule<?, Integer> rule) {
+    public IntegerSubject(PropertyRule<T, Integer> rule) {
         super(IntegerSubject.class, rule);
     }
 }

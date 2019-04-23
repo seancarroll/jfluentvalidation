@@ -13,31 +13,31 @@ import java.time.OffsetTime;
 /**
  *
  */
-public class OffsetTimeSubject
-    extends Subject<OffsetTimeSubject, OffsetTime>
-    implements ComparableSubject<OffsetTimeSubject, OffsetTime> {
+public class OffsetTimeSubject<T>
+    extends Subject<OffsetTimeSubject<T>, T, OffsetTime>
+    implements ComparableSubject<OffsetTimeSubject<T>, T, OffsetTime> {
 
-    public OffsetTimeSubject(PropertyRule<?, OffsetTime> rule) {
+    public OffsetTimeSubject(PropertyRule<T, OffsetTime> rule) {
         super(OffsetTimeSubject.class, rule);
     }
 
     public OffsetTimeSubject isBefore(OffsetTime other) {
-        rule.addConstraint(new IsBeforeOffsetTimeConstraint(other));
+        rule.addConstraint(new IsBeforeOffsetTimeConstraint<>(other));
         return  myself;
     }
 
     public OffsetTimeSubject isBeforeOrEqual(OffsetTime other) {
-        rule.addConstraint(new IsBeforeOrEqualOffsetTimeConstraint(other));
+        rule.addConstraint(new IsBeforeOrEqualOffsetTimeConstraint<>(other));
         return  myself;
     }
 
     public OffsetTimeSubject isAfter(OffsetTime other) {
-        rule.addConstraint(new IsAfterOffsetTimeConstraint(other));
+        rule.addConstraint(new IsAfterOffsetTimeConstraint<>(other));
         return  myself;
     }
 
     public OffsetTimeSubject isAfterOrEqual(OffsetTime other) {
-        rule.addConstraint(new IsAfterOrEqualOffsetTimeConstraint(other));
+        rule.addConstraint(new IsAfterOrEqualOffsetTimeConstraint<>(other));
         return  myself;
     }
 
