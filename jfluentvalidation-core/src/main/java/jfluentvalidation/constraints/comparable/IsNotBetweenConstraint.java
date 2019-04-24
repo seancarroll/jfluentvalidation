@@ -5,12 +5,24 @@ import jfluentvalidation.validators.RuleContext;
 
 import javax.annotation.Nonnull;
 
+/**
+ *
+ * @param <T>
+ * @param <P>
+ */
 public class IsNotBetweenConstraint<T, P extends Comparable<P>> implements Constraint<T, P> {
     private final P start;
     private final P end;
     private final boolean inclusiveStart;
     private final boolean inclusiveEnd;
 
+    /**
+     *
+     * @param start
+     * @param end
+     * @param inclusiveStart
+     * @param inclusiveEnd
+     */
     public IsNotBetweenConstraint(@Nonnull P start, @Nonnull P end, boolean inclusiveStart, boolean inclusiveEnd) {
         this.start = start;
         this.end = end;

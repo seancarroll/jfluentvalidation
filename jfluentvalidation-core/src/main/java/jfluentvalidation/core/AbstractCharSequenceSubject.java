@@ -31,13 +31,13 @@ public abstract class AbstractCharSequenceSubject<S extends AbstractCharSequence
 
     @Override
     public S isEmpty() {
-        rule.addConstraint(new IsEmptyConstraint());
+        rule.addConstraint(new IsEmptyConstraint<>());
         return myself;
     }
 
     @Override
     public S isNotEmpty() {
-        rule.addConstraint(new IsNotEmptyConstraint());
+        rule.addConstraint(new IsNotEmptyConstraint<>());
         return myself;
     }
 

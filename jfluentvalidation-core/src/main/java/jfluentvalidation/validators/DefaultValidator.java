@@ -79,11 +79,23 @@ public class DefaultValidator<T> implements Validator<T> {
         String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
         PropertyRule<T, Boolean> rule = new PropertyRule<>(func, propertyName);
         rules.add(rule);
-        return new BooleanSubject(rule);
+        return new BooleanSubject<>(rule);
     }
 
     // TODO: how to handle rule for Array?
     // TODO: ruleForByteArray
+    /**
+     *
+     * @param func
+     * @return
+     */
+    public <E> ArraySubject<T, E[]> ruleForArray(Function<T, E[]> func) {
+        String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
+        PropertyRule<T, E[]> rule = new PropertyRule<>(func, propertyName);
+        rules.add(rule);
+        return new ArraySubject<>(rule);
+    }
+
 
     /**
      *
@@ -94,7 +106,7 @@ public class DefaultValidator<T> implements Validator<T> {
         String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
         PropertyRule<T, Byte> rule = new PropertyRule<>(func, propertyName);
         rules.add(rule);
-        return new ByteSubject(rule);
+        return new ByteSubject<>(rule);
     }
 
     /**
@@ -106,7 +118,7 @@ public class DefaultValidator<T> implements Validator<T> {
         String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
         PropertyRule<T, Calendar> rule = new PropertyRule<>(func, propertyName);
         rules.add(rule);
-        return new CalendarSubject(rule);
+        return new CalendarSubject<>(rule);
     }
 
     /**
@@ -118,7 +130,7 @@ public class DefaultValidator<T> implements Validator<T> {
         String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
         PropertyRule<T, Date> rule = new PropertyRule<>(func, propertyName);
         rules.add(rule);
-        return new DateSubject(rule);
+        return new DateSubject<>(rule);
     }
 
     /**
@@ -130,21 +142,21 @@ public class DefaultValidator<T> implements Validator<T> {
         String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
         PropertyRule<T, Double> rule = new PropertyRule<>(func, propertyName);
         rules.add(rule);
-        return new DoubleSubject(rule);
+        return new DoubleSubject<>(rule);
     }
 
     public FileSubject<T> ruleForFile(Function<T, File> func) {
         String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
         PropertyRule<T, File> rule = new PropertyRule<>(func, propertyName);
         rules.add(rule);
-        return new FileSubject(rule);
+        return new FileSubject<>(rule);
     }
 
     public FloatSubject<T> ruleForFloat(Function<T, Float> func) {
         String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
         PropertyRule<T, Float> rule = new PropertyRule<>(func, propertyName);
         rules.add(rule);
-        return new FloatSubject(rule);
+        return new FloatSubject<>(rule);
     }
 
     /**
@@ -156,7 +168,7 @@ public class DefaultValidator<T> implements Validator<T> {
         String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
         PropertyRule<T, InputStream> rule = new PropertyRule<>(func, propertyName);
         rules.add(rule);
-        return new InputStreamSubject(rule);
+        return new InputStreamSubject<>(rule);
     }
 
     /**
@@ -168,25 +180,25 @@ public class DefaultValidator<T> implements Validator<T> {
         String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
         PropertyRule<T, Integer> rule = new PropertyRule<>(func, propertyName);
         rules.add(rule);
-        return new IntegerSubject(rule);
+        return new IntegerSubject<>(rule);
     }
 
 
     // TODO: how do we think we should implement a way to add constraints for each item in a collection?
     // One idea...
 
+    // TODO: confirm this can support sub/super types
     /**
      *
      * @param func
      * @param <E>
      * @return
      */
-    public <E> IterableSubject<T, E> ruleForIterable(Function<T, Iterable<E>> func) {
+    public <E> IterableSubject<T, ? super E> ruleForIterable(Function<T, Iterable<? super E>> func) {
         String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
-        PropertyRule<T, Iterable<E>> iterablePropertyRule = new PropertyRule<>(func, propertyName);
-//        IterablePropertyRule<T, E> iterablePropertyRule = new IterablePropertyRule<>(func, propertyName);
+        PropertyRule<T, Iterable<? super E>> iterablePropertyRule = new PropertyRule<>(func, propertyName);
         rules.add(iterablePropertyRule);
-        return new IterableSubject(iterablePropertyRule);
+        return new IterableSubject<>(iterablePropertyRule);
     }
 
     /**
@@ -198,7 +210,7 @@ public class DefaultValidator<T> implements Validator<T> {
         String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
         PropertyRule<T, LocalDate> rule = new PropertyRule<>(func, propertyName);
         rules.add(rule);
-        return new LocalDateSubject(rule);
+        return new LocalDateSubject<>(rule);
     }
 
     /**
@@ -210,7 +222,7 @@ public class DefaultValidator<T> implements Validator<T> {
         String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
         PropertyRule<T, LocalDateTime> rule = new PropertyRule<>(func, propertyName);
         rules.add(rule);
-        return new LocalDateTimeSubject(rule);
+        return new LocalDateTimeSubject<>(rule);
     }
 
     /**
@@ -222,7 +234,7 @@ public class DefaultValidator<T> implements Validator<T> {
         String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
         PropertyRule<T, LocalTime> rule = new PropertyRule<>(func, propertyName);
         rules.add(rule);
-        return new LocalTimeSubject(rule);
+        return new LocalTimeSubject<>(rule);
     }
 
     /**
@@ -234,7 +246,7 @@ public class DefaultValidator<T> implements Validator<T> {
         String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
         PropertyRule<T, Long> rule = new PropertyRule<>(func, propertyName);
         rules.add(rule);
-        return new LongSubject(rule);
+        return new LongSubject<>(rule);
     }
 
     /**
@@ -246,10 +258,9 @@ public class DefaultValidator<T> implements Validator<T> {
      */
     public <K, V> MapSubject<T, K, V> ruleForMap(Function<T, Map<K, V>> func) {
         String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
-        // MapPropertyRule<T, K, V> rule = new MapPropertyRule<>(func, propertyName);
         PropertyRule<T, Map<K, V>> rule = new PropertyRule<>(func, propertyName);
         rules.add(rule);
-        return new MapSubject(rule);
+        return new MapSubject<>(rule);
     }
 
     /**
@@ -261,7 +272,7 @@ public class DefaultValidator<T> implements Validator<T> {
         String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
         PropertyRule<T, Object> rule = new PropertyRule<>(func, propertyName);
         rules.add(rule);
-        return new ObjectSubject(rule);
+        return new ObjectSubject<>(rule);
     }
 
     /**
@@ -273,7 +284,7 @@ public class DefaultValidator<T> implements Validator<T> {
         String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
         PropertyRule<T, OffsetDateTime> rule = new PropertyRule<>(func, propertyName);
         rules.add(rule);
-        return new OffsetDateTimeSubject(rule);
+        return new OffsetDateTimeSubject<>(rule);
     }
 
     /**
@@ -285,7 +296,7 @@ public class DefaultValidator<T> implements Validator<T> {
         String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
         PropertyRule<T, OffsetTime> rule = new PropertyRule<>(func, propertyName);
         rules.add(rule);
-        return new OffsetTimeSubject(rule);
+        return new OffsetTimeSubject<>(rule);
     }
 
     /**
@@ -297,7 +308,7 @@ public class DefaultValidator<T> implements Validator<T> {
         String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
         PropertyRule<T, Short> rule = new PropertyRule<>(func, propertyName);
         rules.add(rule);
-        return new ShortSubject(rule);
+        return new ShortSubject<>(rule);
     }
 
     // TODO: should cache bytebuddy proxies either via a hashmap or bytebuddy TypeCache
@@ -310,7 +321,7 @@ public class DefaultValidator<T> implements Validator<T> {
         String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
         PropertyRule<T, String> rule = new PropertyRule<>(func, propertyName);
         rules.add(rule);
-        return new StringSubject(rule);
+        return new StringSubject<>(rule);
     }
 
     /**
@@ -322,7 +333,7 @@ public class DefaultValidator<T> implements Validator<T> {
         String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
         PropertyRule<T, StringBuilder> rule = new PropertyRule<>(func, propertyName);
         rules.add(rule);
-        return new CharSequenceSubject(rule);
+        return new CharSequenceSubject<>(rule);
     }
 
     /**
@@ -334,7 +345,7 @@ public class DefaultValidator<T> implements Validator<T> {
         String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
         PropertyRule<T, StringBuffer> rule = new PropertyRule<>(func, propertyName);
         rules.add(rule);
-        return new CharSequenceSubject(rule);
+        return new CharSequenceSubject<>(rule);
     }
 
     /**
@@ -346,7 +357,7 @@ public class DefaultValidator<T> implements Validator<T> {
         String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
         PropertyRule<T, URI> rule = new PropertyRule<>(func, propertyName);
         rules.add(rule);
-        return new UriSubject(rule);
+        return new UriSubject<>(rule);
     }
 
     /**
@@ -358,7 +369,7 @@ public class DefaultValidator<T> implements Validator<T> {
         String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
         PropertyRule<T, URL> rule = new PropertyRule<>(func, propertyName);
         rules.add(rule);
-        return new UrlSubject(rule);
+        return new UrlSubject<>(rule);
     }
 
     /**
@@ -370,7 +381,7 @@ public class DefaultValidator<T> implements Validator<T> {
         String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
         PropertyRule<T, ZonedDateTime> rule = new PropertyRule<>(func, propertyName);
         rules.add(rule);
-        return new ZonedDateTimeSubject(rule);
+        return new ZonedDateTimeSubject<>(rule);
     }
 
 //    TODO: include validator for a different type

@@ -6,10 +6,9 @@ import jfluentvalidation.rules.PropertyRule;
  *
  * @param <T>
  */
-public class CharSequenceSubject<T> extends AbstractCharSequenceSubject<CharSequenceSubject<T>, T, CharSequence> {
+public class CharSequenceSubject<T, A extends CharSequence> extends AbstractCharSequenceSubject<CharSequenceSubject<T, A>, T, A> {
 
-    public CharSequenceSubject(PropertyRule<T, CharSequence> rule) {
+    public CharSequenceSubject(PropertyRule<T, A> rule) {
         super(CharSequenceSubject.class, rule);
     }
-
 }
