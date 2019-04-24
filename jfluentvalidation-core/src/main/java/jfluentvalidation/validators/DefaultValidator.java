@@ -82,8 +82,6 @@ public class DefaultValidator<T> implements Validator<T> {
         return new BooleanSubject<>(rule);
     }
 
-    // TODO: how to handle rule for Array?
-    // TODO: ruleForByteArray
     /**
      *
      * @param func
@@ -96,7 +94,6 @@ public class DefaultValidator<T> implements Validator<T> {
         return new ArraySubject<>(rule);
     }
 
-
     /**
      *
      * @param func
@@ -107,6 +104,18 @@ public class DefaultValidator<T> implements Validator<T> {
         PropertyRule<T, Byte> rule = new PropertyRule<>(func, propertyName);
         rules.add(rule);
         return new ByteSubject<>(rule);
+    }
+
+    /**
+     *
+     * @param func
+     * @return
+     */
+    public ByteArraySubject<T> ruleForByteArray(Function<T, byte[]> func) {
+        String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
+        PropertyRule<T, byte[]> rule = new PropertyRule<>(func, propertyName);
+        rules.add(rule);
+        return new ByteArraySubject<>(rule);
     }
 
     /**
@@ -145,6 +154,18 @@ public class DefaultValidator<T> implements Validator<T> {
         return new DoubleSubject<>(rule);
     }
 
+    /**
+     *
+     * @param func
+     * @return
+     */
+    public DoubleArraySubject<T> ruleForDoubleArray(Function<T, double[]> func) {
+        String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
+        PropertyRule<T, double[]> rule = new PropertyRule<>(func, propertyName);
+        rules.add(rule);
+        return new DoubleArraySubject<>(rule);
+    }
+
     public FileSubject<T> ruleForFile(Function<T, File> func) {
         String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
         PropertyRule<T, File> rule = new PropertyRule<>(func, propertyName);
@@ -157,6 +178,18 @@ public class DefaultValidator<T> implements Validator<T> {
         PropertyRule<T, Float> rule = new PropertyRule<>(func, propertyName);
         rules.add(rule);
         return new FloatSubject<>(rule);
+    }
+
+    /**
+     *
+     * @param func
+     * @return
+     */
+    public FloatArraySubject<T> ruleForFloatArray(Function<T, float[]> func) {
+        String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
+        PropertyRule<T, float[]> rule = new PropertyRule<>(func, propertyName);
+        rules.add(rule);
+        return new FloatArraySubject<>(rule);
     }
 
     /**
@@ -181,6 +214,18 @@ public class DefaultValidator<T> implements Validator<T> {
         PropertyRule<T, Integer> rule = new PropertyRule<>(func, propertyName);
         rules.add(rule);
         return new IntegerSubject<>(rule);
+    }
+
+    /**
+     *
+     * @param func
+     * @return
+     */
+    public IntArraySubject<T> ruleForIntArray(Function<T, int[]> func) {
+        String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
+        PropertyRule<T, int[]> rule = new PropertyRule<>(func, propertyName);
+        rules.add(rule);
+        return new IntArraySubject<>(rule);
     }
 
 
@@ -252,6 +297,18 @@ public class DefaultValidator<T> implements Validator<T> {
     /**
      *
      * @param func
+     * @return
+     */
+    public LongArraySubject<T> ruleForLongArray(Function<T, long[]> func) {
+        String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
+        PropertyRule<T, long[]> rule = new PropertyRule<>(func, propertyName);
+        rules.add(rule);
+        return new LongArraySubject<>(rule);
+    }
+
+    /**
+     *
+     * @param func
      * @param <K>
      * @param <V>
      * @return
@@ -309,6 +366,18 @@ public class DefaultValidator<T> implements Validator<T> {
         PropertyRule<T, Short> rule = new PropertyRule<>(func, propertyName);
         rules.add(rule);
         return new ShortSubject<>(rule);
+    }
+
+    /**
+     *
+     * @param func
+     * @return
+     */
+    public ShortArraySubject<T> ruleForShortArray(Function<T, short[]> func) {
+        String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
+        PropertyRule<T, short[]> rule = new PropertyRule<>(func, propertyName);
+        rules.add(rule);
+        return new ShortArraySubject<>(rule);
     }
 
     // TODO: should cache bytebuddy proxies either via a hashmap or bytebuddy TypeCache
