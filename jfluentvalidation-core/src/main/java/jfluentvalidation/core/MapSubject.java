@@ -122,8 +122,8 @@ public class MapSubject<T, K, V> extends Subject<MapSubject<T, K, V>, T, Map<K, 
      * @param constraintsToAdd
      * @return
      */
+    @SafeVarargs
     public final MapSubject<T, K, V> forEachEntry(Constraint<T, Map.Entry<K, V>>... constraintsToAdd) {
-        // TODO: fix unchecked warning
         rule.addConstraint(new EntryConstraint<>(constraintsToAdd));
         return myself;
     }
@@ -134,6 +134,7 @@ public class MapSubject<T, K, V> extends Subject<MapSubject<T, K, V>, T, Map<K, 
      * @param constraintsToAdd
      * @return
      */
+    @SafeVarargs
     public final MapSubject<T, K, V> forEachEntry(Predicate<Map.Entry<K, V>> predicate, Constraint<T, Map.Entry<K, V>>... constraintsToAdd) {
         rule.addConstraint(new EntryConstraint<>(predicate, constraintsToAdd));
         return myself;
@@ -145,8 +146,8 @@ public class MapSubject<T, K, V> extends Subject<MapSubject<T, K, V>, T, Map<K, 
      * @param constraintsToAdd
      * @return
      */
+    @SafeVarargs
     public final MapSubject<T, K, V> forEachKey(Constraint<T, K>... constraintsToAdd) {
-        // TODO: fix unchecked warning
         rule.addConstraint(new KeyConstraint<>(constraintsToAdd));
         return myself;
     }
@@ -167,8 +168,8 @@ public class MapSubject<T, K, V> extends Subject<MapSubject<T, K, V>, T, Map<K, 
      * @param constraintsToAdd
      * @return
      */
+    @SafeVarargs
     public final MapSubject<T, K, V> forEachValue(Constraint<T, V>... constraintsToAdd) {
-        // TODO: fix unchecked warning
         rule.addConstraint(new ValueConstraint<>(constraintsToAdd));
         return myself;
     }
