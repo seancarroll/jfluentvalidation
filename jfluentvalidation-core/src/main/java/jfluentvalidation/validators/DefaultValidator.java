@@ -44,7 +44,7 @@ public class DefaultValidator<T> implements Validator<T> {
 
     /**
      *
-     * @param clazz
+     * @param clazz The class of the instance to validate
      */
     public DefaultValidator(Class<T> clazz) {
         this.type = clazz;
@@ -53,8 +53,8 @@ public class DefaultValidator<T> implements Validator<T> {
 
     /**
      *
-     * @param clazz
-     * @param <T>
+     * @param clazz The class of the instance to validate
+     * @param <T> The type of the instance to validate
      * @return
      */
     public static <T> DefaultValidator<T> forClass(Class<T> clazz) {
@@ -72,7 +72,7 @@ public class DefaultValidator<T> implements Validator<T> {
 
     /**
      *
-     * @param func
+     * @param func The Function representing the property to validate
      * @return
      */
     public BooleanSubject<T> ruleForBoolean(Function<T, Boolean> func) {
@@ -523,43 +523,48 @@ public class DefaultValidator<T> implements Validator<T> {
     // FluentValidator has IValidationRule return IEnumerable<ValidationFailure> while IValidator returns ValidationResult
 
     /**
-     *
-     * @param entity
-     * @return
+     * Validates the specified instance
+     * @param entity The object to validate
+     * @return A list of validation failures / A ValidationResult object containing any validation failures.
      */
     public List<ValidationFailure> validate(T entity) {
         return validate(new ValidationContext<>(entity));
     }
 
     /**
-     *
-     * @param entity
-     * @param ruleSet
-     * @return
+     * Validates the specified instance
+     * @param entity The object to validate
+     * @param ruleSet a ruleset when need to validate against.
+     * @return A list of validation failures / A ValidationResult object containing any validation failures.
      */
     public List<ValidationFailure> validate(T entity, String ruleSet) {
         return validate(entity, RULESET_SPLITTER.splitToList(ruleSet));
     }
 
     /**
-     *
-     * @param entity
-     * @param ruleSet
-     * @return
+     * Validates the specified instance
+     * @param entity The object to validate
+     * @param ruleSet a ruleset when need to validate against.
+     * @return A list of validation failures / A ValidationResult object containing any validation failures.
      */
     public List<ValidationFailure> validate(T entity, List<String> ruleSet) {
         return validate(new ValidationContext<>(entity), ruleSet);
     }
 
+    /**
+     *
+     * @param validationContext Validation Context
+     * @return A list of validation failures / A ValidationResult object containing any validation failures.
+     */
     public List<ValidationFailure> validate(ValidationContext validationContext) {
         return validate(validationContext, RuleSet.DEFAULT_LIST);
     }
 
     /**
      * Performs validation and then throws an exception if validation fails.
-     * @param validationContext
+     * @param validationContext Validation Context
      * @param ruleSet a ruleset when need to validate against.
-     * @return A list of validation failures A ValidationResult object containing any validation failures.
+     * @return A list of validation failures / A ValidationResult object containing any validation failures.
      */
     public List<ValidationFailure> validate(ValidationContext validationContext, List<String> ruleSet) {
         Ensure.notNull(validationContext, "Cannot pass null context to Validate.");
@@ -579,26 +584,26 @@ public class DefaultValidator<T> implements Validator<T> {
     }
 
     /**
-     *
-     * @param entity
+     * Validates the specified instance and then throws an exception if validation fails.
+     * @param entity The object to validate
      */
     public void validateAndThrow(T entity) {
         validateAndThrow(new ValidationContext<>(entity));
     }
 
     /**
-     *
-     * @param entity
-     * @param ruleSet
+     * Validates the specified instance and then throws an exception if validation fails.
+     * @param entity The object to validate
+     * @param ruleSet a ruleset when need to validate against.
      */
     public void validateAndThrow(T entity, String ruleSet) {
         validateAndThrow(entity, RULESET_SPLITTER.splitToList(ruleSet));
     }
 
     /**
-     *
-     * @param entity
-     * @param ruleSet
+     * Validates the specified instance and then throws an exception if validation fails.
+     * @param entity The object to validate
+     * @param ruleSet a ruleset when need to validate against.
      */
     public void validateAndThrow(T entity, List<String> ruleSet) {
         validateAndThrow(new ValidationContext<>(entity), ruleSet);
