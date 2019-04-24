@@ -87,18 +87,6 @@ public class DefaultValidator<T> implements Validator<T> {
      * @param func
      * @return
      */
-    public <E> ArraySubject<T, E[]> ruleForArray(Function<T, E[]> func) {
-        String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
-        PropertyRule<T, E[]> rule = new PropertyRule<>(func, propertyName);
-        rules.add(rule);
-        return new ArraySubject<>(rule);
-    }
-
-    /**
-     *
-     * @param func
-     * @return
-     */
     public ByteSubject<T> ruleForByte(Function<T, Byte> func) {
         String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
         PropertyRule<T, Byte> rule = new PropertyRule<>(func, propertyName);
@@ -330,6 +318,18 @@ public class DefaultValidator<T> implements Validator<T> {
         PropertyRule<T, Object> rule = new PropertyRule<>(func, propertyName);
         rules.add(rule);
         return new ObjectSubject<>(rule);
+    }
+
+    /**
+     * TODO: add a note this is does not work for primitives and to see other methods
+     * @param func
+     * @return
+     */
+    public <E> ObjectArraySubject<T, E[]> ruleForObjectArray(Function<T, E[]> func) {
+        String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
+        PropertyRule<T, E[]> rule = new PropertyRule<>(func, propertyName);
+        rules.add(rule);
+        return new ObjectArraySubject<>(rule);
     }
 
     /**
