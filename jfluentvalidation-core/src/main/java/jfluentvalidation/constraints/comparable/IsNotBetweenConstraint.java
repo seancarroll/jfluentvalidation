@@ -10,7 +10,7 @@ import javax.annotation.Nonnull;
  * @param <T>
  * @param <P>
  */
-public class IsNotBetweenConstraint<T, P extends Comparable<P>> implements Constraint<T, P> {
+public class IsNotBetweenConstraint<T, P extends Comparable<? super P>> implements Constraint<T, P> {
     private final P start;
     private final P end;
     private final boolean inclusiveStart;

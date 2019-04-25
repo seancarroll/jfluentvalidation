@@ -6,7 +6,7 @@ import jfluentvalidation.validators.RuleContext;
 
 import javax.annotation.Nonnull;
 
-public class IsLessThanConstraint<T, P extends Comparable<P>> implements Constraint<T, P> {
+public class IsLessThanConstraint<T, P extends Comparable<? super P>> implements Constraint<T, P> {
 
     private final P other;
 
