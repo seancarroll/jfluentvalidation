@@ -18,6 +18,12 @@ public class IsEmailConstraint<T> implements Constraint<T, CharSequence> {
     // users could create their own constraint or validator and pass it in when creating the Validator
     private static final Pattern DEFAULT_EMAIL = Pattern.compile("");
 
+    private final CharSequence value;
+
+    public IsEmailConstraint(CharSequence value) {
+        this.value = value;
+    }
+
     @Override
     public boolean isValid(RuleContext<T, CharSequence> validationContext) {
         return false;
