@@ -11,15 +11,15 @@ public final class MapConstraints {
     private static final IsNotEmptyConstraint IS_NOT_EMPTY_CONSTRAINT = new IsNotEmptyConstraint();
 
     public static <K,V>  ContainsEntryConstraint containsEntry(Map.Entry<K, V> entry) {
-        return new ContainsEntryConstraint();
+        return new ContainsEntryConstraint<>(entry);
     }
 
     public static <K> ContainsKeyConstraint containsKey(K key) {
-        return new ContainsKeyConstraint();
+        return new ContainsKeyConstraint<>(key);
     }
 
     public static <V> ContainsValueConstraint containsValue(V value) {
-        return new ContainsValueConstraint(value);
+        return new ContainsValueConstraint<>(value);
     }
 
     public static HasSizeConstraint hasSize(int size) {

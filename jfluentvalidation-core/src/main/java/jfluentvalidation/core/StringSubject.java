@@ -5,66 +5,66 @@ import jfluentvalidation.rules.PropertyRule;
 /**
  *
  */
-public class StringSubject
-    extends AbstractCharSequenceSubject<StringSubject, String>
-    implements ComparableSubject<StringSubject, String> {
+public class StringSubject<T>
+    extends AbstractCharSequenceSubject<StringSubject<T>, T, String>
+    implements ComparableSubject<StringSubject<T>, T, String> {
 
-    public StringSubject(PropertyRule<?, String> rule) {
+    public StringSubject(PropertyRule<T, String> rule) {
         super(StringSubject.class, rule);
     }
 
     @Override
-    public StringSubject isEqualAccordingToCompareTo(String other) {
+    public StringSubject<T> isEqualAccordingToCompareTo(String other) {
         return myself;
     }
 
     @Override
-    public StringSubject isNotEqualAccordingToCompareTo(String other) {
+    public StringSubject<T> isNotEqualAccordingToCompareTo(String other) {
         return myself;
     }
 
     @Override
-    public StringSubject isLessThan(String other) {
+    public StringSubject<T> isLessThan(String other) {
         return myself;
     }
 
     @Override
-    public StringSubject isLessThanOrEqualTo(String other) {
+    public StringSubject<T> isLessThanOrEqualTo(String other) {
         return myself;
     }
 
     @Override
-    public StringSubject isGreaterThan(String other) {
+    public StringSubject<T> isGreaterThan(String other) {
         return myself;
     }
 
     @Override
-    public StringSubject isGreaterThanOrEqualTo(String other) {
+    public StringSubject<T> isGreaterThanOrEqualTo(String other) {
         return myself;
     }
 
     @Override
-    public StringSubject isBetween(String startInclusive, String endInclusive) {
+    public StringSubject<T> isBetween(String startInclusive, String endInclusive) {
         return myself;
     }
 
     @Override
-    public StringSubject isStrictlyBetween(String startExclusive, String endExclusive) {
+    public StringSubject<T> isStrictlyBetween(String startExclusive, String endExclusive) {
         return myself;
     }
 
     @Override
-    public StringSubject isBetween(String start, String end, boolean inclusiveStart, boolean inclusiveEnd) {
+    public StringSubject<T> isBetween(String start, String end, boolean inclusiveStart, boolean inclusiveEnd) {
         return myself;
     }
 
     @Override
-    public StringSubject isNotBetween(String startInclusive, String endInclusive) {
+    public StringSubject<T> isNotBetween(String startInclusive, String endInclusive) {
         return myself;
     }
 
     @Override
-    public StringSubject isNotBetween(String start, String end, boolean inclusiveStart, boolean inclusiveEnd) {
+    public StringSubject<T> isNotBetween(String start, String end, boolean inclusiveStart, boolean inclusiveEnd) {
         return myself;
     }
 

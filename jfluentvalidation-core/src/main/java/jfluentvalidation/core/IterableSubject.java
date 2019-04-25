@@ -15,99 +15,99 @@ import static java.util.Arrays.asList;
  *
  * @param <T>
  */
-public class IterableSubject<T> extends Subject<IterableSubject<T>, Iterable<? extends T>> {
+public class IterableSubject<T, E> extends Subject<IterableSubject<T, E>, T, Iterable<? super E>> {
 
-    public IterableSubject(PropertyRule<?, Iterable<? extends T>> rule) {
+    public IterableSubject(PropertyRule<T, Iterable<? super E>> rule) {
         super(IterableSubject.class, rule);
     }
 
-    public final IterableSubject<T> isEmpty() {
-        rule.addConstraint(new IsEmptyConstraint());
+    public final IterableSubject<T, E> isEmpty() {
+        rule.addConstraint(new IsEmptyConstraint<>());
         return myself;
     }
 
-    public final IterableSubject<T> isNotEmpty() {
-        rule.addConstraint(new IsNotEmptyConstraint());
+    public final IterableSubject<T, E> isNotEmpty() {
+        rule.addConstraint(new IsNotEmptyConstraint<>());
         return myself;
     }
 
-    public final IterableSubject<T> hasSize(int expectedSize) {
-        rule.addConstraint(new HasSizeConstraint(expectedSize));
+    public final IterableSubject<T, E> hasSize(int expectedSize) {
+        rule.addConstraint(new HasSizeConstraint<>(expectedSize));
         return myself;
     }
 
-    public final IterableSubject<T> contains(Object element) {
-        rule.addConstraint(new ContainsConstraint(element));
+    public final IterableSubject<T, E> contains(E element) {
+        rule.addConstraint(new ContainsConstraint<>(element));
         return myself;
     }
 
-    public final IterableSubject<T> doesNotContain(Object element) {
-        rule.addConstraint(new DoesNotContainConstraint(element));
+    public final IterableSubject<T, E> doesNotContain(E element) {
+        rule.addConstraint(new DoesNotContainConstraint<>(element));
         return myself;
     }
 
-    public final IterableSubject<T> containsAnyOf(Object first, Object second, Object... rest) {
+    public final IterableSubject<T, E> containsAnyOf(E first, E second, E... rest) {
         // Google Truth has a decent accumulate method in SubjectUtils
         return myself;
     }
 
-    public final IterableSubject<T> containsAnyIn(Iterable<?> expected) {
-        rule.addConstraint(new ContainsAnyInConstraint(expected));
+    public final IterableSubject<T, E> containsAnyIn(Iterable<E> expected) {
+        rule.addConstraint(new ContainsAnyInConstraint<>(expected));
         return myself;
     }
 
-    public final IterableSubject<T> containsAnyIn(Object[] expected) {
-        rule.addConstraint(new ContainsAnyInConstraint(Arrays.asList(expected)));
+    public final IterableSubject<T, E> containsAnyIn(E[] expected) {
+        rule.addConstraint(new ContainsAnyInConstraint<>(Arrays.asList(expected)));
         return myself;
     }
 
-    public final IterableSubject<T> containsAllOf(Object first, Object second, Object... rest) {
+    public final IterableSubject<T, E> containsAllOf(E first, E second, E... rest) {
 
         return myself;
     }
 
-    public final IterableSubject<T> containsAllIn(Iterable<?> expected) {
-        rule.addConstraint(new ContainsAnyInConstraint(expected));
+    public final IterableSubject<T, E> containsAllIn(Iterable<E> expected) {
+        rule.addConstraint(new ContainsAnyInConstraint<>(expected));
         return myself;
     }
 
-    public final IterableSubject<T> containsAllIn(Object[] expected) {
-        rule.addConstraint(new ContainsAllInConstraint(Arrays.asList(expected)));
+    public final IterableSubject<T, E> containsAllIn(E[] expected) {
+        rule.addConstraint(new ContainsAllInConstraint<>(Arrays.asList(expected)));
         return myself;
     }
 
-    public final IterableSubject<T> containsExactly(Object... exactly) {
+    public final IterableSubject<T, E> containsExactly(E... exactly) {
         // TODO: null check necessary?
         // TODO: remove guava newArrayList
-        List<Object> expected = exactly == null
-            ? newArrayList((Object) null)
+        List<E> expected = exactly == null
+            ? newArrayList((E) null)
             : asList(exactly);
-        rule.addConstraint(new ContainsExactlyElementsInConstraint(expected));
+        rule.addConstraint(new ContainsExactlyElementsInConstraint<>(expected));
         return myself;
     }
 
-    public final IterableSubject<T> containsExactlyElementsIn(Iterable<?> expected) {
-        rule.addConstraint(new ContainsExactlyElementsInConstraint(expected));
+    public final IterableSubject<T, E> containsExactlyElementsIn(Iterable<? super E> expected) {
+        rule.addConstraint(new ContainsExactlyElementsInConstraint<>(expected));
         return myself;
     }
 
-    public final IterableSubject<T> containsExactlyElementsIn(Object[] expected) {
-        rule.addConstraint(new ContainsExactlyElementsInConstraint(Arrays.asList(expected)));
+    public final IterableSubject<T, E> containsExactlyElementsIn(E[] expected) {
+        rule.addConstraint(new ContainsExactlyElementsInConstraint<>(Arrays.asList(expected)));
         return myself;
     }
 
-    public final IterableSubject<T> containsNoneOf(Object first, Object second, Object... rest) {
+    public final IterableSubject<T, E> containsNoneOf(E first, E second, E... rest) {
 
         return myself;
     }
 
-    public final IterableSubject<T> containsNoneIn(Iterable<?> excluded) {
-        rule.addConstraint(new ContainsNoneInConstraint(excluded));
+    public final IterableSubject<T, E> containsNoneIn(Iterable<? super E> excluded) {
+        rule.addConstraint(new ContainsNoneInConstraint<>(excluded));
         return myself;
     }
 
-    public final IterableSubject<T> containsNoneIn(Object[] excluded) {
-        rule.addConstraint(new ContainsNoneInConstraint(Arrays.asList(excluded)));
+    public final IterableSubject<T, E> containsNoneIn(E[] excluded) {
+        rule.addConstraint(new ContainsNoneInConstraint<>(Arrays.asList(excluded)));
         return myself;
     }
 
@@ -124,9 +124,9 @@ public class IterableSubject<T> extends Subject<IterableSubject<T>, Iterable<? e
      * @param constraintsToAdd
      * @return
      */
-    public final IterableSubject<T> forEach(Constraint<?, ? super T>... constraintsToAdd) {
+    public final IterableSubject<T, E> forEach(Constraint<T, E>... constraintsToAdd) {
         // TODO: fix unchecked warning
-        rule.addConstraint(new ItemConstraint(constraintsToAdd));
+        rule.addConstraint(new ItemConstraint<>(constraintsToAdd));
         return myself;
     }
 
@@ -136,26 +136,25 @@ public class IterableSubject<T> extends Subject<IterableSubject<T>, Iterable<? e
      * @param constraintsToAdd
      * @return
      */
-    public final IterableSubject<T> forEach(Predicate<? super T> predicate, Constraint<?, ? super T>... constraintsToAdd) {
-        rule.addConstraint(new ItemConstraint(predicate, constraintsToAdd));
+    public final IterableSubject<T, E> forEach(Predicate<E> predicate, Constraint<T, E>... constraintsToAdd) {
+        rule.addConstraint(new ItemConstraint<>(predicate, constraintsToAdd));
         return myself;
     }
 
     // TODO: should we add a forEach that takes softConstraint?
 
     @Override
-    public IterableSubject<T> isNull() {
+    public IterableSubject<T, E> isNull() {
         return super.isNull();
     }
 
     @Override
-    public IterableSubject<T> isNotNull() {
+    public IterableSubject<T, E> isNotNull() {
         return super.isNotNull();
     }
 
     @Override
-    public IterableSubject<T> isEquals(Iterable<? extends T> other) {
+    public IterableSubject<T, E> isEquals(Iterable<? super E> other) {
         return super.isEquals(other);
     }
-
 }

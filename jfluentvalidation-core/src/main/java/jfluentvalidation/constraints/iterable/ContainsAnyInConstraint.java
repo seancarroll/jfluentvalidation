@@ -11,9 +11,9 @@ import java.util.Collection;
  */
 public class ContainsAnyInConstraint<T, P> implements Constraint<T, Iterable<? super P>> {
 
-    private final Iterable<? extends P> expected;
+    private final Iterable<P> expected;
 
-    public ContainsAnyInConstraint(Iterable<? extends P> expected) {
+    public ContainsAnyInConstraint(Iterable<P> expected) {
         this.expected = expected;
     }
 

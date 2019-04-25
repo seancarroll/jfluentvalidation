@@ -7,9 +7,9 @@ import java.io.InputStream;
 /**
  *
  */
-public class InputStreamSubject extends Subject<InputStreamSubject, InputStream> {
+public class InputStreamSubject<T> extends Subject<InputStreamSubject<T>, T, InputStream> {
 
-    public InputStreamSubject(PropertyRule<?, InputStream> rule) {
+    public InputStreamSubject(PropertyRule<T, InputStream> rule) {
         super(InputStreamSubject.class, rule);
     }
 

@@ -5,9 +5,9 @@ import jfluentvalidation.rules.PropertyRule;
 /**
  *
  */
-public class ObjectSubject extends Subject<ObjectSubject, Object> {
+public class ObjectSubject<T> extends Subject<ObjectSubject<T>, T, Object> {
 
-    public ObjectSubject(PropertyRule<?, Object> rule) {
+    public ObjectSubject(PropertyRule<T, Object> rule) {
         super(ObjectSubject.class, rule);
     }
 }

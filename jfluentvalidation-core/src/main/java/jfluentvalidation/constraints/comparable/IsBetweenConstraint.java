@@ -6,7 +6,7 @@ import jfluentvalidation.validators.RuleContext;
 import javax.annotation.Nonnull;
 
 // TODO: is this what we want?
-public class IsBetweenConstraint<T, P extends Comparable<P>> implements Constraint<T, P> {
+public class IsBetweenConstraint<T, P extends Comparable<? super P>> implements Constraint<T, P> {
 
     private final P start;
     private final P end;
@@ -15,6 +15,8 @@ public class IsBetweenConstraint<T, P extends Comparable<P>> implements Constrai
 
     // TODO: add other constructors?
     public IsBetweenConstraint(@Nonnull P start, @Nonnull P end, boolean inclusiveStart, boolean inclusiveEnd) {
+        // TODO: check not null
+        // TODO: check bounds
         this.start = start;
         this.end = end;
         this.inclusiveStart = inclusiveStart;

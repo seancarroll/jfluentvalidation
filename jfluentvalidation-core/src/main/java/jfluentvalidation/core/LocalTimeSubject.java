@@ -13,32 +13,32 @@ import java.time.LocalTime;
 /**
  *
  */
-public class LocalTimeSubject
-    extends Subject<LocalTimeSubject, LocalTime>
-    implements ComparableSubject<LocalTimeSubject, LocalTime> {
+public class LocalTimeSubject<T>
+    extends Subject<LocalTimeSubject<T>, T, LocalTime>
+    implements ComparableSubject<LocalTimeSubject<T>, T, LocalTime> {
 
-    public LocalTimeSubject(PropertyRule<?, LocalTime> rule) {
+    public LocalTimeSubject(PropertyRule<T, LocalTime> rule) {
         super(LocalTimeSubject.class, rule);
     }
 
     // before and after use compareTo...do we want to keep both?
     public LocalTimeSubject isBefore(LocalTime other) {
-        rule.addConstraint(new IsBeforeLocalTimeConstraint(other));
+        rule.addConstraint(new IsBeforeLocalTimeConstraint<>(other));
         return  myself;
     }
 
     public LocalTimeSubject isBeforeOrEqual(LocalTime other) {
-        rule.addConstraint(new IsBeforeOrEqualLocalTimeConstraint(other));
+        rule.addConstraint(new IsBeforeOrEqualLocalTimeConstraint<>(other));
         return  myself;
     }
 
     public LocalTimeSubject isAfter(LocalTime other) {
-        rule.addConstraint(new IsAfterLocalTimeConstraint(other));
+        rule.addConstraint(new IsAfterLocalTimeConstraint<>(other));
         return  myself;
     }
 
     public LocalTimeSubject isAfterOrEqual(LocalTime other) {
-        rule.addConstraint(new IsAfterOrEqualLocalTimeConstraint(other));
+        rule.addConstraint(new IsAfterOrEqualLocalTimeConstraint<>(other));
         return  myself;
     }
 

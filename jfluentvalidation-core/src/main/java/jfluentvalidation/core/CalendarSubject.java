@@ -11,11 +11,11 @@ import java.util.Calendar;
 /**
  *
  */
-public class CalendarSubject
-    extends Subject<CalendarSubject, Calendar>
-    implements ComparableSubject<CalendarSubject, Calendar> {
+public class CalendarSubject<T>
+    extends Subject<CalendarSubject<T>, T, Calendar>
+    implements ComparableSubject<CalendarSubject<T>, T, Calendar> {
 
-    public CalendarSubject(PropertyRule<?, Calendar> rule) {
+    public CalendarSubject(PropertyRule<T, Calendar> rule) {
         super(CalendarSubject.class, rule);
     }
 

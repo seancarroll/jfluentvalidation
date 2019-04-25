@@ -5,21 +5,21 @@ import jfluentvalidation.rules.PropertyRule;
 /**
  *
  */
-public class BooleanSubject extends Subject<BooleanSubject, Boolean> implements ComparableSubject<BooleanSubject, Boolean> {
+public class BooleanSubject<T> extends Subject<BooleanSubject<T>, T, Boolean> implements ComparableSubject<BooleanSubject<T>, T, Boolean> {
 
-    public BooleanSubject(PropertyRule<?, Boolean> rule) {
+    public BooleanSubject(PropertyRule<T, Boolean> rule) {
         super(BooleanSubject.class, rule);
     }
 
     // TODO: isEqual and isNotEqual
 
-    public BooleanSubject isTrue() {
+    public BooleanSubject<T> isTrue() {
         // TODO: should we just use a isEquals(true) constraint or have a IsTrue() constraint?
         isEquals(true);
         return myself;
     }
 
-    public BooleanSubject isFalse() {
+    public BooleanSubject<T> isFalse() {
         // TODO: should we just use a isEquals(false) constraint or have a IsFalse() constraint?
         isEquals(false);
         return myself;
@@ -30,57 +30,57 @@ public class BooleanSubject extends Subject<BooleanSubject, Boolean> implements 
     // the isBetween and isNotBetween dont make sense to me for boolean
     // Maybe ComparableSubject just has compareTo and all the other methods dont need to belong to an interface?
     @Override
-    public BooleanSubject isEqualAccordingToCompareTo(Boolean other) {
+    public BooleanSubject<T> isEqualAccordingToCompareTo(Boolean other) {
         return myself;
     }
 
     @Override
-    public BooleanSubject isNotEqualAccordingToCompareTo(Boolean other) {
+    public BooleanSubject<T> isNotEqualAccordingToCompareTo(Boolean other) {
         return myself;
     }
 
     @Override
-    public BooleanSubject isLessThan(Boolean other) {
+    public BooleanSubject<T> isLessThan(Boolean other) {
         return myself;
     }
 
     @Override
-    public BooleanSubject isLessThanOrEqualTo(Boolean other) {
+    public BooleanSubject<T> isLessThanOrEqualTo(Boolean other) {
         return myself;
     }
 
     @Override
-    public BooleanSubject isGreaterThan(Boolean other) {
+    public BooleanSubject<T> isGreaterThan(Boolean other) {
         return myself;
     }
 
     @Override
-    public BooleanSubject isGreaterThanOrEqualTo(Boolean other) {
+    public BooleanSubject<T> isGreaterThanOrEqualTo(Boolean other) {
         return myself;
     }
 
     @Override
-    public BooleanSubject isBetween(Boolean startInclusive, Boolean endInclusive) {
+    public BooleanSubject<T> isBetween(Boolean startInclusive, Boolean endInclusive) {
         return myself;
     }
 
     @Override
-    public BooleanSubject isStrictlyBetween(Boolean startExclusive, Boolean endExclusive) {
+    public BooleanSubject<T> isStrictlyBetween(Boolean startExclusive, Boolean endExclusive) {
         return myself;
     }
 
     @Override
-    public BooleanSubject isBetween(Boolean start, Boolean end, boolean inclusiveStart, boolean inclusiveEnd) {
+    public BooleanSubject<T> isBetween(Boolean start, Boolean end, boolean inclusiveStart, boolean inclusiveEnd) {
         return myself;
     }
 
     @Override
-    public BooleanSubject isNotBetween(Boolean startInclusive, Boolean endInclusive) {
+    public BooleanSubject<T> isNotBetween(Boolean startInclusive, Boolean endInclusive) {
         return myself;
     }
 
     @Override
-    public BooleanSubject isNotBetween(Boolean start, Boolean end, boolean inclusiveStart, boolean inclusiveEnd) {
+    public BooleanSubject<T> isNotBetween(Boolean start, Boolean end, boolean inclusiveStart, boolean inclusiveEnd) {
         return myself;
     }
 }

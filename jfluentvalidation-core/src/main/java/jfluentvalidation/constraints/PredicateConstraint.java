@@ -7,6 +7,7 @@ import java.util.function.Predicate;
 /**
  *
  * @param <T>
+ * @param <P>
  */
 public class PredicateConstraint<T, P> implements Constraint<T, P> {
 

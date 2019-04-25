@@ -5,6 +5,7 @@ import jfluentvalidation.validators.RuleContext;
 /**
  * Defines the logic to validate a given constraint for a given object type {@code T}
  * @param <T> the target type supported by an implementation
+ * @param <P>
  */
 public interface Constraint<T, P> {
 
