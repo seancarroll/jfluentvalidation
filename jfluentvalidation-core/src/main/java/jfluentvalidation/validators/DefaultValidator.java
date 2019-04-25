@@ -32,14 +32,8 @@ public class DefaultValidator<T> implements Validator<T> {
     // TODO: I would prefer to not include guava so lets create our own splitter
     private static final Splitter RULESET_SPLITTER = Splitter.on(',').omitEmptyStrings().trimResults();
 
-<<<<<<< HEAD
-    public T proxy; // source
-    Class<T> type;
-
-=======
     private T proxy; // source
     private Class<T> type;
->>>>>>> 635fe42bc2670285af08a9b670987c3a59c5adb0
     private RuleCollection<T> rules = new RuleCollection<>();
 
     // QUESTION:  Should we wrap in a Locale aware interpolator? What does spring do?
@@ -153,13 +147,6 @@ public class DefaultValidator<T> implements Validator<T> {
         return new DoubleSubject<>(rule);
     }
 
-<<<<<<< HEAD
-    public FileSubject ruleForFile(Function<T, File> func) {
-        String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
-        PropertyRule<T, File> rule = new PropertyRule<>(func, propertyName);
-        rules.add(rule);
-        return new FileSubject(rule);
-=======
     /**
      *
      * @param func
@@ -170,7 +157,6 @@ public class DefaultValidator<T> implements Validator<T> {
         PropertyRule<T, double[]> rule = new PropertyRule<>(func, propertyName);
         rules.add(rule);
         return new DoubleArraySubject<>(rule);
->>>>>>> 635fe42bc2670285af08a9b670987c3a59c5adb0
     }
 
     public FileSubject<T> ruleForFile(Function<T, File> func) {
@@ -192,13 +178,6 @@ public class DefaultValidator<T> implements Validator<T> {
      * @param func
      * @return
      */
-<<<<<<< HEAD
-    public InputStreamSubject ruleForInputStream(Function<T, InputStream> func) {
-        String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
-        PropertyRule<T, InputStream> rule = new PropertyRule<>(func, propertyName);
-        rules.add(rule);
-        return new InputStreamSubject(rule);
-=======
     public FloatArraySubject<T> ruleForFloatArray(Function<T, float[]> func) {
         String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
         PropertyRule<T, float[]> rule = new PropertyRule<>(func, propertyName);
@@ -216,7 +195,6 @@ public class DefaultValidator<T> implements Validator<T> {
         PropertyRule<T, InputStream> rule = new PropertyRule<>(func, propertyName);
         rules.add(rule);
         return new InputStreamSubject<>(rule);
->>>>>>> 635fe42bc2670285af08a9b670987c3a59c5adb0
     }
 
     /**
@@ -256,11 +234,7 @@ public class DefaultValidator<T> implements Validator<T> {
      */
     public <E> IterableSubject<T, ? super E> ruleForIterable(Function<T, Iterable<? super E>> func) {
         String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
-<<<<<<< HEAD
-        PropertyRule<T, Iterable<E>> iterablePropertyRule = new PropertyRule<>(func, propertyName);
-=======
         PropertyRule<T, Iterable<? super E>> iterablePropertyRule = new PropertyRule<>(func, propertyName);
->>>>>>> 635fe42bc2670285af08a9b670987c3a59c5adb0
         rules.add(iterablePropertyRule);
         return new IterableSubject<>(iterablePropertyRule);
     }
@@ -452,19 +426,11 @@ public class DefaultValidator<T> implements Validator<T> {
      * @param func
      * @return
      */
-<<<<<<< HEAD
-    public UriSubject ruleForUri(Function<T, URI> func) {
-        String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
-        PropertyRule<T, URI> rule = new PropertyRule<>(func, propertyName);
-        rules.add(rule);
-        return new UriSubject(rule);
-=======
     public UriSubject<T> ruleForUri(Function<T, URI> func) {
         String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
         PropertyRule<T, URI> rule = new PropertyRule<>(func, propertyName);
         rules.add(rule);
         return new UriSubject<>(rule);
->>>>>>> 635fe42bc2670285af08a9b670987c3a59c5adb0
     }
 
     /**
@@ -472,19 +438,11 @@ public class DefaultValidator<T> implements Validator<T> {
      * @param func
      * @return
      */
-<<<<<<< HEAD
-    public UrlSubject ruleForUrl(Function<T, URL> func) {
-        String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
-        PropertyRule<T, URL> rule = new PropertyRule<>(func, propertyName);
-        rules.add(rule);
-        return new UrlSubject(rule);
-=======
     public UrlSubject<T> ruleForUrl(Function<T, URL> func) {
         String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
         PropertyRule<T, URL> rule = new PropertyRule<>(func, propertyName);
         rules.add(rule);
         return new UrlSubject<>(rule);
->>>>>>> 635fe42bc2670285af08a9b670987c3a59c5adb0
     }
 
     /**
