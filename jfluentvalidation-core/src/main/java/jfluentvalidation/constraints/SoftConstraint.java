@@ -18,6 +18,7 @@ import java.util.function.Predicate;
 /**
  *
  * @param <T> the target type supported by an implementation
+ * @param <P>
  */
 public class SoftConstraint<T, P> implements Constraint<T, P> {
 
