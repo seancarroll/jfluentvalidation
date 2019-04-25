@@ -96,7 +96,7 @@ public final class CharSequenceConstraints {
 
     // TODO: always return a single instance (make a singleton public static final)
     public static IsEmailConstraint isEmail(CharSequence sequence) {
-        return new IsEmailConstraint();
+        return new IsEmailConstraint(sequence);
     }
 
     public static IsEmptyConstraint isEmpty() {

@@ -26,31 +26,31 @@ import java.time.LocalDate;
 /**
  *
  */
-public class LocalDateSubject
-    extends Subject<LocalDateSubject, LocalDate>
-    implements ComparableSubject<LocalDateSubject, LocalDate> {
+public class LocalDateSubject<T>
+    extends Subject<LocalDateSubject<T>, T, LocalDate>
+    implements ComparableSubject<LocalDateSubject<T>, T, LocalDate> {
 
-    public LocalDateSubject(PropertyRule<?, LocalDate> rule) {
+    public LocalDateSubject(PropertyRule<T, LocalDate> rule) {
         super(LocalDateSubject.class, rule);
     }
 
     public LocalDateSubject isBefore(LocalDate localDate) {
-        rule.addConstraint(new IsBeforeLocalDateConstraint(localDate));
+        rule.addConstraint(new IsBeforeLocalDateConstraint<>(localDate));
         return  myself;
     }
 
     public LocalDateSubject isBeforeOrEqual(LocalDate localDate) {
-        rule.addConstraint(new IsBeforeOrEqualLocalDateConstraint(localDate));
+        rule.addConstraint(new IsBeforeOrEqualLocalDateConstraint<>(localDate));
         return  myself;
     }
 
     public LocalDateSubject isAfter(LocalDate localDate) {
-        rule.addConstraint(new IsAfterLocalDateConstraint(localDate));
+        rule.addConstraint(new IsAfterLocalDateConstraint<>(localDate));
         return  myself;
     }
 
     public LocalDateSubject isAfterOrEqual(LocalDate localDate) {
-        rule.addConstraint(new IsAfterOrEqualLocalDateConstraint(localDate));
+        rule.addConstraint(new IsAfterOrEqualLocalDateConstraint<>(localDate));
         return  myself;
     }
 

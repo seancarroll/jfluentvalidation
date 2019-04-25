@@ -1,7 +1,7 @@
 package jfluentvalidation.constraints.object;
 
 /**
- *
+ * Static factory
  */
 public final class ObjectConstraints {
 
@@ -9,19 +9,19 @@ public final class ObjectConstraints {
     private static final IsNotNullConstraint IS_NOT_NULL_CONSTRAINT = new IsNotNullConstraint();
     private static final IsNullConstraint IS_NULL_CONSTRAINT = new IsNullConstraint();
 
-    public static final <T> IsEqualsConstraint isEquals(T other) {
-        return new IsEqualsConstraint(other);
+    public static <T> IsEqualsConstraint isEquals(T other) {
+        return new IsEqualsConstraint<>(other);
     }
 
-    public static final <T> IsNotEqualsConstraint isNotEquals(T other) {
-        return new IsNotEqualsConstraint(other);
+    public static <T> IsNotEqualsConstraint isNotEquals(T other) {
+        return new IsNotEqualsConstraint<>(other);
     }
 
-    public static final IsNotNullConstraint isNotNull() {
+    public static IsNotNullConstraint isNotNull() {
         return IS_NOT_NULL_CONSTRAINT;
     }
 
-    public static final IsNullConstraint isNull() {
+    public static IsNullConstraint isNull() {
         return IS_NULL_CONSTRAINT;
     }
 

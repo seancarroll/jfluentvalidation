@@ -4,7 +4,7 @@ import java.util.regex.Pattern;
 
 // TODO: ugh...I dont really like the name but attempting to try and fix charsequence/string/stringbuffer/stringbuilder
 // incompatiblity issues
-public interface ReadableSequence<S extends ReadableSequence<S, A>, A> {
+public interface ReadableSequence<S extends ReadableSequence<S, T, A>, T, A> {
 
     S isNullOrEmpty();
 

@@ -8,6 +8,7 @@ import java.util.Objects;
 /**
  * Check that the given {@code Object} being validated is not equal to the given object.
  * @param <T> the target type supported by an implementation
+ * @param <P>
  */
 public class IsNotEqualsConstraint<T, P> implements Constraint<T, P> {
 

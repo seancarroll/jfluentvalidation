@@ -116,6 +116,7 @@ class ValidatorTests {
             ruleForZonedDateTime(p -> p.getSignedIn()).isAfter(ZonedDateTime.now().minusDays(1));
             ruleForMap(p -> p.getPets()).isNotEmpty().forEachKey(isLowerCase()).forEachValue(length(0, 5));
             ruleForIterable(p -> p.getChildren()).isNotNull().forEach(startsWith("S"));
+            ruleForByteArray(p -> p.getBytes()).isNotNull();
 
             include(new PersonAgeValidator());
 
@@ -163,5 +164,7 @@ class ValidatorTests {
             });
         }
     }
+
+    // TODO: add test for iterable with different types ie subclasses
 
 }

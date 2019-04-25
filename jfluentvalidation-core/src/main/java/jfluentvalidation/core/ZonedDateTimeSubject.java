@@ -13,107 +13,107 @@ import java.time.ZonedDateTime;
 /**
  *
  */
-public class ZonedDateTimeSubject
-    extends Subject<ZonedDateTimeSubject, ZonedDateTime>
-    implements ComparableSubject<ZonedDateTimeSubject, ZonedDateTime> {
+public class ZonedDateTimeSubject<T>
+    extends Subject<ZonedDateTimeSubject<T>, T, ZonedDateTime>
+    implements ComparableSubject<ZonedDateTimeSubject<T>, T, ZonedDateTime> {
 
 
-    public ZonedDateTimeSubject(PropertyRule<?, ZonedDateTime> rule) {
+    public ZonedDateTimeSubject(PropertyRule<T, ZonedDateTime> rule) {
         super(ZonedDateTimeSubject.class, rule);
     }
 
-    public ZonedDateTimeSubject isBefore(ZonedDateTime zonedDateTime) {
-        rule.addConstraint(new IsBeforeZonedDateTimeConstraint(zonedDateTime));
+    public ZonedDateTimeSubject<T> isBefore(ZonedDateTime zonedDateTime) {
+        rule.addConstraint(new IsBeforeZonedDateTimeConstraint<>(zonedDateTime));
         return  myself;
     }
 
-    public ZonedDateTimeSubject isBeforeOrEqual(ZonedDateTime zonedDateTime) {
-        rule.addConstraint(new IsBeforeOrEqualZonedDateTimeConstraint(zonedDateTime));
+    public ZonedDateTimeSubject<T> isBeforeOrEqual(ZonedDateTime zonedDateTime) {
+        rule.addConstraint(new IsBeforeOrEqualZonedDateTimeConstraint<>(zonedDateTime));
         return  myself;
     }
 
-    public ZonedDateTimeSubject isAfter(ZonedDateTime zonedDateTime) {
-        rule.addConstraint(new IsAfterZonedDateTimeConstraint(zonedDateTime));
+    public ZonedDateTimeSubject<T> isAfter(ZonedDateTime zonedDateTime) {
+        rule.addConstraint(new IsAfterZonedDateTimeConstraint<>(zonedDateTime));
         return  myself;
     }
 
-    public ZonedDateTimeSubject isAfterOrEqual(ZonedDateTime zonedDateTime) {
-        rule.addConstraint(new IsAfterOrEqualZonedDateTimeConstraint(zonedDateTime));
+    public ZonedDateTimeSubject<T> isAfterOrEqual(ZonedDateTime zonedDateTime) {
+        rule.addConstraint(new IsAfterOrEqualZonedDateTimeConstraint<>(zonedDateTime));
         return  myself;
     }
 
-    public ZonedDateTimeSubject isInTheFuture() {
+    public ZonedDateTimeSubject<T> isInTheFuture() {
         // TODO: clock from context/provider
         return isAfter(ZonedDateTime.now());
     }
 
-    public ZonedDateTimeSubject isInTheFutureOrPresent() {
+    public ZonedDateTimeSubject<T> isInTheFutureOrPresent() {
         // TODO: clock from context/provider
         return isAfterOrEqual(ZonedDateTime.now());
     }
 
-    public ZonedDateTimeSubject isInThePast() {
+    public ZonedDateTimeSubject<T> isInThePast() {
         // TODO: clock from context/provider
         return isBefore(ZonedDateTime.now());
     }
 
-    public ZonedDateTimeSubject isInThePastOrPresent() {
+    public ZonedDateTimeSubject<T> isInThePastOrPresent() {
         // TODO: clock from context/provider
         return isBeforeOrEqual(ZonedDateTime.now());
     }
 
     @Override
-    public ZonedDateTimeSubject isEqualAccordingToCompareTo(ZonedDateTime other) {
+    public ZonedDateTimeSubject<T> isEqualAccordingToCompareTo(ZonedDateTime other) {
         return myself;
     }
 
     @Override
-    public ZonedDateTimeSubject isNotEqualAccordingToCompareTo(ZonedDateTime other) {
+    public ZonedDateTimeSubject<T> isNotEqualAccordingToCompareTo(ZonedDateTime other) {
         return myself;
     }
 
     @Override
-    public ZonedDateTimeSubject isLessThan(ZonedDateTime other) {
+    public ZonedDateTimeSubject<T> isLessThan(ZonedDateTime other) {
         return myself;
     }
 
     @Override
-    public ZonedDateTimeSubject isLessThanOrEqualTo(ZonedDateTime other) {
+    public ZonedDateTimeSubject<T> isLessThanOrEqualTo(ZonedDateTime other) {
         return myself;
     }
 
     @Override
-    public ZonedDateTimeSubject isGreaterThan(ZonedDateTime other) {
+    public ZonedDateTimeSubject<T> isGreaterThan(ZonedDateTime other) {
         return myself;
     }
 
     @Override
-    public ZonedDateTimeSubject isGreaterThanOrEqualTo(ZonedDateTime other) {
+    public ZonedDateTimeSubject<T> isGreaterThanOrEqualTo(ZonedDateTime other) {
         return myself;
     }
 
     @Override
-    public ZonedDateTimeSubject isBetween(ZonedDateTime startInclusive, ZonedDateTime endInclusive) {
+    public ZonedDateTimeSubject<T> isBetween(ZonedDateTime startInclusive, ZonedDateTime endInclusive) {
         return myself;
     }
 
     @Override
-    public ZonedDateTimeSubject isStrictlyBetween(ZonedDateTime startExclusive, ZonedDateTime endExclusive) {
+    public ZonedDateTimeSubject<T> isStrictlyBetween(ZonedDateTime startExclusive, ZonedDateTime endExclusive) {
         return myself;
     }
 
     @Override
-    public ZonedDateTimeSubject isBetween(ZonedDateTime start, ZonedDateTime end, boolean inclusiveStart, boolean inclusiveEnd) {
+    public ZonedDateTimeSubject<T> isBetween(ZonedDateTime start, ZonedDateTime end, boolean inclusiveStart, boolean inclusiveEnd) {
         return myself;
     }
 
     @Override
-    public ZonedDateTimeSubject isNotBetween(ZonedDateTime startInclusive, ZonedDateTime endInclusive) {
+    public ZonedDateTimeSubject<T> isNotBetween(ZonedDateTime startInclusive, ZonedDateTime endInclusive) {
         return myself;
     }
 
     @Override
-    public ZonedDateTimeSubject isNotBetween(ZonedDateTime start, ZonedDateTime end, boolean inclusiveStart, boolean inclusiveEnd) {
+    public ZonedDateTimeSubject<T> isNotBetween(ZonedDateTime start, ZonedDateTime end, boolean inclusiveStart, boolean inclusiveEnd) {
         return myself;
     }
 }

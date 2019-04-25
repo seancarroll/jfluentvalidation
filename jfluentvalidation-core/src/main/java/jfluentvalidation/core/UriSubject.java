@@ -7,64 +7,64 @@ import java.net.URI;
 /**
  *
  */
-public class UriSubject extends Subject<UriSubject, URI> implements ComparableSubject<UriSubject, URI> {
+public class UriSubject<T> extends Subject<UriSubject<T>, T, URI> implements ComparableSubject<UriSubject<T>, T, URI> {
 
-    public UriSubject(PropertyRule<?, URI> rule) {
+    public UriSubject(PropertyRule<T, URI> rule) {
         super(UriSubject.class, rule);
     }
 
     @Override
-    public UriSubject isEqualAccordingToCompareTo(URI other) {
+    public UriSubject<T> isEqualAccordingToCompareTo(URI other) {
         return null;
     }
 
     @Override
-    public UriSubject isNotEqualAccordingToCompareTo(URI other) {
+    public UriSubject<T> isNotEqualAccordingToCompareTo(URI other) {
         return null;
     }
 
     @Override
-    public UriSubject isLessThan(URI other) {
+    public UriSubject<T> isLessThan(URI other) {
         return null;
     }
 
     @Override
-    public UriSubject isLessThanOrEqualTo(URI other) {
+    public UriSubject<T> isLessThanOrEqualTo(URI other) {
         return null;
     }
 
     @Override
-    public UriSubject isGreaterThan(URI other) {
+    public UriSubject<T> isGreaterThan(URI other) {
         return null;
     }
 
     @Override
-    public UriSubject isGreaterThanOrEqualTo(URI other) {
+    public UriSubject<T> isGreaterThanOrEqualTo(URI other) {
         return null;
     }
 
     @Override
-    public UriSubject isBetween(URI startInclusive, URI endInclusive) {
+    public UriSubject<T> isBetween(URI startInclusive, URI endInclusive) {
         return null;
     }
 
     @Override
-    public UriSubject isStrictlyBetween(URI startExclusive, URI endExclusive) {
+    public UriSubject<T> isStrictlyBetween(URI startExclusive, URI endExclusive) {
         return null;
     }
 
     @Override
-    public UriSubject isBetween(URI start, URI end, boolean inclusiveStart, boolean inclusiveEnd) {
+    public UriSubject<T> isBetween(URI start, URI end, boolean inclusiveStart, boolean inclusiveEnd) {
         return null;
     }
 
     @Override
-    public UriSubject isNotBetween(URI startInclusive, URI endInclusive) {
+    public UriSubject<T> isNotBetween(URI startInclusive, URI endInclusive) {
         return null;
     }
 
     @Override
-    public UriSubject isNotBetween(URI start, URI end, boolean inclusiveStart, boolean inclusiveEnd) {
+    public UriSubject<T> isNotBetween(URI start, URI end, boolean inclusiveStart, boolean inclusiveEnd) {
         return null;
     }
 }

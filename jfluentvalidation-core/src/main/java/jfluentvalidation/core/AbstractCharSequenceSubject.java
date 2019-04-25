@@ -13,11 +13,11 @@ import java.util.regex.Pattern;
  * @param <S>
  * @param <A>
  */
-public abstract class AbstractCharSequenceSubject<S extends AbstractCharSequenceSubject<S, A>, A extends CharSequence>
-    extends Subject<S, A>
-    implements ReadableSequence<S, A> {
+public abstract class AbstractCharSequenceSubject<S extends AbstractCharSequenceSubject<S, T, A>, T, A extends CharSequence>
+    extends Subject<S, T, A>
+    implements ReadableSequence<S, T, A> {
 
-    public AbstractCharSequenceSubject(Class<?> selfType, PropertyRule<?, A> rule) {
+    public AbstractCharSequenceSubject(Class<?> selfType, PropertyRule<T, A> rule) {
         super(selfType, rule);
     }
 
@@ -31,13 +31,13 @@ public abstract class AbstractCharSequenceSubject<S extends AbstractCharSequence
 
     @Override
     public S isEmpty() {
-        rule.addConstraint(new IsEmptyConstraint());
+        rule.addConstraint(new IsEmptyConstraint<>());
         return myself;
     }
 
     @Override
     public S isNotEmpty() {
-        rule.addConstraint(new IsNotEmptyConstraint());
+        rule.addConstraint(new IsNotEmptyConstraint<>());
         return myself;
     }
 

@@ -15,6 +15,7 @@ public class Person {
     private ZonedDateTime signedIn = ZonedDateTime.now();
     private List<String> children = new ArrayList<>();
     private Map<String, String> pets = new HashMap<>();
+    private byte[] bytes = new byte[0];
 
     public Person() {}
 
@@ -70,6 +71,10 @@ public class Person {
 
     public void setPets(Map<String, String> pets) {
         this.pets = pets;
+    }
+
+    public byte[] getBytes() {
+        return bytes;
     }
 
 }

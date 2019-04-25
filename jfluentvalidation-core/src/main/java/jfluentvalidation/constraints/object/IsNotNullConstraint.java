@@ -6,6 +6,7 @@ import jfluentvalidation.validators.RuleContext;
 /**
  * Check that the given {@code Object} being validated is not {@code null}.
  * @param <T> the target type supported by an implementation
+ * @param <P>
  */
 public class IsNotNullConstraint<T, P> implements Constraint<T, P> {
 

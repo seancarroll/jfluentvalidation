@@ -23,7 +23,7 @@ public class PropertyRule<T, P> implements Rule<T, P> {
     // could we have flip it and instead have Subject contain a Rule/PropertyRule?
     private Function<T, P> propertyFunc;
     private String propertyName;
-    private List<Constraint<?, ? super P>> constraints = new ArrayList<>();
+    private List<Constraint<?, ? extends P>> constraints = new ArrayList<>();
     private List<String> ruleSet = RuleSet.DEFAULT_LIST;
 
     public PropertyRule(Function<T, P> propertyFunc, String propertyName) {
@@ -36,7 +36,7 @@ public class PropertyRule<T, P> implements Rule<T, P> {
         List<ValidationFailure> failures = new ArrayList<>();
 
         P propertyValue = propertyFunc.apply(context.getInstanceToValidate());
-        for (Constraint<?, ? super P> constraint : constraints) {
+        for (Constraint<?, ? extends P> constraint : constraints) {
             // TODO: is this the best way to handle this?
             RuleContext ruleContext = new RuleContext(context, this);
             boolean isValid = constraint.isValid(ruleContext);

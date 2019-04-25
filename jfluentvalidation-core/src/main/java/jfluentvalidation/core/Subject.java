@@ -24,14 +24,14 @@ import java.util.function.Predicate;
  *           Additional details can be found at &quot;<a href="http://bit.ly/1IZIRcY" target="_blank">Emulating 'self types' using Java Generics to simplify fluent API implementation</a>&quot;
  * @param <A> the type of the actual object being tested by this {@code Subject}
  */
-public class Subject<S extends Subject<S, A>, A> {
+public class Subject<S extends Subject<S, T, A>, T, A> {
 
     // TODO: does the subject need propertyFunc, propertyName, constraints, currentConstraint or can these be moved elsewhere?
     protected final S myself;
-    protected PropertyRule<?, ? super A> rule;
+    protected PropertyRule<T, A> rule;
     protected Constraint<?, A> currentConstraint;
 
-    public Subject(Class<?> selfType, PropertyRule<?, A> rule) {
+    public Subject(Class<?> selfType, PropertyRule<T, A> rule) {
         this.myself = (S) selfType.cast(this);
         this.rule = rule;
     }
@@ -43,14 +43,14 @@ public class Subject<S extends Subject<S, A>, A> {
     // 3. static IsNullConstraint
     public S isNull() {
         // standardIsEqualTo(null);
-        rule.addConstraint(new IsNullConstraint());
+        rule.addConstraint(new IsNullConstraint<>());
         return myself;
     }
 
     /** Fails if the subject is null. */
     public S isNotNull() {
         // standardIsNotEqualTo(null);
-        rule.addConstraint(new IsNotNullConstraint());
+        rule.addConstraint(new IsNotNullConstraint<>());
         return myself;
     }
 
@@ -90,7 +90,7 @@ public class Subject<S extends Subject<S, A>, A> {
     //    RuleFor(x => x.Postcode).Must(BeAValidPostcode).WithMessage("Please specify a valid postcode");
     public S must(Predicate<A> predicate) {
         // TODO: fix unchecked...not sure how to make generics work here.
-        rule.addConstraint(new PredicateConstraint(predicate));
+        rule.addConstraint(new PredicateConstraint<>(predicate));
         return myself;
     }
 

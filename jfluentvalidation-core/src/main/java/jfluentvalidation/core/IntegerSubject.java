@@ -6,10 +6,21 @@ import jfluentvalidation.rules.PropertyRule;
 
 /**
  *
+ * @param <T>
  */
-public class IntegerSubject extends AbstractComparableNumber<IntegerSubject, Integer> {
+public class IntegerSubject<T> extends AbstractComparableNumber<IntegerSubject<T>, T, Integer> {
 
-    public IntegerSubject(PropertyRule<?, Integer> rule) {
+    public IntegerSubject(PropertyRule<T, Integer> rule) {
         super(IntegerSubject.class, rule);
+    }
+
+    @Override
+    protected Integer zero() {
+        return 0;
+    }
+
+    @Override
+    protected Integer one() {
+        return 1;
     }
 }

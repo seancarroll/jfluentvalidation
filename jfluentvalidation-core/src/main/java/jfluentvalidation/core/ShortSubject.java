@@ -2,12 +2,25 @@ package jfluentvalidation.core;
 
 import jfluentvalidation.rules.PropertyRule;
 
+// TODO: verify we can handle primitives
+
 /**
  *
+ * @param <T>
  */
-public class ShortSubject extends AbstractComparableNumber<ShortSubject, Short> {
+public class ShortSubject<T> extends AbstractComparableNumber<ShortSubject<T>, T, Short> {
 
-    public ShortSubject(PropertyRule<?, Short> rule) {
+    public ShortSubject(PropertyRule<T, Short> rule) {
         super(ShortSubject.class, rule);
+    }
+
+    @Override
+    protected Short zero() {
+        return 0;
+    }
+
+    @Override
+    protected Short one() {
+        return 1;
     }
 }

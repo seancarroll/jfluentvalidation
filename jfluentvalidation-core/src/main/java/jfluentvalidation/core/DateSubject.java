@@ -10,14 +10,14 @@ import java.util.Date;
 /**
  *
  */
-public class DateSubject extends Subject<DateSubject, Date> implements ComparableSubject<DateSubject, Date> {
+public class DateSubject<T> extends Subject<DateSubject<T>, T, Date> implements ComparableSubject<DateSubject<T>, T, Date> {
 
-    public DateSubject(PropertyRule<?, Date> rule) {
+    public DateSubject(PropertyRule<T, Date> rule) {
         super(DateSubject.class, rule);
     }
 
-    public DateSubject isBefore(Date other) {
-        rule.addConstraint(new IsLessThanConstraint(other));
+    public DateSubject<T> isBefore(Date other) {
+        rule.addConstraint(new IsLessThanConstraint<>(other));
         return myself;
     }
 
