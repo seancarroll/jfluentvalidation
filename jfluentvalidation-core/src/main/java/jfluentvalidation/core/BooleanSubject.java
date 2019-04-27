@@ -1,5 +1,6 @@
 package jfluentvalidation.core;
 
+import jfluentvalidation.constraints.comparable.ComparableConstraints;
 import jfluentvalidation.rules.PropertyRule;
 
 /**
@@ -31,31 +32,37 @@ public class BooleanSubject<T> extends Subject<BooleanSubject<T>, T, Boolean> im
     // Maybe ComparableSubject just has compareTo and all the other methods dont need to belong to an interface?
     @Override
     public BooleanSubject<T> isEqualAccordingToCompareTo(Boolean other) {
+        rule.addConstraint(ComparableConstraints.isEqualAccordingToCompareTo(other));
         return myself;
     }
 
     @Override
     public BooleanSubject<T> isNotEqualAccordingToCompareTo(Boolean other) {
+        rule.addConstraint(ComparableConstraints.isNotEqualAccordingToCompareTo(other));
         return myself;
     }
 
     @Override
     public BooleanSubject<T> isLessThan(Boolean other) {
+        rule.addConstraint(ComparableConstraints.isLessThan(other));
         return myself;
     }
 
     @Override
     public BooleanSubject<T> isLessThanOrEqualTo(Boolean other) {
+        rule.addConstraint(ComparableConstraints.isLessThanOrEqualTo(other));
         return myself;
     }
 
     @Override
     public BooleanSubject<T> isGreaterThan(Boolean other) {
+        rule.addConstraint(ComparableConstraints.isGreaterThan(other));
         return myself;
     }
 
     @Override
     public BooleanSubject<T> isGreaterThanOrEqualTo(Boolean other) {
+        rule.addConstraint(ComparableConstraints.isGreaterThanOrEqualTo(other));
         return myself;
     }
 
@@ -71,6 +78,7 @@ public class BooleanSubject<T> extends Subject<BooleanSubject<T>, T, Boolean> im
 
     @Override
     public BooleanSubject<T> isBetween(Boolean start, Boolean end, boolean inclusiveStart, boolean inclusiveEnd) {
+        rule.addConstraint(ComparableConstraints.isBetween(start, end, inclusiveStart, inclusiveEnd));
         return myself;
     }
 
@@ -81,6 +89,7 @@ public class BooleanSubject<T> extends Subject<BooleanSubject<T>, T, Boolean> im
 
     @Override
     public BooleanSubject<T> isNotBetween(Boolean start, Boolean end, boolean inclusiveStart, boolean inclusiveEnd) {
+        rule.addConstraint(ComparableConstraints.isNotBetween(start, end, inclusiveStart, inclusiveEnd));
         return myself;
     }
 }

@@ -1,5 +1,6 @@
 package jfluentvalidation.core;
 
+import jfluentvalidation.constraints.comparable.ComparableConstraints;
 import jfluentvalidation.constraints.time.IsAfterOffsetTimeConstraint;
 import jfluentvalidation.constraints.time.IsAfterOrEqualOffsetTimeConstraint;
 import jfluentvalidation.constraints.time.IsBeforeOffsetTimeConstraint;
@@ -21,22 +22,23 @@ public class OffsetTimeSubject<T>
         super(OffsetTimeSubject.class, rule);
     }
 
-    public OffsetTimeSubject isBefore(OffsetTime other) {
+    // QUESTION: which do we want to keep? isBefore / isAfter vs past / future?
+    public OffsetTimeSubject<T> isBefore(OffsetTime other) {
         rule.addConstraint(new IsBeforeOffsetTimeConstraint<>(other));
         return  myself;
     }
 
-    public OffsetTimeSubject isBeforeOrEqual(OffsetTime other) {
+    public OffsetTimeSubject<T> isBeforeOrEqual(OffsetTime other) {
         rule.addConstraint(new IsBeforeOrEqualOffsetTimeConstraint<>(other));
         return  myself;
     }
 
-    public OffsetTimeSubject isAfter(OffsetTime other) {
+    public OffsetTimeSubject<T> isAfter(OffsetTime other) {
         rule.addConstraint(new IsAfterOffsetTimeConstraint<>(other));
         return  myself;
     }
 
-    public OffsetTimeSubject isAfterOrEqual(OffsetTime other) {
+    public OffsetTimeSubject<T> isAfterOrEqual(OffsetTime other) {
         rule.addConstraint(new IsAfterOrEqualOffsetTimeConstraint<>(other));
         return  myself;
     }
@@ -62,57 +64,69 @@ public class OffsetTimeSubject<T>
     }
 
     @Override
-    public OffsetTimeSubject isEqualAccordingToCompareTo(OffsetTime other) {
+    public OffsetTimeSubject<T> isEqualAccordingToCompareTo(OffsetTime other) {
+        rule.addConstraint(ComparableConstraints.isEqualAccordingToCompareTo(other));
         return myself;
     }
 
     @Override
-    public OffsetTimeSubject isNotEqualAccordingToCompareTo(OffsetTime other) {
+    public OffsetTimeSubject<T> isNotEqualAccordingToCompareTo(OffsetTime other) {
+        rule.addConstraint(ComparableConstraints.isNotEqualAccordingToCompareTo(other));
         return myself;
     }
 
     @Override
-    public OffsetTimeSubject isLessThan(OffsetTime other) {
+    public OffsetTimeSubject<T> isLessThan(OffsetTime other) {
+        rule.addConstraint(ComparableConstraints.isLessThan(other));
         return myself;
     }
 
     @Override
-    public OffsetTimeSubject isLessThanOrEqualTo(OffsetTime other) {
+    public OffsetTimeSubject<T> isLessThanOrEqualTo(OffsetTime other) {
+        rule.addConstraint(ComparableConstraints.isLessThanOrEqualTo(other));
         return myself;
     }
 
     @Override
-    public OffsetTimeSubject isGreaterThan(OffsetTime other) {
+    public OffsetTimeSubject<T> isGreaterThan(OffsetTime other) {
+        rule.addConstraint(ComparableConstraints.isGreaterThan(other));
         return myself;
     }
 
     @Override
-    public OffsetTimeSubject isGreaterThanOrEqualTo(OffsetTime other) {
+    public OffsetTimeSubject<T> isGreaterThanOrEqualTo(OffsetTime other) {
+        rule.addConstraint(ComparableConstraints.isGreaterThanOrEqualTo(other));
+        return myself;
+    }
+
+    // TODO: do we want string versions?
+
+    @Override
+    public OffsetTimeSubject<T> isBetween(OffsetTime startInclusive, OffsetTime endInclusive) {
+        return isBetween(startInclusive, endInclusive, true, true);
+    }
+
+    @Override
+    public OffsetTimeSubject<T> isStrictlyBetween(OffsetTime startExclusive, OffsetTime endExclusive) {
+        return isBetween(startExclusive, endExclusive, false, false);
+    }
+
+    @Override
+    public OffsetTimeSubject<T> isBetween(OffsetTime start, OffsetTime end, boolean inclusiveStart, boolean inclusiveEnd) {
+        rule.addConstraint(ComparableConstraints.isBetween(start, end, inclusiveStart, inclusiveEnd));
         return myself;
     }
 
     @Override
-    public OffsetTimeSubject isBetween(OffsetTime startInclusive, OffsetTime endInclusive) {
+    public OffsetTimeSubject<T> isNotBetween(OffsetTime startInclusive, OffsetTime endInclusive) {
+        // QUESTION: hmmm...should whould the start and end be inclusive be consistent between isBetween and isNotBetween?
+        rule.addConstraint(ComparableConstraints.isNotBetween(startInclusive, endInclusive, true, false));
         return myself;
     }
 
     @Override
-    public OffsetTimeSubject isStrictlyBetween(OffsetTime startExclusive, OffsetTime endExclusive) {
-        return myself;
-    }
-
-    @Override
-    public OffsetTimeSubject isBetween(OffsetTime start, OffsetTime end, boolean inclusiveStart, boolean inclusiveEnd) {
-        return myself;
-    }
-
-    @Override
-    public OffsetTimeSubject isNotBetween(OffsetTime startInclusive, OffsetTime endInclusive) {
-        return myself;
-    }
-
-    @Override
-    public OffsetTimeSubject isNotBetween(OffsetTime start, OffsetTime end, boolean inclusiveStart, boolean inclusiveEnd) {
+    public OffsetTimeSubject<T> isNotBetween(OffsetTime start, OffsetTime end, boolean inclusiveStart, boolean inclusiveEnd) {
+        rule.addConstraint(ComparableConstraints.isNotBetween(start, end, inclusiveStart, inclusiveEnd));
         return myself;
     }
 }

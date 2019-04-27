@@ -9,4 +9,26 @@ public abstract class AbstractArraySubject<S extends AbstractArraySubject<S, T, 
         super(selfType, rule);
     }
 
+    // void isNullOrEmpty();
+
+    // void isEmpty();
+
+    // SELF isNotEmpty();
+
+    // SELF hasSize(int expected);
+
+    // SELF hasSizeGreaterThan(int boundary);
+
+    // SELF hasSizeGreaterThanOrEqualTo(int boundary);
+
+    // SELF hasSizeLessThan(int boundary);
+
+    // SELF hasSizeLessThanOrEqualTo(int boundary);
+
+    // SELF hasSizeBetween(int lowerBoundary, int higherBoundary);
+
+    // SELF hasSameSizeAs(Iterable<?> other);
+
+    // SELF hasSameSizeAs(Object array);
+
 }

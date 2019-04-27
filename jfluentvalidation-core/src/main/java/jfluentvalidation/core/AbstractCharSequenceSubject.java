@@ -1,9 +1,6 @@
 package jfluentvalidation.core;
 
-import jfluentvalidation.constraints.charsequence.IsEmptyConstraint;
-import jfluentvalidation.constraints.charsequence.IsNotEmptyConstraint;
-import jfluentvalidation.constraints.charsequence.LengthConstraint;
-import jfluentvalidation.constraints.charsequence.StartsWithConstraint;
+import jfluentvalidation.constraints.charsequence.*;
 import jfluentvalidation.rules.PropertyRule;
 
 import java.util.regex.Pattern;
@@ -53,6 +50,7 @@ public abstract class AbstractCharSequenceSubject<S extends AbstractCharSequence
 
     @Override
     public S containsWhitespaces() {
+
         return myself;
     }
 
@@ -202,9 +200,10 @@ public abstract class AbstractCharSequenceSubject<S extends AbstractCharSequence
         return myself;
     }
 
+    // TODO: include method with offset
     @Override
     public S startsWith(CharSequence prefix) {
-        rule.addConstraint(new StartsWithConstraint(prefix));
+        rule.addConstraint(CharSequenceConstraints.startsWith(prefix));
         return myself;
     }
 
@@ -215,26 +214,31 @@ public abstract class AbstractCharSequenceSubject<S extends AbstractCharSequence
 
     @Override
     public S endsWith(CharSequence suffix) {
+        rule.addConstraint(CharSequenceConstraints.endsWith(suffix));
         return myself;
     }
 
     @Override
     public S doesNotEndWith(CharSequence suffix) {
+        // TODO: implement
         return myself;
     }
 
     @Override
     public S matches(CharSequence regex) {
+        rule.addConstraint(CharSequenceConstraints.matches(regex));
         return myself;
     }
 
     @Override
     public S doesNotMatch(CharSequence regex) {
+        // TODO: implement
         return myself;
     }
 
     @Override
     public S matches(Pattern pattern) {
+        rule.addConstraint(CharSequenceConstraints.matches(pattern));
         return myself;
     }
 
@@ -280,16 +284,19 @@ public abstract class AbstractCharSequenceSubject<S extends AbstractCharSequence
 
     @Override
     public S isSubstringOf(CharSequence sequence) {
+        rule.addConstraint(CharSequenceConstraints.isSubstringOf(sequence));
         return myself;
     }
 
     @Override
     public S containsPattern(CharSequence regex) {
+        rule.addConstraint(CharSequenceConstraints.containsPattern(regex));
         return myself;
     }
 
     @Override
     public S containsPattern(Pattern pattern) {
+        rule.addConstraint(CharSequenceConstraints.containsPattern(pattern));
         return myself;
     }
 
@@ -305,11 +312,13 @@ public abstract class AbstractCharSequenceSubject<S extends AbstractCharSequence
 
     @Override
     public S isLowerCase() {
+        rule.addConstraint(CharSequenceConstraints.isLowerCase());
         return myself;
     }
 
     @Override
     public S isUpperCase() {
+        rule.addConstraint(CharSequenceConstraints.isUpperCase());
         return myself;
     }
 

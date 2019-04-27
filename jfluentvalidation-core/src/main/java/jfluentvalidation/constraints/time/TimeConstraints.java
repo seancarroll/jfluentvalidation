@@ -3,8 +3,9 @@ package jfluentvalidation.constraints.time;
 import java.time.*;
 import java.util.Calendar;
 
+// TODO: singleton instead of statics?
 public final class TimeConstraints {
-
+    
     public static IsAfterCalendarConstraint isAfterCalendar(Calendar other) {
         return new IsAfterCalendarConstraint(other);
     }

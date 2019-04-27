@@ -74,4 +74,34 @@ public class PropertyLiteralHelper {
         }
     }
 
+
+
+//    assertj SoftProxies.java
+//    private static <V> Class<? extends V> createSoftAssertionProxyClass(Class<V> assertClass) {
+//        TypeCache.SimpleKey cacheKey = new TypeCache.SimpleKey(assertClass);
+//        return (Class<V>) CACHE.findOrInsert(SoftProxies.class.getClassLoader(), cacheKey, () -> generateProxyClass(assertClass));
+//    }
+//
+//    static <V> Class<? extends V> generateProxyClass(Class<V> assertClass) {
+//        return BYTE_BUDDY.subclass(assertClass)
+//            .defineField(ProxifyMethodChangingTheObjectUnderTest.FIELD_NAME,
+//                ProxifyMethodChangingTheObjectUnderTest.class,
+//                Visibility.PRIVATE)
+//            .method(METHODS_CHANGING_THE_OBJECT_UNDER_TEST)
+//            .intercept(PROXIFY_METHOD_CHANGING_THE_OBJECT_UNDER_TEST)
+//            .defineField(ErrorCollector.FIELD_NAME, ErrorCollector.class, Visibility.PRIVATE)
+//            .method(any().and(not(METHODS_CHANGING_THE_OBJECT_UNDER_TEST))
+//                .and(not(METHODS_NOT_TO_PROXY)))
+//            .intercept(ERROR_COLLECTOR)
+//            .implement(AssertJProxySetup.class)
+//            // set ProxifyMethodChangingTheObjectUnderTest and ErrorCollector fields on the generated proxy
+//            .intercept(FieldAccessor.ofField(ProxifyMethodChangingTheObjectUnderTest.FIELD_NAME).setsArgumentAt(0)
+//                .andThen(FieldAccessor.ofField(ErrorCollector.FIELD_NAME).setsArgumentAt(1)))
+//            .make()
+//            // Use ClassLoader of soft assertion class to allow ByteBuddy to always find it.
+//            // This is needed in OSGI runtime when custom soft assertion is defined outside of assertj bundle.
+//            .load(assertClass.getClassLoader(), classLoadingStrategy(assertClass))
+//            .getLoaded();
+//    }
+
 }

@@ -1,5 +1,6 @@
 package jfluentvalidation.core;
 
+import jfluentvalidation.constraints.comparable.ComparableConstraints;
 import jfluentvalidation.constraints.time.IsAfterOffsetDateTimeConstraint;
 import jfluentvalidation.constraints.time.IsAfterOrEqualOffsetDateTimeConstraint;
 import jfluentvalidation.constraints.time.IsBeforeOffsetDateTimeConstraint;
@@ -21,98 +22,107 @@ public class OffsetDateTimeSubject<T>
         super(OffsetDateTimeSubject.class, rule);
     }
 
-    public OffsetDateTimeSubject isBefore(OffsetDateTime offsetDateTime) {
+    // QUESTION: which do we want to keep? isBefore / isAfter vs past / future?
+    public OffsetDateTimeSubject<T> isBefore(OffsetDateTime offsetDateTime) {
         rule.addConstraint(new IsBeforeOffsetDateTimeConstraint<>(offsetDateTime));
         return  myself;
     }
 
-    public OffsetDateTimeSubject isBeforeOrEqual(OffsetDateTime offsetDateTime) {
+    public OffsetDateTimeSubject<T> isBeforeOrEqual(OffsetDateTime offsetDateTime) {
         rule.addConstraint(new IsBeforeOrEqualOffsetDateTimeConstraint<>(offsetDateTime));
         return  myself;
     }
 
-    public OffsetDateTimeSubject isAfter(OffsetDateTime offsetDateTime) {
+    public OffsetDateTimeSubject<T> isAfter(OffsetDateTime offsetDateTime) {
         rule.addConstraint(new IsAfterOffsetDateTimeConstraint<>(offsetDateTime));
         return  myself;
     }
 
-    public OffsetDateTimeSubject isAfterOrEqual(OffsetDateTime offsetDateTime) {
+    public OffsetDateTimeSubject<T> isAfterOrEqual(OffsetDateTime offsetDateTime) {
         rule.addConstraint(new IsAfterOrEqualOffsetDateTimeConstraint<>(offsetDateTime));
         return  myself;
     }
 
-    public OffsetDateTimeSubject isInTheFuture() {
+    public OffsetDateTimeSubject<T> isInTheFuture() {
         // TODO: clock from context/provider
         return isAfter(OffsetDateTime.now());
     }
 
-    public OffsetDateTimeSubject isInTheFutureOrPresent() {
+    public OffsetDateTimeSubject<T> isInTheFutureOrPresent() {
         // TODO: clock from context/provider
         return isAfterOrEqual(OffsetDateTime.now());
     }
 
-    public OffsetDateTimeSubject isInThePast() {
+    public OffsetDateTimeSubject<T> isInThePast() {
         // TODO: clock from context/provider
         return isBefore(OffsetDateTime.now());
     }
 
-    public OffsetDateTimeSubject isInThePastOrPresent() {
+    public OffsetDateTimeSubject<T> isInThePastOrPresent() {
         // TODO: clock from context/provider
         return isBeforeOrEqual(OffsetDateTime.now());
     }
 
     @Override
-    public OffsetDateTimeSubject isEqualAccordingToCompareTo(OffsetDateTime other) {
+    public OffsetDateTimeSubject<T> isEqualAccordingToCompareTo(OffsetDateTime other) {
+        rule.addConstraint(ComparableConstraints.isEqualAccordingToCompareTo(other));
         return myself;
     }
 
     @Override
-    public OffsetDateTimeSubject isNotEqualAccordingToCompareTo(OffsetDateTime other) {
+    public OffsetDateTimeSubject<T> isNotEqualAccordingToCompareTo(OffsetDateTime other) {
+        rule.addConstraint(ComparableConstraints.isNotEqualAccordingToCompareTo(other));
         return myself;
     }
 
     @Override
-    public OffsetDateTimeSubject isLessThan(OffsetDateTime other) {
+    public OffsetDateTimeSubject<T> isLessThan(OffsetDateTime other) {
+        rule.addConstraint(ComparableConstraints.isLessThan(other));
         return myself;
     }
 
     @Override
-    public OffsetDateTimeSubject isLessThanOrEqualTo(OffsetDateTime other) {
+    public OffsetDateTimeSubject<T> isLessThanOrEqualTo(OffsetDateTime other) {
+        rule.addConstraint(ComparableConstraints.isLessThanOrEqualTo(other));
         return myself;
     }
 
     @Override
-    public OffsetDateTimeSubject isGreaterThan(OffsetDateTime other) {
+    public OffsetDateTimeSubject<T> isGreaterThan(OffsetDateTime other) {
+        rule.addConstraint(ComparableConstraints.isGreaterThan(other));
         return myself;
     }
 
     @Override
-    public OffsetDateTimeSubject isGreaterThanOrEqualTo(OffsetDateTime other) {
+    public OffsetDateTimeSubject<T> isGreaterThanOrEqualTo(OffsetDateTime other) {
+        rule.addConstraint(ComparableConstraints.isGreaterThanOrEqualTo(other));
         return myself;
     }
 
     @Override
-    public OffsetDateTimeSubject isBetween(OffsetDateTime startInclusive, OffsetDateTime endInclusive) {
+    public OffsetDateTimeSubject<T> isBetween(OffsetDateTime startInclusive, OffsetDateTime endInclusive) {
+        return isBetween(startInclusive, endInclusive, true, true);
+    }
+
+    @Override
+    public OffsetDateTimeSubject<T> isStrictlyBetween(OffsetDateTime startExclusive, OffsetDateTime endExclusive) {
         return myself;
     }
 
     @Override
-    public OffsetDateTimeSubject isStrictlyBetween(OffsetDateTime startExclusive, OffsetDateTime endExclusive) {
+    public OffsetDateTimeSubject<T> isBetween(OffsetDateTime start, OffsetDateTime end, boolean inclusiveStart, boolean inclusiveEnd) {
+        rule.addConstraint(ComparableConstraints.isBetween(start, end, inclusiveStart, inclusiveEnd));
         return myself;
     }
 
     @Override
-    public OffsetDateTimeSubject isBetween(OffsetDateTime start, OffsetDateTime end, boolean inclusiveStart, boolean inclusiveEnd) {
+    public OffsetDateTimeSubject<T> isNotBetween(OffsetDateTime startInclusive, OffsetDateTime endInclusive) {
         return myself;
     }
 
     @Override
-    public OffsetDateTimeSubject isNotBetween(OffsetDateTime startInclusive, OffsetDateTime endInclusive) {
-        return myself;
-    }
-
-    @Override
-    public OffsetDateTimeSubject isNotBetween(OffsetDateTime start, OffsetDateTime end, boolean inclusiveStart, boolean inclusiveEnd) {
+    public OffsetDateTimeSubject<T> isNotBetween(OffsetDateTime start, OffsetDateTime end, boolean inclusiveStart, boolean inclusiveEnd) {
+        rule.addConstraint(ComparableConstraints.isNotBetween(start, end, inclusiveStart, inclusiveEnd));
         return myself;
     }
 }

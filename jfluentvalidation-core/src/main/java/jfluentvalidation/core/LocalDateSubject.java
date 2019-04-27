@@ -1,5 +1,6 @@
 package jfluentvalidation.core;
 
+import jfluentvalidation.constraints.comparable.ComparableConstraints;
 import jfluentvalidation.constraints.time.IsAfterLocalDateConstraint;
 import jfluentvalidation.constraints.time.IsAfterOrEqualLocalDateConstraint;
 import jfluentvalidation.constraints.time.IsBeforeLocalDateConstraint;
@@ -34,98 +35,107 @@ public class LocalDateSubject<T>
         super(LocalDateSubject.class, rule);
     }
 
-    public LocalDateSubject isBefore(LocalDate localDate) {
+    // QUESTION: which do we want to keep? isBefore / isAfter vs past / future?
+    public LocalDateSubject<T> isBefore(LocalDate localDate) {
         rule.addConstraint(new IsBeforeLocalDateConstraint<>(localDate));
         return  myself;
     }
 
-    public LocalDateSubject isBeforeOrEqual(LocalDate localDate) {
+    public LocalDateSubject<T> isBeforeOrEqual(LocalDate localDate) {
         rule.addConstraint(new IsBeforeOrEqualLocalDateConstraint<>(localDate));
         return  myself;
     }
 
-    public LocalDateSubject isAfter(LocalDate localDate) {
+    public LocalDateSubject<T> isAfter(LocalDate localDate) {
         rule.addConstraint(new IsAfterLocalDateConstraint<>(localDate));
         return  myself;
     }
 
-    public LocalDateSubject isAfterOrEqual(LocalDate localDate) {
+    public LocalDateSubject<T> isAfterOrEqual(LocalDate localDate) {
         rule.addConstraint(new IsAfterOrEqualLocalDateConstraint<>(localDate));
         return  myself;
     }
 
-    public LocalDateSubject isInTheFuture() {
+    public LocalDateSubject<T> isInTheFuture() {
         // TODO: clock from context/provider
         return isAfter(LocalDate.now());
     }
 
-    public LocalDateSubject isInTheFutureOrPresent() {
+    public LocalDateSubject<T> isInTheFutureOrPresent() {
         // TODO: clock from context/provider
         return isAfterOrEqual(LocalDate.now());
     }
 
-    public LocalDateSubject isInThePast() {
+    public LocalDateSubject<T> isInThePast() {
         // TODO: clock from context/provider
         return isBefore(LocalDate.now());
     }
 
-    public LocalDateSubject isInThePastOrPresent() {
+    public LocalDateSubject<T> isInThePastOrPresent() {
         // TODO: clock from context/provider
         return isBeforeOrEqual(LocalDate.now());
     }
 
     @Override
-    public LocalDateSubject isEqualAccordingToCompareTo(LocalDate other) {
+    public LocalDateSubject<T> isEqualAccordingToCompareTo(LocalDate other) {
+        rule.addConstraint(ComparableConstraints.isEqualAccordingToCompareTo(other));
         return myself;
     }
 
     @Override
-    public LocalDateSubject isNotEqualAccordingToCompareTo(LocalDate other) {
+    public LocalDateSubject<T> isNotEqualAccordingToCompareTo(LocalDate other) {
+        rule.addConstraint(ComparableConstraints.isNotEqualAccordingToCompareTo(other));
         return myself;
     }
 
     @Override
-    public LocalDateSubject isLessThan(LocalDate other) {
+    public LocalDateSubject<T> isLessThan(LocalDate other) {
+        rule.addConstraint(ComparableConstraints.isLessThan(other));
         return myself;
     }
 
     @Override
-    public LocalDateSubject isLessThanOrEqualTo(LocalDate other) {
+    public LocalDateSubject<T> isLessThanOrEqualTo(LocalDate other) {
+        rule.addConstraint(ComparableConstraints.isLessThanOrEqualTo(other));
         return myself;
     }
 
     @Override
-    public LocalDateSubject isGreaterThan(LocalDate other) {
+    public LocalDateSubject<T> isGreaterThan(LocalDate other) {
+        rule.addConstraint(ComparableConstraints.isGreaterThan(other));
         return myself;
     }
 
     @Override
-    public LocalDateSubject isGreaterThanOrEqualTo(LocalDate other) {
+    public LocalDateSubject<T> isGreaterThanOrEqualTo(LocalDate other) {
+        rule.addConstraint(ComparableConstraints.isGreaterThanOrEqualTo(other));
         return myself;
     }
 
     @Override
-    public LocalDateSubject isBetween(LocalDate startInclusive, LocalDate endInclusive) {
+    public LocalDateSubject<T> isBetween(LocalDate startInclusive, LocalDate endInclusive) {
+        return isBetween(startInclusive, endInclusive, true, true);
+    }
+
+    @Override
+    public LocalDateSubject<T> isStrictlyBetween(LocalDate startExclusive, LocalDate endExclusive) {
         return myself;
     }
 
     @Override
-    public LocalDateSubject isStrictlyBetween(LocalDate startExclusive, LocalDate endExclusive) {
+    public LocalDateSubject<T> isBetween(LocalDate start, LocalDate end, boolean inclusiveStart, boolean inclusiveEnd) {
+        rule.addConstraint(ComparableConstraints.isBetween(start, end, inclusiveStart, inclusiveEnd));
         return myself;
     }
 
     @Override
-    public LocalDateSubject isBetween(LocalDate start, LocalDate end, boolean inclusiveStart, boolean inclusiveEnd) {
+    public LocalDateSubject<T> isNotBetween(LocalDate startInclusive, LocalDate endInclusive) {
         return myself;
     }
 
     @Override
-    public LocalDateSubject isNotBetween(LocalDate startInclusive, LocalDate endInclusive) {
-        return myself;
-    }
-
-    @Override
-    public LocalDateSubject isNotBetween(LocalDate start, LocalDate end, boolean inclusiveStart, boolean inclusiveEnd) {
+    public LocalDateSubject<T> isNotBetween(LocalDate start, LocalDate end, boolean inclusiveStart, boolean inclusiveEnd) {
+        rule.addConstraint(ComparableConstraints.isNotBetween(start, end, inclusiveStart, inclusiveEnd));
         return myself;
     }
 }

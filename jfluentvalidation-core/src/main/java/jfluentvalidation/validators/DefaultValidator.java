@@ -9,6 +9,8 @@ import net.jodah.typetools.TypeResolver;
 
 import java.io.File;
 import java.io.InputStream;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.net.URI;
 import java.net.URL;
 import java.time.*;
@@ -73,6 +75,30 @@ public class DefaultValidator<T> implements Validator<T> {
         // TODO: can we remove dependency on typetools and roll this ourselves?
         this.type = (Class<T>) TypeResolver.resolveRawArguments(DefaultValidator.class, getClass())[0];
         this.proxy = PropertyLiteralHelper.getPropertyNameCapturer(type);
+    }
+
+    /**
+     *
+     * @param func The Function representing the property to validate
+     * @return
+     */
+    public BigDecimalSubject<T> ruleForBigDecimal(Function<T, BigDecimal> func) {
+        String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
+        PropertyRule<T, BigDecimal> rule = new PropertyRule<>(func, propertyName);
+        rules.add(rule);
+        return new BigDecimalSubject<>(rule);
+    }
+
+    /**
+     *
+     * @param func The Function representing the property to validate
+     * @return
+     */
+    public BigIntegerSubject<T> ruleForBigInteger(Function<T, BigInteger> func) {
+        String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
+        PropertyRule<T, BigInteger> rule = new PropertyRule<>(func, propertyName);
+        rules.add(rule);
+        return new BigIntegerSubject<>(rule);
     }
 
     /**

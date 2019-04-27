@@ -2,6 +2,7 @@ package jfluentvalidation.constraints.charsequence;
 
 import java.util.regex.Pattern;
 
+// TODO: singleton instead of statics?
 /**
  *
  */

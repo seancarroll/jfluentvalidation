@@ -2,6 +2,7 @@ package jfluentvalidation.constraints.map;
 
 import java.util.Map;
 
+// TODO: singleton instead of statics?
 /**
  *
  */

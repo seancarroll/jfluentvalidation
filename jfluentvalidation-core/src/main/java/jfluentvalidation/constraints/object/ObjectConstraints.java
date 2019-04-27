@@ -1,5 +1,6 @@
 package jfluentvalidation.constraints.object;
 
+// TODO: singleton instead of statics?
 /**
  * Static factory
  */

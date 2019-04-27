@@ -1,5 +1,6 @@
 package jfluentvalidation.constraints.iterable;
 
+// TODO: singleton instead of statics?
 /**
  *
  */
