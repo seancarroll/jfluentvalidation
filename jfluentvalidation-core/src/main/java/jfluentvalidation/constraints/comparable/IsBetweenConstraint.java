@@ -5,6 +5,9 @@ import jfluentvalidation.validators.RuleContext;
 
 import javax.annotation.Nonnull;
 
+import static jfluentvalidation.common.Comparables.isGreaterThan;
+import static jfluentvalidation.common.Comparables.isLessThan;
+
 // TODO: is this what we want?
 public class IsBetweenConstraint<T, P extends Comparable<? super P>> implements Constraint<T, P> {
 
@@ -25,17 +28,11 @@ public class IsBetweenConstraint<T, P extends Comparable<? super P>> implements 
 
     @Override
     public boolean isValid(RuleContext<T, P> context) {
-        return false;
-    }
+        P actual = context.getPropertyValue();
+        boolean checkLowerBoundaryRange = inclusiveStart ? !isGreaterThan(start, actual) : isLessThan(start, actual);
+        boolean checkUpperBoundaryRange = inclusiveEnd ? !isGreaterThan(actual, end) : isLessThan(actual, end);
 
-//    assertNotNull(info, actual);
-//    checkNotNull(start, "The start range to compare actual with should not be null");
-//    checkNotNull(end, "The end range to compare actual with should not be null");
-//    checkBoundsValidity(start, end, inclusiveStart, inclusiveEnd);
-//    boolean checkLowerBoundaryRange = inclusiveStart ? !isGreaterThan(start, actual) : isLessThan(start, actual);
-//    boolean checkUpperBoundaryRange = inclusiveEnd ? !isGreaterThan(actual, end) : isLessThan(actual, end);
-//    if (checkLowerBoundaryRange && checkUpperBoundaryRange)
-//        return;
-//    throw failures.failure(info, shouldBeBetween(actual, start, end, inclusiveStart, inclusiveEnd, comparisonStrategy));
+        return checkLowerBoundaryRange && checkUpperBoundaryRange;
+    }
 
 }

@@ -7,8 +7,13 @@ package jfluentvalidation.constraints.comparable;
  */
 public final class ComparableConstraints {
 
+    // (both inclusive)
     public static <T extends Comparable<? super T>> IsBetweenConstraint isBetween(T start, T end, boolean inclusiveStart, boolean inclusiveEnd) {
         return new IsBetweenConstraint<>(start, end, inclusiveStart, inclusiveEnd);
+    }
+
+    public static <T extends Comparable<? super T>> IsBetweenConstraint isStrictlyBetween(T start, T end) {
+        return new IsBetweenConstraint<>(start, end, false, false);
     }
 
     public static <T extends Comparable<? super T>> IsEqualAccordingToCompareToConstraint isEqualAccordingToCompareTo(T other) {
@@ -35,17 +40,11 @@ public final class ComparableConstraints {
         return new IsNotBetweenConstraint<>(start, end, inclusiveStart, inclusiveEnd);
     }
 
-    public <T extends Comparable<? super T>> IsNotBetweenConstraint isNotBetweenA(T start, T end, boolean inclusiveStart, boolean inclusiveEnd) {
-        return new IsNotBetweenConstraint<>(start, end, inclusiveStart, inclusiveEnd);
-    }
-
     public static <T extends Comparable<? super T>> IsNotEqualAccordingToCompareToConstraint isNotEqualAccordingToCompareTo(T other) {
         return new IsNotEqualAccordingToCompareToConstraint<>(other);
     }
 
-    // TODO: add isStrictlyBetween?
-
-//    private ComparableConstraints() {
-//        // public static factory methods only
-//    }
+    private ComparableConstraints() {
+        // public static factory methods only
+    }
 }
