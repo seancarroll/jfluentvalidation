@@ -6,7 +6,8 @@ import jfluentvalidation.validators.RuleContext;
 
 /**
  * Checks that the given {@code CharSequence} being validated starts with the given prefix.
- * @param <T> type of instance to validate
+ *
+ * @param <T>  type of instance to validate.
  */
 public class StartsWithConstraint<T> implements Constraint<T, CharSequence> {
 

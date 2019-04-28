@@ -7,8 +7,10 @@ import java.util.regex.Pattern;
 
 /**
  *
- * @param <S>
- * @param <A>
+ * @param <S>  the self-type, allowing {@code this}-returning methods to avoid needing subclassing.
+ *             Additional details can be found at &quot;<a href="http://bit.ly/1IZIRcY" target="_blank">Emulating 'self types' using Java Generics to simplify fluent API implementation</a>&quot;
+ * @param <T>  the type of the instance.
+ * @param <A>  the type of the actual object being tested by this {@code Subject}.
  */
 public abstract class AbstractCharSequenceSubject<S extends AbstractCharSequenceSubject<S, T, A>, T, A extends CharSequence>
     extends Subject<S, T, A>

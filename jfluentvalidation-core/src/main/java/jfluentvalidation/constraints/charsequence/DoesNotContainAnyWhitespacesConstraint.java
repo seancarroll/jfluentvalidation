@@ -6,7 +6,8 @@ import jfluentvalidation.validators.RuleContext;
 
 /**
  * Check that the given {@code CharSequence} being validated is {@code Null}, empty or contains only non-whitespace characters.
- * @param <T> type of instance to validate
+ *
+ * @param <T>  type of instance to validate.
  */
 public class DoesNotContainAnyWhitespacesConstraint<T> implements Constraint<T, CharSequence> {
 

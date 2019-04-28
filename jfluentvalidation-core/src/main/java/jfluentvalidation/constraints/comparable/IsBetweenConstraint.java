@@ -10,6 +10,12 @@ import static jfluentvalidation.common.Comparables.isGreaterThan;
 import static jfluentvalidation.common.Comparables.isLessThan;
 
 // TODO: is this what we want?
+
+/**
+ *
+ * @param <T>  type of instance to validate
+ * @param <P>  the type of the actual object being tested by this {@code Constraint}.
+ */
 public class IsBetweenConstraint<T, P extends Comparable<? super P>> implements Constraint<T, P> {
 
     private final P start;

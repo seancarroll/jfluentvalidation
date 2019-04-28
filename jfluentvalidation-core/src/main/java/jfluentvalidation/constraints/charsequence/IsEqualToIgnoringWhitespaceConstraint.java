@@ -9,7 +9,7 @@ import static java.lang.Character.isWhitespace;
 
 /**
  *
- * @param <T> type of instance to validate
+ * @param <T>  type of instance to validate.
  */
 public class IsEqualToIgnoringWhitespaceConstraint<T> implements Constraint<T, CharSequence> {
 

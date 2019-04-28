@@ -6,7 +6,7 @@ import java.math.BigInteger;
 
 /**
  *
- * @param <T>
+ * @param <T>  the type of the instance
  */
 public class BigIntegerSubject<T> extends AbstractComparableNumber<BigIntegerSubject<T>, T, BigInteger> {
 

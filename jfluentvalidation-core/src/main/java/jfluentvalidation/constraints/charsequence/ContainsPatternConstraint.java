@@ -12,12 +12,14 @@ import java.util.regex.Pattern;
 
 /**
  * Checks that the given {@code CharSequence} being validated contains the given regular expression or {@code Patter}.
- * @param <T> type of instance to validate
+ *
+ * @param <T>  type of instance to validate.
  */
 public class ContainsPatternConstraint<T> implements Constraint<T, CharSequence> {
 
     private final Pattern pattern;
 
+    // TODO: do we want to include offset?
     public ContainsPatternConstraint(CharSequence regex) {
         this(Pattern.compile(Ensure.notNull(regex).toString()));
     }

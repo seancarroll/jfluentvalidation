@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 
 /**
  *
- * @param <T>
+ * @param <T>  the type of the instance
  */
 public class BigDecimalSubject<T> extends AbstractComparableNumber<BigDecimalSubject<T>, T, BigDecimal> {
 

@@ -26,6 +26,7 @@ import java.time.LocalDate;
 
 /**
  *
+ * @param <T>  the type of the instance
  */
 public class LocalDateSubject<T>
     extends Subject<LocalDateSubject<T>, T, LocalDate>

@@ -5,6 +5,7 @@ import jfluentvalidation.rules.PropertyRule;
 
 /**
  *
+ * @param <T>  the type of the instance
  */
 public class BooleanSubject<T> extends Subject<BooleanSubject<T>, T, Boolean> implements ComparableSubject<BooleanSubject<T>, T, Boolean> {
 

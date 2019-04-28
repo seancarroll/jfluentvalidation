@@ -7,6 +7,9 @@ import java.util.Map;
 
 /**
  * Check that the given {@code Map} being validated is not empty.
+ * @param <T>
+ * @param <K>
+ * @param <V>
  */
 public class IsNotEmptyConstraint<T, K, V> implements Constraint<T, Map<K, V>> {
 

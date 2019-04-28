@@ -6,7 +6,8 @@ import jfluentvalidation.validators.RuleContext;
 
 /**
  * Check that the given {@code CharSequence} being validated ends with the given suffix.
- * @param <T> type of instance to validate
+ *
+ * @param <T>  type of instance to validate.
  */
 public class EndsWithConstraint<T> implements Constraint<T, CharSequence> {
 

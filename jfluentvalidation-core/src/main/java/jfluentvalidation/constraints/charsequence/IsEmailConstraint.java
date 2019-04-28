@@ -14,7 +14,8 @@ import java.util.regex.Pattern;
  * Checks that the given {@code CharSequence} being validated is a valid email.
  * Note: This validation should not be considered a fully comprehensive check but viewed as a "good enough" for must scenarios
  * Should use alternative means to actually determine if given {@code CharSequence} is actually valid email
- * @param <T> type of instance to validate
+ *
+ * @param <T>  type of instance to validate.
  */
 public class IsEmailConstraint<T> implements Constraint<T, CharSequence> {
 

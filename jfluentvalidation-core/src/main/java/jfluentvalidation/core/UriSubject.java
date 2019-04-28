@@ -6,6 +6,7 @@ import java.net.URI;
 
 /**
  *
+ * @param <T>  the type of the instance
  */
 public class UriSubject<T> extends Subject<UriSubject<T>, T, URI> implements ComparableSubject<UriSubject<T>, T, URI> {
 

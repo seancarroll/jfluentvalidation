@@ -6,7 +6,7 @@ import jfluentvalidation.rules.PropertyRule;
 
 /**
  *
- * @param <T>
+ * @param <T>  the type of the instance
  */
 public class DoubleSubject<T> extends AbstractComparableNumber<DoubleSubject<T>, T, Double> {
 

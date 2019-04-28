@@ -6,6 +6,7 @@ import java.io.InputStream;
 
 /**
  *
+ * @param <T>  the type of the instance
  */
 public class InputStreamSubject<T> extends Subject<InputStreamSubject<T>, T, InputStream> {
 

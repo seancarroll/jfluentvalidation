@@ -11,6 +11,13 @@ import java.util.function.Predicate;
 // TODO: is there a way to structure this so it could be used by ContainsValueConstraint?
 // Is that even a good idea?
 // This looks like a more general case of ContainsValue
+
+/**
+ *
+ * @param <T>
+ * @param <K>
+ * @param <V>
+ */
 public class ValueConstraint<T, K, V> implements Constraint<T, Map<K, V>> {
 
     private final Predicate<? super V> condition;

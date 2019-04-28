@@ -9,7 +9,8 @@ import jfluentvalidation.validators.RuleContext;
 /**
  * Check that the given {@code CharSequence} being validated contains the given sequence of charSequence
  * without any other charSequences between them.
- * @param <T> type of instance to validate
+ *
+ * @param <T>  type of instance to validate.
  */
 public class ContainsSequenceConstraint<T> implements Constraint<T, CharSequence> {
 
@@ -21,6 +22,7 @@ public class ContainsSequenceConstraint<T> implements Constraint<T, CharSequence
 
     @Override
     public boolean isValid(RuleContext<T, CharSequence> validationContext) {
+        // TODO: implement
         return false;
     }
 }

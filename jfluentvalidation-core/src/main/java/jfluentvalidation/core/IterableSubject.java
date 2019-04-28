@@ -13,7 +13,7 @@ import static java.util.Arrays.asList;
 
 /**
  *
- * @param <T>
+ * @param <T>  the type of the instance
  */
 public class IterableSubject<T, E> extends Subject<IterableSubject<T, E>, T, Iterable<? super E>> {
 

@@ -6,6 +6,10 @@ import jfluentvalidation.validators.RuleContext;
 
 import java.time.ZonedDateTime;
 
+/**
+ *
+ * @param <T>  the target type supported by an implementation.
+ */
 public class IsBeforeZonedDateTimeConstraint<T> implements Constraint<T, ZonedDateTime> {
 
     private final ZonedDateTime other;

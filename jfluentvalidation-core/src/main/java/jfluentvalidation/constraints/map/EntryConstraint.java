@@ -11,6 +11,13 @@ import java.util.function.Predicate;
 // TODO: is there a way to structure this so it could be used by ContainsEntryConstraint?
 // Is that even a good idea?
 // This looks like a more general case of ContainsEntry
+
+/**
+ *
+ * @param <T>
+ * @param <K>
+ * @param <V>
+ */
 public class EntryConstraint<T, K, V> implements Constraint<T, Map<K, V>> {
 
     // TODO: can we take care of this by using a SoftConstraint?

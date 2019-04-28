@@ -4,7 +4,7 @@ import jfluentvalidation.rules.PropertyRule;
 
 /**
  *
- * @param <T>
+ * @param <T>  the type of the instance
  */
 public class LongSubject<T> extends AbstractComparableNumber<LongSubject<T>, T, Long> {
 

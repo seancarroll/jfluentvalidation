@@ -9,7 +9,7 @@ import jfluentvalidation.rules.PropertyRule;
 
 /**
  *
- * @param <T>
+ * @param <T>  the type of the instance
  */
 public class ByteArraySubject<T> extends Subject<ByteArraySubject<T>, T, byte[]> {
 

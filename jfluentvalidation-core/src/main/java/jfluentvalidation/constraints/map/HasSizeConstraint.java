@@ -8,6 +8,9 @@ import java.util.Map;
 
 /**
  * Check that the size of the given {@code CharSequence} being validated is equal to the given size.
+ * @param <T>
+ * @param <K>
+ * @param <V>
  */
 public class HasSizeConstraint<T, K, V> implements Constraint<T, Map<K, V>> {
 

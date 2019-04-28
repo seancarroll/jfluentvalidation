@@ -16,6 +16,7 @@ public final class CharSequenceConstraints {
     private static final IsLowerCaseConstraint IS_LOWER_CASE_CONSTRAINT = new IsLowerCaseConstraint();
     private static final IsNotEmptyConstraint IS_NOT_EMPTY_CONSTRAINT = new IsNotEmptyConstraint();
     private static final IsUpperCaseConstraint IS_UPPER_CASE_CONSTRAINT = new IsUpperCaseConstraint();
+    private static final IsBlankConstraint IS_BLANK_CONSTRAINT = new IsBlankConstraint();
 
     public static ContainsConstraint contains(CharSequence... sequences) {
         return new ContainsConstraint(sequences);
@@ -94,6 +95,9 @@ public final class CharSequenceConstraints {
     }
 
     // TODO: isBlank
+    public static IsBlankConstraint isBlank(CharSequence sequence) {
+        return IS_BLANK_CONSTRAINT;
+    }
 
     // TODO: always return a single instance (make a singleton public static final)
     public static IsEmailConstraint isEmail(CharSequence sequence) {

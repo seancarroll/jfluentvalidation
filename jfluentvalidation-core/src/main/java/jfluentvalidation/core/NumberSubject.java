@@ -5,8 +5,9 @@ package jfluentvalidation.core;
 
 /**
  *
- * @param <S>
- * @param <A>
+ * @param <S>  the self-type, allowing {@code this}-returning methods to avoid needing subclassing.
+ *             Additional details can be found at &quot;<a href="http://bit.ly/1IZIRcY" target="_blank">Emulating 'self types' using Java Generics to simplify fluent API implementation</a>&quot;
+ * @param <A>  the type of the actual object being tested by this {@code Subject}
  */
 public interface NumberSubject<S extends NumberSubject<S, A>, A extends Number> {
 

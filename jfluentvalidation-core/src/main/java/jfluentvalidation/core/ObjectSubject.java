@@ -4,6 +4,7 @@ import jfluentvalidation.rules.PropertyRule;
 
 /**
  *
+ * @param <T>  the type of the instance
  */
 public class ObjectSubject<T> extends Subject<ObjectSubject<T>, T, Object> {
 

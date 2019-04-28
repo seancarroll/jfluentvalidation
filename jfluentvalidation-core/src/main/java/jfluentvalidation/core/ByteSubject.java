@@ -4,7 +4,7 @@ import jfluentvalidation.rules.PropertyRule;
 
 /**
  *
- * @param <T>
+ * @param <T>  the type of the instance
  */
 public class ByteSubject<T> extends AbstractComparableNumber<ByteSubject<T>, T, Byte> {
 

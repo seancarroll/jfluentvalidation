@@ -20,9 +20,11 @@ import java.util.function.Predicate;
 
 /**
  * An object that lets you perform validation checks on the value under test.
- * @param <S> the self-type, allowing {@code this}-returning methods to avoid needing subclassing.
- *           Additional details can be found at &quot;<a href="http://bit.ly/1IZIRcY" target="_blank">Emulating 'self types' using Java Generics to simplify fluent API implementation</a>&quot;
- * @param <A> the type of the actual object being tested by this {@code Subject}
+ *
+ * @param <S>  the self-type, allowing {@code this}-returning methods to avoid needing subclassing.
+ *             Additional details can be found at &quot;<a href="http://bit.ly/1IZIRcY" target="_blank">Emulating 'self types' using Java Generics to simplify fluent API implementation</a>&quot;
+ * @param <T>  the type of the instance
+ * @param <A>  the type of the actual object being tested by this {@code Subject}
  */
 public class Subject<S extends Subject<S, T, A>, T, A> {
 

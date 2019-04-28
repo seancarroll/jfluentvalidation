@@ -9,9 +9,10 @@ import jfluentvalidation.rules.PropertyRule;
 
 /**
  *
- * @param <S>
- * @param <T>
- * @param <A>
+ * @param <S>  the self-type, allowing {@code this}-returning methods to avoid needing subclassing.
+ *             Additional details can be found at &quot;<a href="http://bit.ly/1IZIRcY" target="_blank">Emulating 'self types' using Java Generics to simplify fluent API implementation</a>&quot;
+ * @param <T>  the type of the instance.
+ * @param <A>  the type of the actual object being tested by this {@code Subject}.
  */
 public abstract class AbstractComparableNumber<S extends AbstractComparableNumber<S, T, A>, T, A extends Number & Comparable<A>>
     extends Subject<S, T, A>

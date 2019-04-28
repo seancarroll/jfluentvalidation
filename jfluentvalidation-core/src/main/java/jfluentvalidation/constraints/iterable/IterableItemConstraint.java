@@ -7,6 +7,11 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
 
+/**
+ *
+ * @param <T>  type of instance to validate.
+ * @param <P>  the type of the actual object being tested by this {@code Constraint}.
+ */
 public class IterableItemConstraint<T, P> implements Constraint<T, Iterable<? super P>> {
 
     List<Constraint<T, ? super P>> constraints;

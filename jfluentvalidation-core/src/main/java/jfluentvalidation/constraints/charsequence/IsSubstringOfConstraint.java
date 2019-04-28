@@ -6,7 +6,7 @@ import jfluentvalidation.validators.RuleContext;
 
 /**
  *
- * @param <T> type of instance to validate
+ * @param <T>  type of instance to validate.
  */
 public class IsSubstringOfConstraint<T> implements Constraint<T, CharSequence> {
 

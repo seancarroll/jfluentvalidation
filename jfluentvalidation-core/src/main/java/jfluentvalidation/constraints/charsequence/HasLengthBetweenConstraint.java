@@ -7,7 +7,8 @@ import jfluentvalidation.validators.RuleContext;
 
 /**
  * Check that the length of the given {@code CharSequence} being validated is between the given lower and higher boundaries (inclusive).
- * @param <T> type of instance to validate
+ *
+ * @param <T>  type of instance to validate.
  */
 public class HasLengthBetweenConstraint<T> implements Constraint<T, CharSequence> {
 

@@ -11,8 +11,10 @@ import java.time.ZonedDateTime;
 
 // TODO: isEquals vs equals
 // TODO: still some unchecked assignments
+
 /**
  *
+ * @param <T>  the type of the instance
  */
 public class ZonedDateTimeSubject<T>
     extends Subject<ZonedDateTimeSubject<T>, T, ZonedDateTime>

@@ -6,7 +6,8 @@ import jfluentvalidation.validators.RuleContext;
 /**
  * Check that the given {@code CharSequence} being validated contains all the given values
  * <b>in the given order (possibly with other values between them)</b>.
- * @param <T> type of instance to validate
+ *
+ * @param <T>  type of instance to validate.
  */
 public class ContainsSubsequenceConstraint<T> implements Constraint<T, CharSequence> {
 

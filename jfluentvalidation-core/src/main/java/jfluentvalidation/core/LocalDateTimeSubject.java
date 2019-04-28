@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 
 /**
  *
+ * @param <T>  the type of the instance
  */
 public class LocalDateTimeSubject<T>
     extends Subject<LocalDateTimeSubject<T>, T, LocalDateTime>

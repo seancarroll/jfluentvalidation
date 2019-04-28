@@ -10,7 +10,8 @@ import java.util.regex.Pattern;
 
 /**
  * Check that the given {@code CharSequence} being validated matches the given regular expression.
- * @param <T> type of instance to validate
+ *
+ * @param <T>  type of instance to validate.
  */
 public class MatchesConstraint<T> implements Constraint<T, CharSequence> {
 

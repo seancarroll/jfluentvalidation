@@ -9,18 +9,33 @@ import java.util.List;
 import static jfluentvalidation.common.MoreCollections.safeContains;
 
 // https://github.com/apache/commons-collections/blob/master/src/main/java/org/apache/commons/collections4/IterableUtils.java
+
+/**
+ *
+ */
 public final class Iterables {
 
     private Iterables() {
         // statics only
     }
 
+    /**
+     *
+     * @param iterable
+     * @return
+     */
     public static int size(Iterable<?> iterable) {
         return iterable instanceof Collection
             ? ((Collection)iterable).size()
             : Iterators.size(iterable.iterator());
     }
 
+    /**
+     *
+     * @param iterable
+     * @param element
+     * @return
+     */
     public static boolean contains(Iterable<?> iterable, @Nullable Object element) {
         if (iterable instanceof Collection) {
             Collection<?> collection = (Collection)iterable;
@@ -30,6 +45,11 @@ public final class Iterables {
         }
     }
 
+    /**
+     *
+     * @param iterable
+     * @return
+     */
     public static boolean isEmpty(Iterable<?> iterable) {
         if (iterable instanceof Collection) {
             return ((Collection<?>) iterable).isEmpty();
@@ -37,6 +57,12 @@ public final class Iterables {
         return !iterable.iterator().hasNext();
     }
 
+    /**
+     *
+     * @param iterable
+     * @param <T>
+     * @return
+     */
     public static <T> Collection<T> toCollection(Iterable<T> iterable) {
         if (iterable instanceof Collection) {
             return (Collection<T>) iterable;

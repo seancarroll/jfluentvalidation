@@ -8,12 +8,21 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ *
+ */
 public final class MoreCollections {
 
     private MoreCollections() {
         // statics only
     }
 
+    /**
+     *
+     * @param collection
+     * @param object
+     * @return
+     */
     public static boolean safeContains(Collection<?> collection, @Nullable Object object) {
         Ensure.notNull(collection);
         try {
@@ -24,6 +33,14 @@ public final class MoreCollections {
     }
 
     // gather / collect
+    /**
+     *
+     * @param first
+     * @param second
+     * @param rest
+     * @param <T>
+     * @return
+     */
     @SafeVarargs
     public static <T> List<T> accumulate(T first, T second, T... rest) {
         List<T> items = new ArrayList<>(2 + (rest == null ? 1 : rest.length));

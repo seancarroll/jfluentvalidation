@@ -4,6 +4,10 @@ import jfluentvalidation.rules.PropertyRule;
 
 import java.io.File;
 
+/**
+ *
+ * @param <T>  the type of the instance
+ */
 public class FileSubject<T> extends Subject<FileSubject<T>, T, File> implements ComparableSubject<FileSubject<T>, T, File> {
 
     public FileSubject(PropertyRule<T, File> rule) {

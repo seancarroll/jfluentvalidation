@@ -7,8 +7,10 @@ import java.util.Date;
 
 // rather than isLessThan, isGreaterThan etc should we have isBefore, isAfter, etc? How to separate from other Comparable?
 // NumberComparable vs TemporalComparable/some other name
+
 /**
  *
+ * @param <T>  the type of the instance
  */
 public class DateSubject<T> extends Subject<DateSubject<T>, T, Date> implements ComparableSubject<DateSubject<T>, T, Date> {
 

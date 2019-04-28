@@ -9,6 +9,7 @@ import java.util.function.Predicate;
 
 /**
  *
+ * @param <T>  the type of the instance
  * @param <K>
  * @param <V>
  */

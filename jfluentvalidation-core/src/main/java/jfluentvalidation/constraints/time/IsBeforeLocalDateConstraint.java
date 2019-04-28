@@ -6,6 +6,10 @@ import jfluentvalidation.validators.RuleContext;
 
 import java.time.LocalDate;
 
+/**
+ *
+ * @param <T>  the target type supported by an implementation.
+ */
 public class IsBeforeLocalDateConstraint<T> implements Constraint<T, LocalDate> {
 
     private final LocalDate other;

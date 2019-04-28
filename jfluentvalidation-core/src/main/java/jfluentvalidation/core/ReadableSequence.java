@@ -4,6 +4,14 @@ import java.util.regex.Pattern;
 
 // TODO: ugh...I dont really like the name but attempting to try and fix charsequence/string/stringbuffer/stringbuilder
 // incompatiblity issues
+
+/**
+ *
+ * @param <S>  the self-type, allowing {@code this}-returning methods to avoid needing subclassing.
+ *             Additional details can be found at &quot;<a href="http://bit.ly/1IZIRcY" target="_blank">Emulating 'self types' using Java Generics to simplify fluent API implementation</a>&quot;
+ * @param <T>  the type of the instance.
+ * @param <A>  the type of the actual object being tested by this {@code Subject}.
+ */
 public interface ReadableSequence<S extends ReadableSequence<S, T, A>, T, A> {
 
     S isNullOrEmpty();

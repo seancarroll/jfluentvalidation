@@ -4,6 +4,10 @@ import jfluentvalidation.rules.PropertyRule;
 
 import java.net.URL;
 
+/**
+ *
+ * @param <T>  the type of the instance
+ */
 public class UrlSubject<T> extends Subject<UrlSubject<T>, T, URL> {
 
     public UrlSubject(PropertyRule<T, URL> rule) {

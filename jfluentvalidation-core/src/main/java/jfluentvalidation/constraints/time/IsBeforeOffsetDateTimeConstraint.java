@@ -6,6 +6,10 @@ import jfluentvalidation.validators.RuleContext;
 
 import java.time.OffsetDateTime;
 
+/**
+ *
+ * @param <T>  the target type supported by an implementation.
+ */
 public class IsBeforeOffsetDateTimeConstraint<T> implements Constraint<T, OffsetDateTime> {
 
     private final OffsetDateTime other;

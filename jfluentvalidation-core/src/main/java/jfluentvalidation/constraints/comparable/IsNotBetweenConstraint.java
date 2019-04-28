@@ -10,8 +10,8 @@ import static jfluentvalidation.common.Comparables.isLessThan;
 
 /**
  *
- * @param <T>
- * @param <P>
+ * @param <T>  type of instance to validate.
+ * @param <P>  the type of the actual object being tested by this {@code Constraint}.
  */
 public class IsNotBetweenConstraint<T, P extends Comparable<? super P>> implements Constraint<T, P> {
     private final P start;

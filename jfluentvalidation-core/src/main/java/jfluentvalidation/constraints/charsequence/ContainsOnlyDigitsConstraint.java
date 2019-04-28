@@ -6,7 +6,8 @@ import jfluentvalidation.validators.RuleContext;
 
 /**
  * Check that the given {@code CharSequence} being validated contains only digits.
- * @param <T> type of instance to validate
+ *
+ * @param <T>  type of instance to validate.
  */
 public class ContainsOnlyDigitsConstraint<T> implements Constraint<T, CharSequence> {
 

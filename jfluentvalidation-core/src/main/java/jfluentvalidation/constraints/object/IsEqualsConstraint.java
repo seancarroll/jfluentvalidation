@@ -7,8 +7,9 @@ import java.util.Objects;
 
 /**
  * Check that the given {@code Object} being validated is equal to the given object.
- * @param <T> the target type supported by an implementation
- * @param <P>
+ *
+ * @param <T>  the target type supported by an implementation.
+ * @param <P>  the type of the actual object being tested by this {@code Constraint}.
  */
 public class IsEqualsConstraint<T, P> implements Constraint<T, P> {
 

@@ -10,6 +10,7 @@ import java.util.Calendar;
 
 /**
  *
+ * @param <T>  the type of the instance
  */
 public class CalendarSubject<T>
     extends Subject<CalendarSubject<T>, T, Calendar>

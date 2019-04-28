@@ -6,8 +6,8 @@ import java.util.function.Predicate;
 
 /**
  *
- * @param <T>
- * @param <P>
+ * @param <T>  the target type supported by an implementation.
+ * @param <P>  the type of the actual object being tested by this {@code Constraint}.
  */
 public class PredicateConstraint<T, P> implements Constraint<T, P> {
 

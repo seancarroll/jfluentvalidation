@@ -8,6 +8,9 @@ import java.util.Collection;
 
 /**
  * Checks that the subject contains at least one element that corresponds to at least one of the expected elements.
+ *
+ * @param <T>  type of instance to validate.
+ * @param <P>  the type of the actual object being tested by this {@code Constraint}.
  */
 public class ContainsAnyInConstraint<T, P> implements Constraint<T, Iterable<? super P>> {
 

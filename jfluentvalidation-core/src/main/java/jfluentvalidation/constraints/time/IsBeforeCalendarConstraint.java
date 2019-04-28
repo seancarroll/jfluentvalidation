@@ -6,6 +6,10 @@ import jfluentvalidation.validators.RuleContext;
 
 import java.util.Calendar;
 
+/**
+ *
+ * @param <T>  the target type supported by an implementation.
+ */
 public class IsBeforeCalendarConstraint<T> implements Constraint<T, Calendar> {
 
     private final Calendar other;

@@ -5,7 +5,8 @@ import jfluentvalidation.validators.RuleContext;
 
 /**
  * Check that the given {@code CharSequence} being validated contains only lowercase characters.
- * @param <T> type of instance to validate
+ *
+ * @param <T>  type of instance to validate.
  */
 public class IsLowerCaseConstraint<T> implements Constraint<T, CharSequence> {
 

@@ -7,8 +7,9 @@ import jfluentvalidation.validators.RuleContext;
 // TODO: do we need this along with all the other Length constraints?
 
 /**
+ * Check that the length of the given {@code CharSequence} being validated length is constrained by provided min and max.
  *
- * @param <T> type of instance to validate
+ * @param <T>  type of instance to validate.
  */
 public class LengthConstraint<T> implements Constraint<T, CharSequence> {
 

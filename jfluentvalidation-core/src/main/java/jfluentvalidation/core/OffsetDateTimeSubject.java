@@ -13,6 +13,7 @@ import java.time.OffsetDateTime;
 
 /**
  *
+ * @param <T>  the type of the instance
  */
 public class OffsetDateTimeSubject<T>
     extends Subject<OffsetDateTimeSubject<T>, T, OffsetDateTime>

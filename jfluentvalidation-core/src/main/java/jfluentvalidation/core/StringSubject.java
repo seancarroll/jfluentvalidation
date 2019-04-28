@@ -5,6 +5,7 @@ import jfluentvalidation.rules.PropertyRule;
 
 /**
  *
+ * @param <T>  the type of the instance
  */
 public class StringSubject<T>
     extends AbstractCharSequenceSubject<StringSubject<T>, T, String>

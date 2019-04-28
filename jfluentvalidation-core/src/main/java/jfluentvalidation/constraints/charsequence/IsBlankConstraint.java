@@ -5,7 +5,8 @@ import jfluentvalidation.validators.RuleContext;
 
 /**
  * Checks if a CharSequence is empty (""), null or whitespace only.
- * @param <T> type of instance to validate
+ *
+ * @param <T>  type of instance to validate.
  */
 public class IsBlankConstraint<T> implements Constraint<T, CharSequence> {
 

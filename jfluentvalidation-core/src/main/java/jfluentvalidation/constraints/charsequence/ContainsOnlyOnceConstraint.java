@@ -9,7 +9,8 @@ import jfluentvalidation.validators.RuleContext;
 
 /**
  * Check that the given {@code CharSequence} being validated contains the given sequence only once.
- * @param <T> type of instance to validate
+ *
+ * @param <T>  type of instance to validate.
  */
 public class ContainsOnlyOnceConstraint<T> implements Constraint<T, CharSequence> {
 

@@ -5,12 +5,20 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.Iterator;
 import java.util.Objects;
 
+/**
+ *
+ */
 public final class Iterators {
 
     private Iterators() {
         // statics only
     }
 
+    /**
+     *
+     * @param iterator
+     * @return
+     */
     public static int size(final Iterator<?> iterator) {
         int size = 0;
         if (iterator != null) {
@@ -22,6 +30,12 @@ public final class Iterators {
         return size;
     }
 
+    /**
+     *
+     * @param iterator
+     * @param element
+     * @return
+     */
     public static boolean contains(Iterator<?> iterator, @Nullable Object element) {
         // TODO: check if I can remove the null check and collapse this into a single check of Object.equals
 //        if (element == null) {
