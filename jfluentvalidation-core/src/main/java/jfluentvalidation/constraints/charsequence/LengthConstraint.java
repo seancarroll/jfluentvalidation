@@ -5,6 +5,11 @@ import jfluentvalidation.internal.Ensure;
 import jfluentvalidation.validators.RuleContext;
 
 // TODO: do we need this along with all the other Length constraints?
+
+/**
+ *
+ * @param <T> type of instance to validate
+ */
 public class LengthConstraint<T> implements Constraint<T, CharSequence> {
 
     private final int min;

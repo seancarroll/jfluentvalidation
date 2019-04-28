@@ -40,3 +40,5 @@ Where to put validation configuration such as clock provider?
 
 must do
 - figure out include rule issue with apply condition / subject
+
+javadocs - https://blog.joda.org/2012/11/javadoc-coding-standards.html

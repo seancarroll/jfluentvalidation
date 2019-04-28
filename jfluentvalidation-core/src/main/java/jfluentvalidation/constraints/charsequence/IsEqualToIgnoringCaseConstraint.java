@@ -5,6 +5,7 @@ import jfluentvalidation.validators.RuleContext;
 
 /**
  * Checks that the given {@code CharSequence} being validated equals the given sequence, ignoring case.
+ * @param <T> type of instance to validate
  */
 public class IsEqualToIgnoringCaseConstraint<T> implements Constraint<T, CharSequence> {
 

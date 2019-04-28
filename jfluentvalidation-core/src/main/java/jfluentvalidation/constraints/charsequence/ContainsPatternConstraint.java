@@ -12,6 +12,7 @@ import java.util.regex.Pattern;
 
 /**
  * Checks that the given {@code CharSequence} being validated contains the given regular expression or {@code Patter}.
+ * @param <T> type of instance to validate
  */
 public class ContainsPatternConstraint<T> implements Constraint<T, CharSequence> {
 

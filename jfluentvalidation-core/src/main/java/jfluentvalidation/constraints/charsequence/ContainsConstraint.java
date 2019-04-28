@@ -9,6 +9,7 @@ import jfluentvalidation.validators.RuleContext;
 
 /**
  * Check that the given {@code CharSequence} being validated contains the given CharSequences.
+ * @param <T> type of instance to validate
  */
 public class ContainsConstraint<T> implements Constraint<T, CharSequence> {
 

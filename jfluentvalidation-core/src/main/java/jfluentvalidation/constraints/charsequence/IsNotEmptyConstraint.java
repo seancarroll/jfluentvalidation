@@ -5,6 +5,8 @@ import jfluentvalidation.validators.RuleContext;
 
 /**
  * Check that the given {@code CharSequence} being validated is not empty.
+ * @param <T> type of instance to validate
+ * @param <A> the type of the actual object being tested by this {@code Constraint}
  */
 public class IsNotEmptyConstraint<T, A extends CharSequence> implements Constraint<T, A> {
 

@@ -4,8 +4,10 @@ import jfluentvalidation.constraints.Constraint;
 import jfluentvalidation.validators.RuleContext;
 
 // TODO: length constraint where the users specify inclusive/exclusive boundaries
+
 /**
  * Check that the length of the given {@code CharSequence} being validated is between the given lower and higher boundaries (inclusive).
+ * @param <T> type of instance to validate
  */
 public class HasLengthBetweenConstraint<T> implements Constraint<T, CharSequence> {
 
