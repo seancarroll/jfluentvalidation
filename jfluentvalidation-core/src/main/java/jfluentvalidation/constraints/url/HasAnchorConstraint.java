@@ -7,7 +7,7 @@ import java.net.URL;
 
 /**
  * Gets the anchor (also known as the "reference") of this {@code URL}.
- * @param <T>
+ * @param <T>  the target type supported by an implementation.
  */
 public class HasAnchorConstraint<T> implements Constraint<T, URL> {
 

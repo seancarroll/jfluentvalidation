@@ -5,6 +5,10 @@ import jfluentvalidation.validators.RuleContext;
 
 import java.net.URL;
 
+/**
+ *
+ * @param <T>  the target type supported by an implementation.
+ */
 public class HasPortConstraint<T> implements Constraint<T, URL> {
 
     private final int expected;

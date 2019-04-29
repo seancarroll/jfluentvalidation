@@ -9,6 +9,10 @@ import java.util.Map;
 
 import static jfluentvalidation.common.Uris.getParameters;
 
+/**
+ *
+ * @param <T>  the target type supported by an implementation.
+ */
 public class HasParameterConstraint<T> implements Constraint<T, URL> {
 
     // expectedParameterName
