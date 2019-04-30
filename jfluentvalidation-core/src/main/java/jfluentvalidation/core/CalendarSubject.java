@@ -13,8 +13,7 @@ import java.util.Calendar;
  * @param <T>  the type of the instance
  */
 public class CalendarSubject<T>
-    extends Subject<CalendarSubject<T>, T, Calendar>
-    implements ComparableSubject<CalendarSubject<T>, T, Calendar> {
+    extends AbstractComparableSubject<CalendarSubject<T>, T, Calendar> {
 
     public CalendarSubject(PropertyRule<T, Calendar> rule) {
         super(CalendarSubject.class, rule);
@@ -60,58 +59,4 @@ public class CalendarSubject<T>
         return isBeforeOrEqual(Calendar.getInstance());
     }
 
-    @Override
-    public CalendarSubject isEqualAccordingToCompareTo(Calendar other) {
-        return myself;
-    }
-
-    @Override
-    public CalendarSubject isNotEqualAccordingToCompareTo(Calendar other) {
-        return myself;
-    }
-
-    @Override
-    public CalendarSubject isLessThan(Calendar other) {
-        return myself;
-    }
-
-    @Override
-    public CalendarSubject isLessThanOrEqualTo(Calendar other) {
-        return myself;
-    }
-
-    @Override
-    public CalendarSubject isGreaterThan(Calendar other) {
-        return myself;
-    }
-
-    @Override
-    public CalendarSubject isGreaterThanOrEqualTo(Calendar other) {
-        return myself;
-    }
-
-    @Override
-    public CalendarSubject isBetween(Calendar startInclusive, Calendar endInclusive) {
-        return myself;
-    }
-
-    @Override
-    public CalendarSubject isStrictlyBetween(Calendar startExclusive, Calendar endExclusive) {
-        return myself;
-    }
-
-    @Override
-    public CalendarSubject isBetween(Calendar start, Calendar end, boolean inclusiveStart, boolean inclusiveEnd) {
-        return myself;
-    }
-
-    @Override
-    public CalendarSubject isNotBetween(Calendar startInclusive, Calendar endInclusive) {
-        return myself;
-    }
-
-    @Override
-    public CalendarSubject isNotBetween(Calendar start, Calendar end, boolean inclusiveStart, boolean inclusiveEnd) {
-        return myself;
-    }
 }

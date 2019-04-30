@@ -1,6 +1,5 @@
 package jfluentvalidation.core;
 
-import jfluentvalidation.constraints.comparable.ComparableConstraints;
 import jfluentvalidation.constraints.time.IsAfterLocalDateConstraint;
 import jfluentvalidation.constraints.time.IsAfterOrEqualLocalDateConstraint;
 import jfluentvalidation.constraints.time.IsBeforeLocalDateConstraint;
@@ -29,8 +28,7 @@ import java.time.LocalDate;
  * @param <T>  the type of the instance
  */
 public class LocalDateSubject<T>
-    extends Subject<LocalDateSubject<T>, T, LocalDate>
-    implements ComparableSubject<LocalDateSubject<T>, T, LocalDate> {
+    extends AbstractComparableSubject<LocalDateSubject<T>, T, LocalDate> {
 
     public LocalDateSubject(PropertyRule<T, LocalDate> rule) {
         super(LocalDateSubject.class, rule);
@@ -77,66 +75,4 @@ public class LocalDateSubject<T>
         return isBeforeOrEqual(LocalDate.now());
     }
 
-    @Override
-    public LocalDateSubject<T> isEqualAccordingToCompareTo(LocalDate other) {
-        rule.addConstraint(ComparableConstraints.isEqualAccordingToCompareTo(other));
-        return myself;
-    }
-
-    @Override
-    public LocalDateSubject<T> isNotEqualAccordingToCompareTo(LocalDate other) {
-        rule.addConstraint(ComparableConstraints.isNotEqualAccordingToCompareTo(other));
-        return myself;
-    }
-
-    @Override
-    public LocalDateSubject<T> isLessThan(LocalDate other) {
-        rule.addConstraint(ComparableConstraints.isLessThan(other));
-        return myself;
-    }
-
-    @Override
-    public LocalDateSubject<T> isLessThanOrEqualTo(LocalDate other) {
-        rule.addConstraint(ComparableConstraints.isLessThanOrEqualTo(other));
-        return myself;
-    }
-
-    @Override
-    public LocalDateSubject<T> isGreaterThan(LocalDate other) {
-        rule.addConstraint(ComparableConstraints.isGreaterThan(other));
-        return myself;
-    }
-
-    @Override
-    public LocalDateSubject<T> isGreaterThanOrEqualTo(LocalDate other) {
-        rule.addConstraint(ComparableConstraints.isGreaterThanOrEqualTo(other));
-        return myself;
-    }
-
-    @Override
-    public LocalDateSubject<T> isBetween(LocalDate startInclusive, LocalDate endInclusive) {
-        return isBetween(startInclusive, endInclusive, true, true);
-    }
-
-    @Override
-    public LocalDateSubject<T> isStrictlyBetween(LocalDate startExclusive, LocalDate endExclusive) {
-        return myself;
-    }
-
-    @Override
-    public LocalDateSubject<T> isBetween(LocalDate start, LocalDate end, boolean inclusiveStart, boolean inclusiveEnd) {
-        rule.addConstraint(ComparableConstraints.isBetween(start, end, inclusiveStart, inclusiveEnd));
-        return myself;
-    }
-
-    @Override
-    public LocalDateSubject<T> isNotBetween(LocalDate startInclusive, LocalDate endInclusive) {
-        return myself;
-    }
-
-    @Override
-    public LocalDateSubject<T> isNotBetween(LocalDate start, LocalDate end, boolean inclusiveStart, boolean inclusiveEnd) {
-        rule.addConstraint(ComparableConstraints.isNotBetween(start, end, inclusiveStart, inclusiveEnd));
-        return myself;
-    }
 }

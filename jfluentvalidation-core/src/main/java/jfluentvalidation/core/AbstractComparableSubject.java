@@ -1,5 +1,8 @@
 package jfluentvalidation.core;
 
+import jfluentvalidation.constraints.comparable.*;
+import jfluentvalidation.rules.PropertyRule;
+
 /**
  *
  * @param <S>  the self-type, allowing {@code this}-returning methods to avoid needing subclassing.
@@ -8,100 +11,79 @@ package jfluentvalidation.core;
  * @param <A>  the type of the actual object being tested by this {@code Subject}.
  */
 public class AbstractComparableSubject<S extends AbstractComparableSubject<S, T, A>, T, A extends Comparable<? super A>>
+    extends Subject<S, T, A>
     implements ComparableSubject<S, T, A> {
+
+    public AbstractComparableSubject(Class<?> selfType, PropertyRule<T, A> rule) {
+        super(selfType, rule);
+    }
 
     @Override
     public S isEqualAccordingToCompareTo(A other) {
-        return null;
+        rule.addConstraint(new IsEqualAccordingToCompareToConstraint<>(other));
+        return myself;
     }
 
     @Override
     public S isNotEqualAccordingToCompareTo(A other) {
-        return null;
+        rule.addConstraint(new IsNotEqualAccordingToCompareToConstraint<>(other));
+        return myself;
     }
 
     @Override
     public S isLessThan(A other) {
-        return null;
+        rule.addConstraint(new IsLessThanConstraint<>(other));
+        return myself;
     }
 
     @Override
     public S isLessThanOrEqualTo(A other) {
-        return null;
+        rule.addConstraint(new IsLessThanOrEqualToConstraint<>(other));
+        return myself;
     }
 
     @Override
     public S isGreaterThan(A other) {
-        return null;
+        rule.addConstraint(new IsGreaterThanConstraint<>(other));
+        return myself;
     }
 
     @Override
     public S isGreaterThanOrEqualTo(A other) {
-        return null;
+        rule.addConstraint(new IsGreaterThanOrEqualToConstraint<>(other));
+        return myself;
     }
 
     @Override
     public S isBetween(A startInclusive, A endInclusive) {
-        return null;
+        rule.addConstraint(new IsBetweenConstraint<>(startInclusive, endInclusive, true, true));
+        return myself;
     }
 
     @Override
     public S isStrictlyBetween(A startExclusive, A endExclusive) {
-        return null;
+        rule.addConstraint(new IsBetweenConstraint<>(startExclusive, endExclusive, true, true));
+        return myself;
     }
 
     @Override
     public S isBetween(A start, A end, boolean inclusiveStart, boolean inclusiveEnd) {
-        return null;
+        rule.addConstraint(new IsBetweenConstraint<>(start, end, inclusiveStart, inclusiveEnd));
+        return myself;
     }
 
     @Override
     public S isNotBetween(A startInclusive, A endInclusive) {
-        return null;
+        // TODO: should it be inclusive start and end?
+        rule.addConstraint(new IsNotBetweenConstraint<>(startInclusive, endInclusive, true, true));
+        return myself;
     }
 
     @Override
     public S isNotBetween(A start, A end, boolean inclusiveStart, boolean inclusiveEnd) {
-        return null;
+        // TODO: should it be inclusive start and end?
+        rule.addConstraint(new IsNotBetweenConstraint<>(start, end, inclusiveStart, inclusiveEnd));
+        return myself;
     }
 
-    //    @Override
-//    public S isEqualAccordingToCompareTo(A other) {
-//        return null;
-//    }
-//
-//    @Override
-//    public S isNotEqualAccordingToCompareTo(A other) {
-//        return null;
-//    }
-//
-//    @Override
-//    public S isLessThan(A other) {
-//        return null;
-//    }
-//
-//    @Override
-//    public S isLessThanOrEqualTo(A other) {
-//        return null;
-//    }
-//
-//    @Override
-//    public S isGreaterThan(A other) {
-//        return null;
-//    }
-//
-//    @Override
-//    public S isGreaterThanOrEqualTo(A other) {
-//        return null;
-//    }
-//
-//    @Override
-//    public S isBetween(A startInclusive, A endInclusive) {
-//        return null;
-//    }
-//
-//    @Override
-//    public S isStrictlyBetween(A startExclusive, A endExclusive) {
-//        return null;
-//    }
 }

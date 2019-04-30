@@ -12,7 +12,7 @@ import java.util.Date;
  *
  * @param <T>  the type of the instance
  */
-public class DateSubject<T> extends Subject<DateSubject<T>, T, Date> implements ComparableSubject<DateSubject<T>, T, Date> {
+public class DateSubject<T> extends AbstractComparableSubject<DateSubject<T>, T, Date> {
 
     public DateSubject(PropertyRule<T, Date> rule) {
         super(DateSubject.class, rule);
@@ -62,66 +62,4 @@ public class DateSubject<T> extends Subject<DateSubject<T>, T, Date> implements 
 
     // TODO: isEquals vs equals
 
-    @Override
-    public DateSubject<T> isEqualAccordingToCompareTo(Date other) {
-        rule.addConstraint(ComparableConstraints.isEqualAccordingToCompareTo(other));
-        return myself;
-    }
-
-    @Override
-    public DateSubject<T> isNotEqualAccordingToCompareTo(Date other) {
-        rule.addConstraint(ComparableConstraints.isNotEqualAccordingToCompareTo(other));
-        return myself;
-    }
-
-    @Override
-    public DateSubject<T> isLessThan(Date other) {
-        rule.addConstraint(ComparableConstraints.isLessThan(other));
-        return myself;
-    }
-
-    @Override
-    public DateSubject<T> isLessThanOrEqualTo(Date other) {
-        rule.addConstraint(ComparableConstraints.isLessThanOrEqualTo(other));
-        return myself;
-    }
-
-    @Override
-    public DateSubject<T> isGreaterThan(Date other) {
-        rule.addConstraint(ComparableConstraints.isGreaterThan(other));
-        return myself;
-    }
-
-    @Override
-    public DateSubject<T> isGreaterThanOrEqualTo(Date other) {
-        rule.addConstraint(ComparableConstraints.isGreaterThanOrEqualTo(other));
-        return myself;
-    }
-
-    @Override
-    public DateSubject<T> isBetween(Date startInclusive, Date endInclusive) {
-        return isBetween(startInclusive, endInclusive, true, true);
-    }
-
-    @Override
-    public DateSubject<T> isStrictlyBetween(Date startExclusive, Date endExclusive) {
-        return myself;
-    }
-
-    @Override
-    public DateSubject<T> isBetween(Date start, Date end, boolean inclusiveStart, boolean inclusiveEnd) {
-        rule.addConstraint(ComparableConstraints.isBetween(start, end, inclusiveStart, inclusiveEnd));
-        return myself;
-    }
-
-    public DateSubject<T> isNotBetween(Date start, Date end) {
-        // TODO: should it be inclusive start and end?
-        return isNotBetween(start, end, true, true);
-    }
-
-    public DateSubject<T> isNotBetween(Date start, Date end, boolean inclusiveStart, boolean inclusiveEnd) {
-        // TODO: should it be inclusive start and end?
-        rule.addConstraint(ComparableConstraints.isNotBetween(start, end, inclusiveStart, inclusiveEnd));
-        return myself;
-    }
 }

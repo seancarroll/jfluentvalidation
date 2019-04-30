@@ -1,6 +1,5 @@
 package jfluentvalidation.core;
 
-import jfluentvalidation.constraints.comparable.ComparableConstraints;
 import jfluentvalidation.constraints.time.IsAfterLocalTimeConstraint;
 import jfluentvalidation.constraints.time.IsAfterOrEqualLocalTimeConstraint;
 import jfluentvalidation.constraints.time.IsBeforeLocalTimeConstraint;
@@ -16,8 +15,7 @@ import java.time.LocalTime;
  * @param <T>  the type of the instance
  */
 public class LocalTimeSubject<T>
-    extends Subject<LocalTimeSubject<T>, T, LocalTime>
-    implements ComparableSubject<LocalTimeSubject<T>, T, LocalTime> {
+    extends AbstractComparableSubject<LocalTimeSubject<T>, T, LocalTime> {
 
     public LocalTimeSubject(PropertyRule<T, LocalTime> rule) {
         super(LocalTimeSubject.class, rule);
@@ -65,66 +63,4 @@ public class LocalTimeSubject<T>
         return isBeforeOrEqual(LocalTime.now());
     }
 
-    @Override
-    public LocalTimeSubject<T> isEqualAccordingToCompareTo(LocalTime other) {
-        rule.addConstraint(ComparableConstraints.isEqualAccordingToCompareTo(other));
-        return myself;
-    }
-
-    @Override
-    public LocalTimeSubject<T> isNotEqualAccordingToCompareTo(LocalTime other) {
-        rule.addConstraint(ComparableConstraints.isNotEqualAccordingToCompareTo(other));
-        return myself;
-    }
-
-    @Override
-    public LocalTimeSubject<T> isLessThan(LocalTime other) {
-        rule.addConstraint(ComparableConstraints.isLessThan(other));
-        return myself;
-    }
-
-    @Override
-    public LocalTimeSubject<T> isLessThanOrEqualTo(LocalTime other) {
-        rule.addConstraint(ComparableConstraints.isLessThanOrEqualTo(other));
-        return myself;
-    }
-
-    @Override
-    public LocalTimeSubject<T> isGreaterThan(LocalTime other) {
-        rule.addConstraint(ComparableConstraints.isGreaterThan(other));
-        return myself;
-    }
-
-    @Override
-    public LocalTimeSubject<T> isGreaterThanOrEqualTo(LocalTime other) {
-        rule.addConstraint(ComparableConstraints.isGreaterThanOrEqualTo(other));
-        return myself;
-    }
-
-    @Override
-    public LocalTimeSubject<T> isBetween(LocalTime startInclusive, LocalTime endInclusive) {
-        return isBetween(startInclusive, endInclusive, true, true);
-    }
-
-    @Override
-    public LocalTimeSubject<T> isStrictlyBetween(LocalTime startExclusive, LocalTime endExclusive) {
-        return myself;
-    }
-
-    @Override
-    public LocalTimeSubject<T> isBetween(LocalTime start, LocalTime end, boolean inclusiveStart, boolean inclusiveEnd) {
-        rule.addConstraint(ComparableConstraints.isBetween(start, end, inclusiveStart, inclusiveEnd));
-        return myself;
-    }
-
-    @Override
-    public LocalTimeSubject<T> isNotBetween(LocalTime startInclusive, LocalTime endInclusive) {
-        return myself;
-    }
-
-    @Override
-    public LocalTimeSubject<T> isNotBetween(LocalTime start, LocalTime end, boolean inclusiveStart, boolean inclusiveEnd) {
-        rule.addConstraint(ComparableConstraints.isNotBetween(start, end, inclusiveStart, inclusiveEnd));
-        return myself;
-    }
 }

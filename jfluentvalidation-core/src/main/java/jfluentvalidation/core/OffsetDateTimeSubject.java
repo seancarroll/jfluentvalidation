@@ -1,6 +1,5 @@
 package jfluentvalidation.core;
 
-import jfluentvalidation.constraints.comparable.ComparableConstraints;
 import jfluentvalidation.constraints.time.IsAfterOffsetDateTimeConstraint;
 import jfluentvalidation.constraints.time.IsAfterOrEqualOffsetDateTimeConstraint;
 import jfluentvalidation.constraints.time.IsBeforeOffsetDateTimeConstraint;
@@ -16,8 +15,7 @@ import java.time.OffsetDateTime;
  * @param <T>  the type of the instance
  */
 public class OffsetDateTimeSubject<T>
-    extends Subject<OffsetDateTimeSubject<T>, T, OffsetDateTime>
-    implements ComparableSubject<OffsetDateTimeSubject<T>, T, OffsetDateTime> {
+    extends AbstractComparableSubject<OffsetDateTimeSubject<T>, T, OffsetDateTime> {
 
     public OffsetDateTimeSubject(PropertyRule<T, OffsetDateTime> rule) {
         super(OffsetDateTimeSubject.class, rule);
@@ -64,66 +62,4 @@ public class OffsetDateTimeSubject<T>
         return isBeforeOrEqual(OffsetDateTime.now());
     }
 
-    @Override
-    public OffsetDateTimeSubject<T> isEqualAccordingToCompareTo(OffsetDateTime other) {
-        rule.addConstraint(ComparableConstraints.isEqualAccordingToCompareTo(other));
-        return myself;
-    }
-
-    @Override
-    public OffsetDateTimeSubject<T> isNotEqualAccordingToCompareTo(OffsetDateTime other) {
-        rule.addConstraint(ComparableConstraints.isNotEqualAccordingToCompareTo(other));
-        return myself;
-    }
-
-    @Override
-    public OffsetDateTimeSubject<T> isLessThan(OffsetDateTime other) {
-        rule.addConstraint(ComparableConstraints.isLessThan(other));
-        return myself;
-    }
-
-    @Override
-    public OffsetDateTimeSubject<T> isLessThanOrEqualTo(OffsetDateTime other) {
-        rule.addConstraint(ComparableConstraints.isLessThanOrEqualTo(other));
-        return myself;
-    }
-
-    @Override
-    public OffsetDateTimeSubject<T> isGreaterThan(OffsetDateTime other) {
-        rule.addConstraint(ComparableConstraints.isGreaterThan(other));
-        return myself;
-    }
-
-    @Override
-    public OffsetDateTimeSubject<T> isGreaterThanOrEqualTo(OffsetDateTime other) {
-        rule.addConstraint(ComparableConstraints.isGreaterThanOrEqualTo(other));
-        return myself;
-    }
-
-    @Override
-    public OffsetDateTimeSubject<T> isBetween(OffsetDateTime startInclusive, OffsetDateTime endInclusive) {
-        return isBetween(startInclusive, endInclusive, true, true);
-    }
-
-    @Override
-    public OffsetDateTimeSubject<T> isStrictlyBetween(OffsetDateTime startExclusive, OffsetDateTime endExclusive) {
-        return myself;
-    }
-
-    @Override
-    public OffsetDateTimeSubject<T> isBetween(OffsetDateTime start, OffsetDateTime end, boolean inclusiveStart, boolean inclusiveEnd) {
-        rule.addConstraint(ComparableConstraints.isBetween(start, end, inclusiveStart, inclusiveEnd));
-        return myself;
-    }
-
-    @Override
-    public OffsetDateTimeSubject<T> isNotBetween(OffsetDateTime startInclusive, OffsetDateTime endInclusive) {
-        return myself;
-    }
-
-    @Override
-    public OffsetDateTimeSubject<T> isNotBetween(OffsetDateTime start, OffsetDateTime end, boolean inclusiveStart, boolean inclusiveEnd) {
-        rule.addConstraint(ComparableConstraints.isNotBetween(start, end, inclusiveStart, inclusiveEnd));
-        return myself;
-    }
 }
