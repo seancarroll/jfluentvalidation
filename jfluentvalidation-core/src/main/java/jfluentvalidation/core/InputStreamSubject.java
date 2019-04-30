@@ -1,5 +1,6 @@
 package jfluentvalidation.core;
 
+import jfluentvalidation.constraints.inputstream.HasContentConstraint;
 import jfluentvalidation.rules.PropertyRule;
 
 import java.io.InputStream;
@@ -21,8 +22,7 @@ public class InputStreamSubject<T> extends Subject<InputStreamSubject<T>, T, Inp
     }
 
     public InputStreamSubject hasContent(String expected) {
-        // TODO: implement
-        //inputStreams.assertHasContent(info, actual, expected);
+        rule.addConstraint(new HasContentConstraint<>(expected));
         return myself;
     }
 
