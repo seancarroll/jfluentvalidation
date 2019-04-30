@@ -1,5 +1,6 @@
 package jfluentvalidation.core;
 
+import jfluentvalidation.constraints.comparable.*;
 import jfluentvalidation.rules.PropertyRule;
 
 import java.io.File;
@@ -16,56 +17,67 @@ public class FileSubject<T> extends Subject<FileSubject<T>, T, File> implements 
 
     @Override
     public FileSubject<T> isEqualAccordingToCompareTo(File other) {
-        return null;
+        rule.addConstraint(new IsEqualAccordingToCompareToConstraint<>(other));
+        return myself;
     }
 
     @Override
     public FileSubject<T> isNotEqualAccordingToCompareTo(File other) {
-        return null;
+        rule.addConstraint(new IsNotEqualAccordingToCompareToConstraint<>(other));
+        return myself;
     }
 
     @Override
     public FileSubject<T> isLessThan(File other) {
-        return null;
+        rule.addConstraint(new IsLessThanConstraint<>(other));
+        return myself;
     }
 
     @Override
     public FileSubject<T> isLessThanOrEqualTo(File other) {
-        return null;
+        rule.addConstraint(new IsLessThanOrEqualToConstraint<>(other));
+        return myself;
     }
 
     @Override
     public FileSubject<T> isGreaterThan(File other) {
-        return null;
+        rule.addConstraint(new IsGreaterThanConstraint<>(other));
+        return myself;
     }
 
     @Override
     public FileSubject<T> isGreaterThanOrEqualTo(File other) {
-        return null;
+        rule.addConstraint(new IsGreaterThanOrEqualToConstraint<>(other));
+        return myself;
     }
 
     @Override
     public FileSubject<T> isBetween(File startInclusive, File endInclusive) {
-        return null;
+        rule.addConstraint(new IsBetweenConstraint<>(startInclusive, endInclusive, true, true));
+        return myself;
     }
 
     @Override
     public FileSubject<T> isStrictlyBetween(File startExclusive, File endExclusive) {
-        return null;
+        rule.addConstraint(new IsBetweenConstraint<>(startExclusive, endExclusive, true, true));
+        return myself;
     }
 
     @Override
     public FileSubject<T> isBetween(File start, File end, boolean inclusiveStart, boolean inclusiveEnd) {
-        return null;
+        rule.addConstraint(new IsBetweenConstraint<>(start, end, inclusiveStart, inclusiveEnd));
+        return myself;
     }
 
     @Override
     public FileSubject<T> isNotBetween(File startInclusive, File endInclusive) {
-        return null;
+        rule.addConstraint(new IsNotBetweenConstraint<>(startInclusive, endInclusive, true, true));
+        return myself;
     }
 
     @Override
     public FileSubject<T> isNotBetween(File start, File end, boolean inclusiveStart, boolean inclusiveEnd) {
-        return null;
+        rule.addConstraint(new IsNotBetweenConstraint(start, end, inclusiveStart, inclusiveEnd));
+        return myself;
     }
 }
