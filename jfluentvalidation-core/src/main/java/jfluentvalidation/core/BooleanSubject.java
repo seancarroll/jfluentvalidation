@@ -16,13 +16,11 @@ public class BooleanSubject<T> extends Subject<BooleanSubject<T>, T, Boolean> im
     // TODO: isEqual and isNotEqual
 
     public BooleanSubject<T> isTrue() {
-        // TODO: should we just use a isEquals(true) constraint or have a IsTrue() constraint?
         isEquals(true);
         return myself;
     }
 
     public BooleanSubject<T> isFalse() {
-        // TODO: should we just use a isEquals(false) constraint or have a IsFalse() constraint?
         isEquals(false);
         return myself;
     }
@@ -69,11 +67,13 @@ public class BooleanSubject<T> extends Subject<BooleanSubject<T>, T, Boolean> im
 
     @Override
     public BooleanSubject<T> isBetween(Boolean startInclusive, Boolean endInclusive) {
+        rule.addConstraint(ComparableConstraints.isBetween(startInclusive, endInclusive, true, true));
         return myself;
     }
 
     @Override
     public BooleanSubject<T> isStrictlyBetween(Boolean startExclusive, Boolean endExclusive) {
+        rule.addConstraint(ComparableConstraints.isStrictlyBetween(startExclusive, endExclusive));
         return myself;
     }
 
