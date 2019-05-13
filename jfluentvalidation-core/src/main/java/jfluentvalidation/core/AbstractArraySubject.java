@@ -4,39 +4,22 @@ import jfluentvalidation.rules.PropertyRule;
 
 // QUESTION: Should we remove this? I think we can do everything just via ArraySubject
 
+
 /**
+ * @param <S> the self-type, allowing {@code this}-returning methods to avoid needing subclassing.
+ *            Additional details can be found at &quot;<a href="http://bit.ly/1IZIRcY" target="_blank">Emulating 'self types' using Java Generics to simplify fluent API implementation</a>&quot;
+ * @param <T> the type of the instance.
+ * @param <A> the type of the actual object being tested by this {@code Subject}. TODO: do we want to use A here given type is actually an array? Do we want to use E?
  *
- * @param <S>  the self-type, allowing {@code this}-returning methods to avoid needing subclassing.
- *             Additional details can be found at &quot;<a href="http://bit.ly/1IZIRcY" target="_blank">Emulating 'self types' using Java Generics to simplify fluent API implementation</a>&quot;
- * @param <T>  the type of the instance.
- * @param <A>  the type of the actual object being tested by this {@code Subject}.
  */
-public abstract class AbstractArraySubject<S extends AbstractArraySubject<S, T, A>, T, A> extends Subject<S, T, A> {
+//* @param <ACTUAL> the type of the "actual" value which is an Array of ELEMENT.
+//* @param <ELEMENT> the type of the "actual" array element.
+public abstract class AbstractArraySubject<S extends AbstractArraySubject<S, T, A, E>, T, A, E>
+    extends Subject<S, T, A>
+    implements ArraySubject<S, E> {
 
     public AbstractArraySubject(Class<?> selfType, PropertyRule<T, A> rule) {
         super(selfType, rule);
     }
-
-    // void isNullOrEmpty();
-
-    // void isEmpty();
-
-    // SELF isNotEmpty();
-
-    // SELF hasSize(int expected);
-
-    // SELF hasSizeGreaterThan(int boundary);
-
-    // SELF hasSizeGreaterThanOrEqualTo(int boundary);
-
-    // SELF hasSizeLessThan(int boundary);
-
-    // SELF hasSizeLessThanOrEqualTo(int boundary);
-
-    // SELF hasSizeBetween(int lowerBoundary, int higherBoundary);
-
-    // SELF hasSameSizeAs(Iterable<?> other);
-
-    // SELF hasSameSizeAs(Object array);
 
 }
