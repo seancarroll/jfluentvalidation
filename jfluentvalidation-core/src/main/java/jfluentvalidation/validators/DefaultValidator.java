@@ -356,9 +356,9 @@ public class DefaultValidator<T> implements Validator<T> {
      * @param func
      * @return
      */
-    public <E> ObjectArraySubject<T, E[]> ruleForObjectArray(Function<T, E[]> func) {
+    public ObjectArraySubject<T> ruleForObjectArray(Function<T, Object[]> func) {
         String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
-        PropertyRule<T, E[]> rule = new PropertyRule<>(func, propertyName);
+        PropertyRule<T, Object[]> rule = new PropertyRule<>(func, propertyName);
         rules.add(rule);
         return new ObjectArraySubject<>(rule);
     }

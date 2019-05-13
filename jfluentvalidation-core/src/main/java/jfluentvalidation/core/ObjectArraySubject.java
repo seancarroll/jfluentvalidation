@@ -7,7 +7,6 @@ import jfluentvalidation.rules.PropertyRule;
 /**
  *
  * @param <T>  the type of the instance
- * @param <E>  the type of the element in the array
  */
 public class ObjectArraySubject<T> extends AbstractArraySubject<ObjectArraySubject<T>, T, Object[], Object> {
 
