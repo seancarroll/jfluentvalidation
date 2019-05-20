@@ -27,44 +27,44 @@ public class CharArraySubject<T> extends AbstractArraySubject<CharArraySubject<T
     }
 
     @Override
-    public CharArraySubject<T> hasSize(int expected) {
+    public CharArraySubject<T> hasLength(int expected) {
         rule.addConstraint(new HasSameSizeAsCharArrayConstraint<>(expected));
         return myself;
     }
 
     @Override
-    public CharArraySubject<T> hasSizeGreaterThan(int boundary) {
+    public CharArraySubject<T> hasLengthGreaterThan(int boundary) {
         return myself;
     }
 
     @Override
-    public CharArraySubject<T> hasSizeGreaterThanOrEqualTo(int boundary) {
+    public CharArraySubject<T> hasLengthGreaterThanOrEqualTo(int boundary) {
         return myself;
     }
 
     @Override
-    public CharArraySubject<T> hasSizeLessThan(int boundary) {
+    public CharArraySubject<T> hasLengthLessThan(int boundary) {
         return myself;
     }
 
     @Override
-    public CharArraySubject<T> hasSizeLessThanOrEqualTo(int boundary) {
+    public CharArraySubject<T> hasLengthLessThanOrEqualTo(int boundary) {
         return myself;
     }
 
     @Override
-    public CharArraySubject<T> hasSizeBetween(int min, int max) {
+    public CharArraySubject<T> hasLengthBetween(int min, int max) {
         return myself;
     }
 
     @Override
-    public CharArraySubject<T> hasSameSizeAs(Iterable<?> other) {
+    public CharArraySubject<T> hasLengthSizeAs(Iterable<?> other) {
         rule.addConstraint(new HasSameSizeAsCharArrayConstraint<>(other));
         return myself;
     }
 
     @Override
-    public CharArraySubject<T> hasSameSizeAs(Object other) {
+    public CharArraySubject<T> hasLengthSizeAs(Object other) {
         rule.addConstraint(new HasSameSizeAsCharArrayConstraint<>(other));
         return myself;
     }

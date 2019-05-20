@@ -8,20 +8,20 @@ public interface ArraySubject<S extends ArraySubject<S, E>, E> {
 
     S isNotEmpty();
 
-    S hasSize(int expected);
+    S hasLength(int expected);
 
-    S hasSizeGreaterThan(int boundary);
+    S hasLengthGreaterThan(int boundary);
 
-    S hasSizeGreaterThanOrEqualTo(int boundary);
+    S hasLengthGreaterThanOrEqualTo(int boundary);
 
-    S hasSizeLessThan(int boundary);
+    S hasLengthLessThan(int boundary);
 
-    S hasSizeLessThanOrEqualTo(int boundary);
+    S hasLengthLessThanOrEqualTo(int boundary);
 
-    S hasSizeBetween(int min, int max);
+    S hasLengthBetween(int min, int max);
 
-    S hasSameSizeAs(Iterable<?> other);
+    S hasLengthSizeAs(Iterable<?> other);
 
-    S hasSameSizeAs(Object other);
+    S hasLengthSizeAs(Object other);
 
 }

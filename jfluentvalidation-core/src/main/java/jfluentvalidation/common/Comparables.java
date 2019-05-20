@@ -31,4 +31,21 @@ public final class Comparables {
     public static boolean isLessThan(Comparable actual, Comparable other) {
         return actual.compareTo(other) < 0;
     }
+
+
+    public static boolean isBetween(Comparable actual, Comparable start, Comparable end) {
+        return isBetween(actual, start, end, true ,true);
+    }
+
+    public static boolean isStrictlyBetween(Comparable actual, Comparable start, Comparable end) {
+        return isBetween(actual, start, end, false ,false);
+    }
+
+    public static boolean isBetween(Comparable actual, Comparable start, Comparable end, boolean inclusiveStart, boolean inclusiveEnd) {
+        boolean checkLowerBoundaryRange = inclusiveStart ? !isGreaterThan(start, actual) : isLessThan(start, actual);
+        boolean checkUpperBoundaryRange = inclusiveEnd ? !isGreaterThan(actual, end) : isLessThan(actual, end);
+
+        return checkLowerBoundaryRange && checkUpperBoundaryRange;
+    }
+
 }

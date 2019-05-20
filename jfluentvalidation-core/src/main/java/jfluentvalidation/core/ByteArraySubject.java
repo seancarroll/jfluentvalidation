@@ -37,44 +37,44 @@ public class ByteArraySubject<T> extends AbstractByteArraySubject<ByteArraySubje
     }
 
     @Override
-    public ByteArraySubject<T> hasSize(int expected) {
+    public ByteArraySubject<T> hasLength(int expected) {
         rule.addConstraint(new HasSameSizeAsByteArrayConstraint<>(expected));
         return myself;
     }
 
     @Override
-    public ByteArraySubject<T> hasSizeGreaterThan(int boundary) {
+    public ByteArraySubject<T> hasLengthGreaterThan(int boundary) {
         return myself;
     }
 
     @Override
-    public ByteArraySubject<T> hasSizeGreaterThanOrEqualTo(int boundary) {
+    public ByteArraySubject<T> hasLengthGreaterThanOrEqualTo(int boundary) {
         return myself;
     }
 
     @Override
-    public ByteArraySubject<T> hasSizeLessThan(int boundary) {
+    public ByteArraySubject<T> hasLengthLessThan(int boundary) {
         return myself;
     }
 
     @Override
-    public ByteArraySubject<T> hasSizeLessThanOrEqualTo(int boundary) {
+    public ByteArraySubject<T> hasLengthLessThanOrEqualTo(int boundary) {
         return myself;
     }
 
     @Override
-    public ByteArraySubject<T> hasSizeBetween(int lowerBoundary, int higherBoundary) {
+    public ByteArraySubject<T> hasLengthBetween(int lowerBoundary, int higherBoundary) {
         return myself;
     }
 
     @Override
-    public ByteArraySubject<T> hasSameSizeAs(Iterable<?> other) {
+    public ByteArraySubject<T> hasLengthSizeAs(Iterable<?> other) {
         rule.addConstraint(new HasSameSizeAsByteArrayConstraint<>(other));
         return myself;
     }
 
     @Override
-    public ByteArraySubject<T> hasSameSizeAs(Object other) {
+    public ByteArraySubject<T> hasLengthSizeAs(Object other) {
         rule.addConstraint(new HasSameSizeAsByteArrayConstraint<>(other));
         return myself;
     }

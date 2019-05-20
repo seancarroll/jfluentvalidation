@@ -1,7 +1,8 @@
 package jfluentvalidation.core;
 
+import jfluentvalidation.constraints.array.length.ArrayExactLengthConstraint;
+import jfluentvalidation.constraints.array.length.ArrayLengthConstraint;
 import jfluentvalidation.constraints.array.notempty.IsNotEmptyBooleanArrayConstraint;
-import jfluentvalidation.constraints.array.sizeas.HasSameSizeAsBooleanArrayConstraint;
 import jfluentvalidation.rules.PropertyRule;
 
 public class BooleanArraySubject<T> extends AbstractArraySubject<BooleanArraySubject<T>, T, boolean[], Boolean> {
@@ -27,45 +28,46 @@ public class BooleanArraySubject<T> extends AbstractArraySubject<BooleanArraySub
     }
 
     @Override
-    public BooleanArraySubject<T> hasSize(int expected) {
-        rule.addConstraint(new HasSameSizeAsBooleanArrayConstraint<>(expected));
+    public BooleanArraySubject<T> hasLength(int expected) {
+        rule.addConstraint(new ArrayExactLengthConstraint<>(expected));
         return myself;
     }
 
     @Override
-    public BooleanArraySubject<T> hasSizeGreaterThan(int boundary) {
+    public BooleanArraySubject<T> hasLengthGreaterThan(int boundary) {
         return myself;
     }
 
     @Override
-    public BooleanArraySubject<T> hasSizeGreaterThanOrEqualTo(int boundary) {
+    public BooleanArraySubject<T> hasLengthGreaterThanOrEqualTo(int boundary) {
         return myself;
     }
 
     @Override
-    public BooleanArraySubject<T> hasSizeLessThan(int boundary) {
+    public BooleanArraySubject<T> hasLengthLessThan(int boundary) {
         return myself;
     }
 
     @Override
-    public BooleanArraySubject<T> hasSizeLessThanOrEqualTo(int boundary) {
+    public BooleanArraySubject<T> hasLengthLessThanOrEqualTo(int boundary) {
         return myself;
     }
 
     @Override
-    public BooleanArraySubject<T> hasSizeBetween(int min, int max) {
+    public BooleanArraySubject<T> hasLengthBetween(int min, int max) {
+        rule.addConstraint(new ArrayLengthConstraint<>(min, max));
         return myself;
     }
 
     @Override
-    public BooleanArraySubject<T> hasSameSizeAs(Iterable<?> other) {
-        rule.addConstraint(new HasSameSizeAsBooleanArrayConstraint<>(other));
+    public BooleanArraySubject<T> hasLengthSizeAs(Iterable<?> other) {
+        rule.addConstraint(new ArrayExactLengthConstraint<>(other));
         return myself;
     }
 
     @Override
-    public BooleanArraySubject<T> hasSameSizeAs(Object other) {
-        rule.addConstraint(new HasSameSizeAsBooleanArrayConstraint<>(other));
+    public BooleanArraySubject<T> hasLengthSizeAs(Object other) {
+        rule.addConstraint(new ArrayExactLengthConstraint<>(other));
         return myself;
     }
 }

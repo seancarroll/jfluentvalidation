@@ -8,6 +8,7 @@ import java.io.InputStream;
 /**
  *
  * @param <T>  the type of the instance
+ * @see java.io.InputStream
  */
 public class InputStreamSubject<T> extends Subject<InputStreamSubject<T>, T, InputStream> {
 

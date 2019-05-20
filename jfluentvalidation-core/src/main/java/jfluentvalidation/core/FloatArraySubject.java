@@ -31,44 +31,44 @@ public class FloatArraySubject<T> extends AbstractArraySubject<FloatArraySubject
     }
 
     @Override
-    public FloatArraySubject<T> hasSize(int expected) {
+    public FloatArraySubject<T> hasLength(int expected) {
         rule.addConstraint(new HasSameSizeAsFloatArrayConstraint<>(expected));
         return myself;
     }
 
     @Override
-    public FloatArraySubject<T> hasSizeGreaterThan(int boundary) {
+    public FloatArraySubject<T> hasLengthGreaterThan(int boundary) {
         return myself;
     }
 
     @Override
-    public FloatArraySubject<T> hasSizeGreaterThanOrEqualTo(int boundary) {
+    public FloatArraySubject<T> hasLengthGreaterThanOrEqualTo(int boundary) {
         return myself;
     }
 
     @Override
-    public FloatArraySubject<T> hasSizeLessThan(int boundary) {
+    public FloatArraySubject<T> hasLengthLessThan(int boundary) {
         return myself;
     }
 
     @Override
-    public FloatArraySubject<T> hasSizeLessThanOrEqualTo(int boundary) {
+    public FloatArraySubject<T> hasLengthLessThanOrEqualTo(int boundary) {
         return myself;
     }
 
     @Override
-    public FloatArraySubject<T> hasSizeBetween(int min, int max) {
+    public FloatArraySubject<T> hasLengthBetween(int min, int max) {
         return myself;
     }
 
     @Override
-    public FloatArraySubject<T> hasSameSizeAs(Iterable<?> other) {
+    public FloatArraySubject<T> hasLengthSizeAs(Iterable<?> other) {
         rule.addConstraint(new HasSameSizeAsFloatArrayConstraint<>(other));
         return myself;
     }
 
     @Override
-    public FloatArraySubject<T> hasSameSizeAs(Object other) {
+    public FloatArraySubject<T> hasLengthSizeAs(Object other) {
         rule.addConstraint(new HasSameSizeAsFloatArrayConstraint<>(other));
         return myself;
     }

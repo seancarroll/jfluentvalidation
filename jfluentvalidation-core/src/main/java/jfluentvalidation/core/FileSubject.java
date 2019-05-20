@@ -8,6 +8,7 @@ import java.io.File;
 /**
  *
  * @param <T>  the type of the instance
+ * @see java.io.File
  */
 public class FileSubject<T> extends Subject<FileSubject<T>, T, File> implements ComparableSubject<FileSubject<T>, T, File> {
 

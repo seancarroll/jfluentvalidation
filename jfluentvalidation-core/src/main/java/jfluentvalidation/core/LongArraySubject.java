@@ -31,44 +31,44 @@ public class LongArraySubject<T> extends AbstractArraySubject<LongArraySubject<T
     }
 
     @Override
-    public LongArraySubject<T> hasSize(int expected) {
+    public LongArraySubject<T> hasLength(int expected) {
         rule.addConstraint(new HasSameSizeAsLongArrayConstraint<>(expected));
         return myself;
     }
 
     @Override
-    public LongArraySubject<T> hasSizeGreaterThan(int boundary) {
+    public LongArraySubject<T> hasLengthGreaterThan(int boundary) {
         return myself;
     }
 
     @Override
-    public LongArraySubject<T> hasSizeGreaterThanOrEqualTo(int boundary) {
+    public LongArraySubject<T> hasLengthGreaterThanOrEqualTo(int boundary) {
         return myself;
     }
 
     @Override
-    public LongArraySubject<T> hasSizeLessThan(int boundary) {
+    public LongArraySubject<T> hasLengthLessThan(int boundary) {
         return myself;
     }
 
     @Override
-    public LongArraySubject<T> hasSizeLessThanOrEqualTo(int boundary) {
+    public LongArraySubject<T> hasLengthLessThanOrEqualTo(int boundary) {
         return myself;
     }
 
     @Override
-    public LongArraySubject<T> hasSizeBetween(int min, int max) {
+    public LongArraySubject<T> hasLengthBetween(int min, int max) {
         return myself;
     }
 
     @Override
-    public LongArraySubject<T> hasSameSizeAs(Iterable<?> other) {
+    public LongArraySubject<T> hasLengthSizeAs(Iterable<?> other) {
         rule.addConstraint(new HasSameSizeAsLongArrayConstraint<>(other));
         return myself;
     }
 
     @Override
-    public LongArraySubject<T> hasSameSizeAs(Object other) {
+    public LongArraySubject<T> hasLengthSizeAs(Object other) {
         rule.addConstraint(new HasSameSizeAsLongArrayConstraint<>(other));
         return myself;
     }

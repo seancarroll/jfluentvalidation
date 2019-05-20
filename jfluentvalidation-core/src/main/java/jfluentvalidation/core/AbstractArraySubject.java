@@ -6,11 +6,11 @@ import jfluentvalidation.rules.PropertyRule;
 
 
 /**
- * @param <S> the self-type, allowing {@code this}-returning methods to avoid needing subclassing.
- *            Additional details can be found at &quot;<a href="http://bit.ly/1IZIRcY" target="_blank">Emulating 'self types' using Java Generics to simplify fluent API implementation</a>&quot;
- * @param <T> the type of the instance.
- * @param <A> the type of the actual object being tested by this {@code Subject}. TODO: do we want to use A here given type is actually an array? Do we want to use E?
- *
+ * @param <S>  the self-type, allowing {@code this}-returning methods to avoid needing subclassing.
+ *             Additional details can be found at &quot;<a href="http://bit.ly/1IZIRcY" target="_blank">Emulating 'self types' using Java Generics to simplify fluent API implementation</a>&quot;
+ * @param <T>  the type of the instance.
+ * @param <A>  the type of the actual object being tested by this {@code Subject}. TODO: do we want to use A here given type is actually an array? Do we want to use E?
+ * @param <E>  the type of the "actual" array element.
  */
 //* @param <ACTUAL> the type of the "actual" value which is an Array of ELEMENT.
 //* @param <ELEMENT> the type of the "actual" array element.
