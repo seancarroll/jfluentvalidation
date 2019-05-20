@@ -24,7 +24,8 @@ public class LengthConstraint<T> implements Constraint<T, CharSequence> {
 
     @Override
     public boolean isValid(RuleContext<T, CharSequence> validationContext) {
-
+        // TODO: I like this because we can use it for exact length, greater than, and less than
+        // however doesn't work if we want add inclusive start/end
         int length = validationContext.getPropertyValue().length();
         if (length < min || (length > max && max != -1)) {
             return false;

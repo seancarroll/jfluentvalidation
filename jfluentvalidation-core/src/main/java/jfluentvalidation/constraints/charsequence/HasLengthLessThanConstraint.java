@@ -4,7 +4,7 @@ import jfluentvalidation.constraints.Constraint;
 import jfluentvalidation.validators.RuleContext;
 
 /**
- * Check that the length of the given {@code CharSequence} being validated is less than the given size
+ * Check that the length of the given {@code CharSequence} being validated is less than the given length
  *
  * @param <T>  type of instance to validate.
  */

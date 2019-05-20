@@ -67,7 +67,7 @@ public final class CharSequenceConstraints {
     }
 
     public static HasLengthBetweenConstraint hasLengthBetween(int min, int max) {
-        return new HasLengthBetweenConstraint(min, max);
+        return new HasLengthBetweenConstraint(min, max, true, true);
     }
 
     public static HasLengthConstraint hasLength(int length) {

@@ -1,5 +1,6 @@
 package jfluentvalidation.constraints.charsequence;
 
+import jfluentvalidation.common.Comparables;
 import jfluentvalidation.constraints.Constraint;
 import jfluentvalidation.validators.RuleContext;
 
@@ -14,15 +15,19 @@ public class HasLengthBetweenConstraint<T> implements Constraint<T, CharSequence
 
     private final int min;
     private final int max;
+    private final boolean inclusiveStart;
+    private final boolean inclusiveEnd;
 
-    public HasLengthBetweenConstraint(int min, int max) {
+    public HasLengthBetweenConstraint(int min, int max, boolean inclusiveStart, boolean inclusiveEnd) {
         this.min = min;
         this.max = max;
+        this.inclusiveStart = inclusiveStart;
+        this.inclusiveEnd = inclusiveEnd;
     }
 
     @Override
     public boolean isValid(RuleContext<T, CharSequence> validationContext) {
         int len = validationContext.getPropertyValue().length();
-        return len >= min && len <= max;
+        return Comparables.isBetween(len, min, max, inclusiveStart, inclusiveEnd);
     }
 }
