@@ -1,13 +1,11 @@
 package jfluentvalidation.constraints.comparable;
 
+import jfluentvalidation.common.Comparables;
 import jfluentvalidation.constraints.Constraint;
 import jfluentvalidation.internal.Ensure;
 import jfluentvalidation.validators.RuleContext;
 
 import javax.annotation.Nonnull;
-
-import static jfluentvalidation.common.Comparables.isGreaterThan;
-import static jfluentvalidation.common.Comparables.isLessThan;
 
 // TODO: is this what we want?
 
@@ -35,21 +33,7 @@ public class IsBetweenConstraint<T, P extends Comparable<? super P>> implements 
     @Override
     public boolean isValid(RuleContext<T, P> context) {
         P actual = context.getPropertyValue();
-        boolean checkLowerBoundaryRange = inclusiveStart ? !isGreaterThan(start, actual) : isLessThan(start, actual);
-        boolean checkUpperBoundaryRange = inclusiveEnd ? !isGreaterThan(actual, end) : isLessThan(actual, end);
-
-        return checkLowerBoundaryRange && checkUpperBoundaryRange;
+        return Comparables.isBetween(actual, start, end, inclusiveStart, inclusiveEnd);
     }
-
-//    protected <T extends Comparable<? super T>> void checkBoundsValidity(T start, T end, boolean inclusiveStart, boolean inclusiveEnd) {
-//        // don't use isLessThanOrEqualTo or isGreaterThanOrEqualTo to avoid equal comparison which makes BigDecimal
-//        // to fail when start = end with different precision, ex: [10.0, 10.00].
-//        boolean inclusiveBoundsCheck = inclusiveEnd && inclusiveStart && !isGreaterThan(start, end);
-//        boolean strictBoundsCheck = !inclusiveEnd && !inclusiveStart && isLessThan(start, end);
-//        String operator = inclusiveEnd && inclusiveStart ? "less than" : "less than or equal to";
-//        String boundsCheckErrorMessage = format("The end value <%s> must not be %s the start value <%s>%s!", end, operator, start,
-//            (comparisonStrategy.isStandard() ? "" : " (using " + comparisonStrategy + ")"));
-//        checkArgument(inclusiveBoundsCheck || strictBoundsCheck, boundsCheckErrorMessage);
-//    }
 
 }
