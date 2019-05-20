@@ -8,11 +8,6 @@ public final class Arrays {
         // statics only
     }
 
-    public static int size(Object array) {
-        if (array instanceof Object[]) return ((Object[]) array).length;
-        return Array.getLength(array);
-    }
-
     /**
      * Indicates whether the given object is not {@code null} and is an array.
      *
@@ -24,7 +19,7 @@ public final class Arrays {
     }
 
     public static boolean isArrayEmpty(Object array) {
-        return size(array) == 0;
+        return Array.getLength(array) == 0;
     }
 
     public static boolean isArrayNotEmpty(Object array) {
