@@ -7,7 +7,7 @@ import jfluentvalidation.validators.RuleContext;
 import java.util.Map;
 
 /**
- * Check that the size of the given {@code CharSequence} being validated is equal to the given size.
+ * Check that the size of the given {@code Map} being validated is equal to the given size.
  * @param <T>
  * @param <K>
  * @param <V>
