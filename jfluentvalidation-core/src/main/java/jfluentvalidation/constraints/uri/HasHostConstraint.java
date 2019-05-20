@@ -6,7 +6,7 @@ import jfluentvalidation.validators.RuleContext;
 import java.net.URI;
 
 /**
- *
+ * Verifies that the actual {@code URI} has the expected host.
  * @param <T>  the target type supported by an implementation.
  */
 public class HasHostConstraint<T> implements Constraint<T, URI> {

@@ -6,7 +6,7 @@ import jfluentvalidation.validators.RuleContext;
 import java.net.URI;
 
 /**
- *
+ * Verifies that the actual {@code URI} has the expected port.
  * @param <T>  the target type supported by an implementation.
  */
 public class HasPortConstraint<T> implements Constraint<T, URI> {
