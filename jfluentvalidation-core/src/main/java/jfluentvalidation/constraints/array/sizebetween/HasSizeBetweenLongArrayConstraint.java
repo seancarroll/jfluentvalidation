@@ -16,8 +16,8 @@ public class HasSizeBetweenLongArrayConstraint<T> implements Constraint<T, boole
 
     /**
      *
-     * @param min the min boundary compared to which actual size should be greater than or equal to.
-     * @param max the max boundary compared to which actual size should be less than or equal to.
+     * @param min the min boundary compared to which actual length should be greater than or equal to.
+     * @param max the max boundary compared to which actual length should be less than or equal to.
      */
     public HasSizeBetweenLongArrayConstraint(int min, int max) {
         this.min = min;

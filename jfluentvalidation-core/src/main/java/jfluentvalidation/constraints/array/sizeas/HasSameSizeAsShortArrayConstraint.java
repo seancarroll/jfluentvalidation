@@ -6,6 +6,7 @@ import jfluentvalidation.constraints.Constraint;
 import jfluentvalidation.internal.Ensure;
 import jfluentvalidation.validators.RuleContext;
 
+import java.lang.reflect.Array;
 import java.util.function.IntSupplier;
 
 public class HasSameSizeAsShortArrayConstraint<T> implements Constraint<T, short[]> {
@@ -19,11 +20,11 @@ public class HasSameSizeAsShortArrayConstraint<T> implements Constraint<T, short
 
     public HasSameSizeAsShortArrayConstraint(Object other) {
         Ensure.argument(Arrays.isArray(other));
-        this.sizeSupplier = () -> Arrays.size(other);
+        this.sizeSupplier = () -> Array.getLength(other);
     }
 
     public HasSameSizeAsShortArrayConstraint(int size) {
-        Ensure.positive(size, "size");
+        Ensure.positive(size, "length");
         this.sizeSupplier = () -> size;
     }
 

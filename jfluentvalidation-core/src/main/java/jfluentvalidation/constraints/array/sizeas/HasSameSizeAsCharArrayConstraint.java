@@ -6,6 +6,7 @@ import jfluentvalidation.constraints.Constraint;
 import jfluentvalidation.internal.Ensure;
 import jfluentvalidation.validators.RuleContext;
 
+import java.lang.reflect.Array;
 import java.util.function.IntSupplier;
 
 public class HasSameSizeAsCharArrayConstraint<T> implements Constraint<T, char[]> {
@@ -19,11 +20,11 @@ public class HasSameSizeAsCharArrayConstraint<T> implements Constraint<T, char[]
 
     public HasSameSizeAsCharArrayConstraint(Object other) {
         Ensure.argument(Arrays.isArray(other));
-        this.sizeSupplier = () -> Arrays.size(other);
+        this.sizeSupplier = () -> Array.getLength(other);
     }
 
     public HasSameSizeAsCharArrayConstraint(int size) {
-        Ensure.positive(size, "size");
+        Ensure.positive(size, "length");
         this.sizeSupplier = () -> size;
     }
 
