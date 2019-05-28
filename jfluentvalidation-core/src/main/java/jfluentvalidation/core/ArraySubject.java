@@ -10,18 +10,14 @@ public interface ArraySubject<S extends ArraySubject<S, E>, E> {
 
     S hasLength(int expected);
 
-    S hasLengthGreaterThan(int boundary);
+    S hasMinimumLength(int min);
 
-    S hasLengthGreaterThanOrEqualTo(int boundary);
-
-    S hasLengthLessThan(int boundary);
-
-    S hasLengthLessThanOrEqualTo(int boundary);
+    S hasMaximumLength(int max);
 
     S hasLengthBetween(int min, int max);
 
-    S hasLengthSizeAs(Iterable<?> other);
+    S hasSameLengthAs(Iterable<?> other);
 
-    S hasLengthSizeAs(Object other);
+    S hasSameLengthAs(Object other);
 
 }

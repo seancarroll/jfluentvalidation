@@ -1,7 +1,7 @@
 package jfluentvalidation.core;
 
+import jfluentvalidation.constraints.array.length.*;
 import jfluentvalidation.constraints.array.notempty.IsNotEmptyByteArrayConstraint;
-import jfluentvalidation.constraints.array.sizeas.HasSameSizeAsByteArrayConstraint;
 import jfluentvalidation.rules.PropertyRule;
 
 // TODO: We could potentially have many different types of array
@@ -38,44 +38,37 @@ public class ByteArraySubject<T> extends AbstractByteArraySubject<ByteArraySubje
 
     @Override
     public ByteArraySubject<T> hasLength(int expected) {
-        rule.addConstraint(new HasSameSizeAsByteArrayConstraint<>(expected));
+        rule.addConstraint(new ByteArrayExactLengthConstraint<>(expected));
         return myself;
     }
 
     @Override
-    public ByteArraySubject<T> hasLengthGreaterThan(int boundary) {
+    public ByteArraySubject<T> hasMinimumLength(int min) {
+        rule.addConstraint(new ByteArrayMinimumLengthConstraint<>(min));
         return myself;
     }
 
     @Override
-    public ByteArraySubject<T> hasLengthGreaterThanOrEqualTo(int boundary) {
+    public ByteArraySubject<T> hasMaximumLength(int max) {
+        rule.addConstraint(new ByteArrayMaximumLengthConstraint<>(max));
         return myself;
     }
 
     @Override
-    public ByteArraySubject<T> hasLengthLessThan(int boundary) {
+    public ByteArraySubject<T> hasLengthBetween(int min, int max) {
+        rule.addConstraint(new ByteArrayBetweenLengthConstraint<>(min, max));
         return myself;
     }
 
     @Override
-    public ByteArraySubject<T> hasLengthLessThanOrEqualTo(int boundary) {
+    public ByteArraySubject<T> hasSameLengthAs(Iterable<?> other) {
+        rule.addConstraint(new ByteArrayExactLengthConstraint<>(other));
         return myself;
     }
 
     @Override
-    public ByteArraySubject<T> hasLengthBetween(int lowerBoundary, int higherBoundary) {
-        return myself;
-    }
-
-    @Override
-    public ByteArraySubject<T> hasLengthSizeAs(Iterable<?> other) {
-        rule.addConstraint(new HasSameSizeAsByteArrayConstraint<>(other));
-        return myself;
-    }
-
-    @Override
-    public ByteArraySubject<T> hasLengthSizeAs(Object other) {
-        rule.addConstraint(new HasSameSizeAsByteArrayConstraint<>(other));
+    public ByteArraySubject<T> hasSameLengthAs(Object other) {
+        rule.addConstraint(new ByteArrayExactLengthConstraint<>(other));
         return myself;
     }
 }

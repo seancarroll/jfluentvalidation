@@ -1,7 +1,10 @@
 package jfluentvalidation.core;
 
+import jfluentvalidation.constraints.array.length.LongArrayBetweenLengthConstraint;
+import jfluentvalidation.constraints.array.length.LongArrayExactLengthConstraint;
+import jfluentvalidation.constraints.array.length.LongArrayMaximumLengthConstraint;
+import jfluentvalidation.constraints.array.length.LongArrayMinimumLengthConstraint;
 import jfluentvalidation.constraints.array.notempty.IsNotEmptyLongArrayConstraint;
-import jfluentvalidation.constraints.array.sizeas.HasSameSizeAsLongArrayConstraint;
 import jfluentvalidation.rules.PropertyRule;
 
 /**
@@ -32,44 +35,37 @@ public class LongArraySubject<T> extends AbstractArraySubject<LongArraySubject<T
 
     @Override
     public LongArraySubject<T> hasLength(int expected) {
-        rule.addConstraint(new HasSameSizeAsLongArrayConstraint<>(expected));
+        rule.addConstraint(new LongArrayExactLengthConstraint<>(expected));
         return myself;
     }
 
     @Override
-    public LongArraySubject<T> hasLengthGreaterThan(int boundary) {
+    public LongArraySubject<T> hasMinimumLength(int min) {
+        rule.addConstraint(new LongArrayMinimumLengthConstraint<>(min));
         return myself;
     }
 
     @Override
-    public LongArraySubject<T> hasLengthGreaterThanOrEqualTo(int boundary) {
-        return myself;
-    }
-
-    @Override
-    public LongArraySubject<T> hasLengthLessThan(int boundary) {
-        return myself;
-    }
-
-    @Override
-    public LongArraySubject<T> hasLengthLessThanOrEqualTo(int boundary) {
+    public LongArraySubject<T> hasMaximumLength(int max) {
+        rule.addConstraint(new LongArrayMaximumLengthConstraint<>(max));
         return myself;
     }
 
     @Override
     public LongArraySubject<T> hasLengthBetween(int min, int max) {
+        rule.addConstraint(new LongArrayBetweenLengthConstraint<>(min, max));
         return myself;
     }
 
     @Override
-    public LongArraySubject<T> hasLengthSizeAs(Iterable<?> other) {
-        rule.addConstraint(new HasSameSizeAsLongArrayConstraint<>(other));
+    public LongArraySubject<T> hasSameLengthAs(Iterable<?> other) {
+        rule.addConstraint(new LongArrayExactLengthConstraint<>(other));
         return myself;
     }
 
     @Override
-    public LongArraySubject<T> hasLengthSizeAs(Object other) {
-        rule.addConstraint(new HasSameSizeAsLongArrayConstraint<>(other));
+    public LongArraySubject<T> hasSameLengthAs(Object other) {
+        rule.addConstraint(new LongArrayExactLengthConstraint<>(other));
         return myself;
     }
 }

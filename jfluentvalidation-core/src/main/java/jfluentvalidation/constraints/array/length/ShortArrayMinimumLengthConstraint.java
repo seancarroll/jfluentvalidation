@@ -1,9 +1,19 @@
 package jfluentvalidation.constraints.array.length;
 
-public class ShortArrayMinimumLengthConstraint<T> extends ArrayLengthConstraint<T, short[]> {
+import jfluentvalidation.constraints.Constraint;
+import jfluentvalidation.validators.RuleContext;
+
+public class ShortArrayMinimumLengthConstraint<T> implements Constraint<T, short[]> {
+
+    private final int min;
 
     public ShortArrayMinimumLengthConstraint(int min) {
-        super(min, -1);
+        this.min = min;
     }
 
+    @Override
+    public boolean isValid(RuleContext<T, short[]> context) {
+        int len = context.getPropertyValue().length;
+        return ArrayLength.min(len, min);
+    }
 }

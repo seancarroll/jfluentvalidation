@@ -213,7 +213,7 @@ public class UriSubject<T> extends Subject<UriSubject<T>, T, URI> implements Com
 
     @Override
     public UriSubject<T> isNotBetween(URI startInclusive, URI endInclusive) {
-        // rule.addConstraint(ComparableConstraints.isNotBetween());
+        rule.addConstraint(ComparableConstraints.isNotBetween(startInclusive, endInclusive, true, true));
         return myself;
     }
 

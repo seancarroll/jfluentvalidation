@@ -1,6 +1,6 @@
 package jfluentvalidation.constraints.array.notempty;
 
-import jfluentvalidation.common.Arrays;
+import jfluentvalidation.common.MoreArrays;
 import jfluentvalidation.constraints.Constraint;
 import jfluentvalidation.validators.RuleContext;
 
@@ -12,6 +12,6 @@ public class IsNotEmptyFloatArrayConstraint<T> implements Constraint<T, float[]>
 
     @Override
     public boolean isValid(RuleContext<T, float[]> context) {
-        return Arrays.isArrayNotEmpty(context.getPropertyValue());
+        return MoreArrays.isArrayNotEmpty(context.getPropertyValue());
     }
 }

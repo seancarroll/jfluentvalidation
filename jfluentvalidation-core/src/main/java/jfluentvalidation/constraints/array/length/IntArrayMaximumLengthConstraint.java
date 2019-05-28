@@ -1,9 +1,19 @@
 package jfluentvalidation.constraints.array.length;
 
-public class IntArrayMaximumLengthConstraint<T> extends ArrayLengthConstraint<T, int[]> {
+import jfluentvalidation.constraints.Constraint;
+import jfluentvalidation.validators.RuleContext;
+
+public class IntArrayMaximumLengthConstraint<T> implements Constraint<T, int[]> {
+
+    private final int max;
 
     public IntArrayMaximumLengthConstraint(int max) {
-        super(0, max);
+        this.max = max;
     }
 
+    @Override
+    public boolean isValid(RuleContext<T, int[]> context) {
+        int len = context.getPropertyValue().length;
+        return ArrayLength.max(len, max);
+    }
 }

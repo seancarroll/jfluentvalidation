@@ -1,7 +1,10 @@
 package jfluentvalidation.core;
 
+import jfluentvalidation.constraints.array.length.CharArrayBetweenLengthConstraint;
+import jfluentvalidation.constraints.array.length.CharArrayExactLengthConstraint;
+import jfluentvalidation.constraints.array.length.CharArrayMaximumLengthConstraint;
+import jfluentvalidation.constraints.array.length.CharArrayMinimumLengthConstraint;
 import jfluentvalidation.constraints.array.notempty.IsNotEmptyCharArrayConstraint;
-import jfluentvalidation.constraints.array.sizeas.HasSameSizeAsCharArrayConstraint;
 import jfluentvalidation.rules.PropertyRule;
 
 public class CharArraySubject<T> extends AbstractArraySubject<CharArraySubject<T>, T, char[], Character> {
@@ -28,44 +31,37 @@ public class CharArraySubject<T> extends AbstractArraySubject<CharArraySubject<T
 
     @Override
     public CharArraySubject<T> hasLength(int expected) {
-        rule.addConstraint(new HasSameSizeAsCharArrayConstraint<>(expected));
+        rule.addConstraint(new CharArrayExactLengthConstraint<>(expected));
         return myself;
     }
 
     @Override
-    public CharArraySubject<T> hasLengthGreaterThan(int boundary) {
+    public CharArraySubject<T> hasMinimumLength(int min) {
+        rule.addConstraint(new CharArrayMinimumLengthConstraint<>(min));
         return myself;
     }
 
     @Override
-    public CharArraySubject<T> hasLengthGreaterThanOrEqualTo(int boundary) {
-        return myself;
-    }
-
-    @Override
-    public CharArraySubject<T> hasLengthLessThan(int boundary) {
-        return myself;
-    }
-
-    @Override
-    public CharArraySubject<T> hasLengthLessThanOrEqualTo(int boundary) {
+    public CharArraySubject<T> hasMaximumLength(int max) {
+        rule.addConstraint(new CharArrayMaximumLengthConstraint<>(max));
         return myself;
     }
 
     @Override
     public CharArraySubject<T> hasLengthBetween(int min, int max) {
+        rule.addConstraint(new CharArrayBetweenLengthConstraint<>(min, max));
         return myself;
     }
 
     @Override
-    public CharArraySubject<T> hasLengthSizeAs(Iterable<?> other) {
-        rule.addConstraint(new HasSameSizeAsCharArrayConstraint<>(other));
+    public CharArraySubject<T> hasSameLengthAs(Iterable<?> other) {
+        rule.addConstraint(new CharArrayExactLengthConstraint<>(other));
         return myself;
     }
 
     @Override
-    public CharArraySubject<T> hasLengthSizeAs(Object other) {
-        rule.addConstraint(new HasSameSizeAsCharArrayConstraint<>(other));
+    public CharArraySubject<T> hasSameLengthAs(Object other) {
+        rule.addConstraint(new CharArrayExactLengthConstraint<>(other));
         return myself;
     }
 }

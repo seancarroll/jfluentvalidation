@@ -125,7 +125,6 @@ public class IterableSubject<T, E> extends Subject<IterableSubject<T, E>, T, Ite
      * @return
      */
     public final IterableSubject<T, E> forEach(Constraint<T, E>... constraintsToAdd) {
-        // TODO: fix unchecked warning
         rule.addConstraint(new ItemConstraint<>(constraintsToAdd));
         return myself;
     }

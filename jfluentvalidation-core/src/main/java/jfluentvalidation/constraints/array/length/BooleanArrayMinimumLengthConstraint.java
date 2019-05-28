@@ -1,8 +1,19 @@
 package jfluentvalidation.constraints.array.length;
 
-public class BooleanArrayMinimumLengthConstraint<T> extends ArrayLengthConstraint<T, boolean[]> {
+import jfluentvalidation.constraints.Constraint;
+import jfluentvalidation.validators.RuleContext;
+
+public class BooleanArrayMinimumLengthConstraint<T> implements Constraint<T, boolean[]> {
+
+    private final int min;
 
     public BooleanArrayMinimumLengthConstraint(int min) {
-        super(min, -1);
+        this.min = min;
+    }
+
+    @Override
+    public boolean isValid(RuleContext<T, boolean[]> context) {
+        int len = context.getPropertyValue().length;
+        return ArrayLength.min(len, min);
     }
 }

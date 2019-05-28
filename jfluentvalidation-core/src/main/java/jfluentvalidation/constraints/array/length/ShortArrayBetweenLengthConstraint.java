@@ -3,17 +3,19 @@ package jfluentvalidation.constraints.array.length;
 import jfluentvalidation.constraints.Constraint;
 import jfluentvalidation.validators.RuleContext;
 
-public class ShortArrayMaximumLengthConstraint<T> implements Constraint<T, short[]> {
+public class ShortArrayBetweenLengthConstraint<T> implements Constraint<T, short[]> {
 
+    private final int min;
     private final int max;
 
-    public ShortArrayMaximumLengthConstraint(int max) {
+    public ShortArrayBetweenLengthConstraint(int min, int max) {
+        this.min = min;
         this.max = max;
     }
 
     @Override
     public boolean isValid(RuleContext<T, short[]> context) {
         int len = context.getPropertyValue().length;
-        return ArrayLength.max(len, max);
+        return ArrayLength.between(len, min, max);
     }
 }

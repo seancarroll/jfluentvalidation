@@ -10,23 +10,15 @@ final class ArrayLength {
         // statics only
     }
 
-
     static boolean min(int actual, int min) {
-        return length(actual, min, -1);
-    }
-
-    // TODO: I think this should just take a shortcut and compare sizes rather than calling private length
-    // There is a small perf hit when I benchmark it which makes sense as length does more work
-    static boolean exact(int actual, int length) {
-        return actual == length;
-        //return length(actual, length, length);
+        return between(actual, min, -1);
     }
 
     static boolean max(int actual, int max) {
-        return length(actual, 0, max);
+        return between(actual, 0, max);
     }
 
-    private static boolean length(int actual, int min, int max) {
+    static boolean between(int actual, int min, int max) {
         if (actual < min || (actual > max && max != -1)) {
             return false;
         }

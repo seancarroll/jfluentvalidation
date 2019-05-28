@@ -1,7 +1,10 @@
 package jfluentvalidation.core;
 
+import jfluentvalidation.constraints.array.length.FloatArrayBetweenLengthConstraint;
+import jfluentvalidation.constraints.array.length.FloatArrayExactLengthConstraint;
+import jfluentvalidation.constraints.array.length.FloatArrayMaximumLengthConstraint;
+import jfluentvalidation.constraints.array.length.FloatArrayMinimumLengthConstraint;
 import jfluentvalidation.constraints.array.notempty.IsNotEmptyFloatArrayConstraint;
-import jfluentvalidation.constraints.array.sizeas.HasSameSizeAsFloatArrayConstraint;
 import jfluentvalidation.rules.PropertyRule;
 
 /**
@@ -32,44 +35,37 @@ public class FloatArraySubject<T> extends AbstractArraySubject<FloatArraySubject
 
     @Override
     public FloatArraySubject<T> hasLength(int expected) {
-        rule.addConstraint(new HasSameSizeAsFloatArrayConstraint<>(expected));
+        rule.addConstraint(new FloatArrayExactLengthConstraint<>(expected));
         return myself;
     }
 
     @Override
-    public FloatArraySubject<T> hasLengthGreaterThan(int boundary) {
+    public FloatArraySubject<T> hasMinimumLength(int min) {
+        rule.addConstraint(new FloatArrayMinimumLengthConstraint<>(min));
         return myself;
     }
 
     @Override
-    public FloatArraySubject<T> hasLengthGreaterThanOrEqualTo(int boundary) {
-        return myself;
-    }
-
-    @Override
-    public FloatArraySubject<T> hasLengthLessThan(int boundary) {
-        return myself;
-    }
-
-    @Override
-    public FloatArraySubject<T> hasLengthLessThanOrEqualTo(int boundary) {
+    public FloatArraySubject<T> hasMaximumLength(int max) {
+        rule.addConstraint(new FloatArrayMaximumLengthConstraint<>(max));
         return myself;
     }
 
     @Override
     public FloatArraySubject<T> hasLengthBetween(int min, int max) {
+        rule.addConstraint(new FloatArrayBetweenLengthConstraint<>(min, max));
         return myself;
     }
 
     @Override
-    public FloatArraySubject<T> hasLengthSizeAs(Iterable<?> other) {
-        rule.addConstraint(new HasSameSizeAsFloatArrayConstraint<>(other));
+    public FloatArraySubject<T> hasSameLengthAs(Iterable<?> other) {
+        rule.addConstraint(new FloatArrayExactLengthConstraint<>(other));
         return myself;
     }
 
     @Override
-    public FloatArraySubject<T> hasLengthSizeAs(Object other) {
-        rule.addConstraint(new HasSameSizeAsFloatArrayConstraint<>(other));
+    public FloatArraySubject<T> hasSameLengthAs(Object other) {
+        rule.addConstraint(new FloatArrayExactLengthConstraint<>(other));
         return myself;
     }
 }

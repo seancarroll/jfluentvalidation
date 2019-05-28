@@ -1,7 +1,10 @@
 package jfluentvalidation.core;
 
+import jfluentvalidation.constraints.array.length.ShortArrayBetweenLengthConstraint;
+import jfluentvalidation.constraints.array.length.ShortArrayExactLengthConstraint;
+import jfluentvalidation.constraints.array.length.ShortArrayMaximumLengthConstraint;
+import jfluentvalidation.constraints.array.length.ShortArrayMinimumLengthConstraint;
 import jfluentvalidation.constraints.array.notempty.IsNotEmptyShortArrayConstraint;
-import jfluentvalidation.constraints.array.sizeas.HasSameSizeAsShortArrayConstraint;
 import jfluentvalidation.rules.PropertyRule;
 
 /**
@@ -32,44 +35,37 @@ public class ShortArraySubject<T> extends AbstractArraySubject<ShortArraySubject
 
     @Override
     public ShortArraySubject<T> hasLength(int expected) {
-        rule.addConstraint(new HasSameSizeAsShortArrayConstraint<>(expected));
+        rule.addConstraint(new ShortArrayExactLengthConstraint<>(expected));
         return myself;
     }
 
     @Override
-    public ShortArraySubject<T> hasLengthGreaterThan(int boundary) {
+    public ShortArraySubject<T> hasMinimumLength(int min) {
+        rule.addConstraint(new ShortArrayMinimumLengthConstraint<>(min));
         return myself;
     }
 
     @Override
-    public ShortArraySubject<T> hasLengthGreaterThanOrEqualTo(int boundary) {
-        return myself;
-    }
-
-    @Override
-    public ShortArraySubject<T> hasLengthLessThan(int boundary) {
-        return myself;
-    }
-
-    @Override
-    public ShortArraySubject<T> hasLengthLessThanOrEqualTo(int boundary) {
+    public ShortArraySubject<T> hasMaximumLength(int max) {
+        rule.addConstraint(new ShortArrayMaximumLengthConstraint<>(max));
         return myself;
     }
 
     @Override
     public ShortArraySubject<T> hasLengthBetween(int min, int max) {
+        rule.addConstraint(new ShortArrayBetweenLengthConstraint<>(min, max));
         return myself;
     }
 
     @Override
-    public ShortArraySubject<T> hasLengthSizeAs(Iterable<?> other) {
-        rule.addConstraint(new HasSameSizeAsShortArrayConstraint<>(other));
+    public ShortArraySubject<T> hasSameLengthAs(Iterable<?> other) {
+        rule.addConstraint(new ShortArrayExactLengthConstraint<>(other));
         return myself;
     }
 
     @Override
-    public ShortArraySubject<T> hasLengthSizeAs(Object other) {
-        rule.addConstraint(new HasSameSizeAsShortArrayConstraint<>(other));
+    public ShortArraySubject<T> hasSameLengthAs(Object other) {
+        rule.addConstraint(new ShortArrayExactLengthConstraint<>(other));
         return myself;
     }
 }

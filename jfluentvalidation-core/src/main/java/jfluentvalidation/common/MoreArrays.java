@@ -1,10 +1,12 @@
 package jfluentvalidation.common;
 
 import java.lang.reflect.Array;
+import java.util.Arrays;
+import java.util.HashSet;
 
-public final class Arrays {
+public final class MoreArrays {
 
-    private Arrays() {
+    private MoreArrays() {
         // statics only
     }
 
@@ -18,11 +20,25 @@ public final class Arrays {
         return o != null && o.getClass().isArray();
     }
 
+    // https://bugs.openjdk.java.net/browse/JDK-8051447
     public static boolean isArrayEmpty(Object array) {
         return Array.getLength(array) == 0;
     }
 
     public static boolean isArrayNotEmpty(Object array) {
-        return !isArray(array);
+        return !isArrayEmpty(array);
+    }
+
+    public static boolean contains(Object[] arr, Object x) {
+        for (Object elem : arr) {
+            if (elem.equals(x)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean hasDuplicates(Object[] arr) {
+        return new HashSet<>(Arrays.asList(arr)).size() < arr.length;
     }
 }

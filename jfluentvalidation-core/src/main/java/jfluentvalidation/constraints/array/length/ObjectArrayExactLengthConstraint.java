@@ -1,9 +1,35 @@
 package jfluentvalidation.constraints.array.length;
 
-public class ObjectArrayExactLengthConstraint<T> extends ArrayLengthConstraint<T, Object[]> {
+import jfluentvalidation.common.MoreArrays;
+import jfluentvalidation.common.Iterables;
+import jfluentvalidation.constraints.Constraint;
+import jfluentvalidation.internal.Ensure;
+import jfluentvalidation.validators.RuleContext;
 
-    public ObjectArrayExactLengthConstraint(int length) {
-        super(length, length);
+import java.lang.reflect.Array;
+import java.util.function.IntSupplier;
+
+public class ObjectArrayExactLengthConstraint<T> implements Constraint<T, Object[]> {
+
+    private final IntSupplier lengthSupplier;
+
+    public ObjectArrayExactLengthConstraint(Iterable<?> other) {
+        Ensure.notNull(other);
+        this.lengthSupplier = () -> Iterables.size(other);
     }
 
+    public ObjectArrayExactLengthConstraint(Object other) {
+        Ensure.argument(MoreArrays.isArray(other));
+        this.lengthSupplier = () -> Array.getLength(other);
+    }
+
+    public ObjectArrayExactLengthConstraint(int length) {
+        this.lengthSupplier = () -> length;
+    }
+
+    @Override
+    public boolean isValid(RuleContext<T, Object[]> context) {
+        int len = context.getPropertyValue().length;
+        return len == lengthSupplier.getAsInt();
+    }
 }

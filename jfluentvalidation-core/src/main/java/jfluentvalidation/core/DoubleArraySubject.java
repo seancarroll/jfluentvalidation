@@ -1,7 +1,10 @@
 package jfluentvalidation.core;
 
+import jfluentvalidation.constraints.array.length.DoubleArrayBetweenLengthConstraint;
+import jfluentvalidation.constraints.array.length.DoubleArrayExactLengthConstraint;
+import jfluentvalidation.constraints.array.length.DoubleArrayMaximumLengthConstraint;
+import jfluentvalidation.constraints.array.length.DoubleArrayMinimumLengthConstraint;
 import jfluentvalidation.constraints.array.notempty.IsNotEmptyDoubleArrayConstraint;
-import jfluentvalidation.constraints.array.sizeas.HasSameSizeAsDoubleArrayConstraint;
 import jfluentvalidation.rules.PropertyRule;
 
 /**
@@ -32,44 +35,37 @@ public class DoubleArraySubject<T> extends AbstractArraySubject<DoubleArraySubje
 
     @Override
     public DoubleArraySubject<T> hasLength(int expected) {
-        rule.addConstraint(new HasSameSizeAsDoubleArrayConstraint<>(expected));
+        rule.addConstraint(new DoubleArrayExactLengthConstraint<>(expected));
         return myself;
     }
 
     @Override
-    public DoubleArraySubject<T> hasLengthGreaterThan(int boundary) {
+    public DoubleArraySubject<T> hasMinimumLength(int min) {
+        rule.addConstraint(new DoubleArrayMinimumLengthConstraint<>(min));
         return myself;
     }
 
     @Override
-    public DoubleArraySubject<T> hasLengthGreaterThanOrEqualTo(int boundary) {
-        return myself;
-    }
-
-    @Override
-    public DoubleArraySubject<T> hasLengthLessThan(int boundary) {
-        return myself;
-    }
-
-    @Override
-    public DoubleArraySubject<T> hasLengthLessThanOrEqualTo(int boundary) {
+    public DoubleArraySubject<T> hasMaximumLength(int max) {
+        rule.addConstraint(new DoubleArrayMaximumLengthConstraint<>(max));
         return myself;
     }
 
     @Override
     public DoubleArraySubject<T> hasLengthBetween(int min, int max) {
+        rule.addConstraint(new DoubleArrayBetweenLengthConstraint<>(min, max));
         return myself;
     }
 
     @Override
-    public DoubleArraySubject<T> hasLengthSizeAs(Iterable<?> other) {
-        rule.addConstraint(new HasSameSizeAsDoubleArrayConstraint<>(other));
+    public DoubleArraySubject<T> hasSameLengthAs(Iterable<?> other) {
+        rule.addConstraint(new DoubleArrayExactLengthConstraint<>(other));
         return myself;
     }
 
     @Override
-    public DoubleArraySubject<T> hasLengthSizeAs(Object other) {
-        rule.addConstraint(new HasSameSizeAsDoubleArrayConstraint<>(other));
+    public DoubleArraySubject<T> hasSameLengthAs(Object other) {
+        rule.addConstraint(new DoubleArrayExactLengthConstraint<>(other));
         return myself;
     }
 

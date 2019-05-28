@@ -1,4 +1,4 @@
-package jfluentvalidation.constraints.array.notempty;
+package jfluentvalidation.constraints.array.empty;
 
 import jfluentvalidation.constraints.Constraint;
 import jfluentvalidation.validators.RuleContext;
@@ -7,10 +7,10 @@ import jfluentvalidation.validators.RuleContext;
  *
  * @param <T>
  */
-public class IsNotEmptyBooleanArrayConstraint<T> implements Constraint<T, boolean[]> {
+public class IsEmptyBooleanArrayConstraint<T> implements Constraint<T, boolean[]> {
 
     @Override
     public boolean isValid(RuleContext<T, boolean[]> context) {
-        return context.getPropertyValue().length > 0;
+        return context.getPropertyValue().length == 0;
     }
 }

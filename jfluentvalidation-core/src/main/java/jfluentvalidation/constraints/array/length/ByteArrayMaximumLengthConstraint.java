@@ -1,9 +1,19 @@
 package jfluentvalidation.constraints.array.length;
 
-public class ByteArrayMaximumLengthConstraint<T> extends ArrayLengthConstraint<T, byte[]> {
+import jfluentvalidation.constraints.Constraint;
+import jfluentvalidation.validators.RuleContext;
+
+public class ByteArrayMaximumLengthConstraint<T> implements Constraint<T, byte[]> {
+
+    private final int max;
 
     public ByteArrayMaximumLengthConstraint(int max) {
-        super(0, max);
+        this.max = max;
     }
 
+    @Override
+    public boolean isValid(RuleContext<T, byte[]> context) {
+        int len = context.getPropertyValue().length;
+        return ArrayLength.max(len, max);
+    }
 }

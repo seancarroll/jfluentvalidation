@@ -34,23 +34,13 @@ public class BooleanArraySubject<T> extends AbstractArraySubject<BooleanArraySub
     }
 
     @Override
-    public BooleanArraySubject<T> hasLengthGreaterThan(int boundary) {
-        return myself;
+    public BooleanArraySubject<T> hasMinimumLength(int min) {
+        return null;
     }
 
     @Override
-    public BooleanArraySubject<T> hasLengthGreaterThanOrEqualTo(int boundary) {
-        return myself;
-    }
-
-    @Override
-    public BooleanArraySubject<T> hasLengthLessThan(int boundary) {
-        return myself;
-    }
-
-    @Override
-    public BooleanArraySubject<T> hasLengthLessThanOrEqualTo(int boundary) {
-        return myself;
+    public BooleanArraySubject<T> hasMaximumLength(int max) {
+        return null;
     }
 
     @Override
@@ -60,13 +50,13 @@ public class BooleanArraySubject<T> extends AbstractArraySubject<BooleanArraySub
     }
 
     @Override
-    public BooleanArraySubject<T> hasLengthSizeAs(Iterable<?> other) {
+    public BooleanArraySubject<T> hasSameLengthAs(Iterable<?> other) {
         rule.addConstraint(new ArrayExactLengthConstraint<>(other));
         return myself;
     }
 
     @Override
-    public BooleanArraySubject<T> hasLengthSizeAs(Object other) {
+    public BooleanArraySubject<T> hasSameLengthAs(Object other) {
         rule.addConstraint(new ArrayExactLengthConstraint<>(other));
         return myself;
     }

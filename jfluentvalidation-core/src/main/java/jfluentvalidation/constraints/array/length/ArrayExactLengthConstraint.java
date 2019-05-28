@@ -29,6 +29,7 @@ import java.util.function.IntSupplier;
 public class ArrayExactLengthConstraint<T, A> implements Constraint<T, A> {
 
     private IntSupplier lengthSupplier;
+    private Integer length;
 
     public ArrayExactLengthConstraint(Iterable<?> other) {
         this(() -> Iterables.size(other));
@@ -45,11 +46,15 @@ public class ArrayExactLengthConstraint<T, A> implements Constraint<T, A> {
     public ArrayExactLengthConstraint(IntSupplier lengthSupplier) {
         this.lengthSupplier = lengthSupplier;
     }
+    public ArrayExactLengthConstraint(Integer length) {
+        this.length = length;
+    }
+
 
 
     @Override
     public boolean isValid(RuleContext<T, A> context) {
         int len = Array.getLength(context.getPropertyValue());
-        return len == lengthSupplier.getAsInt();
+        return len == (length != null ? length : lengthSupplier.getAsInt());
     }
 }
