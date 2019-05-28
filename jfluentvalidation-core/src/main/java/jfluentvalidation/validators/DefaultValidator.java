@@ -118,6 +118,18 @@ public class DefaultValidator<T> implements Validator<T> {
      * @param func
      * @return
      */
+    public BooleanArraySubject<T> ruleForBooleanArray(Function<T, boolean[]> func) {
+        String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
+        PropertyRule<T, boolean[]> rule = new PropertyRule<>(func, propertyName);
+        rules.add(rule);
+        return new BooleanArraySubject<>(rule);
+    }
+
+    /**
+     *
+     * @param func
+     * @return
+     */
     public ByteSubject<T> ruleForByte(Function<T, Byte> func) {
         String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
         PropertyRule<T, Byte> rule = new PropertyRule<>(func, propertyName);
@@ -147,6 +159,18 @@ public class DefaultValidator<T> implements Validator<T> {
         PropertyRule<T, Calendar> rule = new PropertyRule<>(func, propertyName);
         rules.add(rule);
         return new CalendarSubject<>(rule);
+    }
+
+    /**
+     *
+     * @param func
+     * @return
+     */
+    public CharArraySubject<T> ruleForCharArray(Function<T, char[]> func) {
+        String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
+        PropertyRule<T, char[]> rule = new PropertyRule<>(func, propertyName);
+        rules.add(rule);
+        return new CharArraySubject<>(rule);
     }
 
     /**
