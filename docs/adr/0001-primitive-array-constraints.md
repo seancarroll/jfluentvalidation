@@ -4,21 +4,27 @@
 - Deciders: Sean Carroll
 - Date: 2019-05-28
 
-Technical Story: [description | ticket/issue URL]
+Technical Story: Implementing constraints for arrays that will support Object as well as primitive types. 
 
 ## Context and Problem Statement
 
-[Describe the context and problem statement, e.g., in free form using two to three sentences. You may want to articulate the problem in form of a question.]
-
-jdk 1.8.0_211-b12
+My first pass at building out array constraint was to use a generic parameter `A` with `java.lang.reflect.Array` to obtain 
+the length of the property representing `A`. 
+I was curious what the cost of using `java.lang.reflect.Array` compared to grabbing the `length` property from a known type was. 
+Anything with a name like `reflect*` gives me nightmares about terrible performance. 
+I decided to write a JMH benchmark to determine the performance impact `java.lang.reflect.Array` to assist in determining 
+which implementation to use. 
 
 ## Decision Drivers
 
 1. We want to keep performance in mind and attempt to be as performant as possible across all constraints.
 2. Avoid adding Additional classes and limit duplicating logic across constraints when possible.
 
-
 ## Considered Options
+
+The benchmark code initially used JDK `1.8.0_30` and they showed a fairly large impact. 
+I then found a Stack Overflow post ([see links](#links)) suggesting that the performance issue was resolved in JDK `1.8.0_45` so I 
+upgraded to `1.8.0_211-b12` however I'm still seeing roughly the same performance penalty. 
 
 ### Option 1
 
@@ -61,7 +67,6 @@ public class ArrayExactLengthConstraint<T, A> implements Constraint<T, A> {
 }
 ```
 
-
 ### Option 2
 
 ```java
@@ -102,11 +107,14 @@ public class BooleanArrayExactLengthConstraintAlternative<T> implements Constrai
 }
 ```
 
-
 ## Decision Outcome
 
-Chosen option: "[option 1]", because [justification. e.g., only option, which meets k.o. criterion decision driver | which resolves force force | … | comes out best (see below)].
-
+I decided to choose option 1 as I prioritized performance above the overhead to maintain additional classes and having 
+duplicate logic. 
+While it might be premature optimization and such a small impact (1 - 2 ns) the benchmark results below still convinced me. 
+I'm sure someone can convince me that the overhead is insignificant or that I simply messed up the bencharmark at which point
+it should be easier refactor to option 2. 
+I've included a rough [implementation of option 2](#option-2-implementation) just in case.
 
 ```java
 package jfluentvalidation.constraints.array;
@@ -206,7 +214,7 @@ Run 3
 | LengthBenchmark.booleanArrayExactLengthConstraintAlternative  | ss    | 5   | 18690.000 | ± 23530.434 | ns/op  |
 
 
-A ~20% performance impact is a bit too much for me to ignore. 
+A ~20% performance impact on throughput and even larger on average time is a bit too much for me to ignore. 
 
 ### Positive Consequences
 
@@ -294,8 +302,6 @@ import jfluentvalidation.validators.RuleContext;
 import java.lang.reflect.Array;
 import java.util.function.IntSupplier;
 
-// TODO: Could I do something like the following?
-// Seems like it will work. Whats the cost of the cast?
 public class ArrayLengthConstraint<T, A> implements Constraint<T, A> {
 
     private IntSupplier minSupplier;
