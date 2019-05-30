@@ -54,3 +54,4 @@ https://www.lyh.me/lambda-serialization.html#.XCb-nRNKgWo
 
 - TODO: need to override Subject methods on superclasses
 - TODO: static methods to create constraints
+- TODO: look at argona primitive data structures that avoid boxing/unboxing.
