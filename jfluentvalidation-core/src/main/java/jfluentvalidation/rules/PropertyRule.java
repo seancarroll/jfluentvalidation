@@ -3,6 +3,7 @@ package jfluentvalidation.rules;
 import jfluentvalidation.ValidationFailure;
 import jfluentvalidation.constraints.Constraint;
 import jfluentvalidation.constraints.SoftConstraint;
+import jfluentvalidation.validators.PropertyLiteralHelper;
 import jfluentvalidation.validators.RuleContext;
 import jfluentvalidation.validators.ValidationContext;
 
@@ -27,6 +28,13 @@ public class PropertyRule<T, P> implements Rule<T, P> {
     private List<String> ruleSet = RuleSet.DEFAULT_LIST;
 
     public PropertyRule(Function<T, P> propertyFunc, String propertyName) {
+        this.propertyFunc = propertyFunc;
+        this.propertyName = propertyName;
+    }
+
+    public PropertyRule(Class<T> type, Function<T, P> propertyFunc) {
+        T proxy = PropertyLiteralHelper.getPropertyNameCapturer(type);
+        String propertyName = PropertyLiteralHelper.getPropertyName(proxy, propertyFunc);
         this.propertyFunc = propertyFunc;
         this.propertyName = propertyName;
     }

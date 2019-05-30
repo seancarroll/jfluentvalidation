@@ -12,28 +12,28 @@ class ContainsOnlyOnceConstraintTest {
     @Test
     void shouldReturnTrueWhenActualContainsGivenStringOnlyOnce() {
         ContainsOnlyOnceConstraint constraint = new ContainsOnlyOnceConstraint("red");
-        RuleContext context = new RuleContext(new ValidationContext("credit"), null);
+        RuleContext context = new RuleContext(new ValidationContext("credit"), null, "red blue");
         assertTrue(constraint.isValid(context));
     }
 
     @Test
     void shouldReturnFalseWhenActualContainsGivenStringMoreThanOnce() {
         ContainsOnlyOnceConstraint constraint = new ContainsOnlyOnceConstraint("red");
-        RuleContext context = new RuleContext(new ValidationContext("credit"), null);
+        RuleContext context = new RuleContext(new ValidationContext("credit"), null, "red blue red");
         assertFalse(constraint.isValid(context));
     }
 
     @Test
     void shouldReturnFalseWhenActualContainsSequenceOnlyOnceButDifferentCase() {
         ContainsOnlyOnceConstraint constraint = new ContainsOnlyOnceConstraint("Red");
-        RuleContext context = new RuleContext(new ValidationContext("credit"), null);
+        RuleContext context = new RuleContext(new ValidationContext("credit"), null, "red");
         assertFalse(constraint.isValid(context));
     }
 
     @Test
     void shouldReturnFalseWhenActualDoesNotContainString() {
         ContainsOnlyOnceConstraint constraint = new ContainsOnlyOnceConstraint("blue");
-        RuleContext context = new RuleContext(new ValidationContext("credit"), null);
+        RuleContext context = new RuleContext(new ValidationContext("credit"), null, "red");
         assertFalse(constraint.isValid(context));
     }
 
@@ -44,7 +44,8 @@ class ContainsOnlyOnceConstraintTest {
 
     @Test
     void shouldReturnFalseWhenActualIsNull() {
-        ContainsOnlyOnceConstraint constraint = new ContainsOnlyOnceConstraint("red");
-        assertFalse(constraint.isValid(null));
+        ContainsOnlyOnceConstraint constraint = new ContainsOnlyOnceConstraint("blue");
+        RuleContext context = new RuleContext(new ValidationContext("credit"), null, null);
+        assertFalse(constraint.isValid(context));
     }
 }
