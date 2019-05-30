@@ -1,6 +1,6 @@
 package jfluentvalidation.core;
 
-public interface ArraySubject<S extends ArraySubject<S, E>, E> {
+public interface ArraySubject<S extends ArraySubject<S, A, E>, A, E> {
 
     void isNullOrEmpty();
 
@@ -9,6 +9,8 @@ public interface ArraySubject<S extends ArraySubject<S, E>, E> {
     S isNotEmpty();
 
     S hasLength(int expected);
+
+//    S contains(E item);
 
     S hasMinimumLength(int min);
 

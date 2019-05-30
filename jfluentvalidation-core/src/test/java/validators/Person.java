@@ -12,6 +12,7 @@ public class Person {
     private int age;
     private Address address;
     private boolean isMarried;
+    private ZonedDateTime dob;
     private ZonedDateTime signedIn = ZonedDateTime.now();
     private List<String> children = new ArrayList<>();
     private Map<String, String> pets = new HashMap<>();
@@ -47,6 +48,14 @@ public class Person {
 
     public void setMarried(boolean married) {
         isMarried = married;
+    }
+
+    public ZonedDateTime getDob() {
+        return dob;
+    }
+
+    public void setDob(ZonedDateTime dob) {
+        this.dob = dob;
     }
 
     public ZonedDateTime getSignedIn() {

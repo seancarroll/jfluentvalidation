@@ -33,6 +33,11 @@ public class BooleanArraySubject<T> extends AbstractArraySubject<BooleanArraySub
         return myself;
     }
 
+//    public BooleanArraySubject<T> contains(Boolean item) {
+//        rule.addConstraint(new ContainsConstraint<>(item));
+//        return myself;
+//    }
+
     @Override
     public BooleanArraySubject<T> hasMinimumLength(int min) {
         return null;

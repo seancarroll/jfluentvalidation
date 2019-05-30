@@ -45,4 +45,6 @@ public interface Rule<T, P> {
      */
     void applyCondition(Predicate<T> predicate);
 
+    // void addConstraint(Constraint<T, P> constraint);
+
 }

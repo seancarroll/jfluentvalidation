@@ -35,7 +35,7 @@ class ValidatorTests {
 
         DefaultValidator<Person> validator = DefaultValidator.forClass(Person.class);
         validator.ruleForString(p -> p.getName()).isNotEmpty().startsWith("s").length(5, 10);
-        validator.ruleForInteger(p -> p.getAge()).isPositive();
+        validator.ruleForInteger(p -> p.getAge()).isPositive().isBetween(1, 50);
 
         List<ValidationFailure> validationFailures = validator.validate(person);
 
@@ -103,7 +103,7 @@ class ValidatorTests {
 //        AddressValidator validator = new AddressValidator();
 //        List<ValidationFailure> validationFailures = validator.validate(address);
 //        System.out.println(validationFailures);
-//        assertEquals(1, validationFailures.size());
+//        assertEquals(1, validationFailures.length());
 //    }
 
     private class PersonValidator extends DefaultValidator<Person> {
@@ -113,6 +113,7 @@ class ValidatorTests {
             ruleForObject(p -> p.getAddress()).isNull();
             ruleForInteger(p -> p.getAge()).isPositive();
             ruleForBoolean(p -> p.isMarried()).isFalse();
+            // TODO: fix this ... ruleForZonedDateTime(Person::getDob).isInThePast();
             ruleForZonedDateTime(p -> p.getSignedIn()).isAfter(ZonedDateTime.now().minusDays(1));
             ruleForMap(p -> p.getPets()).isNotEmpty().forEachKey(isLowerCase()).forEachValue(length(0, 5));
             ruleForIterable(p -> p.getChildren()).isNotNull().forEach(startsWith("S"));

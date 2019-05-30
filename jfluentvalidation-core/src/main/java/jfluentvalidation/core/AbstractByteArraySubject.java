@@ -9,5 +9,8 @@ public abstract class AbstractByteArraySubject<S extends AbstractByteArraySubjec
         super(selfType, rule);
     }
 
-
+//    public S contains(byte item) {
+//        rule.addConstraint(new ContainsConstraint<T, Byte>(item));
+//        return myself;
+//    }
 }

@@ -16,7 +16,7 @@ import jfluentvalidation.rules.PropertyRule;
 //* @param <ELEMENT> the type of the "actual" array element.
 public abstract class AbstractArraySubject<S extends AbstractArraySubject<S, T, A, E>, T, A, E>
     extends Subject<S, T, A>
-    implements ArraySubject<S, E> {
+    implements ArraySubject<S, A, E> {
 
     public AbstractArraySubject(Class<?> selfType, PropertyRule<T, A> rule) {
         super(selfType, rule);
