@@ -7,29 +7,10 @@ import jfluentvalidation.validators.RuleContext;
 import java.lang.reflect.Array;
 import java.util.function.IntSupplier;
 
-//public class ArrayExactLengthConstraint<T, A> extends ArrayLengthConstraint<T, A> {
-//
-//    public ArrayExactLengthConstraint(Iterable<?> other) {
-//        this(() -> Iterables.size(other));
-//    }
-//
-//    public ArrayExactLengthConstraint(Object other) {
-//        this(() -> Array.getLength(other));
-//    }
-//
-//    public ArrayExactLengthConstraint(int length) {
-//        super(length, length);
-//    }
-//
-//    public ArrayExactLengthConstraint(IntSupplier lengthSupplier) {
-//        super(lengthSupplier, lengthSupplier);
-//    }
-//}
-
 public class ArrayExactLengthConstraint<T, A> implements Constraint<T, A> {
 
     private IntSupplier lengthSupplier;
-    private Integer length;
+    private int length;
 
     public ArrayExactLengthConstraint(Iterable<?> other) {
         this(() -> Iterables.size(other));
@@ -40,21 +21,16 @@ public class ArrayExactLengthConstraint<T, A> implements Constraint<T, A> {
     }
 
     public ArrayExactLengthConstraint(int length) {
-        this(() -> length);
+        this.length = length;
     }
 
     public ArrayExactLengthConstraint(IntSupplier lengthSupplier) {
         this.lengthSupplier = lengthSupplier;
     }
-    public ArrayExactLengthConstraint(Integer length) {
-        this.length = length;
-    }
-
-
 
     @Override
     public boolean isValid(RuleContext<T, A> context) {
         int len = Array.getLength(context.getPropertyValue());
-        return len == (length != null ? length : lengthSupplier.getAsInt());
+        return len == (lengthSupplier != null ? lengthSupplier.getAsInt() : length);
     }
 }
