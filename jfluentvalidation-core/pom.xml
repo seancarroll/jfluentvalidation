@@ -55,6 +55,11 @@
         </dependency>
 
         <dependency>
+            <groupId>org.objenesis</groupId>
+            <artifactId>objenesis</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>net.jodah</groupId>
             <artifactId>typetools</artifactId>
             <version>0.6.1</version>
