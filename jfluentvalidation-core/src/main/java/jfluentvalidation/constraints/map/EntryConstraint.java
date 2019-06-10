@@ -1,6 +1,8 @@
 package jfluentvalidation.constraints.map;
 
+import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.Constraint;
+import jfluentvalidation.constraints.DefaultMessages;
 import jfluentvalidation.validators.RuleContext;
 import jfluentvalidation.validators.ValidationContext;
 
@@ -18,7 +20,7 @@ import java.util.function.Predicate;
  * @param <K>
  * @param <V>
  */
-public class EntryConstraint<T, K, V> implements Constraint<T, Map<K, V>> {
+public class EntryConstraint<T, K, V> extends AbstractConstraint<T, Map<K, V>> {
 
     // TODO: can we take care of this by using a SoftConstraint?
     private final Predicate<Map.Entry<K, V>> condition;
@@ -29,6 +31,7 @@ public class EntryConstraint<T, K, V> implements Constraint<T, Map<K, V>> {
     }
 
     public EntryConstraint(Predicate<Map.Entry<K, V>> condition, Constraint<T, Map.Entry<K, V>>[] innerConstraints) {
+        super(DefaultMessages.MAP_ENTRY);
         this.condition = condition;
         this.innerConstraints = innerConstraints;
     }

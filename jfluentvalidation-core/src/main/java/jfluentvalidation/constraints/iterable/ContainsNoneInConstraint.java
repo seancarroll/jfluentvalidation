@@ -1,6 +1,7 @@
 package jfluentvalidation.constraints.iterable;
 
-import jfluentvalidation.constraints.Constraint;
+import jfluentvalidation.constraints.AbstractConstraint;
+import jfluentvalidation.constraints.DefaultMessages;
 import jfluentvalidation.validators.RuleContext;
 
 /**
@@ -9,11 +10,12 @@ import jfluentvalidation.validators.RuleContext;
  * (Duplicates are irrelevant to this test, which fails if any of the subject elements
  * correspond to any of the given elements.)
  */
-public class ContainsNoneInConstraint<T, P> implements Constraint<T, Iterable<? super P>> {
+public class ContainsNoneInConstraint<T, P> extends AbstractConstraint<T, Iterable<? super P>> {
 
     private final Iterable<? super P> excluded;
 
     public ContainsNoneInConstraint(Iterable<? super P> excluded) {
+        super(DefaultMessages.ITERABLE_CONTAINS_NONE_IN);
         this.excluded = excluded;
     }
 

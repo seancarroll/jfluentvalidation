@@ -1,6 +1,8 @@
 package jfluentvalidation.constraints.map;
 
+import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.Constraint;
+import jfluentvalidation.constraints.DefaultMessages;
 import jfluentvalidation.validators.RuleContext;
 import jfluentvalidation.validators.ValidationContext;
 
@@ -18,7 +20,7 @@ import java.util.function.Predicate;
  * @param <K>
  * @param <V>
  */
-public class KeyConstraint<T, K, V> implements Constraint<T, Map<K, V>> {
+public class KeyConstraint<T, K, V> extends AbstractConstraint<T, Map<K, V>> {
 
     private final Predicate<? super K> condition;
     private final Constraint<T, ? super K>[] innerConstraints;
@@ -28,6 +30,7 @@ public class KeyConstraint<T, K, V> implements Constraint<T, Map<K, V>> {
     }
 
     public KeyConstraint(Predicate<? super K> condition, Constraint<T, ? super K>[] innerConstraints) {
+        super(DefaultMessages.MAP_KEY);
         this.condition = condition;
         this.innerConstraints = innerConstraints;
     }

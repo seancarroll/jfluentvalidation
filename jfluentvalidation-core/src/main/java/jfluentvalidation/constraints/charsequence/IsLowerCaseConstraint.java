@@ -1,6 +1,7 @@
 package jfluentvalidation.constraints.charsequence;
 
-import jfluentvalidation.constraints.Constraint;
+import jfluentvalidation.constraints.AbstractConstraint;
+import jfluentvalidation.constraints.DefaultMessages;
 import jfluentvalidation.validators.RuleContext;
 
 /**
@@ -8,7 +9,11 @@ import jfluentvalidation.validators.RuleContext;
  *
  * @param <T>  type of instance to validate.
  */
-public class IsLowerCaseConstraint<T> implements Constraint<T, CharSequence> {
+public class IsLowerCaseConstraint<T> extends AbstractConstraint<T, CharSequence> {
+
+    public IsLowerCaseConstraint() {
+        super(DefaultMessages.CHARSEQUENCE_IS_LOWER_CASE);
+    }
 
     @Override
     public boolean isValid(RuleContext<T, CharSequence> validationContext) {

@@ -1,13 +1,15 @@
 package jfluentvalidation.constraints.array.length;
 
-import jfluentvalidation.constraints.Constraint;
+import jfluentvalidation.constraints.AbstractConstraint;
+import jfluentvalidation.constraints.DefaultMessages;
 import jfluentvalidation.validators.RuleContext;
 
-public class IntArrayMaximumLengthConstraint<T> implements Constraint<T, int[]> {
+public class IntArrayMaximumLengthConstraint<T> extends AbstractConstraint<T, int[]> {
 
     private final int max;
 
     public IntArrayMaximumLengthConstraint(int max) {
+        super(DefaultMessages.ARRAY_MAXIMUM_LENGTH);
         this.max = max;
     }
 

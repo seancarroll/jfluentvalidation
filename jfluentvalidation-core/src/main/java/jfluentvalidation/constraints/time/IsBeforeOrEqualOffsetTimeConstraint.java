@@ -1,6 +1,7 @@
 package jfluentvalidation.constraints.time;
 
-import jfluentvalidation.constraints.Constraint;
+import jfluentvalidation.constraints.AbstractConstraint;
+import jfluentvalidation.constraints.DefaultMessages;
 import jfluentvalidation.internal.Ensure;
 import jfluentvalidation.validators.RuleContext;
 
@@ -10,11 +11,12 @@ import java.time.OffsetTime;
  *
  * @param <T>  the target type supported by an implementation.
  */
-public class IsBeforeOrEqualOffsetTimeConstraint<T> implements Constraint<T, OffsetTime> {
+public class IsBeforeOrEqualOffsetTimeConstraint<T> extends AbstractConstraint<T, OffsetTime> {
 
     private final OffsetTime other;
 
     public IsBeforeOrEqualOffsetTimeConstraint(OffsetTime other) {
+        super(DefaultMessages.TIME_IS_BEFORE_OR_EQUAL);
         this.other = Ensure.notNull(other);
     }
 
@@ -22,4 +24,18 @@ public class IsBeforeOrEqualOffsetTimeConstraint<T> implements Constraint<T, Off
     public boolean isValid(RuleContext<T, OffsetTime> context) {
         return !context.getPropertyValue().isAfter(other);
     }
+
+//    @Override
+//    public String getMessage() {
+//        return DEFAULT_MESSAGE;
+//    }
+
+//    @Override
+//    protected void validate(RuleContext<T, OffsetTime> context) {
+//        if (context.getPropertyValue().isAfter(other)) {
+//            adddConstraint(ConstraintViolation.create(context, MESSAGE));
+//        }
+//    }
+
+
 }

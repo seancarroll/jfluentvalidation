@@ -1,6 +1,7 @@
 package jfluentvalidation.constraints.charsequence;
 
-import jfluentvalidation.constraints.Constraint;
+import jfluentvalidation.constraints.AbstractConstraint;
+import jfluentvalidation.constraints.DefaultMessages;
 import jfluentvalidation.validators.RuleContext;
 
 // TODO: given we have multiple of these based on type need to either change the name to include the type we are comparing
@@ -12,11 +13,12 @@ import jfluentvalidation.validators.RuleContext;
  *
  * @param <T>  type of instance to validate.
  */
-public class ContainsSequenceConstraint<T> implements Constraint<T, CharSequence> {
+public class ContainsSequenceConstraint<T> extends AbstractConstraint<T, CharSequence> {
 
     private final CharSequence[] sequences;
 
     public ContainsSequenceConstraint(CharSequence... sequences) {
+        super(DefaultMessages.CHARSEQUENCE_CONTAINS_SEQUENCE);
         this.sequences = sequences;
     }
 

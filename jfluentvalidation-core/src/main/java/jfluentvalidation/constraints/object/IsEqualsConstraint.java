@@ -1,6 +1,7 @@
 package jfluentvalidation.constraints.object;
 
-import jfluentvalidation.constraints.Constraint;
+import jfluentvalidation.constraints.AbstractConstraint;
+import jfluentvalidation.constraints.DefaultMessages;
 import jfluentvalidation.validators.RuleContext;
 
 import java.util.Objects;
@@ -11,11 +12,12 @@ import java.util.Objects;
  * @param <T>  the target type supported by an implementation.
  * @param <P>  the type of the actual object being tested by this {@code Constraint}.
  */
-public class IsEqualsConstraint<T, P> implements Constraint<T, P> {
+public class IsEqualsConstraint<T, P> extends AbstractConstraint<T, P> {
 
     private final P other;
 
     public IsEqualsConstraint(P other) {
+        super(DefaultMessages.IS_EQUALS);
         this.other = other;
     }
 
@@ -23,5 +25,17 @@ public class IsEqualsConstraint<T, P> implements Constraint<T, P> {
     public boolean isValid(RuleContext<T, P> context) {
         return Objects.equals(context.getPropertyValue(), other);
     }
+
+//    @Override
+//    public String getMessage() {
+//        return DEFAULT_MESSAGE;
+//    }
+
+//    @Override
+//    protected void validate(RuleContext<T, P> context) {
+//        if (!Objects.equals(context.getPropertyValue(), other)) {
+//            adddConstraint(ConstraintViolation.create(context, DEFAULT_MESSAGE));
+//        }
+//    }
 
 }

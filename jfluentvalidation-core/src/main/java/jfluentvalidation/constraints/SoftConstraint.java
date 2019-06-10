@@ -20,12 +20,13 @@ import java.util.function.Predicate;
  * @param <T>  the target type supported by an implementation.
  * @param <P>  the type of the actual object being tested by this {@code Constraint}.
  */
-public class SoftConstraint<T, P> implements Constraint<T, P> {
+public class SoftConstraint<T, P> extends AbstractConstraint<T, P> {
 
     private final Predicate<T> condition;
     private final Constraint<T, P> innerConstraint;
 
     public SoftConstraint(Predicate<T> condition, Constraint<T, P> innerConstraint) {
+        super(innerConstraint.getOptions().getErrorMessage());
         this.condition = condition;
         this.innerConstraint = innerConstraint;
     }
@@ -38,4 +39,9 @@ public class SoftConstraint<T, P> implements Constraint<T, P> {
 
         return true;
     }
+
+//    @Override
+//    public String getMessage() {
+//        return innerConstraint.getMessage();
+//    }
 }

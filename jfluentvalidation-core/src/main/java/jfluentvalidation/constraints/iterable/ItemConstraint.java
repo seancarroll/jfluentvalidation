@@ -1,7 +1,9 @@
 package jfluentvalidation.constraints.iterable;
 
 import jfluentvalidation.common.Iterables;
+import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.Constraint;
+import jfluentvalidation.constraints.DefaultMessages;
 import jfluentvalidation.validators.RuleContext;
 import jfluentvalidation.validators.ValidationContext;
 
@@ -10,7 +12,7 @@ import java.util.function.Predicate;
 
 // QUESTION: how is this different than SoftConstraint? Should this use it?
 // This looks like a more general case of the ContainsAllIn/ContainsAnyIn/ContainsExactlyElements/ContainsNoneIn/etc
-public class ItemConstraint<T, P> implements Constraint<T, Iterable<? super P>> {
+public class ItemConstraint<T, P> extends AbstractConstraint<T, Iterable<? super P>> {
 
     private final Predicate<P> condition;
     // TODO: should this just be a single constraint?
@@ -21,6 +23,7 @@ public class ItemConstraint<T, P> implements Constraint<T, Iterable<? super P>> 
     }
 
     public ItemConstraint(Predicate<P> condition, Constraint<T, P>[] innerConstraints) {
+        super(DefaultMessages.ITERABLE_ITEM);
         this.condition = condition;
         this.innerConstraints = innerConstraints;
     }

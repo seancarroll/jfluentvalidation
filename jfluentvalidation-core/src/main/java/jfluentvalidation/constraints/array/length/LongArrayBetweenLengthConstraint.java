@@ -1,14 +1,16 @@
 package jfluentvalidation.constraints.array.length;
 
-import jfluentvalidation.constraints.Constraint;
+import jfluentvalidation.constraints.AbstractConstraint;
+import jfluentvalidation.constraints.DefaultMessages;
 import jfluentvalidation.validators.RuleContext;
 
-public class LongArrayBetweenLengthConstraint<T> implements Constraint<T, long[]> {
+public class LongArrayBetweenLengthConstraint<T> extends AbstractConstraint<T, long[]> {
 
     private final int min;
     private final int max;
 
     public LongArrayBetweenLengthConstraint(int min, int max) {
+        super(DefaultMessages.ARRAY_BETWEEN_LENGTH);
         this.min = min;
         this.max = max;
     }

@@ -1,6 +1,7 @@
 package jfluentvalidation.constraints.charsequence;
 
-import jfluentvalidation.constraints.Constraint;
+import jfluentvalidation.constraints.AbstractConstraint;
+import jfluentvalidation.constraints.DefaultMessages;
 import jfluentvalidation.validators.RuleContext;
 
 import static java.lang.Character.isWhitespace;
@@ -11,11 +12,12 @@ import static java.lang.Character.isWhitespace;
  *
  * @param <T>  type of instance to validate.
  */
-public class IsEqualToNormalizingWhitespaceConstraint<T> implements Constraint<T, CharSequence> {
+public class IsEqualToNormalizingWhitespaceConstraint<T> extends AbstractConstraint<T, CharSequence> {
 
     private final CharSequence expected;
 
     public IsEqualToNormalizingWhitespaceConstraint(CharSequence expected) {
+        super(DefaultMessages.CHARSEQUENCE_IS_EQUAL_TO_NORMALIZING_WHITESPACE);
         this.expected = expected;
     }
 

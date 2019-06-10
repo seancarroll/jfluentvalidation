@@ -1,6 +1,7 @@
 package jfluentvalidation.constraints.charsequence;
 
-import jfluentvalidation.constraints.Constraint;
+import jfluentvalidation.constraints.AbstractConstraint;
+import jfluentvalidation.constraints.DefaultMessages;
 import jfluentvalidation.internal.Ensure;
 import jfluentvalidation.validators.RuleContext;
 
@@ -8,11 +9,12 @@ import jfluentvalidation.validators.RuleContext;
  *
  * @param <T>  type of instance to validate.
  */
-public class IsSubstringOfConstraint<T> implements Constraint<T, CharSequence> {
+public class IsSubstringOfConstraint<T> extends AbstractConstraint<T, CharSequence> {
 
     private final CharSequence sequence;
 
     public IsSubstringOfConstraint(CharSequence sequence) {
+        super(DefaultMessages.CHARSEQUENCE_IS_SUBSTRING_OF);
         this.sequence = Ensure.notNull(sequence);
     }
 

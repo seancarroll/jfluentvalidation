@@ -1,13 +1,18 @@
 package jfluentvalidation.constraints.array.empty;
 
-import jfluentvalidation.constraints.Constraint;
+import jfluentvalidation.constraints.AbstractConstraint;
+import jfluentvalidation.constraints.DefaultMessages;
 import jfluentvalidation.validators.RuleContext;
 
 /**
  *
  * @param <T>
  */
-public class IsEmptyShortArrayConstraint<T> implements Constraint<T, short[]> {
+public class IsEmptyShortArrayConstraint<T> extends AbstractConstraint<T, short[]> {
+
+    public IsEmptyShortArrayConstraint() {
+        super(DefaultMessages.IS_EMPTY);
+    }
 
     @Override
     public boolean isValid(RuleContext<T, short[]> context) {

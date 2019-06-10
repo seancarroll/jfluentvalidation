@@ -1,5 +1,6 @@
 package jfluentvalidation.constraints;
 
+import jfluentvalidation.validators.ConstraintOptions;
 import jfluentvalidation.validators.RuleContext;
 
 /**
@@ -42,14 +43,6 @@ public interface Constraint<T, P> {
 
 
     // TODO: should it be ValidationContext<? super T, P> context?
-//    /**
-//     * Implements the validation logic.
-//     *
-//     * @param context The validation context
-//     * @return {@code false} if {@code value} does not pass the constraint
-//     */
-//    boolean isValid(RuleContext<T, P> context);
-
     /**
      * Implements the validation logic.
      *
@@ -57,6 +50,14 @@ public interface Constraint<T, P> {
      * @return {@code false} if {@code value} does not pass the constraint
      */
     boolean isValid(RuleContext<T, P> context);
+
+//    /**
+//     * Implements the validation logic.
+//     *
+//     * @param context The validation context
+//     * @return {@code false} if {@code value} does not pass the constraint
+//     */
+//    List<ConstraintViolation> isValid(RuleContext<T, P> context);
 
 
 //    // TODO: including T value in the method signature for now to make it easier to refactor logic to validate method
@@ -68,5 +69,10 @@ public interface Constraint<T, P> {
 //     * @return A collection of validation failures
 //     */
 //    List<ValidationFailure> validate(T value, ValidationContext context);
+
+    // String getMessage();
+
+    ConstraintOptions getOptions();
+    
 
 }

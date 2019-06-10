@@ -1,6 +1,7 @@
 package jfluentvalidation.constraints.uri;
 
-import jfluentvalidation.constraints.Constraint;
+import jfluentvalidation.constraints.AbstractConstraint;
+import jfluentvalidation.constraints.DefaultMessages;
 import jfluentvalidation.validators.RuleContext;
 
 import java.net.URI;
@@ -13,7 +14,7 @@ import static jfluentvalidation.common.Uris.getParameters;
  *
  * @param <T>  the target type supported by an implementation.
  */
-public class HasParameterConstraint<T> implements Constraint<T, URI> {
+public class HasParameterConstraint<T> extends AbstractConstraint<T, URI> {
 
     // expectedParameterName
     private final String name;
@@ -26,6 +27,7 @@ public class HasParameterConstraint<T> implements Constraint<T, URI> {
     }
 
     public HasParameterConstraint(String name, String value) {
+        super(DefaultMessages.HAS_PARAMETER);
         this.name = name;
         this.value = value;
     }
@@ -42,5 +44,31 @@ public class HasParameterConstraint<T> implements Constraint<T, URI> {
         List<String> values = parameters.get(name);
         return values.contains(value);
     }
+
+//    @Override
+//    public String getMessage() {
+//        return DEFAULT_MESSAGE;
+//    }
+
+
+//
+//    @Override
+//    protected void validate(RuleContext<T, URI> context) {
+//        Map<String, List<String>> parameters = getParameters(context.getPropertyValue().getQuery());
+//        boolean containsName = parameters.containsKey(name);
+//
+//        if (value == null) {
+//            if (!containsName) {
+//                adddConstraint(ConstraintViolation.create(context, DEFAULT_MESSAGE));
+//            }
+//            return;
+//        }
+//
+//        // TODO: could return null
+//        List<String> values = parameters.get(name);
+//        if (!values.contains(value)) {
+//            adddConstraint(ConstraintViolation.create(context, DEFAULT_MESSAGE));
+//        }
+//    }
 
 }

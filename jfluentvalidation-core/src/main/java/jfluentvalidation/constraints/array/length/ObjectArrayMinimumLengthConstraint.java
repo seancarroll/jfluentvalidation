@@ -1,13 +1,15 @@
 package jfluentvalidation.constraints.array.length;
 
-import jfluentvalidation.constraints.Constraint;
+import jfluentvalidation.constraints.AbstractConstraint;
+import jfluentvalidation.constraints.DefaultMessages;
 import jfluentvalidation.validators.RuleContext;
 
-public class ObjectArrayMinimumLengthConstraint<T> implements Constraint<T, Object[]> {
+public class ObjectArrayMinimumLengthConstraint<T> extends AbstractConstraint<T, Object[]> {
 
     private final int min;
 
     public ObjectArrayMinimumLengthConstraint(int min) {
+        super(DefaultMessages.ARRAY_MINIMUM_LENGTH);
         this.min = min;
     }
 

@@ -1,6 +1,7 @@
 package jfluentvalidation.constraints.iterable;
 
-import jfluentvalidation.constraints.Constraint;
+import jfluentvalidation.constraints.AbstractConstraint;
+import jfluentvalidation.constraints.DefaultMessages;
 import jfluentvalidation.validators.RuleContext;
 
 /**
@@ -17,11 +18,12 @@ import jfluentvalidation.validators.RuleContext;
  * #containsExactlyElementsIn(Object[])}. It makes clear that the given array is a list of
  * elements, not an element itself. This helps human readers and avoids a compiler warning.
  */
-public class ContainsExactlyElementsInConstraint<T, P> implements Constraint<T, Iterable<? super P>> {
+public class ContainsExactlyElementsInConstraint<T, P> extends AbstractConstraint<T, Iterable<? super P>> {
 
     private final Iterable<? super P> expected;
 
     public ContainsExactlyElementsInConstraint(Iterable<? super P> expected) {
+        super(DefaultMessages.ITERABLE_CONTAINS_EXACTLY_ELEMENTS_IN);
         this.expected = expected;
     }
 

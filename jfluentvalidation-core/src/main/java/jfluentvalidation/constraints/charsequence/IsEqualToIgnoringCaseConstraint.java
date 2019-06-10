@@ -1,6 +1,7 @@
 package jfluentvalidation.constraints.charsequence;
 
-import jfluentvalidation.constraints.Constraint;
+import jfluentvalidation.constraints.AbstractConstraint;
+import jfluentvalidation.constraints.DefaultMessages;
 import jfluentvalidation.validators.RuleContext;
 
 /**
@@ -8,11 +9,12 @@ import jfluentvalidation.validators.RuleContext;
  *
  * @param <T>  type of instance to validate.
  */
-public class IsEqualToIgnoringCaseConstraint<T> implements Constraint<T, CharSequence> {
+public class IsEqualToIgnoringCaseConstraint<T> extends AbstractConstraint<T, CharSequence> {
 
     private final CharSequence other;
 
     public IsEqualToIgnoringCaseConstraint(CharSequence other) {
+        super(DefaultMessages.CHARSEQUENCE_IS_EQUAL_TO_IGNORING_CASE);
         this.other = other;
     }
 

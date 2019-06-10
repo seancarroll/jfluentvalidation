@@ -1,6 +1,8 @@
 package jfluentvalidation.constraints.iterable;
 
+import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.Constraint;
+import jfluentvalidation.constraints.DefaultMessages;
 import jfluentvalidation.validators.RuleContext;
 
 import java.util.Arrays;
@@ -12,7 +14,7 @@ import java.util.function.Predicate;
  * @param <T>  type of instance to validate.
  * @param <P>  the type of the actual object being tested by this {@code Constraint}.
  */
-public class IterableItemConstraint<T, P> implements Constraint<T, Iterable<? super P>> {
+public class IterableItemConstraint<T, P> extends AbstractConstraint<T, Iterable<? super P>> {
 
     List<Constraint<T, ? super P>> constraints;
     Predicate<? super P> predicate;
@@ -22,6 +24,7 @@ public class IterableItemConstraint<T, P> implements Constraint<T, Iterable<? su
     }
 
     public IterableItemConstraint(Predicate<? super P> predicate, Constraint<T, ? super P>... constraints) {
+        super(DefaultMessages.ITERABLE_ITERABLE_TEM);
         this.constraints = Arrays.asList(constraints);
         this.predicate = predicate;
     }

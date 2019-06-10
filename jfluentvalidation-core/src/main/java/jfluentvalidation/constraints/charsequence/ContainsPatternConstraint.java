@@ -1,6 +1,7 @@
 package jfluentvalidation.constraints.charsequence;
 
-import jfluentvalidation.constraints.Constraint;
+import jfluentvalidation.constraints.AbstractConstraint;
+import jfluentvalidation.constraints.DefaultMessages;
 import jfluentvalidation.internal.Ensure;
 import jfluentvalidation.validators.RuleContext;
 
@@ -15,7 +16,7 @@ import java.util.regex.Pattern;
  *
  * @param <T>  type of instance to validate.
  */
-public class ContainsPatternConstraint<T> implements Constraint<T, CharSequence> {
+public class ContainsPatternConstraint<T> extends AbstractConstraint<T, CharSequence> {
 
     private final Pattern pattern;
 
@@ -25,6 +26,7 @@ public class ContainsPatternConstraint<T> implements Constraint<T, CharSequence>
     }
 
     public ContainsPatternConstraint(Pattern pattern) {
+        super(DefaultMessages.CHARSEQUENCE_CONTAINS_PATTERN);
         this.pattern = Ensure.notNull(pattern);
     }
 

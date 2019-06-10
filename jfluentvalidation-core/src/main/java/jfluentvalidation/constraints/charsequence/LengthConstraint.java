@@ -1,6 +1,7 @@
 package jfluentvalidation.constraints.charsequence;
 
-import jfluentvalidation.constraints.Constraint;
+import jfluentvalidation.constraints.AbstractConstraint;
+import jfluentvalidation.constraints.DefaultMessages;
 import jfluentvalidation.internal.Ensure;
 import jfluentvalidation.validators.RuleContext;
 
@@ -11,12 +12,13 @@ import jfluentvalidation.validators.RuleContext;
  *
  * @param <T>  type of instance to validate.
  */
-public class LengthConstraint<T> implements Constraint<T, CharSequence> {
+public class LengthConstraint<T> extends AbstractConstraint<T, CharSequence> {
 
     private final int min;
     private final int max;
 
     public LengthConstraint(int min, int max) {
+        super(DefaultMessages.CHARSEQUENCE_LENGTH);
         this.min = Ensure.nonnegative(min, "min");
         this.max = max;
         Ensure.argument(max != -1 || max >= min);

@@ -1,6 +1,7 @@
 package jfluentvalidation.constraints.charsequence;
 
-import jfluentvalidation.constraints.Constraint;
+import jfluentvalidation.constraints.AbstractConstraint;
+import jfluentvalidation.constraints.DefaultMessages;
 import jfluentvalidation.internal.Ensure;
 import jfluentvalidation.validators.RuleContext;
 
@@ -9,11 +10,12 @@ import jfluentvalidation.validators.RuleContext;
  *
  * @param <T>  type of instance to validate.
  */
-public class HasLengthGreaterThanConstraint<T> implements Constraint<T, CharSequence> {
+public class HasLengthGreaterThanConstraint<T> extends AbstractConstraint<T, CharSequence> {
 
     private final int length;
 
     public HasLengthGreaterThanConstraint(int length) {
+        super(DefaultMessages.CHARSEQUENCE_HAS_LENGTH_GREATER_THAN);
         this.length = Ensure.nonnegative(length, "length");
     }
 
