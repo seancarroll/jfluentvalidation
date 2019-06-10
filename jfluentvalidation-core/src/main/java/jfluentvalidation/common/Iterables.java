@@ -73,4 +73,24 @@ public final class Iterables {
         }
     }
 
+    public static <T> T[] toArray(Iterable<? extends T> iterable, Class<T> type) {
+        return toArray(iterable, MoreArrays.newArray(type, 0));
+    }
+
+    static <T> T[] toArray(Iterable<? extends T> iterable, T[] array) {
+        return toCollection(iterable).toArray(array);
+    }
+
+    public static Object[] toArray(Iterable<?> iterable) {
+        return toCollection(iterable).toArray();
+    }
+
+// this toCollection is from java.util.stream
+//    public static <T> ArrayList<T> newArrayList(Iterable<? extends T> elements) {
+//        if (elements == null) {
+//            return null;
+//        }
+//        return Streams.stream(elements).collect(toCollection(ArrayList::new));
+//    }
+
 }

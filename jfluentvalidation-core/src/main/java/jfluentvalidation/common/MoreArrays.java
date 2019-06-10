@@ -38,6 +38,10 @@ public final class MoreArrays {
         return false;
     }
 
+    public static <T> T[] newArray(Class<T> type, int length) {
+        return (T[]) Array.newInstance(type, length);
+    }
+
     public static <T> boolean contains2(final T[] array, final T v) {
         if (v == null) {
             for (final T e : array)
