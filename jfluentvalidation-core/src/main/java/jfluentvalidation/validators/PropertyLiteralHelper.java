@@ -7,6 +7,8 @@ import net.bytebuddy.dynamic.loading.ClassLoadingStrategy;
 import net.bytebuddy.implementation.FieldAccessor;
 import net.bytebuddy.implementation.MethodDelegation;
 import net.bytebuddy.matcher.ElementMatchers;
+import org.objenesis.Objenesis;
+import org.objenesis.ObjenesisStd;
 
 import java.util.function.Function;
 
@@ -28,7 +30,8 @@ public class PropertyLiteralHelper {
     public static <T> T getPropertyNameCapturer(Class<T> type) {
         // TODO: how can we create an instance even when no-arg constructor is not defined.
         try {
-            // DEFAULT_CONSTRUCTOR
+            // uses DEFAULT_CONSTRUCTOR
+            // TODO: should I use a specific ConstructorStrategy such as ConstructorStrategy.Default.NO_CONSTRUCTORS?
             DynamicType.Builder<?> builder = new ByteBuddy().subclass(type.isInterface() ? Object.class : type);
             if (type.isInterface()) {
                 builder = builder.implement(type);
@@ -36,7 +39,6 @@ public class PropertyLiteralHelper {
 
 //        MethodCall.invoke(declaredConstructor).with("message")
 //            .andThen(MethodDelegation.to(DefaultConstructorInterceptor.class));
-
 //            .defineConstructor(Visibility.PUBLIC)
 //                .intercept(MethodCall.invoke(type.getDeclaredConstructor()).onSuper())
 
@@ -53,23 +55,19 @@ public class PropertyLiteralHelper {
             // TODO: is there a way to either not force the class to have a public no-arg constructor?
             // It would be nice if we could support private no-arg constructor at the very least but my preference
             // would be not to require anything.
-
-//            Constructor ctor = proxyType.getConstructor();
-//            ctor.setAccessible(true);
-//            return ctor.newInstance();
-//
-//            @SuppressWarnings("unchecked")
-//            Class<T> typed = (Class<T>) proxyType;
-//            Constructor<T> ctor = typed.getConstructor();
-//            ctor.setAccessible(true);
-//            return ctor.newInstance();
-//            //return typed.newInstance();
-
-
+            // I'm still investigating this but one way is to use Objenesis to create the instance.
+            // from https://stackoverflow.com/questions/50478383/byte-buddy-instantiate-class-without-parameters-for-constructor
+            // and https://stackoverflow.com/questions/23827311/create-a-dynamic-proxy-for-a-class-without-no-argument-constructor
+            // This appears to work. I would still like to understand potential way to just use byte buddy.
+            // I'm thinking I could check if the type has a public constructor and if not have byte buddy create one
             @SuppressWarnings("unchecked")
             Class<T> typed = (Class<T>) proxyType;
-            return typed.newInstance();
-        } catch (InstantiationException | IllegalAccessException e) {
+
+            Objenesis objenesis = new ObjenesisStd();
+            return objenesis.newInstance(typed);
+
+            //return typed.newInstance();
+        } catch (Exception e) { //InstantiationException | IllegalAccessException e) {
             throw new InvalidPropertyException("Couldn't instantiate proxy for property literal dereferencing", e);
         }
     }
