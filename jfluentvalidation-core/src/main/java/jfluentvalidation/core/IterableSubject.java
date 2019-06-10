@@ -2,7 +2,7 @@ package jfluentvalidation.core;
 
 import jfluentvalidation.constraints.Constraint;
 import jfluentvalidation.constraints.iterable.*;
-import jfluentvalidation.rules.PropertyRule;
+import jfluentvalidation.rules.CollectionPropertyRule;
 
 import java.util.Arrays;
 import java.util.List;
@@ -17,7 +17,7 @@ import static java.util.Arrays.asList;
  */
 public class IterableSubject<T, E> extends Subject<IterableSubject<T, E>, T, Iterable<? super E>> {
 
-    public IterableSubject(PropertyRule<T, Iterable<? super E>> rule) {
+    public IterableSubject(CollectionPropertyRule<T, Iterable<? super E>> rule) {
         super(IterableSubject.class, rule);
     }
 
@@ -125,6 +125,9 @@ public class IterableSubject<T, E> extends Subject<IterableSubject<T, E>, T, Ite
      * @return
      */
     public final IterableSubject<T, E> forEach(Constraint<T, E>... constraintsToAdd) {
+        // QUESTION: what if I didnt use the existing rule but created a new CollectionPropertyRule?
+        // would need to have access to the Subject to do so which might not be a good idea
+        // Otherwise we need to change Constraint to violations
         rule.addConstraint(new ItemConstraint<>(constraintsToAdd));
         return myself;
     }
@@ -155,5 +158,10 @@ public class IterableSubject<T, E> extends Subject<IterableSubject<T, E>, T, Ite
     @Override
     public IterableSubject<T, E> isEquals(Iterable<? super E> other) {
         return super.isEquals(other);
+    }
+
+    @Override
+    protected CollectionPropertyRule<T, Iterable<? super E>> getRule() {
+        return (CollectionPropertyRule) super.getRule();
     }
 }
