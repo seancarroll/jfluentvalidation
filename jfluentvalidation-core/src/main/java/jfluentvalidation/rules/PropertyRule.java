@@ -22,9 +22,10 @@ public class PropertyRule<T, P> implements Rule<T, P> {
     // TODO: what if we replaced subject with list of constraints, the property func, and property name?
     // problem being is how do we add constraints if not through the subject given it acts as our connector?
     // could we have flip it and instead have Subject contain a Rule/PropertyRule?
-    private Function<T, P> propertyFunc;
-    private String propertyName;
+    protected Function<T, P> propertyFunc;
+    protected String propertyName;
     private List<Constraint<?, ? extends P>> constraints = new ArrayList<>();
+    private Constraint<?, ? extends P> currentConstraint;
     private List<String> ruleSet = RuleSet.DEFAULT_LIST;
 
     public PropertyRule(Function<T, P> propertyFunc, String propertyName) {
@@ -43,14 +44,20 @@ public class PropertyRule<T, P> implements Rule<T, P> {
     public List<ValidationFailure> validate(ValidationContext<T, P> context) {
         List<ValidationFailure> failures = new ArrayList<>();
 
+        // TODO: whats the difference between context.getPropertyValue() and propertyFunc.apply(context.getInstanceToValidate())
+        // I would think context.getProperty would give us the appropriate value without having to do the func
+        // TODO: fix this
         P propertyValue = propertyFunc.apply(context.getInstanceToValidate());
         for (Constraint<?, ? extends P> constraint : constraints) {
             // TODO: is this the best way to handle this?
             RuleContext ruleContext = new RuleContext(context, this);
             boolean isValid = constraint.isValid(ruleContext);
             if (!isValid) {
-                String errorMessage = constraint.getClass().getName() + "." + context.getInstanceToValidate().getClass().getName() + ".";
-                failures.add(new ValidationFailure(propertyName, errorMessage, propertyValue));
+//                String errorMessage = constraint.getClass().getName() + "." + context.getInstanceToValidate().getClass().getName() + ".";
+                ruleContext.appendArgument("PropertyName", ruleContext.getRule().getPropertyName());
+                ruleContext.appendArgument("PropertyValue", ruleContext.getPropertyValue());
+
+                failures.add(new ValidationFailure(propertyName, constraint.getOptions().getErrorMessage(), propertyValue));
             }
         }
 
@@ -95,9 +102,19 @@ public class PropertyRule<T, P> implements Rule<T, P> {
         }
     }
 
+    @Override
+    public List<Constraint<?, ? extends P>> getConstraints() {
+        return constraints;
+    }
+
     // TODO: should this just be addConstraints and take a varargs?
     public void addConstraint(Constraint<T, P> constraint) {
+        currentConstraint = constraint;
         constraints.add(constraint);
+    }
+
+    public Constraint<?, ? extends P> getCurrentConstraint() {
+        return currentConstraint;
     }
 
 }
