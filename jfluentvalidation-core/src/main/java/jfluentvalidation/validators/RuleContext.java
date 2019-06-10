@@ -2,6 +2,9 @@ package jfluentvalidation.validators;
 
 import jfluentvalidation.rules.Rule;
 
+import java.util.HashMap;
+import java.util.Map;
+
 // QUESTION: would ConstraintContext be a better name?
 /**
  *
@@ -13,6 +16,9 @@ public class RuleContext<T, P> {
     private final ValidationContext<T, P> validationContext;
     private final Rule<T, P> rule;
     private final P propertyValue;
+
+    // TODO: I dont know where I want this to belong but for right now I'm putting it here
+    private final Map<String, Object> additionalArguments = new HashMap<>();
 
     /**
      *
@@ -53,4 +59,11 @@ public class RuleContext<T, P> {
         return rule;
     }
 
+    public void appendArgument(String name, Object arg) {
+        this.additionalArguments.put(name, arg);
+    }
+
+    public Map<String, Object> getAdditionalArguments() {
+        return additionalArguments;
+    }
 }
