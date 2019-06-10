@@ -62,28 +62,27 @@ public class Subject<S extends Subject<S, T, A>, T, A> {
         return myself;
     }
 
-    protected S withMessage(String message) {
-        // TODO: implement
-        // set message
+    public S withMessage(String message) {
+        rule.getCurrentConstraint().getOptions().setErrorMessage(message);
         return myself;
     }
 
-    protected S when(Predicate<A> predicate) {
+    public S when(Predicate<A> predicate) {
         return when(predicate, true);
     }
 
     // TODO: enum instead of boolean applyToAll?
-    protected S when(Predicate<A> predicate, boolean applyToAll) {
+    public S when(Predicate<A> predicate, boolean applyToAll) {
         // TODO: implement
         return myself;
     }
 
-    protected S unless(Predicate<A> predicate) {
+    public S unless(Predicate<A> predicate) {
         return unless(predicate, true);
     }
 
     // TODO: enum instead of boolean applyToAll?
-    protected S unless(Predicate<A> predicate, boolean applyToAll) {
+    public S unless(Predicate<A> predicate, boolean applyToAll) {
         // TODO: implement
         return myself;
     }
@@ -91,9 +90,12 @@ public class Subject<S extends Subject<S, T, A>, T, A> {
 
     //    RuleFor(x => x.Postcode).Must(BeAValidPostcode).WithMessage("Please specify a valid postcode");
     public S must(Predicate<A> predicate) {
-        // TODO: fix unchecked...not sure how to make generics work here.
         rule.addConstraint(new PredicateConstraint<>(predicate));
         return myself;
+    }
+
+    protected PropertyRule<T, A> getRule() {
+        return rule;
     }
 
 
