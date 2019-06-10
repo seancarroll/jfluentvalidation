@@ -1,6 +1,7 @@
 package jfluentvalidation.rules;
 
 import jfluentvalidation.ValidationFailure;
+import jfluentvalidation.constraints.Constraint;
 import jfluentvalidation.validators.ValidationContext;
 
 import java.util.List;
@@ -44,6 +45,8 @@ public interface Rule<T, P> {
      * @param predicate
      */
     void applyCondition(Predicate<T> predicate);
+
+    List<Constraint<?, ? extends P>> getConstraints();
 
     // void addConstraint(Constraint<T, P> constraint);
 
