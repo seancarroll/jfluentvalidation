@@ -1,6 +1,7 @@
 package jfluentvalidation.internal;
 
 import jfluentvalidation.ValidationFailure;
+import jfluentvalidation.constraints.ConstraintViolation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +12,8 @@ public final class Empty {
 
     // TODO: should we just use Collections.EMPTY_LIST; here?
     public static final List<ValidationFailure> VALIDATION_FAILURES = new ArrayList<>(0);
+
+    public static final List<ConstraintViolation> CONSTRAINT_VIOLATIONS = new ArrayList<>(0);
 
     private Empty() {
         // statics only
