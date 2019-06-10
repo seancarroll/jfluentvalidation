@@ -29,6 +29,14 @@ import java.util.function.Predicate;
 
 // QUESTION: FluentValidator has an AbstractValidator and then an InlineValidator while we rolled it into one DefaultValidator
 // Does this matter? Is there a trade-off? Advantages/disadvantages between the two?
+// I guess it allows you to do the following which is cool
+//    var validator = new InlineValidator<TestObject> {
+//        v => v.RuleFor(x => x.SomeProperty).NotNull()
+//    };
+//but I think we can already do this will double brace initialization
+//    Validator<Person> v = new DefaultValidator<Person>() {{
+//        ruleForString(p -> p.getName()).isNotEmpty().startsWith("s").length(0, 4);
+//    }};
 public class DefaultValidator<T> implements Validator<T> {
 
     // TODO: I would prefer to not include guava so lets create our own splitter
@@ -284,7 +292,7 @@ public class DefaultValidator<T> implements Validator<T> {
      */
     public <E> IterableSubject<T, ? super E> ruleForIterable(Function<T, Iterable<? super E>> func) {
         String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
-        PropertyRule<T, Iterable<? super E>> iterablePropertyRule = new PropertyRule<>(func, propertyName);
+        CollectionPropertyRule<T, Iterable<? super E>> iterablePropertyRule = new CollectionPropertyRule<>(func, propertyName);
         rules.add(iterablePropertyRule);
         return new IterableSubject<>(iterablePropertyRule);
     }
