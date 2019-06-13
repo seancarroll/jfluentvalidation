@@ -3,6 +3,7 @@ package jfluentvalidation.common;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
@@ -26,6 +27,9 @@ public final class Uris {
      * @return
      */
     public static Map<String, List<String>> getParameters(String query) {
+        if (query == null) {
+            return Collections.emptyMap();
+        }
         // TODO: This is probably not the most performant and we should maybe look at making it better
         return AMPERSAND_PATTERN.splitAsStream(query)
             .map(s -> Arrays.copyOf(s.split("="), 2))
