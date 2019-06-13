@@ -18,12 +18,14 @@ public class HasAnchorConstraint<T> extends AbstractConstraint<T, URL> {
 
     public HasAnchorConstraint(String expected) {
         super(DefaultMessages.URL_HAS_ANCHOR);
-        // TODO: can this be null?
         this.expected = expected;
     }
 
     @Override
     public boolean isValid(RuleContext<T, URL> context) {
+        if (context.getPropertyValue() == null) {
+            return false;
+        }
         return Objects.equals(expected, context.getPropertyValue().getRef());
     }
 
