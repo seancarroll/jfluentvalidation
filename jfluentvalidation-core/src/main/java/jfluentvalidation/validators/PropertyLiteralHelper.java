@@ -49,7 +49,7 @@ public class PropertyLiteralHelper {
                 .method(ElementMatchers.any()).intercept(MethodDelegation.to(PropertyNameCapturingInterceptor.class))
                 .method(named("setPropertyName").or(named("getPropertyName"))).intercept(FieldAccessor.ofBeanProperty())
                 .make()
-                .load(PropertyLiteralHelper.class.getClassLoader(), ClassLoadingStrategy.Default.WRAPPER)
+                .load(PropertyLiteralHelper.class.getClassLoader(), ClassLoadingStrategy.Default.INJECTION)
                 .getLoaded();
 
             // TODO: is there a way to either not force the class to have a public no-arg constructor?
