@@ -6,11 +6,18 @@ import net.bytebuddy.implementation.bind.annotation.This;
 
 import java.lang.reflect.Method;
 
+// TODO: move into PropertyNameCapturer?
 /**
  *
  */
 public class PropertyNameCapturingInterceptor {
 
+    /**
+     * Used by PropertyLiteralHelper#getPropertyNameCapturer
+     * @param capturer
+     * @param method
+     * @return
+     */
     @RuntimeType
     public static Object intercept(@This PropertyNameCapturer capturer, @Origin Method method) {
         String propertyName = getPropertyName(method);

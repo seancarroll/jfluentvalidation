@@ -90,3 +90,22 @@ Outside of Jeremy Skinner's Fluent Validation I'd like to call out some addition
 TODO:
 - research grails boot time (more than 5 min to boot home hub zone is crazy)
 - research offline mobile sync and conflict resolution
+
+
+hibernate validator classes
+- AbstractValidationContext
+- ConstraintViolationImpl
+- ConstraintTree
+- ValidatorImpl
+- TypeNames
+- ConstraintHelper
+- PlatformResourceBundleLocator
+- ValidatorFactoryBean
+- ConstraintDef
+- ConstraintMapping
+
+
+fluentvalidation
+- ValidatorMetadata
+- PropertyValidatorContext
+- DefaultValidatorOptions

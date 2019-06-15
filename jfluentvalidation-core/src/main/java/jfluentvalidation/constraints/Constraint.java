@@ -51,6 +51,9 @@ public interface Constraint<T, P> {
      */
     boolean isValid(RuleContext<T, P> context);
 
+    // TODO: could we do
+    // <T> boolean isValid(RuleContext<T, P> context);
+
 //    /**
 //     * Implements the validation logic.
 //     *

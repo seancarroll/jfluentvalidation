@@ -14,4 +14,9 @@ public class ValidatorOptions {
 //	config.traversableResolver( createTraversableResolver( config ) );
 //	config.parameterNameProvider( createParameterNameProvider( config ) );
 //	config.clockProvider( createClockProvider( config ) );
+
+    // private final ClockProvider clockProvider;
+    // TODO: figure out what temporalValidationTolerance is for? I think I knew this at some point
+    // private final Duration temporalValidationTolerance;
+
 }
