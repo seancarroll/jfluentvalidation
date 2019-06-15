@@ -43,11 +43,11 @@ public class HasNoParameterConstraint<T> extends AbstractConstraint<T, URI> {
         boolean containsName = parameters.containsKey(name);
 
         if (value == null) {
-            return containsName;
+            return !containsName;
         }
 
         List<String> values = parameters.get(name);
-        return !values.contains(value);
+        return values == null || !values.contains(value);
     }
 
 //    @Override
