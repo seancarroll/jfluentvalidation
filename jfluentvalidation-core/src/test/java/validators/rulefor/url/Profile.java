@@ -1,16 +1,12 @@
-package jfluentvalidation.constraints.url;
+package validators.rulefor.url;
 
 import java.net.URL;
 
-public class Profile {
+class Profile {
 
     private  URL website;
 
     public Profile(URL website) {
-        this.website = website;
-    }
-
-    public void setWebsite(URL website) {
         this.website = website;
     }
 

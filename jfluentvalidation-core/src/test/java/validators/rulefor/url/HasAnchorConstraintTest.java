@@ -1,7 +1,6 @@
 package validators.rulefor.url;
 
 import jfluentvalidation.ValidationFailure;
-import jfluentvalidation.constraints.url.Profile;
 import jfluentvalidation.validators.DefaultValidator;
 import org.junit.jupiter.api.Test;
 
@@ -13,7 +12,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class HasAnchorConstraintTest {
-
 
     @Test
     void shouldReturnFailureWhenActualAnchorIsNotPresentAndExpectedAnchorIsNotNull() throws MalformedURLException {

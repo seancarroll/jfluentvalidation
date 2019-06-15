@@ -1,7 +1,6 @@
 package validators.rulefor.url;
 
 import jfluentvalidation.ValidationFailure;
-import jfluentvalidation.constraints.url.Profile;
 import jfluentvalidation.validators.DefaultValidator;
 import org.junit.jupiter.api.Test;
 
@@ -9,7 +8,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class HasAuthorityConstraintTest {
 
@@ -26,7 +26,7 @@ class HasAuthorityConstraintTest {
     }
 
     @Test
-    void shouldReturnFailureWhenActualAuthoritytDoesNotMatchExpected() throws MalformedURLException {
+    void shouldReturnFailureWhenActualAuthorityDoesNotMatchExpected() throws MalformedURLException {
         Profile p = new Profile(new URL("http://example.com"));
 
         DefaultValidator<Profile> validator = new DefaultValidator<>(Profile.class);
@@ -85,4 +85,15 @@ class HasAuthorityConstraintTest {
         assertFalse(failures.isEmpty());
     }
 
+    @Test
+    void shouldReturnFailureWhenPortsDiffer() throws MalformedURLException {
+        Profile p = new Profile(new URL("http://example.com:8080"));
+
+        DefaultValidator<Profile> validator = new DefaultValidator<>(Profile.class);
+        validator.ruleForUrl(Profile::getWebsite).hasAuthority("example.com:8081");
+
+        List<ValidationFailure> failures = validator.validate(p);
+
+        assertFalse(failures.isEmpty());
+    }
 }

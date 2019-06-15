@@ -1,7 +1,6 @@
 package validators.rulefor.url;
 
 import jfluentvalidation.ValidationFailure;
-import jfluentvalidation.constraints.url.Profile;
 import jfluentvalidation.validators.DefaultValidator;
 import org.junit.jupiter.api.Test;
 
@@ -30,13 +29,12 @@ class HasParameterConstraintTest {
         Profile p = new Profile(new URL("http://example.com?foo=bar"));
 
         DefaultValidator<Profile> validator = new DefaultValidator<>(Profile.class);
-        validator.ruleForUrl(Profile::getWebsite).hasParameter("blah");
+        validator.ruleForUrl(Profile::getWebsite).hasParameter("baz");
 
         List<ValidationFailure> failures = validator.validate(p);
 
         assertFalse(failures.isEmpty());
     }
-
 
     @Test
     void shouldReturnNoFailureWhenExpectedParameterIsPresent() throws MalformedURLException {

@@ -21,7 +21,7 @@ class ValidatorTests {
         Person person = new Person("sean", 32, null);
 
         DefaultValidator<Person> validator = new DefaultValidator<>(Person.class);
-        validator.ruleForString(p -> p.getName()).isNotEmpty().startsWith("s").length(5, 10);
+        validator.ruleForString(p -> p.getName()).isNotEmpty().startsWith("s").length(5, 10).withMessage("Name must be between 5 and 10 yo");
         validator.ruleForInteger(p -> p.getAge()).isPositive();
 
         List<ValidationFailure> validationFailures = validator.validate(person);

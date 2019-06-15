@@ -1,7 +1,6 @@
 package validators.rulefor.url;
 
 import jfluentvalidation.ValidationFailure;
-import jfluentvalidation.constraints.url.Profile;
 import jfluentvalidation.validators.DefaultValidator;
 import org.junit.jupiter.api.Test;
 
@@ -14,9 +13,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class HasPortTest {
 
-    // should_fail_if_actual_is_null
     @Test
-    void shouldReturnFailureIfActualIsNull() {
+    void shouldReturnFailureIfActualUrlIsNull() {
         Profile p = new Profile(null);
 
         DefaultValidator<Profile> validator = new DefaultValidator<>(Profile.class);
@@ -27,7 +25,6 @@ class HasPortTest {
         assertFalse(failures.isEmpty());
     }
 
-    // should_pass_if_actual_url_has_the_given_port
     @Test
     void shouldReturnNoFailureWhenActualUrlHasTheGivenPort() throws MalformedURLException {
         Profile p = new Profile(new URL("http://example.com:8080"));
@@ -40,7 +37,6 @@ class HasPortTest {
         assertTrue(failures.isEmpty());
     }
 
-    // should_fail_if_actual_URL_port_is_not_the_given_port
     @Test
     void shouldReturnFailureWhenActualUrlPortIsNotTheGivenPort() throws MalformedURLException {
         Profile p = new Profile(new URL("http://example.com:80"));
