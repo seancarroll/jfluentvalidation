@@ -5,6 +5,7 @@ import jfluentvalidation.constraints.DefaultMessages;
 import jfluentvalidation.validators.RuleContext;
 
 import java.net.URI;
+import java.util.Objects;
 
 /**
  *
@@ -21,7 +22,10 @@ public class HasQueryConstraint<T> extends AbstractConstraint<T, URI> {
 
     @Override
     public boolean isValid(RuleContext<T, URI> context) {
-        return expected.equals(context.getPropertyValue().getQuery());
+        if (context.getPropertyValue() == null) {
+            return false;
+        }
+        return Objects.equals(expected, context.getPropertyValue().getQuery());
     }
 
 //    @Override

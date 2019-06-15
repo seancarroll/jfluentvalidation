@@ -22,6 +22,9 @@ public class HasQueryConstraint<T> extends AbstractConstraint<T, URL> {
 
     @Override
     public boolean isValid(RuleContext<T, URL> context) {
+        if (context.getPropertyValue() == null) {
+            return false;
+        }
         return Objects.equals(expected, context.getPropertyValue().getQuery());
     }
 

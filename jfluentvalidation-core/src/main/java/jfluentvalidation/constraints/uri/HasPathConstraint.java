@@ -25,6 +25,9 @@ public class HasPathConstraint<T> extends AbstractConstraint<T, URI> {
 
     @Override
     public boolean isValid(RuleContext<T, URI> context) {
+        if (context.getPropertyValue() == null) {
+            return false;
+        }
         return expected.equals(context.getPropertyValue().getPath());
     }
 
