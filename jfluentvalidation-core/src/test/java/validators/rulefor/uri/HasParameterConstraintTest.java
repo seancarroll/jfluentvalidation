@@ -39,7 +39,7 @@ class HasParameterConstraintTest {
 
 
     @Test
-    void shouldReturnNoFailureWhenExpectedParameterIsPresent() throws URISyntaxException {
+    void shouldNotReturnFailureWhenExpectedParameterIsPresent() throws URISyntaxException {
         Media m = new Media(new URI("http://example.com?foo=bar"));
 
         DefaultValidator<Media> validator = new DefaultValidator<>(Media.class);

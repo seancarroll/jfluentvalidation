@@ -26,7 +26,7 @@ class HasPortTest {
     }
 
     @Test
-    void shouldReturnNoFailureWhenActualUriHasTheGivenPort() throws URISyntaxException {
+    void shouldNotReturnFailureWhenActualUriHasTheGivenPort() throws URISyntaxException {
         Media m = new Media(new URI("http://example.com:8080"));
 
         DefaultValidator<Media> validator = new DefaultValidator<>(Media.class);
