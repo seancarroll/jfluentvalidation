@@ -22,6 +22,9 @@ public class IsAfterZonedDateTimeConstraint<T> extends AbstractConstraint<T, Zon
 
     @Override
     public boolean isValid(RuleContext<T, ZonedDateTime> context) {
+        if (context.getPropertyValue() == null) {
+            return false;
+        }
         return context.getPropertyValue().isAfter(other);
     }
 
