@@ -11,6 +11,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class IsAfterLocalDateTest {
 
+    private static final LocalDate REFERENCE = LocalDate.of(2019, 06, 15);
+    private static final LocalDate BEFORE = LocalDate.of(2019, 06, 14);
+    private static final LocalDate AFTER = LocalDate.of(2019, 06, 16);
+
     @Test
     void shouldReturnFailureWhenActualIsNull() {
         Person p = new Person(null);
@@ -25,24 +29,22 @@ class IsAfterLocalDateTest {
 
     @Test
     void shouldReturnFailureWhenActualIsNotStrictlyAfterGivenDate() {
-        Person p = new Person(LocalDate.now());
+        Person p = new Person(REFERENCE);
 
         DefaultValidator<Person> validator = new DefaultValidator<>(Person.class);
-        validator.ruleForLocalDate(Person::getBirthday).isAfter(LocalDate.now().plusDays(1));
+        validator.ruleForLocalDate(Person::getBirthday).isAfter(AFTER);
 
         List<ValidationFailure> failures = validator.validate(p);
 
         assertFalse(failures.isEmpty());
     }
 
-
     @Test
     void shouldReturnFailureWhenActualEqualsGivenDate() {
-        LocalDate date = LocalDate.now();
-        Person p = new Person(date);
+        Person p = new Person(REFERENCE);
 
         DefaultValidator<Person> validator = new DefaultValidator<>(Person.class);
-        validator.ruleForLocalDate(Person::getBirthday).isAfter(date);
+        validator.ruleForLocalDate(Person::getBirthday).isAfter(REFERENCE);
 
         List<ValidationFailure> failures = validator.validate(p);
 
@@ -51,10 +53,10 @@ class IsAfterLocalDateTest {
 
     @Test
     void shouldNotReturnFailureWhenActualDateIsAfterGivenDate() {
-        Person p = new Person(LocalDate.now());
+        Person p = new Person(REFERENCE);
 
         DefaultValidator<Person> validator = new DefaultValidator<>(Person.class);
-        validator.ruleForLocalDate(Person::getBirthday).isAfter(LocalDate.now().minusDays(1));
+        validator.ruleForLocalDate(Person::getBirthday).isAfter(BEFORE);
 
         List<ValidationFailure> failures = validator.validate(p);
 

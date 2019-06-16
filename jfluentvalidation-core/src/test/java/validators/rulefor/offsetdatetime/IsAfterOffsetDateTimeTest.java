@@ -5,11 +5,16 @@ import jfluentvalidation.validators.DefaultValidator;
 import org.junit.jupiter.api.Test;
 
 import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class IsAfterOffsetDateTimeTest {
+
+    private static final OffsetDateTime REFERENCE = OffsetDateTime.of(2019, 06, 15, 0, 0, 0, 0, ZoneOffset.UTC);
+    private static final OffsetDateTime BEFORE = OffsetDateTime.of(2019, 06, 14, 0, 0, 0, 0, ZoneOffset.UTC);
+    private static final OffsetDateTime AFTER = OffsetDateTime.of(2019, 06, 16, 0, 0, 0, 0, ZoneOffset.UTC);
 
     @Test
     void shouldReturnFailureWhenActualIsNull() {
@@ -25,24 +30,22 @@ class IsAfterOffsetDateTimeTest {
 
     @Test
     void shouldReturnFailureWhenActualIsNotStrictlyAfterGivenDate() {
-        Target t = new Target(OffsetDateTime.now());
+        Target t = new Target(REFERENCE);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForOffsetDateTime(Target::getDateTime).isAfter(OffsetDateTime.now().plusDays(1));
+        validator.ruleForOffsetDateTime(Target::getDateTime).isAfter(AFTER);
 
         List<ValidationFailure> failures = validator.validate(t);
 
         assertFalse(failures.isEmpty());
     }
 
-
     @Test
     void shouldReturnFailureWhenActualEqualsGivenDate() {
-        OffsetDateTime time = OffsetDateTime.now();
-        Target t = new Target(time);
+        Target t = new Target(REFERENCE);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForOffsetDateTime(Target::getDateTime).isAfter(time);
+        validator.ruleForOffsetDateTime(Target::getDateTime).isAfter(REFERENCE);
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -51,10 +54,10 @@ class IsAfterOffsetDateTimeTest {
 
     @Test
     void shouldNotReturnFailureWhenActualDateIsAfterGivenDate() {
-        Target t = new Target(OffsetDateTime.now());
+        Target t = new Target(REFERENCE);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForOffsetDateTime(Target::getDateTime).isAfter(OffsetDateTime.now().minusDays(1));
+        validator.ruleForOffsetDateTime(Target::getDateTime).isAfter(BEFORE);
 
         List<ValidationFailure> failures = validator.validate(t);
 

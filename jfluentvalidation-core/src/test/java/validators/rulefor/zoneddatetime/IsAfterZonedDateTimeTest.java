@@ -67,5 +67,4 @@ class IsAfterZonedDateTimeTest {
         assertThrows(NullPointerException.class, () -> validator.ruleForZonedDateTime(Target::getDateTime).isAfter(null));
     }
 
-
 }

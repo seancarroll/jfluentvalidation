@@ -9,7 +9,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class IsAfterLocalDateTimeTest {
+class IsAfterOrEqualTest {
 
     private static final LocalDateTime REFERENCE = LocalDateTime.of(2019, 06, 15, 0, 0, 0);
     private static final LocalDateTime BEFORE = LocalDateTime.of(2019, 06, 14, 0, 0, 0);
@@ -20,7 +20,7 @@ class IsAfterLocalDateTimeTest {
         Person p = new Person(null);
 
         DefaultValidator<Person> validator = new DefaultValidator<>(Person.class);
-        validator.ruleForLocalDateTime(Person::getBirthday).isAfter(LocalDateTime.now());
+        validator.ruleForLocalDateTime(Person::getBirthday).isAfterOrEqual(LocalDateTime.now());
 
         List<ValidationFailure> failures = validator.validate(p);
 
@@ -32,23 +32,24 @@ class IsAfterLocalDateTimeTest {
         Person p = new Person(REFERENCE);
 
         DefaultValidator<Person> validator = new DefaultValidator<>(Person.class);
-        validator.ruleForLocalDateTime(Person::getBirthday).isAfter(AFTER);
+        validator.ruleForLocalDateTime(Person::getBirthday).isAfterOrEqual(AFTER);
 
         List<ValidationFailure> failures = validator.validate(p);
 
         assertFalse(failures.isEmpty());
     }
 
+
     @Test
-    void shouldReturnFailureWhenActualEqualsGivenDate() {
+    void shouldNotReturnFailureWhenActualEqualsGivenDate() {
         Person p = new Person(REFERENCE);
 
         DefaultValidator<Person> validator = new DefaultValidator<>(Person.class);
-        validator.ruleForLocalDateTime(Person::getBirthday).isAfter(REFERENCE);
+        validator.ruleForLocalDateTime(Person::getBirthday).isAfterOrEqual(REFERENCE);
 
         List<ValidationFailure> failures = validator.validate(p);
 
-        assertFalse(failures.isEmpty());
+        assertTrue(failures.isEmpty());
     }
 
     @Test
@@ -56,7 +57,7 @@ class IsAfterLocalDateTimeTest {
         Person p = new Person(REFERENCE);
 
         DefaultValidator<Person> validator = new DefaultValidator<>(Person.class);
-        validator.ruleForLocalDateTime(Person::getBirthday).isAfter(BEFORE);
+        validator.ruleForLocalDateTime(Person::getBirthday).isAfterOrEqual(BEFORE);
 
         List<ValidationFailure> failures = validator.validate(p);
 
@@ -66,7 +67,7 @@ class IsAfterLocalDateTimeTest {
     @Test
     void shouldThrowExceptionWhenGivenDateIsNull() {
         DefaultValidator<Person> validator = new DefaultValidator<>(Person.class);
-        assertThrows(NullPointerException.class, () -> validator.ruleForLocalDateTime(Person::getBirthday).isAfter(null));
+        assertThrows(NullPointerException.class, () -> validator.ruleForLocalDateTime(Person::getBirthday).isAfterOrEqual(null));
     }
 
 }
