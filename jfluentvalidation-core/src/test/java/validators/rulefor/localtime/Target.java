@@ -2,11 +2,11 @@ package validators.rulefor.localtime;
 
 import java.time.LocalTime;
 
-class TestTarget {
+class Target {
 
     private LocalTime time;
 
-    public TestTarget(LocalTime time) {
+    public Target(LocalTime time) {
         this.time = time;
     }
 

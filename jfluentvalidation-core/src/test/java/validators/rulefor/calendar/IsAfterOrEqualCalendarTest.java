@@ -1,26 +1,36 @@
-package validators.rulefor.localdate;
+package validators.rulefor.calendar;
 
 import jfluentvalidation.ValidationFailure;
 import jfluentvalidation.validators.DefaultValidator;
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class IsAfterOrEqualTest {
+class IsAfterOrEqualCalendarTest {
 
-    private static final LocalDate ACTUAL = LocalDate.of(2019, 6, 15);
-    private static final LocalDate BEFORE = LocalDate.of(2019, 6, 14);
-    private static final LocalDate AFTER = LocalDate.of(2019, 6, 16);
+    private static final Calendar ACTUAL;
+    private static final Calendar BEFORE;
+    private static final Calendar AFTER;
+
+    static {
+        ACTUAL = Calendar.getInstance();
+
+        BEFORE = Calendar.getInstance();
+        BEFORE.add(Calendar.DATE, -1);
+
+        AFTER = Calendar.getInstance();
+        AFTER.add(Calendar.DATE, 1);
+    }
 
     @Test
     void shouldReturnFailureWhenActualIsNull() {
         Person p = new Person(null);
 
         DefaultValidator<Person> validator = new DefaultValidator<>(Person.class);
-        validator.ruleForLocalDate(Person::getBirthday).isAfterOrEqual(LocalDate.now());
+        validator.ruleForCalendar(Person::getBirthday).isAfterOrEqual(Calendar.getInstance());
 
         List<ValidationFailure> failures = validator.validate(p);
 
@@ -32,7 +42,7 @@ class IsAfterOrEqualTest {
         Person p = new Person(ACTUAL);
 
         DefaultValidator<Person> validator = new DefaultValidator<>(Person.class);
-        validator.ruleForLocalDate(Person::getBirthday).isAfterOrEqual(AFTER);
+        validator.ruleForCalendar(Person::getBirthday).isAfterOrEqual(AFTER);
 
         List<ValidationFailure> failures = validator.validate(p);
 
@@ -45,7 +55,7 @@ class IsAfterOrEqualTest {
         Person p = new Person(ACTUAL);
 
         DefaultValidator<Person> validator = new DefaultValidator<>(Person.class);
-        validator.ruleForLocalDate(Person::getBirthday).isAfterOrEqual(ACTUAL);
+        validator.ruleForCalendar(Person::getBirthday).isAfterOrEqual(ACTUAL);
 
         List<ValidationFailure> failures = validator.validate(p);
 
@@ -57,7 +67,7 @@ class IsAfterOrEqualTest {
         Person p = new Person(ACTUAL);
 
         DefaultValidator<Person> validator = new DefaultValidator<>(Person.class);
-        validator.ruleForLocalDate(Person::getBirthday).isAfterOrEqual(BEFORE);
+        validator.ruleForCalendar(Person::getBirthday).isAfterOrEqual(BEFORE);
 
         List<ValidationFailure> failures = validator.validate(p);
 
@@ -67,7 +77,6 @@ class IsAfterOrEqualTest {
     @Test
     void shouldThrowExceptionWhenGivenDateIsNull() {
         DefaultValidator<Person> validator = new DefaultValidator<>(Person.class);
-        assertThrows(NullPointerException.class, () -> validator.ruleForLocalDate(Person::getBirthday).isAfterOrEqual(null));
+        assertThrows(NullPointerException.class, () -> validator.ruleForCalendar(Person::getBirthday).isAfterOrEqual(null));
     }
-
 }

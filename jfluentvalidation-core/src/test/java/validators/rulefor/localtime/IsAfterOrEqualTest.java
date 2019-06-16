@@ -17,10 +17,10 @@ class IsAfterOrEqualTest {
 
     @Test
     void shouldReturnFailureWhenActualIsNull() {
-        TestTarget t = new TestTarget(null);
+        Target t = new Target(null);
 
-        DefaultValidator<TestTarget> validator = new DefaultValidator<>(TestTarget.class);
-        validator.ruleForLocalTime(TestTarget::getTime).isAfterOrEqual(LocalTime.now());
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        validator.ruleForLocalTime(Target::getTime).isAfterOrEqual(LocalTime.now());
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -29,10 +29,10 @@ class IsAfterOrEqualTest {
 
     @Test
     void shouldReturnFailureWhenActualIsNotStrictlyAfterGivenDate() {
-        TestTarget t = new TestTarget(ACTUAL);
+        Target t = new Target(ACTUAL);
 
-        DefaultValidator<TestTarget> validator = new DefaultValidator<>(TestTarget.class);
-        validator.ruleForLocalTime(TestTarget::getTime).isAfterOrEqual(AFTER);
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        validator.ruleForLocalTime(Target::getTime).isAfterOrEqual(AFTER);
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -42,10 +42,10 @@ class IsAfterOrEqualTest {
 
     @Test
     void shouldNotReturnFailureWhenActualEqualsGivenDate() {
-        TestTarget t = new TestTarget(ACTUAL);
+        Target t = new Target(ACTUAL);
 
-        DefaultValidator<TestTarget> validator = new DefaultValidator<>(TestTarget.class);
-        validator.ruleForLocalTime(TestTarget::getTime).isAfterOrEqual(ACTUAL);
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        validator.ruleForLocalTime(Target::getTime).isAfterOrEqual(ACTUAL);
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -54,10 +54,10 @@ class IsAfterOrEqualTest {
 
     @Test
     void shouldNotReturnFailureWhenActualDateIsAfterGivenDate() {
-        TestTarget t = new TestTarget(ACTUAL);
+        Target t = new Target(ACTUAL);
 
-        DefaultValidator<TestTarget> validator = new DefaultValidator<>(TestTarget.class);
-        validator.ruleForLocalTime(TestTarget::getTime).isAfterOrEqual(BEFORE);
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        validator.ruleForLocalTime(Target::getTime).isAfterOrEqual(BEFORE);
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -66,7 +66,7 @@ class IsAfterOrEqualTest {
 
     @Test
     void shouldThrowExceptionWhenGivenDateIsNull() {
-        DefaultValidator<TestTarget> validator = new DefaultValidator<>(TestTarget.class);
-        assertThrows(NullPointerException.class, () -> validator.ruleForLocalTime(TestTarget::getTime).isAfterOrEqual(null));
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        assertThrows(NullPointerException.class, () -> validator.ruleForLocalTime(Target::getTime).isAfterOrEqual(null));
     }
 }
