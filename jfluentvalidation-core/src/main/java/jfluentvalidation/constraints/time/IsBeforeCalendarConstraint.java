@@ -22,6 +22,9 @@ public class IsBeforeCalendarConstraint<T> extends AbstractConstraint<T, Calenda
 
     @Override
     public boolean isValid(RuleContext<T, Calendar> context) {
+        if (context.getPropertyValue() == null) {
+            return false;
+        }
         return context.getPropertyValue().before(other);
     }
 

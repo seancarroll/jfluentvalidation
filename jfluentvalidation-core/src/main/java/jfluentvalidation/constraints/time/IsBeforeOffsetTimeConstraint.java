@@ -22,6 +22,9 @@ public class IsBeforeOffsetTimeConstraint<T> extends AbstractConstraint<T, Offse
 
     @Override
     public boolean isValid(RuleContext<T, OffsetTime> context) {
+        if (context.getPropertyValue() == null) {
+            return false;
+        }
         return context.getPropertyValue().isBefore(other);
     }
 
