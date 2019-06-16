@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class IsAfterLocalDateTimeTest {
 
-    private static final LocalDateTime REFERENCE = LocalDateTime.of(2019, 06, 15, 0, 0, 0);
+    private static final LocalDateTime ACTUAL = LocalDateTime.of(2019, 06, 15, 0, 0, 0);
     private static final LocalDateTime BEFORE = LocalDateTime.of(2019, 06, 14, 0, 0, 0);
     private static final LocalDateTime AFTER = LocalDateTime.of(2019, 06, 16, 0, 0, 0);
 
@@ -29,7 +29,7 @@ class IsAfterLocalDateTimeTest {
 
     @Test
     void shouldReturnFailureWhenActualIsNotStrictlyAfterGivenDate() {
-        Person p = new Person(REFERENCE);
+        Person p = new Person(ACTUAL);
 
         DefaultValidator<Person> validator = new DefaultValidator<>(Person.class);
         validator.ruleForLocalDateTime(Person::getBirthday).isAfter(AFTER);
@@ -41,10 +41,10 @@ class IsAfterLocalDateTimeTest {
 
     @Test
     void shouldReturnFailureWhenActualEqualsGivenDate() {
-        Person p = new Person(REFERENCE);
+        Person p = new Person(ACTUAL);
 
         DefaultValidator<Person> validator = new DefaultValidator<>(Person.class);
-        validator.ruleForLocalDateTime(Person::getBirthday).isAfter(REFERENCE);
+        validator.ruleForLocalDateTime(Person::getBirthday).isAfter(ACTUAL);
 
         List<ValidationFailure> failures = validator.validate(p);
 
@@ -53,7 +53,7 @@ class IsAfterLocalDateTimeTest {
 
     @Test
     void shouldNotReturnFailureWhenActualDateIsAfterGivenDate() {
-        Person p = new Person(REFERENCE);
+        Person p = new Person(ACTUAL);
 
         DefaultValidator<Person> validator = new DefaultValidator<>(Person.class);
         validator.ruleForLocalDateTime(Person::getBirthday).isAfter(BEFORE);

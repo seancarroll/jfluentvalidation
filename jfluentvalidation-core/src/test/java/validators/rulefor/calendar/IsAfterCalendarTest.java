@@ -11,12 +11,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class IsAfterCalendarTest {
 
-    private static final Calendar REFERENCE;
+    private static final Calendar ACTUAL;
     private static final Calendar BEFORE;
     private static final Calendar AFTER;
 
     static {
-        REFERENCE = Calendar.getInstance();
+        ACTUAL = Calendar.getInstance();
 
         BEFORE = Calendar.getInstance();
         BEFORE.add(Calendar.DATE, -1);
@@ -39,7 +39,7 @@ class IsAfterCalendarTest {
 
     @Test
     void shouldReturnFailureWhenActualIsNotStrictlyAfterGivenDate() {
-        Person p = new Person(REFERENCE);
+        Person p = new Person(ACTUAL);
 
         DefaultValidator<Person> validator = new DefaultValidator<>(Person.class);
         validator.ruleForCalendar(Person::getBirthday).isAfter(AFTER);
@@ -51,10 +51,10 @@ class IsAfterCalendarTest {
 
     @Test
     void shouldReturnFailureWhenActualEqualsGivenDate() {
-        Person p = new Person(REFERENCE);
+        Person p = new Person(ACTUAL);
 
         DefaultValidator<Person> validator = new DefaultValidator<>(Person.class);
-        validator.ruleForCalendar(Person::getBirthday).isAfter(REFERENCE);
+        validator.ruleForCalendar(Person::getBirthday).isAfter(ACTUAL);
 
         List<ValidationFailure> failures = validator.validate(p);
 

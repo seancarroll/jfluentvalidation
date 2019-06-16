@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class IsAfterOffsetDateTimeTest {
 
-    private static final OffsetDateTime REFERENCE = OffsetDateTime.of(2019, 06, 15, 0, 0, 0, 0, ZoneOffset.UTC);
+    private static final OffsetDateTime ACTUAL = OffsetDateTime.of(2019, 06, 15, 0, 0, 0, 0, ZoneOffset.UTC);
     private static final OffsetDateTime BEFORE = OffsetDateTime.of(2019, 06, 14, 0, 0, 0, 0, ZoneOffset.UTC);
     private static final OffsetDateTime AFTER = OffsetDateTime.of(2019, 06, 16, 0, 0, 0, 0, ZoneOffset.UTC);
 
@@ -30,7 +30,7 @@ class IsAfterOffsetDateTimeTest {
 
     @Test
     void shouldReturnFailureWhenActualIsNotStrictlyAfterGivenDate() {
-        Target t = new Target(REFERENCE);
+        Target t = new Target(ACTUAL);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForOffsetDateTime(Target::getDateTime).isAfter(AFTER);
@@ -42,10 +42,10 @@ class IsAfterOffsetDateTimeTest {
 
     @Test
     void shouldReturnFailureWhenActualEqualsGivenDate() {
-        Target t = new Target(REFERENCE);
+        Target t = new Target(ACTUAL);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForOffsetDateTime(Target::getDateTime).isAfter(REFERENCE);
+        validator.ruleForOffsetDateTime(Target::getDateTime).isAfter(ACTUAL);
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -54,7 +54,7 @@ class IsAfterOffsetDateTimeTest {
 
     @Test
     void shouldNotReturnFailureWhenActualDateIsAfterGivenDate() {
-        Target t = new Target(REFERENCE);
+        Target t = new Target(ACTUAL);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForOffsetDateTime(Target::getDateTime).isAfter(BEFORE);

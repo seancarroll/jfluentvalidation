@@ -11,7 +11,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class IsAfterZonedDateTimeTest {
+class IsBeforeZonedDateTimeTest {
 
     private static final ZonedDateTime ACTUAL = ZonedDateTime.of(2019, 6, 15, 0, 0, 0, 0, ZoneOffset.UTC);
     private static final ZonedDateTime BEFORE = ZonedDateTime.of(2019, 6, 14, 0, 0, 0, 0, ZoneOffset.UTC);
@@ -22,7 +22,7 @@ class IsAfterZonedDateTimeTest {
         Target t = new Target(null);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForZonedDateTime(Target::getDateTime).isAfter(ZonedDateTime.now());
+        validator.ruleForZonedDateTime(Target::getDateTime).isBefore(ZonedDateTime.now());
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -30,11 +30,11 @@ class IsAfterZonedDateTimeTest {
     }
 
     @Test
-    void shouldReturnFailureWhenActualIsNotStrictlyAfterGivenDate() {
+    void shouldReturnFailureWhenActualIsNotStrictlyBeforeGivenDate() {
         Target t = new Target(ACTUAL);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForZonedDateTime(Target::getDateTime).isAfter(AFTER);
+        validator.ruleForZonedDateTime(Target::getDateTime).isBefore(BEFORE);
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -42,11 +42,11 @@ class IsAfterZonedDateTimeTest {
     }
 
     @Test
-    void shouldReturnFailureWhenActualIsNotStrictlyAfterGivenDateBasedOnTimeZone() {
+    void shouldReturnFailureWhenActualIsNotStrictlyBeforeGivenDateBasedOnTimeZone() {
         Target t = new Target(ACTUAL);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForZonedDateTime(Target::getDateTime).isAfter(AFTER.withZoneSameInstant(ZoneId.of("Europe/London")));
+        validator.ruleForZonedDateTime(Target::getDateTime).isBefore(BEFORE.withZoneSameInstant(ZoneId.of("America/Chicago")));
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -58,7 +58,7 @@ class IsAfterZonedDateTimeTest {
         Target t = new Target(ACTUAL);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForZonedDateTime(Target::getDateTime).isAfter(ACTUAL);
+        validator.ruleForZonedDateTime(Target::getDateTime).isBefore(ACTUAL);
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -66,11 +66,11 @@ class IsAfterZonedDateTimeTest {
     }
 
     @Test
-    void shouldNotReturnFailureWhenActualDateIsAfterGivenDate() {
+    void shouldNotReturnFailureWhenActualDateIsBeforeGivenDate() {
         Target t = new Target(ACTUAL);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForZonedDateTime(Target::getDateTime).isAfter(BEFORE);
+        validator.ruleForZonedDateTime(Target::getDateTime).isBefore(AFTER);
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -78,11 +78,11 @@ class IsAfterZonedDateTimeTest {
     }
 
     @Test
-    void shouldNotReturnFailureWhenActualDateIsAfterGivenDateBasedOnTimeZone() {
+    void shouldNotReturnFailureWhenActualDateIsBeforeGivenDateBasedOnTimeZone() {
         Target t = new Target(ACTUAL);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForZonedDateTime(Target::getDateTime).isAfter(BEFORE.withZoneSameInstant(ZoneId.of("America/Chicago")));
+        validator.ruleForZonedDateTime(Target::getDateTime).isBefore(AFTER.withZoneSameInstant(ZoneId.of("Europe/London")));
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -92,6 +92,6 @@ class IsAfterZonedDateTimeTest {
     @Test
     void shouldThrowExceptionWhenGivenDateIsNull() {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        assertThrows(NullPointerException.class, () -> validator.ruleForZonedDateTime(Target::getDateTime).isAfter(null));
+        assertThrows(NullPointerException.class, () -> validator.ruleForZonedDateTime(Target::getDateTime).isBefore(null));
     }
 }

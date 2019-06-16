@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class IsAfterOrEqualTest {
 
-    private static final OffsetTime REFERENCE = OffsetTime.of(2, 0, 0, 0, ZoneOffset.UTC);
+    private static final OffsetTime ACTUAL = OffsetTime.of(2, 0, 0, 0, ZoneOffset.UTC);
     private static final OffsetTime BEFORE = OffsetTime.of(1, 0, 0, 0, ZoneOffset.UTC);
     private static final OffsetTime AFTER = OffsetTime.of(3, 0, 0, 0, ZoneOffset.UTC);
 
@@ -30,7 +30,7 @@ class IsAfterOrEqualTest {
 
     @Test
     void shouldReturnFailureWhenActualIsNotStrictlyAfterGivenDate() {
-        Target t = new Target(REFERENCE);
+        Target t = new Target(ACTUAL);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForOffsetTime(Target::getTime).isAfterOrEqual(AFTER);
@@ -42,10 +42,10 @@ class IsAfterOrEqualTest {
 
     @Test
     void shouldNotReturnFailureWhenActualEqualsGivenDate() {
-        Target t = new Target(REFERENCE);
+        Target t = new Target(ACTUAL);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForOffsetTime(Target::getTime).isAfterOrEqual(REFERENCE);
+        validator.ruleForOffsetTime(Target::getTime).isAfterOrEqual(ACTUAL);
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -54,7 +54,7 @@ class IsAfterOrEqualTest {
 
     @Test
     void shouldNotReturnFailureWhenActualDateIsAfterGivenDate() {
-        Target t = new Target(REFERENCE);
+        Target t = new Target(ACTUAL);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForOffsetTime(Target::getTime).isAfterOrEqual(BEFORE);

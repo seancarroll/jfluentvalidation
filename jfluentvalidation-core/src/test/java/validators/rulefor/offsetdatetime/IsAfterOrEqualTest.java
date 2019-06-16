@@ -12,9 +12,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class IsAfterOrEqualTest {
 
-    private static final OffsetDateTime REFERENCE = OffsetDateTime.of(2019, 06, 15, 0, 0, 0, 0, ZoneOffset.UTC);
-    private static final OffsetDateTime BEFORE = OffsetDateTime.of(2019, 06, 14, 0, 0, 0, 0, ZoneOffset.UTC);
-    private static final OffsetDateTime AFTER = OffsetDateTime.of(2019, 06, 16, 0, 0, 0, 0, ZoneOffset.UTC);
+    private static final OffsetDateTime ACTUAL = OffsetDateTime.of(2019, 6, 15, 0, 0, 0, 0, ZoneOffset.UTC);
+    private static final OffsetDateTime BEFORE = OffsetDateTime.of(2019, 6, 14, 0, 0, 0, 0, ZoneOffset.UTC);
+    private static final OffsetDateTime AFTER = OffsetDateTime.of(2019, 6, 16, 0, 0, 0, 0, ZoneOffset.UTC);
 
     @Test
     void shouldReturnFailureWhenActualIsNull() {
@@ -30,7 +30,7 @@ class IsAfterOrEqualTest {
 
     @Test
     void shouldReturnFailureWhenActualIsNotStrictlyAfterGivenDate() {
-        Target t = new Target(REFERENCE);
+        Target t = new Target(ACTUAL);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForOffsetDateTime(Target::getDateTime).isAfterOrEqual(AFTER);
@@ -42,10 +42,10 @@ class IsAfterOrEqualTest {
 
     @Test
     void shouldNotReturnFailureWhenActualEqualsGivenDate() {
-        Target t = new Target(REFERENCE);
+        Target t = new Target(ACTUAL);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForOffsetDateTime(Target::getDateTime).isAfterOrEqual(REFERENCE);
+        validator.ruleForOffsetDateTime(Target::getDateTime).isAfterOrEqual(ACTUAL);
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -54,7 +54,7 @@ class IsAfterOrEqualTest {
 
     @Test
     void shouldNotReturnFailureWhenActualDateIsAfterGivenDate() {
-        Target t = new Target(REFERENCE);
+        Target t = new Target(ACTUAL);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForOffsetDateTime(Target::getDateTime).isAfterOrEqual(BEFORE);

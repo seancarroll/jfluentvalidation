@@ -11,9 +11,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class IsAfterOrEqualTest {
 
-    private static final LocalDateTime REFERENCE = LocalDateTime.of(2019, 06, 15, 0, 0, 0);
-    private static final LocalDateTime BEFORE = LocalDateTime.of(2019, 06, 14, 0, 0, 0);
-    private static final LocalDateTime AFTER = LocalDateTime.of(2019, 06, 16, 0, 0, 0);
+    private static final LocalDateTime ACTUAL = LocalDateTime.of(2019, 6, 15, 0, 0, 0);
+    private static final LocalDateTime BEFORE = LocalDateTime.of(2019, 6, 14, 0, 0, 0);
+    private static final LocalDateTime AFTER = LocalDateTime.of(2019, 6, 16, 0, 0, 0);
 
     @Test
     void shouldReturnFailureWhenActualIsNull() {
@@ -29,7 +29,7 @@ class IsAfterOrEqualTest {
 
     @Test
     void shouldReturnFailureWhenActualIsNotStrictlyAfterGivenDate() {
-        Person p = new Person(REFERENCE);
+        Person p = new Person(ACTUAL);
 
         DefaultValidator<Person> validator = new DefaultValidator<>(Person.class);
         validator.ruleForLocalDateTime(Person::getBirthday).isAfterOrEqual(AFTER);
@@ -42,10 +42,10 @@ class IsAfterOrEqualTest {
 
     @Test
     void shouldNotReturnFailureWhenActualEqualsGivenDate() {
-        Person p = new Person(REFERENCE);
+        Person p = new Person(ACTUAL);
 
         DefaultValidator<Person> validator = new DefaultValidator<>(Person.class);
-        validator.ruleForLocalDateTime(Person::getBirthday).isAfterOrEqual(REFERENCE);
+        validator.ruleForLocalDateTime(Person::getBirthday).isAfterOrEqual(ACTUAL);
 
         List<ValidationFailure> failures = validator.validate(p);
 
@@ -54,7 +54,7 @@ class IsAfterOrEqualTest {
 
     @Test
     void shouldNotReturnFailureWhenActualDateIsAfterGivenDate() {
-        Person p = new Person(REFERENCE);
+        Person p = new Person(ACTUAL);
 
         DefaultValidator<Person> validator = new DefaultValidator<>(Person.class);
         validator.ruleForLocalDateTime(Person::getBirthday).isAfterOrEqual(BEFORE);
