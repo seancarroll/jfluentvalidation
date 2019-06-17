@@ -44,9 +44,9 @@ class IsDirectoryTest {
 
 
     @Test
-    void shouldReturnFailureWhenFile() {
+    void shouldReturnFailureWhenNotDirectory() {
         File actual = mock(File.class);
-        when(actual.isAbsolute()).thenReturn(false);
+        when(actual.isDirectory()).thenReturn(false);
 
         Target t = new Target(actual);
 
