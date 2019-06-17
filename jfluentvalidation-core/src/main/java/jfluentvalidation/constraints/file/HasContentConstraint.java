@@ -5,6 +5,7 @@ import jfluentvalidation.constraints.DefaultMessages;
 import jfluentvalidation.validators.RuleContext;
 
 import java.io.File;
+import java.nio.charset.Charset;
 
 /**
  *
@@ -13,9 +14,9 @@ import java.io.File;
 public class HasContentConstraint<T> extends AbstractConstraint<T, File> {
 
     private final String expectedContent;
-    private final String expectedCharset;
+    private final Charset expectedCharset;
 
-    public HasContentConstraint(String expectedContent, String expectedCharset) {
+    public HasContentConstraint(String expectedContent, Charset expectedCharset) {
         super(DefaultMessages.FILE_HAS_CONTENT);
         this.expectedContent = expectedContent;
         this.expectedCharset = expectedCharset;
@@ -23,6 +24,9 @@ public class HasContentConstraint<T> extends AbstractConstraint<T, File> {
 
     @Override
     public boolean isValid(RuleContext<T, File> context) {
+        if (context.getPropertyValue() == null) {
+            return false;
+        }
         return false;
     }
 }

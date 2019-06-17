@@ -2,8 +2,10 @@ package jfluentvalidation.constraints.file;
 
 import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.DefaultMessages;
+import jfluentvalidation.internal.Ensure;
 import jfluentvalidation.validators.RuleContext;
 
+import javax.annotation.Nonnull;
 import java.io.File;
 
 /**
@@ -14,13 +16,16 @@ public class HasExtensionConstraint<T> extends AbstractConstraint<T, File> {
 
     private final String expected;
 
-    public HasExtensionConstraint(String expected) {
+    public HasExtensionConstraint(@Nonnull String expected) {
         super(DefaultMessages.FILE_HAS_EXTENSION);
-        this.expected = expected;
+        this.expected = Ensure.notNull(expected);
     }
 
     @Override
     public boolean isValid(RuleContext<T, File> context) {
+        if (context.getPropertyValue() == null) {
+            return false;
+        }
         String actualExtension = getFileExtension(context.getPropertyValue());
         return expected.equals(actualExtension);
     }

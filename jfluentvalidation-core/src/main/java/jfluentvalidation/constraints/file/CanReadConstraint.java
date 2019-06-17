@@ -18,6 +18,9 @@ public class CanReadConstraint<T> extends AbstractConstraint<T, File> {
 
     @Override
     public boolean isValid(RuleContext<T, File> context) {
+        if (context.getPropertyValue() == null) {
+            return false;
+        }
         return context.getPropertyValue().canRead();
     }
 
