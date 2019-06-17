@@ -22,7 +22,6 @@ public class FileSubject<T> extends Subject<FileSubject<T>, T, File> implements 
     // hasSameContentAs(File expected)
     // hasSameContentAs(File expected, Charset expectedCharset)
 
-
     public FileSubject<T> canRead() {
         rule.addConstraint(new CanReadConstraint<>());
         return myself;

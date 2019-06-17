@@ -12,14 +12,14 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-class CanReadFileTest {
+class CanWriteFileTest {
 
     @Test
     void shouldReturnFailureWhenActualIsNull() {
         Target t = new Target(null);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForFile(Target::getFile).canRead();
+        validator.ruleForFile(Target::getFile).canWrite();
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -28,14 +28,14 @@ class CanReadFileTest {
 
 
     @Test
-    void shouldNotReturnFailureIfCanRead() {
+    void shouldNotReturnFailureIfCanWrite() {
         File actual = mock(File.class);
-        when(actual.canRead()).thenReturn(true);
+        when(actual.canWrite()).thenReturn(true);
 
         Target t = new Target(actual);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForFile(Target::getFile).canRead();
+        validator.ruleForFile(Target::getFile).canWrite();
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -44,14 +44,14 @@ class CanReadFileTest {
 
 
     @Test
-    void shouldReturnFailureIfCannotRead() {
+    void shouldReturnFailureIfCannotWrite() {
         File actual = mock(File.class);
-        when(actual.canRead()).thenReturn(false);
+        when(actual.canWrite()).thenReturn(false);
 
         Target t = new Target(actual);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForFile(Target::getFile).canRead();
+        validator.ruleForFile(Target::getFile).canWrite();
 
         List<ValidationFailure> failures = validator.validate(t);
 
