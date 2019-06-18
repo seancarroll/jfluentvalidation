@@ -12,6 +12,7 @@ package jfluentvalidation.core;
 import jfluentvalidation.constraints.Constraint;
 import jfluentvalidation.constraints.PredicateConstraint;
 import jfluentvalidation.constraints.object.IsEqualsConstraint;
+import jfluentvalidation.constraints.object.IsNotEqualsConstraint;
 import jfluentvalidation.constraints.object.IsNotNullConstraint;
 import jfluentvalidation.constraints.object.IsNullConstraint;
 import jfluentvalidation.rules.PropertyRule;
@@ -59,6 +60,11 @@ public class Subject<S extends Subject<S, T, A>, T, A> {
     // TODO: is there a better way to do this? What are some alternatives?
     public S isEquals(A other) {
         rule.addConstraint(new IsEqualsConstraint<>(other));
+        return myself;
+    }
+
+    public S isNotEquals(A other) {
+        rule.addConstraint(new IsNotEqualsConstraint<>(other));
         return myself;
     }
 

@@ -12,11 +12,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class IsNotEqualsTest {
 
     @Test
-    void shouldReturnFailureWhenActualIsNull() {
-        Target t = new Target(null);
+    void shouldReturnFailureWhenActualAsPrimitiveEqualsGiven() {
+        Target t = new Target(5);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForObject(Target::getId).isEquals(5);
+        validator.ruleForObject(Target::getId).isNotEquals(5);
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -24,48 +24,12 @@ class IsNotEqualsTest {
     }
 
     @Test
-    void shouldNotReturnFailureWhenActualAsPrimitiveEqualsGiven() {
-        Target t = new Target(5);
-
-        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForObject(Target::getId).isEquals(5);
-
-        List<ValidationFailure> failures = validator.validate(t);
-
-        assertTrue(failures.isEmpty());
-    }
-
-    @Test
-    void shouldNotReturnFailureWhenActualReferenceEqualsGiven() {
+    void shouldReturnFailureWhenActualReferenceEqualsGiven() {
         Object o = new Object();
         Target t = new Target(o);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForObject(Target::getId).isEquals(o);
-
-        List<ValidationFailure> failures = validator.validate(t);
-
-        assertTrue(failures.isEmpty());
-    }
-
-    @Test
-    void shouldNotReturnFailureWhenActualOverriddenEqualsMatchesGiven() {
-        Target t = new Target(new IdOverriddenEquals("some-id"));
-
-        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForObject(Target::getId).isEquals(new IdOverriddenEquals("some-id"));
-
-        List<ValidationFailure> failures = validator.validate(t);
-
-        assertTrue(failures.isEmpty());
-    }
-
-    @Test
-    void shouldReturnFailureWhenActualAsPrimitiveDoesNotEqualGiven() {
-        Target t = new Target(5);
-
-        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForObject(Target::getId).isEquals(7);
+        validator.ruleForObject(Target::getId).isNotEquals(o);
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -73,28 +37,52 @@ class IsNotEqualsTest {
     }
 
     @Test
-    void shouldReturnFailureWhenActualReferenceDoesNotEqualGiven() {
+    void shouldReturnFailureWhenActualOverriddenEqualsMatchesGiven() {
+        Target t = new Target(new IdOverriddenEquals("some-id"));
+
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        validator.ruleForObject(Target::getId).isNotEquals(new IdOverriddenEquals("some-id"));
+
+        List<ValidationFailure> failures = validator.validate(t);
+
+        assertFalse(failures.isEmpty());
+    }
+
+    @Test
+    void shouldNotReturnFailureWhenActualAsPrimitiveDoesNotEqualGiven() {
+        Target t = new Target(5);
+
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        validator.ruleForObject(Target::getId).isNotEquals(7);
+
+        List<ValidationFailure> failures = validator.validate(t);
+
+        assertTrue(failures.isEmpty());
+    }
+
+    @Test
+    void shouldNotReturnFailureWhenActualReferenceDoesNotEqualGiven() {
         Object o = new Object();
         Target t = new Target(o);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForObject(Target::getId).isEquals(new Object());
+        validator.ruleForObject(Target::getId).isNotEquals(new Object());
 
         List<ValidationFailure> failures = validator.validate(t);
 
-        assertFalse(failures.isEmpty());
+        assertTrue(failures.isEmpty());
     }
 
     @Test
-    void shouldReturnFailureWhenActualOverriddenEqualsDoesNotMatcheGiven() {
+    void shouldNotReturnFailureWhenActualOverriddenEqualsDoesNotMatchGiven() {
         Target t = new Target(new IdOverriddenEquals("some-id"));
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForObject(Target::getId).isEquals(new IdOverriddenEquals("other-id"));
+        validator.ruleForObject(Target::getId).isNotEquals(new IdOverriddenEquals("other-id"));
 
         List<ValidationFailure> failures = validator.validate(t);
 
-        assertFalse(failures.isEmpty());
+        assertTrue(failures.isEmpty());
     }
 
 }
