@@ -52,6 +52,7 @@ public class DateSubject<T> extends AbstractComparableSubject<DateSubject<T>, T,
     }
 
     public DateSubject<T> isInTheFuture() {
+        // TODO: should we have a Clock?
         isAfter(new Date());
         return myself;
     }
