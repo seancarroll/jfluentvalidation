@@ -14,7 +14,6 @@ import static org.mockito.Mockito.when;
 
 class IsAbsoluteFileTest {
 
-
     @Test
     void shouldReturnFailureWhenActualIsNull() {
         Target t = new Target(null);
@@ -26,7 +25,6 @@ class IsAbsoluteFileTest {
 
         assertFalse(failures.isEmpty());
     }
-
 
     @Test
     void shouldNotReturnFailureWhenFileIsAbsolute() {
