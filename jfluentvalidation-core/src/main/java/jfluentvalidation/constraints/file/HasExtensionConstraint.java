@@ -26,6 +26,12 @@ public class HasExtensionConstraint<T> extends AbstractConstraint<T, File> {
         if (context.getPropertyValue() == null) {
             return false;
         }
+
+        // TODO: check if not a file. Should we throw?
+        if (!context.getPropertyValue().isFile()) {
+            return false;
+        }
+
         String actualExtension = getFileExtension(context.getPropertyValue());
         return expected.equals(actualExtension);
     }
