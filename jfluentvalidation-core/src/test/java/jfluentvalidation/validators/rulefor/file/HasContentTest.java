@@ -1,5 +1,6 @@
 package jfluentvalidation.validators.rulefor.file;
 
+import jfluentvalidation.IORuntimeException;
 import jfluentvalidation.ValidationFailure;
 import jfluentvalidation.validators.DefaultValidator;
 import org.junit.jupiter.api.Test;
@@ -77,14 +78,17 @@ class HasContentTest {
     }
 
     @Test
-    void shouldReturnFailureWhenThereIsAnIOException() {
-        Target t = new Target(new File("src/test/resources/a_fake_file.txt"));
+    void shouldThrowExceptionWhenThereIsAnIOException() {
+        File file = new File("src/test/resources/UnreadableFile.txt");
+        file.setReadable(false);
+        Target t = new Target(file);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForFile(Target::getFile).hasContent("stuff");
 
-        List<ValidationFailure> failures = validator.validate(t);
+        assertThrows(IORuntimeException.class, () -> validator.validate(t));
 
-        assertFalse(failures.isEmpty());
+        // things such as git dont like it when the file is not readable so put it back into a readable state
+        file.setReadable(true);
     }
 }

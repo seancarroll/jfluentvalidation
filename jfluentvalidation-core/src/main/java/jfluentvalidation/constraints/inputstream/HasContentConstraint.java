@@ -1,11 +1,10 @@
 package jfluentvalidation.constraints.inputstream;
 
+import jfluentvalidation.IORuntimeException;
 import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.DefaultMessages;
 import jfluentvalidation.internal.Ensure;
 import jfluentvalidation.validators.RuleContext;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.annotation.Nonnull;
 import java.io.*;
@@ -18,8 +17,6 @@ import java.util.Objects;
  * @param <T>  the target type supported by an implementation.
  */
 public class HasContentConstraint<T> extends AbstractConstraint<T, InputStream> {
-
-    protected final Logger LOGGER = LoggerFactory.getLogger(HasContentConstraint.class);
 
     private final String expected;
 
@@ -51,9 +48,7 @@ public class HasContentConstraint<T> extends AbstractConstraint<T, InputStream> 
 
             return true;
         } catch (IOException e) {
-            // TODO: instead of return false throw a exception. need to wrap in a runtime exception
-            LOGGER.warn("encountered an IOException while reading contents on InputStream");
-            return false;
+            throw new IORuntimeException("Unable to read contents of InputStream", e);
         }
     }
 

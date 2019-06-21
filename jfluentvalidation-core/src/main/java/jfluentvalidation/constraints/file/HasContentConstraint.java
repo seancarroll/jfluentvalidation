@@ -1,11 +1,10 @@
 package jfluentvalidation.constraints.file;
 
+import jfluentvalidation.IORuntimeException;
 import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.DefaultMessages;
 import jfluentvalidation.internal.Ensure;
 import jfluentvalidation.validators.RuleContext;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.annotation.Nonnull;
 import java.io.File;
@@ -13,13 +12,13 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 
+import static java.lang.String.format;
+
 /**
  *
  * @param <T>  the target type supported by an implementation.
  */
 public class HasContentConstraint<T> extends AbstractConstraint<T, File> {
-
-    protected final Logger LOGGER = LoggerFactory.getLogger(HasContentConstraint.class);
 
     private final String expectedContent;
     private final Charset expectedCharset;
@@ -47,8 +46,8 @@ public class HasContentConstraint<T> extends AbstractConstraint<T, File> {
             return expectedContent.equals(new String(bytes, expectedCharset));
 
         } catch (IOException e) {
-            LOGGER.warn("encountered an IOException while reading file {}", context.getPropertyValue().getName());
-            return false;
+            String msg = format("Unable to read contents of File %s", context.getPropertyValue().getName());
+            throw new IORuntimeException(msg, e);
         }
     }
 }
