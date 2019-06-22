@@ -34,8 +34,10 @@ public class IsBetweenConstraint<T, P extends Comparable<? super P>> extends Abs
 
     @Override
     public boolean isValid(RuleContext<T, P> context) {
-        P actual = context.getPropertyValue();
-        return Comparables.isBetween(actual, start, end, inclusiveStart, inclusiveEnd);
+        if (context.getPropertyValue() == null) {
+            return false;
+        }
+        return Comparables.isBetween(context.getPropertyValue(), start, end, inclusiveStart, inclusiveEnd);
     }
 
 }

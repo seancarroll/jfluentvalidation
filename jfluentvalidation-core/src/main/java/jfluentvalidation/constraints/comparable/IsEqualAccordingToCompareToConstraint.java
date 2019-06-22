@@ -10,7 +10,8 @@ import javax.annotation.Nonnull;
 // TODO: is this the correct way of doing this?
 
 /**
- *
+ *   * Asserts that two <code>{@link Comparable}</code>s are not equal by invoking
+ *    * <code>{@link Comparable#compareTo(Object)}</code> .<br>
  * @param <T>  type of instance to validate.
  * @param <P>  the type of the actual object being tested by this {@code Constraint}.
  */
@@ -25,6 +26,9 @@ public class IsEqualAccordingToCompareToConstraint<T, P extends Comparable<? sup
 
     @Override
     public boolean isValid(RuleContext<T, P> context) {
+        if (context.getPropertyValue() == null) {
+            return false;
+        }
         return context.getPropertyValue().compareTo(other) == 0;
     }
 }
