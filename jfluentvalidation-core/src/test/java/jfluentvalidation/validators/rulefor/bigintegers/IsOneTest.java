@@ -1,4 +1,4 @@
-package jfluentvalidation.validators.rulefor.shorts;
+package jfluentvalidation.validators.rulefor.bigintegers;
 
 import jfluentvalidation.ValidationFailure;
 import jfluentvalidation.validators.DefaultValidator;
@@ -6,20 +6,19 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
+import static java.math.BigInteger.ONE;
+import static java.math.BigInteger.ZERO;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class IsZeroTest {
-
-    private static final short ZERO = 0;
-    private static final short ONE = 1;
+class IsOneTest {
 
     @Test
-    void shouldNotReturnFailureWhenActualIsZero() {
-        Target t = new Target(ZERO);
+    void shouldNotReturnFailureWhenActualIsOne() {
+        Target t = new Target(ONE);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForShort(Target::getNumber).isZero();
+        validator.ruleForBigInteger(Target::getNumber).isOne();
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -27,11 +26,11 @@ class IsZeroTest {
     }
 
     @Test
-    void shouldReturnFailureWhenActualIsNotZero() {
-        Target t = new Target(ONE);
+    void shouldReturnFailureWhenActualIsNotOne() {
+        Target t = new Target(ZERO);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForShort(Target::getNumber).isZero();
+        validator.ruleForBigInteger(Target::getNumber).isOne();
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -43,7 +42,7 @@ class IsZeroTest {
         Target t = new Target(null);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForShort(Target::getNumber).isZero();
+        validator.ruleForBigInteger(Target::getNumber).isOne();
 
         List<ValidationFailure> failures = validator.validate(t);
 

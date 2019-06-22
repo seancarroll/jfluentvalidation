@@ -1,4 +1,4 @@
-package jfluentvalidation.validators.rulefor.shorts;
+package jfluentvalidation.validators.rulefor.bigintegers;
 
 import jfluentvalidation.ValidationFailure;
 import jfluentvalidation.validators.DefaultValidator;
@@ -6,20 +6,31 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
+import static java.math.BigInteger.TEN;
+import static java.math.BigInteger.ZERO;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class IsZeroTest {
-
-    private static final short ZERO = 0;
-    private static final short ONE = 1;
+class IsEqualAccordingToCompareToTest {
 
     @Test
-    void shouldNotReturnFailureWhenActualIsZero() {
-        Target t = new Target(ZERO);
+    void shouldReturnFailureWhenActualIsNull() {
+        Target t = new Target(null);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForShort(Target::getNumber).isZero();
+        validator.ruleForBigInteger(Target::getNumber).isEqualAccordingToCompareTo(TEN);
+
+        List<ValidationFailure> failures = validator.validate(t);
+
+        assertFalse(failures.isEmpty());
+    }
+
+    @Test
+    void shouldNotReturnFailureWhenObjectsAreEqualViaCompareTo() {
+        Target t = new Target(TEN);
+
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        validator.ruleForBigInteger(Target::getNumber).isEqualAccordingToCompareTo(TEN);
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -27,26 +38,15 @@ class IsZeroTest {
     }
 
     @Test
-    void shouldReturnFailureWhenActualIsNotZero() {
-        Target t = new Target(ONE);
+    void shouldReturnFailureWhenObjectsAreNotEqualViaCompareTo() {
+        Target t = new Target(ZERO);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForShort(Target::getNumber).isZero();
+        validator.ruleForBigInteger(Target::getNumber).isEqualAccordingToCompareTo(TEN);
 
         List<ValidationFailure> failures = validator.validate(t);
 
         assertFalse(failures.isEmpty());
     }
 
-    @Test
-    void shouldReturnFailureWhenActualIsNull() {
-        Target t = new Target(null);
-
-        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForShort(Target::getNumber).isZero();
-
-        List<ValidationFailure> failures = validator.validate(t);
-
-        assertFalse(failures.isEmpty());
-    }
 }
