@@ -1,4 +1,4 @@
-package jfluentvalidation.validators.rulefor.integer;
+package jfluentvalidation.validators.rulefor.floats;
 
 import jfluentvalidation.ValidationFailure;
 import jfluentvalidation.validators.DefaultValidator;
@@ -15,21 +15,21 @@ class IsBetweenTest {
     @Test
     void shouldThrowExceptionWhenStartIsNull() {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        assertThrows(NullPointerException.class, () -> validator.ruleForInteger(Target::getNumber).isBetween(null, 5));
+        assertThrows(NullPointerException.class, () -> validator.ruleForFloat(Target::getNumber).isBetween(null, 5f));
     }
 
     @Test
     void shouldThrowExceptionWhenEndIsNull() {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        assertThrows(NullPointerException.class, () -> validator.ruleForInteger(Target::getNumber).isBetween(0, null));
+        assertThrows(NullPointerException.class, () -> validator.ruleForFloat(Target::getNumber).isBetween(0f, null));
     }
 
     @Test
     void shouldNotReturnFailureWhenActualIsInRange() {
-        Target t = new Target(1);
+        Target t = new Target(1f);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForInteger(Target::getNumber).isBetween(0, 5);
+        validator.ruleForFloat(Target::getNumber).isBetween(0f, 5f);
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -38,10 +38,10 @@ class IsBetweenTest {
 
     @Test
     void shouldNotReturnFailureWhenActualIsEqualToStart() {
-        Target t = new Target(0);
+        Target t = new Target(0f);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForInteger(Target::getNumber).isBetween(0, 5);
+        validator.ruleForFloat(Target::getNumber).isBetween(0f, 5f);
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -50,10 +50,10 @@ class IsBetweenTest {
 
     @Test
     void shouldNotReturnFailureWhenActualIsEqualToEnd() {
-        Target t = new Target(5);
+        Target t = new Target(5f);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForInteger(Target::getNumber).isBetween(0, 5);
+        validator.ruleForFloat(Target::getNumber).isBetween(0f, 5f);
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -62,10 +62,10 @@ class IsBetweenTest {
 
     @Test
     void shouldReturnFailureWhenActualIsBeforeStart() {
-        Target t = new Target(-1);
+        Target t = new Target(-1f);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForInteger(Target::getNumber).isBetween(0, 5);
+        validator.ruleForFloat(Target::getNumber).isBetween(0f, 5f);
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -74,10 +74,10 @@ class IsBetweenTest {
 
     @Test
     void shouldReturnFailureWhenActualIsAfterEnd() {
-        Target t = new Target(6);
+        Target t = new Target(6f);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForInteger(Target::getNumber).isBetween(0, 5);
+        validator.ruleForFloat(Target::getNumber).isBetween(0f, 5f);
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -89,7 +89,7 @@ class IsBetweenTest {
         Target t = new Target(null);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForInteger(Target::getNumber).isBetween(0, 5);
+        validator.ruleForFloat(Target::getNumber).isBetween(0f, 5f);
 
         List<ValidationFailure> failures = validator.validate(t);
 
