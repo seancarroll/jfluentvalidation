@@ -1,6 +1,9 @@
 package jfluentvalidation.core;
 
-import jfluentvalidation.constraints.comparable.*;
+import jfluentvalidation.constraints.comparable.IsGreaterThanConstraint;
+import jfluentvalidation.constraints.comparable.IsGreaterThanOrEqualToConstraint;
+import jfluentvalidation.constraints.comparable.IsLessThanConstraint;
+import jfluentvalidation.constraints.comparable.IsLessThanOrEqualToConstraint;
 import jfluentvalidation.rules.PropertyRule;
 
 import java.util.Date;

@@ -2,7 +2,6 @@ package jfluentvalidation.validators.rulefor.bigdecimals;
 
 import jfluentvalidation.ValidationFailure;
 import jfluentvalidation.validators.DefaultValidator;
-
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

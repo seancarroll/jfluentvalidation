@@ -1,6 +1,9 @@
 package jfluentvalidation.core;
 
-import jfluentvalidation.constraints.array.length.*;
+import jfluentvalidation.constraints.array.length.ByteArrayBetweenLengthConstraint;
+import jfluentvalidation.constraints.array.length.ByteArrayExactLengthConstraint;
+import jfluentvalidation.constraints.array.length.ByteArrayMaximumLengthConstraint;
+import jfluentvalidation.constraints.array.length.ByteArrayMinimumLengthConstraint;
 import jfluentvalidation.constraints.array.notempty.IsNotEmptyByteArrayConstraint;
 import jfluentvalidation.rules.PropertyRule;
 

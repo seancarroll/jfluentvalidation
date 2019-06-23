@@ -1,7 +1,16 @@
 package jfluentvalidation.core;
 
 import jfluentvalidation.constraints.comparable.*;
-import jfluentvalidation.constraints.file.*;
+import jfluentvalidation.constraints.file.CanReadConstraint;
+import jfluentvalidation.constraints.file.CanWriteConstraint;
+import jfluentvalidation.constraints.file.FileExistsConstraint;
+import jfluentvalidation.constraints.file.HasContentConstraint;
+import jfluentvalidation.constraints.file.HasExtensionConstraint;
+import jfluentvalidation.constraints.file.HasNameConstraint;
+import jfluentvalidation.constraints.file.IsAbsoluteConstraint;
+import jfluentvalidation.constraints.file.IsDirectoryConstraint;
+import jfluentvalidation.constraints.file.IsFileConstraint;
+import jfluentvalidation.constraints.file.IsRelativeConstraint;
 import jfluentvalidation.rules.PropertyRule;
 
 import java.io.File;

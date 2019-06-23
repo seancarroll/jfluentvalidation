@@ -77,7 +77,7 @@ public final class Iterables {
         return toArray(iterable, MoreArrays.newArray(type, 0));
     }
 
-    static <T> T[] toArray(Iterable<? extends T> iterable, T[] array) {
+    public static <T> T[] toArray(Iterable<? extends T> iterable, T[] array) {
         return toCollection(iterable).toArray(array);
     }
 

@@ -1,6 +1,9 @@
 package jfluentvalidation.core;
 
-import jfluentvalidation.constraints.charsequence.*;
+import jfluentvalidation.constraints.charsequence.CharSequenceConstraints;
+import jfluentvalidation.constraints.charsequence.IsEmptyConstraint;
+import jfluentvalidation.constraints.charsequence.IsNotEmptyConstraint;
+import jfluentvalidation.constraints.charsequence.LengthConstraint;
 import jfluentvalidation.rules.PropertyRule;
 
 import java.util.regex.Pattern;
