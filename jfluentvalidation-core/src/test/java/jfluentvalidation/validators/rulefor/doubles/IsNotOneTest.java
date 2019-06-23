@@ -1,4 +1,4 @@
-package jfluentvalidation.validators.rulefor.floats;
+package jfluentvalidation.validators.rulefor.doubles;
 
 import jfluentvalidation.ValidationFailure;
 import jfluentvalidation.validators.DefaultValidator;
@@ -13,10 +13,10 @@ class IsNotOneTest {
 
     @Test
     void shouldNotReturnFailureWhenActualIsNotOne() {
-        Target t = new Target(2f);
+        Target t = new Target(2d);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForFloat(Target::getNumber).isNotOne();
+        validator.ruleForDouble(Target::getNumber).isNotOne();
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -25,10 +25,10 @@ class IsNotOneTest {
 
     @Test
     void shouldReturnFailureWhenActualIsOne() {
-        Target t = new Target(1f);
+        Target t = new Target(1d);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForFloat(Target::getNumber).isNotOne();
+        validator.ruleForDouble(Target::getNumber).isNotOne();
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -40,7 +40,7 @@ class IsNotOneTest {
         Target t = new Target(null);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForFloat(Target::getNumber).isNotOne();
+        validator.ruleForDouble(Target::getNumber).isNotOne();
 
         List<ValidationFailure> failures = validator.validate(t);
 

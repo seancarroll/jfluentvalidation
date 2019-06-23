@@ -1,4 +1,4 @@
-package jfluentvalidation.validators.rulefor.floats;
+package jfluentvalidation.validators.rulefor.doubles;
 
 import jfluentvalidation.ValidationFailure;
 import jfluentvalidation.validators.DefaultValidator;
@@ -13,10 +13,10 @@ class IsPositiveTest {
 
     @Test
     void shouldNotReturnFailureWhenActualIsPositive() {
-        Target t = new Target(1f);
+        Target t = new Target(1d);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForFloat(Target::getNumber).isPositive();
+        validator.ruleForDouble(Target::getNumber).isPositive();
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -25,10 +25,10 @@ class IsPositiveTest {
 
     @Test
     void shouldReturnFailureWhenActualIsNotPositive() {
-        Target t = new Target(-1f);
+        Target t = new Target(-1d);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForFloat(Target::getNumber).isPositive();
+        validator.ruleForDouble(Target::getNumber).isPositive();
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -40,7 +40,7 @@ class IsPositiveTest {
         Target t = new Target(null);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForFloat(Target::getNumber).isPositive();
+        validator.ruleForDouble(Target::getNumber).isPositive();
 
         List<ValidationFailure> failures = validator.validate(t);
 
