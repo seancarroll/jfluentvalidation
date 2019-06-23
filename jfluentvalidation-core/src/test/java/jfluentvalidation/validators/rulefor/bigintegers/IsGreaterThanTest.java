@@ -4,16 +4,14 @@ import jfluentvalidation.ValidationFailure;
 import jfluentvalidation.validators.DefaultValidator;
 import org.junit.jupiter.api.Test;
 
-import java.math.BigInteger;
 import java.util.List;
 
 import static java.math.BigInteger.TEN;
+import static jfluentvalidation.validators.rulefor.bigintegers.Constants.FIVE;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class IsGreaterThanTest {
-
-    private static final BigInteger FIVE = BigInteger.valueOf(5);
 
     @Test
     void shouldNotReturnFailureWhenActualIsGreaterThanGiven() {
