@@ -4,16 +4,16 @@ import jfluentvalidation.ValidationFailure;
 import jfluentvalidation.validators.DefaultValidator;
 import org.junit.jupiter.api.Test;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import static java.math.BigDecimal.*;
+import static jfluentvalidation.validators.rulefor.bigdecimals.Constants.FIVE;
 import static org.junit.jupiter.api.Assertions.*;
 
 class IsBetweenTest {
 
     // TODO: add tests for between override inclusive false
-    private static final BigDecimal FIVE = BigDecimal.valueOf(5);
+
 
     @Test
     void shouldThrowExceptionWhenStartIsNull() {

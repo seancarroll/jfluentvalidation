@@ -6,19 +6,19 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static java.math.BigDecimal.TEN;
-import static jfluentvalidation.validators.rulefor.bigdecimals.Constants.FIVE;
+import static java.math.BigDecimal.ONE;
+import static java.math.BigDecimal.ZERO;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class IsLessThanTest {
+class IsNotOneTest {
 
     @Test
-    void shouldNotReturnFailureWhenActualIsLessThanGiven() {
-        Target t = new Target(FIVE);
+    void shouldNotReturnFailureWhenActualIsNotOne() {
+        Target t = new Target(ZERO);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForBigDecimal(Target::getNumber).isLessThan(TEN);
+        validator.ruleForBigDecimal(Target::getNumber).isNotOne();
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -26,23 +26,11 @@ class IsLessThanTest {
     }
 
     @Test
-    void shouldReturnFailureWhenActualEqualsGiven() {
-        Target t = new Target(TEN);
+    void shouldReturnFailureWhenActualIsOne() {
+        Target t = new Target(ONE);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForBigDecimal(Target::getNumber).isLessThan(TEN);
-
-        List<ValidationFailure> failures = validator.validate(t);
-
-        assertFalse(failures.isEmpty());
-    }
-
-    @Test
-    void shouldReturnFailureWhenActualGreaterThanGiven() {
-        Target t = new Target(TEN);
-
-        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForBigDecimal(Target::getNumber).isLessThan(FIVE);
+        validator.ruleForBigDecimal(Target::getNumber).isNotOne();
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -54,10 +42,11 @@ class IsLessThanTest {
         Target t = new Target(null);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForBigDecimal(Target::getNumber).isLessThan(TEN);
+        validator.ruleForBigDecimal(Target::getNumber).isNotOne();
 
         List<ValidationFailure> failures = validator.validate(t);
 
         assertFalse(failures.isEmpty());
     }
+
 }
