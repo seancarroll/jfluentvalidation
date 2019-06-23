@@ -6,13 +6,12 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
+import static jfluentvalidation.validators.rulefor.shorts.Constants.TEN;
+import static jfluentvalidation.validators.rulefor.shorts.Constants.ZERO;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class IsNotEqualAccordingToCompareToTest {
-
-    private static final short ZERO = 0;
-    private static final short TEN = 10;
 
     @Test
     void shouldReturnFailureWhenActualIsNull() {

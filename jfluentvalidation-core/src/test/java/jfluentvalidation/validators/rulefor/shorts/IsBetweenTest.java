@@ -6,16 +6,12 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
+import static jfluentvalidation.validators.rulefor.shorts.Constants.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class IsBetweenTest {
 
     // TODO: add tests for between override inclusive false
-
-    private static final short ZERO = 0;
-    private static final short ONE = 1;
-    private static final short FIVE = 5;
-    private static final short TEN = 10;
 
     @Test
     void shouldThrowExceptionWhenStartIsNull() {

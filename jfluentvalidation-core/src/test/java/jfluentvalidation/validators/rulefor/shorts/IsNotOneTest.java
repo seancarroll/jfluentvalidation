@@ -6,19 +6,19 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static jfluentvalidation.validators.rulefor.shorts.Constants.FIVE;
-import static jfluentvalidation.validators.rulefor.shorts.Constants.TEN;
+import static jfluentvalidation.validators.rulefor.shorts.Constants.ONE;
+import static jfluentvalidation.validators.rulefor.shorts.Constants.ZERO;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class IsLessThanOrEqualTest {
+class IsNotOneTest {
 
     @Test
-    void shouldNotReturnFailureWhenActualIsLessThanGiven() {
-        Target t = new Target(FIVE);
+    void shouldNotReturnFailureWhenActualIsNotOne() {
+        Target t = new Target(ZERO);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForShort(Target::getNumber).isLessThanOrEqualTo(TEN);
+        validator.ruleForShort(Target::getNumber).isNotOne();
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -26,23 +26,11 @@ class IsLessThanOrEqualTest {
     }
 
     @Test
-    void shouldNotReturnFailureWhenActualEqualsGiven() {
-        Target t = new Target(TEN);
+    void shouldReturnFailureWhenActualIsOne() {
+        Target t = new Target(ONE);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForShort(Target::getNumber).isLessThanOrEqualTo(TEN);
-
-        List<ValidationFailure> failures = validator.validate(t);
-
-        assertTrue(failures.isEmpty());
-    }
-
-    @Test
-    void shouldReturnFailureWhenActualGreaterThanGiven() {
-        Target t = new Target(TEN);
-
-        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForShort(Target::getNumber).isLessThanOrEqualTo(FIVE);
+        validator.ruleForShort(Target::getNumber).isNotOne();
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -54,10 +42,11 @@ class IsLessThanOrEqualTest {
         Target t = new Target(null);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForShort(Target::getNumber).isLessThanOrEqualTo(TEN);
+        validator.ruleForShort(Target::getNumber).isNotOne();
 
         List<ValidationFailure> failures = validator.validate(t);
 
         assertFalse(failures.isEmpty());
     }
+
 }

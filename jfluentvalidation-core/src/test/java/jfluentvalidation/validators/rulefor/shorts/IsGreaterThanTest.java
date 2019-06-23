@@ -6,13 +6,12 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
+import static jfluentvalidation.validators.rulefor.shorts.Constants.FIVE;
+import static jfluentvalidation.validators.rulefor.shorts.Constants.TEN;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class IsGreaterThanTest {
-
-    private static final short FIVE = 5;
-    private static final short TEN = 10;
 
     @Test
     void shouldNotReturnFailureWhenActualIsGreaterThanGiven() {

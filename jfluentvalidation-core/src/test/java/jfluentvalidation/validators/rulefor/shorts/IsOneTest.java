@@ -6,13 +6,12 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
+import static jfluentvalidation.validators.rulefor.shorts.Constants.ONE;
+import static jfluentvalidation.validators.rulefor.shorts.Constants.ZERO;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class IsOneTest {
-
-    private static final short ZERO = 0;
-    private static final short ONE = 1;
 
     @Test
     void shouldNotReturnFailureWhenActualIsOne() {
