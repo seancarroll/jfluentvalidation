@@ -11,42 +11,42 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class HasParameterConstraintTest {
+class hasNoQueryTest {
 
     @Test
-    void shouldReturnFailureWhenParametersAreNotPresent() throws MalformedURLException {
+    void shouldReturnFailureIfActualUrlIsNull() {
+        Profile p = new Profile(null);
+
+        DefaultValidator<Profile> validator = new DefaultValidator<>(Profile.class);
+        validator.ruleForUrl(Profile::getWebsite).hasNoQuery();
+
+        List<ValidationFailure> failures = validator.validate(p);
+
+        assertFalse(failures.isEmpty());
+    }
+
+    @Test
+    void shouldNotReturnFailureIfActualUrlDoesNotHaveQuery() throws MalformedURLException {
         Profile p = new Profile(new URL("http://example.com"));
 
         DefaultValidator<Profile> validator = new DefaultValidator<>(Profile.class);
-        validator.ruleForUrl(Profile::getWebsite).hasParameter("foo");
-
-        List<ValidationFailure> failures = validator.validate(p);
-
-        assertFalse(failures.isEmpty());
-    }
-
-    @Test
-    void shouldReturnFailureWhenParameterIsNotPresent() throws MalformedURLException {
-        Profile p = new Profile(new URL("http://example.com?foo=bar"));
-
-        DefaultValidator<Profile> validator = new DefaultValidator<>(Profile.class);
-        validator.ruleForUrl(Profile::getWebsite).hasParameter("baz");
-
-        List<ValidationFailure> failures = validator.validate(p);
-
-        assertFalse(failures.isEmpty());
-    }
-
-    @Test
-    void shouldReturnNoFailureWhenExpectedParameterIsPresent() throws MalformedURLException {
-        Profile p = new Profile(new URL("http://example.com?foo=bar"));
-
-        DefaultValidator<Profile> validator = new DefaultValidator<>(Profile.class);
-        validator.ruleForUrl(Profile::getWebsite).hasParameter("foo");
+        validator.ruleForUrl(Profile::getWebsite).hasNoQuery();
 
         List<ValidationFailure> failures = validator.validate(p);
 
         assertTrue(failures.isEmpty());
+    }
+
+    @Test
+    void shouldReturnFailureIfActualUrlHasQuery() throws MalformedURLException {
+        Profile p = new Profile(new URL("http://example.com?foo=bar"));
+
+        DefaultValidator<Profile> validator = new DefaultValidator<>(Profile.class);
+        validator.ruleForUrl(Profile::getWebsite).hasNoQuery();
+
+        List<ValidationFailure> failures = validator.validate(p);
+
+        assertFalse(failures.isEmpty());
     }
 
 }

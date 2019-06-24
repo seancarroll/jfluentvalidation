@@ -11,26 +11,14 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class HasPortTest {
+class HasNoAnchorTest {
 
     @Test
-    void shouldReturnFailureIfActualUrlIsNull() {
-        Profile p = new Profile(null);
+    void shouldNotReturnFailureWhenActualUrlHasNoAnchor() throws MalformedURLException {
+        Profile p = new Profile(new URL("http://example.com/pages/"));
 
         DefaultValidator<Profile> validator = new DefaultValidator<>(Profile.class);
-        validator.ruleForUrl(Profile::getWebsite).hasPort(8080);
-
-        List<ValidationFailure> failures = validator.validate(p);
-
-        assertFalse(failures.isEmpty());
-    }
-
-    @Test
-    void shouldNotReturnFailureWhenActualUrlHasTheGivenPort() throws MalformedURLException {
-        Profile p = new Profile(new URL("http://example.com:8080"));
-
-        DefaultValidator<Profile> validator = new DefaultValidator<>(Profile.class);
-        validator.ruleForUrl(Profile::getWebsite).hasPort(8080);
+        validator.ruleForUrl(Profile::getWebsite).hasNoAnchor();
 
         List<ValidationFailure> failures = validator.validate(p);
 
@@ -38,15 +26,26 @@ class HasPortTest {
     }
 
     @Test
-    void shouldReturnFailureWhenActualUrlPortIsNotTheGivenPort() throws MalformedURLException {
-        Profile p = new Profile(new URL("http://example.com:80"));
+    void shouldReturnFailureWhenActualAnchorHasAnchor() throws MalformedURLException {
+        Profile p = new Profile(new URL("http://example.com/pages/#something"));
 
         DefaultValidator<Profile> validator = new DefaultValidator<>(Profile.class);
-        validator.ruleForUrl(Profile::getWebsite).hasPort(8080);
+        validator.ruleForUrl(Profile::getWebsite).hasNoAnchor();
 
         List<ValidationFailure> failures = validator.validate(p);
 
         assertFalse(failures.isEmpty());
     }
 
+    @Test
+    void shouldReturnFailureWhenActualUrlIsNull() {
+        Profile p = new Profile(null);
+
+        DefaultValidator<Profile> validator = new DefaultValidator<>(Profile.class);
+        validator.ruleForUrl(Profile::getWebsite).hasNoAnchor();
+
+        List<ValidationFailure> failures = validator.validate(p);
+
+        assertFalse(failures.isEmpty());
+    }
 }

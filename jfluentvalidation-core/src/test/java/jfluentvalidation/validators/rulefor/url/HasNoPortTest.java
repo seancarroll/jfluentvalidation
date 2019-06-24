@@ -11,14 +11,14 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class HasPortTest {
+class HasNoPortTest {
 
     @Test
     void shouldReturnFailureIfActualUrlIsNull() {
         Profile p = new Profile(null);
 
         DefaultValidator<Profile> validator = new DefaultValidator<>(Profile.class);
-        validator.ruleForUrl(Profile::getWebsite).hasPort(8080);
+        validator.ruleForUrl(Profile::getWebsite).hasNoPort();
 
         List<ValidationFailure> failures = validator.validate(p);
 
@@ -26,11 +26,11 @@ class HasPortTest {
     }
 
     @Test
-    void shouldNotReturnFailureWhenActualUrlHasTheGivenPort() throws MalformedURLException {
-        Profile p = new Profile(new URL("http://example.com:8080"));
+    void shouldNotReturnFailureWhenActualUrlDoesNotHavePort() throws MalformedURLException {
+        Profile p = new Profile(new URL("http://example.com"));
 
         DefaultValidator<Profile> validator = new DefaultValidator<>(Profile.class);
-        validator.ruleForUrl(Profile::getWebsite).hasPort(8080);
+        validator.ruleForUrl(Profile::getWebsite).hasNoPort();
 
         List<ValidationFailure> failures = validator.validate(p);
 
@@ -38,11 +38,11 @@ class HasPortTest {
     }
 
     @Test
-    void shouldReturnFailureWhenActualUrlPortIsNotTheGivenPort() throws MalformedURLException {
+    void shouldReturnFailureWhenActualUrlHasPort() throws MalformedURLException {
         Profile p = new Profile(new URL("http://example.com:80"));
 
         DefaultValidator<Profile> validator = new DefaultValidator<>(Profile.class);
-        validator.ruleForUrl(Profile::getWebsite).hasPort(8080);
+        validator.ruleForUrl(Profile::getWebsite).hasNoPort();
 
         List<ValidationFailure> failures = validator.validate(p);
 

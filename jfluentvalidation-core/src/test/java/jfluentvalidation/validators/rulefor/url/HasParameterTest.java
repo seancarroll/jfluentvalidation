@@ -11,14 +11,14 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class HasAnchorConstraintTest {
+class HasParameterTest {
 
     @Test
-    void shouldReturnFailureWhenActualAnchorIsNotPresentAndExpectedAnchorIsNotNull() throws MalformedURLException {
-        Profile p = new Profile(new URL("http://example.com/pages/"));
+    void shouldReturnFailureWhenParametersAreNotPresent() throws MalformedURLException {
+        Profile p = new Profile(new URL("http://example.com"));
 
         DefaultValidator<Profile> validator = new DefaultValidator<>(Profile.class);
-        validator.ruleForUrl(Profile::getWebsite).hasAnchor("something");
+        validator.ruleForUrl(Profile::getWebsite).hasParameter("foo");
 
         List<ValidationFailure> failures = validator.validate(p);
 
@@ -26,11 +26,11 @@ class HasAnchorConstraintTest {
     }
 
     @Test
-    void shouldReturnFailureWhenActualAnchorDoesNotMatchExpectedAnchor() throws MalformedURLException {
-        Profile p = new Profile(new URL("http://example.com/pages/#something"));
+    void shouldReturnFailureWhenParameterIsNotPresent() throws MalformedURLException {
+        Profile p = new Profile(new URL("http://example.com?foo=bar"));
 
         DefaultValidator<Profile> validator = new DefaultValidator<>(Profile.class);
-        validator.ruleForUrl(Profile::getWebsite).hasAnchor("other");
+        validator.ruleForUrl(Profile::getWebsite).hasParameter("baz");
 
         List<ValidationFailure> failures = validator.validate(p);
 
@@ -38,11 +38,23 @@ class HasAnchorConstraintTest {
     }
 
     @Test
-    void shouldNotReturnFailureWhenActualUrlHasNoAnchorAndExpectedIsNull() throws MalformedURLException {
-        Profile p = new Profile(new URL("http://example.com/pages/"));
+    void shouldReturnFailureWhenParameterValueDoesNotMatch() throws MalformedURLException {
+        Profile p = new Profile(new URL("http://example.com?foo=bar"));
 
         DefaultValidator<Profile> validator = new DefaultValidator<>(Profile.class);
-        validator.ruleForUrl(Profile::getWebsite).hasAnchor(null);
+        validator.ruleForUrl(Profile::getWebsite).hasParameter("foo", "baz");
+
+        List<ValidationFailure> failures = validator.validate(p);
+
+        assertFalse(failures.isEmpty());
+    }
+
+    @Test
+    void shouldNotReturnFailureWhenExpectedParameterIsPresent() throws MalformedURLException {
+        Profile p = new Profile(new URL("http://example.com?foo=bar"));
+
+        DefaultValidator<Profile> validator = new DefaultValidator<>(Profile.class);
+        validator.ruleForUrl(Profile::getWebsite).hasParameter("foo");
 
         List<ValidationFailure> failures = validator.validate(p);
 
@@ -50,26 +62,15 @@ class HasAnchorConstraintTest {
     }
 
     @Test
-    void shouldNotReturnFailureWhenActualUrlHasExpectedAnchor() throws MalformedURLException {
-        Profile p = new Profile(new URL("http://example.com/pages/#something"));
+    void shouldNotReturnFailureWhenExpectedParameterHasValue() throws MalformedURLException {
+        Profile p = new Profile(new URL("http://example.com?foo=bar"));
 
         DefaultValidator<Profile> validator = new DefaultValidator<>(Profile.class);
-        validator.ruleForUrl(Profile::getWebsite).hasAnchor("something");
+        validator.ruleForUrl(Profile::getWebsite).hasParameter("foo", "bar");
 
         List<ValidationFailure> failures = validator.validate(p);
 
         assertTrue(failures.isEmpty());
     }
 
-    @Test
-    void shouldReturnFailureWhenActualUrlIsNull() {
-        Profile p = new Profile(null);
-
-        DefaultValidator<Profile> validator = new DefaultValidator<>(Profile.class);
-        validator.ruleForUrl(Profile::getWebsite).hasAnchor("pages");
-
-        List<ValidationFailure> failures = validator.validate(p);
-
-        assertFalse(failures.isEmpty());
-    }
 }
