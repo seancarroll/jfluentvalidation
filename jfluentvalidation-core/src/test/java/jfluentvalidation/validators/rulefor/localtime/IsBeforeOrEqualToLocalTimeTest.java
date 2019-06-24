@@ -1,27 +1,26 @@
-package jfluentvalidation.validators.rulefor.offsetdatetime;
+package jfluentvalidation.validators.rulefor.localtime;
 
 import jfluentvalidation.ValidationFailure;
 import jfluentvalidation.validators.DefaultValidator;
 import org.junit.jupiter.api.Test;
 
-import java.time.OffsetDateTime;
-import java.time.ZoneOffset;
+import java.time.LocalTime;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class IsBeforeOrEqualOffsetDateTimeTest {
+class IsBeforeOrEqualLocalTimeTest {
 
-    private static final OffsetDateTime ACTUAL = OffsetDateTime.of(2019, 06, 15, 0, 0, 0, 0, ZoneOffset.UTC);
-    private static final OffsetDateTime BEFORE = OffsetDateTime.of(2019, 06, 14, 0, 0, 0, 0, ZoneOffset.UTC);
-    private static final OffsetDateTime AFTER = OffsetDateTime.of(2019, 06, 16, 0, 0, 0, 0, ZoneOffset.UTC);
+    private static final LocalTime ACTUAL = LocalTime.of(2, 0, 0, 0);
+    private static final LocalTime BEFORE = LocalTime.of(1, 0, 0, 0);
+    private static final LocalTime AFTER = LocalTime.of(3, 0, 0, 0);
 
     @Test
     void shouldReturnFailureWhenActualIsNull() {
         Target t = new Target(null);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForOffsetDateTime(Target::getDateTime).isBeforeOrEqual(OffsetDateTime.now());
+        validator.ruleForLocalTime(Target::getTime).isBeforeOrEqualTo(LocalTime.now());
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -33,7 +32,7 @@ class IsBeforeOrEqualOffsetDateTimeTest {
         Target t = new Target(ACTUAL);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForOffsetDateTime(Target::getDateTime).isBeforeOrEqual(BEFORE);
+        validator.ruleForLocalTime(Target::getTime).isBeforeOrEqualTo(BEFORE);
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -45,7 +44,7 @@ class IsBeforeOrEqualOffsetDateTimeTest {
         Target t = new Target(ACTUAL);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForOffsetDateTime(Target::getDateTime).isBeforeOrEqual(ACTUAL);
+        validator.ruleForLocalTime(Target::getTime).isBeforeOrEqualTo(ACTUAL);
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -57,7 +56,7 @@ class IsBeforeOrEqualOffsetDateTimeTest {
         Target t = new Target(ACTUAL);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForOffsetDateTime(Target::getDateTime).isBeforeOrEqual(AFTER);
+        validator.ruleForLocalTime(Target::getTime).isBeforeOrEqualTo(AFTER);
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -67,6 +66,6 @@ class IsBeforeOrEqualOffsetDateTimeTest {
     @Test
     void shouldThrowExceptionWhenGivenDateIsNull() {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        assertThrows(NullPointerException.class, () -> validator.ruleForOffsetDateTime(Target::getDateTime).isBeforeOrEqual(null));
+        assertThrows(NullPointerException.class, () -> validator.ruleForLocalTime(Target::getTime).isBeforeOrEqualTo(null));
     }
 }

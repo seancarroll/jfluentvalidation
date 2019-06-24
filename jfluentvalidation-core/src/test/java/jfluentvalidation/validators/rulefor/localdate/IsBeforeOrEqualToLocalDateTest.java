@@ -20,7 +20,7 @@ class IsBeforeOrEqualLocalDateTest {
         Person  p = new Person(null);
 
         DefaultValidator< Person> validator = new DefaultValidator<>( Person.class);
-        validator.ruleForLocalDate(Person::getBirthday).isBeforeOrEqual(LocalDate.now());
+        validator.ruleForLocalDate(Person::getBirthday).isBeforeOrEqualTo(LocalDate.now());
 
         List<ValidationFailure> failures = validator.validate(p);
 
@@ -32,7 +32,7 @@ class IsBeforeOrEqualLocalDateTest {
         Person  p = new Person(ACTUAL);
 
         DefaultValidator< Person> validator = new DefaultValidator<>( Person.class);
-        validator.ruleForLocalDate(Person::getBirthday).isBeforeOrEqual(BEFORE);
+        validator.ruleForLocalDate(Person::getBirthday).isBeforeOrEqualTo(BEFORE);
 
         List<ValidationFailure> failures = validator.validate(p);
 
@@ -44,7 +44,7 @@ class IsBeforeOrEqualLocalDateTest {
         Person  p = new Person(ACTUAL);
 
         DefaultValidator< Person> validator = new DefaultValidator<>( Person.class);
-        validator.ruleForLocalDate(Person::getBirthday).isBeforeOrEqual(ACTUAL);
+        validator.ruleForLocalDate(Person::getBirthday).isBeforeOrEqualTo(ACTUAL);
 
         List<ValidationFailure> failures = validator.validate(p);
 
@@ -56,7 +56,7 @@ class IsBeforeOrEqualLocalDateTest {
         Person  p = new Person(ACTUAL);
 
         DefaultValidator< Person> validator = new DefaultValidator<>( Person.class);
-        validator.ruleForLocalDate(Person::getBirthday).isBeforeOrEqual(AFTER);
+        validator.ruleForLocalDate(Person::getBirthday).isBeforeOrEqualTo(AFTER);
 
         List<ValidationFailure> failures = validator.validate(p);
 
@@ -66,6 +66,6 @@ class IsBeforeOrEqualLocalDateTest {
     @Test
     void shouldThrowExceptionWhenGivenDateIsNull() {
         DefaultValidator< Person> validator = new DefaultValidator<>( Person.class);
-        assertThrows(NullPointerException.class, () -> validator.ruleForLocalDate(Person::getBirthday).isBeforeOrEqual(null));
+        assertThrows(NullPointerException.class, () -> validator.ruleForLocalDate(Person::getBirthday).isBeforeOrEqualTo(null));
     }
 }

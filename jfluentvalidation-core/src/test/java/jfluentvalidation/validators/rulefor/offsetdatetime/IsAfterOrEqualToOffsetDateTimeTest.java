@@ -21,7 +21,7 @@ class IsAfterOrEqualOffsetDateTimeTest {
         Target t = new Target(null);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForOffsetDateTime(Target::getDateTime).isAfterOrEqual(OffsetDateTime.now());
+        validator.ruleForOffsetDateTime(Target::getDateTime).isAfterOrEqualTo(OffsetDateTime.now());
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -33,7 +33,7 @@ class IsAfterOrEqualOffsetDateTimeTest {
         Target t = new Target(ACTUAL);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForOffsetDateTime(Target::getDateTime).isAfterOrEqual(AFTER);
+        validator.ruleForOffsetDateTime(Target::getDateTime).isAfterOrEqualTo(AFTER);
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -45,7 +45,7 @@ class IsAfterOrEqualOffsetDateTimeTest {
         Target t = new Target(ACTUAL);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForOffsetDateTime(Target::getDateTime).isAfterOrEqual(ACTUAL);
+        validator.ruleForOffsetDateTime(Target::getDateTime).isAfterOrEqualTo(ACTUAL);
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -57,7 +57,7 @@ class IsAfterOrEqualOffsetDateTimeTest {
         Target t = new Target(ACTUAL);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForOffsetDateTime(Target::getDateTime).isAfterOrEqual(BEFORE);
+        validator.ruleForOffsetDateTime(Target::getDateTime).isAfterOrEqualTo(BEFORE);
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -67,7 +67,7 @@ class IsAfterOrEqualOffsetDateTimeTest {
     @Test
     void shouldThrowExceptionWhenGivenDateIsNull() {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        assertThrows(NullPointerException.class, () -> validator.ruleForOffsetDateTime(Target::getDateTime).isAfterOrEqual(null));
+        assertThrows(NullPointerException.class, () -> validator.ruleForOffsetDateTime(Target::getDateTime).isAfterOrEqualTo(null));
     }
 
 }
