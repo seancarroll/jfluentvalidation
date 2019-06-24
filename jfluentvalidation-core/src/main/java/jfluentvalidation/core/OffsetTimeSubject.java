@@ -27,7 +27,7 @@ public class OffsetTimeSubject<T>
         return  myself;
     }
 
-    public OffsetTimeSubject<T> isBeforeOrEqual(OffsetTime other) {
+    public OffsetTimeSubject<T> isBeforeOrEqualTo(OffsetTime other) {
         rule.addConstraint(new IsBeforeOrEqualOffsetTimeConstraint<>(other));
         return  myself;
     }
@@ -37,7 +37,7 @@ public class OffsetTimeSubject<T>
         return  myself;
     }
 
-    public OffsetTimeSubject<T> isAfterOrEqual(OffsetTime other) {
+    public OffsetTimeSubject<T> isAfterOrEqualTo(OffsetTime other) {
         rule.addConstraint(new IsAfterOrEqualOffsetTimeConstraint<>(other));
         return  myself;
     }
@@ -49,7 +49,7 @@ public class OffsetTimeSubject<T>
 
     public OffsetTimeSubject isInTheFutureOrPresent() {
         // TODO: clock from context/provider
-        return isAfterOrEqual(OffsetTime.now());
+        return isAfterOrEqualTo(OffsetTime.now());
     }
 
     public OffsetTimeSubject isInThePast() {
@@ -59,7 +59,7 @@ public class OffsetTimeSubject<T>
 
     public OffsetTimeSubject isInThePastOrPresent() {
         // TODO: clock from context/provider
-        return isBeforeOrEqual(OffsetTime.now());
+        return isBeforeOrEqualTo(OffsetTime.now());
     }
 
 }

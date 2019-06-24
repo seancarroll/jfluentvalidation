@@ -28,7 +28,7 @@ public class LocalTimeSubject<T>
         return  myself;
     }
 
-    public LocalTimeSubject<T> isBeforeOrEqual(LocalTime other) {
+    public LocalTimeSubject<T> isBeforeOrEqualTo(LocalTime other) {
         rule.addConstraint(new IsBeforeOrEqualLocalTimeConstraint<>(other));
         return  myself;
     }
@@ -38,7 +38,7 @@ public class LocalTimeSubject<T>
         return  myself;
     }
 
-    public LocalTimeSubject<T> isAfterOrEqual(LocalTime other) {
+    public LocalTimeSubject<T> isAfterOrEqualTo(LocalTime other) {
         rule.addConstraint(new IsAfterOrEqualLocalTimeConstraint<>(other));
         return  myself;
     }
@@ -50,7 +50,7 @@ public class LocalTimeSubject<T>
 
     public LocalTimeSubject<T> isInTheFutureOrPresent() {
         // TODO: clock from context/provider
-        return isAfterOrEqual(LocalTime.now());
+        return isAfterOrEqualTo(LocalTime.now());
     }
 
     public LocalTimeSubject<T> isInThePast() {
@@ -60,7 +60,7 @@ public class LocalTimeSubject<T>
 
     public LocalTimeSubject<T> isInThePastOrPresent() {
         // TODO: clock from context/provider
-        return isBeforeOrEqual(LocalTime.now());
+        return isBeforeOrEqualTo(LocalTime.now());
     }
 
 }

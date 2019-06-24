@@ -10,7 +10,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class IsBeforeOrEqualOffsetTimeTest {
+class IsBeforeOrEqualToOffsetTimeTest {
 
 
     private static final OffsetTime ACTUAL = OffsetTime.of(2, 0, 0, 0, ZoneOffset.UTC);
@@ -22,7 +22,7 @@ class IsBeforeOrEqualOffsetTimeTest {
         Target t = new Target(null);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForOffsetTime(Target::getTime).isBeforeOrEqual(OffsetTime.now());
+        validator.ruleForOffsetTime(Target::getTime).isBeforeOrEqualTo(OffsetTime.now());
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -34,7 +34,7 @@ class IsBeforeOrEqualOffsetTimeTest {
         Target t = new Target(ACTUAL);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForOffsetTime(Target::getTime).isBeforeOrEqual(BEFORE);
+        validator.ruleForOffsetTime(Target::getTime).isBeforeOrEqualTo(BEFORE);
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -46,7 +46,7 @@ class IsBeforeOrEqualOffsetTimeTest {
         Target t = new Target(ACTUAL);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForOffsetTime(Target::getTime).isBeforeOrEqual(ACTUAL);
+        validator.ruleForOffsetTime(Target::getTime).isBeforeOrEqualTo(ACTUAL);
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -58,7 +58,7 @@ class IsBeforeOrEqualOffsetTimeTest {
         Target t = new Target(ACTUAL);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForOffsetTime(Target::getTime).isBeforeOrEqual(AFTER);
+        validator.ruleForOffsetTime(Target::getTime).isBeforeOrEqualTo(AFTER);
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -68,6 +68,6 @@ class IsBeforeOrEqualOffsetTimeTest {
     @Test
     void shouldThrowExceptionWhenGivenDateIsNull() {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        assertThrows(NullPointerException.class, () -> validator.ruleForOffsetTime(Target::getTime).isBeforeOrEqual(null));
+        assertThrows(NullPointerException.class, () -> validator.ruleForOffsetTime(Target::getTime).isBeforeOrEqualTo(null));
     }
 }

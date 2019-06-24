@@ -9,7 +9,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class IsBeforeOrEqualLocalTimeTest {
+class IsBeforeOrEqualToLocalTimeTest {
 
     private static final LocalTime ACTUAL = LocalTime.of(2, 0, 0, 0);
     private static final LocalTime BEFORE = LocalTime.of(1, 0, 0, 0);

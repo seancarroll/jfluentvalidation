@@ -10,7 +10,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class IsBeforeOrEqualOffsetDateTimeTest {
+class IsBeforeOrEqualToOffsetDateTimeTest {
 
     private static final OffsetDateTime ACTUAL = OffsetDateTime.of(2019, 06, 15, 0, 0, 0, 0, ZoneOffset.UTC);
     private static final OffsetDateTime BEFORE = OffsetDateTime.of(2019, 06, 14, 0, 0, 0, 0, ZoneOffset.UTC);

@@ -11,7 +11,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class IsAfterOrEqualZonedDateTimeTest {
+class IsAfterOrEqualToZonedDateTimeTest {
 
     private static final ZonedDateTime ACTUAL = ZonedDateTime.of(2019, 6, 15, 0, 0, 0, 0, ZoneOffset.UTC);
     private static final ZonedDateTime BEFORE = ZonedDateTime.of(2019, 6, 14, 0, 0, 0, 0, ZoneOffset.UTC);
@@ -22,7 +22,7 @@ class IsAfterOrEqualZonedDateTimeTest {
         Target t = new Target(null);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForZonedDateTime(Target::getDateTime).isAfterOrEqual(ZonedDateTime.now());
+        validator.ruleForZonedDateTime(Target::getDateTime).isAfterOrEqualTo(ZonedDateTime.now());
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -34,7 +34,7 @@ class IsAfterOrEqualZonedDateTimeTest {
         Target t = new Target(ACTUAL);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForZonedDateTime(Target::getDateTime).isAfterOrEqual(AFTER);
+        validator.ruleForZonedDateTime(Target::getDateTime).isAfterOrEqualTo(AFTER);
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -46,7 +46,7 @@ class IsAfterOrEqualZonedDateTimeTest {
         Target t = new Target(ACTUAL);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForZonedDateTime(Target::getDateTime).isAfterOrEqual(AFTER.withZoneSameInstant(ZoneId.of("Europe/London")));
+        validator.ruleForZonedDateTime(Target::getDateTime).isAfterOrEqualTo(AFTER.withZoneSameInstant(ZoneId.of("Europe/London")));
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -58,7 +58,7 @@ class IsAfterOrEqualZonedDateTimeTest {
         Target t = new Target(ACTUAL);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForZonedDateTime(Target::getDateTime).isAfterOrEqual(ACTUAL);
+        validator.ruleForZonedDateTime(Target::getDateTime).isAfterOrEqualTo(ACTUAL);
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -70,7 +70,7 @@ class IsAfterOrEqualZonedDateTimeTest {
         Target t = new Target(ACTUAL);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForZonedDateTime(Target::getDateTime).isAfterOrEqual(BEFORE);
+        validator.ruleForZonedDateTime(Target::getDateTime).isAfterOrEqualTo(BEFORE);
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -82,7 +82,7 @@ class IsAfterOrEqualZonedDateTimeTest {
         Target t = new Target(ACTUAL);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForZonedDateTime(Target::getDateTime).isAfterOrEqual(BEFORE.withZoneSameInstant(ZoneId.of("America/Chicago")));
+        validator.ruleForZonedDateTime(Target::getDateTime).isAfterOrEqualTo(BEFORE.withZoneSameInstant(ZoneId.of("America/Chicago")));
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -92,7 +92,7 @@ class IsAfterOrEqualZonedDateTimeTest {
     @Test
     void shouldThrowExceptionWhenGivenDateIsNull() {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        assertThrows(NullPointerException.class, () -> validator.ruleForZonedDateTime(Target::getDateTime).isAfterOrEqual(null));
+        assertThrows(NullPointerException.class, () -> validator.ruleForZonedDateTime(Target::getDateTime).isAfterOrEqualTo(null));
     }
 
 }

@@ -24,7 +24,7 @@ public class CalendarSubject<T>
         return myself;
     }
 
-    public CalendarSubject isBeforeOrEqual(Calendar other) {
+    public CalendarSubject isBeforeOrEqualTo(Calendar other) {
         rule.addConstraint(new IsBeforeOrEqualCalendarConstraint(other));
         return myself;
     }
@@ -34,7 +34,7 @@ public class CalendarSubject<T>
         return myself;
     }
 
-    public CalendarSubject isAfterOrEqual(Calendar other) {
+    public CalendarSubject isAfterOrEqualTo(Calendar other) {
         rule.addConstraint(new IsAfterOrEqualCalendarConstraint(other));
         return myself;
     }
@@ -46,7 +46,7 @@ public class CalendarSubject<T>
 
     public CalendarSubject isInTheFutureOrPresent() {
         // TODO: clock from context/provider
-        return isAfterOrEqual(Calendar.getInstance());
+        return isAfterOrEqualTo(Calendar.getInstance());
     }
 
     public CalendarSubject isInThePast() {
@@ -56,7 +56,7 @@ public class CalendarSubject<T>
 
     public CalendarSubject isInThePastOrPresent() {
         // TODO: clock from context/provider
-        return isBeforeOrEqual(Calendar.getInstance());
+        return isBeforeOrEqualTo(Calendar.getInstance());
     }
 
 }

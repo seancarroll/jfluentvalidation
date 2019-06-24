@@ -28,7 +28,7 @@ public class ZonedDateTimeSubject<T>
         return  myself;
     }
 
-    public ZonedDateTimeSubject<T> isBeforeOrEqual(ZonedDateTime zonedDateTime) {
+    public ZonedDateTimeSubject<T> isBeforeOrEqualTo(ZonedDateTime zonedDateTime) {
         rule.addConstraint(new IsBeforeOrEqualZonedDateTimeConstraint<>(zonedDateTime));
         return  myself;
     }
@@ -38,7 +38,7 @@ public class ZonedDateTimeSubject<T>
         return  myself;
     }
 
-    public ZonedDateTimeSubject<T> isAfterOrEqual(ZonedDateTime zonedDateTime) {
+    public ZonedDateTimeSubject<T> isAfterOrEqualTo(ZonedDateTime zonedDateTime) {
         rule.addConstraint(new IsAfterOrEqualZonedDateTimeConstraint<>(zonedDateTime));
         return  myself;
     }
@@ -50,7 +50,7 @@ public class ZonedDateTimeSubject<T>
 
     public ZonedDateTimeSubject<T> isInTheFutureOrPresent() {
         // TODO: clock from context/provider
-        return isAfterOrEqual(ZonedDateTime.now());
+        return isAfterOrEqualTo(ZonedDateTime.now());
     }
 
     public ZonedDateTimeSubject<T> isInThePast() {
@@ -60,7 +60,7 @@ public class ZonedDateTimeSubject<T>
 
     public ZonedDateTimeSubject<T> isInThePastOrPresent() {
         // TODO: clock from context/provider
-        return isBeforeOrEqual(ZonedDateTime.now());
+        return isBeforeOrEqualTo(ZonedDateTime.now());
     }
 
 }

@@ -9,7 +9,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class IsBeforeOrEqualLocalDateTest {
+class IsBeforeOrEqualToLocalDateTest {
 
     private static final LocalDate ACTUAL = LocalDate.of(2019, 6, 15);
     private static final LocalDate BEFORE = LocalDate.of(2019, 6, 14);
