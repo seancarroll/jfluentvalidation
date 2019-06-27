@@ -29,17 +29,17 @@ public class DateSubject<T> extends AbstractComparableSubject<DateSubject<T>, T,
 
     public DateSubject<T> isBeforeOrEqualTo(Date other) {
         // TODO: should this match or be closer to java8 Temporal classes
-        rule.addConstraint(new IsLessThanOrEqualToConstraint(other));
+        rule.addConstraint(new IsLessThanOrEqualToConstraint<>(other));
         return myself;
     }
 
     public DateSubject<T> isAfter(Date other) {
-        rule.addConstraint(new IsGreaterThanConstraint(other));
+        rule.addConstraint(new IsGreaterThanConstraint<>(other));
         return myself;
     }
 
     public DateSubject<T> isAfterOrEqualTo(Date other) {
-        rule.addConstraint(new IsGreaterThanOrEqualToConstraint(other));
+        rule.addConstraint(new IsGreaterThanOrEqualToConstraint<>(other));
         return myself;
     }
 
@@ -60,10 +60,5 @@ public class DateSubject<T> extends AbstractComparableSubject<DateSubject<T>, T,
         return myself;
     }
 
-    // TODO: isInSameYearAs
-    // TODO: isInSameMonthAs
-    // TOOD: isInSameDayAs
-
-    // TODO: isEquals vs equals
 
 }
