@@ -5,11 +5,11 @@ import java.util.Date;
 
 public abstract class AbstractDateTest {
 
-    protected static final Date ACTUAL;
-    protected static final Date BEFORE;
-    protected static final Date AFTER;
+    protected final Date ACTUAL;
+    protected final Date BEFORE;
+    protected final Date AFTER;
 
-    static {
+    AbstractDateTest() {
         ACTUAL = Calendar.getInstance().getTime();
 
         Calendar beforeCal = Calendar.getInstance();
@@ -18,7 +18,7 @@ public abstract class AbstractDateTest {
 
         Calendar afterCal = Calendar.getInstance();
         afterCal.add(Calendar.DATE, 1);
-        AFTER = Calendar.getInstance().getTime();
+        AFTER = afterCal.getTime();
     }
 
 

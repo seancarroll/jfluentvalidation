@@ -35,7 +35,6 @@ class IsAfterOrEqualToDateTest extends AbstractDateTest {
         assertFalse(failures.isEmpty());
     }
 
-
     @Test
     void shouldNotReturnFailureWhenActualEqualsGivenDate() {
         Target t = new Target(ACTUAL);

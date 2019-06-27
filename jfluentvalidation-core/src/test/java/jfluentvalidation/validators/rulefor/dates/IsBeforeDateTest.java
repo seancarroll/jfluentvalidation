@@ -10,6 +10,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class IsBeforeDateTest extends AbstractDateTest {
+
     @Test
     void shouldReturnFailureWhenActualIsNull() {
         Target t = new Target(null);
