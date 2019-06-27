@@ -17,10 +17,10 @@ class IsBeforeLocalDateTimeTest {
 
     @Test
     void shouldReturnFailureWhenActualIsNull() {
-        Person p = new Person(null);
+        Target p = new Target(null);
 
-        DefaultValidator<Person> validator = new DefaultValidator<>(Person.class);
-        validator.ruleForLocalDateTime(Person::getBirthday).isBefore(LocalDateTime.now());
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        validator.ruleForLocalDateTime(Target::getDateTime).isBefore(LocalDateTime.now());
 
         List<ValidationFailure> failures = validator.validate(p);
 
@@ -29,10 +29,10 @@ class IsBeforeLocalDateTimeTest {
 
     @Test
     void shouldReturnFailureWhenActualIsNotStrictlyBeforeGivenDate() {
-        Person p = new Person(ACTUAL);
+        Target p = new Target(ACTUAL);
 
-        DefaultValidator<Person> validator = new DefaultValidator<>(Person.class);
-        validator.ruleForLocalDateTime(Person::getBirthday).isBefore(BEFORE);
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        validator.ruleForLocalDateTime(Target::getDateTime).isBefore(BEFORE);
 
         List<ValidationFailure> failures = validator.validate(p);
 
@@ -41,10 +41,10 @@ class IsBeforeLocalDateTimeTest {
 
     @Test
     void shouldReturnFailureWhenActualEqualsGivenDate() {
-        Person p = new Person(ACTUAL);
+        Target p = new Target(ACTUAL);
 
-        DefaultValidator<Person> validator = new DefaultValidator<>(Person.class);
-        validator.ruleForLocalDateTime(Person::getBirthday).isBefore(ACTUAL);
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        validator.ruleForLocalDateTime(Target::getDateTime).isBefore(ACTUAL);
 
         List<ValidationFailure> failures = validator.validate(p);
 
@@ -53,10 +53,10 @@ class IsBeforeLocalDateTimeTest {
 
     @Test
     void shouldNotReturnFailureWhenActualDateIsBeforeGivenDate() {
-        Person p = new Person(ACTUAL);
+        Target p = new Target(ACTUAL);
 
-        DefaultValidator<Person> validator = new DefaultValidator<>(Person.class);
-        validator.ruleForLocalDateTime(Person::getBirthday).isBefore(AFTER);
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        validator.ruleForLocalDateTime(Target::getDateTime).isBefore(AFTER);
 
         List<ValidationFailure> failures = validator.validate(p);
 
@@ -65,7 +65,7 @@ class IsBeforeLocalDateTimeTest {
 
     @Test
     void shouldThrowExceptionWhenGivenDateIsNull() {
-        DefaultValidator<Person> validator = new DefaultValidator<>(Person.class);
-        assertThrows(NullPointerException.class, () -> validator.ruleForLocalDateTime(Person::getBirthday).isBefore(null));
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        assertThrows(NullPointerException.class, () -> validator.ruleForLocalDateTime(Target::getDateTime).isBefore(null));
     }
 }

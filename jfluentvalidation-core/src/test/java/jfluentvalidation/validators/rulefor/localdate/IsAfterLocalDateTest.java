@@ -17,10 +17,10 @@ class IsAfterLocalDateTest {
 
     @Test
     void shouldReturnFailureWhenActualIsNull() {
-        Person p = new Person(null);
+        Target p = new Target(null);
 
-        DefaultValidator<Person> validator = new DefaultValidator<>(Person.class);
-        validator.ruleForLocalDate(Person::getBirthday).isAfter(LocalDate.now());
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        validator.ruleForLocalDate(Target::getDate).isAfter(LocalDate.now());
 
         List<ValidationFailure> failures = validator.validate(p);
 
@@ -29,10 +29,10 @@ class IsAfterLocalDateTest {
 
     @Test
     void shouldReturnFailureWhenActualIsNotStrictlyAfterGivenDate() {
-        Person p = new Person(ACTUAL);
+        Target p = new Target(ACTUAL);
 
-        DefaultValidator<Person> validator = new DefaultValidator<>(Person.class);
-        validator.ruleForLocalDate(Person::getBirthday).isAfter(AFTER);
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        validator.ruleForLocalDate(Target::getDate).isAfter(AFTER);
 
         List<ValidationFailure> failures = validator.validate(p);
 
@@ -41,10 +41,10 @@ class IsAfterLocalDateTest {
 
     @Test
     void shouldReturnFailureWhenActualEqualsGivenDate() {
-        Person p = new Person(ACTUAL);
+        Target p = new Target(ACTUAL);
 
-        DefaultValidator<Person> validator = new DefaultValidator<>(Person.class);
-        validator.ruleForLocalDate(Person::getBirthday).isAfter(ACTUAL);
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        validator.ruleForLocalDate(Target::getDate).isAfter(ACTUAL);
 
         List<ValidationFailure> failures = validator.validate(p);
 
@@ -53,10 +53,10 @@ class IsAfterLocalDateTest {
 
     @Test
     void shouldNotReturnFailureWhenActualDateIsAfterGivenDate() {
-        Person p = new Person(ACTUAL);
+        Target p = new Target(ACTUAL);
 
-        DefaultValidator<Person> validator = new DefaultValidator<>(Person.class);
-        validator.ruleForLocalDate(Person::getBirthday).isAfter(BEFORE);
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        validator.ruleForLocalDate(Target::getDate).isAfter(BEFORE);
 
         List<ValidationFailure> failures = validator.validate(p);
 
@@ -65,7 +65,7 @@ class IsAfterLocalDateTest {
 
     @Test
     void shouldThrowExceptionWhenGivenDateIsNull() {
-        DefaultValidator<Person> validator = new DefaultValidator<>(Person.class);
-        assertThrows(NullPointerException.class, () -> validator.ruleForLocalDate(Person::getBirthday).isAfter(null));
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        assertThrows(NullPointerException.class, () -> validator.ruleForLocalDate(Target::getDate).isAfter(null));
     }
 }
