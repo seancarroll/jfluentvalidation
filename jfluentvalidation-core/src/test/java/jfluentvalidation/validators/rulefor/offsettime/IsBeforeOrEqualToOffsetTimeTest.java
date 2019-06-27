@@ -12,7 +12,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class IsBeforeOrEqualToOffsetTimeTest {
 
-
     private static final OffsetTime ACTUAL = OffsetTime.of(2, 0, 0, 0, ZoneOffset.UTC);
     private static final OffsetTime BEFORE = OffsetTime.of(1, 0, 0, 0, ZoneOffset.UTC);
     private static final OffsetTime AFTER = OffsetTime.of(3, 0, 0, 0, ZoneOffset.UTC);
