@@ -74,7 +74,6 @@ public class MapSubject<T, K, V> extends Subject<MapSubject<T, K, V>, T, Map<K, 
         return myself;
     }
 
-
     public final MapSubject<T, K, V> containsValue(V value) {
         rule.addConstraint(new ContainsValueConstraint<>(value));
         return myself;
