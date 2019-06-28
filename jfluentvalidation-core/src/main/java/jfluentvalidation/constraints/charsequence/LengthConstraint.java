@@ -12,7 +12,7 @@ import jfluentvalidation.validators.RuleContext;
  *
  * @param <T>  type of instance to validate.
  */
-public class LengthConstraint<T> extends AbstractConstraint<T, CharSequence> {
+public class LengthConstraint<T, A extends CharSequence> extends AbstractConstraint<T, A> {
 
     private final int min;
     private final int max;
@@ -25,7 +25,7 @@ public class LengthConstraint<T> extends AbstractConstraint<T, CharSequence> {
     }
 
     @Override
-    public boolean isValid(RuleContext<T, CharSequence> validationContext) {
+    public boolean isValid(RuleContext<T, A> validationContext) {
         // TODO: I like this because we can use it for exact length, greater than, and less than
         // however doesn't work if we want add inclusive start/end
         int length = validationContext.getPropertyValue().length();

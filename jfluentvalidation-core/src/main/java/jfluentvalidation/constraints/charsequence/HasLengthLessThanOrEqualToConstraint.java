@@ -9,7 +9,7 @@ import jfluentvalidation.validators.RuleContext;
  *
  * @param <T>  type of instance to validate.
  */
-public class HasLengthLessThanOrEqualToConstraint<T> extends AbstractConstraint<T, CharSequence> {
+public class HasLengthLessThanOrEqualToConstraint<T, A extends CharSequence> extends AbstractConstraint<T, A> {
 
     private final int length;
 
@@ -19,7 +19,10 @@ public class HasLengthLessThanOrEqualToConstraint<T> extends AbstractConstraint<
     }
 
     @Override
-    public boolean isValid(RuleContext<T, CharSequence> validationContext) {
-        return validationContext.getPropertyValue().length() <= length;
+    public boolean isValid(RuleContext<T, A> context) {
+        if (context.getPropertyValue() == null) {
+            return false;
+        }
+        return context.getPropertyValue().length() <= length;
     }
 }

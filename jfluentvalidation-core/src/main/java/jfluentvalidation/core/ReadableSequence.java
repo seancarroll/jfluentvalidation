@@ -91,6 +91,8 @@ public interface ReadableSequence<S extends ReadableSequence<S, T, A>, T, A> {
 
     S startsWith(CharSequence prefix);
 
+    S startsWith(CharSequence prefix, int offset);
+
     S doesNotStartWith(CharSequence prefix);
 
     S endsWith(CharSequence suffix);

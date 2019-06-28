@@ -10,7 +10,7 @@ import jfluentvalidation.validators.RuleContext;
  *
  * @param <T>  type of instance to validate.
  */
-public class HasLengthGreaterThanConstraint<T> extends AbstractConstraint<T, CharSequence> {
+public class HasLengthGreaterThanConstraint<T, A extends CharSequence> extends AbstractConstraint<T, A> {
 
     private final int length;
 
@@ -20,7 +20,7 @@ public class HasLengthGreaterThanConstraint<T> extends AbstractConstraint<T, Cha
     }
 
     @Override
-    public boolean isValid(RuleContext<T, CharSequence> validationContext) {
+    public boolean isValid(RuleContext<T, A> validationContext) {
         return validationContext.getPropertyValue().length() > length;
     }
 }

@@ -17,7 +17,10 @@ public class IsNotEmptyConstraint<T, A extends CharSequence> extends AbstractCon
     }
 
     @Override
-    public boolean isValid(RuleContext<T, A> validationContext) {
-        return !validationContext.getPropertyValue().toString().isEmpty();
+    public boolean isValid(RuleContext<T, A> context) {
+        if (context.getPropertyValue() == null) {
+            return false;
+        }
+        return !context.getPropertyValue().toString().isEmpty();
     }
 }

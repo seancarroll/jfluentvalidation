@@ -18,6 +18,10 @@ public class IsUpperCaseConstraint<T> extends AbstractConstraint<T, CharSequence
     @Override
     public boolean isValid(RuleContext<T, CharSequence> validationContext) {
         // TODO: should this use locale?
-        return validationContext.getPropertyValue().equals(validationContext.getPropertyValue().toString().toUpperCase());
+        CharSequence val = validationContext.getPropertyValue();
+        if (val == null) {
+            return false;
+        }
+        return val.equals(val.toString().toUpperCase());
     }
 }

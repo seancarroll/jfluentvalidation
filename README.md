@@ -90,7 +90,7 @@ Outside of Jeremy Skinner's Fluent Validation I'd like to call out some addition
 TODO:
 - move subjects into core/subjects package
 - where to put exceptions?
-
+- Do some of the CharSequence constraints need to be moved to String?
 
 hibernate validator classes
 - AbstractValidationContext

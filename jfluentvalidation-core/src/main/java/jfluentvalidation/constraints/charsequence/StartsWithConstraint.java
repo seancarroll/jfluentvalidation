@@ -26,8 +26,11 @@ public class StartsWithConstraint<T> extends AbstractConstraint<T, CharSequence>
     }
 
     @Override
-    public boolean isValid(RuleContext<T, CharSequence> validationContext) {
+    public boolean isValid(RuleContext<T, CharSequence> context) {
         // TODO: this probably should be based on a comparison strategy
-        return validationContext.getPropertyValue().toString().startsWith(prefix.toString(), offset);
+        if (context.getPropertyValue() == null) {
+            return false;
+        }
+        return context.getPropertyValue().toString().startsWith(prefix.toString(), offset);
     }
 }

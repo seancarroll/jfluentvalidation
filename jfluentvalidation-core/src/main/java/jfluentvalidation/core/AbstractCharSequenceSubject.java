@@ -1,9 +1,6 @@
 package jfluentvalidation.core;
 
-import jfluentvalidation.constraints.charsequence.CharSequenceConstraints;
-import jfluentvalidation.constraints.charsequence.IsEmptyConstraint;
-import jfluentvalidation.constraints.charsequence.IsNotEmptyConstraint;
-import jfluentvalidation.constraints.charsequence.LengthConstraint;
+import jfluentvalidation.constraints.charsequence.*;
 import jfluentvalidation.rules.PropertyRule;
 
 import java.util.regex.Pattern;
@@ -27,7 +24,7 @@ public abstract class AbstractCharSequenceSubject<S extends AbstractCharSequence
     // TODO: if we keep then we need a isNotNullOrEmpty
     @Override
     public S isNullOrEmpty() {
-
+        rule.addConstraint(new IsNullOrEmptyConstraint<>());
         return myself;
     }
 
@@ -76,22 +73,25 @@ public abstract class AbstractCharSequenceSubject<S extends AbstractCharSequence
 
     // TODO: decide on appropriate method names for length
     public S length(int minLength, int maxLength) {
-        rule.addConstraint(new LengthConstraint(minLength, maxLength));
+        rule.addConstraint(new LengthConstraint<>(minLength, maxLength));
         return myself;
     }
 
     @Override
     public S hasLength(int expected) {
+        rule.addConstraint(new HasLengthConstraint<>(expected));
         return myself;
     }
 
     @Override
     public S hasLengthLessThan(int expected) {
+        rule.addConstraint(new HasLengthLessThanConstraint<>(expected));
         return myself;
     }
 
     @Override
     public S hasLengthLessThanOrEqualTo(int expected) {
+        rule.addConstraint(new HasLengthLessThanOrEqualToConstraint<>(expected));
         return myself;
     }
 
@@ -205,10 +205,14 @@ public abstract class AbstractCharSequenceSubject<S extends AbstractCharSequence
         return myself;
     }
 
-    // TODO: include method with offset
     @Override
     public S startsWith(CharSequence prefix) {
-        rule.addConstraint(CharSequenceConstraints.startsWith(prefix));
+        return startsWith(prefix, 0);
+    }
+
+    @Override
+    public S startsWith(CharSequence prefix, int offset) {
+        rule.addConstraint(CharSequenceConstraints.startsWith(prefix, offset));
         return myself;
     }
 

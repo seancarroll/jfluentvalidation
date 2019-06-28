@@ -151,7 +151,7 @@ public final class CharSequenceConstraints {
 
     // TODO: do we want to add option to ignore case?
     public static StartsWithConstraint startsWith(CharSequence prefix) {
-        return new StartsWithConstraint(prefix);
+        return new StartsWithConstraint<>(prefix);
     }
 
     public static StartsWithConstraint startsWith(CharSequence prefix, int offset) {
