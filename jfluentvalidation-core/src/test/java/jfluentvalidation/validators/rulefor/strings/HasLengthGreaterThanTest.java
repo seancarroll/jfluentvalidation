@@ -6,18 +6,16 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class HasLengthGreaterThanTest {
 
-
     @Test
-    void shouldNotReturnFailureWhenActualSizeIsLessThanExpected() {
+    void shouldNotReturnFailureWhenActualSizeIsGreaterThanExpected() {
         Target t = new Target("hello");
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForString(Target::getValue).hasLengthLessThan(6);
+        validator.ruleForString(Target::getValue).hasLengthGreaterThan(3);
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -25,11 +23,11 @@ class HasLengthGreaterThanTest {
     }
 
     @Test
-    void shouldReturnFailureWhenActualSizeIsGreaterThanExpected() {
+    void shouldReturnFailureWhenActualSizeIsLessThanExpected() {
         Target t = new Target("hello");
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForString(Target::getValue).hasLengthLessThan(3);
+        validator.ruleForString(Target::getValue).hasLengthGreaterThan(6);
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -41,7 +39,7 @@ class HasLengthGreaterThanTest {
         Target t = new Target("hello");
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForString(Target::getValue).hasLengthLessThan(5);
+        validator.ruleForString(Target::getValue).hasLengthGreaterThan(5);
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -53,7 +51,7 @@ class HasLengthGreaterThanTest {
         Target t = new Target(null);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForString(Target::getValue).hasLengthLessThan(3);
+        validator.ruleForString(Target::getValue).hasLengthGreaterThan(3);
 
         List<ValidationFailure> failures = validator.validate(t);
 

@@ -10,14 +10,14 @@ import jfluentvalidation.validators.RuleContext;
  *
  * @param <T>  type of instance to validate.
  */
-public class ContainsWhitespacesConstraint<T> extends AbstractConstraint<T, CharSequence> {
+public class ContainsWhitespacesConstraint<T, A extends CharSequence> extends AbstractConstraint<T, A> {
 
     public ContainsWhitespacesConstraint() {
         super(DefaultMessages.CHARSEQUENCE_CONTAINS_WHITESPACES);
     }
 
     @Override
-    public boolean isValid(RuleContext<T, CharSequence> validationContext) {
-        return !Strings.isNullOrEmpty(validationContext.getPropertyValue()) && Strings.containsWhitespaces(validationContext.getPropertyValue());
+    public boolean isValid(RuleContext<T, A> context) {
+        return !Strings.isNullOrEmpty(context.getPropertyValue()) && Strings.containsWhitespaces(context.getPropertyValue());
     }
 }

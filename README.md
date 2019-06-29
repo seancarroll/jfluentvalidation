@@ -91,6 +91,11 @@ TODO:
 - move subjects into core/subjects package
 - where to put exceptions?
 - Do some of the CharSequence constraints need to be moved to String?
+- What about adding a base class that checks property value for null
+- what about adding a Not|NegateConstraint that wraps another constraint to negate it. similar ot what we do for softconstraint
+
+
+
 
 hibernate validator classes
 - AbstractValidationContext

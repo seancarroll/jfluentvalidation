@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class HasLengthLessThanOrEqualToTest {
 
     @Test
-    void shouldNotReturnFailureWhenActualSizeIsLessThanExpected() {
+    void shouldNotReturnFailureWhenActualLengthIsLessThanExpected() {
         Target t = new Target("hello");
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
@@ -24,7 +24,7 @@ class HasLengthLessThanOrEqualToTest {
     }
 
     @Test
-    void shouldReturnFailureWhenActualSizeIsGreaterThanExpected() {
+    void shouldReturnFailureWhenActualLengthIsGreaterThanExpected() {
         Target t = new Target("hello");
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
@@ -36,7 +36,7 @@ class HasLengthLessThanOrEqualToTest {
     }
 
     @Test
-    void shouldNotReturnFailureWhenActualSizeIsEqualToExpected() {
+    void shouldNotReturnFailureWhenActualLengthIsEqualToExpected() {
         Target t = new Target("hello");
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);

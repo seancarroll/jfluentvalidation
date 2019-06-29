@@ -6,13 +6,12 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class HasLengthTest {
 
     @Test
-    void shouldNotReturnFailureWhenActualSizeIsEqualToGiven() {
+    void shouldNotReturnFailureWhenActualLengthIsEqualToExpected() {
         Target t = new Target("hello");
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
@@ -24,7 +23,7 @@ class HasLengthTest {
     }
 
     @Test
-    void shouldReturnFailureWhenActualSizeIsNotEqualToGiven() {
+    void shouldReturnFailureWhenActualLengthIsNotEqualToExpected() {
         Target t = new Target("hello");
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
@@ -47,4 +46,9 @@ class HasLengthTest {
         assertFalse(failures.isEmpty());
     }
 
+    @Test
+    void shouldThrowIllegalArgumentExceptionWhenExpectedLengthIsNegative() {
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        assertThrows(IllegalArgumentException.class, () -> validator.ruleForString(Target::getValue).hasLength(-1));
+    }
 }

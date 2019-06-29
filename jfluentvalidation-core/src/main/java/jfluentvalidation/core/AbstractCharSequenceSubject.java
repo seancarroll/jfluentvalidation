@@ -52,17 +52,19 @@ public abstract class AbstractCharSequenceSubject<S extends AbstractCharSequence
 
     @Override
     public S containsWhitespaces() {
-
+        rule.addConstraint(new ContainsWhitespacesConstraint<>());
         return myself;
     }
 
     @Override
     public S containsOnlyWhitespaces() {
+        rule.addConstraint(new ContainsWhitespacesConstraint<>());
         return myself;
     }
 
     @Override
     public S doesNotContainAnyWhitespaces() {
+        rule.addConstraint(new DoesNotContainAnyWhitespacesConstraint<>());
         return myself;
     }
 
@@ -97,16 +99,26 @@ public abstract class AbstractCharSequenceSubject<S extends AbstractCharSequence
 
     @Override
     public S hasLengthGreaterThan(int expected) {
+        rule.addConstraint(new HasLengthGreaterThanConstraint<>(expected));
         return myself;
     }
 
     @Override
     public S hasLengthGreaterThanOrEqualTo(int expected) {
+        rule.addConstraint(new HasLengthGreaterThanOrEqualToConstraint<>(expected));
         return myself;
     }
 
     @Override
     public S hasLengthBetween(int min, int max) {
+        // TODO: should we include start and end? whats the common pattern?
+        rule.addConstraint(new HasLengthBetweenConstraint<>(min, max, true, true));
+        return myself;
+    }
+
+    @Override
+    public S hasLengthBetween(int min, int max, boolean inclusiveStart, boolean inclusiveEnd) {
+        rule.addConstraint(new HasLengthBetweenConstraint<>(min, max, inclusiveStart, inclusiveEnd));
         return myself;
     }
 

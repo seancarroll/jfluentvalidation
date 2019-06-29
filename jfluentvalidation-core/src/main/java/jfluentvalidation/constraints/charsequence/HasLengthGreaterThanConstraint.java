@@ -2,7 +2,6 @@ package jfluentvalidation.constraints.charsequence;
 
 import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.DefaultMessages;
-import jfluentvalidation.internal.Ensure;
 import jfluentvalidation.validators.RuleContext;
 
 /**
@@ -16,11 +15,14 @@ public class HasLengthGreaterThanConstraint<T, A extends CharSequence> extends A
 
     public HasLengthGreaterThanConstraint(int length) {
         super(DefaultMessages.CHARSEQUENCE_HAS_LENGTH_GREATER_THAN);
-        this.length = Ensure.nonnegative(length, "length");
+        this.length = length;
     }
 
     @Override
-    public boolean isValid(RuleContext<T, A> validationContext) {
-        return validationContext.getPropertyValue().length() > length;
+    public boolean isValid(RuleContext<T, A> context) {
+        if (context.getPropertyValue() == null) {
+            return false;
+        }
+        return context.getPropertyValue().length() > length;
     }
 }

@@ -12,11 +12,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class HasLengthGreaterThanOrEqualToTest {
 
     @Test
-    void shouldNotReturnFailureWhenActualSizeIsLessThanExpected() {
+    void shouldNotReturnFailureWhenActualSizeIsGreaterThanExpected() {
         Target t = new Target("hello");
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForString(Target::getValue).hasLengthLessThanOrEqualTo(6);
+        validator.ruleForString(Target::getValue).hasLengthGreaterThanOrEqualTo(3);
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -24,11 +24,11 @@ class HasLengthGreaterThanOrEqualToTest {
     }
 
     @Test
-    void shouldReturnFailureWhenActualSizeIsGreaterThanExpected() {
+    void shouldReturnFailureWhenActualSizeIsLessThanExpected() {
         Target t = new Target("hello");
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForString(Target::getValue).hasLengthLessThanOrEqualTo(3);
+        validator.ruleForString(Target::getValue).hasLengthGreaterThanOrEqualTo(6);
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -40,7 +40,7 @@ class HasLengthGreaterThanOrEqualToTest {
         Target t = new Target("hello");
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForString(Target::getValue).hasLengthLessThanOrEqualTo(5);
+        validator.ruleForString(Target::getValue).hasLengthGreaterThanOrEqualTo(5);
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -52,7 +52,7 @@ class HasLengthGreaterThanOrEqualToTest {
         Target t = new Target(null);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForString(Target::getValue).hasLengthLessThanOrEqualTo(3);
+        validator.ruleForString(Target::getValue).hasLengthGreaterThanOrEqualTo(3);
 
         List<ValidationFailure> failures = validator.validate(t);
 

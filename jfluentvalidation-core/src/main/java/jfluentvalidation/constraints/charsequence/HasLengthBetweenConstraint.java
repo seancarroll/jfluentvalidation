@@ -12,7 +12,7 @@ import jfluentvalidation.validators.RuleContext;
  *
  * @param <T>  type of instance to validate.
  */
-public class HasLengthBetweenConstraint<T> extends AbstractConstraint<T, CharSequence> {
+public class HasLengthBetweenConstraint<T, A extends CharSequence> extends AbstractConstraint<T, A> {
 
     private final int min;
     private final int max;
@@ -21,6 +21,7 @@ public class HasLengthBetweenConstraint<T> extends AbstractConstraint<T, CharSeq
 
     public HasLengthBetweenConstraint(int min, int max, boolean inclusiveStart, boolean inclusiveEnd) {
         super(DefaultMessages.CHARSEQUENCE_HAS_LENGTH_BETWEEN);
+        // TODO: ensure min less than max
         this.min = min;
         this.max = max;
         this.inclusiveStart = inclusiveStart;
@@ -28,8 +29,11 @@ public class HasLengthBetweenConstraint<T> extends AbstractConstraint<T, CharSeq
     }
 
     @Override
-    public boolean isValid(RuleContext<T, CharSequence> validationContext) {
-        int len = validationContext.getPropertyValue().length();
+    public boolean isValid(RuleContext<T, A> context) {
+        if (context.getPropertyValue() == null) {
+            return false;
+        }
+        int len = context.getPropertyValue().length();
         return Comparables.isBetween(len, min, max, inclusiveStart, inclusiveEnd);
     }
 }

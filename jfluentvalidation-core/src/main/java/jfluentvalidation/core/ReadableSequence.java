@@ -47,6 +47,8 @@ public interface ReadableSequence<S extends ReadableSequence<S, T, A>, T, A> {
 
     S hasLengthBetween(int min, int max);
 
+    S hasLengthBetween(int min, int max, boolean inclusiveStart, boolean inclusiveEnd);
+
     // TODO: do we want to keep this? Not sure how helpful
     S hasLineCount(int expected);
 
