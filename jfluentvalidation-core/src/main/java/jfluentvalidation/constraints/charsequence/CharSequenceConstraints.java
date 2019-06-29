@@ -63,7 +63,7 @@ public final class CharSequenceConstraints {
     }
 
     public static EndsWithConstraint endsWith(CharSequence suffix) {
-        return new EndsWithConstraint(suffix);
+        return new EndsWithConstraint<>(suffix);
     }
 
     public static HasLengthBetweenConstraint hasLengthBetween(int min, int max) {
@@ -75,11 +75,11 @@ public final class CharSequenceConstraints {
     }
 
     public static HasLengthGreaterThanConstraint hasLengthGreaterThan(int length) {
-        return new HasLengthGreaterThanConstraint(length);
+        return new HasLengthGreaterThanConstraint<>(length);
     }
 
     public static HasLengthGreaterThanOrEqualToConstraint hasLengthGreaterThanOrEqualTo(int length) {
-        return new HasLengthGreaterThanOrEqualToConstraint(length);
+        return new HasLengthGreaterThanOrEqualToConstraint<>(length);
     }
 
     public static HasLengthLessThanConstraint hasLengthLessThan(int length) {
@@ -155,7 +155,7 @@ public final class CharSequenceConstraints {
     }
 
     public static StartsWithConstraint startsWith(CharSequence prefix, int offset) {
-        return new StartsWithConstraint(prefix, offset);
+        return new StartsWithConstraint<>(prefix, offset);
     }
 
     private CharSequenceConstraints() {
