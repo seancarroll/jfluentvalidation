@@ -58,7 +58,7 @@ public abstract class AbstractCharSequenceSubject<S extends AbstractCharSequence
 
     @Override
     public S containsOnlyWhitespaces() {
-        rule.addConstraint(new ContainsWhitespacesConstraint<>());
+        rule.addConstraint(new ContainsOnlyWhitespacesConstraint<>());
         return myself;
     }
 
