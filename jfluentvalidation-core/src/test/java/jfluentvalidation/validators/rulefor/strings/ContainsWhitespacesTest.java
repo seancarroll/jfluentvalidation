@@ -58,7 +58,7 @@ class ContainsWhitespacesTest {
     }
 
     @ParameterizedTest
-    @MethodSource("doesNotcontainAnyWhitespaces")
+    @MethodSource("doesNotContainAnyWhitespaces")
     void shouldReturnFailureWhenActualDoesNotContainAnyWhitespaces(String actual) {
         Target t = new Target(actual);
 
@@ -70,7 +70,7 @@ class ContainsWhitespacesTest {
         assertFalse(failures.isEmpty());
     }
 
-    private static Stream<String> doesNotcontainAnyWhitespaces() {
+    private static Stream<String> doesNotContainAnyWhitespaces() {
         return Stream.of(null,
             "",
             "a",
