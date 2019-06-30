@@ -154,6 +154,7 @@ public abstract class AbstractCharSequenceSubject<S extends AbstractCharSequence
 
     @Override
     public S containsOnlyDigits() {
+        rule.addConstraint(new ContainsOnlyDigitsConstraint<>());
         return myself;
     }
 
