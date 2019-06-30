@@ -8,14 +8,14 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ContainsTest {
+class ContainsIgnoreCaseTest {
 
     @Test
     void shouldNotReturnFailureWhenActualContainsSequence() {
         Target t = new Target("Hello");
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForString(Target::getValue).contains("He");
+        validator.ruleForString(Target::getValue).containsIgnoreCase("He");
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -23,11 +23,11 @@ class ContainsTest {
     }
 
     @Test
-    void shouldNotReturnFailureWhenActualContainsAllGivenSequences() {
+    void shouldNotReturnFailureWhenActualContainsSequenceWithDifferentCase() {
         Target t = new Target("Hello");
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForString(Target::getValue).contains("He", "lo");
+        validator.ruleForString(Target::getValue).containsIgnoreCase("he");
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -39,31 +39,7 @@ class ContainsTest {
         Target t = new Target("Hello");
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForString(Target::getValue).contains("world");
-
-        List<ValidationFailure> failures = validator.validate(t);
-
-        assertFalse(failures.isEmpty());
-    }
-
-    @Test
-    void shouldReturnFailureWhenActualDoesNotContainAllGivenSequences() {
-        Target t = new Target("Hello");
-
-        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForString(Target::getValue).contains("He", "lo", "world");
-
-        List<ValidationFailure> failures = validator.validate(t);
-
-        assertFalse(failures.isEmpty());
-    }
-
-    @Test
-    void shouldReturnFailureWhenActualContainsSequenceWithDifferentCase() {
-        Target t = new Target("Hello");
-
-        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForString(Target::getValue).contains("he");
+        validator.ruleForString(Target::getValue).containsIgnoreCase("world");
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -75,7 +51,7 @@ class ContainsTest {
         Target t = new Target(null);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForString(Target::getValue).contains("hello");
+        validator.ruleForString(Target::getValue).containsIgnoreCase("hello");
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -85,8 +61,7 @@ class ContainsTest {
     @Test
     void shouldThrowIllegalArgumentExceptionWhenGivenSequenceIsNull() {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        NullPointerException ex = assertThrows(NullPointerException.class, () -> validator.ruleForString(Target::getValue).contains((String) null));
-        assertEquals("CharSequence elements should not be null but found one at index 0", ex.getMessage());
+        assertThrows(NullPointerException.class, () -> validator.ruleForString(Target::getValue).containsIgnoreCase((String) null));
     }
 
 }

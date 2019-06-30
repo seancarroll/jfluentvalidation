@@ -12,7 +12,7 @@ import jfluentvalidation.validators.RuleContext;
  *
  * @param <T>  type of instance to validate.
  */
-public class ContainsIgnoreCaseConstraint<T> extends AbstractConstraint<T, CharSequence> {
+public class ContainsIgnoreCaseConstraint<T, A extends CharSequence> extends AbstractConstraint<T, A> {
 
     private final CharSequence charSequence;
 
@@ -22,7 +22,10 @@ public class ContainsIgnoreCaseConstraint<T> extends AbstractConstraint<T, CharS
     }
 
     @Override
-    public boolean isValid(RuleContext<T, CharSequence> validationContext) {
-        return validationContext.getPropertyValue().toString().toLowerCase().contains(charSequence.toString().toLowerCase());
+    public boolean isValid(RuleContext<T, A> context) {
+        if (context.getPropertyValue() == null) {
+            return false;
+        }
+        return context.getPropertyValue().toString().toLowerCase().contains(charSequence.toString().toLowerCase());
     }
 }

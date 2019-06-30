@@ -195,6 +195,7 @@ public abstract class AbstractCharSequenceSubject<S extends AbstractCharSequence
 
     @Override
     public S containsIgnoreCase(CharSequence sequence) {
+        rule.addConstraint(new ContainsIgnoreCaseConstraint<>(sequence));
         return myself;
     }
 
