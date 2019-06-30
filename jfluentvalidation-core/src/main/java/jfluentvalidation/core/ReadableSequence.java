@@ -52,12 +52,7 @@ public interface ReadableSequence<S extends ReadableSequence<S, T, A>, T, A> {
     // TODO: do we want to keep this? Not sure how helpful
     S hasLineCount(int expected);
 
-    S hasSameLengthAs(CharSequenceSubject other);
-
-    // TODO: This is for an array. Why not just pass in an array? Do we want to keep? Does this make sense?
-    S hasSameLengthAs(Object other);
-
-    S hasSameLengthAs(Iterable<?> other);
+    S hasSameLengthAs(CharSequence other);
 
     S isEqualToIgnoringCase(CharSequence expected);
 

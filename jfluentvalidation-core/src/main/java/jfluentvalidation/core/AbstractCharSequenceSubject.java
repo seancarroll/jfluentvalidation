@@ -128,17 +128,8 @@ public abstract class AbstractCharSequenceSubject<S extends AbstractCharSequence
     }
 
     @Override
-    public S hasSameLengthAs(CharSequenceSubject other) {
-        return myself;
-    }
-
-    @Override
-    public S hasSameLengthAs(Object other) {
-        return myself;
-    }
-
-    @Override
-    public S hasSameLengthAs(Iterable<?> other) {
+    public S hasSameLengthAs(CharSequence other) {
+        rule.addConstraint(new HasSameLengthAsConstraint<>(other));
         return myself;
     }
 

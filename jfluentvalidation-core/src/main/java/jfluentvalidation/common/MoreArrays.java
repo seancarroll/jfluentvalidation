@@ -38,6 +38,11 @@ public final class MoreArrays {
         return false;
     }
 
+    @SafeVarargs
+    public static <T> T[] array(T... values) {
+        return values;
+    }
+
     public static <T> T[] newArray(Class<T> type, int length) {
         return (T[]) Array.newInstance(type, length);
     }
