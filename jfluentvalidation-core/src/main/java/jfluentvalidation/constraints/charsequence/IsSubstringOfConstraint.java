@@ -20,7 +20,10 @@ public class IsSubstringOfConstraint<T> extends AbstractConstraint<T, CharSequen
 
     // TODO: comparison strategy
     @Override
-    public boolean isValid(RuleContext<T, CharSequence> validationContext) {
-        return validationContext.getPropertyValue().toString().contains(sequence);
+    public boolean isValid(RuleContext<T, CharSequence> context) {
+        if (context.getPropertyValue() == null) {
+            return false;
+        }
+        return sequence.toString().contains(context.getPropertyValue());
     }
 }
