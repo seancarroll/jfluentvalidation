@@ -71,7 +71,7 @@ public final class Ensure {
     // TODO: do we need this? dont know where this should actually go
     public static CharSequence[] validCharSequenceArray(CharSequence[] sequences) {
         notNull(sequences);
-        argument(sequences.length == 0, "Sequences should not be empty");
+        argument(sequences.length > 0, "Sequences should not be empty");
         // TODO: turn this into arrayDoesNotContainNulls?
         // TODO: getting warning that i < sequences.length is always false
         for (int i = 0; i < sequences.length; i++) {

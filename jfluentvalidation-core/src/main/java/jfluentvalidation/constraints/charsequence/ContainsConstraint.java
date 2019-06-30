@@ -13,7 +13,7 @@ import jfluentvalidation.validators.RuleContext;
  *
  * @param <T>  type of instance to validate.
  */
-public class ContainsConstraint<T> extends AbstractConstraint<T, CharSequence> {
+public class ContainsConstraint<T, A extends CharSequence> extends AbstractConstraint<T, A> {
 
     private final CharSequence[] sequences;
 
@@ -23,11 +23,13 @@ public class ContainsConstraint<T> extends AbstractConstraint<T, CharSequence> {
     }
 
     @Override
-    public boolean isValid(RuleContext<T, CharSequence> validationContext) {
-
+    public boolean isValid(RuleContext<T, A> context) {
+        if (context.getPropertyValue() == null) {
+            return false;
+        }
         // TODO: Its probably best that we capture all of the sequence that are not in the string
         // How to do that? some sort of context? Map<Object, Object> which can be used within the localization string?
-        String instanceAsString = validationContext.getPropertyValue().toString();
+        String instanceAsString = context.getPropertyValue().toString();
         for (CharSequence sequence : sequences) {
             if (!instanceAsString.contains(sequence)) {
                 return false;

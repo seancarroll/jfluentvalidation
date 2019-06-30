@@ -164,6 +164,7 @@ public abstract class AbstractCharSequenceSubject<S extends AbstractCharSequence
 
     @Override
     public S contains(CharSequence... values) {
+        rule.addConstraint(new ContainsConstraint<>(values));
         return myself;
     }
 
