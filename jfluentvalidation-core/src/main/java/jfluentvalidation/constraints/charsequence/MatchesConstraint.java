@@ -2,6 +2,7 @@ package jfluentvalidation.constraints.charsequence;
 
 import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.DefaultMessages;
+import jfluentvalidation.internal.Ensure;
 import jfluentvalidation.validators.RuleContext;
 
 import java.util.regex.Pattern;
@@ -19,16 +20,19 @@ public class MatchesConstraint<T> extends AbstractConstraint<T, CharSequence> {
     private final Pattern pattern;
 
     public MatchesConstraint(CharSequence regex) {
-        this(Pattern.compile(regex.toString()));
+        this(Pattern.compile(Ensure.notNull(regex.toString())));
     }
 
     public MatchesConstraint(Pattern pattern) {
         super(DefaultMessages.CHARSEQUENCE_MATCHES);
-        this.pattern = pattern;
+        this.pattern = Ensure.notNull(pattern);
     }
 
     @Override
-    public boolean isValid(RuleContext<T, CharSequence> validationContext) {
-        return pattern.matcher(validationContext.getPropertyValue()).matches();
+    public boolean isValid(RuleContext<T, CharSequence> context) {
+        if (context.getPropertyValue() == null) {
+            return false;
+        }
+        return pattern.matcher(context.getPropertyValue()).matches();
     }
 }
