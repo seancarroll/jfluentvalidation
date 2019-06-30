@@ -31,7 +31,10 @@ public class ContainsPatternConstraint<T> extends AbstractConstraint<T, CharSequ
     }
 
     @Override
-    public boolean isValid(RuleContext<T, CharSequence> validationContext) {
-        return pattern.matcher(validationContext.getPropertyValue()).find();
+    public boolean isValid(RuleContext<T, CharSequence> context) {
+        if (context.getPropertyValue() == null) {
+            return false;
+        }
+        return pattern.matcher(context.getPropertyValue()).find();
     }
 }
