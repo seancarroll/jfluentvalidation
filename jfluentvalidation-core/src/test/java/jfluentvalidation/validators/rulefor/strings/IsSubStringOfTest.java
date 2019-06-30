@@ -90,45 +90,4 @@ class IsSubStringOfTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         assertThrows(NullPointerException.class, () -> validator.ruleForString(Target::getValue).isSubstringOf(null));
     }
-
-
-//    @Test
-//    public void should_pass_if_actual_is_a_substring_of_given_string() {
-//        strings.assertIsSubstringOf(someInfo(), "Yo", "Yoda");
-//    }
-//
-//    @Test
-//    public void should_pass_if_actual_is_equal_to_given_string() {
-//        strings.assertIsSubstringOf(someInfo(), "Yoda", "Yoda");
-//    }
-//
-//    @Test
-//    public void should_pass_if_actual_is_empty() {
-//        strings.assertIsSubstringOf(someInfo(), "", "Yoda");
-//        strings.assertIsSubstringOf(someInfo(), "", "");
-//    }
-//
-//    @Test
-//    public void should_fail_if_actual_contains_given_string() {
-//        assertThatExceptionOfType(AssertionError.class).isThrownBy(() -> strings.assertIsSubstringOf(someInfo(), "Yoda", "oda"))
-//            .withMessage(shouldBeSubstring("Yoda", "oda", StandardComparisonStrategy.instance()).create());
-//    }
-//
-//    @Test
-//    public void should_fail_if_actual_completely_different_from_given_string() {
-//        assertThatExceptionOfType(AssertionError.class).isThrownBy(() -> strings.assertIsSubstringOf(someInfo(), "Yoda", "Luke"))
-//            .withMessage(shouldBeSubstring("Yoda", "Luke", StandardComparisonStrategy.instance()).create());
-//    }
-//
-//    @Test
-//    public void should_throw_error_if_sequence_is_null() {
-//        assertThatNullPointerException().isThrownBy(() -> strings.assertIsSubstringOf(someInfo(), "Yoda", null))
-//            .withMessage("Expecting CharSequence not to be null");
-//    }
-//
-//    @Test
-//    public void should_fail_if_actual_is_null() {
-//        assertThatExceptionOfType(AssertionError.class).isThrownBy(() -> strings.assertIsSubstringOf(someInfo(), null, "Yoda"))
-//            .withMessage(actualIsNull());
-//    }
 }

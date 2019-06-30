@@ -61,7 +61,7 @@ class ContainsIgnoreCaseTest {
     @Test
     void shouldThrowIllegalArgumentExceptionWhenGivenSequenceIsNull() {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        assertThrows(NullPointerException.class, () -> validator.ruleForString(Target::getValue).containsIgnoreCase((String) null));
+        assertThrows(NullPointerException.class, () -> validator.ruleForString(Target::getValue).containsIgnoreCase(null));
     }
 
 }
