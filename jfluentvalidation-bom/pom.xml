@@ -76,7 +76,7 @@
             <dependency>
                 <groupId>org.objenesis</groupId>
                 <artifactId>objenesis</artifactId>
-                <version>3.0.1</version>
+                <version>${objenesis.version}</version>
             </dependency>
 
 
