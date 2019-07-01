@@ -291,6 +291,7 @@ public abstract class AbstractCharSequenceSubject<S extends AbstractCharSequence
 
     @Override
     public S isEqualToNormalizingWhitespace(CharSequence expected) {
+        rule.addConstraint(new IsEqualToNormalizingWhitespaceConstraint<>(expected));
         return myself;
     }
 

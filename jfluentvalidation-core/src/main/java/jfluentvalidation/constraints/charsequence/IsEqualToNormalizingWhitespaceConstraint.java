@@ -6,13 +6,11 @@ import jfluentvalidation.validators.RuleContext;
 
 import static java.lang.Character.isWhitespace;
 
-// TODO: implement!
-
 /**
  *
  * @param <T>  type of instance to validate.
  */
-public class IsEqualToNormalizingWhitespaceConstraint<T> extends AbstractConstraint<T, CharSequence> {
+public class IsEqualToNormalizingWhitespaceConstraint<T, A extends CharSequence> extends AbstractConstraint<T, A> {
 
     private final CharSequence expected;
 
@@ -22,17 +20,17 @@ public class IsEqualToNormalizingWhitespaceConstraint<T> extends AbstractConstra
     }
 
     @Override
-    public boolean isValid(RuleContext<T, CharSequence> validationContext) {
-
-//        if (actual == null) return expected == null;
-//        checkCharSequenceIsNotNull(expected);
-//        return normalizeWhitespace(actual).equals(normalizeWhitespace(expected));
-
-
-
-        return false;
+    public boolean isValid(RuleContext<T, A> context) {
+        if (context.getPropertyValue() == null) {
+            return expected == null;
+        }
+        if (expected == null) {
+            return false;
+        }
+        return normalizeWhitespace(context.getPropertyValue()).equals(normalizeWhitespace(expected));
     }
 
+    // TODO: change to not be a complete copy of assertj
     private String normalizeWhitespace(CharSequence toNormalize) {
         final StringBuilder result = new StringBuilder(toNormalize.length());
         boolean lastWasSpace = true;
