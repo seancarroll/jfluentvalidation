@@ -15,9 +15,6 @@ public class StringSubject<T>
         super(StringSubject.class, rule);
     }
 
-
-    // TODO: add isURL / isURI constraints for String and maybe charsequence?
-
     @Override
     public StringSubject<T> isEqualAccordingToCompareTo(String other) {
         rule.addConstraint(ComparableConstraints.isEqualAccordingToCompareTo(other));

@@ -47,6 +47,10 @@ Inspired by
 * https://github.com/google/truth
 
 
+## System Requirements
+JDK 8 or above.
+
+
 ## Research 
 
 I kind of like Google Truth's ComparisonResult in https://github.com/google/truth/blob/master/core/src/main/java/com/google/common/truth/Subject.java
@@ -84,33 +88,3 @@ Outside of Jeremy Skinner's Fluent Validation I'd like to call out some addition
 
 * http://joel-costigliola.github.io/assertj/assertj-core.html
 * https://github.com/google/truth
-
-
-
-TODO:
-- move subjects into core/subjects package
-- where to put exceptions?
-- Do some of the CharSequence constraints need to be moved to String?
-- What about adding a base class that checks property value for null
-- what about adding a Not|NegateConstraint that wraps another constraint to negate it. similar ot what we do for softconstraint
-
-
-
-
-hibernate validator classes
-- AbstractValidationContext
-- ConstraintViolationImpl
-- ConstraintTree
-- ValidatorImpl
-- TypeNames
-- ConstraintHelper
-- PlatformResourceBundleLocator
-- ValidatorFactoryBean
-- ConstraintDef
-- ConstraintMapping
-
-
-fluentvalidation
-- ValidatorMetadata
-- PropertyValidatorContext
-- DefaultValidatorOptions
