@@ -45,8 +45,7 @@ public class DateSubject<T> extends AbstractComparableSubject<DateSubject<T>, T,
 
     public DateSubject<T> isInThePast() {
         // TODO: should we have a Clock?
-        isBefore(new Date());
-        return myself;
+        return isBefore(new Date());
     }
 
     public DateSubject<T> isToday() {
@@ -56,8 +55,7 @@ public class DateSubject<T> extends AbstractComparableSubject<DateSubject<T>, T,
 
     public DateSubject<T> isInTheFuture() {
         // TODO: should we have a Clock?
-        isAfter(new Date());
-        return myself;
+        return isAfter(new Date());
     }
 
 

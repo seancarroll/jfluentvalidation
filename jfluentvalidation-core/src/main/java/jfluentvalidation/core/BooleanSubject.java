@@ -16,13 +16,11 @@ public class BooleanSubject<T> extends Subject<BooleanSubject<T>, T, Boolean> im
     // TODO: isEqual and isNotEqual
 
     public BooleanSubject<T> isTrue() {
-        isEquals(true);
-        return myself;
+        return isEquals(true);
     }
 
     public BooleanSubject<T> isFalse() {
-        isEquals(false);
-        return myself;
+        return isEquals(false);
     }
 
     // TODO: do these makes sense for boolean? While boolean does implement Comparable perhaps here is another way to
