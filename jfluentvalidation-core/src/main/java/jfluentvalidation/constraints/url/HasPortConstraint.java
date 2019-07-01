@@ -43,7 +43,7 @@ public class HasPortConstraint<T> extends AbstractConstraint<T, URL> {
 //    @Override
 //    protected void validate(RuleContext<T, URL> context) {
 //        if (context.getPropertyValue().getPort() != expected) {
-//            adddConstraint(ConstraintViolation.create(context, DEFAULT_MESSAGE));
+//            addConstraint(ConstraintViolation.create(context, DEFAULT_MESSAGE));
 //        }
 //    }
 }

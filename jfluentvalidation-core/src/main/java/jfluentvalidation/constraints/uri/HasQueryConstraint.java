@@ -37,7 +37,7 @@ public class HasQueryConstraint<T> extends AbstractConstraint<T, URI> {
 //    @Override
 //    protected void validate(RuleContext<T, URI> context) {
 //        if (!expected.equals(context.getPropertyValue().getQuery())) {
-//            adddConstraint(ConstraintViolation.create(context, DEFAULT_MESSAGE));
+//            addConstraint(ConstraintViolation.create(context, DEFAULT_MESSAGE));
 //        }
 //    }
 

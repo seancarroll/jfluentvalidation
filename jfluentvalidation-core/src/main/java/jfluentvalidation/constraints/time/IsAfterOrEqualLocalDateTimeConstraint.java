@@ -31,7 +31,7 @@ public class IsAfterOrEqualLocalDateTimeConstraint<T> extends AbstractConstraint
 //    @Override
 //    protected void validate(RuleContext<T, LocalDateTime> context) {
 //        if (context.getPropertyValue().isBefore(other)) {
-//            adddConstraint(ConstraintViolation.create(context, MESSAGE));
+//            addConstraint(ConstraintViolation.create(context, MESSAGE));
 //        }
 //    }
 

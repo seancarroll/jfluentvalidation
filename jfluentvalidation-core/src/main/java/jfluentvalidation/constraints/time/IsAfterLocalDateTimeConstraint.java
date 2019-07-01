@@ -31,7 +31,7 @@ public class IsAfterLocalDateTimeConstraint<T> extends AbstractConstraint<T, Loc
 //    @Override
 //    protected void validate(RuleContext<T, LocalDateTime> context) {
 //        if (!context.getPropertyValue().isAfter(other)) {
-//            adddConstraint(ConstraintViolation.create(context, MESSAGE));
+//            addConstraint(ConstraintViolation.create(context, MESSAGE));
 //        }
 //    }
 

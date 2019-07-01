@@ -58,12 +58,12 @@ public class HasNoParameterConstraint<T> extends AbstractConstraint<T, URI> {
 //    @Override
 //    protected void validate(RuleContext<T, URI> context) {
 //        if (name == null && !getParameters(context.getPropertyValue().getQuery()).isEmpty()) {
-//            adddConstraint(ConstraintViolation.create(context, DEFAULT_MESSAGE));
+//            addConstraint(ConstraintViolation.create(context, DEFAULT_MESSAGE));
 //        }
 //
 //        Map<String, List<String>> parameters = getParameters(context.getPropertyValue().getQuery());
 //        if (value == null && !parameters.containsKey(name)) {
-//            adddConstraint(ConstraintViolation.create(context, DEFAULT_MESSAGE));
+//            addConstraint(ConstraintViolation.create(context, DEFAULT_MESSAGE));
 //        }
 //    }
 

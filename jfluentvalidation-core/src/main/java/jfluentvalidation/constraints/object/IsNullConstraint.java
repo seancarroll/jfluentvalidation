@@ -29,7 +29,7 @@ public class IsNullConstraint<T, P> extends AbstractConstraint<T, P> {
 //    @Override
 //    protected void validate(RuleContext<T, P> context) {
 //        if (context.getPropertyValue() == null) {
-//            adddConstraint(ConstraintViolation.create(context, DEFAULT_MESSAGE));
+//            addConstraint(ConstraintViolation.create(context, DEFAULT_MESSAGE));
 //        }
 //    }
 

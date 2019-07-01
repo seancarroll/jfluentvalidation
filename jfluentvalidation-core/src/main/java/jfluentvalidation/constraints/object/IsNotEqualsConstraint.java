@@ -34,7 +34,7 @@ public class IsNotEqualsConstraint<T, P> extends AbstractConstraint<T, P> {
 //    @Override
 //    protected void validate(RuleContext<T, P> context) {
 //        if (Objects.equals(context.getPropertyValue(), other)) {
-//            adddConstraint(ConstraintViolation.create(context, DEFAULT_MESSAGE));
+//            addConstraint(ConstraintViolation.create(context, DEFAULT_MESSAGE));
 //        }
 //    }
 

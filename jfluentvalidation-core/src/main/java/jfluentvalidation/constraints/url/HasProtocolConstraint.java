@@ -45,7 +45,7 @@ public class HasProtocolConstraint<T> extends AbstractConstraint<T, URL> {
 //    @Override
 //    protected void validate(RuleContext<T, URL> context) {
 //        if (expected.equals(context.getPropertyValue().getProtocol())) {
-//            adddConstraint(ConstraintViolation.create(context, DEFAULT_MESSAGE));
+//            addConstraint(ConstraintViolation.create(context, DEFAULT_MESSAGE));
 //        }
 //
 //    }

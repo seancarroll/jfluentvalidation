@@ -43,7 +43,7 @@ public class HasHostConstraint<T> extends AbstractConstraint<T, URL> {
 //    @Override
 //    protected void validate(RuleContext<T, URL> context) {
 //        if (!context.getPropertyValue().getHost().equals(expected)) {
-//            adddConstraint(ConstraintViolation.create(context, MESSAGE));
+//            addConstraint(ConstraintViolation.create(context, MESSAGE));
 //        }
 //    }
 

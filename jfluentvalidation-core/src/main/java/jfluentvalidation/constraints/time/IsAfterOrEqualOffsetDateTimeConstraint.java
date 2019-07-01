@@ -31,7 +31,7 @@ public class IsAfterOrEqualOffsetDateTimeConstraint<T> extends AbstractConstrain
 //    @Override
 //    protected void validate(RuleContext<T, OffsetDateTime> context) {
 //        if (context.getPropertyValue().isBefore(other)) {
-//            adddConstraint(ConstraintViolation.create(context, MESSAGE));
+//            addConstraint(ConstraintViolation.create(context, MESSAGE));
 //        }
 //    }
 

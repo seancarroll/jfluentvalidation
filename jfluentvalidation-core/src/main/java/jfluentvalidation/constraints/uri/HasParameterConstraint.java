@@ -59,7 +59,7 @@ public class HasParameterConstraint<T> extends AbstractConstraint<T, URI> {
 //
 //        if (value == null) {
 //            if (!containsName) {
-//                adddConstraint(ConstraintViolation.create(context, DEFAULT_MESSAGE));
+//                addConstraint(ConstraintViolation.create(context, DEFAULT_MESSAGE));
 //            }
 //            return;
 //        }
@@ -67,7 +67,7 @@ public class HasParameterConstraint<T> extends AbstractConstraint<T, URI> {
 //        // TODO: could return null
 //        List<String> values = parameters.get(name);
 //        if (!values.contains(value)) {
-//            adddConstraint(ConstraintViolation.create(context, DEFAULT_MESSAGE));
+//            addConstraint(ConstraintViolation.create(context, DEFAULT_MESSAGE));
 //        }
 //    }
 

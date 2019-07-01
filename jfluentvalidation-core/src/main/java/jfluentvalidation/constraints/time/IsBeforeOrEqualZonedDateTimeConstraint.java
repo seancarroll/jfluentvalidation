@@ -36,7 +36,7 @@ public class IsBeforeOrEqualZonedDateTimeConstraint<T> extends AbstractConstrain
 //    @Override
 //    protected void validate(RuleContext<T, ZonedDateTime> context) {
 //        if (context.getPropertyValue().isAfter(other)) {
-//            adddConstraint(ConstraintViolation.create(context, DEFAULT_MESSAGE));
+//            addConstraint(ConstraintViolation.create(context, DEFAULT_MESSAGE));
 //        }
 //    }
 
