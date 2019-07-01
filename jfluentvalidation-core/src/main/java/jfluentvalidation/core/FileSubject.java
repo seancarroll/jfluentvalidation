@@ -27,10 +27,6 @@ public class FileSubject<T> extends Subject<FileSubject<T>, T, File> implements 
         super(FileSubject.class, rule);
     }
 
-    // TODO: add the following?
-    // hasSameContentAs(File expected)
-    // hasSameContentAs(File expected, Charset expectedCharset)
-
     public FileSubject<T> canRead() {
         rule.addConstraint(new CanReadConstraint<>());
         return myself;
@@ -147,7 +143,7 @@ public class FileSubject<T> extends Subject<FileSubject<T>, T, File> implements 
 
     @Override
     public FileSubject<T> isNotBetween(File start, File end, boolean inclusiveStart, boolean inclusiveEnd) {
-        rule.addConstraint(new IsNotBetweenConstraint(start, end, inclusiveStart, inclusiveEnd));
+        rule.addConstraint(new IsNotBetweenConstraint<>(start, end, inclusiveStart, inclusiveEnd));
         return myself;
     }
 }
