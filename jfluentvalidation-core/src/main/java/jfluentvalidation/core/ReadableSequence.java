@@ -102,7 +102,7 @@ public interface ReadableSequence<S extends ReadableSequence<S, T, A>, T, A> {
 
     S matches(Pattern pattern);
 
-    S doesNotmatch(Pattern pattern);
+    S doesNotMatch(Pattern pattern);
 
     // TODO: Not sure this makes sense to keep
     S isXmlEqualTo(CharSequence expectedXml);

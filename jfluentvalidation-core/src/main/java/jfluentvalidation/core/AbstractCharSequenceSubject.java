@@ -259,7 +259,7 @@ public abstract class AbstractCharSequenceSubject<S extends AbstractCharSequence
     }
 
     @Override
-    public S doesNotmatch(Pattern pattern) {
+    public S doesNotMatch(Pattern pattern) {
         return myself;
     }
 
