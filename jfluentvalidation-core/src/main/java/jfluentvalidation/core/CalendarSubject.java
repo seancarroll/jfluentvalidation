@@ -20,22 +20,22 @@ public class CalendarSubject<T>
     }
 
     public CalendarSubject isBefore(Calendar other) {
-        rule.addConstraint(new IsBeforeCalendarConstraint(other));
+        rule.addConstraint(new IsBeforeCalendarConstraint<>(other));
         return myself;
     }
 
     public CalendarSubject isBeforeOrEqualTo(Calendar other) {
-        rule.addConstraint(new IsBeforeOrEqualCalendarConstraint(other));
+        rule.addConstraint(new IsBeforeOrEqualCalendarConstraint<>(other));
         return myself;
     }
 
     public CalendarSubject isAfter(Calendar other) {
-        rule.addConstraint(new IsAfterCalendarConstraint(other));
+        rule.addConstraint(new IsAfterCalendarConstraint<>(other));
         return myself;
     }
 
     public CalendarSubject isAfterOrEqualTo(Calendar other) {
-        rule.addConstraint(new IsAfterOrEqualCalendarConstraint(other));
+        rule.addConstraint(new IsAfterOrEqualCalendarConstraint<>(other));
         return myself;
     }
 
