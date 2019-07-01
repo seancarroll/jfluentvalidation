@@ -13,12 +13,13 @@ import java.util.regex.Pattern;
 
 /**
  * Checks that the given {@code CharSequence} being validated is a valid email.
- * Note: This validation should not be considered a fully comprehensive check but viewed as a "good enough" for must scenarios
- * Should use alternative means to actually determine if given {@code CharSequence} is actually valid email
+ * Note: This validation should not be considered a fully comprehensive check but viewed as a "good enough" for must
+ * scenarios.
+ * You should use alternative means to actually determine if given {@code CharSequence} is actually valid email.
  *
  * @param <T>  type of instance to validate.
  */
-public class IsEmailConstraint<T> extends AbstractConstraint<T, CharSequence> {
+public class IsEmailConstraint<T, A extends CharSequence> extends AbstractConstraint<T, A> {
 
     // TODO: do we want the ability for users to override and if so how?
     // Possible suggestions are
@@ -27,15 +28,15 @@ public class IsEmailConstraint<T> extends AbstractConstraint<T, CharSequence> {
     // users could create their own constraint or validator and pass it in when creating the Validator
     private static final Pattern DEFAULT_EMAIL = Pattern.compile("");
 
-    private final CharSequence value;
-
-    public IsEmailConstraint(CharSequence value) {
+    public IsEmailConstraint() {
         super(DefaultMessages.CHARSEQUENCE_IS_EMAIL);
-        this.value = value;
     }
 
     @Override
-    public boolean isValid(RuleContext<T, CharSequence> validationContext) {
+    public boolean isValid(RuleContext<T, A> context) {
+        if (context.getPropertyValue() == null) {
+            return false;
+        }
         return false;
     }
 }

@@ -46,14 +46,6 @@ public final class CharSequenceConstraints {
         return new ContainsPatternConstraint(regex);
     }
 
-    public static ContainsSequenceConstraint containsSequence(CharSequence... sequences) {
-        return new ContainsSequenceConstraint(sequences);
-    }
-
-    public static ContainsSubsequenceConstraint containsSubsequence(CharSequence... sequences) {
-        return new ContainsSubsequenceConstraint(sequences);
-    }
-
     public static ContainsWhitespacesConstraint containsWhitespaces() {
         return CONTAINS_WHITESPACES_CONSTRAINT;
     }
@@ -100,8 +92,8 @@ public final class CharSequenceConstraints {
     }
 
     // TODO: always return a single instance (make a singleton public static final)
-    public static IsEmailConstraint isEmail(CharSequence sequence) {
-        return new IsEmailConstraint(sequence);
+    public static IsEmailConstraint isEmail() {
+        return new IsEmailConstraint();
     }
 
     public static IsEmptyConstraint isEmpty() {
