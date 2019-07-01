@@ -25,7 +25,7 @@ public abstract class AbstractConstraint<T, P> implements Constraint<T, P> {
 
     // protected abstract void validate(RuleContext<T, P> context);
 
-    protected void adddConstraint(ConstraintViolation violation) {
+    protected void addConstraint(ConstraintViolation violation) {
         constraintViolations.add(violation);
     }
 
