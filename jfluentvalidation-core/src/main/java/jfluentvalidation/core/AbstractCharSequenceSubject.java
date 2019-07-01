@@ -280,6 +280,7 @@ public abstract class AbstractCharSequenceSubject<S extends AbstractCharSequence
 
     @Override
     public S isEqualToIgnoringWhitespace(CharSequence expected) {
+        rule.addConstraint(new IsEqualToIgnoringWhitespaceConstraint<>(expected));
         return myself;
     }
 

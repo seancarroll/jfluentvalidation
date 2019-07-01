@@ -12,7 +12,7 @@ import static java.lang.Character.isWhitespace;
  *
  * @param <T>  type of instance to validate.
  */
-public class IsEqualToIgnoringWhitespaceConstraint<T> extends AbstractConstraint<T, CharSequence> {
+public class IsEqualToIgnoringWhitespaceConstraint<T, A extends CharSequence> extends AbstractConstraint<T, A> {
 
     private final CharSequence expected;
 
@@ -22,11 +22,14 @@ public class IsEqualToIgnoringWhitespaceConstraint<T> extends AbstractConstraint
     }
 
     @Override
-    public boolean isValid(RuleContext<T, CharSequence> validationContext) {
-        if (validationContext.getPropertyValue() == null) return expected == null;
-        // checkCharSequenceIsNotNull(expected);
-        // return removeAllWhitespaces(actual).equals(removeAllWhitespaces(expected));
-        return false;
+    public boolean isValid(RuleContext<T, A> context) {
+        if (context.getPropertyValue() == null) {
+            return expected == null;
+        }
+        if (expected == null) {
+            return false;
+        }
+        return removeAllWhitespaces(context.getPropertyValue()).equals(removeAllWhitespaces(expected));
     }
 
 
