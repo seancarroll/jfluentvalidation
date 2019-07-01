@@ -36,7 +36,7 @@ public class HasContentConstraint<T> extends AbstractConstraint<T, File> {
                 return false;
             }
 
-            // TODO: check if not a file. Should we throw?
+            // TODO: Should we throw?
             if (!context.getPropertyValue().isFile()) {
                 return false;
             }
