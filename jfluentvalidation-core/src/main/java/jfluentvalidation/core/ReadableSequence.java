@@ -2,8 +2,7 @@ package jfluentvalidation.core;
 
 import java.util.regex.Pattern;
 
-// TODO: ugh...I dont really like the name but attempting to try and fix charsequence/string/stringbuffer/stringbuilder
-// incompatiblity issues
+// TODO: better name?
 
 /**
  *
@@ -25,10 +24,8 @@ public interface ReadableSequence<S extends ReadableSequence<S, T, A>, T, A> {
 
     S isNotBlank();
 
-    // TODO: do we want this? Not sure this is helpful
     S containsWhitespaces();
 
-    // TODO: do we want this? Not sure this is helpful
     S containsOnlyWhitespaces();
 
     S doesNotContainAnyWhitespaces();
@@ -49,9 +46,6 @@ public interface ReadableSequence<S extends ReadableSequence<S, T, A>, T, A> {
 
     S hasLengthBetween(int min, int max, boolean inclusiveStart, boolean inclusiveEnd);
 
-    // TODO: do we want to keep this? Not sure how helpful
-    S hasLineCount(int expected);
-
     S hasSameLengthAs(CharSequence other);
 
     S isEqualToIgnoringCase(CharSequence expected);
@@ -67,14 +61,6 @@ public interface ReadableSequence<S extends ReadableSequence<S, T, A>, T, A> {
     S contains(CharSequence... values);
 
     S contains(Iterable<? extends  CharSequence> values);
-
-    S containsSequence(CharSequence... values);
-
-    S containsSequence(Iterable<? extends CharSequence> values);
-
-    S containsSubsequence(CharSequence... values);
-
-    S containsSubsequence(Iterable<? extends CharSequence> values);
 
     S containsIgnoreCase(CharSequence sequence);
 
@@ -104,13 +90,6 @@ public interface ReadableSequence<S extends ReadableSequence<S, T, A>, T, A> {
 
     S doesNotMatch(Pattern pattern);
 
-    // TODO: Not sure this makes sense to keep
-    S isXmlEqualTo(CharSequence expectedXml);
-
-    S inHexadecimal();
-
-    S inUnicode();
-
     S isEqualToIgnoringWhitespace(CharSequence expected);
 
     S isNotEqualToIgnoringWhitespace(CharSequence expected);
@@ -125,14 +104,10 @@ public interface ReadableSequence<S extends ReadableSequence<S, T, A>, T, A> {
 
     S containsPattern(Pattern pattern);
 
-    S isEqualToNormalizingNewlines(CharSequence expected);
-
-    S isEqualToIgnoringNewLines(CharSequence expected);
-
     S isLowerCase();
 
     S isUpperCase();
 
-    // TODO: isEmail();
+    S isEmail();
 
 }

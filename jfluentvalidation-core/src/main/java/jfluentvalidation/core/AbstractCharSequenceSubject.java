@@ -123,11 +123,6 @@ public abstract class AbstractCharSequenceSubject<S extends AbstractCharSequence
     }
 
     @Override
-    public S hasLineCount(int expected) {
-        return myself;
-    }
-
-    @Override
     public S hasSameLengthAs(CharSequence other) {
         rule.addConstraint(new HasSameLengthAsConstraint<>(other));
         return myself;
@@ -163,26 +158,6 @@ public abstract class AbstractCharSequenceSubject<S extends AbstractCharSequence
 
     @Override
     public S contains(Iterable<? extends CharSequence> values) {
-        return myself;
-    }
-
-    @Override
-    public S containsSequence(CharSequence... values) {
-        return myself;
-    }
-
-    @Override
-    public S containsSequence(Iterable<? extends CharSequence> values) {
-        return myself;
-    }
-
-    @Override
-    public S containsSubsequence(CharSequence... values) {
-        return myself;
-    }
-
-    @Override
-    public S containsSubsequence(Iterable<? extends CharSequence> values) {
         return myself;
     }
 
@@ -264,21 +239,6 @@ public abstract class AbstractCharSequenceSubject<S extends AbstractCharSequence
     }
 
     @Override
-    public S isXmlEqualTo(CharSequence expectedXml) {
-        return myself;
-    }
-
-    @Override
-    public S inHexadecimal() {
-        return myself;
-    }
-
-    @Override
-    public S inUnicode() {
-        return myself;
-    }
-
-    @Override
     public S isEqualToIgnoringWhitespace(CharSequence expected) {
         rule.addConstraint(new IsEqualToIgnoringWhitespaceConstraint<>(expected));
         return myself;
@@ -319,16 +279,6 @@ public abstract class AbstractCharSequenceSubject<S extends AbstractCharSequence
     }
 
     @Override
-    public S isEqualToNormalizingNewlines(CharSequence expected) {
-        return myself;
-    }
-
-    @Override
-    public S isEqualToIgnoringNewLines(CharSequence expected) {
-        return myself;
-    }
-
-    @Override
     public S isLowerCase() {
         rule.addConstraint(CharSequenceConstraints.isLowerCase());
         return myself;
@@ -340,4 +290,9 @@ public abstract class AbstractCharSequenceSubject<S extends AbstractCharSequence
         return myself;
     }
 
+    @Override
+    public S isEmail() {
+        rule.addConstraint(new IsEmailConstraint<>());
+        return myself;
+    }
 }
