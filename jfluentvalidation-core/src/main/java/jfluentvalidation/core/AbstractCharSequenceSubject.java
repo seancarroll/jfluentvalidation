@@ -135,6 +135,7 @@ public abstract class AbstractCharSequenceSubject<S extends AbstractCharSequence
 
     @Override
     public S isEqualToIgnoringCase(CharSequence expected) {
+        rule.addConstraint(new IsEqualToIgnoringCaseConstraint<>(expected));
         return myself;
     }
 

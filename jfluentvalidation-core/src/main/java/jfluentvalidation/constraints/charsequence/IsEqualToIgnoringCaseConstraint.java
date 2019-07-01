@@ -9,7 +9,7 @@ import jfluentvalidation.validators.RuleContext;
  *
  * @param <T>  type of instance to validate.
  */
-public class IsEqualToIgnoringCaseConstraint<T> extends AbstractConstraint<T, CharSequence> {
+public class IsEqualToIgnoringCaseConstraint<T, A extends CharSequence> extends AbstractConstraint<T, A> {
 
     private final CharSequence other;
 
@@ -19,7 +19,13 @@ public class IsEqualToIgnoringCaseConstraint<T> extends AbstractConstraint<T, Ch
     }
 
     @Override
-    public boolean isValid(RuleContext<T, CharSequence> validationContext) {
-        return validationContext.getPropertyValue().toString().equalsIgnoreCase(other.toString());
+    public boolean isValid(RuleContext<T, A> context) {
+        if (context.getPropertyValue() == null) {
+            return other == null;
+        }
+        if (other == null) {
+            return false;
+        }
+        return context.getPropertyValue().toString().equalsIgnoreCase(other.toString());
     }
 }
