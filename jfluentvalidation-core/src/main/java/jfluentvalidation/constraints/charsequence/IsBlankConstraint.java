@@ -9,21 +9,21 @@ import jfluentvalidation.validators.RuleContext;
  *
  * @param <T>  type of instance to validate.
  */
-public class IsBlankConstraint<T> extends AbstractConstraint<T, CharSequence> {
+public class IsBlankConstraint<T, A extends CharSequence> extends AbstractConstraint<T, A> {
 
     public IsBlankConstraint() {
         super(DefaultMessages.CHARSEQUENCE_IS_BLANK);
     }
 
     @Override
-    public boolean isValid(RuleContext<T, CharSequence> validationContext) {
+    public boolean isValid(RuleContext<T, A> context) {
         int length;
-        if (validationContext.getPropertyValue() == null || (length = validationContext.getPropertyValue().length()) == 0) {
+        if (context.getPropertyValue() == null || (length = context.getPropertyValue().length()) == 0) {
             return true;
         }
 
         for (int i = 0; i < length; i++) {
-            if (!Character.isWhitespace(validationContext.getPropertyValue().charAt(i))) {
+            if (!Character.isWhitespace(context.getPropertyValue().charAt(i))) {
                 return false;
             }
         }

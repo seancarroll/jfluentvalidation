@@ -42,6 +42,7 @@ public abstract class AbstractCharSequenceSubject<S extends AbstractCharSequence
 
     @Override
     public S isBlank() {
+        rule.addConstraint(new IsBlankConstraint<>());
         return myself;
     }
 
