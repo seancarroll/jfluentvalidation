@@ -1,6 +1,7 @@
 package jfluentvalidation.core;
 
 import jfluentvalidation.constraints.inputstream.HasContentConstraint;
+import jfluentvalidation.constraints.inputstream.HasSameContentAsConstraint;
 import jfluentvalidation.rules.PropertyRule;
 
 import java.io.InputStream;
@@ -17,8 +18,7 @@ public class InputStreamSubject<T> extends Subject<InputStreamSubject<T>, T, Inp
     }
 
     public InputStreamSubject hasSameContentAs(InputStream expected) {
-        // TODO: implement
-        //inputStreams.assertSameContentAs(info, actual, expected);
+        rule.addConstraint(new HasSameContentAsConstraint<>(expected));
         return myself;
     }
 

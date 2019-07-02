@@ -7,25 +7,19 @@ import jfluentvalidation.internal.Ensure;
 import jfluentvalidation.validators.RuleContext;
 
 import javax.annotation.Nonnull;
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.StringReader;
 import java.util.List;
 import java.util.Objects;
 
 import static jfluentvalidation.common.InputStreams.readLines;
 
-/**
- *
- * @param <T>  the target type supported by an implementation.
- */
-public class HasContentConstraint<T> extends AbstractConstraint<T, InputStream> {
+public class HasSameContentAsConstraint<T> extends AbstractConstraint<T, InputStream> {
 
-    private final String expected;
+    private final InputStream expected;
 
-    public HasContentConstraint(@Nonnull String expected) {
-        super(DefaultMessages.INPUTSTREAM_HAS_CONTENT);
+    public HasSameContentAsConstraint(@Nonnull InputStream expected) {
+        super(DefaultMessages.INPUTSTREAM_HAS_SAME_CONTENT_AS);
         this.expected = Ensure.notNull(expected);
     }
 
@@ -39,7 +33,7 @@ public class HasContentConstraint<T> extends AbstractConstraint<T, InputStream> 
 
             // TODO: should we diff so that we can provide to caller?
             List<String> actualLines = readLines(context.getPropertyValue());
-            List<String> expectedLines = readLines(new BufferedReader(new StringReader(expected)));
+            List<String> expectedLines = readLines(expected);
             if (actualLines.size() != expectedLines.size()) {
                 return false;
             }

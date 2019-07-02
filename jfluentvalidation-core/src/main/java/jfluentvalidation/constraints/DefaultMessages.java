@@ -78,6 +78,7 @@ public class DefaultMessages {
 
 
     public static final String INPUTSTREAM_HAS_CONTENT = "{jfluentvalidation.constraints.inputstream.HasContent.message}";
+    public static final String INPUTSTREAM_HAS_SAME_CONTENT_AS = "{jfluentvalidation.constraints.inputstream.HasSameContentAs.message}";
 
 
     public static final String ITERABLE_CONTAINS_ALL_IN = "{jfluentvalidation.constraints.iterable.ContainsAllIn.message}";
