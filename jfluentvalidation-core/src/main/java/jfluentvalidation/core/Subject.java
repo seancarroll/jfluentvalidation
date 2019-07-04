@@ -9,7 +9,6 @@ package jfluentvalidation.core;
 
 // Following assertj style we could have an Constraint interface an an abstract class AbstractConstraint
 
-import jfluentvalidation.constraints.Constraint;
 import jfluentvalidation.constraints.PredicateConstraint;
 import jfluentvalidation.constraints.object.IsEqualsConstraint;
 import jfluentvalidation.constraints.object.IsNotEqualsConstraint;
@@ -32,7 +31,9 @@ public class Subject<S extends Subject<S, T, A>, T, A> {
     // TODO: does the subject need propertyFunc, propertyName, constraints, currentConstraint or can these be moved elsewhere?
     protected final S myself;
     protected PropertyRule<T, A> rule;
-    protected Constraint<?, A> currentConstraint;
+
+    // TODO: do we need this? we added currentConstraint to rule...is that were it should be?
+    // protected Constraint<T, A> currentConstraint;
 
     public Subject(Class<?> selfType, PropertyRule<T, A> rule) {
         this.myself = (S) selfType.cast(this);
@@ -73,13 +74,15 @@ public class Subject<S extends Subject<S, T, A>, T, A> {
         return myself;
     }
 
-    public S when(Predicate<A> predicate) {
+    public S when(Predicate<T> predicate) {
         return when(predicate, true);
     }
 
     // TODO: enum instead of boolean applyToAll?
-    public S when(Predicate<A> predicate, boolean applyToAll) {
-        // TODO: implement
+    public S when(Predicate<T> predicate, boolean applyToAll) {
+        // TODO: use applyToAll
+        // TODO: crap...SoftConstraint predicate could be on a different type than the constraint
+        rule.applyCondition(predicate, applyToAll);
         return myself;
     }
 

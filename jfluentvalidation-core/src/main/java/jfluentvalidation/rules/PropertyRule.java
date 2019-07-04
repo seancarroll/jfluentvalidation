@@ -91,13 +91,20 @@ public class PropertyRule<T, P> implements Rule<T, P> {
     // 1. targeting the instance to validate and used as part of the validator when grouping
     // 2. targeting a subject used as part of the fluent builder
     @Override
-    public void applyCondition(Predicate<T> predicate) {
+    public void applyCondition(Predicate<T> predicate, boolean applyToAll) {
         // TODO: need to add ability to apply to only one constraint vs all constraints
-        for (Constraint constraint : constraints) {
-            SoftConstraint softConstraint = new SoftConstraint<>(predicate, constraint);
-            int index = constraints.indexOf(constraint);
+        if (applyToAll) {
+            for (Constraint constraint : constraints) {
+                SoftConstraint softConstraint = new SoftConstraint<>(predicate, constraint);
+                int index = constraints.indexOf(constraint);
+                if (index > -1) {
+                    constraints.toArray()[index] = softConstraint;
+                }
+            }
+        } else {
+            int index = constraints.indexOf(currentConstraint);
             if (index > -1) {
-                constraints.toArray()[index] = softConstraint;
+                constraints.set(index, new SoftConstraint(predicate, currentConstraint));
             }
         }
     }

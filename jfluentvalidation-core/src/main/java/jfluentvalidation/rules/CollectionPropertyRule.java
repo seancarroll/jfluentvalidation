@@ -21,13 +21,17 @@ public class CollectionPropertyRule<T, P> extends PropertyRule<T, P> {
 
     @Override
     public List<ValidationFailure> validate(ValidationContext<T, P> context) {
-        P propertyValue = propertyFunc.apply(context.getInstanceToValidate());
-        Collection<Object> collectionPropertyValue = toCollection(propertyValue);
-        if (collectionPropertyValue == null) {
-            // TODO: throw
-        }
-
         List<ValidationFailure> failures = new ArrayList<>();
+
+        P propertyValue = propertyFunc.apply(context.getInstanceToValidate());
+        if (propertyValue == null) {
+            // TODO: what do we want to do here?
+            return failures;
+        }
+        Collection<Object> collectionPropertyValue = toCollection(propertyValue);
+
+
+
         for (Constraint<?, ? extends P> constraint : getConstraints()) {
             int i = 0;
             for (Iterator<Object> it = collectionPropertyValue.iterator(); it.hasNext(); i++) {

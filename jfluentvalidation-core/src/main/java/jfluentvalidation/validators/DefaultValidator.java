@@ -546,7 +546,7 @@ public class DefaultValidator<T> implements Validator<T> {
         // TODO: is there a way we can group these all under something instead of iterating through rules?
         // Is that even a good idea?
         for (Rule<T, ?> rule : rulesToUpdate) {
-            rule.applyCondition(predicate);
+            rule.applyCondition(predicate, true);
         }
     }
 
