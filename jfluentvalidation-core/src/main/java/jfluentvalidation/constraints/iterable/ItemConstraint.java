@@ -14,15 +14,15 @@ import java.util.function.Predicate;
 // This looks like a more general case of the ContainsAllIn/ContainsAnyIn/ContainsExactlyElements/ContainsNoneIn/etc
 public class ItemConstraint<T, P> extends AbstractConstraint<T, Iterable<? super P>> {
 
-    private final Predicate<P> condition;
+    private final Predicate<? super P> condition;
     // TODO: should this just be a single constraint?
-    private final Constraint<T, P>[] innerConstraints;
+    private final Constraint<T, ? super P>[] innerConstraints;
 
     public ItemConstraint(Constraint<T, P>[] innerConstraints) {
         this(null, innerConstraints);
     }
 
-    public ItemConstraint(Predicate<P> condition, Constraint<T, P>[] innerConstraints) {
+    public ItemConstraint(Predicate<? super P> condition, Constraint<T, ? super P>[] innerConstraints) {
         super(DefaultMessages.ITERABLE_ITEM);
         this.condition = condition;
         this.innerConstraints = innerConstraints;
