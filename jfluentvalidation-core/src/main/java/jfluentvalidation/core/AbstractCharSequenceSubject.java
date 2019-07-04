@@ -20,8 +20,6 @@ public abstract class AbstractCharSequenceSubject<S extends AbstractCharSequence
         super(selfType, rule);
     }
 
-    // TODO: isNullOrEmpty vs isBlank
-    // TODO: if we keep then we need a isNotNullOrEmpty
     @Override
     public S isNullOrEmpty() {
         rule.addConstraint(new IsNullOrEmptyConstraint<>());
