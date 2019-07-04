@@ -138,7 +138,7 @@ public class IterableSubject<T, E> extends Subject<IterableSubject<T, E>, T, Ite
      * @param constraintsToAdd
      * @return
      */
-    public final IterableSubject<T, E> forEach(Predicate<E> predicate, Constraint<T, E>... constraintsToAdd) {
+    public final IterableSubject<T, E> forEach(Predicate<? super E> predicate, Constraint<T, ? super E>... constraintsToAdd) {
         rule.addConstraint(new ItemConstraint<>(predicate, constraintsToAdd));
         return myself;
     }
