@@ -33,7 +33,9 @@ public class ObjectArrayExactLengthConstraint<T> extends AbstractConstraint<T, O
 
     @Override
     public boolean isValid(RuleContext<T, Object[]> context) {
-        int len = context.getPropertyValue().length;
-        return len == lengthSupplier.getAsInt();
+        if (context.getPropertyValue() == null) {
+            return false;
+        }
+        return context.getPropertyValue().length == lengthSupplier.getAsInt();
     }
 }

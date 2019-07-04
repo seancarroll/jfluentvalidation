@@ -16,6 +16,9 @@ public class IsEmptyObjectArrayConstraint<T> extends AbstractConstraint<T, Objec
 
     @Override
     public boolean isValid(RuleContext<T, Object[]> context) {
+        if (context.getPropertyValue() == null) {
+            return false;
+        }
         return context.getPropertyValue().length == 0;
     }
 }

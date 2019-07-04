@@ -26,4 +26,13 @@ final class ArrayLength {
         return true;
     }
 
+    static boolean between(int actual, int min, int max, boolean includeMin, boolean includeMax) {
+        if (actual < min || (actual > max && max != -1)) {
+            return false;
+        }
+
+        return true;
+    }
+
+
 }
