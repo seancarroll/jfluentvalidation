@@ -36,20 +36,20 @@ class IsLessThanOrEqualTest {
     }
 
     @Test
-    void shouldReturnFailureWhenActualGreaterThanGiven() {
-        Target t = new Target(11L);
+    void shouldNotReturnReturnFailureWhenActualIsNull() {
+        Target t = new Target(null);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForLong(Target::getNumber).isLessThanOrEqualTo(10L);
 
         List<ValidationFailure> failures = validator.validate(t);
 
-        assertFalse(failures.isEmpty());
+        assertTrue(failures.isEmpty());
     }
 
     @Test
-    void shouldReturnFailureWhenActualIsNull() {
-        Target t = new Target(null);
+    void shouldReturnFailureWhenActualGreaterThanGiven() {
+        Target t = new Target(11L);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForLong(Target::getNumber).isLessThanOrEqualTo(10L);

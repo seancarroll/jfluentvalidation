@@ -14,20 +14,20 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class HasPortTest {
 
     @Test
-    void shouldReturnFailureIfActualUriIsNull() {
-        Media m = new Media(null);
+    void shouldNotReturnFailureWhenActualUriHasTheGivenPort() throws URISyntaxException {
+        Media m = new Media(new URI("http://example.com:8080"));
 
         DefaultValidator<Media> validator = new DefaultValidator<>(Media.class);
         validator.ruleForUri(Media::getContentLocation).hasPort(8080);
 
         List<ValidationFailure> failures = validator.validate(m);
 
-        assertFalse(failures.isEmpty());
+        assertTrue(failures.isEmpty());
     }
 
     @Test
-    void shouldNotReturnFailureWhenActualUriHasTheGivenPort() throws URISyntaxException {
-        Media m = new Media(new URI("http://example.com:8080"));
+    void shouldNotReturnFailureIfActualUriIsNull() {
+        Media m = new Media(null);
 
         DefaultValidator<Media> validator = new DefaultValidator<>(Media.class);
         validator.ruleForUri(Media::getContentLocation).hasPort(8080);

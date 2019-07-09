@@ -14,20 +14,20 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class HasNoPortTest {
 
     @Test
-    void shouldReturnFailureIfActualUrlIsNull() {
-        Profile p = new Profile(null);
+    void shouldNotReturnFailureWhenActualUrlDoesNotHavePort() throws MalformedURLException {
+        Profile p = new Profile(new URL("http://example.com"));
 
         DefaultValidator<Profile> validator = new DefaultValidator<>(Profile.class);
         validator.ruleForUrl(Profile::getWebsite).hasNoPort();
 
         List<ValidationFailure> failures = validator.validate(p);
 
-        assertFalse(failures.isEmpty());
+        assertTrue(failures.isEmpty());
     }
 
     @Test
-    void shouldNotReturnFailureWhenActualUrlDoesNotHavePort() throws MalformedURLException {
-        Profile p = new Profile(new URL("http://example.com"));
+    void shouldNotReturnFailureIfActualUrlIsNull() {
+        Profile p = new Profile(null);
 
         DefaultValidator<Profile> validator = new DefaultValidator<>(Profile.class);
         validator.ruleForUrl(Profile::getWebsite).hasNoPort();

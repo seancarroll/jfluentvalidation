@@ -15,19 +15,6 @@ import static org.mockito.Mockito.when;
 class IsDirectoryTest {
 
     @Test
-    void shouldReturnFailureWhenActualIsNull() {
-        Target t = new Target(null);
-
-        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForFile(Target::getFile).isDirectory();
-
-        List<ValidationFailure> failures = validator.validate(t);
-
-        assertFalse(failures.isEmpty());
-    }
-
-
-    @Test
     void shouldNotReturnFailureWhenDirectory() {
         File actual = mock(File.class);
         when(actual.isDirectory()).thenReturn(true);
@@ -42,6 +29,17 @@ class IsDirectoryTest {
         assertTrue(failures.isEmpty());
     }
 
+    @Test
+    void shouldNotReturnFailureWhenActualIsNull() {
+        Target t = new Target(null);
+
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        validator.ruleForFile(Target::getFile).isDirectory();
+
+        List<ValidationFailure> failures = validator.validate(t);
+
+        assertTrue(failures.isEmpty());
+    }
 
     @Test
     void shouldReturnFailureWhenNotDirectory() {

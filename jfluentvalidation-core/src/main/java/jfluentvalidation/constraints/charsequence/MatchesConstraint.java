@@ -31,7 +31,7 @@ public class MatchesConstraint<T> extends AbstractConstraint<T, CharSequence> {
     @Override
     public boolean isValid(RuleContext<T, CharSequence> context) {
         if (context.getPropertyValue() == null) {
-            return false;
+            return true;
         }
         return pattern.matcher(context.getPropertyValue()).matches();
     }

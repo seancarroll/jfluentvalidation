@@ -23,7 +23,7 @@ public class IsBeforeLocalDateConstraint<T> extends AbstractConstraint<T, LocalD
     @Override
     public boolean isValid(RuleContext<T, LocalDate> context) {
         if (context.getPropertyValue() == null) {
-            return false;
+            return true;
         }
         return context.getPropertyValue().isBefore(other);
     }

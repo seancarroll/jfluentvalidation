@@ -24,6 +24,18 @@ class HasLengthLessThanTest {
     }
 
     @Test
+    void shouldNotReturnFailureWhenActualIsNull() {
+        Target t = new Target(null);
+
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        validator.ruleForString(Target::getValue).hasLengthLessThan(3);
+
+        List<ValidationFailure> failures = validator.validate(t);
+
+        assertTrue(failures.isEmpty());
+    }
+
+    @Test
     void shouldReturnFailureWhenActualLengthIsGreaterThanExpected() {
         Target t = new Target("hello");
 
@@ -41,18 +53,6 @@ class HasLengthLessThanTest {
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForString(Target::getValue).hasLengthLessThan(5);
-
-        List<ValidationFailure> failures = validator.validate(t);
-
-        assertFalse(failures.isEmpty());
-    }
-
-    @Test
-    void shouldReturnFailureWhenActualIsNull() {
-        Target t = new Target(null);
-
-        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForString(Target::getValue).hasLengthLessThan(3);
 
         List<ValidationFailure> failures = validator.validate(t);
 

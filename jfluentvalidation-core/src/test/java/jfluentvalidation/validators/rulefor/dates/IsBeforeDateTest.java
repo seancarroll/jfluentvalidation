@@ -12,7 +12,19 @@ import static org.junit.jupiter.api.Assertions.*;
 class IsBeforeDateTest extends AbstractDateTest {
 
     @Test
-    void shouldReturnFailureWhenActualIsNull() {
+    void shouldNotReturnFailureWhenActualDateIsBeforeGivenDate() {
+        Target t = new Target(ACTUAL);
+
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        validator.ruleForDate(Target::getDate).isBefore(AFTER);
+
+        List<ValidationFailure> failures = validator.validate(t);
+
+        assertTrue(failures.isEmpty());
+    }
+
+    @Test
+    void shouldNotReturnFailureWhenActualIsNull() {
         Target t = new Target(null);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
@@ -20,7 +32,7 @@ class IsBeforeDateTest extends AbstractDateTest {
 
         List<ValidationFailure> failures = validator.validate(t);
 
-        assertFalse(failures.isEmpty());
+        assertTrue(failures.isEmpty());
     }
 
     @Test
@@ -45,18 +57,6 @@ class IsBeforeDateTest extends AbstractDateTest {
         List<ValidationFailure> failures = validator.validate(t);
 
         assertFalse(failures.isEmpty());
-    }
-
-    @Test
-    void shouldNotReturnFailureWhenActualDateIsBeforeGivenDate() {
-        Target t = new Target(ACTUAL);
-
-        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForDate(Target::getDate).isBefore(AFTER);
-
-        List<ValidationFailure> failures = validator.validate(t);
-
-        assertTrue(failures.isEmpty());
     }
 
     @Test

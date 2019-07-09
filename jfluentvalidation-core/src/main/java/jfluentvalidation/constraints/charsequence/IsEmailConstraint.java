@@ -49,9 +49,8 @@ public class IsEmailConstraint<T, A extends CharSequence> extends AbstractConstr
     @Override
     public boolean isValid(RuleContext<T, A> context) {
         CharSequence value = context.getPropertyValue();
-        // hibernate validator return true here
         if (value == null || value.length() == 0) {
-            return false;
+            return true;
         }
 
         // cannot split email string at @ as it can be a part of quoted local part of email.

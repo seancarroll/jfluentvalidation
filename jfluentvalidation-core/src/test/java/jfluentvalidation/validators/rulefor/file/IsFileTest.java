@@ -15,24 +15,23 @@ import static org.mockito.Mockito.when;
 class IsFileTest {
 
     @Test
-    void shouldReturnFailureWhenActualIsNull() {
-        Target t = new Target(null);
+    void shouldNotReturnFailureWhenFile() {
+        File actual = mock(File.class);
+        when(actual.isFile()).thenReturn(true);
+
+        Target t = new Target(actual);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForFile(Target::getFile).isFile();
 
         List<ValidationFailure> failures = validator.validate(t);
 
-        assertFalse(failures.isEmpty());
+        assertTrue(failures.isEmpty());
     }
 
-
     @Test
-    void shouldNotReturnFailureWhenFile() {
-        File actual = mock(File.class);
-        when(actual.isFile()).thenReturn(true);
-
-        Target t = new Target(actual);
+    void shouldNotReturnFailureWhenActualIsNull() {
+        Target t = new Target(null);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForFile(Target::getFile).isFile();
@@ -56,6 +55,4 @@ class IsFileTest {
 
         assertFalse(failures.isEmpty());
     }
-
-
 }

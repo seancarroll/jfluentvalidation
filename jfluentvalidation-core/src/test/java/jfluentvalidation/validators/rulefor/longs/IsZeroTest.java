@@ -24,20 +24,20 @@ class IsZeroTest {
     }
 
     @Test
-    void shouldReturnFailureWhenActualIsNotZero() {
-        Target t = new Target(2L);
+    void shouldNotReturnFailureWhenActualIsNull() {
+        Target t = new Target(null);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForLong(Target::getNumber).isZero();
 
         List<ValidationFailure> failures = validator.validate(t);
 
-        assertFalse(failures.isEmpty());
+        assertTrue(failures.isEmpty());
     }
 
     @Test
-    void shouldReturnFailureWhenActualIsNull() {
-        Target t = new Target(null);
+    void shouldReturnFailureWhenActualIsNotZero() {
+        Target t = new Target(2L);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForLong(Target::getNumber).isZero();

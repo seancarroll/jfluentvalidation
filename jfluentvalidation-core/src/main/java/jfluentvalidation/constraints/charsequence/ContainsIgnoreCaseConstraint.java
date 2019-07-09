@@ -24,7 +24,7 @@ public class ContainsIgnoreCaseConstraint<T, A extends CharSequence> extends Abs
     @Override
     public boolean isValid(RuleContext<T, A> context) {
         if (context.getPropertyValue() == null) {
-            return false;
+            return true;
         }
         return context.getPropertyValue().toString().toLowerCase().contains(charSequence.toString().toLowerCase());
     }

@@ -23,20 +23,20 @@ class EndsWithTest {
     }
 
     @Test
-    void shouldReturnFailureWhenActualDoesNotEndWithPrefix() {
-        Target t = new Target("hello world");
+    void shouldNotReturnFailureWhenActualIsNull() {
+        Target t = new Target(null);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForString(Target::getValue).endsWith("hello");
 
         List<ValidationFailure> failures = validator.validate(t);
 
-        assertFalse(failures.isEmpty());
+        assertTrue(failures.isEmpty());
     }
 
     @Test
-    void shouldReturnFailureWhenActualIsNull() {
-        Target t = new Target(null);
+    void shouldReturnFailureWhenActualDoesNotEndWithPrefix() {
+        Target t = new Target("hello world");
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForString(Target::getValue).endsWith("hello");

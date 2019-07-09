@@ -50,6 +50,18 @@ class HasHostConstraintTest {
     }
 
     @Test
+    void shouldNotReturnFailureWhenActualUrlIsNull() {
+        Profile p = new Profile(null);
+
+        DefaultValidator<Profile> validator = new DefaultValidator<>(Profile.class);
+        validator.ruleForUrl(Profile::getWebsite).hasHost("pages");
+
+        List<ValidationFailure> failures = validator.validate(p);
+
+        assertTrue(failures.isEmpty());
+    }
+
+    @Test
     void shouldReturnFailureWhenActualUrlHasNoHostAndExpectedIsNull() throws MalformedURLException {
         Profile p = new Profile(new URL("http://"));
 
@@ -71,18 +83,6 @@ class HasHostConstraintTest {
         List<ValidationFailure> failures = validator.validate(p);
 
         assertTrue(failures.isEmpty());
-    }
-
-    @Test
-    void shouldReturnFailureWhenActualUrlIsNull() {
-        Profile p = new Profile(null);
-
-        DefaultValidator<Profile> validator = new DefaultValidator<>(Profile.class);
-        validator.ruleForUrl(Profile::getWebsite).hasHost("pages");
-
-        List<ValidationFailure> failures = validator.validate(p);
-
-        assertFalse(failures.isEmpty());
     }
 
 }

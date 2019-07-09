@@ -17,30 +17,6 @@ class IsBeforeOrEqualToOffsetTimeTest {
     private static final OffsetTime AFTER = OffsetTime.of(3, 0, 0, 0, ZoneOffset.UTC);
 
     @Test
-    void shouldReturnFailureWhenActualIsNull() {
-        Target t = new Target(null);
-
-        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForOffsetTime(Target::getTime).isBeforeOrEqualTo(OffsetTime.now());
-
-        List<ValidationFailure> failures = validator.validate(t);
-
-        assertFalse(failures.isEmpty());
-    }
-
-    @Test
-    void shouldReturnFailureWhenActualIsNotStrictlyBeforeGivenDate() {
-        Target t = new Target(ACTUAL);
-
-        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForOffsetTime(Target::getTime).isBeforeOrEqualTo(BEFORE);
-
-        List<ValidationFailure> failures = validator.validate(t);
-
-        assertFalse(failures.isEmpty());
-    }
-
-    @Test
     void shouldNotReturnFailureWhenActualEqualsGivenDate() {
         Target t = new Target(ACTUAL);
 
@@ -62,6 +38,30 @@ class IsBeforeOrEqualToOffsetTimeTest {
         List<ValidationFailure> failures = validator.validate(t);
 
         assertTrue(failures.isEmpty());
+    }
+
+    @Test
+    void shouldNotReturnFailureWhenActualIsNull() {
+        Target t = new Target(null);
+
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        validator.ruleForOffsetTime(Target::getTime).isBeforeOrEqualTo(OffsetTime.now());
+
+        List<ValidationFailure> failures = validator.validate(t);
+
+        assertTrue(failures.isEmpty());
+    }
+
+    @Test
+    void shouldReturnFailureWhenActualIsNotStrictlyBeforeGivenDate() {
+        Target t = new Target(ACTUAL);
+
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        validator.ruleForOffsetTime(Target::getTime).isBeforeOrEqualTo(BEFORE);
+
+        List<ValidationFailure> failures = validator.validate(t);
+
+        assertFalse(failures.isEmpty());
     }
 
     @Test

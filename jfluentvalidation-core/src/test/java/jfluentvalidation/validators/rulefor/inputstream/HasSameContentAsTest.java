@@ -16,7 +16,19 @@ import static org.mockito.Mockito.when;
 class HasSameContentAsTest {
 
     @Test
-    void shouldReturnFailureWhenActualIsNull() {
+    void shouldNotReturnFailureWhenActualFileContentMatchesGiven() {
+        Target t = new Target(new ByteArrayInputStream(new byte[0]));
+
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        validator.ruleForInputStream(Target::getInputStream).hasSameContentAs(new ByteArrayInputStream(new byte[0]));
+
+        List<ValidationFailure> failures = validator.validate(t);
+
+        assertTrue(failures.isEmpty());
+    }
+
+    @Test
+    void shouldNotReturnFailureWhenActualIsNull() {
         Target t = new Target(null);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
@@ -24,7 +36,7 @@ class HasSameContentAsTest {
 
         List<ValidationFailure> failures = validator.validate(t);
 
-        assertFalse(failures.isEmpty());
+        assertTrue(failures.isEmpty());
     }
 
     @Test
@@ -45,18 +57,6 @@ class HasSameContentAsTest {
         validator.ruleForInputStream(Target::getInputStream).hasSameContentAs(new ByteArrayInputStream(new byte[0]));
 
         assertThrows(IORuntimeException.class, () -> validator.validate(t));
-    }
-
-    @Test
-    void shouldNotReturnFailureWhenActualFileContentMatchesGiven() {
-        Target t = new Target(new ByteArrayInputStream(new byte[0]));
-
-        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForInputStream(Target::getInputStream).hasSameContentAs(new ByteArrayInputStream(new byte[0]));
-
-        List<ValidationFailure> failures = validator.validate(t);
-
-        assertTrue(failures.isEmpty());
     }
 
     @Test

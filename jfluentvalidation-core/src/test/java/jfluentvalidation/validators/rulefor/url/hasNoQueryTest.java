@@ -14,20 +14,20 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class hasNoQueryTest {
 
     @Test
-    void shouldReturnFailureIfActualUrlIsNull() {
-        Profile p = new Profile(null);
+    void shouldNotReturnFailureIfActualUrlDoesNotHaveQuery() throws MalformedURLException {
+        Profile p = new Profile(new URL("http://example.com"));
 
         DefaultValidator<Profile> validator = new DefaultValidator<>(Profile.class);
         validator.ruleForUrl(Profile::getWebsite).hasNoQuery();
 
         List<ValidationFailure> failures = validator.validate(p);
 
-        assertFalse(failures.isEmpty());
+        assertTrue(failures.isEmpty());
     }
 
     @Test
-    void shouldNotReturnFailureIfActualUrlDoesNotHaveQuery() throws MalformedURLException {
-        Profile p = new Profile(new URL("http://example.com"));
+    void shouldNotReturnFailureIfActualUrlIsNull() {
+        Profile p = new Profile(null);
 
         DefaultValidator<Profile> validator = new DefaultValidator<>(Profile.class);
         validator.ruleForUrl(Profile::getWebsite).hasNoQuery();

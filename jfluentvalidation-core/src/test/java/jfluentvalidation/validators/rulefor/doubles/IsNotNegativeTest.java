@@ -36,6 +36,18 @@ class IsNotNegativeTest {
     }
 
     @Test
+    void shouldNotReturnFailureWhenActualIsNull() {
+        Target t = new Target(null);
+
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        validator.ruleForDouble(Target::getNumber).isNotNegative();
+
+        List<ValidationFailure> failures = validator.validate(t);
+
+        assertTrue(failures.isEmpty());
+    }
+
+    @Test
     void shouldReturnFailureWhenActualIsNegative() {
         Target t = new Target(-1d);
 
@@ -47,15 +59,4 @@ class IsNotNegativeTest {
         assertFalse(failures.isEmpty());
     }
 
-    @Test
-    void shouldReturnFailureWhenActualIsNull() {
-        Target t = new Target(null);
-
-        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForDouble(Target::getNumber).isNotNegative();
-
-        List<ValidationFailure> failures = validator.validate(t);
-
-        assertFalse(failures.isEmpty());
-    }
 }

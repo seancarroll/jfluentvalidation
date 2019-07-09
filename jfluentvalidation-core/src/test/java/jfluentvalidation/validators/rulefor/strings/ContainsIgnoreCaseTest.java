@@ -35,23 +35,23 @@ class ContainsIgnoreCaseTest {
     }
 
     @Test
+    void shouldNotReturnFailureWhenActualIsNull() {
+        Target t = new Target(null);
+
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        validator.ruleForString(Target::getValue).containsIgnoreCase("hello");
+
+        List<ValidationFailure> failures = validator.validate(t);
+
+        assertTrue(failures.isEmpty());
+    }
+
+    @Test
     void shouldReturnFailureWhenActualDoesNotContainSequence() {
         Target t = new Target("Hello");
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForString(Target::getValue).containsIgnoreCase("world");
-
-        List<ValidationFailure> failures = validator.validate(t);
-
-        assertFalse(failures.isEmpty());
-    }
-
-    @Test
-    void shouldReturnFailureWhenActualIsNull() {
-        Target t = new Target(null);
-
-        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForString(Target::getValue).containsIgnoreCase("hello");
 
         List<ValidationFailure> failures = validator.validate(t);
 

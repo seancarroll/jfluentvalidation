@@ -8,8 +8,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 class HasPathTest {
 
@@ -26,7 +25,7 @@ class HasPathTest {
     }
 
     @Test
-    void shouldReturnFailureWhenUrlIsNull() {
+    void shouldNotReturnFailureWhenUrlIsNull() {
         Profile p = new Profile(null);
 
         DefaultValidator<Profile> validator = new DefaultValidator<>(Profile.class);
@@ -34,7 +33,7 @@ class HasPathTest {
 
         List<ValidationFailure> failures = validator.validate(p);
 
-        assertFalse(failures.isEmpty());
+        assertTrue(failures.isEmpty());
     }
 
     @Test

@@ -30,6 +30,18 @@ class IsInThePastOrPresentTest {
     }
 
     @Test
+    void shouldNotReturnFailureWhenActualIsNull() {
+        Target t = new Target(null);
+
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        validator.ruleForLocalDateTime(Target::getDateTime).isInThePastOrPresent();
+
+        List<ValidationFailure> failures = validator.validate(t);
+
+        assertTrue(failures.isEmpty());
+    }
+
+    @Test
     void shouldReturnFailureWhenActualIsInTheFuture() {
         Target t = new Target(FUTURE);
 
@@ -41,15 +53,4 @@ class IsInThePastOrPresentTest {
         assertFalse(failures.isEmpty());
     }
 
-    @Test
-    void shouldReturnFailureWhenActualIsNull() {
-        Target t = new Target(null);
-
-        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForLocalDateTime(Target::getDateTime).isInThePastOrPresent();
-
-        List<ValidationFailure> failures = validator.validate(t);
-
-        assertFalse(failures.isEmpty());
-    }
 }

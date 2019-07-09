@@ -18,7 +18,31 @@ class IsBeforeZonedDateTimeTest {
     private static final ZonedDateTime AFTER = ZonedDateTime.of(2019, 6, 16, 0, 0, 0, 0, ZoneOffset.UTC);
 
     @Test
-    void shouldReturnFailureWhenActualIsNull() {
+    void shouldNotReturnFailureWhenActualDateIsBeforeGivenDate() {
+        Target t = new Target(ACTUAL);
+
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        validator.ruleForZonedDateTime(Target::getDateTime).isBefore(AFTER);
+
+        List<ValidationFailure> failures = validator.validate(t);
+
+        assertTrue(failures.isEmpty());
+    }
+
+    @Test
+    void shouldNotReturnFailureWhenActualDateIsBeforeGivenDateBasedOnTimeZone() {
+        Target t = new Target(ACTUAL);
+
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        validator.ruleForZonedDateTime(Target::getDateTime).isBefore(AFTER.withZoneSameInstant(ZoneId.of("Europe/London")));
+
+        List<ValidationFailure> failures = validator.validate(t);
+
+        assertTrue(failures.isEmpty());
+    }
+
+    @Test
+    void shouldNotReturnFailureWhenActualIsNull() {
         Target t = new Target(null);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
@@ -26,7 +50,7 @@ class IsBeforeZonedDateTimeTest {
 
         List<ValidationFailure> failures = validator.validate(t);
 
-        assertFalse(failures.isEmpty());
+        assertTrue(failures.isEmpty());
     }
 
     @Test
@@ -63,30 +87,6 @@ class IsBeforeZonedDateTimeTest {
         List<ValidationFailure> failures = validator.validate(t);
 
         assertFalse(failures.isEmpty());
-    }
-
-    @Test
-    void shouldNotReturnFailureWhenActualDateIsBeforeGivenDate() {
-        Target t = new Target(ACTUAL);
-
-        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForZonedDateTime(Target::getDateTime).isBefore(AFTER);
-
-        List<ValidationFailure> failures = validator.validate(t);
-
-        assertTrue(failures.isEmpty());
-    }
-
-    @Test
-    void shouldNotReturnFailureWhenActualDateIsBeforeGivenDateBasedOnTimeZone() {
-        Target t = new Target(ACTUAL);
-
-        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForZonedDateTime(Target::getDateTime).isBefore(AFTER.withZoneSameInstant(ZoneId.of("Europe/London")));
-
-        List<ValidationFailure> failures = validator.validate(t);
-
-        assertTrue(failures.isEmpty());
     }
 
     @Test

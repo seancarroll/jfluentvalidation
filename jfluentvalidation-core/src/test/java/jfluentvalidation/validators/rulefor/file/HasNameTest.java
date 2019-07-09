@@ -14,7 +14,23 @@ import static org.mockito.Mockito.when;
 class HasNameTest {
 
     @Test
-    void shouldReturnFailureWhenActualIsNull() {
+    void shouldNotReturnFailureWhenActualHasExpectedName() {
+        File actual = mock(File.class);
+        when(actual.isFile()).thenReturn(true);
+        when(actual.getName()).thenReturn("tmp.txt");
+
+        Target t = new Target(actual);
+
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        validator.ruleForFile(Target::getFile).hasName("tmp.txt");
+
+        List<ValidationFailure> failures = validator.validate(t);
+
+        assertTrue(failures.isEmpty());
+    }
+
+    @Test
+    void shouldNotReturnFailureWhenActualIsNull() {
         Target t = new Target(null);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
@@ -22,7 +38,7 @@ class HasNameTest {
 
         List<ValidationFailure> failures = validator.validate(t);
 
-        assertFalse(failures.isEmpty());
+        assertTrue(failures.isEmpty());
     }
 
     @Test
@@ -47,26 +63,4 @@ class HasNameTest {
         assertFalse(failures.isEmpty());
     }
 
-    @Test
-    void shouldNotReturnFailureWhenActualHasExpectedName() {
-        File actual = mock(File.class);
-        when(actual.isFile()).thenReturn(true);
-        when(actual.getName()).thenReturn("tmp.txt");
-
-        Target t = new Target(actual);
-
-        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForFile(Target::getFile).hasName("tmp.txt");
-
-        List<ValidationFailure> failures = validator.validate(t);
-
-        assertTrue(failures.isEmpty());
-    }
-
-    // TODO: send PR to fix name
-//    @Test
-//    public void should_pass_if_actual_has_expected_extension() {
-//        when(actual.getName()).thenReturn(expectedName);
-//        files.assertHasName(someInfo(), actual, expectedName);
-//    }
 }

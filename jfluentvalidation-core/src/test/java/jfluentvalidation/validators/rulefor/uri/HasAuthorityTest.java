@@ -14,19 +14,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class HasAuthorityTest {
 
     @Test
-    void shouldReturnFailureWhenActualUriIsNull() {
-        Media m = new Media(null);
-
-        DefaultValidator<Media> validator = new DefaultValidator<>(Media.class);
-        validator.ruleForUri(Media::getContentLocation).hasAuthority("pages");
-
-        List<ValidationFailure> failures = validator.validate(m);
-
-        assertFalse(failures.isEmpty());
-    }
-
-
-    @Test
     void shouldNotReturnFailureWhenActualUriHasExpectedAuthority() throws URISyntaxException {
         Media m = new Media(new URI("http://example.com:8080"));
 
@@ -44,6 +31,18 @@ class HasAuthorityTest {
 
         DefaultValidator<Media> validator = new DefaultValidator<>(Media.class);
         validator.ruleForUri(Media::getContentLocation).hasAuthority("example.com:8080");
+
+        List<ValidationFailure> failures = validator.validate(m);
+
+        assertTrue(failures.isEmpty());
+    }
+
+    @Test
+    void shouldNotReturnFailureWhenActualUriIsNull() {
+        Media m = new Media(null);
+
+        DefaultValidator<Media> validator = new DefaultValidator<>(Media.class);
+        validator.ruleForUri(Media::getContentLocation).hasAuthority("pages");
 
         List<ValidationFailure> failures = validator.validate(m);
 

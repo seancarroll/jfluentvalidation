@@ -16,7 +16,19 @@ class IsBeforeLocalDateTimeTest {
     private static final LocalDateTime AFTER = LocalDateTime.of(2019, 6, 16, 0, 0, 0);
 
     @Test
-    void shouldReturnFailureWhenActualIsNull() {
+    void shouldNotReturnFailureWhenActualDateIsBeforeGivenDate() {
+        Target p = new Target(ACTUAL);
+
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        validator.ruleForLocalDateTime(Target::getDateTime).isBefore(AFTER);
+
+        List<ValidationFailure> failures = validator.validate(p);
+
+        assertTrue(failures.isEmpty());
+    }
+
+    @Test
+    void shouldNotReturnFailureWhenActualIsNull() {
         Target p = new Target(null);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
@@ -24,7 +36,7 @@ class IsBeforeLocalDateTimeTest {
 
         List<ValidationFailure> failures = validator.validate(p);
 
-        assertFalse(failures.isEmpty());
+        assertTrue(failures.isEmpty());
     }
 
     @Test
@@ -49,18 +61,6 @@ class IsBeforeLocalDateTimeTest {
         List<ValidationFailure> failures = validator.validate(p);
 
         assertFalse(failures.isEmpty());
-    }
-
-    @Test
-    void shouldNotReturnFailureWhenActualDateIsBeforeGivenDate() {
-        Target p = new Target(ACTUAL);
-
-        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForLocalDateTime(Target::getDateTime).isBefore(AFTER);
-
-        List<ValidationFailure> failures = validator.validate(p);
-
-        assertTrue(failures.isEmpty());
     }
 
     @Test

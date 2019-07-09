@@ -12,20 +12,20 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class IsNotEqualAccordingToCompareToTest {
 
     @Test
-    void shouldReturnFailureWhenActualIsNull() {
-        Target t = new Target(null);
+    void shouldNotReturnFailureWhenObjectsAreNotEqualViaCompareTo() {
+        Target t = new Target(0d);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForDouble(Target::getNumber).isNotEqualAccordingToCompareTo(10d);
 
         List<ValidationFailure> failures = validator.validate(t);
 
-        assertFalse(failures.isEmpty());
+        assertTrue(failures.isEmpty());
     }
 
     @Test
-    void shouldNotReturnFailureWhenObjectsAreNotEqualViaCompareTo() {
-        Target t = new Target(0d);
+    void shouldNotReturnFailureWhenActualIsNull() {
+        Target t = new Target(null);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForDouble(Target::getNumber).isNotEqualAccordingToCompareTo(10d);

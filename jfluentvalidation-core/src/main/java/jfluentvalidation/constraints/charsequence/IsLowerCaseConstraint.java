@@ -20,7 +20,7 @@ public class IsLowerCaseConstraint<T> extends AbstractConstraint<T, CharSequence
         // TODO: should this use locale?
         CharSequence val = validationContext.getPropertyValue();
         if (val == null) {
-            return false;
+            return true;
         }
         return val.equals(val.toString().toLowerCase());
     }

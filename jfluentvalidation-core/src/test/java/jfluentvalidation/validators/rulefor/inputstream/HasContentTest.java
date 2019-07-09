@@ -18,7 +18,19 @@ import static org.mockito.Mockito.when;
 class HasContentTest {
 
     @Test
-    void shouldReturnFailureWhenActualIsNull() {
+    void shouldNotReturnFailureWhenActualFileContentMatchesGiven() throws FileNotFoundException {
+        Target t = new Target(new FileInputStream("src/test/resources/Test.txt"));
+
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        validator.ruleForInputStream(Target::getInputStream).hasContent("Some words and stuff.");
+
+        List<ValidationFailure> failures = validator.validate(t);
+
+        assertTrue(failures.isEmpty());
+    }
+
+    @Test
+    void shouldNotReturnFailureWhenActualIsNull() {
         Target t = new Target(null);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
@@ -26,7 +38,7 @@ class HasContentTest {
 
         List<ValidationFailure> failures = validator.validate(t);
 
-        assertFalse(failures.isEmpty());
+        assertTrue(failures.isEmpty());
     }
 
     @Test
@@ -47,18 +59,6 @@ class HasContentTest {
         validator.ruleForInputStream(Target::getInputStream).hasContent("stuff");
 
         assertThrows(IORuntimeException.class, () -> validator.validate(t));
-    }
-
-    @Test
-    void shouldNotReturnFailureWhenActualFileContentMatchesGiven() throws FileNotFoundException {
-        Target t = new Target(new FileInputStream("src/test/resources/Test.txt"));
-
-        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForInputStream(Target::getInputStream).hasContent("Some words and stuff.");
-
-        List<ValidationFailure> failures = validator.validate(t);
-
-        assertTrue(failures.isEmpty());
     }
 
     @Test

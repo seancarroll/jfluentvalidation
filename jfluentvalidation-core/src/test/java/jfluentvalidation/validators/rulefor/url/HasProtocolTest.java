@@ -14,20 +14,20 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class HasProtocolTest {
 
     @Test
-    void shouldReturnFailureIfActualUrlIsNull() {
-        Profile p = new Profile(null);
+    void shouldNotReturnFailureIfActualUrlHasExpectedProtocol() throws MalformedURLException {
+        Profile p = new Profile(new URL("http://example.com"));
 
         DefaultValidator<Profile> validator = new DefaultValidator<>(Profile.class);
         validator.ruleForUrl(Profile::getWebsite).hasProtocol("http");
 
         List<ValidationFailure> failures = validator.validate(p);
 
-        assertFalse(failures.isEmpty());
+        assertTrue(failures.isEmpty());
     }
 
     @Test
-    void shouldNotReturnFailureIfActualUrlHasExpectedProtocol() throws MalformedURLException {
-        Profile p = new Profile(new URL("http://example.com"));
+    void shouldNotReturnFailureIfActualUrlIsNull() {
+        Profile p = new Profile(null);
 
         DefaultValidator<Profile> validator = new DefaultValidator<>(Profile.class);
         validator.ruleForUrl(Profile::getWebsite).hasProtocol("http");

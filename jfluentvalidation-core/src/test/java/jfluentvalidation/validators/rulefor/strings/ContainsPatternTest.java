@@ -38,6 +38,17 @@ class ContainsPatternTest {
         assertTrue(failures.isEmpty());
     }
 
+    @Test
+    void shouldNotReturnFailureWhenActualIsNull() {
+        Target t = new Target(null);
+
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        validator.ruleForString(Target::getValue).containsPattern(MATCH_ANYTHING_REGEX);
+
+        List<ValidationFailure> failures = validator.validate(t);
+
+        assertTrue(failures.isEmpty());
+    }
 
     // TODO: include in java doc
 //    @throws NullPointerException if the given pattern is {@code null}.
@@ -59,18 +70,6 @@ class ContainsPatternTest {
     void shouldThrowExceptionWhenRegExSyntaxIsInvalid() {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         assertThrows(PatternSyntaxException.class, () -> validator.ruleForString(Target::getValue).containsPattern("*"));
-    }
-
-    @Test
-    void shouldReturnFailureWhenActualIsNull() {
-        Target t = new Target(null);
-
-        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForString(Target::getValue).containsPattern(MATCH_ANYTHING_REGEX);
-
-        List<ValidationFailure> failures = validator.validate(t);
-
-        assertFalse(failures.isEmpty());
     }
 
     @Test

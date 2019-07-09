@@ -15,19 +15,6 @@ import static org.mockito.Mockito.when;
 class CanWriteFileTest {
 
     @Test
-    void shouldReturnFailureWhenActualIsNull() {
-        Target t = new Target(null);
-
-        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForFile(Target::getFile).canWrite();
-
-        List<ValidationFailure> failures = validator.validate(t);
-
-        assertFalse(failures.isEmpty());
-    }
-
-
-    @Test
     void shouldNotReturnFailureIfCanWrite() {
         File actual = mock(File.class);
         when(actual.canWrite()).thenReturn(true);
@@ -42,6 +29,17 @@ class CanWriteFileTest {
         assertTrue(failures.isEmpty());
     }
 
+    @Test
+    void shouldNotReturnFailureWhenActualIsNull() {
+        Target t = new Target(null);
+
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        validator.ruleForFile(Target::getFile).canWrite();
+
+        List<ValidationFailure> failures = validator.validate(t);
+
+        assertTrue(failures.isEmpty());
+    }
 
     @Test
     void shouldReturnFailureIfCannotWrite() {

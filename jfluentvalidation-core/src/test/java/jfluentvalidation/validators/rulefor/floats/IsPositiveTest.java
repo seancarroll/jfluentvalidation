@@ -24,20 +24,20 @@ class IsPositiveTest {
     }
 
     @Test
-    void shouldReturnFailureWhenActualIsNotPositive() {
-        Target t = new Target(-1f);
+    void shouldNotReturnFailureWhenActualIsNull() {
+        Target t = new Target(null);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForFloat(Target::getNumber).isPositive();
 
         List<ValidationFailure> failures = validator.validate(t);
 
-        assertFalse(failures.isEmpty());
+        assertTrue(failures.isEmpty());
     }
 
     @Test
-    void shouldReturnFailureWhenActualIsNull() {
-        Target t = new Target(null);
+    void shouldReturnFailureWhenActualIsNotPositive() {
+        Target t = new Target(-1f);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForFloat(Target::getNumber).isPositive();

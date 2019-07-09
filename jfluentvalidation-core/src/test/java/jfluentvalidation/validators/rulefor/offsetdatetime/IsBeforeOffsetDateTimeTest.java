@@ -17,7 +17,19 @@ class IsBeforeOffsetDateTimeTest {
     private static final OffsetDateTime AFTER = OffsetDateTime.of(2019, 06, 16, 0, 0, 0, 0, ZoneOffset.UTC);
 
     @Test
-    void shouldReturnFailureWhenActualIsNull() {
+    void shouldNotReturnFailureWhenActualDateIsBeforeGivenDate() {
+        Target t = new Target(ACTUAL);
+
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        validator.ruleForOffsetDateTime(Target::getDateTime).isBefore(AFTER);
+
+        List<ValidationFailure> failures = validator.validate(t);
+
+        assertTrue(failures.isEmpty());
+    }
+
+    @Test
+    void shouldNotReturnFailureWhenActualIsNull() {
         Target t = new Target(null);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
@@ -25,7 +37,7 @@ class IsBeforeOffsetDateTimeTest {
 
         List<ValidationFailure> failures = validator.validate(t);
 
-        assertFalse(failures.isEmpty());
+        assertTrue(failures.isEmpty());
     }
 
     @Test
@@ -50,18 +62,6 @@ class IsBeforeOffsetDateTimeTest {
         List<ValidationFailure> failures = validator.validate(t);
 
         assertFalse(failures.isEmpty());
-    }
-
-    @Test
-    void shouldNotReturnFailureWhenActualDateIsBeforeGivenDate() {
-        Target t = new Target(ACTUAL);
-
-        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForOffsetDateTime(Target::getDateTime).isBefore(AFTER);
-
-        List<ValidationFailure> failures = validator.validate(t);
-
-        assertTrue(failures.isEmpty());
     }
 
     @Test

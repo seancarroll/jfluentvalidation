@@ -30,6 +30,19 @@ class IsInTheFutureTest {
     }
 
     @Test
+    void shouldNotReturnFailureWhenActualIsNull() {
+        Target t = new Target(null);
+
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        validator.ruleForOffsetTime(Target::getTime).isInTheFuture();
+
+        List<ValidationFailure> failures = validator.validate(t);
+
+        assertTrue(failures.isEmpty());
+    }
+
+
+    @Test
     void shouldReturnFailureWhenActualIsInThePast() {
         Target t = new Target(PAST);
 
@@ -40,17 +53,4 @@ class IsInTheFutureTest {
 
         assertFalse(failures.isEmpty());
     }
-
-    @Test
-    void shouldReturnFailureWhenActualIsNull() {
-        Target t = new Target(null);
-
-        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForOffsetTime(Target::getTime).isInTheFuture();
-
-        List<ValidationFailure> failures = validator.validate(t);
-
-        assertFalse(failures.isEmpty());
-    }
-
 }

@@ -5,7 +5,6 @@ import jfluentvalidation.validators.DefaultValidator;
 import org.junit.jupiter.api.Test;
 
 import java.time.OffsetDateTime;
-import java.time.ZonedDateTime;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -31,20 +30,20 @@ class IsInThePastOrPresentTest {
     }
 
     @Test
-    void shouldReturnFailureWhenActualIsInTheFuture() {
-        Target t = new Target(FUTURE);
+    void shouldNotReturnFailureWhenActualIsNull() {
+        Target t = new Target(null);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForOffsetDateTime(Target::getDateTime).isInThePastOrPresent();
 
         List<ValidationFailure> failures = validator.validate(t);
 
-        assertFalse(failures.isEmpty());
+        assertTrue(failures.isEmpty());
     }
 
     @Test
-    void shouldReturnFailureWhenActualIsNull() {
-        Target t = new Target(null);
+    void shouldReturnFailureWhenActualIsInTheFuture() {
+        Target t = new Target(FUTURE);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForOffsetDateTime(Target::getDateTime).isInThePastOrPresent();

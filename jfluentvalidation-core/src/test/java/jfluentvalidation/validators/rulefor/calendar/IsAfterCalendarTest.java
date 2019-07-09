@@ -26,7 +26,19 @@ class IsAfterCalendarTest {
     }
 
     @Test
-    void shouldReturnFailureWhenActualIsNull() {
+    void shouldNotReturnFailureWhenActualDateIsAfterGivenDate() {
+        Person p = new Person(Calendar.getInstance());
+
+        DefaultValidator<Person> validator = new DefaultValidator<>(Person.class);
+        validator.ruleForCalendar(Person::getBirthday).isAfter(BEFORE);
+
+        List<ValidationFailure> failures = validator.validate(p);
+
+        assertTrue(failures.isEmpty());
+    }
+
+    @Test
+    void shouldNotReturnFailureWhenActualIsNull() {
         Person p = new Person(null);
 
         DefaultValidator<Person> validator = new DefaultValidator<>(Person.class);
@@ -34,7 +46,7 @@ class IsAfterCalendarTest {
 
         List<ValidationFailure> failures = validator.validate(p);
 
-        assertFalse(failures.isEmpty());
+        assertTrue(failures.isEmpty());
     }
 
     @Test
@@ -59,18 +71,6 @@ class IsAfterCalendarTest {
         List<ValidationFailure> failures = validator.validate(p);
 
         assertFalse(failures.isEmpty());
-    }
-
-    @Test
-    void shouldNotReturnFailureWhenActualDateIsAfterGivenDate() {
-        Person p = new Person(Calendar.getInstance());
-
-        DefaultValidator<Person> validator = new DefaultValidator<>(Person.class);
-        validator.ruleForCalendar(Person::getBirthday).isAfter(BEFORE);
-
-        List<ValidationFailure> failures = validator.validate(p);
-
-        assertTrue(failures.isEmpty());
     }
 
     @Test

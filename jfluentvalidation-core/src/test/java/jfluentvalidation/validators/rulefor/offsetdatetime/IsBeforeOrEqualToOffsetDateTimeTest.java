@@ -17,30 +17,6 @@ class IsBeforeOrEqualToOffsetDateTimeTest {
     private static final OffsetDateTime AFTER = OffsetDateTime.of(2019, 06, 16, 0, 0, 0, 0, ZoneOffset.UTC);
 
     @Test
-    void shouldReturnFailureWhenActualIsNull() {
-        Target t = new Target(null);
-
-        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForOffsetDateTime(Target::getDateTime).isBeforeOrEqualTo(OffsetDateTime.now());
-
-        List<ValidationFailure> failures = validator.validate(t);
-
-        assertFalse(failures.isEmpty());
-    }
-
-    @Test
-    void shouldReturnFailureWhenActualIsNotStrictlyBeforeGivenDate() {
-        Target t = new Target(ACTUAL);
-
-        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForOffsetDateTime(Target::getDateTime).isBeforeOrEqualTo(BEFORE);
-
-        List<ValidationFailure> failures = validator.validate(t);
-
-        assertFalse(failures.isEmpty());
-    }
-
-    @Test
     void shouldNotReturnFailureWhenActualEqualsGivenDate() {
         Target t = new Target(ACTUAL);
 
@@ -62,6 +38,30 @@ class IsBeforeOrEqualToOffsetDateTimeTest {
         List<ValidationFailure> failures = validator.validate(t);
 
         assertTrue(failures.isEmpty());
+    }
+
+    @Test
+    void shouldNotReturnFailureWhenActualIsNull() {
+        Target t = new Target(null);
+
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        validator.ruleForOffsetDateTime(Target::getDateTime).isBeforeOrEqualTo(OffsetDateTime.now());
+
+        List<ValidationFailure> failures = validator.validate(t);
+
+        assertTrue(failures.isEmpty());
+    }
+
+    @Test
+    void shouldReturnFailureWhenActualIsNotStrictlyBeforeGivenDate() {
+        Target t = new Target(ACTUAL);
+
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        validator.ruleForOffsetDateTime(Target::getDateTime).isBeforeOrEqualTo(BEFORE);
+
+        List<ValidationFailure> failures = validator.validate(t);
+
+        assertFalse(failures.isEmpty());
     }
 
     @Test

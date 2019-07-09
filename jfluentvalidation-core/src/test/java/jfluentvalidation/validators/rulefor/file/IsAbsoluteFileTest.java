@@ -15,18 +15,6 @@ import static org.mockito.Mockito.when;
 class IsAbsoluteFileTest {
 
     @Test
-    void shouldReturnFailureWhenActualIsNull() {
-        Target t = new Target(null);
-
-        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForFile(Target::getFile).isAbsolute();
-
-        List<ValidationFailure> failures = validator.validate(t);
-
-        assertFalse(failures.isEmpty());
-    }
-
-    @Test
     void shouldNotReturnFailureWhenFileIsAbsolute() {
         File actual = mock(File.class);
         when(actual.isAbsolute()).thenReturn(true);
@@ -41,6 +29,17 @@ class IsAbsoluteFileTest {
         assertTrue(failures.isEmpty());
     }
 
+    @Test
+    void shouldNotReturnFailureWhenActualIsNull() {
+        Target t = new Target(null);
+
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        validator.ruleForFile(Target::getFile).isAbsolute();
+
+        List<ValidationFailure> failures = validator.validate(t);
+
+        assertTrue(failures.isEmpty());
+    }
 
     @Test
     void shouldReturnFailureWhenFileIsNotAbsolute() {

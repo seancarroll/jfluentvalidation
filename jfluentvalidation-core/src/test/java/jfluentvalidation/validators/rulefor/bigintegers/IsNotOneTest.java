@@ -26,20 +26,20 @@ class IsNotOneTest {
     }
 
     @Test
-    void shouldReturnFailureWhenActualIsOne() {
-        Target t = new Target(ONE);
+    void shouldNotReturnFailureWhenActualIsNull() {
+        Target t = new Target(null);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForBigInteger(Target::getNumber).isNotOne();
 
         List<ValidationFailure> failures = validator.validate(t);
 
-        assertFalse(failures.isEmpty());
+        assertTrue(failures.isEmpty());
     }
 
     @Test
-    void shouldReturnFailureWhenActualIsNull() {
-        Target t = new Target(null);
+    void shouldReturnFailureWhenActualIsOne() {
+        Target t = new Target(ONE);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForBigInteger(Target::getNumber).isNotOne();

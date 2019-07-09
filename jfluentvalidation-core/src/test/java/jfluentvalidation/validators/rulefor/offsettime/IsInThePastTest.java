@@ -12,6 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class IsInThePastTest {
 
+    // TODO: use fixed clock as these tests fail when we run them after 11 pm
     private static final OffsetTime PAST = OffsetTime.now().minusHours(1);
     private static final OffsetTime FUTURE = OffsetTime.now().plusHours(1);
 
@@ -20,6 +21,18 @@ class IsInThePastTest {
     @Test
     void shouldNotReturnFailureWhenActualIsInThePast() {
         Target t = new Target(PAST);
+
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        validator.ruleForOffsetTime(Target::getTime).isInThePast();
+
+        List<ValidationFailure> failures = validator.validate(t);
+
+        assertTrue(failures.isEmpty());
+    }
+
+    @Test
+    void shouldNotReturnFailureWhenActualIsNull() {
+        Target t = new Target(null);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForOffsetTime(Target::getTime).isInThePast();
@@ -41,15 +54,4 @@ class IsInThePastTest {
         assertFalse(failures.isEmpty());
     }
 
-    @Test
-    void shouldReturnFailureWhenActualIsNull() {
-        Target t = new Target(null);
-
-        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForOffsetTime(Target::getTime).isInThePast();
-
-        List<ValidationFailure> failures = validator.validate(t);
-
-        assertFalse(failures.isEmpty());
-    }
 }

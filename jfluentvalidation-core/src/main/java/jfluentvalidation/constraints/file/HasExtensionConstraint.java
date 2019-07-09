@@ -24,7 +24,7 @@ public class HasExtensionConstraint<T> extends AbstractConstraint<T, File> {
     @Override
     public boolean isValid(RuleContext<T, File> context) {
         if (context.getPropertyValue() == null) {
-            return false;
+            return true;
         }
 
         // TODO: check if not a file. Should we throw?

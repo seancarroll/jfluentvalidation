@@ -49,6 +49,18 @@ class IsNotBetweenTest {
     }
 
     @Test
+    void shouldNotReturnFailureWhenActualIsNull() {
+        Target t = new Target(null);
+
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        validator.ruleForBigDecimal(Target::getNumber).isNotBetween(ZERO, FIVE);
+
+        List<ValidationFailure> failures = validator.validate(t);
+
+        assertTrue(failures.isEmpty());
+    }
+
+    @Test
     void shouldReturnFailureWhenActualIsEqualToStart() {
         Target t = new Target(ZERO);
 
@@ -75,18 +87,6 @@ class IsNotBetweenTest {
     @Test
     void shouldReturnFailureWhenActualIsInRange() {
         Target t = new Target(ONE);
-
-        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForBigDecimal(Target::getNumber).isNotBetween(ZERO, FIVE);
-
-        List<ValidationFailure> failures = validator.validate(t);
-
-        assertFalse(failures.isEmpty());
-    }
-
-    @Test
-    void shouldReturnFailureWhenActualIsNull() {
-        Target t = new Target(null);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForBigDecimal(Target::getNumber).isNotBetween(ZERO, FIVE);

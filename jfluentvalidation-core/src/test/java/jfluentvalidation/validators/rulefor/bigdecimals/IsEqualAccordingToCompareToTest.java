@@ -14,20 +14,20 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class IsEqualAccordingToCompareToTest {
 
     @Test
-    void shouldReturnFailureWhenActualIsNull() {
-        Target t = new Target(null);
+    void shouldNotReturnFailureWhenObjectsAreEqualViaCompareTo() {
+        Target t = new Target(TEN);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForBigDecimal(Target::getNumber).isEqualAccordingToCompareTo(TEN);
 
         List<ValidationFailure> failures = validator.validate(t);
 
-        assertFalse(failures.isEmpty());
+        assertTrue(failures.isEmpty());
     }
 
     @Test
-    void shouldNotReturnFailureWhenObjectsAreEqualViaCompareTo() {
-        Target t = new Target(TEN);
+    void shouldNotReturnFailureWhenActualIsNull() {
+        Target t = new Target(null);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForBigDecimal(Target::getNumber).isEqualAccordingToCompareTo(TEN);

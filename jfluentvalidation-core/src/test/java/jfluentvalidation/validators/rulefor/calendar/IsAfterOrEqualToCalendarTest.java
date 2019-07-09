@@ -26,31 +26,6 @@ class IsAfterOrEqualToCalendarTest {
     }
 
     @Test
-    void shouldReturnFailureWhenActualIsNull() {
-        Person p = new Person(null);
-
-        DefaultValidator<Person> validator = new DefaultValidator<>(Person.class);
-        validator.ruleForCalendar(Person::getBirthday).isAfterOrEqualTo(Calendar.getInstance());
-
-        List<ValidationFailure> failures = validator.validate(p);
-
-        assertFalse(failures.isEmpty());
-    }
-
-    @Test
-    void shouldReturnFailureWhenActualIsNotStrictlyAfterGivenDate() {
-        Person p = new Person(ACTUAL);
-
-        DefaultValidator<Person> validator = new DefaultValidator<>(Person.class);
-        validator.ruleForCalendar(Person::getBirthday).isAfterOrEqualTo(AFTER);
-
-        List<ValidationFailure> failures = validator.validate(p);
-
-        assertFalse(failures.isEmpty());
-    }
-
-
-    @Test
     void shouldNotReturnFailureWhenActualEqualsGivenDate() {
         Person p = new Person(ACTUAL);
 
@@ -72,6 +47,30 @@ class IsAfterOrEqualToCalendarTest {
         List<ValidationFailure> failures = validator.validate(p);
 
         assertTrue(failures.isEmpty());
+    }
+
+    @Test
+    void shouldNotReturnFailureWhenActualIsNull() {
+        Person p = new Person(null);
+
+        DefaultValidator<Person> validator = new DefaultValidator<>(Person.class);
+        validator.ruleForCalendar(Person::getBirthday).isAfterOrEqualTo(Calendar.getInstance());
+
+        List<ValidationFailure> failures = validator.validate(p);
+
+        assertTrue(failures.isEmpty());
+    }
+
+    @Test
+    void shouldReturnFailureWhenActualIsNotStrictlyAfterGivenDate() {
+        Person p = new Person(ACTUAL);
+
+        DefaultValidator<Person> validator = new DefaultValidator<>(Person.class);
+        validator.ruleForCalendar(Person::getBirthday).isAfterOrEqualTo(AFTER);
+
+        List<ValidationFailure> failures = validator.validate(p);
+
+        assertFalse(failures.isEmpty());
     }
 
     @Test

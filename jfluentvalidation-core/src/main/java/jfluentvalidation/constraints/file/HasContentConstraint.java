@@ -33,7 +33,7 @@ public class HasContentConstraint<T> extends AbstractConstraint<T, File> {
     public boolean isValid(RuleContext<T, File> context) {
         try {
             if (context.getPropertyValue() == null) {
-                return false;
+                return true;
             }
 
             // TODO: Should we throw?

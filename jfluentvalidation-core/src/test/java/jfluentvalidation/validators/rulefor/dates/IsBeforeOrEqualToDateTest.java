@@ -10,29 +10,6 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class IsBeforeOrEqualToDateTest extends AbstractDateTest {
-    @Test
-    void shouldReturnFailureWhenActualIsNull() {
-        Target t = new Target(null);
-
-        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForDate(Target::getDate).isBeforeOrEqualTo(new Date());
-
-        List<ValidationFailure> failures = validator.validate(t);
-
-        assertFalse(failures.isEmpty());
-    }
-
-    @Test
-    void shouldReturnFailureWhenActualIsNotStrictlyBeforeGivenDate() {
-        Target t = new Target(ACTUAL);
-
-        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForDate(Target::getDate).isBeforeOrEqualTo(BEFORE);
-
-        List<ValidationFailure> failures = validator.validate(t);
-
-        assertFalse(failures.isEmpty());
-    }
 
     @Test
     void shouldNotReturnFailureWhenActualEqualsGivenDate() {
@@ -56,6 +33,30 @@ class IsBeforeOrEqualToDateTest extends AbstractDateTest {
         List<ValidationFailure> failures = validator.validate(t);
 
         assertTrue(failures.isEmpty());
+    }
+
+    @Test
+    void shouldNotReturnFailureWhenActualIsNull() {
+        Target t = new Target(null);
+
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        validator.ruleForDate(Target::getDate).isBeforeOrEqualTo(new Date());
+
+        List<ValidationFailure> failures = validator.validate(t);
+
+        assertTrue(failures.isEmpty());
+    }
+
+    @Test
+    void shouldReturnFailureWhenActualIsNotStrictlyBeforeGivenDate() {
+        Target t = new Target(ACTUAL);
+
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        validator.ruleForDate(Target::getDate).isBeforeOrEqualTo(BEFORE);
+
+        List<ValidationFailure> failures = validator.validate(t);
+
+        assertFalse(failures.isEmpty());
     }
 
     @Test

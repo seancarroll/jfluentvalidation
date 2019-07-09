@@ -13,6 +13,31 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class HasAuthorityTest {
 
+
+    @Test
+    void shouldNotReturnFailureWhenActualUrlHasExpectedAuthority() throws MalformedURLException {
+        Profile p = new Profile(new URL("http://example.com:8080"));
+
+        DefaultValidator<Profile> validator = new DefaultValidator<>(Profile.class);
+        validator.ruleForUrl(Profile::getWebsite).hasAuthority("example.com:8080");
+
+        List<ValidationFailure> failures = validator.validate(p);
+
+        assertTrue(failures.isEmpty());
+    }
+
+    @Test
+    void shouldNotReturnFailureWhenActualUrlIsNull() {
+        Profile p = new Profile(null);
+
+        DefaultValidator<Profile> validator = new DefaultValidator<>(Profile.class);
+        validator.ruleForUrl(Profile::getWebsite).hasAuthority("pages");
+
+        List<ValidationFailure> failures = validator.validate(p);
+
+        assertTrue(failures.isEmpty());
+    }
+
     @Test
     void shouldReturnFailureWhenActualAuthorityIsNotPresentAndExpectedIsNotNull() throws MalformedURLException {
         Profile p = new Profile(new URL("http://"));
@@ -55,30 +80,6 @@ class HasAuthorityTest {
 
         DefaultValidator<Profile> validator = new DefaultValidator<>(Profile.class);
         validator.ruleForUrl(Profile::getWebsite).hasAuthority(null);
-
-        List<ValidationFailure> failures = validator.validate(p);
-
-        assertFalse(failures.isEmpty());
-    }
-
-    @Test
-    void shouldNotReturnFailureWhenActualUrlHasExpectedAuthority() throws MalformedURLException {
-        Profile p = new Profile(new URL("http://example.com:8080"));
-
-        DefaultValidator<Profile> validator = new DefaultValidator<>(Profile.class);
-        validator.ruleForUrl(Profile::getWebsite).hasAuthority("example.com:8080");
-
-        List<ValidationFailure> failures = validator.validate(p);
-
-        assertTrue(failures.isEmpty());
-    }
-
-    @Test
-    void shouldReturnFailureWhenActualUrlIsNull() {
-        Profile p = new Profile(null);
-
-        DefaultValidator<Profile> validator = new DefaultValidator<>(Profile.class);
-        validator.ruleForUrl(Profile::getWebsite).hasAuthority("pages");
 
         List<ValidationFailure> failures = validator.validate(p);
 

@@ -22,7 +22,7 @@ public class IsSubstringOfConstraint<T> extends AbstractConstraint<T, CharSequen
     @Override
     public boolean isValid(RuleContext<T, CharSequence> context) {
         if (context.getPropertyValue() == null) {
-            return false;
+            return true;
         }
         return sequence.toString().contains(context.getPropertyValue());
     }

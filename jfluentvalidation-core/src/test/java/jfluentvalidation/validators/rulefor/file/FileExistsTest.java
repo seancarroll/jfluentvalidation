@@ -15,19 +15,6 @@ import static org.mockito.Mockito.when;
 class FileExistsTest {
 
     @Test
-    void shouldReturnFailureWhenActualIsNull() {
-        Target t = new Target(null);
-
-        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForFile(Target::getFile).exists();
-
-        List<ValidationFailure> failures = validator.validate(t);
-
-        assertFalse(failures.isEmpty());
-    }
-
-
-    @Test
     void shouldNotReturnFailureWhenFileExists() {
         File actual = mock(File.class);
         when(actual.exists()).thenReturn(true);
@@ -42,6 +29,17 @@ class FileExistsTest {
         assertTrue(failures.isEmpty());
     }
 
+    @Test
+    void shouldNotReturnFailureWhenActualIsNull() {
+        Target t = new Target(null);
+
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        validator.ruleForFile(Target::getFile).exists();
+
+        List<ValidationFailure> failures = validator.validate(t);
+
+        assertFalse(failures.isEmpty());
+    }
 
     @Test
     void shouldReturnFailureWhenFileDoesNotExist() {

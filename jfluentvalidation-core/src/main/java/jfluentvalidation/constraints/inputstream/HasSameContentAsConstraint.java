@@ -26,9 +26,8 @@ public class HasSameContentAsConstraint<T> extends AbstractConstraint<T, InputSt
     @Override
     public boolean isValid(RuleContext<T, InputStream> context) {
         try {
-
             if (context.getPropertyValue() == null) {
-                return false;
+                return true;
             }
 
             // TODO: should we diff so that we can provide to caller?

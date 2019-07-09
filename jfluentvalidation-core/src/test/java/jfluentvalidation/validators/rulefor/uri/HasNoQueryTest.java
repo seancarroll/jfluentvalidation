@@ -14,20 +14,20 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class HasNoQueryTest {
 
     @Test
-    void shouldReturnFailureIfActualUrlIsNull() {
-        Media m = new Media(null);
+    void shouldNotReturnFailureIfActualUrlDoesNotHaveQuery() throws URISyntaxException {
+        Media m = new Media(new URI("http://example.com"));
 
         DefaultValidator<Media> validator = new DefaultValidator<>(Media.class);
         validator.ruleForUri(Media::getContentLocation).hasNoQuery();
 
         List<ValidationFailure> failures = validator.validate(m);
 
-        assertFalse(failures.isEmpty());
+        assertTrue(failures.isEmpty());
     }
 
     @Test
-    void shouldNotReturnFailureIfActualUrlDoesNotHaveQuery() throws URISyntaxException {
-        Media m = new Media(new URI("http://example.com"));
+    void shouldNotReturnFailureIfActualUrlIsNull() {
+        Media m = new Media(null);
 
         DefaultValidator<Media> validator = new DefaultValidator<>(Media.class);
         validator.ruleForUri(Media::getContentLocation).hasNoQuery();

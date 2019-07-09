@@ -8,8 +8,7 @@ import java.util.List;
 
 import static java.math.BigInteger.TEN;
 import static jfluentvalidation.validators.rulefor.bigintegers.Constants.FIVE;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class IsGreaterThanOrEqualTest {
 
@@ -38,6 +37,18 @@ class IsGreaterThanOrEqualTest {
     }
 
     @Test
+    void shouldNotReturnFailureWhenActualIsNull() {
+        Target t = new Target(null);
+
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        validator.ruleForBigInteger(Target::getNumber).isGreaterThanOrEqualTo(TEN);
+
+        List<ValidationFailure> failures = validator.validate(t);
+
+        assertTrue(failures.isEmpty());
+    }
+
+    @Test
     void shouldReturnFailureWhenActualLessThanGiven() {
         Target t = new Target(FIVE);
 
@@ -49,15 +60,4 @@ class IsGreaterThanOrEqualTest {
         assertFalse(failures.isEmpty());
     }
 
-    @Test
-    void shouldReturnFailureWhenActualIsNull() {
-        Target t = new Target(null);
-
-        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForBigInteger(Target::getNumber).isGreaterThanOrEqualTo(TEN);
-
-        List<ValidationFailure> failures = validator.validate(t);
-
-        assertFalse(failures.isEmpty());
-    }
 }

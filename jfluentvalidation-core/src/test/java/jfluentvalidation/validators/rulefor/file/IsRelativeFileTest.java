@@ -15,19 +15,6 @@ import static org.mockito.Mockito.when;
 class IsRelativeFileTest {
 
     @Test
-    void shouldReturnFailureWhenActualIsNull() {
-        Target t = new Target(null);
-
-        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForFile(Target::getFile).isRelative();
-
-        List<ValidationFailure> failures = validator.validate(t);
-
-        assertFalse(failures.isEmpty());
-    }
-
-
-    @Test
     void shouldNotReturnFailureWhenFileIsRelative() {
         File actual = mock(File.class);
         when(actual.isAbsolute()).thenReturn(false);
@@ -42,6 +29,17 @@ class IsRelativeFileTest {
         assertTrue(failures.isEmpty());
     }
 
+    @Test
+    void shouldNotReturnFailureWhenActualIsNull() {
+        Target t = new Target(null);
+
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        validator.ruleForFile(Target::getFile).isRelative();
+
+        List<ValidationFailure> failures = validator.validate(t);
+
+        assertTrue(failures.isEmpty());
+    }
 
     @Test
     void shouldReturnFailureWhenFileIsNotRelative() {

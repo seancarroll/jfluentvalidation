@@ -36,23 +36,23 @@ class HasSameLengthAsTest {
     }
 
     @Test
+    void shouldNotReturnFailureWhenActualIsNull() {
+        Target t = new Target(null);
+
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        validator.ruleForObjectArray(Target::getValue).hasSameLengthAs(Arrays.asList("foo", "bar"));
+
+        List<ValidationFailure> failures = validator.validate(t);
+
+        assertTrue(failures.isEmpty());
+    }
+
+    @Test
     void shouldReturnFailureWhenActualLengthIsNotEqualToGivenIterable() {
         Target t = new Target(new String[]{"hello", "world"});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForObjectArray(Target::getValue).hasSameLengthAs(new String[]{"foo"});
-
-        List<ValidationFailure> failures = validator.validate(t);
-
-        assertFalse(failures.isEmpty());
-    }
-
-    @Test
-    void shouldReturnFailureWhenActualIsNull() {
-        Target t = new Target(null);
-
-        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForObjectArray(Target::getValue).hasSameLengthAs(Arrays.asList("foo", "bar"));
 
         List<ValidationFailure> failures = validator.validate(t);
 

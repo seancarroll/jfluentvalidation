@@ -25,7 +25,7 @@ public class ContainsConstraint<T, A extends CharSequence> extends AbstractConst
     @Override
     public boolean isValid(RuleContext<T, A> context) {
         if (context.getPropertyValue() == null) {
-            return false;
+            return true;
         }
         // TODO: Its probably best that we capture all of the sequence that are not in the string
         // How to do that? some sort of context? Map<Object, Object> which can be used within the localization string?

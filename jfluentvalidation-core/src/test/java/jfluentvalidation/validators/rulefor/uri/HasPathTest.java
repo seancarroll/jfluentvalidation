@@ -8,8 +8,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 class HasPathTest {
 
@@ -26,7 +25,7 @@ class HasPathTest {
     }
 
     @Test
-    void shouldReturnFailureWhenUriIsNull() {
+    void shouldNotReturnFailureWhenUriIsNull() {
         Media m = new Media(null);
 
         DefaultValidator<Media> validator = new DefaultValidator<>(Media.class);
@@ -34,7 +33,7 @@ class HasPathTest {
 
         List<ValidationFailure> failures = validator.validate(m);
 
-        assertFalse(failures.isEmpty());
+        assertTrue(failures.isEmpty());
     }
 
     @Test

@@ -24,7 +24,7 @@ public class HasNameConstraint<T> extends AbstractConstraint<T, File> {
     @Override
     public boolean isValid(RuleContext<T, File> context) {
         if (context.getPropertyValue() == null) {
-            return false;
+            return true;
         }
         return expected.equals(context.getPropertyValue().getName());
     }

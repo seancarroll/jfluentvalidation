@@ -24,7 +24,7 @@ public class HasSameLengthAsConstraint<T, A extends CharSequence> extends Abstra
     @Override
     public boolean isValid(RuleContext<T, A> context) {
         if (context.getPropertyValue() == null) {
-            return false;
+            return true;
         }
         return context.getPropertyValue().length() == other.length();
     }

@@ -24,20 +24,20 @@ class IsEmptyTest {
     }
 
     @Test
-    void shouldReturnFailureWhenActualIsNotEmpty() {
-        Target t = new Target(new String[] {"hello"});
+    void shouldNotReturnFailureWhenActualIsNull() {
+        Target t = new Target(null);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForObjectArray(Target::getValue).isEmpty();
 
         List<ValidationFailure> failures = validator.validate(t);
 
-        assertFalse(failures.isEmpty());
+        assertTrue(failures.isEmpty());
     }
 
     @Test
-    void shouldReturnFailureWhenActualIsNull() {
-        Target t = new Target(null);
+    void shouldReturnFailureWhenActualIsNotEmpty() {
+        Target t = new Target(new String[] {"hello"});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForObjectArray(Target::getValue).isEmpty();

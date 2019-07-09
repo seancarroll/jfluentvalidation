@@ -23,7 +23,7 @@ public class IsAfterCalendarConstraint<T> extends AbstractConstraint<T, Calendar
     @Override
     public boolean isValid(RuleContext<T, Calendar> context) {
         if (context.getPropertyValue() == null) {
-            return false;
+            return true;
         }
         return context.getPropertyValue().after(other);
     }

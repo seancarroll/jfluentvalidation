@@ -16,31 +16,6 @@ class IsAfterOrEqualToLocalDateTest {
     private static final LocalDate AFTER = LocalDate.of(2019, 6, 16);
 
     @Test
-    void shouldReturnFailureWhenActualIsNull() {
-        Target p = new Target(null);
-
-        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForLocalDate(Target::getDate).isAfterOrEqualTo(LocalDate.now());
-
-        List<ValidationFailure> failures = validator.validate(p);
-
-        assertFalse(failures.isEmpty());
-    }
-
-    @Test
-    void shouldReturnFailureWhenActualIsNotStrictlyAfterGivenDate() {
-        Target p = new Target(ACTUAL);
-
-        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForLocalDate(Target::getDate).isAfterOrEqualTo(AFTER);
-
-        List<ValidationFailure> failures = validator.validate(p);
-
-        assertFalse(failures.isEmpty());
-    }
-
-
-    @Test
     void shouldNotReturnFailureWhenActualEqualsGivenDate() {
         Target p = new Target(ACTUAL);
 
@@ -62,6 +37,30 @@ class IsAfterOrEqualToLocalDateTest {
         List<ValidationFailure> failures = validator.validate(p);
 
         assertTrue(failures.isEmpty());
+    }
+
+    @Test
+    void shouldNotReturnFailureWhenActualIsNull() {
+        Target p = new Target(null);
+
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        validator.ruleForLocalDate(Target::getDate).isAfterOrEqualTo(LocalDate.now());
+
+        List<ValidationFailure> failures = validator.validate(p);
+
+        assertTrue(failures.isEmpty());
+    }
+
+    @Test
+    void shouldReturnFailureWhenActualIsNotStrictlyAfterGivenDate() {
+        Target p = new Target(ACTUAL);
+
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        validator.ruleForLocalDate(Target::getDate).isAfterOrEqualTo(AFTER);
+
+        List<ValidationFailure> failures = validator.validate(p);
+
+        assertFalse(failures.isEmpty());
     }
 
     @Test

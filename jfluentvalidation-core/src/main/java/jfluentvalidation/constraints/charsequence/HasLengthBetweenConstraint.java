@@ -3,6 +3,7 @@ package jfluentvalidation.constraints.charsequence;
 import jfluentvalidation.common.Comparables;
 import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.DefaultMessages;
+import jfluentvalidation.internal.Ensure;
 import jfluentvalidation.validators.RuleContext;
 
 // TODO: length constraint where the users specify inclusive/exclusive boundaries
@@ -21,17 +22,18 @@ public class HasLengthBetweenConstraint<T, A extends CharSequence> extends Abstr
 
     public HasLengthBetweenConstraint(int min, int max, boolean inclusiveStart, boolean inclusiveEnd) {
         super(DefaultMessages.CHARSEQUENCE_HAS_LENGTH_BETWEEN);
-        // TODO: ensure min less than max
+        Ensure.argument(min <= max, "min must be less than or equal to max");
         this.min = min;
         this.max = max;
         this.inclusiveStart = inclusiveStart;
         this.inclusiveEnd = inclusiveEnd;
+
     }
 
     @Override
     public boolean isValid(RuleContext<T, A> context) {
         if (context.getPropertyValue() == null) {
-            return false;
+            return true;
         }
         int len = context.getPropertyValue().length();
         return Comparables.isBetween(len, min, max, inclusiveStart, inclusiveEnd);

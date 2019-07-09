@@ -14,18 +14,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class HasNoPortTest {
 
     @Test
-    void shouldReturnFailureIfActualUrlIsNull() {
-        Media p = new Media(null);
-
-        DefaultValidator<Media> validator = new DefaultValidator<>(Media.class);
-        validator.ruleForUri(Media::getContentLocation).hasNoPort();
-
-        List<ValidationFailure> failures = validator.validate(p);
-
-        assertFalse(failures.isEmpty());
-    }
-
-    @Test
     void shouldNotReturnFailureWhenActualUrlDoesNotHavePort() throws URISyntaxException {
         Media m = new Media(new URI("http://example.com"));
 
@@ -33,6 +21,18 @@ class HasNoPortTest {
         validator.ruleForUri(Media::getContentLocation).hasNoPort();
 
         List<ValidationFailure> failures = validator.validate(m);
+
+        assertTrue(failures.isEmpty());
+    }
+
+    @Test
+    void shouldNotReturnFailureIfActualUrlIsNull() {
+        Media p = new Media(null);
+
+        DefaultValidator<Media> validator = new DefaultValidator<>(Media.class);
+        validator.ruleForUri(Media::getContentLocation).hasNoPort();
+
+        List<ValidationFailure> failures = validator.validate(p);
 
         assertTrue(failures.isEmpty());
     }

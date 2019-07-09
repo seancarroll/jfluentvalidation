@@ -23,7 +23,7 @@ public class HasAuthorityConstraint<T> extends AbstractConstraint<T, URL> {
     @Override
     public boolean isValid(RuleContext<T, URL> context) {
         if (context.getPropertyValue() == null) {
-            return false;
+            return true;
         }
         return Objects.equals(expected, context.getPropertyValue().getAuthority());
     }

@@ -21,7 +21,7 @@ public class HasLengthGreaterThanConstraint<T, A extends CharSequence> extends A
     @Override
     public boolean isValid(RuleContext<T, A> context) {
         if (context.getPropertyValue() == null) {
-            return false;
+            return true;
         }
         return context.getPropertyValue().length() > length;
     }

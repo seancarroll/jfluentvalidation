@@ -23,20 +23,20 @@ class HasLengthTest {
     }
 
     @Test
-    void shouldReturnFailureWhenActualLengthIsNotEqualToExpected() {
-        Target t = new Target("hello");
+    void shouldNotReturnFailureWhenActualIsNull() {
+        Target t = new Target(null);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForString(Target::getValue).hasLength(3);
 
         List<ValidationFailure> failures = validator.validate(t);
 
-        assertFalse(failures.isEmpty());
+        assertTrue(failures.isEmpty());
     }
 
     @Test
-    void shouldReturnFailureWhenActualIsNull() {
-        Target t = new Target(null);
+    void shouldReturnFailureWhenActualLengthIsNotEqualToExpected() {
+        Target t = new Target("hello");
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForString(Target::getValue).hasLength(3);

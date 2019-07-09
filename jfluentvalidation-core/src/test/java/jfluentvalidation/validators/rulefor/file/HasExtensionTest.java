@@ -15,8 +15,25 @@ import static org.mockito.Mockito.when;
 
 class HasExtensionTest {
 
+    @ParameterizedTest()
+    @ValueSource(strings = {"file.txt", "some.file.txt"})
+    void shouldNotReturnFailureWhenActualHasExpectedExtension(String name) {
+        File actual = mock(File.class);
+        when(actual.isFile()).thenReturn(true);
+        when(actual.getName()).thenReturn(name);
+
+        Target t = new Target(actual);
+
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        validator.ruleForFile(Target::getFile).hasExtension("txt");
+
+        List<ValidationFailure> failures = validator.validate(t);
+
+        assertTrue(failures.isEmpty());
+    }
+
     @Test
-    void shouldReturnFailureWhenActualIsNull() {
+    void shouldNotReturnFailureWhenActualIsNull() {
         Target t = new Target(null);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
@@ -24,7 +41,7 @@ class HasExtensionTest {
 
         List<ValidationFailure> failures = validator.validate(t);
 
-        assertFalse(failures.isEmpty());
+        assertTrue(failures.isEmpty());
     }
 
     @Test
@@ -47,23 +64,6 @@ class HasExtensionTest {
         List<ValidationFailure> failures = validator.validate(t);
 
         assertFalse(failures.isEmpty());
-    }
-
-    @ParameterizedTest()
-    @ValueSource(strings = {"file.txt", "some.file.txt"})
-    void shouldNotReturnFailureWhenActualHasExpectedExtension(String name) {
-        File actual = mock(File.class);
-        when(actual.isFile()).thenReturn(true);
-        when(actual.getName()).thenReturn(name);
-
-        Target t = new Target(actual);
-
-        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForFile(Target::getFile).hasExtension("txt");
-
-        List<ValidationFailure> failures = validator.validate(t);
-
-        assertTrue(failures.isEmpty());
     }
 
     @Test

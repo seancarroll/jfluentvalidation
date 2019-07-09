@@ -14,18 +14,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class HasHostConstraintTest {
 
     @Test
-    void shouldReturnFailureWhenActualHostDoesNotMatchExpected() throws URISyntaxException {
-        Media m = new Media(new URI("http://example.com"));
-
-        DefaultValidator<Media> validator = new DefaultValidator<>(Media.class);
-        validator.ruleForUri(Media::getContentLocation).hasHost("other.com");
-
-        List<ValidationFailure> failures = validator.validate(m);
-
-        assertFalse(failures.isEmpty());
-    }
-
-    @Test
     void shouldNotReturnFailureWhenActualUriHasExpectedHost() throws URISyntaxException {
         Media m = new Media(new URI("http://example.com"));
 
@@ -38,7 +26,7 @@ class HasHostConstraintTest {
     }
 
     @Test
-    void shouldReturnFailureWhenActualUriIsNull() {
+    void shouldNotReturnFailureWhenActualUriIsNull() {
         Media m = new Media(null);
 
         DefaultValidator<Media> validator = new DefaultValidator<>(Media.class);
@@ -46,7 +34,18 @@ class HasHostConstraintTest {
 
         List<ValidationFailure> failures = validator.validate(m);
 
-        assertFalse(failures.isEmpty());
+        assertTrue(failures.isEmpty());
     }
 
+    @Test
+    void shouldReturnFailureWhenActualHostDoesNotMatchExpected() throws URISyntaxException {
+        Media m = new Media(new URI("http://example.com"));
+
+        DefaultValidator<Media> validator = new DefaultValidator<>(Media.class);
+        validator.ruleForUri(Media::getContentLocation).hasHost("other.com");
+
+        List<ValidationFailure> failures = validator.validate(m);
+
+        assertFalse(failures.isEmpty());
+    }
 }

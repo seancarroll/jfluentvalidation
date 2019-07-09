@@ -24,7 +24,7 @@ public class IsGreaterThanConstraint<T, P extends Comparable<? super P>> extends
     @Override
     public boolean isValid(RuleContext<T, P> context) {
         if (context.getPropertyValue() == null) {
-            return false;
+            return true;
         }
         return context.getPropertyValue().compareTo(other) > 0;
     }

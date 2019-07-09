@@ -14,18 +14,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class HasQueryTest {
 
     @Test
-    void shouldReturnFailureIfActualUrlIsNull() {
-        Profile p = new Profile(null);
-
-        DefaultValidator<Profile> validator = new DefaultValidator<>(Profile.class);
-        validator.ruleForUrl(Profile::getWebsite).hasQuery("foo=bar");
-
-        List<ValidationFailure> failures = validator.validate(p);
-
-        assertFalse(failures.isEmpty());
-    }
-
-    @Test
     void shouldNotReturnFailureIfActualUrlHasExpectedQuery() throws MalformedURLException {
         Profile p = new Profile(new URL("http://example.com?foo=bar"));
 
@@ -43,6 +31,18 @@ class HasQueryTest {
 
         DefaultValidator<Profile> validator = new DefaultValidator<>(Profile.class);
         validator.ruleForUrl(Profile::getWebsite).hasQuery(null);
+
+        List<ValidationFailure> failures = validator.validate(p);
+
+        assertTrue(failures.isEmpty());
+    }
+
+    @Test
+    void shouldNotReturnFailureIfActualUrlIsNull() {
+        Profile p = new Profile(null);
+
+        DefaultValidator<Profile> validator = new DefaultValidator<>(Profile.class);
+        validator.ruleForUrl(Profile::getWebsite).hasQuery("foo=bar");
 
         List<ValidationFailure> failures = validator.validate(p);
 

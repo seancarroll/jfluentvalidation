@@ -22,7 +22,7 @@ public class EndsWithConstraint<T> extends AbstractConstraint<T, CharSequence> {
     @Override
     public boolean isValid(RuleContext<T, CharSequence> context) {
         if (context.getPropertyValue() == null) {
-            return false;
+            return true;
         }
         return context.getPropertyValue().toString().endsWith(suffix.toString());
     }

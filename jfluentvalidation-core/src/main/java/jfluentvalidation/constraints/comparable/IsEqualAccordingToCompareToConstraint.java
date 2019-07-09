@@ -27,7 +27,7 @@ public class IsEqualAccordingToCompareToConstraint<T, P extends Comparable<? sup
     @Override
     public boolean isValid(RuleContext<T, P> context) {
         if (context.getPropertyValue() == null) {
-            return false;
+            return true;
         }
         return context.getPropertyValue().compareTo(other) == 0;
     }

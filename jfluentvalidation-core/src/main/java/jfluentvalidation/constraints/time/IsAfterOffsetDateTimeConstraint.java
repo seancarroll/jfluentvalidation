@@ -23,7 +23,7 @@ public class IsAfterOffsetDateTimeConstraint<T> extends AbstractConstraint<T, Of
     @Override
     public boolean isValid(RuleContext<T, OffsetDateTime> context) {
         if (context.getPropertyValue() == null) {
-            return false;
+            return true;
         }
         return context.getPropertyValue().isAfter(other);
     }
