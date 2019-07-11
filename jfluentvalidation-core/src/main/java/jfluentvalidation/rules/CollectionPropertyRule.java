@@ -1,5 +1,6 @@
 package jfluentvalidation.rules;
 
+import jfluentvalidation.SerializableFunction;
 import jfluentvalidation.ValidationFailure;
 import jfluentvalidation.common.MoreArrays;
 import jfluentvalidation.constraints.Constraint;
@@ -7,15 +8,14 @@ import jfluentvalidation.validators.RuleContext;
 import jfluentvalidation.validators.ValidationContext;
 
 import java.util.*;
-import java.util.function.Function;
 
 public class CollectionPropertyRule<T, P> extends PropertyRule<T, P> {
 
-    public CollectionPropertyRule(Function<T, P> propertyFunc, String propertyName) {
+    public CollectionPropertyRule(SerializableFunction<T, P> propertyFunc, String propertyName) {
         super(propertyFunc, propertyName);
     }
 
-    public CollectionPropertyRule(Class<T> type, Function<T, P> propertyFunc) {
+    public CollectionPropertyRule(Class<T> type, SerializableFunction<T, P> propertyFunc) {
         super(type, propertyFunc);
     }
 
@@ -28,10 +28,8 @@ public class CollectionPropertyRule<T, P> extends PropertyRule<T, P> {
             // TODO: what do we want to do here?
             return failures;
         }
+
         Collection<Object> collectionPropertyValue = toCollection(propertyValue);
-
-
-
         for (Constraint<?, ? extends P> constraint : getConstraints()) {
             int i = 0;
             for (Iterator<Object> it = collectionPropertyValue.iterator(); it.hasNext(); i++) {
@@ -55,7 +53,6 @@ public class CollectionPropertyRule<T, P> extends PropertyRule<T, P> {
             }
 
         }
-
 
         return failures;
     }

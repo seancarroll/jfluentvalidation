@@ -6,11 +6,22 @@ import net.bytebuddy.implementation.bind.annotation.This;
 
 import java.lang.reflect.Method;
 
+//https://in.relation.to/2016/04/14/emulating-property-literals-with-java-8-method-references/
+
+// doesnt work for nested fields
+
+
 // TODO: move into PropertyNameCapturer?
 /**
  *
  */
 public class PropertyNameCapturingInterceptor {
+
+//    private final SerializableFunction serializableFunction;
+
+//    public PropertyNameCapturingInterceptor(SerializableFunction serializableFunction) {
+//        this.serializableFunction = serializableFunction;
+//    }
 
     /**
      * Used by PropertyLiteralHelper#getPropertyNameCapturer
@@ -35,7 +46,12 @@ public class PropertyNameCapturingInterceptor {
         } else if (returnType == boolean.class) {
             return false;
         }
+
         return null;
+        // TODO: this causes other failures
+//         Objenesis objenesis = new ObjenesisStd();
+//         return objenesis.newInstance(returnType);
+//        return PropertyLiteralHelper.createProxyInstance(returnType);
     }
 
     /**

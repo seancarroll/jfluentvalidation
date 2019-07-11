@@ -1,5 +1,6 @@
 package jfluentvalidation.rules;
 
+import jfluentvalidation.SerializableFunction;
 import jfluentvalidation.ValidationFailure;
 import jfluentvalidation.constraints.Constraint;
 import jfluentvalidation.constraints.SoftConstraint;
@@ -33,7 +34,7 @@ public class PropertyRule<T, P> implements Rule<T, P> {
         this.propertyName = propertyName;
     }
 
-    public PropertyRule(Class<T> type, Function<T, P> propertyFunc) {
+    public PropertyRule(Class<T> type, SerializableFunction<T, P> propertyFunc) {
         T proxy = PropertyLiteralHelper.getPropertyNameCapturer(type);
         String propertyName = PropertyLiteralHelper.getPropertyName(proxy, propertyFunc);
         this.propertyFunc = propertyFunc;
