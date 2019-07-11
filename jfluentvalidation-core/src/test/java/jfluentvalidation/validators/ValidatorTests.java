@@ -16,6 +16,19 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class ValidatorTests {
 
     @Test
+    void supportMethodReference() {
+        Person person = new Person("sean", -1, null);
+
+        DefaultValidator<Person> validator = new DefaultValidator<>(Person.class);
+        validator.ruleForInteger(Person::getAge).isPositive();
+
+        List<ValidationFailure> validationFailures = validator.validate(person);
+
+        assertEquals(1, validationFailures.size());
+        assertEquals("age", validationFailures.get(0).getPropertyName());
+    }
+
+    @Test
     void defaultValidator() {
         Person person = new Person("sean", 32, null);
 

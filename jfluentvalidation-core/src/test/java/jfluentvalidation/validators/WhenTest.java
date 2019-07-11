@@ -22,10 +22,7 @@ class WhenTest {
 
         // TODO: property name is wrong
         assertEquals(1, validationFailures.size());
-        for (ValidationFailure f : validationFailures) {
-            System.out.println(f.toString());
-        }
-
+        assertEquals("zip", validationFailures.get(0).getPropertyName());
     }
 
 
