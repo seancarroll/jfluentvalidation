@@ -111,14 +111,15 @@ public final class Primitives {
      * <p>Primitive widenings allow an int to be assigned to a long, float or
      * double. This method returns the correct result for these cases.</p>
      *
-     * @param cls
-     * @param toClass
-     * @return
+     * @param cls  the Class to check, may be null
+     * @param toClass  the Class to try to assign into, returns false if null
+     * @return {@code true} if assignment possible
      */
     public static boolean isAssignable(Class<?> cls, final Class<?> toClass) {
         if (toClass == null) {
             return false;
         }
+
         // have to check for null, as isAssignableFrom doesn't
         if (cls == null) {
             return !toClass.isPrimitive();
@@ -126,17 +127,13 @@ public final class Primitives {
 
         if (cls.isPrimitive() && !toClass.isPrimitive()) {
             cls = wrap(cls);
-            if (cls == null) {
-                return false;
-            }
         }
         if (toClass.isPrimitive() && !cls.isPrimitive()) {
             cls = unwrap(cls);
-            if (cls == null) {
-                return false;
-            }
         }
-
+        if (cls.equals(toClass)) {
+            return true;
+        }
         return toClass.isAssignableFrom(cls);
     }
 

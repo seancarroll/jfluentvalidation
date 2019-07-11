@@ -3,10 +3,8 @@ package jfluentvalidation;
 import jfluentvalidation.common.Primitives;
 import jfluentvalidation.validators.InvalidPropertyException;
 import net.bytebuddy.ByteBuddy;
-import net.bytebuddy.description.modifier.Visibility;
 import net.bytebuddy.dynamic.DynamicType;
 import net.bytebuddy.dynamic.loading.ClassLoadingStrategy;
-import net.bytebuddy.implementation.FieldAccessor;
 import net.bytebuddy.implementation.MethodDelegation;
 import net.bytebuddy.implementation.bind.annotation.Origin;
 import net.bytebuddy.implementation.bind.annotation.RuntimeType;
@@ -17,10 +15,6 @@ import org.objenesis.ObjenesisStd;
 
 import java.lang.reflect.Method;
 
-import static net.bytebuddy.matcher.ElementMatchers.named;
-
-// https://stackoverflow.com/questions/34925524/java-8-convert-lambda-to-a-method-instance-with-closure-included/34929760#34929760
-// https://stackoverflow.com/questions/34925524/java-8-convert-lambda-to-a-method-instance-with-closure-included
 public class PropertyNameExtractor {
 
     // TODO: cache for byte buddy proxies?
@@ -31,7 +25,7 @@ public class PropertyNameExtractor {
         return INSTANCE;
     }
 
-    public <T> String getPropertyName(Class<T> type, SerializableFunction propertyFunction) {
+    public <T> String getPropertyName(Class<T> type, SerializableFunction<T, ?> propertyFunction) {
         return propertyFunction.method().getName().startsWith("lambda")
             ? getNameViaByteBuddyProxy(type, propertyFunction)
             : getNameViaSerializableLambda(propertyFunction);
@@ -86,9 +80,7 @@ public class PropertyNameExtractor {
             }
 
             Class<?> proxyType = builder
-                .defineField("fluentValidationPropertyName", String.class, Visibility.PRIVATE)
-                .method(ElementMatchers.isGetter().and(ElementMatchers.not(named("getFluentValidationPropertyName")))).intercept(MethodDelegation.to(interceptor))
-                .method(named("setFluentValidationPropertyName").or(named("getFluentValidationPropertyName"))).intercept(FieldAccessor.ofBeanProperty())
+                .method(ElementMatchers.isGetter()).intercept(MethodDelegation.to(interceptor))
                 .make()
                 .load(PropertyNameExtractor.class.getClassLoader(), ClassLoadingStrategy.Default.INJECTION)
                 .getLoaded();
