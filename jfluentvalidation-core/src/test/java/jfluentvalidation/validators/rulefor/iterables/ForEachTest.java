@@ -8,7 +8,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import static jfluentvalidation.constraints.charsequence.CharSequenceConstraints.startsWith;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ForEachTest {
 
@@ -54,7 +55,6 @@ class ForEachTest {
         Target t = new Target(Arrays.asList("sean", "bob", "shaun", "shawn", "lou"));
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-
         validator.ruleForIterable(Target::getValue).forEach(s -> s.length() > 2, startsWith("s"));
 
         List<ValidationFailure> failures = validator.validate(t);

@@ -30,8 +30,6 @@ public class ItemConstraint<T> extends AbstractConstraint<T, Object[]> {
     public boolean isValid(RuleContext<T, Object[]> context) {
         // TODO: fix...need to collect results and return
         // TODO: does it make sense to move this out somewhere common?
-
-        boolean encounteredFailure = false;
         for (Object item : context.getPropertyValue()) {
             // TODO: would it be better to default to a AlwaysTrueCondition as a NullableObject instead of null check?
             if (condition == null || condition.test(item)) {

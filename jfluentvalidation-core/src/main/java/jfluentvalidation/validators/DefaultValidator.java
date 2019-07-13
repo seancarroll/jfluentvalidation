@@ -293,7 +293,7 @@ public class DefaultValidator<T> implements Validator<T> {
      */
     public <E> IterableSubject<T, ? extends E> ruleForIterable(SerializableFunction<T, Iterable<? super E>> func) {
         String propertyName = PropertyNameExtractor.getInstance().getPropertyName(type, func);
-        CollectionPropertyRule<T, Iterable<? super E>> iterablePropertyRule = new CollectionPropertyRule<>(func, propertyName);
+        CollectionPropertyRule<T, Iterable<? super E>, E> iterablePropertyRule = new CollectionPropertyRule<>(func, propertyName);
         rules.add(iterablePropertyRule);
         return new IterableSubject<>(iterablePropertyRule);
     }
@@ -391,7 +391,7 @@ public class DefaultValidator<T> implements Validator<T> {
      */
     public ObjectArraySubject<T> ruleForObjectArray(SerializableFunction<T, Object[]> func) {
         String propertyName = PropertyNameExtractor.getInstance().getPropertyName(type, func);
-        CollectionPropertyRule<T, Object[]> arrayPropertyRule = new CollectionPropertyRule<>(func, propertyName);
+        CollectionPropertyRule<T, Object[], Object> arrayPropertyRule = new CollectionPropertyRule<>(func, propertyName);
         //PropertyRule<T, Object[]> rule = new PropertyRule<>(func, propertyName);
         rules.add(arrayPropertyRule);
         return new ObjectArraySubject<>(arrayPropertyRule);

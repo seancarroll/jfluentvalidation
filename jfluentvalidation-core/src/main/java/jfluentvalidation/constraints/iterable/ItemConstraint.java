@@ -32,18 +32,24 @@ public class ItemConstraint<T, P> extends AbstractConstraint<T, Iterable<? super
     public boolean isValid(RuleContext<T, Iterable<? super P>> context) {
         // TODO: fix...need to collect results and return
         // TODO: does it make sense to move this out somewhere common?
+        boolean isValid = true;
         Collection<P> actual = (Collection<P>) Iterables.toCollection(context.getPropertyValue());
-        for (P item : actual) {
-            // TODO: would it be better to default to a AlwaysTrueCondition as a NullableObject instead of null check?
-            if (condition == null || condition.test(item)) {
-                for (Constraint c : innerConstraints) {
+        for (int i = 0; i < innerConstraints.length; i++) {
+            for (P item : actual) {
+                // TODO: would it be better to default to a AlwaysTrueCondition as a NullableObject instead of null check?
+                if (condition == null || condition.test(item)) {
                     // TODO: better way to do this? not sure this is even correct when using the RuleContext
                     ValidationContext childContext = new ValidationContext(item);
-                    return c.isValid(new RuleContext(childContext, context.getRule(), item));
+                    if (!innerConstraints[i].isValid(new RuleContext(childContext, context.getRule(), item))) {
+                        isValid = false;
+                        context.appendArgument("index", i);
+                        context.appendArgument("PropertyName", context.getRule().getPropertyName());
+                        context.appendArgument("PropertyValue", context.getPropertyValue());
+                    }
                 }
             }
         }
 
-        return false;
+        return isValid;
     }
 }

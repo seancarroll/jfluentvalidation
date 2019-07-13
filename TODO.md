@@ -6,6 +6,50 @@ TODO:
 - what about adding a Not|NegateConstraint that wraps another constraint to negate it. similar ot what we do for softconstraint
 - I'm not sure 100% happy with how we do error messages. when I get to localization take another look at how we could improve
 - Do we need to return true when property is null instead of false...showcase examples.
+- have an issue getting the appropriate property name for nested fields ex: `ruleForString(p -> p.getAddress().getZip())`. 
+I'm not sure what would be a good mechanism to determine if the property is nested or not. 
+My initial thought is if I have some way to determine if its nested than I can return another bytebuddy proxy. 
+One idea is to use serialablelamba. 
+If I'm bringing back serialableLamba then I can use that for method references and fall back to bytebuddy for lambda expressions.
+If I do that then I may need to alter when I create the proxy (right now its in the constructor of the validator) and how I grab the property name. 
+- Might want to check constraint null checks and when to return true vs false.
+- review assertj AbstractIterableAssert which has 
+```java 
+@Override
+public SELF hasOnlyOneElementSatisfying(Consumer<? super ELEMENT> elementAssertions) {
+  iterables.assertHasSize(info, actual, 1);
+  elementAssertions.accept(actual.iterator().next());
+  return myself;
+}
+```
+and 
+```java
+@CheckReturnValue
+public ELEMENT_ASSERT first() {
+  isNotEmpty();
+  return toAssert(actual.iterator().next(), navigationDescription("check first element"));
+}
+```  
+which allows us to get the appropriate element assert. From javadoc
+```
+* If you have created the Iterable assertion using an {@link AssertFactory} or the element assert class,
+* you will be able to chain {@code first()} with more specific typed assertion.
+* <p>
+* Example: use of {@code String} assertions after {@code first()}
+* <pre><code class='java'> Iterable&lt;String&gt; hobbits = newArrayList("frodo", "sam", "pippin");
+*
+* // assertion succeeds
+* // String assertions are available after first()
+* assertThat(hobbits, StringAssert.class).first()
+*                                        .startsWith("fro")
+*                                        .endsWith("do");
+* // assertion fails
+* assertThat(hobbits, StringAssert.class).first()
+*                                        .startsWith("pip");</code></pre>
+```
+
+I'm not a fan of having to pass in the assertion but as I work through this myself Ive come to this conclusion as well.
+
 
 
 Potential Constraints to Add
@@ -29,5 +73,4 @@ Potential Constraints to Add
     - hasSameContentAs
        - `hasSameContentAs(File expected)`
        - `hasSameContentAs(File expected, Charset expectedCharset)`
-
 

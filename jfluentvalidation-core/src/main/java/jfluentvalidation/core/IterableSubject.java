@@ -1,6 +1,7 @@
 package jfluentvalidation.core;
 
 import jfluentvalidation.constraints.Constraint;
+import jfluentvalidation.constraints.SoftConstraint;
 import jfluentvalidation.constraints.iterable.*;
 import jfluentvalidation.rules.CollectionPropertyRule;
 
@@ -17,7 +18,7 @@ import static java.util.Arrays.asList;
  */
 public class IterableSubject<T, E> extends Subject<IterableSubject<T, E>, T, Iterable<? super E>> {
 
-    public IterableSubject(CollectionPropertyRule<T, Iterable<? super E>> rule) {
+    public IterableSubject(CollectionPropertyRule<T, Iterable<? super E>, E> rule) {
         super(IterableSubject.class, rule);
     }
 
@@ -111,24 +112,48 @@ public class IterableSubject<T, E> extends Subject<IterableSubject<T, E>, T, Ite
         return myself;
     }
 
-    // isOrdered
+    // TODO: isOrdered
 
-    // TODO: the problem with this is that constraint isValid returns a boolean which doesn't work with this
-    // is there a way to turn this into a rule? Problem being that we could define constraints for the actual iterable
-    // as well as the items
-    // Does IterableSubject need to include a collection of item constraints?
-    // Should Subjects contain a rule instead of a list of constraints?
-    // Does this need to be a varargs?
+//    // TODO: the problem with this is that constraint isValid returns a boolean which doesn't work with this
+//    // is there a way to turn this into a rule? Problem being that we could define constraints for the actual iterable
+//    // as well as the items
+//    // Does IterableSubject need to include a collection of item constraints?
+//    // Should Subjects contain a rule instead of a list of constraints?
+//    // Does this need to be a varargs?
+//    /**
+//     *
+//     * @param constraintsToAdd
+//     * @return
+//     */
+//    public final IterableSubject<T, E> forEach(Constraint<T, E>... constraintsToAdd) {
+//        // QUESTION: what if I didnt use the existing rule but created a new CollectionPropertyRule?
+//        // would need to have access to the Subject to do so which might not be a good idea
+//        // Otherwise we need to change Constraint to violations
+//        rule.addConstraint(new ItemConstraint<>(constraintsToAdd));
+//        return myself;
+//    }
+
+//    /**
+//     *
+//     * @param predicate
+//     * @param constraintsToAdd
+//     * @return
+//     */
+//    public final IterableSubject<T, E> forEach(Predicate<? super E> predicate, Constraint<T, ? super E>... constraintsToAdd) {
+//        rule.addConstraint(new ItemConstraint<>(predicate, constraintsToAdd));
+//        return myself;
+//    }
+
+
     /**
      *
      * @param constraintsToAdd
      * @return
      */
-    public final IterableSubject<T, E> forEach(Constraint<T, E>... constraintsToAdd) {
-        // QUESTION: what if I didnt use the existing rule but created a new CollectionPropertyRule?
-        // would need to have access to the Subject to do so which might not be a good idea
-        // Otherwise we need to change Constraint to violations
-        rule.addConstraint(new ItemConstraint<>(constraintsToAdd));
+    public final IterableSubject<T, E> forEach(Constraint<T, ? super E>... constraintsToAdd) {
+        for (Constraint<T, ? super E> constraintToAdd : constraintsToAdd) {
+            getRule().addItemConstraint(constraintToAdd);
+        }
         return myself;
     }
 
@@ -139,7 +164,9 @@ public class IterableSubject<T, E> extends Subject<IterableSubject<T, E>, T, Ite
      * @return
      */
     public final IterableSubject<T, E> forEach(Predicate<? super E> predicate, Constraint<T, ? super E>... constraintsToAdd) {
-        rule.addConstraint(new ItemConstraint<>(predicate, constraintsToAdd));
+        for (Constraint<T, ? super E> constraintToAdd : constraintsToAdd) {
+            getRule().addItemConstraint(new SoftConstraint(predicate, constraintToAdd));
+        }
         return myself;
     }
 
@@ -161,7 +188,7 @@ public class IterableSubject<T, E> extends Subject<IterableSubject<T, E>, T, Ite
     }
 
     @Override
-    protected CollectionPropertyRule<T, Iterable<? super E>> getRule() {
-        return (CollectionPropertyRule) super.getRule();
+    protected CollectionPropertyRule<T, Iterable<? super E>, E> getRule() {
+        return (CollectionPropertyRule<T, Iterable<? super E>, E>) super.getRule();
     }
 }
