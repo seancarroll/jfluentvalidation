@@ -5,6 +5,7 @@ import jfluentvalidation.constraints.DefaultMessages;
 import jfluentvalidation.validators.RuleContext;
 
 import java.util.Map;
+import java.util.Objects;
 
 // QUESTION: do we need all the Constains(Entry|Key|Value)Constraint classes?
 
@@ -25,6 +26,10 @@ public class ContainsEntryConstraint<T, K, V> extends AbstractConstraint<T, Map<
 
     @Override
     public boolean isValid(RuleContext<T, Map<K, V>> context) {
-        return false;
+        if (context.getPropertyValue() == null) {
+            return true;
+        }
+        return context.getPropertyValue().containsKey(entry.getKey())
+            && Objects.equals(context.getPropertyValue().get(entry.getKey()), entry.getValue());
     }
 }

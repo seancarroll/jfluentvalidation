@@ -6,6 +6,7 @@ import jfluentvalidation.constraints.map.*;
 import jfluentvalidation.rules.MapPropertyRule;
 import jfluentvalidation.rules.PropertyRule;
 
+import java.util.AbstractMap;
 import java.util.Collection;
 import java.util.Map;
 import java.util.function.Function;
@@ -42,8 +43,9 @@ public class MapSubject<T, K, V> extends Subject<MapSubject<T, K, V>, T, Map<K, 
         return myself;
     }
 
-    public final MapSubject<T, K, V> containsEntry(Object key, Object value) {
-
+    // TODO: add overload which takes in Map.Entry?
+    public final MapSubject<T, K, V> containsEntry(K key, V value) {
+        rule.addConstraint(new ContainsEntryConstraint<>(new AbstractMap.SimpleEntry<>(key, value)));
         return myself;
     }
 
