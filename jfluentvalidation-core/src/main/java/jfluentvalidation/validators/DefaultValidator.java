@@ -386,6 +386,8 @@ public class DefaultValidator<T> implements Validator<T> {
         return new ObjectSubject<>(rule);
     }
 
+    // TODO: try a ruleForArray that takes a generic
+
     /**
      * TODO: add a note this is does not work for primitives and to see other methods
      * @param func

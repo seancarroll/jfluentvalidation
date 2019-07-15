@@ -43,6 +43,7 @@ class ForEachTest {
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
 
+        // TODO: this sucks :(
         Predicate<Object> stringGreaterThan3Predicate = s -> ((String) s).length() > 3;
 
         validator.ruleForObjectArray(Target::getValue).forEach(stringGreaterThan3Predicate, startsWith("s"));

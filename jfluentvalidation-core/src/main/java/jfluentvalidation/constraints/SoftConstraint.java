@@ -40,8 +40,4 @@ public class SoftConstraint<T, P> extends AbstractConstraint<T, P> {
         return true;
     }
 
-//    @Override
-//    public String getMessage() {
-//        return innerConstraint.getMessage();
-//    }
 }
