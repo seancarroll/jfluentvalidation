@@ -11,7 +11,7 @@ import java.util.*;
 
 public class MapPropertyRule<T, K, V> extends PropertyRule<T, Map<K, V>> {
 
-    private List<MapItemConstraint<T, ?>> itemConstraints = new ArrayList<>();
+    private List<MapItemConstraint<T, K, V, ?>> itemConstraints = new ArrayList<>();
 
     public MapPropertyRule(SerializableFunction<T, Map<K, V>> propertyFunc, String propertyName) {
         super(propertyFunc, propertyName);
@@ -40,7 +40,7 @@ public class MapPropertyRule<T, K, V> extends PropertyRule<T, Map<K, V>> {
         // - failures should include appropriate index in error message. Just put in propertyName?
 
         if (propertyValue != null) {
-            for (MapItemConstraint<T, ?> itemConstraint : itemConstraints) {
+            for (MapItemConstraint<T, K, V, ?> itemConstraint : itemConstraints) {
                 int i = 0;
                 for (Object e : itemConstraint.getCollection(propertyValue)) {
                     ValidationContext childContext = new ValidationContext<>(e);
@@ -63,7 +63,7 @@ public class MapPropertyRule<T, K, V> extends PropertyRule<T, Map<K, V>> {
 
 
     // TODO: should this just be addConstraints and take a varargs?
-    public void addItemConstraint(MapItemConstraint<T, Collection<?>> constraint) {
+    public void addItemConstraint(MapItemConstraint<T, K, V, ?> constraint) {
         itemConstraints.add(constraint);
     }
 

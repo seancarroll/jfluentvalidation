@@ -129,9 +129,23 @@ public class MapSubject<T, K, V> extends Subject<MapSubject<T, K, V>, T, Map<K, 
      */
     @SafeVarargs
     public final MapSubject<T, K, V> forEachEntry(Constraint<T, Map.Entry<K, V>>... constraintsToAdd) {
-        rule.addConstraint(new EntryConstraint<>(constraintsToAdd));
+        Function<Map<K, V>, Collection<Map.Entry<K, V>>> fks = Map::entrySet;
+        for (Constraint<T, Map.Entry<K, V>> constraint : constraintsToAdd) {
+            getRule().addItemConstraint(new MapItemConstraint<>(fks, constraint));
+        }
         return myself;
     }
+
+//    /**
+//     *
+//     * @param constraintsToAdd
+//     * @return
+//     */
+//    @SafeVarargs
+//    public final MapSubject<T, K, V> forEachEntry(Constraint<T, Map.Entry<K, V>>... constraintsToAdd) {
+//        rule.addConstraint(new EntryConstraint<>(constraintsToAdd));
+//        return myself;
+//    }
 
     /**
      *
@@ -140,12 +154,10 @@ public class MapSubject<T, K, V> extends Subject<MapSubject<T, K, V>, T, Map<K, 
      */
     @SafeVarargs
     public final MapSubject<T, K, V> forEachKey(Constraint<T, K>... constraintsToAdd) {
-        Function<Map<K, V>, Collection<K>> fks = map -> map.keySet();
+        Function<Map<K, V>, Collection<K>> fks = Map::keySet;
         for (Constraint<T, K> constraint : constraintsToAdd) {
-            getRule().addItemConstraint(new MapItemConstraint(fks, constraint));
+            getRule().addItemConstraint(new MapItemConstraint<>(fks, constraint));
         }
-
-        // rule.addConstraint(new KeyConstraint<>(constraintsToAdd));
         return myself;
     }
 
@@ -168,12 +180,10 @@ public class MapSubject<T, K, V> extends Subject<MapSubject<T, K, V>, T, Map<K, 
      */
     @SafeVarargs
     public final MapSubject<T, K, V> forEachValue(Constraint<T, V>... constraintsToAdd) {
-        Function<Map<K, V>, Collection<V>> fks = map -> map.values();
+        Function<Map<K, V>, Collection<V>> fks = Map::values;
         for (Constraint<T, V> constraint : constraintsToAdd) {
-            getRule().addItemConstraint(new MapItemConstraint(fks, constraint));
+            getRule().addItemConstraint(new MapItemConstraint<>(fks, constraint));
         }
-
-        // rule.addConstraint(new KeyConstraint<>(constraintsToAdd));
         return myself;
     }
 
