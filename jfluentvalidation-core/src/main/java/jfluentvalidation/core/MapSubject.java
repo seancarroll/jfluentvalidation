@@ -1,11 +1,14 @@
 package jfluentvalidation.core;
 
+import jfluentvalidation.MapItemConstraint;
 import jfluentvalidation.constraints.Constraint;
 import jfluentvalidation.constraints.map.*;
+import jfluentvalidation.rules.MapPropertyRule;
 import jfluentvalidation.rules.PropertyRule;
 
+import java.util.Collection;
 import java.util.Map;
-import java.util.function.Predicate;
+import java.util.function.Function;
 
 /**
  *
@@ -130,25 +133,17 @@ public class MapSubject<T, K, V> extends Subject<MapSubject<T, K, V>, T, Map<K, 
 
     /**
      *
-     * @param predicate
-     * @param constraintsToAdd
-     * @return
-     */
-    @SafeVarargs
-    public final MapSubject<T, K, V> forEachEntry(Predicate<Map.Entry<K, V>> predicate, Constraint<T, Map.Entry<K, V>>... constraintsToAdd) {
-        rule.addConstraint(new EntryConstraint<>(predicate, constraintsToAdd));
-        return myself;
-    }
-
-
-    /**
-     *
      * @param constraintsToAdd
      * @return
      */
     @SafeVarargs
     public final MapSubject<T, K, V> forEachKey(Constraint<T, K>... constraintsToAdd) {
-        rule.addConstraint(new KeyConstraint<>(constraintsToAdd));
+        Function<Map<K, V>, Collection<K>> fks = map -> map.keySet();
+        for (Constraint<T, K> constraint : constraintsToAdd) {
+            getRule().addItemConstraint(new MapItemConstraint(fks, constraint));
+        }
+
+        // rule.addConstraint(new KeyConstraint<>(constraintsToAdd));
         return myself;
     }
 
@@ -158,8 +153,9 @@ public class MapSubject<T, K, V> extends Subject<MapSubject<T, K, V>, T, Map<K, 
 //     * @param constraintsToAdd
 //     * @return
 //     */
-//    public final MapSubject<K, V> forEachKey(Predicate<? super K> predicate, Constraint<?, ? super K>... constraintsToAdd) {
-//        rule.addConstraint(new KeyConstraint(constraintsToAdd));
+//    public final MapSubject<T, K, V> forEachKey(Predicate<? super K> predicate, Constraint<?, ? super K>... constraintsToAdd) {
+//        // TODO: fix generic
+//        rule.addConstraint(new KeyConstraint(predicate, constraintsToAdd));
 //        return myself;
 //    }
 
@@ -170,9 +166,25 @@ public class MapSubject<T, K, V> extends Subject<MapSubject<T, K, V>, T, Map<K, 
      */
     @SafeVarargs
     public final MapSubject<T, K, V> forEachValue(Constraint<T, V>... constraintsToAdd) {
-        rule.addConstraint(new ValueConstraint<>(constraintsToAdd));
+        Function<Map<K, V>, Collection<V>> fks = map -> map.values();
+        for (Constraint<T, V> constraint : constraintsToAdd) {
+            getRule().addItemConstraint(new MapItemConstraint(fks, constraint));
+        }
+
+        // rule.addConstraint(new KeyConstraint<>(constraintsToAdd));
         return myself;
     }
+
+//    /**
+//     *
+//     * @param constraintsToAdd
+//     * @return
+//     */
+//    @SafeVarargs
+//    public final MapSubject<T, K, V> forEachValue(Constraint<T, V>... constraintsToAdd) {
+//        rule.addConstraint(new ValueConstraint<>(constraintsToAdd));
+//        return myself;
+//    }
 
 //    /**
 //     *
@@ -185,4 +197,9 @@ public class MapSubject<T, K, V> extends Subject<MapSubject<T, K, V>, T, Map<K, 
 //        rule.addConstraint(new ValueConstraint(constraintsToAdd));
 //        return myself;
 //    }
+
+    @Override
+    protected MapPropertyRule<T, K, V> getRule() {
+        return (MapPropertyRule<T,K, V>) super.getRule();
+    }
 }

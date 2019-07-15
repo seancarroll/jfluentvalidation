@@ -56,7 +56,7 @@
 <!--        <exclude name="TooManyStaticImports"/>-->
 <!--        <exclude name="UnnecessaryConstructor"/>-->
     </rule>
-    
+
     <rule ref="category/java/design.xml">
 <!--        <exclude name="AvoidCatchingGenericException"/>-->
 <!--        <exclude name="AvoidThrowingRawExceptionTypes"/>-->

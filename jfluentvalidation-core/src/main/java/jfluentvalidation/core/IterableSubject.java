@@ -1,13 +1,10 @@
 package jfluentvalidation.core;
 
-import jfluentvalidation.constraints.Constraint;
-import jfluentvalidation.constraints.SoftConstraint;
 import jfluentvalidation.constraints.iterable.*;
 import jfluentvalidation.rules.CollectionPropertyRule;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.function.Predicate;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static java.util.Arrays.asList;
@@ -145,30 +142,31 @@ public class IterableSubject<T, E> extends Subject<IterableSubject<T, E>, T, Ite
 //    }
 
 
-    /**
-     *
-     * @param constraintsToAdd
-     * @return
-     */
-    public final IterableSubject<T, E> forEach(Constraint<T, ? super E>... constraintsToAdd) {
-        for (Constraint<T, ? super E> constraintToAdd : constraintsToAdd) {
-            getRule().addItemConstraint(constraintToAdd);
-        }
-        return myself;
-    }
-
-    /**
-     *
-     * @param predicate
-     * @param constraintsToAdd
-     * @return
-     */
-    public final IterableSubject<T, E> forEach(Predicate<? super E> predicate, Constraint<T, ? super E>... constraintsToAdd) {
-        for (Constraint<T, ? super E> constraintToAdd : constraintsToAdd) {
-            getRule().addItemConstraint(new SoftConstraint(predicate, constraintToAdd));
-        }
-        return myself;
-    }
+//    /**
+//     *
+//     * @param constraintsToAdd
+//     * @return
+//     */
+//    public final IterableSubject<T, E> forEach(Constraint<T, ? super E>... constraintsToAdd) {
+//        for (Constraint<T, ? super E> constraintToAdd : constraintsToAdd) {
+//            getRule().addItemConstraint(constraintToAdd);
+//        }
+//        return myself;
+//    }
+//
+//    /**
+//     *
+//     * @param predicate
+//     * @param constraintsToAdd
+//     * @return
+//     */
+//    public final IterableSubject<T, E> forEach(Predicate<? super E> predicate, Constraint<T, ? super E>... constraintsToAdd) {
+//        for (Constraint<T, ? super E> constraintToAdd : constraintsToAdd) {
+//            // TODO: fix generic
+//            getRule().addItemConstraint(new SoftConstraint(predicate, constraintToAdd));
+//        }
+//        return myself;
+//    }
 
     // TODO: should we add a forEach that takes softConstraint?
 

@@ -171,8 +171,9 @@ public class DefaultValidator<T> implements Validator<T> {
     }
 
     /**
+     * Defines a validation rule for a specify property.
      *
-     * @param func
+     * @param func  Function representing the property to validate
      * @return
      */
     public CharArraySubject<T> ruleForCharArray(SerializableFunction<T, char[]> func) {
@@ -183,6 +184,7 @@ public class DefaultValidator<T> implements Validator<T> {
     }
 
     /**
+     * Defines a validation rule for a specify property.
      *
      * @param func
      * @return
@@ -367,7 +369,7 @@ public class DefaultValidator<T> implements Validator<T> {
      */
     public <K, V> MapSubject<T, K, V> ruleForMap(SerializableFunction<T, Map<K, V>> func) {
         String propertyName = PropertyNameExtractor.getInstance().getPropertyName(type, func);
-        PropertyRule<T, Map<K, V>> rule = new PropertyRule<>(func, propertyName);
+        MapPropertyRule<T, K, V> rule = new MapPropertyRule<>(func, propertyName);
         rules.add(rule);
         return new MapSubject<>(rule);
     }

@@ -1,5 +1,6 @@
 package jfluentvalidation.core;
 
+import jfluentvalidation.MapItemConstraint;
 import jfluentvalidation.constraints.Constraint;
 import jfluentvalidation.constraints.SoftConstraint;
 import jfluentvalidation.rules.CollectionPropertyRule;

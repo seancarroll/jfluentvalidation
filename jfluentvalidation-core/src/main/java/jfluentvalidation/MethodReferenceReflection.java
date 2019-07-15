@@ -2,13 +2,13 @@ package jfluentvalidation;
 
 import java.lang.invoke.SerializedLambda;
 import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.Objects;
 
-import static java.util.Arrays.asList;
-
+/**
+ * inspired by: http://benjiweber.co.uk/blog/2015/08/17/lambda-parameter-names-with-reflection/
+ */
 interface MethodReferenceReflection {
-
-    //inspired by: http://benjiweber.co.uk/blog/2015/08/17/lambda-parameter-names-with-reflection/
 
     default SerializedLambda serialized() {
         try {
@@ -32,8 +32,7 @@ interface MethodReferenceReflection {
     default Method method() {
         SerializedLambda lambda = serialized();
         Class<?> containingClass = getContainingClass();
-        return asList(containingClass.getDeclaredMethods())
-            .stream()
+        return Arrays.stream(containingClass.getDeclaredMethods())
             .filter(method -> Objects.equals(method.getName(), lambda.getImplMethodName())) // TODO: check parameter types to deal with overloads
             .findFirst()
             .orElseThrow(UnableToGuessMethodException::new);

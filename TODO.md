@@ -48,29 +48,29 @@ which allows us to get the appropriate element assert. From javadoc
 *                                        .startsWith("pip");</code></pre>
 ```
 
-I'm not a fan of having to pass in the assertion but as I work through this myself Ive come to this conclusion as well.
-
+I'm not a fan of having to pass in the assertion but as I work through this myself Ive come to this conclusion as well. 
+AssertJ offers `ClassBasedNavigableIterableAssert` and `FactoryBasedNavigableIterableAssert`
 
 
 Potential Constraints to Add
 - CharSequence/String
-    - isXmlEqualTo: `isXmlEqualTo(CharSequence expectedXml)`
-    - inHexadecimal
-    - inUnicode
-    - hasLineCount: `hasLineCount(int expected)`
-    - isEqualToNormalizingNewlines: `isEqualToNormalizingNewlines(CharSequence expected)`
-    - isEqualToIgnoringNewLines: `isEqualToIgnoringNewLines(CharSequence expected)`
-    - containsSequence: 
-        - `containsSequence(CharSequence... values)`
-        - `containsSequence(Iterable<? extends CharSequence> values)`
+  - isXmlEqualTo: `isXmlEqualTo(CharSequence expectedXml)`
+  - inHexadecimal
+  - inUnicode
+  - hasLineCount: `hasLineCount(int expected)`
+  - isEqualToNormalizingNewlines: `isEqualToNormalizingNewlines(CharSequence expected)`
+  - isEqualToIgnoringNewLines: `isEqualToIgnoringNewLines(CharSequence expected)`
+  - containsSequence: 
+    - `containsSequence(CharSequence... values)`
+      - `containsSequence(Iterable<? extends CharSequence> values)`
     - containsSubsequence
-        - `containsSubsequence(CharSequence... values)`
-        - `containsSubsequence(Iterable<? extends CharSequence> values)`
-    - isURL 
-    - isURI
-    - isNotNullOrEmpty
+      - `containsSubsequence(CharSequence... values)`
+      - `containsSubsequence(Iterable<? extends CharSequence> values)`
+  - isURL 
+  - isURI
+  - isNotNullOrEmpty
 - File
-    - hasSameContentAs
-       - `hasSameContentAs(File expected)`
-       - `hasSameContentAs(File expected, Charset expectedCharset)`
+  - hasSameContentAs
+    - `hasSameContentAs(File expected)`
+    - `hasSameContentAs(File expected, Charset expectedCharset)`
 

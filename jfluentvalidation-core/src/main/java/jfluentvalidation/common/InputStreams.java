@@ -7,14 +7,28 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ *
+ */
 public final class InputStreams {
 
+    /**
+     *
+     * @param inputStream
+     * @return
+     * @throws IOException
+     */
     // TODO: might not be the best place to put these
     public static List<String> readLines(InputStream inputStream) throws IOException {
         return readLines(new BufferedReader(new InputStreamReader(inputStream)));
     }
 
+    /**
+     *
+     * @param reader
+     * @return
+     * @throws IOException
+     */
     // TODO: review guava CharStreams.readLines
     public static List<String> readLines(BufferedReader reader) throws IOException {
         try {

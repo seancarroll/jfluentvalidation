@@ -11,7 +11,7 @@ import java.util.*;
 
 public class CollectionPropertyRule<T, P, E> extends PropertyRule<T, P> {
 
-    private List<Constraint<?, ? super E>> itemConstraints = new ArrayList<>();
+    private List<Constraint<T, ? super E>> itemConstraints = new ArrayList<>();
 
     public CollectionPropertyRule(SerializableFunction<T, P> propertyFunc, String propertyName) {
         super(propertyFunc, propertyName);
@@ -31,7 +31,7 @@ public class CollectionPropertyRule<T, P, E> extends PropertyRule<T, P> {
             return failures;
         }
 
-        Collection<E> collectionPropertyValue = toCollection(propertyValue);
+        Collection<E> collectionPropertyValue = (Collection<E>) toCollection(propertyValue);
         for (Constraint<?, ? extends P> constraint : getConstraints()) {
             // TODO: is this the best way to handle this?
             RuleContext ruleContext = new RuleContext(context, this);
@@ -44,23 +44,36 @@ public class CollectionPropertyRule<T, P, E> extends PropertyRule<T, P> {
         // TODO: need to fix the following
         // - failures should include appropriate index in error message. Just put in propertyName?
 
-        for (Constraint<?, ? super E> itemConstraint : itemConstraints) {
+        for (Constraint<T, ? super E> itemConstraint : itemConstraints) {
             int i = 0;
-            for (Iterator<E> it = collectionPropertyValue.iterator(); it.hasNext(); i++) {
-                // TODO: ugh...this is trash
-                E item = it.next();
-                ValidationContext childContext = new ValidationContext<>(item);
+            for (E e : collectionPropertyValue) {
+                ValidationContext childContext = new ValidationContext<>(e);
                 PropertyRule<T, E> rule = new PropertyRule<>(null, propertyName);
-                RuleContext ruleContext = new RuleContext(childContext, rule, item);
+                RuleContext ruleContext = new RuleContext(childContext, rule, e);
                 boolean isValid = itemConstraint.isValid(ruleContext);
                 if (!isValid) {
                     ruleContext.appendArgument("PropertyName", ruleContext.getRule().getPropertyName());
                     ruleContext.appendArgument("index", i);
                     ruleContext.appendArgument("PropertyValue", ruleContext.getPropertyValue());
 
-                    failures.add(new ValidationFailure(getPropertyName(), itemConstraint.getOptions().getErrorMessage(), item));
+                    failures.add(new ValidationFailure(getPropertyName(), itemConstraint.getOptions().getErrorMessage(), e));
                 }
             }
+//            for (Iterator<E> it = itemConstraint.getCollection(collectionPropertyValue.iterator()); it.hasNext(); i++) {
+//                // TODO: ugh...this is trash
+//                E item = it.next();
+//                ValidationContext childContext = new ValidationContext<>(item);
+//                PropertyRule<T, E> rule = new PropertyRule<>(null, propertyName);
+//                RuleContext ruleContext = new RuleContext(childContext, rule, item);
+//                boolean isValid = itemConstraint.isValid(ruleContext);
+//                if (!isValid) {
+//                    ruleContext.appendArgument("PropertyName", ruleContext.getRule().getPropertyName());
+//                    ruleContext.appendArgument("index", i);
+//                    ruleContext.appendArgument("PropertyValue", ruleContext.getPropertyValue());
+//
+//                    failures.add(new ValidationFailure(getPropertyName(), itemConstraint.getOptions().getErrorMessage(), item));
+//                }
+//            }
         }
 
 
@@ -98,15 +111,13 @@ public class CollectionPropertyRule<T, P, E> extends PropertyRule<T, P> {
 //    }
 
     // https://stackoverflow.com/questions/2651632/how-to-check-if-an-object-is-a-collection-type-in-java
-    private Collection<E> toCollection(P propertyValue) {
+    private Collection<?> toCollection(P propertyValue) {
         if (propertyValue instanceof List) {
             return (List) propertyValue;
         } else if (MoreArrays.isArray(propertyValue)) {
-            return Arrays.asList((E[])propertyValue);
+            return Arrays.asList((E[]) propertyValue);
         } else if (propertyValue instanceof Set) {
             return (Set) propertyValue;
-        } else if (propertyValue instanceof Map) {
-            return ((Map) propertyValue).entrySet();
         }
 
         throw new RuntimeException("collection property must validate a collection");

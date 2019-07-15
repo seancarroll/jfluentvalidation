@@ -3,6 +3,9 @@ package jfluentvalidation.rules;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *
+ */
 public class RuleSet {
 
     public static final String ALL = "*";

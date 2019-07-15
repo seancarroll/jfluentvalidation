@@ -44,6 +44,7 @@ public class KeyConstraint<T, K, V> extends AbstractConstraint<T, Map<K, V>> {
             if (condition == null || condition.test(key)) {
                 for (Constraint c : innerConstraints) {
                     // TODO: is there a better way to do this?
+                    // TODO: fix generic
                     ValidationContext childContext = new ValidationContext<>(key);
                     return c.isValid(new RuleContext(childContext, context.getRule(), key));
                 }

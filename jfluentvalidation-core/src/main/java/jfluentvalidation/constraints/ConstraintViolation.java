@@ -65,7 +65,7 @@ public class ConstraintViolation {
 
 
     public static <T, P> ConstraintViolation create(RuleContext<T, P> context, String errorMessage) {
-         return new ConstraintViolation(context.getRule().getPropertyName(), errorMessage, context.getPropertyValue());
+        return new ConstraintViolation(context.getRule().getPropertyName(), errorMessage, context.getPropertyValue());
     }
 
 

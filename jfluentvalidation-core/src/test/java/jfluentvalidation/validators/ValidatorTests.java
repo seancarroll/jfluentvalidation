@@ -128,7 +128,7 @@ class ValidatorTests {
             // TODO: fix this ... ruleForZonedDateTime(Person::getDob).isInThePast();
             ruleForZonedDateTime(p -> p.getSignedIn()).isAfter(ZonedDateTime.now().minusDays(1));
             ruleForMap(p -> p.getPets()).isNotEmpty().forEachKey(isLowerCase()).forEachValue(length(0, 5));
-            ruleForIterable(p -> p.getChildren()).isNotNull().forEach(startsWith("S"));
+            // ruleForIterable(p -> p.getChildren()).isNotNull().forEach(startsWith("S"));
             ruleForByteArray(p -> p.getBytes()).isNotNull();
 
             include(new PersonAgeValidator());
