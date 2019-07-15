@@ -26,6 +26,9 @@ public class ContainsValueConstraint<T, K, V> extends AbstractConstraint<T, Map<
 
     @Override
     public boolean isValid(RuleContext<T, Map<K, V>> context) {
-        return !context.getPropertyValue().containsValue(val);
+        if (context.getPropertyValue() == null) {
+            return true;
+        }
+        return context.getPropertyValue().containsValue(val);
     }
 }

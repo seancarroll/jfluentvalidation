@@ -37,8 +37,8 @@ public class MapSubject<T, K, V> extends Subject<MapSubject<T, K, V>, T, Map<K, 
         return myself;
     }
 
-    public final MapSubject<T, K, V> containsKey(Object key) {
-
+    public final MapSubject<T, K, V> containsKey(K key) {
+        rule.addConstraint(new ContainsKeyConstraint<>(key));
         return myself;
     }
 

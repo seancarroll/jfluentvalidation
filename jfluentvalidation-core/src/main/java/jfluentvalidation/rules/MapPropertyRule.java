@@ -26,12 +26,7 @@ public class MapPropertyRule<T, K, V> extends PropertyRule<T, Map<K, V>> {
         List<ValidationFailure> failures = new ArrayList<>();
 
         Map<K, V> propertyValue = propertyFunc.apply(context.getInstanceToValidate());
-        if (propertyValue == null) {
-            // TODO: what do we want to do here?
-            return failures;
-        }
 
-        // Collection<E> collectionPropertyValue = toCollection(propertyValue);
         for (Constraint<?, ? extends Map<K, V>> constraint : getConstraints()) {
             // TODO: is this the best way to handle this?
             RuleContext ruleContext = new RuleContext(context, this);
@@ -44,19 +39,21 @@ public class MapPropertyRule<T, K, V> extends PropertyRule<T, Map<K, V>> {
         // TODO: need to fix the following
         // - failures should include appropriate index in error message. Just put in propertyName?
 
-        for (MapItemConstraint<T, ?> itemConstraint : itemConstraints) {
-            int i = 0;
-            for (Object e : itemConstraint.getCollection(propertyValue)) {
-                ValidationContext childContext = new ValidationContext<>(e);
-                PropertyRule<T, Object> rule = new PropertyRule<>(null, propertyName);
-                RuleContext ruleContext = new RuleContext(childContext, rule, e);
-                boolean isValid = itemConstraint.getConstraint().isValid(ruleContext);
-                if (!isValid) {
-                    ruleContext.appendArgument("PropertyName", ruleContext.getRule().getPropertyName());
-                    ruleContext.appendArgument("index", i);
-                    ruleContext.appendArgument("PropertyValue", ruleContext.getPropertyValue());
+        if (propertyValue == null) {
+            for (MapItemConstraint<T, ?> itemConstraint : itemConstraints) {
+                int i = 0;
+                for (Object e : itemConstraint.getCollection(propertyValue)) {
+                    ValidationContext childContext = new ValidationContext<>(e);
+                    PropertyRule<T, Object> rule = new PropertyRule<>(null, propertyName);
+                    RuleContext ruleContext = new RuleContext(childContext, rule, e);
+                    boolean isValid = itemConstraint.getConstraint().isValid(ruleContext);
+                    if (!isValid) {
+                        ruleContext.appendArgument("PropertyName", ruleContext.getRule().getPropertyName());
+                        ruleContext.appendArgument("index", i);
+                        ruleContext.appendArgument("PropertyValue", ruleContext.getPropertyValue());
 
-                    failures.add(new ValidationFailure(getPropertyName(), itemConstraint.getConstraint().getOptions().getErrorMessage(), e));
+                        failures.add(new ValidationFailure(getPropertyName(), itemConstraint.getConstraint().getOptions().getErrorMessage(), e));
+                    }
                 }
             }
         }
