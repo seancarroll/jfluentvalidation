@@ -1,5 +1,6 @@
 package jfluentvalidation.core;
 
+import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import jfluentvalidation.constraints.comparable.ComparableConstraints;
 import jfluentvalidation.constraints.uri.*;
 import jfluentvalidation.rules.PropertyRule;
@@ -23,6 +24,7 @@ public class UriSubject<T> extends Subject<UriSubject<T>, T, URI> implements Com
      * @param expected
      * @return {@code this} Uri subject.
      */
+    @CanIgnoreReturnValue
     public UriSubject<T> hasPath(String expected) {
         rule.addConstraint(new HasPathConstraint<>(expected));
         return myself;
@@ -33,6 +35,7 @@ public class UriSubject<T> extends Subject<UriSubject<T>, T, URI> implements Com
      *
      * @return {@code this} Uri subject.
      */
+    @CanIgnoreReturnValue
     public UriSubject<T> hasNoPath() {
         rule.addConstraint(new HasPathConstraint<>(""));
         return myself;
@@ -44,6 +47,7 @@ public class UriSubject<T> extends Subject<UriSubject<T>, T, URI> implements Com
      * @param expected
      * @return {@code this} Uri subject.
      */
+    @CanIgnoreReturnValue
     public UriSubject<T> hasPort(int expected) {
         rule.addConstraint(new HasPortConstraint<>(expected));
         return myself;
@@ -54,6 +58,7 @@ public class UriSubject<T> extends Subject<UriSubject<T>, T, URI> implements Com
      *
      * @return {@code this} Uri subject.
      */
+    @CanIgnoreReturnValue
     public UriSubject<T> hasNoPort() {
         rule.addConstraint(new HasPortConstraint<>(-1));
         return myself;
@@ -65,6 +70,7 @@ public class UriSubject<T> extends Subject<UriSubject<T>, T, URI> implements Com
      * @param expected  the expected host of the actual {@code URI}.
      * @return {@code this} Uri subject.
      */
+    @CanIgnoreReturnValue
     public UriSubject<T> hasHost(String expected) {
         rule.addConstraint(new HasHostConstraint<>(expected));
         return myself;
@@ -76,6 +82,7 @@ public class UriSubject<T> extends Subject<UriSubject<T>, T, URI> implements Com
      * @param expected  the expected authority of the actual {@code URI}.
      * @return {@code this} Uri subject.
      */
+    @CanIgnoreReturnValue
     public UriSubject<T> hasAuthority(String expected) {
         rule.addConstraint(new HasAuthorityConstraint<>(expected));
         return myself;
@@ -87,6 +94,7 @@ public class UriSubject<T> extends Subject<UriSubject<T>, T, URI> implements Com
      * @param expected  the expected query of the actual {@code URI}.
      * @return {@code this} Uri subject.
      */
+    @CanIgnoreReturnValue
     public UriSubject<T> hasQuery(String expected) {
         rule.addConstraint(new HasQueryConstraint<>(expected));
         return myself;
@@ -97,6 +105,7 @@ public class UriSubject<T> extends Subject<UriSubject<T>, T, URI> implements Com
      *
      * @return {@code this} Uri subject.
      */
+    @CanIgnoreReturnValue
     public UriSubject<T> hasNoQuery() {
         rule.addConstraint(new HasQueryConstraint<>(null));
         return myself;
@@ -108,6 +117,7 @@ public class UriSubject<T> extends Subject<UriSubject<T>, T, URI> implements Com
      * @param name  the name of the parameter expected to be present.
      * @return {@code this} Uri subject.
      */
+    @CanIgnoreReturnValue
     public UriSubject<T> hasParameter(String name) {
         rule.addConstraint(new HasParameterConstraint<>(name));
         return myself;
@@ -120,6 +130,7 @@ public class UriSubject<T> extends Subject<UriSubject<T>, T, URI> implements Com
      * @param value  the value of the parameter expected to be present.
      * @return {@code this} Uri subject.
      */
+    @CanIgnoreReturnValue
     public UriSubject<T> hasParameter(String name, String value) {
         rule.addConstraint(new HasParameterConstraint<>(name, value));
         return myself;
@@ -130,6 +141,7 @@ public class UriSubject<T> extends Subject<UriSubject<T>, T, URI> implements Com
      *
      * @return {@code this} Uri subject.
      */
+    @CanIgnoreReturnValue
     public UriSubject<T> hasNoParameters() {
         rule.addConstraint(new HasNoParameterConstraint<>());
         return myself;
@@ -141,6 +153,7 @@ public class UriSubject<T> extends Subject<UriSubject<T>, T, URI> implements Com
      * @param name  the name of the parameter expected to be absent.
      * @return {@code this} Uri subject.
      */
+    @CanIgnoreReturnValue
     public UriSubject<T> hasNoParameters(String name) {
         rule.addConstraint(new HasNoParameterConstraint<>(name));
         return myself;
@@ -153,6 +166,7 @@ public class UriSubject<T> extends Subject<UriSubject<T>, T, URI> implements Com
      * @param value  the value of the parameter expected to be absent.
      * @return {@code this} Uri subject.
      */
+    @CanIgnoreReturnValue
     public UriSubject<T> hasNoParameters(String name, String value) {
         rule.addConstraint(new HasNoParameterConstraint<>(name, value));
         return myself;

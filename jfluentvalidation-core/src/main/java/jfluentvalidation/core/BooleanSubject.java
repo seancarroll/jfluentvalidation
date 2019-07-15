@@ -1,5 +1,6 @@
 package jfluentvalidation.core;
 
+import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import jfluentvalidation.constraints.comparable.ComparableConstraints;
 import jfluentvalidation.rules.PropertyRule;
 
@@ -15,10 +16,12 @@ public class BooleanSubject<T> extends Subject<BooleanSubject<T>, T, Boolean> im
 
     // TODO: isEqual and isNotEqual
 
+    @CanIgnoreReturnValue
     public BooleanSubject<T> isTrue() {
         return isEquals(true);
     }
 
+    @CanIgnoreReturnValue
     public BooleanSubject<T> isFalse() {
         return isEquals(false);
     }

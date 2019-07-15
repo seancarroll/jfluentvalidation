@@ -1,5 +1,6 @@
 package jfluentvalidation.core;
 
+import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import jfluentvalidation.constraints.array.length.ShortArrayBetweenLengthConstraint;
 import jfluentvalidation.constraints.array.length.ShortArrayExactLengthConstraint;
 import jfluentvalidation.constraints.array.length.ShortArrayMaximumLengthConstraint;
@@ -27,18 +28,21 @@ public class ShortArraySubject<T> extends AbstractArraySubject<ShortArraySubject
 
     }
 
+    @CanIgnoreReturnValue
     @Override
     public ShortArraySubject<T> isNotEmpty() {
         rule.addConstraint(new IsNotEmptyShortArrayConstraint<>());
         return myself;
     }
 
+    @CanIgnoreReturnValue
     @Override
     public ShortArraySubject<T> hasLength(int expected) {
         rule.addConstraint(new ShortArrayExactLengthConstraint<>(expected));
         return myself;
     }
 
+    @CanIgnoreReturnValue
     @Override
     public ShortArraySubject<T> hasMinimumLength(int min) {
         rule.addConstraint(new ShortArrayMinimumLengthConstraint<>(min));
@@ -51,18 +55,21 @@ public class ShortArraySubject<T> extends AbstractArraySubject<ShortArraySubject
         return myself;
     }
 
+    @CanIgnoreReturnValue
     @Override
     public ShortArraySubject<T> hasLengthBetween(int min, int max) {
         rule.addConstraint(new ShortArrayBetweenLengthConstraint<>(min, max));
         return myself;
     }
 
+    @CanIgnoreReturnValue
     @Override
     public ShortArraySubject<T> hasSameLengthAs(Iterable<?> other) {
         rule.addConstraint(new ShortArrayExactLengthConstraint<>(other));
         return myself;
     }
 
+    @CanIgnoreReturnValue
     @Override
     public ShortArraySubject<T> hasSameLengthAs(Object other) {
         rule.addConstraint(new ShortArrayExactLengthConstraint<>(other));

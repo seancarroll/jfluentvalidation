@@ -74,3 +74,55 @@ Potential Constraints to Add
     - `hasSameContentAs(File expected)`
     - `hasSameContentAs(File expected, Charset expectedCharset)`
 
+
+
+
+add test similar to 
+```java
+@SuppressWarnings({ "unchecked", "rawtypes" })
+  @Disabled
+  @Test
+  public void raw_map_mixing_assertions_from_AbstractAssert_and_AbstractMapAssert() {
+    Description description = emptyDescription();
+
+    Map map1 = new java.util.HashMap();
+    map1.put("Key1", "Value1");
+    map1.put("Key2", "Value2");
+
+    // try all base assertions followed by map specific ones using generics
+    assertThat(map1).as("desc")
+                    .containsOnlyKeys("Key1", "Key2")
+                    .as(description)
+                    .containsOnlyKeys("Key1", "Key2")
+                    .describedAs(description)
+                    .describedAs("describedAs")
+                    .has(null)
+                    .hasSameClassAs(map1)
+                    .hasToString(map1.toString())
+                    .is(null)
+                    .isEqualTo(map1)
+                    .isExactlyInstanceOf(Map.class)
+                    .isIn(new ArrayList<>())
+                    .isIn(Map.class)
+                    .isInstanceOf(Map.class)
+                    .isInstanceOfAny(Map.class, String.class)
+                    .isNot(null)
+                    .isNotEqualTo(null)
+                    .isNotEmpty()
+                    .isNotExactlyInstanceOf(String.class)
+                    .isNotIn(new ArrayList<>())
+                    .isNotIn(Map.class)
+                    .isNotInstanceOf(Map.class)
+                    .isNotInstanceOfAny(Map.class, String.class)
+                    .isNotNull()
+                    .isNotOfAnyClassIn(Map.class, String.class)
+                    .isNotSameAs(null)
+                    .isOfAnyClassIn(Map.class, String.class)
+                    .isSameAs("")
+                    .overridingErrorMessage("")
+                    .withFailMessage("")
+                    .withThreadDumpOnError()
+                    .usingDefaultComparator()
+                    .containsOnlyKeys("Key1", "Key2");
+  }
+```

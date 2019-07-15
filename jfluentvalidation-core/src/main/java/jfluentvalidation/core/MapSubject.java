@@ -1,5 +1,6 @@
 package jfluentvalidation.core;
 
+import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import jfluentvalidation.MapItemConstraint;
 import jfluentvalidation.constraints.Constraint;
 import jfluentvalidation.constraints.map.*;
@@ -23,62 +24,74 @@ public class MapSubject<T, K, V> extends Subject<MapSubject<T, K, V>, T, Map<K, 
         super(MapSubject.class, rule);
     }
 
+    @CanIgnoreReturnValue
     public final MapSubject<T, K, V> isEmpty() {
         rule.addConstraint(new IsEmptyConstraint<>());
         return myself;
     }
 
+    @CanIgnoreReturnValue
     public final MapSubject<T, K, V> isNotEmpty() {
         rule.addConstraint(new IsNotEmptyConstraint<>());
         return myself;
     }
 
+    @CanIgnoreReturnValue
     public final MapSubject<T, K, V> hasSize(int expectedSize) {
         rule.addConstraint(new HasSizeConstraint<>(expectedSize));
         return myself;
     }
 
+    @CanIgnoreReturnValue
     public final MapSubject<T, K, V> containsKey(K key) {
         rule.addConstraint(new ContainsKeyConstraint<>(key));
         return myself;
     }
 
+    @CanIgnoreReturnValue
     // TODO: add overload which takes in Map.Entry?
     public final MapSubject<T, K, V> containsEntry(K key, V value) {
         rule.addConstraint(new ContainsEntryConstraint<>(new AbstractMap.SimpleEntry<>(key, value)));
         return myself;
     }
 
+    @CanIgnoreReturnValue
     public final MapSubject<T, K, V> doesNotContainsEntry(Object key, Object value) {
 
         return myself;
     }
 
+    @CanIgnoreReturnValue
     // Fails if the map is not empty...This seems strange
     public final MapSubject<T, K, V> containsExactly() {
         return myself;
     }
 
+    @CanIgnoreReturnValue
     public final MapSubject<T, K, V> containsExactly(Object key, Object value, Object... rest) {
         return myself;
     }
 
+    @CanIgnoreReturnValue
     public final MapSubject<T, K, V> containsExactlyEntriesIn(Map<?, ?> expectedMap) {
 
         return myself;
     }
 
+    @CanIgnoreReturnValue
     public final MapSubject<T, K, V> containsExactlyEntriesInAnyOrder(Map<?, ?> expected) {
 
         return myself;
     }
 
+    @CanIgnoreReturnValue
     // TODO: review Google Truth MapSubject MapDifference
     public final MapSubject<T, K, V> doesNotContainEntry(Object key, Object value) {
 
         return myself;
     }
 
+    @CanIgnoreReturnValue
     public final MapSubject<T, K, V> containsValue(V value) {
         rule.addConstraint(new ContainsValueConstraint<>(value));
         return myself;

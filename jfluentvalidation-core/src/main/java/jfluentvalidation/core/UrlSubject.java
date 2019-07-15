@@ -1,5 +1,6 @@
 package jfluentvalidation.core;
 
+import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import jfluentvalidation.constraints.url.*;
 import jfluentvalidation.rules.PropertyRule;
 
@@ -21,6 +22,7 @@ public class UrlSubject<T> extends Subject<UrlSubject<T>, T, URL> {
      * @param expected
      * @return {@code this} Url subject.
      */
+    @CanIgnoreReturnValue
     public UrlSubject<T> hasProtocol(String expected) {
         rule.addConstraint(new HasProtocolConstraint<>(expected));
         return myself;
@@ -31,6 +33,7 @@ public class UrlSubject<T> extends Subject<UrlSubject<T>, T, URL> {
      * @param expected  the expected path of the actual {@code URL}.
      * @return {@code this} Url subject.
      */
+    @CanIgnoreReturnValue
     public UrlSubject<T> hasPath(String expected) {
         rule.addConstraint(new HasPathConstraint<>(expected));
         return myself;
@@ -40,6 +43,7 @@ public class UrlSubject<T> extends Subject<UrlSubject<T>, T, URL> {
      *
      * @return {@code this} Url subject.
      */
+    @CanIgnoreReturnValue
     public UrlSubject<T> hasNoPath() {
         rule.addConstraint(new HasPathConstraint<>(""));
         return myself;
@@ -50,6 +54,7 @@ public class UrlSubject<T> extends Subject<UrlSubject<T>, T, URL> {
      * @param expected
      * @return {@code this} Url subject.
      */
+    @CanIgnoreReturnValue
     public UrlSubject<T> hasPort(int expected) {
         rule.addConstraint(new HasPortConstraint<>(expected));
         return myself;
@@ -59,6 +64,7 @@ public class UrlSubject<T> extends Subject<UrlSubject<T>, T, URL> {
      * Verifies that the actual {@code URI} has no port.
      * @return {@code this} Url subject.
      */
+    @CanIgnoreReturnValue
     public UrlSubject<T> hasNoPort() {
         rule.addConstraint(new HasPortConstraint<>(-1));
         return myself;
@@ -69,6 +75,7 @@ public class UrlSubject<T> extends Subject<UrlSubject<T>, T, URL> {
      * @param expected
      * @return {@code this} Url subject.
      */
+    @CanIgnoreReturnValue
     public UrlSubject<T> hasHost(String expected) {
         rule.addConstraint(new HasHostConstraint<>(expected));
         return myself;
@@ -79,6 +86,7 @@ public class UrlSubject<T> extends Subject<UrlSubject<T>, T, URL> {
      * @param expected
      * @return {@code this} Url subject.
      */
+    @CanIgnoreReturnValue
     public UrlSubject<T> hasAuthority(String expected) {
         rule.addConstraint(new HasAuthorityConstraint<>(expected));
         return myself;
@@ -89,6 +97,7 @@ public class UrlSubject<T> extends Subject<UrlSubject<T>, T, URL> {
      * @param expected
      * @return {@code this} Url subject.
      */
+    @CanIgnoreReturnValue
     public UrlSubject<T> hasQuery(String expected) {
         rule.addConstraint(new HasQueryConstraint<>(expected));
         return myself;
@@ -98,6 +107,7 @@ public class UrlSubject<T> extends Subject<UrlSubject<T>, T, URL> {
      *
      * @return {@code this} Url subject.
      */
+    @CanIgnoreReturnValue
     public UrlSubject<T> hasNoQuery() {
         rule.addConstraint(new HasQueryConstraint<>(null));
         return myself;
@@ -108,6 +118,7 @@ public class UrlSubject<T> extends Subject<UrlSubject<T>, T, URL> {
      * @param expected
      * @return {@code this} Url subject.
      */
+    @CanIgnoreReturnValue
     public UrlSubject<T> hasAnchor(String expected) {
         rule.addConstraint(new HasAnchorConstraint<>(expected));
         return myself;
@@ -127,6 +138,7 @@ public class UrlSubject<T> extends Subject<UrlSubject<T>, T, URL> {
      * @param name
      * @return {@code this} Url subject.
      */
+    @CanIgnoreReturnValue
     public UrlSubject<T> hasParameter(String name) {
         rule.addConstraint(new HasParameterConstraint<>(name));
         return myself;
@@ -138,6 +150,7 @@ public class UrlSubject<T> extends Subject<UrlSubject<T>, T, URL> {
      * @param value
      * @return {@code this} Url subject.
      */
+    @CanIgnoreReturnValue
     public UrlSubject<T> hasParameter(String name, String value) {
         rule.addConstraint(new HasParameterConstraint<>(name, value));
         return myself;
@@ -147,6 +160,7 @@ public class UrlSubject<T> extends Subject<UrlSubject<T>, T, URL> {
      *
      * @return {@code this} Url subject.
      */
+    @CanIgnoreReturnValue
     public UrlSubject<T> hasNoParameters() {
         rule.addConstraint(new HasNoParameterConstraint<>());
         return myself;
@@ -157,6 +171,7 @@ public class UrlSubject<T> extends Subject<UrlSubject<T>, T, URL> {
      * @param name
      * @return {@code this} Url subject.
      */
+    @CanIgnoreReturnValue
     public UrlSubject<T> hasNoParameters(String name) {
         rule.addConstraint(new HasNoParameterConstraint<>(name));
         return myself;
@@ -168,6 +183,7 @@ public class UrlSubject<T> extends Subject<UrlSubject<T>, T, URL> {
      * @param value
      * @return {@code this} Url subject.
      */
+    @CanIgnoreReturnValue
     public UrlSubject<T> hasNoParameters(String name, String value) {
         rule.addConstraint(new HasNoParameterConstraint<>(name, value));
         return myself;

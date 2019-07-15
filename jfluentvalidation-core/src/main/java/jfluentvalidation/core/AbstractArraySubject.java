@@ -1,6 +1,6 @@
 package jfluentvalidation.core;
 
-import jfluentvalidation.MapItemConstraint;
+import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import jfluentvalidation.constraints.Constraint;
 import jfluentvalidation.constraints.SoftConstraint;
 import jfluentvalidation.rules.CollectionPropertyRule;
@@ -28,12 +28,12 @@ public abstract class AbstractArraySubject<S extends AbstractArraySubject<S, T, 
         super(selfType, rule);
     }
 
-
     /**
      *
      * @param constraintsToAdd
      * @return
      */
+    @CanIgnoreReturnValue
     public final S forEach(Constraint<T, ? super E>... constraintsToAdd) {
         for (Constraint<T, ? super E> constraintToAdd : constraintsToAdd) {
             getRule().addItemConstraint(constraintToAdd);
@@ -47,6 +47,7 @@ public abstract class AbstractArraySubject<S extends AbstractArraySubject<S, T, 
      * @param constraintsToAdd
      * @return
      */
+    @CanIgnoreReturnValue
     public final S forEach(Predicate<? super E> predicate, Constraint<T, ? super E>... constraintsToAdd) {
         for (Constraint<T, ? super E> constraintToAdd : constraintsToAdd) {
             getRule().addItemConstraint(new SoftConstraint(predicate, constraintToAdd));

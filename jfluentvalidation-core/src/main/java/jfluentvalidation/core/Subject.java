@@ -16,6 +16,7 @@ package jfluentvalidation.core;
 
 // Following assertj style we could have an Constraint interface an an abstract class AbstractConstraint
 
+import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import jfluentvalidation.constraints.PredicateConstraint;
 import jfluentvalidation.constraints.object.IsEqualsConstraint;
 import jfluentvalidation.constraints.object.IsNotEqualsConstraint;
@@ -52,6 +53,7 @@ public class Subject<S extends Subject<S, T, A>, T, A> {
     // 1. constraints.add(instance -> instance == null)
     // 2. new IsNullConstraint
     // 3. static IsNullConstraint
+    @CanIgnoreReturnValue
     public S isNull() {
         // standardIsEqualTo(null);
         rule.addConstraint(new IsNullConstraint<>());
@@ -59,6 +61,7 @@ public class Subject<S extends Subject<S, T, A>, T, A> {
     }
 
     /** Fails if the subject is null. */
+    @CanIgnoreReturnValue
     public S isNotNull() {
         // standardIsNotEqualTo(null);
         rule.addConstraint(new IsNotNullConstraint<>());
@@ -66,11 +69,13 @@ public class Subject<S extends Subject<S, T, A>, T, A> {
     }
 
     // TODO: is there a better way to do this? What are some alternatives?
+    @CanIgnoreReturnValue
     public S isEquals(A other) {
         rule.addConstraint(new IsEqualsConstraint<>(other));
         return myself;
     }
 
+    @CanIgnoreReturnValue
     public S isNotEquals(A other) {
         rule.addConstraint(new IsNotEqualsConstraint<>(other));
         return myself;

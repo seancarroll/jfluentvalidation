@@ -1,5 +1,6 @@
 package jfluentvalidation.core;
 
+import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import jfluentvalidation.constraints.time.IsAfterLocalDateConstraint;
 import jfluentvalidation.constraints.time.IsAfterOrEqualLocalDateConstraint;
 import jfluentvalidation.constraints.time.IsBeforeLocalDateConstraint;
@@ -34,42 +35,50 @@ public class LocalDateSubject<T>
         super(LocalDateSubject.class, rule);
     }
 
+    @CanIgnoreReturnValue
     // QUESTION: which do we want to keep? isBefore / isAfter vs past / future?
     public LocalDateSubject<T> isBefore(LocalDate localDate) {
         rule.addConstraint(new IsBeforeLocalDateConstraint<>(localDate));
         return  myself;
     }
 
+    @CanIgnoreReturnValue
     public LocalDateSubject<T> isBeforeOrEqualTo(LocalDate localDate) {
         rule.addConstraint(new IsBeforeOrEqualLocalDateConstraint<>(localDate));
         return  myself;
     }
 
+    @CanIgnoreReturnValue
     public LocalDateSubject<T> isAfter(LocalDate localDate) {
         rule.addConstraint(new IsAfterLocalDateConstraint<>(localDate));
         return  myself;
     }
 
+    @CanIgnoreReturnValue
     public LocalDateSubject<T> isAfterOrEqualTo(LocalDate localDate) {
         rule.addConstraint(new IsAfterOrEqualLocalDateConstraint<>(localDate));
         return  myself;
     }
 
+    @CanIgnoreReturnValue
     public LocalDateSubject<T> isInTheFuture() {
         // TODO: clock from context/provider
         return isAfter(LocalDate.now());
     }
 
+    @CanIgnoreReturnValue
     public LocalDateSubject<T> isInTheFutureOrPresent() {
         // TODO: clock from context/provider
         return isAfterOrEqualTo(LocalDate.now());
     }
 
+    @CanIgnoreReturnValue
     public LocalDateSubject<T> isInThePast() {
         // TODO: clock from context/provider
         return isBefore(LocalDate.now());
     }
 
+    @CanIgnoreReturnValue
     public LocalDateSubject<T> isInThePastOrPresent() {
         // TODO: clock from context/provider
         return isBeforeOrEqualTo(LocalDate.now());
