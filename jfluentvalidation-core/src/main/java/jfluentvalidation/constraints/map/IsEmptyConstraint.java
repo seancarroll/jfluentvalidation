@@ -20,6 +20,9 @@ public class IsEmptyConstraint<T, K, V> extends AbstractConstraint<T, Map<K, V>>
 
     @Override
     public boolean isValid(RuleContext<T, Map<K, V>> context) {
+        if (context.getPropertyValue() == null) {
+            return true;
+        }
         return context.getPropertyValue().isEmpty();
     }
 }

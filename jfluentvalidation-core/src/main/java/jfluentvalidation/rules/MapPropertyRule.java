@@ -39,7 +39,7 @@ public class MapPropertyRule<T, K, V> extends PropertyRule<T, Map<K, V>> {
         // TODO: need to fix the following
         // - failures should include appropriate index in error message. Just put in propertyName?
 
-        if (propertyValue == null) {
+        if (propertyValue != null) {
             for (MapItemConstraint<T, ?> itemConstraint : itemConstraints) {
                 int i = 0;
                 for (Object e : itemConstraint.getCollection(propertyValue)) {
