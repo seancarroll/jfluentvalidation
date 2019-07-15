@@ -58,13 +58,13 @@ public class IntArraySubject<T> extends AbstractIntArraySubject<IntArraySubject<
     }
 
     @Override
-    public IntArraySubject<T> hasSameLengthAs(Iterable<?> other) {
+    public IntArraySubject<T> hasSameLengthAs(Iterable<Integer> other) {
         rule.addConstraint(new IntArrayExactLengthConstraint<>(other));
         return myself;
     }
 
     @Override
-    public IntArraySubject<T> hasSameLengthAs(Object other) {
+    public IntArraySubject<T> hasSameLengthAs(Integer[] other) {
         rule.addConstraint(new IntArrayExactLengthConstraint<>(other));
         return myself;
     }

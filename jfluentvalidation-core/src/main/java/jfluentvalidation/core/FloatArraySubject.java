@@ -58,13 +58,13 @@ public class FloatArraySubject<T> extends AbstractArraySubject<FloatArraySubject
     }
 
     @Override
-    public FloatArraySubject<T> hasSameLengthAs(Iterable<?> other) {
+    public FloatArraySubject<T> hasSameLengthAs(Iterable<Float> other) {
         rule.addConstraint(new FloatArrayExactLengthConstraint<>(other));
         return myself;
     }
 
     @Override
-    public FloatArraySubject<T> hasSameLengthAs(Object other) {
+    public FloatArraySubject<T> hasSameLengthAs(Float[] other) {
         rule.addConstraint(new FloatArrayExactLengthConstraint<>(other));
         return myself;
     }

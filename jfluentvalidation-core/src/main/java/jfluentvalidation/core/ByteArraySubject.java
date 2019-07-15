@@ -63,14 +63,15 @@ public class ByteArraySubject<T> extends AbstractByteArraySubject<ByteArraySubje
         return myself;
     }
 
+
     @Override
-    public ByteArraySubject<T> hasSameLengthAs(Iterable<?> other) {
+    public ByteArraySubject<T> hasSameLengthAs(Iterable<Byte> other) {
         rule.addConstraint(new ByteArrayExactLengthConstraint<>(other));
         return myself;
     }
 
     @Override
-    public ByteArraySubject<T> hasSameLengthAs(Object other) {
+    public ByteArraySubject<T> hasSameLengthAs(Byte[] other) {
         rule.addConstraint(new ByteArrayExactLengthConstraint<>(other));
         return myself;
     }

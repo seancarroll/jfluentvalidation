@@ -4,7 +4,7 @@ import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.DefaultMessages;
 import jfluentvalidation.validators.RuleContext;
 
-public class ObjectArrayBetweenLengthConstraint<T> extends AbstractConstraint<T, Object[]> {
+public class ObjectArrayBetweenLengthConstraint<T, E> extends AbstractConstraint<T, E[]> {
 
     private final int min;
     private final int max;
@@ -16,7 +16,7 @@ public class ObjectArrayBetweenLengthConstraint<T> extends AbstractConstraint<T,
     }
 
     @Override
-    public boolean isValid(RuleContext<T, Object[]> context) {
+    public boolean isValid(RuleContext<T, E[]> context) {
         int len = context.getPropertyValue().length;
         return ArrayLength.between(len, min, max);
     }

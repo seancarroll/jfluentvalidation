@@ -62,7 +62,8 @@ class HasSameLengthAsTest {
     @Test
     void shouldReturnFailureWhenGivenIsNull() {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        assertThrows(NullPointerException.class, () -> validator.ruleForObjectArray(Target::getValue).hasSameLengthAs(null));
+
+        assertThrows(NullPointerException.class, () -> validator.ruleForObjectArray(Target::getValue).hasSameLengthAs((Iterable<String>) null));
     }
 
 }

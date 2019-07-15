@@ -55,13 +55,13 @@ public class BooleanArraySubject<T> extends AbstractArraySubject<BooleanArraySub
     }
 
     @Override
-    public BooleanArraySubject<T> hasSameLengthAs(Iterable<?> other) {
+    public BooleanArraySubject<T> hasSameLengthAs(Iterable<Boolean> other) {
         rule.addConstraint(new ArrayExactLengthConstraint<>(other));
         return myself;
     }
 
     @Override
-    public BooleanArraySubject<T> hasSameLengthAs(Object other) {
+    public BooleanArraySubject<T> hasSameLengthAs(Boolean[] other) {
         rule.addConstraint(new ArrayExactLengthConstraint<>(other));
         return myself;
     }

@@ -8,14 +8,14 @@ import jfluentvalidation.validators.RuleContext;
  *
  * @param <T>
  */
-public class IsEmptyObjectArrayConstraint<T> extends AbstractConstraint<T, Object[]> {
+public class IsEmptyObjectArrayConstraint<T, E> extends AbstractConstraint<T, E[]> {
 
     public IsEmptyObjectArrayConstraint() {
         super(DefaultMessages.IS_EMPTY);
     }
 
     @Override
-    public boolean isValid(RuleContext<T, Object[]> context) {
+    public boolean isValid(RuleContext<T, E[]> context) {
         if (context.getPropertyValue() == null) {
             return false;
         }

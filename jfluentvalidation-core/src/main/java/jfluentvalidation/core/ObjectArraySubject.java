@@ -12,9 +12,9 @@ import jfluentvalidation.rules.PropertyRule;
  *
  * @param <T>  the type of the instance
  */
-public class ObjectArraySubject<T> extends AbstractArraySubject<ObjectArraySubject<T>, T, Object[], Object> {
+public class ObjectArraySubject<T, E> extends AbstractArraySubject<ObjectArraySubject<T, E>, T, E[], E> {
 
-    public ObjectArraySubject(PropertyRule<T, Object[]> rule) {
+    public ObjectArraySubject(PropertyRule<T, E[]> rule) {
         super(ObjectArraySubject.class, rule);
     }
 
@@ -29,31 +29,31 @@ public class ObjectArraySubject<T> extends AbstractArraySubject<ObjectArraySubje
     }
 
     @Override
-    public ObjectArraySubject<T> isNotEmpty() {
+    public ObjectArraySubject<T, E> isNotEmpty() {
         rule.addConstraint(new IsNotEmptyObjectArrayConstraint<>());
         return myself;
     }
 
     @Override
-    public ObjectArraySubject<T> hasLength(int expected) {
+    public ObjectArraySubject<T, E> hasLength(int expected) {
         rule.addConstraint(new ObjectArrayExactLengthConstraint<>(expected));
         return myself;
     }
 
     @Override
-    public ObjectArraySubject<T> hasMinimumLength(int min) {
+    public ObjectArraySubject<T, E> hasMinimumLength(int min) {
         rule.addConstraint(new ObjectArrayMinimumLengthConstraint<>(min));
         return myself;
     }
 
     @Override
-    public ObjectArraySubject<T> hasMaximumLength(int max) {
+    public ObjectArraySubject<T, E> hasMaximumLength(int max) {
         rule.addConstraint(new ObjectArrayMaximumLengthConstraint<>(max));
         return myself;
     }
 
     @Override
-    public ObjectArraySubject<T> hasLengthBetween(int min, int max) {
+    public ObjectArraySubject<T, E> hasLengthBetween(int min, int max) {
         rule.addConstraint(new ObjectArrayBetweenLengthConstraint<>(min, max));
         return myself;
     }
@@ -75,13 +75,13 @@ public class ObjectArraySubject<T> extends AbstractArraySubject<ObjectArraySubje
 //     * @throws AssertionError if the actual group does not have the same size.
 //     */
     @Override
-    public ObjectArraySubject<T> hasSameLengthAs(Iterable<?> other) {
+    public ObjectArraySubject<T, E> hasSameLengthAs(Iterable<E> other) {
         rule.addConstraint(new ObjectArrayExactLengthConstraint<>(other));
         return myself;
     }
 
     @Override
-    public ObjectArraySubject<T> hasSameLengthAs(Object other) {
+    public ObjectArraySubject<T, E> hasSameLengthAs(E[] other) {
         rule.addConstraint(new ObjectArrayExactLengthConstraint<>(other));
         return myself;
     }

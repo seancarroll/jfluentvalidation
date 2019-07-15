@@ -32,9 +32,9 @@ public interface ArraySubject<S extends ArraySubject<S, A, E>, A, E> {
 //    S hasLengthBetween(int min, int max, boolean inclusiveStart, boolean inclusiveEnd);
 
     @CanIgnoreReturnValue
-    S hasSameLengthAs(Iterable<?> other);
+    S hasSameLengthAs(Iterable<E> other);
 
     @CanIgnoreReturnValue
-    S hasSameLengthAs(Object other);
+    S hasSameLengthAs(E[] other);
 
 }

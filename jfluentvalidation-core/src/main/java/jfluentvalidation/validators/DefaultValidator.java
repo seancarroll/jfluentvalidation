@@ -393,9 +393,9 @@ public class DefaultValidator<T> implements Validator<T> {
      * @param func
      * @return
      */
-    public ObjectArraySubject<T> ruleForObjectArray(SerializableFunction<T, Object[]> func) {
+    public <E> ObjectArraySubject<T, E> ruleForObjectArray(SerializableFunction<T, E[]> func) {
         String propertyName = PropertyNameExtractor.getInstance().getPropertyName(type, func);
-        CollectionPropertyRule<T, Object[], Object> arrayPropertyRule = new CollectionPropertyRule<>(func, propertyName);
+        CollectionPropertyRule<T, E[], E> arrayPropertyRule = new CollectionPropertyRule<>(func, propertyName);
         //PropertyRule<T, Object[]> rule = new PropertyRule<>(func, propertyName);
         rules.add(arrayPropertyRule);
         return new ObjectArraySubject<>(arrayPropertyRule);

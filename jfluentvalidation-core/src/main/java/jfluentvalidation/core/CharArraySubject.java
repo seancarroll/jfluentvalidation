@@ -54,13 +54,13 @@ public class CharArraySubject<T> extends AbstractArraySubject<CharArraySubject<T
     }
 
     @Override
-    public CharArraySubject<T> hasSameLengthAs(Iterable<?> other) {
+    public CharArraySubject<T> hasSameLengthAs(Iterable<Character> other) {
         rule.addConstraint(new CharArrayExactLengthConstraint<>(other));
         return myself;
     }
 
     @Override
-    public CharArraySubject<T> hasSameLengthAs(Object other) {
+    public CharArraySubject<T> hasSameLengthAs(Character[] other) {
         rule.addConstraint(new CharArrayExactLengthConstraint<>(other));
         return myself;
     }

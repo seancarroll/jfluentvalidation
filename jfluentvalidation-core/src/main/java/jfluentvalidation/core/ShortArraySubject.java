@@ -64,14 +64,14 @@ public class ShortArraySubject<T> extends AbstractArraySubject<ShortArraySubject
 
     @CanIgnoreReturnValue
     @Override
-    public ShortArraySubject<T> hasSameLengthAs(Iterable<?> other) {
+    public ShortArraySubject<T> hasSameLengthAs(Iterable<Short> other) {
         rule.addConstraint(new ShortArrayExactLengthConstraint<>(other));
         return myself;
     }
 
     @CanIgnoreReturnValue
     @Override
-    public ShortArraySubject<T> hasSameLengthAs(Object other) {
+    public ShortArraySubject<T> hasSameLengthAs(Short[] other) {
         rule.addConstraint(new ShortArrayExactLengthConstraint<>(other));
         return myself;
     }

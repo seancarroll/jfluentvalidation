@@ -58,13 +58,13 @@ public class DoubleArraySubject<T> extends AbstractArraySubject<DoubleArraySubje
     }
 
     @Override
-    public DoubleArraySubject<T> hasSameLengthAs(Iterable<?> other) {
+    public DoubleArraySubject<T> hasSameLengthAs(Iterable<Double> other) {
         rule.addConstraint(new DoubleArrayExactLengthConstraint<>(other));
         return myself;
     }
 
     @Override
-    public DoubleArraySubject<T> hasSameLengthAs(Object other) {
+    public DoubleArraySubject<T> hasSameLengthAs(Double[] other) {
         rule.addConstraint(new DoubleArrayExactLengthConstraint<>(other));
         return myself;
     }
