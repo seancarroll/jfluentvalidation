@@ -50,22 +50,6 @@ class ForEachTest {
         assertTrue(failures.isEmpty());
     }
 
-    // TODO: this doesnt suck :)
-    @Test
-    void forEachGenericWithPredicate() {
-        Target t = new Target(new String[] {"sean", "bob", "shaun", "shawn", "lou"});
-
-        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-
-        Predicate<String> stringGreaterThan3Predicate = s -> s.length() > 3;
-
-        validator.ruleForObjectArray(Target::getValue).forEach(stringGreaterThan3Predicate, startsWith("s"));
-
-        List<ValidationFailure> failures = validator.validate(t);
-
-        assertTrue(failures.isEmpty());
-    }
-
     @Test
     void forEachWithPredicateFailure() {
         Target t = new Target(new String[] {"sean", "bob", "shaun", "shawn", "lou"});
