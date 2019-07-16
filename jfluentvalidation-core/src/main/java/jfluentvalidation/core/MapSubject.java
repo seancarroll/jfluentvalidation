@@ -140,6 +140,7 @@ public class MapSubject<T, K, V> extends Subject<MapSubject<T, K, V>, T, Map<K, 
      * @param constraintsToAdd
      * @return
      */
+    @CanIgnoreReturnValue
     @SafeVarargs
     public final MapSubject<T, K, V> forEachEntry(Constraint<T, Map.Entry<K, V>>... constraintsToAdd) {
         Function<Map<K, V>, Collection<Map.Entry<K, V>>> fks = Map::entrySet;
@@ -165,6 +166,7 @@ public class MapSubject<T, K, V> extends Subject<MapSubject<T, K, V>, T, Map<K, 
      * @param constraintsToAdd
      * @return
      */
+    @CanIgnoreReturnValue
     @SafeVarargs
     public final MapSubject<T, K, V> forEachKey(Constraint<T, K>... constraintsToAdd) {
         Function<Map<K, V>, Collection<K>> fks = Map::keySet;
@@ -191,6 +193,7 @@ public class MapSubject<T, K, V> extends Subject<MapSubject<T, K, V>, T, Map<K, 
      * @param constraintsToAdd
      * @return
      */
+    @CanIgnoreReturnValue
     @SafeVarargs
     public final MapSubject<T, K, V> forEachValue(Constraint<T, V>... constraintsToAdd) {
         Function<Map<K, V>, Collection<V>> fks = Map::values;
