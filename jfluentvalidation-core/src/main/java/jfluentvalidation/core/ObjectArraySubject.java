@@ -6,11 +6,13 @@ import jfluentvalidation.constraints.array.length.ObjectArrayExactLengthConstrai
 import jfluentvalidation.constraints.array.length.ObjectArrayMaximumLengthConstraint;
 import jfluentvalidation.constraints.array.length.ObjectArrayMinimumLengthConstraint;
 import jfluentvalidation.constraints.array.notempty.IsNotEmptyObjectArrayConstraint;
+import jfluentvalidation.constraints.array.nullorempty.IsNullOrEmptyObjectArrayConstraint;
 import jfluentvalidation.rules.PropertyRule;
 
 /**
  *
  * @param <T>  the type of the instance
+ * @param <E>  the type of elements in the actual array subject.
  */
 public class ObjectArraySubject<T, E> extends AbstractArraySubject<ObjectArraySubject<T, E>, T, E[], E> {
 
@@ -20,7 +22,7 @@ public class ObjectArraySubject<T, E> extends AbstractArraySubject<ObjectArraySu
 
     @Override
     public void isNullOrEmpty() {
-        throw new RuntimeException("not implemented");
+        rule.addConstraint(new IsNullOrEmptyObjectArrayConstraint<>());
     }
 
     @Override

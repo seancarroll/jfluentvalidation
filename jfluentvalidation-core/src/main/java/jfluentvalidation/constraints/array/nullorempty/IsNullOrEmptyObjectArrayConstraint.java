@@ -1,0 +1,18 @@
+package jfluentvalidation.constraints.array.nullorempty;
+
+import jfluentvalidation.constraints.AbstractConstraint;
+import jfluentvalidation.constraints.DefaultMessages;
+import jfluentvalidation.validators.RuleContext;
+
+public class IsNullOrEmptyObjectArrayConstraint<T, E> extends AbstractConstraint<T, E[]> {
+
+    public IsNullOrEmptyObjectArrayConstraint() {
+        super(DefaultMessages.IS_NULL_OR_EMPTY);
+    }
+
+    @Override
+    public boolean isValid(RuleContext<T, E[]> context) {
+        return context.getPropertyValue() == null || context.getPropertyValue().length == 0;
+    }
+}
+
