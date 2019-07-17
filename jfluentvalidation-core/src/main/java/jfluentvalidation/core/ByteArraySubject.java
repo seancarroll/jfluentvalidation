@@ -1,5 +1,6 @@
 package jfluentvalidation.core;
 
+import jfluentvalidation.constraints.array.contains.ContainsByteConstraint;
 import jfluentvalidation.constraints.array.length.ByteArrayBetweenLengthConstraint;
 import jfluentvalidation.constraints.array.length.ByteArrayExactLengthConstraint;
 import jfluentvalidation.constraints.array.length.ByteArrayMaximumLengthConstraint;
@@ -42,6 +43,12 @@ public class ByteArraySubject<T> extends AbstractByteArraySubject<ByteArraySubje
     @Override
     public ByteArraySubject<T> hasLength(int expected) {
         rule.addConstraint(new ByteArrayExactLengthConstraint<>(expected));
+        return myself;
+    }
+
+    @Override
+    public ByteArraySubject<T> contains(Byte element) {
+        rule.addConstraint(new ContainsByteConstraint<>(element));
         return myself;
     }
 

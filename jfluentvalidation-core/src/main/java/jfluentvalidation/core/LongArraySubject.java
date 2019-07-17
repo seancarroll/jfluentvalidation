@@ -1,5 +1,6 @@
 package jfluentvalidation.core;
 
+import jfluentvalidation.constraints.array.contains.ContainsLongConstraint;
 import jfluentvalidation.constraints.array.length.LongArrayBetweenLengthConstraint;
 import jfluentvalidation.constraints.array.length.LongArrayExactLengthConstraint;
 import jfluentvalidation.constraints.array.length.LongArrayMaximumLengthConstraint;
@@ -36,6 +37,12 @@ public class LongArraySubject<T> extends AbstractArraySubject<LongArraySubject<T
     @Override
     public LongArraySubject<T> hasLength(int expected) {
         rule.addConstraint(new LongArrayExactLengthConstraint<>(expected));
+        return myself;
+    }
+
+    @Override
+    public LongArraySubject<T> contains(Long element) {
+        rule.addConstraint(new ContainsLongConstraint<>(element));
         return myself;
     }
 

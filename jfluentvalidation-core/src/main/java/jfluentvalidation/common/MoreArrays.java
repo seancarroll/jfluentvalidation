@@ -29,6 +29,79 @@ public final class MoreArrays {
         return !isArrayEmpty(array);
     }
 
+
+    public static boolean contains(boolean[] array, boolean target) {
+        for (boolean value : array) {
+            if (value == target) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean contains(byte[] array, byte target) {
+        for (byte value : array) {
+            if (value == target) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean contains(char[] array, char target) {
+        for (char value : array) {
+            if (value == target) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean contains(double[] array, double target) {
+        for (double value : array) {
+            if (value == target) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean contains(float[] array, float target) {
+        for (float value : array) {
+            if (value == target) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean contains(int[] array, int target) {
+        for (int value : array) {
+            if (value == target) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean contains(long[] array, long target) {
+        for (long value : array) {
+            if (value == target) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean contains(short[] array, short target) {
+        for (short value : array) {
+            if (value == target) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static boolean contains(Object[] arr, Object x) {
         for (Object elem : arr) {
             if (elem.equals(x)) {

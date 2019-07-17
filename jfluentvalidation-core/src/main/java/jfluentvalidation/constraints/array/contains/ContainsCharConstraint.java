@@ -5,17 +5,17 @@ import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.DefaultMessages;
 import jfluentvalidation.validators.RuleContext;
 
-public class ContainsConstraint<T, A> extends AbstractConstraint<T, A[]> {
+public class ContainsCharConstraint<T> extends AbstractConstraint<T, char[]> {
 
-    private final A element;
+    private final char element;
 
-    public ContainsConstraint(A element) {
+    public ContainsCharConstraint(char element) {
         super(DefaultMessages.ARRAY_CONTAINS);
         this.element = element;
     }
 
     @Override
-    public boolean isValid(RuleContext<T, A[]> context) {
-        return MoreArrays.contains2(context.getPropertyValue(), element);
+    public boolean isValid(RuleContext<T, char[]> context) {
+        return MoreArrays.contains(context.getPropertyValue(), element);
     }
 }

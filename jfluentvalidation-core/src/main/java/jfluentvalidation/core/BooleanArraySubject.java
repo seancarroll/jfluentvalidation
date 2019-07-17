@@ -1,5 +1,6 @@
 package jfluentvalidation.core;
 
+import jfluentvalidation.constraints.array.contains.ContainsBooleanConstraint;
 import jfluentvalidation.constraints.array.length.ArrayExactLengthConstraint;
 import jfluentvalidation.constraints.array.length.ArrayLengthConstraint;
 import jfluentvalidation.constraints.array.notempty.IsNotEmptyBooleanArrayConstraint;
@@ -33,10 +34,11 @@ public class BooleanArraySubject<T> extends AbstractArraySubject<BooleanArraySub
         return myself;
     }
 
-//    public BooleanArraySubject<T> contains(Boolean item) {
-//        rule.addConstraint(new ContainsConstraint<>(item));
-//        return myself;
-//    }
+    @Override
+    public BooleanArraySubject<T> contains(Boolean element) {
+        rule.addConstraint(new ContainsBooleanConstraint<>(element));
+        return myself;
+    }
 
     @Override
     public BooleanArraySubject<T> hasMinimumLength(int min) {

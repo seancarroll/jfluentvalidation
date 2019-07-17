@@ -1,5 +1,6 @@
 package jfluentvalidation.core;
 
+import jfluentvalidation.constraints.array.contains.ContainsObjectConstraint;
 import jfluentvalidation.constraints.array.empty.IsEmptyObjectArrayConstraint;
 import jfluentvalidation.constraints.array.length.ObjectArrayBetweenLengthConstraint;
 import jfluentvalidation.constraints.array.length.ObjectArrayExactLengthConstraint;
@@ -85,6 +86,12 @@ public class ObjectArraySubject<T, E> extends AbstractArraySubject<ObjectArraySu
     @Override
     public ObjectArraySubject<T, E> hasSameLengthAs(E[] other) {
         rule.addConstraint(new ObjectArrayExactLengthConstraint<>(other));
+        return myself;
+    }
+
+    @Override
+    public ObjectArraySubject<T, E> contains(E value) {
+        rule.addConstraint(new ContainsObjectConstraint<>(value));
         return myself;
     }
 

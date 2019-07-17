@@ -1,5 +1,6 @@
 package jfluentvalidation.core;
 
+import jfluentvalidation.constraints.array.contains.ContainsIntConstraint;
 import jfluentvalidation.constraints.array.length.IntArrayBetweenLengthConstraint;
 import jfluentvalidation.constraints.array.length.IntArrayExactLengthConstraint;
 import jfluentvalidation.constraints.array.length.IntArrayMaximumLengthConstraint;
@@ -36,6 +37,12 @@ public class IntArraySubject<T> extends AbstractIntArraySubject<IntArraySubject<
     @Override
     public IntArraySubject<T> hasLength(int expected) {
         rule.addConstraint(new IntArrayExactLengthConstraint<>(expected));
+        return myself;
+    }
+
+    @Override
+    public IntArraySubject<T> contains(Integer element) {
+        rule.addConstraint(new ContainsIntConstraint<>(element));
         return myself;
     }
 

@@ -1,5 +1,6 @@
 package jfluentvalidation.core;
 
+import jfluentvalidation.constraints.array.contains.ContainsDoubleConstraint;
 import jfluentvalidation.constraints.array.length.DoubleArrayBetweenLengthConstraint;
 import jfluentvalidation.constraints.array.length.DoubleArrayExactLengthConstraint;
 import jfluentvalidation.constraints.array.length.DoubleArrayMaximumLengthConstraint;
@@ -36,6 +37,12 @@ public class DoubleArraySubject<T> extends AbstractArraySubject<DoubleArraySubje
     @Override
     public DoubleArraySubject<T> hasLength(int expected) {
         rule.addConstraint(new DoubleArrayExactLengthConstraint<>(expected));
+        return myself;
+    }
+
+    @Override
+    public DoubleArraySubject<T> contains(Double element) {
+        rule.addConstraint(new ContainsDoubleConstraint<>(element));
         return myself;
     }
 

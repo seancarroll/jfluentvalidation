@@ -1,5 +1,6 @@
 package jfluentvalidation.core;
 
+import jfluentvalidation.constraints.array.contains.ContainsFloatConstraint;
 import jfluentvalidation.constraints.array.length.FloatArrayBetweenLengthConstraint;
 import jfluentvalidation.constraints.array.length.FloatArrayExactLengthConstraint;
 import jfluentvalidation.constraints.array.length.FloatArrayMaximumLengthConstraint;
@@ -66,6 +67,12 @@ public class FloatArraySubject<T> extends AbstractArraySubject<FloatArraySubject
     @Override
     public FloatArraySubject<T> hasSameLengthAs(Float[] other) {
         rule.addConstraint(new FloatArrayExactLengthConstraint<>(other));
+        return myself;
+    }
+
+    @Override
+    public FloatArraySubject<T> contains(Float value) {
+        rule.addConstraint(new ContainsFloatConstraint<>(value));
         return myself;
     }
 }

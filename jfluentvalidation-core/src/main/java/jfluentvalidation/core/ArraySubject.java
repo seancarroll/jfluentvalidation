@@ -18,7 +18,8 @@ public interface ArraySubject<S extends ArraySubject<S, A, E>, A, E> {
     @CanIgnoreReturnValue
     S hasLength(int expected);
 
-//    S contains(E item);
+    @CanIgnoreReturnValue
+    S contains(E element);
 
     @CanIgnoreReturnValue
     S hasMinimumLength(int min);

@@ -1,6 +1,7 @@
 package jfluentvalidation.core;
 
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
+import jfluentvalidation.constraints.array.contains.ContainsShortConstraint;
 import jfluentvalidation.constraints.array.length.ShortArrayBetweenLengthConstraint;
 import jfluentvalidation.constraints.array.length.ShortArrayExactLengthConstraint;
 import jfluentvalidation.constraints.array.length.ShortArrayMaximumLengthConstraint;
@@ -39,6 +40,12 @@ public class ShortArraySubject<T> extends AbstractArraySubject<ShortArraySubject
     @Override
     public ShortArraySubject<T> hasLength(int expected) {
         rule.addConstraint(new ShortArrayExactLengthConstraint<>(expected));
+        return myself;
+    }
+
+    @Override
+    public ShortArraySubject<T> contains(Short element) {
+        rule.addConstraint(new ContainsShortConstraint<>(element));
         return myself;
     }
 

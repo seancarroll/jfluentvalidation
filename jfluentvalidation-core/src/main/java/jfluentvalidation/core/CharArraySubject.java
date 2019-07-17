@@ -1,5 +1,6 @@
 package jfluentvalidation.core;
 
+import jfluentvalidation.constraints.array.contains.ContainsCharConstraint;
 import jfluentvalidation.constraints.array.length.CharArrayBetweenLengthConstraint;
 import jfluentvalidation.constraints.array.length.CharArrayExactLengthConstraint;
 import jfluentvalidation.constraints.array.length.CharArrayMaximumLengthConstraint;
@@ -32,6 +33,12 @@ public class CharArraySubject<T> extends AbstractArraySubject<CharArraySubject<T
     @Override
     public CharArraySubject<T> hasLength(int expected) {
         rule.addConstraint(new CharArrayExactLengthConstraint<>(expected));
+        return myself;
+    }
+
+    @Override
+    public CharArraySubject<T> contains(Character element) {
+        rule.addConstraint(new ContainsCharConstraint<>(element));
         return myself;
     }
 
