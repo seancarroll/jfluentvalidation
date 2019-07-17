@@ -1,6 +1,7 @@
 package jfluentvalidation.core;
 
 import jfluentvalidation.constraints.array.contains.ContainsByteConstraint;
+import jfluentvalidation.constraints.array.empty.IsEmptyByteArrayConstraint;
 import jfluentvalidation.constraints.array.length.ByteArrayBetweenLengthConstraint;
 import jfluentvalidation.constraints.array.length.ByteArrayExactLengthConstraint;
 import jfluentvalidation.constraints.array.length.ByteArrayMaximumLengthConstraint;
@@ -30,8 +31,7 @@ public class ByteArraySubject<T> extends AbstractByteArraySubject<ByteArraySubje
 
     @Override
     public void isEmpty() {
-//        IsEmptyConstraint<T, byte[]> c = new IsEmptyConstraint<>();
-//        rule.addConstraint(c);
+        rule.addConstraint(new IsEmptyByteArrayConstraint<>());
     }
 
     @Override

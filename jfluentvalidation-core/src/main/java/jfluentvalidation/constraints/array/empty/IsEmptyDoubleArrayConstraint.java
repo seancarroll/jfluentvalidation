@@ -16,6 +16,9 @@ public class IsEmptyDoubleArrayConstraint<T> extends AbstractConstraint<T, doubl
 
     @Override
     public boolean isValid(RuleContext<T, double[]> context) {
+        if (context.getPropertyValue() == null) {
+            return true;
+        }
         return context.getPropertyValue().length == 0;
     }
 }

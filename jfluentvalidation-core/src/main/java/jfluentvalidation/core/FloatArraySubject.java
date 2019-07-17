@@ -1,6 +1,7 @@
 package jfluentvalidation.core;
 
 import jfluentvalidation.constraints.array.contains.ContainsFloatConstraint;
+import jfluentvalidation.constraints.array.empty.IsEmptyFloatArrayConstraint;
 import jfluentvalidation.constraints.array.length.FloatArrayBetweenLengthConstraint;
 import jfluentvalidation.constraints.array.length.FloatArrayExactLengthConstraint;
 import jfluentvalidation.constraints.array.length.FloatArrayMaximumLengthConstraint;
@@ -25,7 +26,7 @@ public class FloatArraySubject<T> extends AbstractArraySubject<FloatArraySubject
 
     @Override
     public void isEmpty() {
-
+        rule.addConstraint(new IsEmptyFloatArrayConstraint<>());
     }
 
     @Override

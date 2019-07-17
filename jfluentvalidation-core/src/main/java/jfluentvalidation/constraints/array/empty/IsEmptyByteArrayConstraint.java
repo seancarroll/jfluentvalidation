@@ -16,6 +16,9 @@ public class IsEmptyByteArrayConstraint<T> extends AbstractConstraint<T, byte[]>
 
     @Override
     public boolean isValid(RuleContext<T, byte[]> context) {
+        if (context.getPropertyValue() == null) {
+            return true;
+        }
         return context.getPropertyValue().length == 0;
     }
 }

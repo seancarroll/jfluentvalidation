@@ -16,6 +16,9 @@ public class IsEmptyShortArrayConstraint<T> extends AbstractConstraint<T, short[
 
     @Override
     public boolean isValid(RuleContext<T, short[]> context) {
+        if (context.getPropertyValue() == null) {
+            return true;
+        }
         return context.getPropertyValue().length == 0;
     }
 }

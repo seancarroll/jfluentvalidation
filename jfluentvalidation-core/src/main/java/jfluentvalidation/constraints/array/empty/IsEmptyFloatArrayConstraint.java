@@ -16,6 +16,9 @@ public class IsEmptyFloatArrayConstraint<T> extends AbstractConstraint<T, float[
 
     @Override
     public boolean isValid(RuleContext<T, float[]> context) {
+        if (context.getPropertyValue() == null) {
+            return true;
+        }
         return context.getPropertyValue().length == 0;
     }
 }

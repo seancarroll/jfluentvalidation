@@ -1,6 +1,7 @@
 package jfluentvalidation.core;
 
 import jfluentvalidation.constraints.array.contains.ContainsBooleanConstraint;
+import jfluentvalidation.constraints.array.empty.IsEmptyBooleanArrayConstraint;
 import jfluentvalidation.constraints.array.length.ArrayExactLengthConstraint;
 import jfluentvalidation.constraints.array.length.ArrayLengthConstraint;
 import jfluentvalidation.constraints.array.notempty.IsNotEmptyBooleanArrayConstraint;
@@ -19,7 +20,7 @@ public class BooleanArraySubject<T> extends AbstractArraySubject<BooleanArraySub
 
     @Override
     public void isEmpty() {
-
+        rule.addConstraint(new IsEmptyBooleanArrayConstraint<>());
     }
 
     @Override

@@ -1,6 +1,7 @@
 package jfluentvalidation.core;
 
 import jfluentvalidation.constraints.array.contains.ContainsLongConstraint;
+import jfluentvalidation.constraints.array.empty.IsEmptyLongArrayConstraint;
 import jfluentvalidation.constraints.array.length.LongArrayBetweenLengthConstraint;
 import jfluentvalidation.constraints.array.length.LongArrayExactLengthConstraint;
 import jfluentvalidation.constraints.array.length.LongArrayMaximumLengthConstraint;
@@ -25,7 +26,7 @@ public class LongArraySubject<T> extends AbstractArraySubject<LongArraySubject<T
 
     @Override
     public void isEmpty() {
-
+        rule.addConstraint(new IsEmptyLongArrayConstraint<>());
     }
 
     @Override

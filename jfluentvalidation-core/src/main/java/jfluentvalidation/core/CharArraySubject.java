@@ -1,6 +1,7 @@
 package jfluentvalidation.core;
 
 import jfluentvalidation.constraints.array.contains.ContainsCharConstraint;
+import jfluentvalidation.constraints.array.empty.IsEmptyCharArrayConstraint;
 import jfluentvalidation.constraints.array.length.CharArrayBetweenLengthConstraint;
 import jfluentvalidation.constraints.array.length.CharArrayExactLengthConstraint;
 import jfluentvalidation.constraints.array.length.CharArrayMaximumLengthConstraint;
@@ -21,7 +22,7 @@ public class CharArraySubject<T> extends AbstractArraySubject<CharArraySubject<T
 
     @Override
     public void isEmpty() {
-
+        rule.addConstraint(new IsEmptyCharArrayConstraint<>());
     }
 
     @Override

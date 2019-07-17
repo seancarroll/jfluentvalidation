@@ -23,8 +23,30 @@ class ContainsTest {
         assertTrue(failures.isEmpty());
     }
 
+    @Test
+    void shouldNotReturnFailureWhenActualContainsValuesInDifferentOrder() {
 
+    }
 
+    @Test
+    void shouldNotReturnFailureWhenActualContainsAllGivenValues() {
+
+    }
+
+    @Test
+    void shouldNotReturnFailureWhenActualContainsGivenValuesMoreThanOnce() {
+
+    }
+
+    @Test
+    void shouldNotReturnFailureWhenActualContainsGivenValuesEventIfDuplicated() {
+
+    }
+
+    @Test
+    void shouldNotReturnFailureWhenActualAndGivenAreEmpty() {
+
+    }
 
 //    @Test
 //    public void should_pass_if_actual_contains_given_values() {
@@ -58,6 +80,28 @@ class ContainsTest {
 //        iterables.assertContains(someInfo(), actual, array());
 //    }
 //
+
+    @Test
+    void shouldReturnFailureWhenGivenIsEmptyAndActualIsNotNull() {
+
+    }
+
+    @Test
+    void shouldThrowExceptionWhenGivenValuesIsNull() {
+
+    }
+
+    @Test
+    void shouldNotReturnFailureWhenActualIsNull() {
+
+    }
+
+    @Test
+    void shouldReturnFailureWhenActualDoesNotContainsValues() {
+
+    }
+
+
 //    @Test
 //    public void should_fail_if_array_of_values_to_look_for_is_empty_and_actual_is_not() {
 //        assertThatExceptionOfType(AssertionError.class).isThrownBy(() -> iterables.assertContains(someInfo(), actual, emptyArray()));

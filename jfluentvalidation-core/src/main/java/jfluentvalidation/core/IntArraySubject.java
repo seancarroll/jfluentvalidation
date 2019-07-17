@@ -1,6 +1,7 @@
 package jfluentvalidation.core;
 
 import jfluentvalidation.constraints.array.contains.ContainsIntConstraint;
+import jfluentvalidation.constraints.array.empty.IsEmptyIntArrayConstraint;
 import jfluentvalidation.constraints.array.length.IntArrayBetweenLengthConstraint;
 import jfluentvalidation.constraints.array.length.IntArrayExactLengthConstraint;
 import jfluentvalidation.constraints.array.length.IntArrayMaximumLengthConstraint;
@@ -25,7 +26,7 @@ public class IntArraySubject<T> extends AbstractIntArraySubject<IntArraySubject<
 
     @Override
     public void isEmpty() {
-
+        rule.addConstraint(new IsEmptyIntArrayConstraint<>());
     }
 
     @Override
