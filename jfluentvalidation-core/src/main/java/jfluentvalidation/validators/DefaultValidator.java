@@ -293,7 +293,7 @@ public class DefaultValidator<T> implements Validator<T> {
      * @param <E>
      * @return
      */
-    public <E> IterableSubject<T, ? extends E> ruleForIterable(SerializableFunction<T, Iterable<? super E>> func) {
+    public <E> IterableSubject<T, E> ruleForIterable(SerializableFunction<T, Iterable<? super E>> func) {
         String propertyName = PropertyNameExtractor.getInstance().getPropertyName(type, func);
         CollectionPropertyRule<T, Iterable<? super E>, E> iterablePropertyRule = new CollectionPropertyRule<>(func, propertyName);
         rules.add(iterablePropertyRule);
