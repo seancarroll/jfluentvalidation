@@ -1,9 +1,10 @@
-package jfluentvalidation.validators.rulefor.arrays.objects;
+package jfluentvalidation.validators.rulefor.iterables;
 
 import jfluentvalidation.ValidationFailure;
 import jfluentvalidation.validators.DefaultValidator;
 import org.junit.jupiter.api.Test;
 
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -13,10 +14,10 @@ class IsEmptyTest {
 
     @Test
     void shouldNotReturnFailureWhenActualIsEmpty() {
-        Target t = new Target(new String[0]);
+        Target t = new Target(Collections.emptyList());
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForObjectArray(Target::getValue).isEmpty();
+        validator.ruleForIterable(Target::getValue).isEmpty();
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -28,7 +29,7 @@ class IsEmptyTest {
         Target t = new Target(null);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForObjectArray(Target::getValue).isEmpty();
+        validator.ruleForIterable(Target::getValue).isEmpty();
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -37,10 +38,10 @@ class IsEmptyTest {
 
     @Test
     void shouldReturnFailureWhenActualIsNotEmpty() {
-        Target t = new Target(new String[] {"hello"});
+        Target t = new Target(Collections.singletonList("hello"));
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForObjectArray(Target::getValue).isEmpty();
+        validator.ruleForIterable(Target::getValue).isEmpty();
 
         List<ValidationFailure> failures = validator.validate(t);
 

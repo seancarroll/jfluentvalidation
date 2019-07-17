@@ -16,14 +16,20 @@ package jfluentvalidation.core;
 
 import jfluentvalidation.rules.PropertyRule;
 
-public class AbstractIterableSubject<S extends AbstractIterableSubject<S, T, A, E, I>,
+
+//public class AbstractIterableSubject<S extends AbstractIterableSubject<S, T, A, E, I>,
+//    T,
+//    A extends Iterable<? extends E>,
+//    E,
+//    I extends Subject<I, T, E>>
+//    extends Subject<S, T, A>
+//// implements ObjectEnumerableAssert<SELF, ELEMENT>{
+
+public class AbstractIterableSubject<S extends AbstractIterableSubject<S, T, A, E>,
                                      T,
-                                     A extends Iterable<? extends E>,
-                                     E,
-                                     I extends Subject<I, T, E>>
-    extends Subject<S, T, A>
-    // implements ObjectEnumerableAssert<SELF, ELEMENT>{
-{
+                                     A extends Iterable<? super E>,
+                                     E>
+    extends Subject<S, T, A> {
 
     public AbstractIterableSubject(Class<?> selfType, PropertyRule<T, A> rule) {
         super(selfType, rule);

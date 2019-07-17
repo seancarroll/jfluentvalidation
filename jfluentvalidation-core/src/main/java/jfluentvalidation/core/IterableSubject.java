@@ -14,7 +14,7 @@ import static java.util.Arrays.asList;
  *
  * @param <T>  the type of the instance
  */
-public class IterableSubject<T, E> extends Subject<IterableSubject<T, E>, T, Iterable<? super E>> {
+public class IterableSubject<T, E> extends AbstractIterableSubject<IterableSubject<T, E>, T, Iterable<? super E>, E> {
 
     public IterableSubject(CollectionPropertyRule<T, Iterable<? super E>, E> rule) {
         super(IterableSubject.class, rule);
@@ -187,21 +187,21 @@ public class IterableSubject<T, E> extends Subject<IterableSubject<T, E>, T, Ite
 //    }
 
     // TODO: should we add a forEach that takes softConstraint?
-
-    @Override
-    public IterableSubject<T, E> isNull() {
-        return super.isNull();
-    }
-
-    @Override
-    public IterableSubject<T, E> isNotNull() {
-        return super.isNotNull();
-    }
-
-    @Override
-    public IterableSubject<T, E> isEquals(Iterable<? super E> other) {
-        return super.isEquals(other);
-    }
+//
+//    @Override
+//    public IterableSubject<T, E> isNull() {
+//        return super.isNull();
+//    }
+//
+//    @Override
+//    public IterableSubject<T, E> isNotNull() {
+//        return super.isNotNull();
+//    }
+//
+//    @Override
+//    public IterableSubject<T, E> isEquals(Iterable<? super E> other) {
+//        return super.isEquals(other);
+//    }
 
     @Override
     protected CollectionPropertyRule<T, Iterable<? super E>, E> getRule() {
