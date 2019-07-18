@@ -17,6 +17,9 @@ public class IsNotEmptyIntArrayConstraint<T> extends AbstractConstraint<T, int[]
 
     @Override
     public boolean isValid(RuleContext<T, int[]> context) {
+        if (context.getPropertyValue() == null) {
+            return true;
+        }
         return MoreArrays.isArrayNotEmpty(context.getPropertyValue());
     }
 }

@@ -16,6 +16,9 @@ public class IsNotEmptyBooleanArrayConstraint<T> extends AbstractConstraint<T, b
 
     @Override
     public boolean isValid(RuleContext<T, boolean[]> context) {
+        if (context.getPropertyValue() == null) {
+            return true;
+        }
         return context.getPropertyValue().length > 0;
     }
 }

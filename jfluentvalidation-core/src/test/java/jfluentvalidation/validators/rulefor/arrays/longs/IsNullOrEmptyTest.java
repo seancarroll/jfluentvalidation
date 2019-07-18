@@ -37,7 +37,7 @@ class IsNullOrEmptyTest {
 
     @Test
     void shouldReturnFailureWhenActualIsNotNullOrEmpty() {
-        Target t = new Target(new long[] {1L});
+        Target t = new Target(new long[] {1});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForLongArray(Target::getValue).isNullOrEmpty();

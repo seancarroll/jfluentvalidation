@@ -17,6 +17,9 @@ public class IsNotEmptyCharArrayConstraint<T> extends AbstractConstraint<T, char
 
     @Override
     public boolean isValid(RuleContext<T, char[]> context) {
+        if (context.getPropertyValue() == null) {
+            return true;
+        }
         return MoreArrays.isArrayNotEmpty(context.getPropertyValue());
     }
 }

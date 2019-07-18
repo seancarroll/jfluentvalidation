@@ -1,4 +1,4 @@
-package jfluentvalidation.validators.rulefor.arrays.longs;
+package jfluentvalidation.validators.rulefor.arrays.booleans;
 
 import jfluentvalidation.ValidationFailure;
 import jfluentvalidation.validators.DefaultValidator;
@@ -9,14 +9,14 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class IsEmptyTest {
+class IsNotEmptyTest {
 
     @Test
-    void shouldNotReturnFailureWhenActualIsEmpty() {
-        Target t = new Target(new long[0]);
+    void shouldNotReturnFailureWhenActualIsNotEmpty() {
+        Target t = new Target(new boolean[]{true});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForLongArray(Target::getValue).isEmpty();
+        validator.ruleForBooleanArray(Target::getValue).isNotEmpty();
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -28,7 +28,7 @@ class IsEmptyTest {
         Target t = new Target(null);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForLongArray(Target::getValue).isEmpty();
+        validator.ruleForBooleanArray(Target::getValue).isNotEmpty();
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -36,15 +36,14 @@ class IsEmptyTest {
     }
 
     @Test
-    void shouldReturnFailureWhenActualIsNotEmpty() {
-        Target t = new Target(new long[] {1});
+    void shouldReturnFailureWhenActualIsEmpty() {
+        Target t = new Target(new boolean[0]);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForLongArray(Target::getValue).isEmpty();
+        validator.ruleForBooleanArray(Target::getValue).isNotEmpty();
 
         List<ValidationFailure> failures = validator.validate(t);
 
         assertFalse(failures.isEmpty());
     }
-
 }
