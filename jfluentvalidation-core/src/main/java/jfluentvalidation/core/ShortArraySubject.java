@@ -8,6 +8,7 @@ import jfluentvalidation.constraints.array.length.ShortArrayExactLengthConstrain
 import jfluentvalidation.constraints.array.length.ShortArrayMaximumLengthConstraint;
 import jfluentvalidation.constraints.array.length.ShortArrayMinimumLengthConstraint;
 import jfluentvalidation.constraints.array.notempty.IsNotEmptyShortArrayConstraint;
+import jfluentvalidation.constraints.array.nullorempty.IsNullOrEmptyShortArrayConstraint;
 import jfluentvalidation.rules.PropertyRule;
 
 /**
@@ -22,7 +23,7 @@ public class ShortArraySubject<T> extends AbstractArraySubject<ShortArraySubject
 
     @Override
     public void isNullOrEmpty() {
-
+        rule.addConstraint(new IsNullOrEmptyShortArrayConstraint<>());
     }
 
     @Override

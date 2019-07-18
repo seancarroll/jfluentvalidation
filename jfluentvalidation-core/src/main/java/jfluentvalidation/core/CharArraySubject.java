@@ -7,6 +7,7 @@ import jfluentvalidation.constraints.array.length.CharArrayExactLengthConstraint
 import jfluentvalidation.constraints.array.length.CharArrayMaximumLengthConstraint;
 import jfluentvalidation.constraints.array.length.CharArrayMinimumLengthConstraint;
 import jfluentvalidation.constraints.array.notempty.IsNotEmptyCharArrayConstraint;
+import jfluentvalidation.constraints.array.nullorempty.IsNullOrEmptyCharArrayConstraint;
 import jfluentvalidation.rules.PropertyRule;
 
 public class CharArraySubject<T> extends AbstractArraySubject<CharArraySubject<T>, T, char[], Character> {
@@ -17,7 +18,7 @@ public class CharArraySubject<T> extends AbstractArraySubject<CharArraySubject<T
 
     @Override
     public void isNullOrEmpty() {
-
+        rule.addConstraint(new IsNullOrEmptyCharArrayConstraint<>());
     }
 
     @Override

@@ -7,6 +7,7 @@ import jfluentvalidation.constraints.array.length.DoubleArrayExactLengthConstrai
 import jfluentvalidation.constraints.array.length.DoubleArrayMaximumLengthConstraint;
 import jfluentvalidation.constraints.array.length.DoubleArrayMinimumLengthConstraint;
 import jfluentvalidation.constraints.array.notempty.IsNotEmptyDoubleArrayConstraint;
+import jfluentvalidation.constraints.array.nullorempty.IsNullOrEmptyDoubleArrayConstraint;
 import jfluentvalidation.rules.PropertyRule;
 
 /**
@@ -21,7 +22,7 @@ public class DoubleArraySubject<T> extends AbstractArraySubject<DoubleArraySubje
 
     @Override
     public void isNullOrEmpty() {
-
+        rule.addConstraint(new IsNullOrEmptyDoubleArrayConstraint<>());
     }
 
     @Override

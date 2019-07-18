@@ -7,6 +7,7 @@ import jfluentvalidation.constraints.array.length.ByteArrayExactLengthConstraint
 import jfluentvalidation.constraints.array.length.ByteArrayMaximumLengthConstraint;
 import jfluentvalidation.constraints.array.length.ByteArrayMinimumLengthConstraint;
 import jfluentvalidation.constraints.array.notempty.IsNotEmptyByteArrayConstraint;
+import jfluentvalidation.constraints.array.nullorempty.IsNullOrEmptyByteArrayConstraint;
 import jfluentvalidation.rules.PropertyRule;
 
 // TODO: We could potentially have many different types of array
@@ -26,7 +27,7 @@ public class ByteArraySubject<T> extends AbstractByteArraySubject<ByteArraySubje
 
     @Override
     public void isNullOrEmpty() {
-
+        rule.addConstraint(new IsNullOrEmptyByteArrayConstraint<>());
     }
 
     @Override
