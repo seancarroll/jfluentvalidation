@@ -26,10 +26,6 @@ public class CollectionPropertyRule<T, P, E> extends PropertyRule<T, P> {
         List<ValidationFailure> failures = new ArrayList<>();
 
         P propertyValue = propertyFunc.apply(context.getInstanceToValidate());
-        if (propertyValue == null) {
-            // TODO: what do we want to do here?
-            return failures;
-        }
 
         Collection<E> collectionPropertyValue = (Collection<E>) toCollection(propertyValue);
         for (Constraint<?, ? extends P> constraint : getConstraints()) {
@@ -43,22 +39,22 @@ public class CollectionPropertyRule<T, P, E> extends PropertyRule<T, P> {
 
         // TODO: need to fix the following
         // - failures should include appropriate index in error message. Just put in propertyName?
+        if (propertyValue != null) {
+            for (Constraint<T, ? super E> itemConstraint : itemConstraints) {
+                int i = 0;
+                for (E e : collectionPropertyValue) {
+                    ValidationContext childContext = new ValidationContext<>(e);
+                    PropertyRule<T, E> rule = new PropertyRule<>(null, propertyName);
+                    RuleContext ruleContext = new RuleContext(childContext, rule, e);
+                    boolean isValid = itemConstraint.isValid(ruleContext);
+                    if (!isValid) {
+                        ruleContext.appendArgument("PropertyName", ruleContext.getRule().getPropertyName());
+                        ruleContext.appendArgument("index", i);
+                        ruleContext.appendArgument("PropertyValue", ruleContext.getPropertyValue());
 
-        for (Constraint<T, ? super E> itemConstraint : itemConstraints) {
-            int i = 0;
-            for (E e : collectionPropertyValue) {
-                ValidationContext childContext = new ValidationContext<>(e);
-                PropertyRule<T, E> rule = new PropertyRule<>(null, propertyName);
-                RuleContext ruleContext = new RuleContext(childContext, rule, e);
-                boolean isValid = itemConstraint.isValid(ruleContext);
-                if (!isValid) {
-                    ruleContext.appendArgument("PropertyName", ruleContext.getRule().getPropertyName());
-                    ruleContext.appendArgument("index", i);
-                    ruleContext.appendArgument("PropertyValue", ruleContext.getPropertyValue());
-
-                    failures.add(new ValidationFailure(getPropertyName(), itemConstraint.getOptions().getErrorMessage(), e));
+                        failures.add(new ValidationFailure(getPropertyName(), itemConstraint.getOptions().getErrorMessage(), e));
+                    }
                 }
-            }
 //            for (Iterator<E> it = itemConstraint.getCollection(collectionPropertyValue.iterator()); it.hasNext(); i++) {
 //                // TODO: ugh...this is trash
 //                E item = it.next();
@@ -74,8 +70,8 @@ public class CollectionPropertyRule<T, P, E> extends PropertyRule<T, P> {
 //                    failures.add(new ValidationFailure(getPropertyName(), itemConstraint.getOptions().getErrorMessage(), item));
 //                }
 //            }
+            }
         }
-
 
 
 //        for (Constraint<?, ? extends P> constraint : getConstraints()) {
@@ -112,6 +108,10 @@ public class CollectionPropertyRule<T, P, E> extends PropertyRule<T, P> {
 
     // https://stackoverflow.com/questions/2651632/how-to-check-if-an-object-is-a-collection-type-in-java
     private Collection<?> toCollection(P propertyValue) {
+        if (propertyValue == null) {
+            return null;
+        }
+
         if (propertyValue instanceof List) {
             return (List) propertyValue;
         } else if (MoreArrays.isArray(propertyValue)) {

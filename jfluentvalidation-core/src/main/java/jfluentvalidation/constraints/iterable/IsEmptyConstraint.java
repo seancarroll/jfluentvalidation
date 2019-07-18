@@ -19,6 +19,9 @@ public class IsEmptyConstraint<T, P> extends AbstractConstraint<T, Iterable<? su
 
     @Override
     public boolean isValid(RuleContext<T, Iterable<? super P>> context) {
+        if (context.getPropertyValue() == null) {
+            return true;
+        }
         return Iterables.isEmpty(context.getPropertyValue());
     }
 }
