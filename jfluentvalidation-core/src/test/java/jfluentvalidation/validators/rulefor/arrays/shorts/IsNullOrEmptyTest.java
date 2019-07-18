@@ -9,14 +9,14 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class IsEmptyTest {
+class IsNullOrEmptyTest {
 
     @Test
-    void shouldNotReturnFailureWhenActualIsEmpty() {
+    void shouldNotReturnFailureWhenStringIsEmpty() {
         Target t = new Target(new short[0]);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForShortArray(Target::getValue).isEmpty();
+        validator.ruleForShortArray(Target::getValue).isNullOrEmpty();
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -28,7 +28,7 @@ class IsEmptyTest {
         Target t = new Target(null);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForShortArray(Target::getValue).isEmpty();
+        validator.ruleForShortArray(Target::getValue).isNullOrEmpty();
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -36,15 +36,14 @@ class IsEmptyTest {
     }
 
     @Test
-    void shouldReturnFailureWhenActualIsNotEmpty() {
+    void shouldReturnFailureWhenActualIsNotNullOrEmpty() {
         Target t = new Target(new short[] {1});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForShortArray(Target::getValue).isEmpty();
+        validator.ruleForShortArray(Target::getValue).isNullOrEmpty();
 
         List<ValidationFailure> failures = validator.validate(t);
 
         assertFalse(failures.isEmpty());
     }
-
 }
