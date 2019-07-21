@@ -1,5 +1,6 @@
 package jfluentvalidation.core;
 
+import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import jfluentvalidation.constraints.array.contains.ContainsDoubleConstraint;
 import jfluentvalidation.constraints.array.empty.IsEmptyDoubleArrayConstraint;
 import jfluentvalidation.constraints.array.length.DoubleArrayBetweenLengthConstraint;
@@ -79,6 +80,12 @@ public class DoubleArraySubject<T> extends AbstractArraySubject<DoubleArraySubje
 
     @Override
     public DoubleArraySubject<T> hasSameLengthAs(Double[] other) {
+        rule.addConstraint(new DoubleArrayExactLengthConstraint<>(other));
+        return myself;
+    }
+
+    @CanIgnoreReturnValue
+    public DoubleArraySubject<T> hasSameLengthAs(double[] other) {
         rule.addConstraint(new DoubleArrayExactLengthConstraint<>(other));
         return myself;
     }

@@ -1,5 +1,6 @@
 package jfluentvalidation.core;
 
+import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import jfluentvalidation.constraints.array.contains.ContainsIntConstraint;
 import jfluentvalidation.constraints.array.empty.IsEmptyIntArrayConstraint;
 import jfluentvalidation.constraints.array.length.IntArrayBetweenLengthConstraint;
@@ -79,6 +80,12 @@ public class IntArraySubject<T> extends AbstractIntArraySubject<IntArraySubject<
 
     @Override
     public IntArraySubject<T> hasSameLengthAs(Integer[] other) {
+        rule.addConstraint(new IntArrayExactLengthConstraint<>(other));
+        return myself;
+    }
+
+    @CanIgnoreReturnValue
+    public IntArraySubject<T> hasSameLengthAs(int[] other) {
         rule.addConstraint(new IntArrayExactLengthConstraint<>(other));
         return myself;
     }

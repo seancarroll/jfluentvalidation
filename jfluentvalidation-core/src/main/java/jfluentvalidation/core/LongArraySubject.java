@@ -1,5 +1,6 @@
 package jfluentvalidation.core;
 
+import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import jfluentvalidation.constraints.array.contains.ContainsLongConstraint;
 import jfluentvalidation.constraints.array.empty.IsEmptyLongArrayConstraint;
 import jfluentvalidation.constraints.array.length.LongArrayBetweenLengthConstraint;
@@ -79,6 +80,12 @@ public class LongArraySubject<T> extends AbstractArraySubject<LongArraySubject<T
 
     @Override
     public LongArraySubject<T> hasSameLengthAs(Long[] other) {
+        rule.addConstraint(new LongArrayExactLengthConstraint<>(other));
+        return myself;
+    }
+
+    @CanIgnoreReturnValue
+    public LongArraySubject<T> hasSameLengthAs(long[] other) {
         rule.addConstraint(new LongArrayExactLengthConstraint<>(other));
         return myself;
     }

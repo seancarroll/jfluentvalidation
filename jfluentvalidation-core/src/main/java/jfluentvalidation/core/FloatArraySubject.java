@@ -1,5 +1,6 @@
 package jfluentvalidation.core;
 
+import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import jfluentvalidation.constraints.array.contains.ContainsFloatConstraint;
 import jfluentvalidation.constraints.array.empty.IsEmptyFloatArrayConstraint;
 import jfluentvalidation.constraints.array.length.*;
@@ -70,6 +71,12 @@ public class FloatArraySubject<T> extends AbstractArraySubject<FloatArraySubject
 
     @Override
     public FloatArraySubject<T> hasSameLengthAs(Float[] other) {
+        rule.addConstraint(new FloatArrayExactLengthConstraint<>(other));
+        return myself;
+    }
+
+    @CanIgnoreReturnValue
+    public FloatArraySubject<T> hasSameLengthAs(float[] other) {
         rule.addConstraint(new FloatArrayExactLengthConstraint<>(other));
         return myself;
     }

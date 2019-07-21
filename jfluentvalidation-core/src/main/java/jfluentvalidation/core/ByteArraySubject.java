@@ -1,5 +1,6 @@
 package jfluentvalidation.core;
 
+import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import jfluentvalidation.constraints.array.contains.ContainsByteConstraint;
 import jfluentvalidation.constraints.array.empty.IsEmptyByteArrayConstraint;
 import jfluentvalidation.constraints.array.length.ByteArrayBetweenLengthConstraint;
@@ -76,7 +77,6 @@ public class ByteArraySubject<T> extends AbstractByteArraySubject<ByteArraySubje
         return myself;
     }
 
-
     @Override
     public ByteArraySubject<T> hasSameLengthAs(Iterable<Byte> other) {
         rule.addConstraint(new ByteArrayExactLengthConstraint<>(other));
@@ -85,6 +85,12 @@ public class ByteArraySubject<T> extends AbstractByteArraySubject<ByteArraySubje
 
     @Override
     public ByteArraySubject<T> hasSameLengthAs(Byte[] other) {
+        rule.addConstraint(new ByteArrayExactLengthConstraint<>(other));
+        return myself;
+    }
+
+    @CanIgnoreReturnValue
+    public ByteArraySubject<T> hasSameLengthAs(byte[] other) {
         rule.addConstraint(new ByteArrayExactLengthConstraint<>(other));
         return myself;
     }

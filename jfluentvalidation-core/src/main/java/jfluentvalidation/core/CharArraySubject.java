@@ -1,5 +1,6 @@
 package jfluentvalidation.core;
 
+import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import jfluentvalidation.constraints.array.contains.ContainsCharConstraint;
 import jfluentvalidation.constraints.array.empty.IsEmptyCharArrayConstraint;
 import jfluentvalidation.constraints.array.length.CharArrayBetweenLengthConstraint;
@@ -75,6 +76,12 @@ public class CharArraySubject<T> extends AbstractArraySubject<CharArraySubject<T
 
     @Override
     public CharArraySubject<T> hasSameLengthAs(Character[] other) {
+        rule.addConstraint(new CharArrayExactLengthConstraint<>(other));
+        return myself;
+    }
+
+    @CanIgnoreReturnValue
+    public CharArraySubject<T> hasSameLengthAs(char[] other) {
         rule.addConstraint(new CharArrayExactLengthConstraint<>(other));
         return myself;
     }

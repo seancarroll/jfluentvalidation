@@ -31,14 +31,12 @@ public class ShortArraySubject<T> extends AbstractArraySubject<ShortArraySubject
         rule.addConstraint(new IsEmptyShortArrayConstraint<>());
     }
 
-    @CanIgnoreReturnValue
     @Override
     public ShortArraySubject<T> isNotEmpty() {
         rule.addConstraint(new IsNotEmptyShortArrayConstraint<>());
         return myself;
     }
 
-    @CanIgnoreReturnValue
     @Override
     public ShortArraySubject<T> hasLength(int expected) {
         rule.addConstraint(new ShortArrayExactLengthConstraint<>(expected));
@@ -51,7 +49,6 @@ public class ShortArraySubject<T> extends AbstractArraySubject<ShortArraySubject
         return myself;
     }
 
-    @CanIgnoreReturnValue
     @Override
     public ShortArraySubject<T> hasMinimumLength(int min) {
         rule.addConstraint(new ShortArrayMinimumLengthConstraint<>(min));
@@ -64,7 +61,6 @@ public class ShortArraySubject<T> extends AbstractArraySubject<ShortArraySubject
         return myself;
     }
 
-    @CanIgnoreReturnValue
     @Override
     public ShortArraySubject<T> hasLengthBetween(int min, int max) {
         return hasLengthBetween(min, max, true, true);
@@ -76,16 +72,20 @@ public class ShortArraySubject<T> extends AbstractArraySubject<ShortArraySubject
         return myself;
     }
 
-    @CanIgnoreReturnValue
     @Override
     public ShortArraySubject<T> hasSameLengthAs(Iterable<Short> other) {
         rule.addConstraint(new ShortArrayExactLengthConstraint<>(other));
         return myself;
     }
 
-    @CanIgnoreReturnValue
     @Override
     public ShortArraySubject<T> hasSameLengthAs(Short[] other) {
+        rule.addConstraint(new ShortArrayExactLengthConstraint<>(other));
+        return myself;
+    }
+
+    @CanIgnoreReturnValue
+    public ShortArraySubject<T> hasSameLengthAs(short[] other) {
         rule.addConstraint(new ShortArrayExactLengthConstraint<>(other));
         return myself;
     }
