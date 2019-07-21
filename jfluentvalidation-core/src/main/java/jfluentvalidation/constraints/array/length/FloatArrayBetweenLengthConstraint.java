@@ -1,5 +1,6 @@
 package jfluentvalidation.constraints.array.length;
 
+import jfluentvalidation.common.MoreArrays;
 import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.DefaultMessages;
 import jfluentvalidation.internal.Ensure;
@@ -31,6 +32,6 @@ public class FloatArrayBetweenLengthConstraint<T> extends AbstractConstraint<T, 
             return true;
         }
         int len = context.getPropertyValue().length;
-        return ArrayLength.between(len, min, max, minInclusive, maxInclusive);
+        return MoreArrays.hasLengthBetween(len, min, max, minInclusive, maxInclusive);
     }
 }

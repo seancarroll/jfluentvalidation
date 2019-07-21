@@ -1,5 +1,6 @@
 package jfluentvalidation.constraints.array.length;
 
+import jfluentvalidation.common.MoreArrays;
 import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.DefaultMessages;
 import jfluentvalidation.validators.RuleContext;
@@ -21,6 +22,6 @@ public class ObjectArrayBetweenLengthConstraint<T, E> extends AbstractConstraint
             return true;
         }
         int len = context.getPropertyValue().length;
-        return ArrayLength.between(len, min, max);
+        return MoreArrays.hasLengthBetween(len, min, max);
     }
 }

@@ -1,5 +1,6 @@
 package jfluentvalidation.constraints.array.length;
 
+import jfluentvalidation.common.MoreArrays;
 import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.DefaultMessages;
 import jfluentvalidation.internal.Ensure;
@@ -28,6 +29,6 @@ public class BooleanArrayBetweenLengthConstraint<T> extends AbstractConstraint<T
     @Override
     public boolean isValid(RuleContext<T, boolean[]> context) {
         int len = context.getPropertyValue().length;
-        return ArrayLength.between(len, min, max, minInclusive, maxInclusive);
+        return MoreArrays.hasLengthBetween(len, min, max, minInclusive, maxInclusive);
     }
 }

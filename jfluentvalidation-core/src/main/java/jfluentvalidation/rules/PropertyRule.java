@@ -44,7 +44,7 @@ public class PropertyRule<T, P> implements Rule<T, P> {
     public List<ValidationFailure> validate(ValidationContext<T, P> context) {
         List<ValidationFailure> failures = new ArrayList<>();
 
-        // TODO: whats the difference between context.getPropertyValue() and propertyFunc.apply(context.getInstanceToValidate())
+        // TODO: whats the difference hasLengthBetween context.getPropertyValue() and propertyFunc.apply(context.getInstanceToValidate())
         // I would think context.getProperty would give us the appropriate value without having to do the func
         // TODO: fix this
         P propertyValue = propertyFunc.apply(context.getInstanceToValidate());

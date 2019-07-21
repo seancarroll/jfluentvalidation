@@ -4,6 +4,8 @@ import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.HashSet;
 
+import static jfluentvalidation.common.Comparables.*;
+
 public final class MoreArrays {
 
     private MoreArrays() {
@@ -137,5 +139,32 @@ public final class MoreArrays {
 
     public static boolean hasDuplicates(Object[] arr) {
         return new HashSet<>(Arrays.asList(arr)).size() < arr.length;
+    }
+
+    public static boolean hasMinLength(int actual, int min) {
+        return hasLengthBetween(actual, min, -1);
+    }
+
+    public static boolean hasMaxLength(int actual, int max) {
+        return hasLengthBetween(actual, 0, max);
+    }
+
+    public static boolean hasLengthBetween(int actual, int min, int max) {
+        return hasLengthBetween(actual, min, max, true, true);
+    }
+
+    public static boolean hasLengthBetween(int actual, int min, int max, boolean includeMin, boolean includeMax) {
+
+        boolean checkLowerBoundaryRange = includeMin ? !isGreaterThan(min, actual) : isLessThan(min, actual);
+        if (!checkLowerBoundaryRange) {
+            return false;
+        }
+
+        boolean isGreaterThanMax = includeMax ? isGreaterThan(actual, max) : isGreaterThanOrEqual(actual, max);
+        if (isGreaterThanMax && max != -1) {
+            return false;
+        }
+
+        return true;
     }
 }

@@ -9,7 +9,7 @@ import jfluentvalidation.validators.RuleContext;
 // TODO: length constraint where the users specify inclusive/exclusive boundaries
 
 /**
- * Check that the length of the given {@code CharSequence} being validated is between the given lower and higher boundaries (inclusive).
+ * Check that the length of the given {@code CharSequence} being validated is hasLengthBetween the given lower and higher boundaries (inclusive).
  *
  * @param <T>  type of instance to validate.
  */
@@ -22,7 +22,7 @@ public class HasLengthBetweenConstraint<T, A extends CharSequence> extends Abstr
 
     public HasLengthBetweenConstraint(int min, int max, boolean inclusiveStart, boolean inclusiveEnd) {
         super(DefaultMessages.CHARSEQUENCE_HAS_LENGTH_BETWEEN);
-        Ensure.argument(min <= max, "min must be less than or equal to max");
+        Ensure.argument(min <= max, "hasMinLength must be less than or equal to hasMaxLength");
         this.min = min;
         this.max = max;
         this.inclusiveStart = inclusiveStart;
