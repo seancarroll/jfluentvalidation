@@ -23,6 +23,9 @@ public class DoesNotContainConstraint<T, P> extends AbstractConstraint<T, Iterab
 
     @Override
     public boolean isValid(RuleContext<T, Iterable<? super P>> context) {
+        if (context.getPropertyValue() == null) {
+            return true;
+        }
         return !Iterables.contains(context.getPropertyValue(), element);
     }
 }
