@@ -13,10 +13,6 @@ public class FloatArrayBetweenLengthConstraint<T> extends AbstractConstraint<T, 
     private final boolean minInclusive;
     private final boolean maxInclusive;
 
-    public FloatArrayBetweenLengthConstraint(int min, int max) {
-        this(min, max, true, true);
-    }
-
     public FloatArrayBetweenLengthConstraint(int min, int max, boolean minInclusive, boolean maxInclusive) {
         super(DefaultMessages.ARRAY_BETWEEN_LENGTH);
         Ensure.argument(min <= max);

@@ -13,10 +13,6 @@ public class ByteArrayBetweenLengthConstraint<T> extends AbstractConstraint<T, b
     private final boolean minInclusive;
     private final boolean maxInclusive;
 
-    public ByteArrayBetweenLengthConstraint(int min, int max) {
-        this(min, max, true, true);
-    }
-
     public ByteArrayBetweenLengthConstraint(int min, int max, boolean minInclusive, boolean maxInclusive) {
         super(DefaultMessages.ARRAY_BETWEEN_LENGTH);
         Ensure.argument(min <= max);

@@ -13,10 +13,6 @@ public class LongArrayBetweenLengthConstraint<T> extends AbstractConstraint<T, l
     private final boolean minInclusive;
     private final boolean maxInclusive;
 
-    public LongArrayBetweenLengthConstraint(int min, int max) {
-        this(min, max, true, true);
-    }
-
     public LongArrayBetweenLengthConstraint(int min, int max, boolean minInclusive, boolean maxInclusive) {
         super(DefaultMessages.ARRAY_BETWEEN_LENGTH);
         Ensure.argument(min <= max);

@@ -3,17 +3,23 @@ package jfluentvalidation.constraints.array.length;
 import jfluentvalidation.common.MoreArrays;
 import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.DefaultMessages;
+import jfluentvalidation.internal.Ensure;
 import jfluentvalidation.validators.RuleContext;
 
 public class ObjectArrayBetweenLengthConstraint<T, E> extends AbstractConstraint<T, E[]> {
 
     private final int min;
     private final int max;
+    private final boolean minInclusive;
+    private final boolean maxInclusive;
 
-    public ObjectArrayBetweenLengthConstraint(int min, int max) {
+    public ObjectArrayBetweenLengthConstraint(int min, int max, boolean minInclusive, boolean maxInclusive) {
         super(DefaultMessages.ARRAY_BETWEEN_LENGTH);
+        Ensure.argument(min <= max);
         this.min = min;
         this.max = max;
+        this.minInclusive = minInclusive;
+        this.maxInclusive = maxInclusive;
     }
 
     @Override
@@ -22,6 +28,6 @@ public class ObjectArrayBetweenLengthConstraint<T, E> extends AbstractConstraint
             return true;
         }
         int len = context.getPropertyValue().length;
-        return MoreArrays.hasLengthBetween(len, min, max);
+        return MoreArrays.hasLengthBetween(len, min, max, minInclusive, maxInclusive);
     }
 }
