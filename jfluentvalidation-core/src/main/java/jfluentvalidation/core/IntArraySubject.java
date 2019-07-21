@@ -62,7 +62,12 @@ public class IntArraySubject<T> extends AbstractIntArraySubject<IntArraySubject<
 
     @Override
     public IntArraySubject<T> hasLengthBetween(int min, int max) {
-        rule.addConstraint(new IntArrayBetweenLengthConstraint<>(min, max));
+        return hasLengthBetween(min, max, true, true);
+    }
+
+    @Override
+    public IntArraySubject<T> hasLengthBetween(int min, int max, boolean inclusiveStart, boolean inclusiveEnd) {
+        rule.addConstraint(new IntArrayBetweenLengthConstraint<>(min, max, inclusiveStart, inclusiveEnd));
         return myself;
     }
 

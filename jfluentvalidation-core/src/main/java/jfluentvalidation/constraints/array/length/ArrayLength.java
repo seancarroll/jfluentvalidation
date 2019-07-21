@@ -1,5 +1,7 @@
 package jfluentvalidation.constraints.array.length;
 
+import static jfluentvalidation.common.Comparables.*;
+
 // TODO: should we toss this into Arrays class?
 // Part of me says to leave it here as it has a very specific use base and rule (max == -1) that
 // really only applies to how we built the min/max array constraint logic
@@ -19,15 +21,18 @@ final class ArrayLength {
     }
 
     static boolean between(int actual, int min, int max) {
-        if (actual < min || (actual > max && max != -1)) {
-            return false;
-        }
-
-        return true;
+        return between(actual, min, max, true, true);
     }
 
     static boolean between(int actual, int min, int max, boolean includeMin, boolean includeMax) {
-        if (actual < min || (actual > max && max != -1)) {
+
+        boolean checkLowerBoundaryRange = includeMin ? !isGreaterThan(min, actual) : isLessThan(min, actual);
+        if (!checkLowerBoundaryRange) {
+            return false;
+        }
+
+        boolean isGreaterThanMax = includeMax ? isGreaterThan(actual, max) : isGreaterThanOrEqual(actual, max);
+        if (isGreaterThanMax && max != -1) {
             return false;
         }
 

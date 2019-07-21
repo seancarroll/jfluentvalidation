@@ -15,6 +15,9 @@ public class ByteArrayMaximumLengthConstraint<T> extends AbstractConstraint<T, b
 
     @Override
     public boolean isValid(RuleContext<T, byte[]> context) {
+        if (context.getPropertyValue() == null) {
+            return true;
+        }
         int len = context.getPropertyValue().length;
         return ArrayLength.max(len, max);
     }

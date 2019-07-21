@@ -61,6 +61,11 @@ public class ObjectArraySubject<T, E> extends AbstractArraySubject<ObjectArraySu
         return myself;
     }
 
+    @Override
+    public ObjectArraySubject<T, E> hasLengthBetween(int min, int max, boolean inclusiveStart, boolean inclusiveEnd) {
+        return null;
+    }
+
 //    @Override
 //    public ObjectArraySubject<T> hasLengthBetween(int min, int max, boolean inclusiveStart, boolean inclusiveEnd) {
 //        rule.addConstraint(new ObjectArrayBetweenLengthConstraint<>());

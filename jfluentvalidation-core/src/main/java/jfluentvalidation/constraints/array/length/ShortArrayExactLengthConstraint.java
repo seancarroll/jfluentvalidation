@@ -28,11 +28,15 @@ public class ShortArrayExactLengthConstraint<T> extends AbstractConstraint<T, sh
 
     public ShortArrayExactLengthConstraint(int length) {
         super(DefaultMessages.ARRAY_EXACT_LENGTH);
+        Ensure.nonnegative(length, "length");
         this.lengthSupplier = () -> length;
     }
 
     @Override
     public boolean isValid(RuleContext<T, short[]> context) {
+        if (context.getPropertyValue() == null) {
+            return true;
+        }
         int len = context.getPropertyValue().length;
         return len == lengthSupplier.getAsInt();
     }

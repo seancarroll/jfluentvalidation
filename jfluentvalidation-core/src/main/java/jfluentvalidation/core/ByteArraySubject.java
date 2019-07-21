@@ -67,7 +67,12 @@ public class ByteArraySubject<T> extends AbstractByteArraySubject<ByteArraySubje
 
     @Override
     public ByteArraySubject<T> hasLengthBetween(int min, int max) {
-        rule.addConstraint(new ByteArrayBetweenLengthConstraint<>(min, max));
+        return hasLengthBetween(min, max, true, true);
+    }
+
+    @Override
+    public ByteArraySubject<T> hasLengthBetween(int min, int max, boolean inclusiveStart, boolean inclusiveEnd) {
+        rule.addConstraint(new ByteArrayBetweenLengthConstraint<>(min, max, inclusiveStart, inclusiveEnd));
         return myself;
     }
 

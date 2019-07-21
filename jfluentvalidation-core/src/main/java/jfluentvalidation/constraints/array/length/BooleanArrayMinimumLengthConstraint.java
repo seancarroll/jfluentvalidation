@@ -15,6 +15,9 @@ public class BooleanArrayMinimumLengthConstraint<T> extends AbstractConstraint<T
 
     @Override
     public boolean isValid(RuleContext<T, boolean[]> context) {
+        if (context.getPropertyValue() == null) {
+            return true;
+        }
         int len = context.getPropertyValue().length;
         return ArrayLength.min(len, min);
     }

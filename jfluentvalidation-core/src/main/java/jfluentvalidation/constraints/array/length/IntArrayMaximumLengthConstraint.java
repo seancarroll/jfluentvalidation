@@ -15,6 +15,9 @@ public class IntArrayMaximumLengthConstraint<T> extends AbstractConstraint<T, in
 
     @Override
     public boolean isValid(RuleContext<T, int[]> context) {
+        if (context.getPropertyValue() == null) {
+            return true;
+        }
         int len = context.getPropertyValue().length;
         return ArrayLength.max(len, max);
     }

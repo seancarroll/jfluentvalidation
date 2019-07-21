@@ -28,11 +28,15 @@ public class DoubleArrayExactLengthConstraint<T> extends AbstractConstraint<T, d
 
     public DoubleArrayExactLengthConstraint(int length) {
         super(DefaultMessages.ARRAY_EXACT_LENGTH);
+        Ensure.nonnegative(length, "length");
         this.lengthSupplier = () -> length;
     }
 
     @Override
     public boolean isValid(RuleContext<T, double[]> context) {
+        if (context.getPropertyValue() == null) {
+            return true;
+        }
         int len = context.getPropertyValue().length;
         return len == lengthSupplier.getAsInt();
     }

@@ -3,6 +3,7 @@ package jfluentvalidation.constraints.array.length;
 import jfluentvalidation.common.Iterables;
 import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.DefaultMessages;
+import jfluentvalidation.internal.Ensure;
 import jfluentvalidation.validators.RuleContext;
 
 import java.lang.reflect.Array;
@@ -23,7 +24,7 @@ public class ArrayExactLengthConstraint<T, A> extends AbstractConstraint<T, A> {
 
     public ArrayExactLengthConstraint(int length) {
         super(DefaultMessages.ARRAY_EXACT_LENGTH);
-        this.length = length;
+        this.length = Ensure.nonnegative(length, "length");
     }
 
     public ArrayExactLengthConstraint(IntSupplier lengthSupplier) {
@@ -33,6 +34,9 @@ public class ArrayExactLengthConstraint<T, A> extends AbstractConstraint<T, A> {
 
     @Override
     public boolean isValid(RuleContext<T, A> context) {
+        if (context.getPropertyValue() == null) {
+            return true;
+        }
         int len = Array.getLength(context.getPropertyValue());
         return len == (lengthSupplier != null ? lengthSupplier.getAsInt() : length);
     }

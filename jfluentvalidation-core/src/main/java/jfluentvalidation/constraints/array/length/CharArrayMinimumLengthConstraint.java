@@ -15,6 +15,9 @@ public class CharArrayMinimumLengthConstraint<T> extends AbstractConstraint<T, c
 
     @Override
     public boolean isValid(RuleContext<T, char[]> context) {
+        if (context.getPropertyValue() == null) {
+            return true;
+        }
         int len = context.getPropertyValue().length;
         return ArrayLength.min(len, min);
     }

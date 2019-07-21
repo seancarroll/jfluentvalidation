@@ -29,6 +29,7 @@ public class BooleanArrayExactLengthConstraint<T> extends AbstractConstraint<T, 
 
     public BooleanArrayExactLengthConstraint(int length) {
         super(DefaultMessages.ARRAY_EXACT_LENGTH);
+        Ensure.nonnegative(length, "length");
         this.length = length;
     }
 

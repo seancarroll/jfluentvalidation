@@ -4,6 +4,8 @@ import jfluentvalidation.constraints.array.contains.ContainsBooleanConstraint;
 import jfluentvalidation.constraints.array.empty.IsEmptyBooleanArrayConstraint;
 import jfluentvalidation.constraints.array.length.ArrayExactLengthConstraint;
 import jfluentvalidation.constraints.array.length.ArrayLengthConstraint;
+import jfluentvalidation.constraints.array.length.BooleanArrayMaximumLengthConstraint;
+import jfluentvalidation.constraints.array.length.BooleanArrayMinimumLengthConstraint;
 import jfluentvalidation.constraints.array.notempty.IsNotEmptyBooleanArrayConstraint;
 import jfluentvalidation.constraints.array.nullorempty.IsNullOrEmptyBooleanArrayConstraint;
 import jfluentvalidation.rules.PropertyRule;
@@ -44,17 +46,24 @@ public class BooleanArraySubject<T> extends AbstractArraySubject<BooleanArraySub
 
     @Override
     public BooleanArraySubject<T> hasMinimumLength(int min) {
-        return null;
+        rule.addConstraint(new BooleanArrayMinimumLengthConstraint<>(min));
+        return myself;
     }
 
     @Override
     public BooleanArraySubject<T> hasMaximumLength(int max) {
-        return null;
+        rule.addConstraint(new BooleanArrayMaximumLengthConstraint<>(max));
+        return myself;
     }
 
     @Override
     public BooleanArraySubject<T> hasLengthBetween(int min, int max) {
-        rule.addConstraint(new ArrayLengthConstraint<>(min, max));
+        return hasLengthBetween(min, max, true, true);
+    }
+
+    @Override
+    public BooleanArraySubject<T> hasLengthBetween(int min, int max, boolean inclusiveStart, boolean inclusiveEnd) {
+        rule.addConstraint(new ArrayLengthConstraint<>(min, max, inclusiveStart, inclusiveEnd));
         return myself;
     }
 

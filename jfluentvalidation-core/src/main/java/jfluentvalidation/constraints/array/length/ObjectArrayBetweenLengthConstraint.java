@@ -17,6 +17,9 @@ public class ObjectArrayBetweenLengthConstraint<T, E> extends AbstractConstraint
 
     @Override
     public boolean isValid(RuleContext<T, E[]> context) {
+        if (context.getPropertyValue() == null) {
+            return true;
+        }
         int len = context.getPropertyValue().length;
         return ArrayLength.between(len, min, max);
     }

@@ -34,7 +34,7 @@ public class ObjectArrayExactLengthConstraint<T, E> extends AbstractConstraint<T
 
     public ObjectArrayExactLengthConstraint(int length) {
         super(DefaultMessages.ARRAY_EXACT_LENGTH);
-        this.lengthSupplier = () -> length;
+        this.lengthSupplier = () -> Ensure.nonnegative(length, "length");
     }
 
     @Override

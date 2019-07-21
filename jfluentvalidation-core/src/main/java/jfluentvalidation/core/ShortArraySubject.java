@@ -67,7 +67,12 @@ public class ShortArraySubject<T> extends AbstractArraySubject<ShortArraySubject
     @CanIgnoreReturnValue
     @Override
     public ShortArraySubject<T> hasLengthBetween(int min, int max) {
-        rule.addConstraint(new ShortArrayBetweenLengthConstraint<>(min, max));
+        return hasLengthBetween(min, max, true, true);
+    }
+
+    @Override
+    public ShortArraySubject<T> hasLengthBetween(int min, int max, boolean inclusiveStart, boolean inclusiveEnd) {
+        rule.addConstraint(new ShortArrayBetweenLengthConstraint<>(min, max, inclusiveStart, inclusiveEnd));
         return myself;
     }
 

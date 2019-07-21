@@ -28,8 +28,28 @@ public final class Comparables {
      * @param other
      * @return
      */
+    public static boolean isGreaterThanOrEqual(Comparable actual, Comparable other) {
+        return actual.compareTo(other) >= 0;
+    }
+
+    /**
+     *
+     * @param actual
+     * @param other
+     * @return
+     */
     public static boolean isLessThan(Comparable actual, Comparable other) {
         return actual.compareTo(other) < 0;
+    }
+
+    /**
+     *
+     * @param actual
+     * @param other
+     * @return
+     */
+    public static boolean isLessThanOrEqual(Comparable actual, Comparable other) {
+        return actual.compareTo(other) <= 0;
     }
 
 
