@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class IsBetweenTest {
 
-    // TODO: add tests for hasLengthBetween override inclusive false
+    // TODO: add tests for between override inclusive false
 
     @Test
     void shouldThrowExceptionWhenStartIsNull() {
