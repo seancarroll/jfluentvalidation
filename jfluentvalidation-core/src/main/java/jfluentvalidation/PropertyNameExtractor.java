@@ -112,9 +112,6 @@ public class PropertyNameExtractor {
          */
         @RuntimeType
         public Object intercept(@This Object capturer, @Origin Method method) {
-
-            // TODO: crap...this works to successfully proxy nested fields but cant get property name of root
-
             if (!Primitives.isAssignable(method.getReturnType(), serializableFunction.method().getReturnType())) {
                 return createProxyInstance(method.getReturnType(), this);
             }
