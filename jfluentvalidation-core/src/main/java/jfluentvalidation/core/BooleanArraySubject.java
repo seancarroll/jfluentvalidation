@@ -1,5 +1,6 @@
 package jfluentvalidation.core;
 
+import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import jfluentvalidation.constraints.array.contains.ContainsBooleanConstraint;
 import jfluentvalidation.constraints.array.empty.IsEmptyBooleanArrayConstraint;
 import jfluentvalidation.constraints.array.length.ArrayExactLengthConstraint;
@@ -75,6 +76,12 @@ public class BooleanArraySubject<T> extends AbstractArraySubject<BooleanArraySub
 
     @Override
     public BooleanArraySubject<T> hasSameLengthAs(Boolean[] other) {
+        rule.addConstraint(new ArrayExactLengthConstraint<>(other));
+        return myself;
+    }
+
+    @CanIgnoreReturnValue
+    public BooleanArraySubject<T> hasSameLengthAs(boolean[] other) {
         rule.addConstraint(new ArrayExactLengthConstraint<>(other));
         return myself;
     }
