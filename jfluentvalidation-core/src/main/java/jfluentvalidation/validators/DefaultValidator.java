@@ -29,7 +29,7 @@ import java.util.function.Predicate;
 // TODO: should cache bytebuddy proxies either via a hashmap or bytebuddy TypeCache
 
 // QUESTION: FluentValidator has an AbstractValidator and then an InlineValidator while we rolled it into one DefaultValidator
-// Does this matter? Is there a trade-off? Advantages/disadvantages hasLengthBetween the two?
+// Does this matter? Is there a trade-off? Advantages/disadvantages between the two?
 // I guess it allows you to do the following which is cool
 //    var validator = new InlineValidator<TestObject> {
 //        v => v.RuleFor(x => x.SomeProperty).NotNull()

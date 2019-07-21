@@ -29,10 +29,10 @@ public interface ComparableSubject<S extends ComparableSubject<S, T, A>, T, A ex
     @CanIgnoreReturnValue
     S isGreaterThanOrEqualTo(A other);
 
-    // TODO: review. Do most things use inclusive start and an exclusive end? Duration.hasLengthBetween does. others?
-    // Duration.hasLengthBetween()
-    // Period.hasLengthBetween()
-    // ChronoUnit hasLengthBetween
+    // TODO: review. Do most things use inclusive start and an exclusive end? Duration.between does. others?
+    // Duration.between()
+    // Period.between()
+    // ChronoUnit between
     @CanIgnoreReturnValue
     S isBetween(A startInclusive, A endInclusive);
 

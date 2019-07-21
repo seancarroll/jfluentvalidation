@@ -37,8 +37,8 @@ public class ArrayLengthConstraint<T, A> extends AbstractConstraint<T, A> {
 
     public ArrayLengthConstraint(int min, int max, boolean inclusiveStart, boolean inclusiveEnd) {
         super(DefaultMessages.ARRAY_LENGTH);
-//        this.minSupplier = () -> hasMinLength;
-//        this.maxSupplier = () -> hasMaxLength;
+//        this.minSupplier = () -> min;
+//        this.maxSupplier = () -> max;
         Ensure.argument(min <= max);
         this.min = min;
         this.max = max;
@@ -52,8 +52,8 @@ public class ArrayLengthConstraint<T, A> extends AbstractConstraint<T, A> {
             return true;
         }
         int len = Array.getLength(context.getPropertyValue());
-//        int hasMinLength = minSupplier.getAsInt();
-//        int hasMaxLength = maxSupplier.getAsInt();
+//        int min = minSupplier.getAsInt();
+//        int max = maxSupplier.getAsInt();
         return Comparables.isBetween(len, min, max, inclusiveStart, inclusiveEnd);
     }
 
