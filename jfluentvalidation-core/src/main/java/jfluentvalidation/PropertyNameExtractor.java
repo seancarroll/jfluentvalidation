@@ -25,6 +25,8 @@ public class PropertyNameExtractor {
         return INSTANCE;
     }
 
+    private PropertyNameExtractor() { }
+
     public <T> String getPropertyName(Class<T> type, SerializableFunction<T, ?> propertyFunction) {
         return propertyFunction.method().getName().startsWith("lambda")
             ? getNameViaByteBuddyProxy(type, propertyFunction)
