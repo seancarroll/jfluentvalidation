@@ -50,6 +50,7 @@ which allows us to get the appropriate element assert. From javadoc
 
 I'm not a fan of having to pass in the assertion but as I work through this myself Ive come to this conclusion as well. 
 AssertJ offers `ClassBasedNavigableIterableAssert` and `FactoryBasedNavigableIterableAssert`
+- Maybe add a 'OrCompositeConstraint'
 
 
 Potential Constraints to Add
@@ -73,7 +74,9 @@ Potential Constraints to Add
   - hasSameContentAs
     - `hasSameContentAs(File expected)`
     - `hasSameContentAs(File expected, Charset expectedCharset)`
-
+- Array
+  - DoesNotContain
+- Contains with a use of a Comparison strategy
 
 
 

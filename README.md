@@ -38,28 +38,8 @@ JSR 380: Bean Validation 2.0
 - https://www.jcp.org/en/jsr/detail?id=380
 - https://beanvalidation.org/2.0/
 
-
-Inspired by 
-* https://github.com/JeremySkinner/FluentValidation
-* https://github.com/vanthoainguyen/NValidator
-* https://github.com/neoremind/fluent-validator
-* http://joel-costigliola.github.io/assertj/assertj-core.html -- Check license
-* https://github.com/google/truth
-
-
 ## System Requirements
 JDK 8 or above.
-
-
-## Research 
-
-I kind of like Google Truth's ComparisonResult in https://github.com/google/truth/blob/master/core/src/main/java/com/google/common/truth/Subject.java
-
-
-## Questions
-
-* What's the top level entry point?
-
 
 ## Examples
 
@@ -86,5 +66,6 @@ I always thought that Fluent validation provided a easy to use API surface
 
 Outside of Jeremy Skinner's Fluent Validation I'd like to call out some additional libraries that helped to shape this 
 
+* https://github.com/JeremySkinner/FluentValidation
 * http://joel-costigliola.github.io/assertj/assertj-core.html
 * https://github.com/google/truth
