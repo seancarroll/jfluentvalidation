@@ -77,7 +77,7 @@ Potential Constraints to Add
 - Array
   - DoesNotContain
 - Contains with a use of a Comparison strategy
-
+- Constraints that works with Optional including OptionalDouble, OptionalInt, OptionalLong
 
 
 add test similar to 
