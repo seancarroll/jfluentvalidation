@@ -31,7 +31,7 @@ public class PropertyNameExtractor {
     private PropertyNameExtractor() { }
 
     /**
-     * 
+     *
      * @param type
      * @param propertyFunction
      * @param <T>
@@ -130,6 +130,7 @@ public class PropertyNameExtractor {
 
             name = getPropertyName(method);
 
+            // TODO: check out Guava Defaults
             Class<?> returnType = method.getReturnType();
             if (returnType == byte.class) {
                 return (byte) 0;

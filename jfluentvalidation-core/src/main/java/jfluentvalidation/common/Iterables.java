@@ -8,6 +8,7 @@ import java.util.*;
 import static java.util.Collections.unmodifiableList;
 import static jfluentvalidation.common.MoreCollections.safeContains;
 
+// TODO: verify not a complete rip off of apache commons or guava
 // https://github.com/apache/commons-collections/blob/master/src/main/java/org/apache/commons/collections4/IterableUtils.java
 
 /**
