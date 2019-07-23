@@ -26,13 +26,13 @@ import static java.util.stream.Collectors.toCollection;
  * @param <T>  type of instance to validate.
  * @param <P>  the type of the actual object being tested by this {@code Constraint}.
  */
-public class ContainsAllOfConstraint<T, P> extends AbstractConstraint<T, Iterable<? super P>> {
+public class ContainsAllConstraint<T, P> extends AbstractConstraint<T, Iterable<? super P>> {
 
-    private final Iterable<P> expectedIterable;
+    private final Iterable<P> values;
 
-    public ContainsAllOfConstraint(Iterable<P> expectedIterable) {
+    public ContainsAllConstraint(Iterable<P> expectedIterable) {
         super(DefaultMessages.ITERABLE_CONTAINS_ALL_IN);
-        this.expectedIterable = Ensure.notNull(expectedIterable);
+        this.values = Ensure.notNull(expectedIterable);
     }
 
     @Override
@@ -40,8 +40,9 @@ public class ContainsAllOfConstraint<T, P> extends AbstractConstraint<T, Iterabl
         if (context.getPropertyValue() == null) {
             return true;
         }
-        Object[] values = Iterables.toArray(expectedIterable);
-        Set<Object> notFound = stream(values)
+        
+        Object[] valuesAsArray = Iterables.toArray(values);
+        Set<Object> notFound = stream(valuesAsArray)
             .filter(value -> !Iterables.contains(context.getPropertyValue(), value))
             .collect(toCollection(LinkedHashSet::new));
 

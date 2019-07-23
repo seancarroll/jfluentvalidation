@@ -15,11 +15,11 @@ import java.util.Collection;
  * @param <T>  type of instance to validate.
  * @param <P>  the type of the actual object being tested by this {@code Constraint}.
  */
-public class ContainsAnyOfConstraint<T, P> extends AbstractConstraint<T, Iterable<? super P>> {
+public class ContainsAnyConstraint<T, P> extends AbstractConstraint<T, Iterable<? super P>> {
 
     private final Iterable<P> values;
 
-    public ContainsAnyOfConstraint(Iterable<P> values) {
+    public ContainsAnyConstraint(Iterable<P> values) {
         super(DefaultMessages.ITERABLE_CONTAINS_ANY_IN);
         this.values = Ensure.notNull(values);
     }
