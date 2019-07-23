@@ -50,41 +50,47 @@ public class IterableSubject<T, E> extends AbstractIterableSubject<IterableSubje
         return myself;
     }
 
+//    @CanIgnoreReturnValue
+//    public final IterableSubject<T, E> containsAnyOf(E[] values) {
+//        rule.addConstraint(new ContainsAnyInConstraint<>(Arrays.asList(values)));
+//        return myself;
+//    }
+
     @CanIgnoreReturnValue
-    public final IterableSubject<T, E> containsAnyOf(E first, E second, E... rest) {
-        // Google Truth has a decent accumulate method in SubjectUtils
+    public final IterableSubject<T, E> containsAnyOf(E... values) {
+        rule.addConstraint(new ContainsAnyConstraint<>(Arrays.asList(values)));
         return myself;
     }
 
     @CanIgnoreReturnValue
-    public final IterableSubject<T, E> containsAnyIn(Iterable<E> expected) {
-        rule.addConstraint(new ContainsAnyInConstraint<>(expected));
+    public final IterableSubject<T, E> containsAnyOf(Iterable<E> values) {
+        rule.addConstraint(new ContainsAnyConstraint<>(values));
+        return myself;
+    }
+
+//    @CanIgnoreReturnValue
+//    public final IterableSubject<T, E> containsAllOf(E[] expected) {
+//        rule.addConstraint(new ContainsAllOfConstraint<>(Arrays.asList(expected)));
+//        return myself;
+//    }
+
+    @CanIgnoreReturnValue
+    public final IterableSubject<T, E> containsAllOf(E... expected) {
+        rule.addConstraint(new ContainsAllConstraint<>(Arrays.asList(expected)));
         return myself;
     }
 
     @CanIgnoreReturnValue
-    public final IterableSubject<T, E> containsAnyIn(E[] expected) {
-        rule.addConstraint(new ContainsAnyInConstraint<>(Arrays.asList(expected)));
+    public final IterableSubject<T, E> containsAllOf(Iterable<E> expected) {
+        rule.addConstraint(new ContainsAnyConstraint<>(expected));
         return myself;
     }
 
-    @CanIgnoreReturnValue
-    public final IterableSubject<T, E> containsAllOf(E first, E second, E... rest) {
-
-        return myself;
-    }
-
-    @CanIgnoreReturnValue
-    public final IterableSubject<T, E> containsAllIn(Iterable<E> expected) {
-        rule.addConstraint(new ContainsAnyInConstraint<>(expected));
-        return myself;
-    }
-
-    @CanIgnoreReturnValue
-    public final IterableSubject<T, E> containsAllIn(E[] expected) {
-        rule.addConstraint(new ContainsAllInConstraint<>(Arrays.asList(expected)));
-        return myself;
-    }
+//    @CanIgnoreReturnValue
+//    public final IterableSubject<T, E> containsExactly(E[] expected) {
+//        rule.addConstraint(new ContainsExactlyElementsInConstraint<>(Arrays.asList(expected)));
+//        return myself;
+//    }
 
     @CanIgnoreReturnValue
     public final IterableSubject<T, E> containsExactly(E... exactly) {
@@ -93,37 +99,31 @@ public class IterableSubject<T, E> extends AbstractIterableSubject<IterableSubje
         List<E> expected = exactly == null
             ? newArrayList((E) null)
             : asList(exactly);
-        rule.addConstraint(new ContainsExactlyElementsInConstraint<>(expected));
+        rule.addConstraint(new ContainsExactlyConstraint<>(expected));
         return myself;
     }
 
     @CanIgnoreReturnValue
-    public final IterableSubject<T, E> containsExactlyElementsIn(Iterable<? super E> expected) {
-        rule.addConstraint(new ContainsExactlyElementsInConstraint<>(expected));
+    public final IterableSubject<T, E> containsExactly(Iterable<E> expected) {
+        rule.addConstraint(new ContainsExactlyConstraint<>(expected));
+        return myself;
+    }
+
+//    @CanIgnoreReturnValue
+//    public final IterableSubject<T, E> containsNone(E[] values) {
+//        rule.addConstraint(new ContainsNoneInConstraint<>(Arrays.asList(values)));
+//        return myself;
+//    }
+
+    @CanIgnoreReturnValue
+    public final IterableSubject<T, E> containsNone(E... values) {
+        rule.addConstraint(new ContainsNoneConstraint<>(Arrays.asList(values)));
         return myself;
     }
 
     @CanIgnoreReturnValue
-    public final IterableSubject<T, E> containsExactlyElementsIn(E[] expected) {
-        rule.addConstraint(new ContainsExactlyElementsInConstraint<>(Arrays.asList(expected)));
-        return myself;
-    }
-
-    @CanIgnoreReturnValue
-    public final IterableSubject<T, E> containsNoneOf(E first, E second, E... rest) {
-
-        return myself;
-    }
-
-    @CanIgnoreReturnValue
-    public final IterableSubject<T, E> containsNoneIn(Iterable<? super E> excluded) {
-        rule.addConstraint(new ContainsNoneInConstraint<>(excluded));
-        return myself;
-    }
-
-    @CanIgnoreReturnValue
-    public final IterableSubject<T, E> containsNoneIn(E[] excluded) {
-        rule.addConstraint(new ContainsNoneInConstraint<>(Arrays.asList(excluded)));
+    public final IterableSubject<T, E> containsNone(Iterable<? super E> values) {
+        rule.addConstraint(new ContainsNoneConstraint<>(values));
         return myself;
     }
 

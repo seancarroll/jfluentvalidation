@@ -15,7 +15,7 @@ public class ContainsConstraint<T, P> extends AbstractConstraint<T, Iterable<? s
 
     private final P element;
 
-    // TODO: should this be a vararg?
+    // TODO: should this be a vararg / iterable?
     public ContainsConstraint(P element) {
         super(DefaultMessages.ITERABLE_CONTAINS);
         this.element = element;

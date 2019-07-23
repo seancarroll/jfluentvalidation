@@ -3,6 +3,7 @@ package jfluentvalidation.constraints.iterable;
 import jfluentvalidation.common.Iterables;
 import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.DefaultMessages;
+import jfluentvalidation.internal.Ensure;
 import jfluentvalidation.validators.RuleContext;
 
 import java.util.LinkedHashSet;
@@ -25,17 +26,20 @@ import static java.util.stream.Collectors.toCollection;
  * @param <T>  type of instance to validate.
  * @param <P>  the type of the actual object being tested by this {@code Constraint}.
  */
-public class ContainsAllInConstraint<T, P> extends AbstractConstraint<T, Iterable<? super P>> {
+public class ContainsAllOfConstraint<T, P> extends AbstractConstraint<T, Iterable<? super P>> {
 
-    private final Iterable<? extends P> expectedIterable;
+    private final Iterable<P> expectedIterable;
 
-    public ContainsAllInConstraint(Iterable<? extends P> expectedIterable) {
+    public ContainsAllOfConstraint(Iterable<P> expectedIterable) {
         super(DefaultMessages.ITERABLE_CONTAINS_ALL_IN);
-        this.expectedIterable = expectedIterable;
+        this.expectedIterable = Ensure.notNull(expectedIterable);
     }
 
     @Override
     public boolean isValid(RuleContext<T, Iterable<? super P>> context) {
+        if (context.getPropertyValue() == null) {
+            return true;
+        }
         Object[] values = Iterables.toArray(expectedIterable);
         Set<Object> notFound = stream(values)
             .filter(value -> !Iterables.contains(context.getPropertyValue(), value))
