@@ -37,23 +37,6 @@ public final class Iterators {
      * @return
      */
     public static boolean contains(Iterator<?> iterator, @Nullable Object element) {
-        // TODO: check if I can remove the null check and collapse this into a single check of Object.equals
-//        if (element == null) {
-//            while (iterator.hasNext()) {
-//                if (iterator.next() == null) {
-//                    return true;
-//                }
-//            }
-//        } else {
-//            while (iterator.hasNext()) {
-//                if (element.equals(iterator.next())) {
-//                    return true;
-//                }
-//            }
-//        }
-//        return false;
-
-        // This seems to work and simpler than above...am I missing anything?
         while (iterator.hasNext()) {
             if (Objects.equals(iterator.next(), element)) {
                 return true;
