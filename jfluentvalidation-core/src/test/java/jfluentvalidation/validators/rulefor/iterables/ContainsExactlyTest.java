@@ -10,14 +10,14 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ContainsExactlyElementsInTest {
+class ContainsExactlyTest {
 
     @Test
     void shouldNotReturnFailureWhenActualContainsExactlyGivenValues() {
         Target t = new Target(Arrays.asList("hello", "world", "foo"));
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForIterable(Target::getValue).containsExactlyElementsIn(Arrays.asList("hello", "world", "foo"));
+        validator.ruleForIterable(Target::getValue).containsExactly(Arrays.asList("hello", "world", "foo"));
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -29,7 +29,7 @@ class ContainsExactlyElementsInTest {
         Target t = new Target(Collections.emptyList());
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForIterable(Target::getValue).containsExactlyElementsIn(Collections.emptyList());
+        validator.ruleForIterable(Target::getValue).containsExactly(Collections.emptyList());
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -41,7 +41,7 @@ class ContainsExactlyElementsInTest {
         Target t = new Target(Arrays.asList("hello", "hello"));
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForIterable(Target::getValue).containsExactlyElementsIn(Collections.emptyList());
+        validator.ruleForIterable(Target::getValue).containsExactly(Collections.emptyList());
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -51,7 +51,7 @@ class ContainsExactlyElementsInTest {
     @Test
     void shouldThrowWhenExpectedValuesIsNull() {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        assertThrows(NullPointerException.class, () -> validator.ruleForIterable(Target::getValue).containsExactlyElementsIn((Iterable<String>) null));
+        assertThrows(NullPointerException.class, () -> validator.ruleForIterable(Target::getValue).containsExactly((Iterable<String>) null));
     }
 
     @Test
@@ -59,7 +59,7 @@ class ContainsExactlyElementsInTest {
         Target t = new Target(null);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForIterable(Target::getValue).containsExactlyElementsIn("hello", "hello");
+        validator.ruleForIterable(Target::getValue).containsExactly("hello", "hello");
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -71,7 +71,7 @@ class ContainsExactlyElementsInTest {
         Target t = new Target(Arrays.asList("hello", "world", "foo"));
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForIterable(Target::getValue).containsExactlyElementsIn(Arrays.asList("hello", "world"));
+        validator.ruleForIterable(Target::getValue).containsExactly(Arrays.asList("hello", "world"));
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -83,7 +83,7 @@ class ContainsExactlyElementsInTest {
         Target t = new Target(Arrays.asList("hello", "world", "foo"));
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForIterable(Target::getValue).containsExactlyElementsIn(Arrays.asList("hello", "foo", "world"));
+        validator.ruleForIterable(Target::getValue).containsExactly(Arrays.asList("hello", "foo", "world"));
 
         List<ValidationFailure> failures = validator.validate(t);
 
