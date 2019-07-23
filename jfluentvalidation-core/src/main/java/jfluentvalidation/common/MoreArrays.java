@@ -123,6 +123,7 @@ public final class MoreArrays {
     }
 
     public static <T> boolean contains2(final T[] array, final T v) {
+        // TODO: simplify
         if (v == null) {
             for (final T e : array)
                 if (e == null)
