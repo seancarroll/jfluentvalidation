@@ -15,6 +15,9 @@ import org.objenesis.ObjenesisStd;
 
 import java.lang.reflect.Method;
 
+/**
+ *
+ */
 public class PropertyNameExtractor {
 
     // TODO: cache for byte buddy proxies?
@@ -27,6 +30,13 @@ public class PropertyNameExtractor {
 
     private PropertyNameExtractor() { }
 
+    /**
+     * 
+     * @param type
+     * @param propertyFunction
+     * @param <T>
+     * @return
+     */
     public <T> String getPropertyName(Class<T> type, SerializableFunction<T, ?> propertyFunction) {
         return propertyFunction.method().getName().startsWith("lambda")
             ? getNameViaByteBuddyProxy(type, propertyFunction)

@@ -5,6 +5,9 @@ import jfluentvalidation.constraints.ConstraintViolation;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *
+ */
 public class ValidationResult {
 
     private List<ConstraintViolation> violations;
@@ -26,10 +29,18 @@ public class ValidationResult {
         this.violations = violations;
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isValid() {
         return violations.isEmpty();
     }
 
+    /**
+     *
+     * @return
+     */
     public List<ConstraintViolation> getViolations() {
         return violations;
     }
