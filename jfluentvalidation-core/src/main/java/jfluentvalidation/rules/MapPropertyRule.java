@@ -27,9 +27,9 @@ public class MapPropertyRule<T, K, V> extends PropertyRule<T, Map<K, V>> {
 
         Map<K, V> propertyValue = propertyFunc.apply(context.getInstanceToValidate());
 
-        for (Constraint<?, ? extends Map<K, V>> constraint : getConstraints()) {
+        for (Constraint<T, Map<K, V>> constraint : getConstraints()) {
             // TODO: is this the best way to handle this?
-            RuleContext ruleContext = new RuleContext(context, this);
+            RuleContext<T, Map<K, V>> ruleContext = new RuleContext<>(context, this);
             boolean isValid = constraint.isValid(ruleContext);
             if (!isValid) {
                 failures.add(new ValidationFailure(getPropertyName(), constraint.getOptions().getErrorMessage(), propertyValue));
@@ -43,6 +43,7 @@ public class MapPropertyRule<T, K, V> extends PropertyRule<T, Map<K, V>> {
             for (MapItemConstraint<T, K, V, ?> itemConstraint : itemConstraints) {
                 int i = 0;
                 for (Object e : itemConstraint.getCollection(propertyValue)) {
+                    // TODO: this is yucky. need to fix/clean up/improve
                     ValidationContext childContext = new ValidationContext<>(e);
                     PropertyRule<T, Object> rule = new PropertyRule<>(null, propertyName);
                     RuleContext ruleContext = new RuleContext(childContext, rule, e);

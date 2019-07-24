@@ -66,5 +66,4 @@ public class DateSubject<T> extends AbstractComparableSubject<DateSubject<T>, T,
         return isAfter(new Date());
     }
 
-
 }
