@@ -46,7 +46,7 @@ public interface Rule<T, P> {
      */
     void applyCondition(Predicate<T> predicate, boolean applyToAll);
 
-    List<Constraint<?, ? extends P>> getConstraints();
+    List<Constraint<T, P>> getConstraints();
 
     // void addConstraint(Constraint<T, P> constraint);
 

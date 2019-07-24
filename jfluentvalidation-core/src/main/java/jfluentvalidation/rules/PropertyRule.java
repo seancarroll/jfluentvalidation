@@ -24,8 +24,8 @@ public class PropertyRule<T, P> implements Rule<T, P> {
     // could we have flip it and instead have Subject contain a Rule/PropertyRule?
     protected Function<T, P> propertyFunc;
     protected String propertyName;
-    private List<Constraint<?, ? extends P>> constraints = new ArrayList<>();
-    private Constraint<?, ? extends P> currentConstraint;
+    private List<Constraint<T, P>> constraints = new ArrayList<>();
+    private Constraint<T, P> currentConstraint;
     private List<String> ruleSet = RuleSet.DEFAULT_LIST;
 
     public PropertyRule(Function<T, P> propertyFunc, String propertyName) {
@@ -87,6 +87,7 @@ public class PropertyRule<T, P> implements Rule<T, P> {
         return propertyName;
     }
 
+    // TODO: swap out boolean with enum
     // I think there are two separate scenarios for the when clause
     // 1. targeting the instance to validate and used as part of the validator when grouping
     // 2. targeting a subject used as part of the fluent builder
@@ -94,8 +95,8 @@ public class PropertyRule<T, P> implements Rule<T, P> {
     public void applyCondition(Predicate<T> predicate, boolean applyToAll) {
         // TODO: need to add ability to apply to only one constraint vs all constraints
         if (applyToAll) {
-            for (Constraint constraint : constraints) {
-                SoftConstraint softConstraint = new SoftConstraint<>(predicate, constraint);
+            for (Constraint<T, P> constraint : constraints) {
+                SoftConstraint<T, P> softConstraint = new SoftConstraint<>(predicate, constraint);
                 int index = constraints.indexOf(constraint);
                 if (index > -1) {
                     constraints.set(index, softConstraint);
@@ -104,13 +105,13 @@ public class PropertyRule<T, P> implements Rule<T, P> {
         } else {
             int index = constraints.indexOf(currentConstraint);
             if (index > -1) {
-                constraints.set(index, new SoftConstraint(predicate, currentConstraint));
+                constraints.set(index, new SoftConstraint<>(predicate, currentConstraint));
             }
         }
     }
 
     @Override
-    public List<Constraint<?, ? extends P>> getConstraints() {
+    public List<Constraint<T, P>> getConstraints() {
         return constraints;
     }
 
