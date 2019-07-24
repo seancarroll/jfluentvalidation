@@ -107,17 +107,6 @@ class ValidatorTests {
         assertEquals(1, validationFailures.size());
     }
 
-    // TODO: update test
-//    @Test
-//    void whenTest() {
-//        Address address = new Address("", "", "", "");
-//
-//        AddressValidator validator = new AddressValidator();
-//        List<ValidationFailure> validationFailures = validator.validate(address);
-//        System.out.println(validationFailures);
-//        assertEquals(1, validationFailures.length());
-//    }
-
     private class PersonValidator extends DefaultValidator<Person> {
 
         public PersonValidator() {
