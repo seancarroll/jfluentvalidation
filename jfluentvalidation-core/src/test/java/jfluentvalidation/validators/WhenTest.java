@@ -5,24 +5,56 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 class WhenTest {
 
     @Test
-    void when() {
-        // RuleFor(customer => customer.Address.PostCode).NotNull().When(customer => customer.Address != null)
-        Address address = new Address("street1", "city", "state", null);
-        Person person = new Person("sean", 32, address);
+    void shouldApplyConstraintWhenPredicateIsTrue() {
+        Person person = new Person(null, 32);
 
         DefaultValidator<Person> validator = new DefaultValidator<>(Person.class);
-        validator.ruleForString(p -> p.getAddress().getZip()).isNotNull().when(p -> p.getAddress() != null);
+        validator.ruleForString(Person::getName).isNotNull().when(p -> p.getAge() != 0);
+
+        List<ValidationFailure> validationFailures = validator.validate(person);
+
+        assertFalse(validationFailures.isEmpty());
+    }
+
+    @Test
+    void shouldNotApplyConstraintWhenPredicateIsFalse() {
+        Person person = new Person(null, 32);
+
+        DefaultValidator<Person> validator = new DefaultValidator<>(Person.class);
+        validator.ruleForString(Person::getName).isNotNull().when(p -> p.getAge() == 0);
+
+        List<ValidationFailure> validationFailures = validator.validate(person);
+
+        assertTrue(validationFailures.isEmpty());
+    }
+
+    @Test
+    void predicateShouldApplyToAllConstraintsByDefault() {
+        Person person = new Person("sean", 32);
+
+        DefaultValidator<Person> validator = new DefaultValidator<>(Person.class);
+        validator.ruleForString(Person::getName).startsWith("a").hasLengthGreaterThan(5).when(p -> p.getAge() > 30);
+
+        List<ValidationFailure> validationFailures = validator.validate(person);
+
+        assertEquals(2, validationFailures.size());
+    }
+
+    @Test
+    void constraintShouldOnlyApplyToValidatorWhenApplyToAllIsFalse() {
+        Person person = new Person("sean", 32);
+
+        DefaultValidator<Person> validator = new DefaultValidator<>(Person.class);
+        validator.ruleForString(Person::getName).startsWith("a").hasLengthGreaterThan(5).when(p -> p.getAge() > 35, false);
 
         List<ValidationFailure> validationFailures = validator.validate(person);
 
         assertEquals(1, validationFailures.size());
-        assertEquals("zip", validationFailures.get(0).getPropertyName());
     }
-
 
 }
