@@ -48,9 +48,9 @@ public class PropertyRule<T, P> implements Rule<T, P> {
         // I would think context.getProperty would give us the appropriate value without having to do the func
         // TODO: fix this
         P propertyValue = propertyFunc.apply(context.getInstanceToValidate());
-        for (Constraint<?, ? extends P> constraint : constraints) {
+        for (Constraint<T, P> constraint : constraints) {
             // TODO: is this the best way to handle this?
-            RuleContext ruleContext = new RuleContext(context, this);
+            RuleContext<T, P> ruleContext = new RuleContext<>(context, this);
             boolean isValid = constraint.isValid(ruleContext);
             if (!isValid) {
 //                String errorMessage = constraint.getClass().getName() + "." + context.getInstanceToValidate().getClass().getName() + ".";
@@ -93,7 +93,6 @@ public class PropertyRule<T, P> implements Rule<T, P> {
     // 2. targeting a subject used as part of the fluent builder
     @Override
     public void applyCondition(Predicate<T> predicate, boolean applyToAll) {
-        // TODO: need to add ability to apply to only one constraint vs all constraints
         if (applyToAll) {
             for (Constraint<T, P> constraint : constraints) {
                 SoftConstraint<T, P> softConstraint = new SoftConstraint<>(predicate, constraint);
@@ -121,7 +120,7 @@ public class PropertyRule<T, P> implements Rule<T, P> {
         constraints.add(constraint);
     }
 
-    public Constraint<?, ? extends P> getCurrentConstraint() {
+    public Constraint<T, P> getCurrentConstraint() {
         return currentConstraint;
     }
 
