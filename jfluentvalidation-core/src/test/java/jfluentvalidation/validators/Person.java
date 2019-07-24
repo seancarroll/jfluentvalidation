@@ -20,6 +20,10 @@ public class Person {
 
     public Person() {}
 
+    public Person(String name, int age) {
+        this(name, age, null);
+    }
+
     public Person(String name, int age, Address address) {
         this.name = name;
         this.age = age;

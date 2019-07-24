@@ -98,7 +98,7 @@ public class PropertyRule<T, P> implements Rule<T, P> {
                 SoftConstraint softConstraint = new SoftConstraint<>(predicate, constraint);
                 int index = constraints.indexOf(constraint);
                 if (index > -1) {
-                    constraints.toArray()[index] = softConstraint;
+                    constraints.set(index, softConstraint);
                 }
             }
         } else {

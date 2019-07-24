@@ -20,7 +20,6 @@ class WhenTest {
 
         List<ValidationFailure> validationFailures = validator.validate(person);
 
-        // TODO: property name is wrong
         assertEquals(1, validationFailures.size());
         assertEquals("zip", validationFailures.get(0).getPropertyName());
     }

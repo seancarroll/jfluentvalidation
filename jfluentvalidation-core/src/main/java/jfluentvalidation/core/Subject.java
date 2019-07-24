@@ -98,13 +98,13 @@ public class Subject<S extends Subject<S, T, A>, T, A> {
         return myself;
     }
 
-    public S unless(Predicate<A> predicate) {
+    public S unless(Predicate<T> predicate) {
         return unless(predicate, true);
     }
 
     // TODO: enum instead of boolean applyToAll?
-    public S unless(Predicate<A> predicate, boolean applyToAll) {
-        // TODO: implement
+    public S unless(Predicate<T> predicate, boolean applyToAll) {
+        rule.applyCondition(predicate.negate(), applyToAll);
         return myself;
     }
 
