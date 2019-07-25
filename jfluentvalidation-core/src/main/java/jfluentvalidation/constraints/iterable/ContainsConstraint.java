@@ -23,6 +23,9 @@ public class ContainsConstraint<T, P> extends AbstractConstraint<T, Iterable<? s
 
     @Override
     public boolean isValid(RuleContext<T, Iterable<? super P>> context) {
+        if (context.getPropertyValue() == null) {
+            return true;
+        }
         return Iterables.contains(context.getPropertyValue(), element);
     }
 }

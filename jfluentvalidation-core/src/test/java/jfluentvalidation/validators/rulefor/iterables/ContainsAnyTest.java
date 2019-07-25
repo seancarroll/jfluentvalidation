@@ -11,7 +11,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ContainsAnyOfTest {
+class ContainsAnyTest {
 
     // TODO: make sure to support varargs, arrays, list, iterables
 

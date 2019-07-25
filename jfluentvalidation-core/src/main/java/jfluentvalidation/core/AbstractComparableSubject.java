@@ -74,14 +74,12 @@ public class AbstractComparableSubject<S extends AbstractComparableSubject<S, T,
 
     @Override
     public S isNotBetween(A startInclusive, A endInclusive) {
-        // TODO: should it be inclusive start and end?
         rule.addConstraint(new IsNotBetweenConstraint<>(startInclusive, endInclusive, true, true));
         return myself;
     }
 
     @Override
     public S isNotBetween(A start, A end, boolean inclusiveStart, boolean inclusiveEnd) {
-        // TODO: should it be inclusive start and end?
         rule.addConstraint(new IsNotBetweenConstraint<>(start, end, inclusiveStart, inclusiveEnd));
         return myself;
     }

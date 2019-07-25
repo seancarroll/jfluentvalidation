@@ -5,13 +5,12 @@ import jfluentvalidation.validators.DefaultValidator;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ContainsAllOfTest {
-
-    // TODO: add actual and expected empty test
+class ContainsAllTest {
 
     @Test
     void shouldNotReturnFailureWhenActualContainsAllExpectedValues() {
@@ -62,6 +61,18 @@ class ContainsAllOfTest {
     }
 
     @Test
+    void shouldNotReturnFailureWhenActualAndGivenAreEmpty() {
+        Target t = new Target(Collections.singletonList(""));
+
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        validator.ruleForIterable(Target::getValue).containsAllOf("");
+
+        List<ValidationFailure> failures = validator.validate(t);
+
+        assertTrue(failures.isEmpty());
+    }
+
+    @Test
     void shouldThrowExceptionWhenExpectedValuesIsNull() {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         assertThrows(NullPointerException.class, () -> validator.ruleForIterable(Target::getValue).containsAllOf((Iterable<String>) null));
@@ -91,46 +102,4 @@ class ContainsAllOfTest {
         assertFalse(failures.isEmpty());
     }
 
-//    @Test
-//    public void should_pass_if_actual_contains_all_iterable_values() {
-//        iterables.assertContainsAll(someInfo(), actual, newArrayList("Luke"));
-//        // order does not matter
-//        iterables.assertContainsAll(someInfo(), actual, newArrayList("Leia", "Yoda"));
-//    }
-//
-//    @Test
-//    public void should_pass_if_actual_contains_all_iterable_values_more_than_once() {
-//        actual.addAll(newArrayList("Luke", "Luke"));
-//        iterables.assertContainsAll(someInfo(), actual, newArrayList("Luke"));
-//    }
-//
-//    @Test
-//    public void should_pass_if_actual_contains_all_iterable_values_even_if_duplicated() {
-//        iterables.assertContainsAll(someInfo(), actual, newArrayList("Luke", "Luke"));
-//    }
-//
-//    @Test
-//    public void should_throw_error_if_array_of_values_to_look_for_is_null() {
-//        assertThatNullPointerException().isThrownBy(() -> iterables.assertContainsAll(someInfo(), actual, null))
-//            .withMessage(iterableToLookForIsNull());
-//    }
-//
-//    @Test
-//    public void should_fail_if_actual_is_null() {
-//        assertThatExceptionOfType(AssertionError.class).isThrownBy(() -> iterables.assertContainsAll(someInfo(), null, newArrayList("Yoda")))
-//            .withMessage(actualIsNull());
-//    }
-//
-//    @Test
-//    public void should_fail_if_actual_does_not_contain_values() {
-//        AssertionInfo info = someInfo();
-//        List<String> expected = newArrayList("Han", "Luke");
-//        try {
-//            iterables.assertContainsAll(info, actual, expected);
-//        } catch (AssertionError e) {
-//            verify(failures).failure(info, shouldContain(actual, expected.toArray(), newLinkedHashSet("Han")));
-//            return;
-//        }
-//        failBecauseExpectedAssertionErrorWasNotThrown();
-//    }
 }

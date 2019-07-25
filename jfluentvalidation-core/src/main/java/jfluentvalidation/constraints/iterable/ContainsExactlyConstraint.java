@@ -2,6 +2,7 @@ package jfluentvalidation.constraints.iterable;
 
 import jfluentvalidation.common.IterableDifference;
 import jfluentvalidation.common.Iterables;
+import jfluentvalidation.common.Lists;
 import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.DefaultMessages;
 import jfluentvalidation.internal.Ensure;
@@ -10,8 +11,6 @@ import jfluentvalidation.validators.RuleContext;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
-
-import static com.google.common.collect.Lists.newArrayList;
 
 /**
  * TODO: From Google Truth...we want similar behavior
@@ -42,18 +41,16 @@ public class ContainsExactlyConstraint<T, P> extends AbstractConstraint<T, Itera
             return true;
         }
 
+        // TODO: anyway to avoid this cast?
         Collection<P> actual = (Collection<P>) Iterables.toCollection(context.getPropertyValue());
-        // TODO: dont use guava
-        List<P> expectedAsList = newArrayList(expected);
+        List<P> expectedAsList = Lists.newArrayList(expected);
 
-
-        // TODO: diff
         IterableDifference<P> diff = IterableDifference.diff(actual, expectedAsList);
         if (!diff.differencesFound()) {
             int i = 0;
-            for (Object elementFromActual : actual) {
+            for (P elementFromActual : actual) {
                 if (!Objects.equals(elementFromActual, expectedAsList.get(i))) {
-                    // context.appendArgument("missingValues", notFound);
+                    context.appendArgument("differentOrder", elementFromActual);
                     return false;
                 }
                 i++;
@@ -62,12 +59,13 @@ public class ContainsExactlyConstraint<T, P> extends AbstractConstraint<T, Itera
         }
 
         if (diff.hasMissing()) {
-            // context.appendArgument("missingValues", notFound);
+            context.appendArgument("missingValues", diff.getMissing());
         }
 
         if (diff.hasUnexpected()) {
-            // context.appendArgument("unexpectedValues", notFound);
+            context.appendArgument("unexpectedValues", diff.getUnexpected());
         }
+
         return false;
     }
 }
