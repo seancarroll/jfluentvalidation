@@ -22,7 +22,7 @@ public class MapPropertyRule<T, K, V> extends PropertyRule<T, Map<K, V>> {
     }
 
     @Override
-    public List<ValidationFailure> validate(ValidationContext<T, Map<K, V>> context) {
+    public List<ValidationFailure> validate(ValidationContext<T> context) {
         List<ValidationFailure> failures = new ArrayList<>();
 
         Map<K, V> propertyValue = propertyFunc.apply(context.getInstanceToValidate());
@@ -44,7 +44,7 @@ public class MapPropertyRule<T, K, V> extends PropertyRule<T, Map<K, V>> {
                 int i = 0;
                 for (Object e : itemConstraint.getCollection(propertyValue)) {
                     // TODO: this is yucky. need to fix/clean up/improve
-                    ValidationContext childContext = new ValidationContext<>(e);
+                    ValidationContext<?> childContext = new ValidationContext<>(e);
                     PropertyRule<T, Object> rule = new PropertyRule<>(null, propertyName);
                     RuleContext ruleContext = new RuleContext(childContext, rule, e);
                     boolean isValid = itemConstraint.getConstraint().isValid(ruleContext);

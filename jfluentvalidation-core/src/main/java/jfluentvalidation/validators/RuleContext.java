@@ -13,7 +13,7 @@ import java.util.Map;
  */
 public class RuleContext<T, P> {
 
-    private final ValidationContext<T, P> validationContext;
+    private final ValidationContext<T> validationContext;
     private final Rule<T, P> rule;
     private final P propertyValue;
 
@@ -25,7 +25,7 @@ public class RuleContext<T, P> {
      * @param validationContext
      * @param rule
      */
-    public RuleContext(ValidationContext<T, P> validationContext, Rule<T, P> rule) {
+    public RuleContext(ValidationContext<T> validationContext, Rule<T, P> rule) {
         this.validationContext = validationContext;
         this.rule = rule;
         this.propertyValue = rule.getPropertyFunc().apply(validationContext.getInstanceToValidate());
@@ -37,7 +37,7 @@ public class RuleContext<T, P> {
      * @param rule
      * @param propertyValue
      */
-    public RuleContext(ValidationContext<T, P> validationContext, Rule<T, P> rule, P propertyValue) {
+    public RuleContext(ValidationContext<T> validationContext, Rule<T, P> rule, P propertyValue) {
         this.validationContext = validationContext;
         this.rule = rule;
         this.propertyValue = propertyValue;
@@ -51,7 +51,7 @@ public class RuleContext<T, P> {
         return propertyValue;
     }
 
-    public ValidationContext<T, P> getValidationContext() {
+    public ValidationContext<T> getValidationContext() {
         return validationContext;
     }
 

@@ -22,7 +22,7 @@ public class CollectionPropertyRule<T, P, E> extends PropertyRule<T, P> {
     }
 
     @Override
-    public List<ValidationFailure> validate(ValidationContext<T, P> context) {
+    public List<ValidationFailure> validate(ValidationContext<T> context) {
         List<ValidationFailure> failures = new ArrayList<>();
 
         P propertyValue = propertyFunc.apply(context.getInstanceToValidate());

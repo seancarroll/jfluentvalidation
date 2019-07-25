@@ -32,7 +32,7 @@ public class IncludeRule<T> extends PropertyRule<T, Object> {
     // return new IncludeRule(ctx => func((T)ctx.InstanceToValidate), cascadeModeThunk, typeof(T), typeof(T), typeof(TValidator));
 
     @Override
-    public List<ValidationFailure> validate(ValidationContext<T, Object> context) {
+    public List<ValidationFailure> validate(ValidationContext<T> context) {
         return validator.validate(context);
     }
 

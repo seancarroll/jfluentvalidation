@@ -20,7 +20,7 @@ public interface Rule<T, P> {
      * @param context
      * @return
      */
-    List<ValidationFailure> validate(ValidationContext<T, P> context);
+    List<ValidationFailure> validate(ValidationContext<T> context);
 
     /**
      * Name of the rule-set to which this rule belongs.
