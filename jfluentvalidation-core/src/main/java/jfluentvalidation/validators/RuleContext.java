@@ -20,6 +20,8 @@ public class RuleContext<T, P> {
     // TODO: I dont know where I want this to belong but for right now I'm putting it here
     private final Map<String, Object> additionalArguments = new HashMap<>();
 
+    //
+
     /**
      *
      * @param validationContext

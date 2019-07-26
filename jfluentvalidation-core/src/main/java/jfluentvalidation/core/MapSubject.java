@@ -135,6 +135,10 @@ public class MapSubject<T, K, V> extends Subject<MapSubject<T, K, V>, T, Map<K, 
         return super.isEquals(other);
     }
 
+
+
+    // TODO: I'm not sure this makes sense given what would a Constraint for an Entry look like?
+    // Perhaps we do soemthing like assertj's satisfy/satisfyrequirements
     /**
      *
      * @param constraintsToAdd
