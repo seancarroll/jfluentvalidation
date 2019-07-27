@@ -55,6 +55,12 @@ public class DateSubject<T> extends AbstractComparableSubject<DateSubject<T>, T,
     }
 
     @CanIgnoreReturnValue
+    public DateSubject<T> isInThePastOrPresent() {
+        // TODO: clock from context/provider
+        return isBeforeOrEqualTo(new Date());
+    }
+
+    @CanIgnoreReturnValue
     public DateSubject<T> isToday() {
         // TODO:
         return myself;
@@ -64,6 +70,12 @@ public class DateSubject<T> extends AbstractComparableSubject<DateSubject<T>, T,
     public DateSubject<T> isInTheFuture() {
         // TODO: should we have a Clock?
         return isAfter(new Date());
+    }
+
+    @CanIgnoreReturnValue
+    public DateSubject<T> isInTheFutureOrPresent() {
+        // TODO: clock from context/provider
+        return isAfterOrEqualTo(new Date());
     }
 
 }
