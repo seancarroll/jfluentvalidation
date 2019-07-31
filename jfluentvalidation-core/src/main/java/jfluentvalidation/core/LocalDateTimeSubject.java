@@ -24,7 +24,7 @@ public class LocalDateTimeSubject<T>
 
     @CanIgnoreReturnValue
     // QUESTION: which do we want to keep? isBefore / isAfter vs past / future?
-    public LocalDateTimeSubject isBefore(LocalDateTime other) {
+    public LocalDateTimeSubject<T> isBefore(LocalDateTime other) {
         rule.addConstraint(new IsBeforeLocalDateTimeConstraint<>(other));
         return  myself;
     }
