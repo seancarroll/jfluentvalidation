@@ -2,16 +2,16 @@ package jfluentvalidation.validators.rulefor.calendar;
 
 import java.util.Calendar;
 
-class Person {
+class Target {
 
     private Calendar date;
 
-    public Person(Calendar date) {
+    public Target(Calendar date) {
         this.date = date;
 
     }
 
-    public Calendar getBirthday() {
+    public Calendar getDate() {
         return date;
     }
 }

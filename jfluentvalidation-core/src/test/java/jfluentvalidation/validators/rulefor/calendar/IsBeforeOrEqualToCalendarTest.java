@@ -9,28 +9,14 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class IsBeforeOrEqualToCalendarTest {
-
-    private static final Calendar ACTUAL;
-    private static final Calendar BEFORE;
-    private static final Calendar AFTER;
-
-    static {
-        ACTUAL = Calendar.getInstance();
-
-        BEFORE = Calendar.getInstance();
-        BEFORE.add(Calendar.DATE, -1);
-
-        AFTER = Calendar.getInstance();
-        AFTER.add(Calendar.DATE, 1);
-    }
+class IsBeforeOrEqualToCalendarTest extends AbstractCalendarTest {
 
     @Test
     void shouldNotReturnFailureWhenActualEqualsGivenDate() {
-        Person  p = new Person(ACTUAL);
+        Target p = new Target(ACTUAL);
 
-        DefaultValidator< Person> validator = new DefaultValidator<>( Person.class);
-        validator.ruleForCalendar(Person::getBirthday).isBeforeOrEqualTo(ACTUAL);
+        DefaultValidator<Target> validator = new DefaultValidator<>( Target.class);
+        validator.ruleForCalendar(Target::getDate).isBeforeOrEqualTo(ACTUAL);
 
         List<ValidationFailure> failures = validator.validate(p);
 
@@ -39,10 +25,10 @@ class IsBeforeOrEqualToCalendarTest {
 
     @Test
     void shouldNotReturnFailureWhenActualDateIsBeforeGivenDate() {
-        Person  p = new Person(ACTUAL);
+        Target p = new Target(ACTUAL);
 
-        DefaultValidator< Person> validator = new DefaultValidator<>( Person.class);
-        validator.ruleForCalendar(Person::getBirthday).isBeforeOrEqualTo(AFTER);
+        DefaultValidator<Target> validator = new DefaultValidator<>( Target.class);
+        validator.ruleForCalendar(Target::getDate).isBeforeOrEqualTo(AFTER);
 
         List<ValidationFailure> failures = validator.validate(p);
 
@@ -51,10 +37,10 @@ class IsBeforeOrEqualToCalendarTest {
 
     @Test
     void shouldNotReturnFailureWhenActualIsNull() {
-        Person  p = new Person(null);
+        Target p = new Target(null);
 
-        DefaultValidator< Person> validator = new DefaultValidator<>( Person.class);
-        validator.ruleForCalendar(Person::getBirthday).isBeforeOrEqualTo(Calendar.getInstance());
+        DefaultValidator<Target> validator = new DefaultValidator<>( Target.class);
+        validator.ruleForCalendar(Target::getDate).isBeforeOrEqualTo(Calendar.getInstance());
 
         List<ValidationFailure> failures = validator.validate(p);
 
@@ -63,10 +49,10 @@ class IsBeforeOrEqualToCalendarTest {
 
     @Test
     void shouldReturnFailureWhenActualIsNotStrictlyBeforeGivenDate() {
-        Person  p = new Person(ACTUAL);
+        Target p = new Target(ACTUAL);
 
-        DefaultValidator< Person> validator = new DefaultValidator<>( Person.class);
-        validator.ruleForCalendar(Person::getBirthday).isBeforeOrEqualTo(BEFORE);
+        DefaultValidator<Target> validator = new DefaultValidator<>( Target.class);
+        validator.ruleForCalendar(Target::getDate).isBeforeOrEqualTo(BEFORE);
 
         List<ValidationFailure> failures = validator.validate(p);
 
@@ -75,8 +61,8 @@ class IsBeforeOrEqualToCalendarTest {
 
     @Test
     void shouldThrowExceptionWhenGivenDateIsNull() {
-        DefaultValidator< Person> validator = new DefaultValidator<>( Person.class);
-        assertThrows(NullPointerException.class, () -> validator.ruleForCalendar(Person::getBirthday).isBeforeOrEqualTo(null));
+        DefaultValidator<Target> validator = new DefaultValidator<>( Target.class);
+        assertThrows(NullPointerException.class, () -> validator.ruleForCalendar(Target::getDate).isBeforeOrEqualTo(null));
     }
 
 }
