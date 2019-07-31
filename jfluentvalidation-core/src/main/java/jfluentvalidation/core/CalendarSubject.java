@@ -21,49 +21,49 @@ public class CalendarSubject<T>
     }
 
     @CanIgnoreReturnValue
-    public CalendarSubject isBefore(Calendar other) {
+    public CalendarSubject<T> isBefore(Calendar other) {
         rule.addConstraint(new IsBeforeCalendarConstraint<>(other));
         return myself;
     }
 
     @CanIgnoreReturnValue
-    public CalendarSubject isBeforeOrEqualTo(Calendar other) {
+    public CalendarSubject<T> isBeforeOrEqualTo(Calendar other) {
         rule.addConstraint(new IsBeforeOrEqualCalendarConstraint<>(other));
         return myself;
     }
 
     @CanIgnoreReturnValue
-    public CalendarSubject isAfter(Calendar other) {
+    public CalendarSubject<T> isAfter(Calendar other) {
         rule.addConstraint(new IsAfterCalendarConstraint<>(other));
         return myself;
     }
 
     @CanIgnoreReturnValue
-    public CalendarSubject isAfterOrEqualTo(Calendar other) {
+    public CalendarSubject<T> isAfterOrEqualTo(Calendar other) {
         rule.addConstraint(new IsAfterOrEqualCalendarConstraint<>(other));
         return myself;
     }
 
     @CanIgnoreReturnValue
-    public CalendarSubject isInTheFuture() {
+    public CalendarSubject<T> isInTheFuture() {
         // TODO: clock from context/provider
         return isAfter(Calendar.getInstance());
     }
 
     @CanIgnoreReturnValue
-    public CalendarSubject isInTheFutureOrPresent() {
+    public CalendarSubject<T> isInTheFutureOrPresent() {
         // TODO: clock from context/provider
         return isAfterOrEqualTo(Calendar.getInstance());
     }
 
     @CanIgnoreReturnValue
-    public CalendarSubject isInThePast() {
+    public CalendarSubject<T> isInThePast() {
         // TODO: clock from context/provider
         return isBefore(Calendar.getInstance());
     }
 
     @CanIgnoreReturnValue
-    public CalendarSubject isInThePastOrPresent() {
+    public CalendarSubject<T> isInThePastOrPresent() {
         // TODO: clock from context/provider
         return isBeforeOrEqualTo(Calendar.getInstance());
     }
