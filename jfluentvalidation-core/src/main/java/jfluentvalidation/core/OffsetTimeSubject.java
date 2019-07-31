@@ -48,25 +48,25 @@ public class OffsetTimeSubject<T>
     }
 
     @CanIgnoreReturnValue
-    public OffsetTimeSubject isInTheFuture() {
+    public OffsetTimeSubject<T> isInTheFuture() {
         // TODO: clock from context/provider
         return isAfter(OffsetTime.now());
     }
 
     @CanIgnoreReturnValue
-    public OffsetTimeSubject isInTheFutureOrPresent() {
+    public OffsetTimeSubject<T> isInTheFutureOrPresent() {
         // TODO: clock from context/provider
         return isAfterOrEqualTo(OffsetTime.now());
     }
 
     @CanIgnoreReturnValue
-    public OffsetTimeSubject isInThePast() {
+    public OffsetTimeSubject<T> isInThePast() {
         // TODO: clock from context/provider
         return isBefore(OffsetTime.now());
     }
 
     @CanIgnoreReturnValue
-    public OffsetTimeSubject isInThePastOrPresent() {
+    public OffsetTimeSubject<T> isInThePastOrPresent() {
         // TODO: clock from context/provider
         return isBeforeOrEqualTo(OffsetTime.now());
     }
