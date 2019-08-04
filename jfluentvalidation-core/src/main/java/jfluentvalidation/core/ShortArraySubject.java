@@ -12,6 +12,7 @@ import jfluentvalidation.constraints.array.nullorempty.IsNullOrEmptyShortArrayCo
 import jfluentvalidation.rules.PropertyRule;
 
 /**
+ * Constraints for {@code short[]} subjects.
  *
  * @param <T>  the type of the instance
  */

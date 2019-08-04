@@ -49,18 +49,6 @@ public class LocalTimeSubject<T>
     }
 
     @CanIgnoreReturnValue
-    public LocalTimeSubject<T> isInTheFuture() {
-        // TODO: clock from context/provider
-        return isAfter(LocalTime.now());
-    }
-
-    @CanIgnoreReturnValue
-    public LocalTimeSubject<T> isInTheFutureOrPresent() {
-        // TODO: clock from context/provider
-        return isAfterOrEqualTo(LocalTime.now());
-    }
-
-    @CanIgnoreReturnValue
     public LocalTimeSubject<T> isInThePast() {
         // TODO: clock from context/provider
         return isBefore(LocalTime.now());
@@ -70,6 +58,18 @@ public class LocalTimeSubject<T>
     public LocalTimeSubject<T> isInThePastOrPresent() {
         // TODO: clock from context/provider
         return isBeforeOrEqualTo(LocalTime.now());
+    }
+
+    @CanIgnoreReturnValue
+    public LocalTimeSubject<T> isInTheFuture() {
+        // TODO: clock from context/provider
+        return isAfter(LocalTime.now());
+    }
+
+    @CanIgnoreReturnValue
+    public LocalTimeSubject<T> isInTheFutureOrPresent() {
+        // TODO: clock from context/provider
+        return isAfterOrEqualTo(LocalTime.now());
     }
 
 }

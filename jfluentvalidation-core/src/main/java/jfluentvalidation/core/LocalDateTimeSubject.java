@@ -48,6 +48,24 @@ public class LocalDateTimeSubject<T>
     }
 
     @CanIgnoreReturnValue
+    public LocalDateTimeSubject<T> isInThePast() {
+        // TODO: clock from context/provider
+        return isBefore(LocalDateTime.now());
+    }
+
+    @CanIgnoreReturnValue
+    public LocalDateTimeSubject<T> isInThePastOrPresent() {
+        // TODO: clock from context/provider
+        return isBeforeOrEqualTo(LocalDateTime.now());
+    }
+
+    @CanIgnoreReturnValue
+    public LocalDateSubject<T> isInTheFutureOrToday() {
+        // TODO: clock from context/provider
+        throw new RuntimeException("not implemented");
+    }
+
+    @CanIgnoreReturnValue
     public LocalDateTimeSubject<T> isInTheFuture() {
         // TODO: clock from context/provider
         return isAfter(LocalDateTime.now());
@@ -60,15 +78,14 @@ public class LocalDateTimeSubject<T>
     }
 
     @CanIgnoreReturnValue
-    public LocalDateTimeSubject<T> isInThePast() {
+    public LocalDateSubject<T> isInThePastOrToday() {
         // TODO: clock from context/provider
-        return isBefore(LocalDateTime.now());
+        throw new RuntimeException("not implemented");
     }
 
     @CanIgnoreReturnValue
-    public LocalDateTimeSubject<T> isInThePastOrPresent() {
+    public LocalDateTimeSubject<T> isToday() {
         // TODO: clock from context/provider
-        return isBeforeOrEqualTo(LocalDateTime.now());
+        throw new RuntimeException("not implemented");
     }
-
 }

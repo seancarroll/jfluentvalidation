@@ -12,6 +12,7 @@ import java.time.OffsetTime;
 // TODO: isEquals vs equals
 
 /**
+ * Constraints for {@link OffsetTime} subjects.
  *
  * @param <T>  the type of the instance
  */
@@ -48,18 +49,6 @@ public class OffsetTimeSubject<T>
     }
 
     @CanIgnoreReturnValue
-    public OffsetTimeSubject<T> isInTheFuture() {
-        // TODO: clock from context/provider
-        return isAfter(OffsetTime.now());
-    }
-
-    @CanIgnoreReturnValue
-    public OffsetTimeSubject<T> isInTheFutureOrPresent() {
-        // TODO: clock from context/provider
-        return isAfterOrEqualTo(OffsetTime.now());
-    }
-
-    @CanIgnoreReturnValue
     public OffsetTimeSubject<T> isInThePast() {
         // TODO: clock from context/provider
         return isBefore(OffsetTime.now());
@@ -69,6 +58,18 @@ public class OffsetTimeSubject<T>
     public OffsetTimeSubject<T> isInThePastOrPresent() {
         // TODO: clock from context/provider
         return isBeforeOrEqualTo(OffsetTime.now());
+    }
+
+    @CanIgnoreReturnValue
+    public OffsetTimeSubject<T> isInTheFuture() {
+        // TODO: clock from context/provider
+        return isAfter(OffsetTime.now());
+    }
+
+    @CanIgnoreReturnValue
+    public OffsetTimeSubject<T> isInTheFutureOrPresent() {
+        // TODO: clock from context/provider
+        return isAfterOrEqualTo(OffsetTime.now());
     }
 
 }

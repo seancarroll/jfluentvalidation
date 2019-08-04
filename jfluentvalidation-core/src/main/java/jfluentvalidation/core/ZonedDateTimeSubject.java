@@ -13,6 +13,7 @@ import java.time.ZonedDateTime;
 // TODO: still some unchecked assignments
 
 /**
+ * Constraints for {@link ZonedDateTime} subjects.
  *
  * @param <T>  the type of the instance
  */
@@ -49,6 +50,24 @@ public class ZonedDateTimeSubject<T>
     }
 
     @CanIgnoreReturnValue
+    public ZonedDateTimeSubject<T> isInThePast() {
+        // TODO: clock from context/provider
+        return isBefore(ZonedDateTime.now());
+    }
+
+    @CanIgnoreReturnValue
+    public ZonedDateTimeSubject<T> isInThePastOrPresent() {
+        // TODO: clock from context/provider
+        return isBeforeOrEqualTo(ZonedDateTime.now());
+    }
+
+    @CanIgnoreReturnValue
+    public ZonedDateTimeSubject<T> isInThePastOrToday() {
+        // TODO: clock from context/provider
+        throw new RuntimeException("not implemented");
+    }
+
+    @CanIgnoreReturnValue
     public ZonedDateTimeSubject<T> isInTheFuture() {
         // TODO: clock from context/provider
         return isAfter(ZonedDateTime.now());
@@ -61,15 +80,16 @@ public class ZonedDateTimeSubject<T>
     }
 
     @CanIgnoreReturnValue
-    public ZonedDateTimeSubject<T> isInThePast() {
+    public ZonedDateTimeSubject<T> isInTheFutureOrToday() {
         // TODO: clock from context/provider
-        return isBefore(ZonedDateTime.now());
+        throw new RuntimeException("not implemented");
     }
 
+
     @CanIgnoreReturnValue
-    public ZonedDateTimeSubject<T> isInThePastOrPresent() {
+    public ZonedDateTimeSubject<T> isToday() {
         // TODO: clock from context/provider
-        return isBeforeOrEqualTo(ZonedDateTime.now());
+        throw new RuntimeException("not implemented");
     }
 
 }

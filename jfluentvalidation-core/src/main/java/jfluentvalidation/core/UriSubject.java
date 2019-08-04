@@ -8,6 +8,7 @@ import jfluentvalidation.rules.PropertyRule;
 import java.net.URI;
 
 /**
+ * Constraints for {@link URI} subjects.
  *
  * @param <T>  the type of the instance.
  * @see java.net.URI

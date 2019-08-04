@@ -5,6 +5,7 @@ import jfluentvalidation.constraints.comparable.ComparableConstraints;
 import jfluentvalidation.rules.PropertyRule;
 
 /**
+ * Constraints for {@link String} subjects.
  *
  * @param <T>  the type of the instance
  */

@@ -5,6 +5,7 @@ import jfluentvalidation.rules.PropertyRule;
 // TODO: what should the type hierarchy be?
 
 /**
+ * Constraints for {@code int} subjects.
  *
  * @param <T>  the type of the instance
  */

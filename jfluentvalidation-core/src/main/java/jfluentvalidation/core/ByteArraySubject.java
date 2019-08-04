@@ -17,6 +17,7 @@ import jfluentvalidation.rules.PropertyRule;
 // this could extend an AbstractArraySubject
 
 /**
+ * Constraints for {@code byte[]} typed subjects.
  *
  * @param <T>  the type of the instance
  */

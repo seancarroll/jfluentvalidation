@@ -8,6 +8,7 @@ import jfluentvalidation.rules.PropertyRule;
 import java.io.InputStream;
 
 /**
+ * Constraints for {@link InputStream} subjects.
  *
  * @param <T>  the type of the instance
  * @see java.io.InputStream

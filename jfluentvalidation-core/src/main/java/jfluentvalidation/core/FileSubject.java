@@ -18,6 +18,7 @@ import java.io.File;
 import java.nio.charset.Charset;
 
 /**
+ * Constraints for {@link File} subjects.
  *
  * @param <T>  the type of the instance
  * @see java.io.File

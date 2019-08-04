@@ -13,8 +13,10 @@ import java.util.Date;
 // NumberComparable vs TemporalComparable/some other name
 
 /**
+ * Constraints for {@link Date} typed subjects.
  *
  * @param <T>  the type of the instance
+ * @see java.util.Date
  */
 public class DateSubject<T> extends AbstractComparableSubject<DateSubject<T>, T, Date> {
 
@@ -49,6 +51,24 @@ public class DateSubject<T> extends AbstractComparableSubject<DateSubject<T>, T,
     }
 
     @CanIgnoreReturnValue
+    public DateSubject<T> isInTheFuture() {
+        // TODO: should we have a Clock?
+        return isAfter(new Date());
+    }
+
+    @CanIgnoreReturnValue
+    public DateSubject<T> isInTheFutureOrPresent() {
+        // TODO: clock from context/provider
+        return isAfterOrEqualTo(new Date());
+    }
+
+    @CanIgnoreReturnValue
+    public DateSubject<T> isInTheFutureOrToday() {
+        // TODO: clock from context/provider
+        throw new RuntimeException("not implemented");
+    }
+
+    @CanIgnoreReturnValue
     public DateSubject<T> isInThePast() {
         // TODO: should we have a Clock?
         return isBefore(new Date());
@@ -61,21 +81,14 @@ public class DateSubject<T> extends AbstractComparableSubject<DateSubject<T>, T,
     }
 
     @CanIgnoreReturnValue
+    public DateSubject<T> isInThePastOrToday() {
+        // TODO: clock from context/provider
+        throw new RuntimeException("not implemented");
+    }
+
+    @CanIgnoreReturnValue
     public DateSubject<T> isToday() {
         // TODO:
         return myself;
     }
-
-    @CanIgnoreReturnValue
-    public DateSubject<T> isInTheFuture() {
-        // TODO: should we have a Clock?
-        return isAfter(new Date());
-    }
-
-    @CanIgnoreReturnValue
-    public DateSubject<T> isInTheFutureOrPresent() {
-        // TODO: clock from context/provider
-        return isAfterOrEqualTo(new Date());
-    }
-
 }

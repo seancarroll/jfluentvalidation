@@ -11,6 +11,11 @@ import jfluentvalidation.constraints.array.notempty.IsNotEmptyBooleanArrayConstr
 import jfluentvalidation.constraints.array.nullorempty.IsNullOrEmptyBooleanArrayConstraint;
 import jfluentvalidation.rules.PropertyRule;
 
+/**
+ * Constraints for {@code boolean[]} typed subjects.
+ *
+ * @param <T>  the type of the instance
+ */
 public class BooleanArraySubject<T> extends AbstractArraySubject<BooleanArraySubject<T>, T, boolean[], Boolean> {
 
     public BooleanArraySubject(PropertyRule<T, boolean[]> rule) {

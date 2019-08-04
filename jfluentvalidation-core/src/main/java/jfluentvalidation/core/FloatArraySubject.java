@@ -9,6 +9,7 @@ import jfluentvalidation.constraints.array.nullorempty.IsNullOrEmptyFloatArrayCo
 import jfluentvalidation.rules.PropertyRule;
 
 /**
+ * Constraints for {@code float[]} typed subjects.
  *
  * @param <T>  the type of the instance
  */

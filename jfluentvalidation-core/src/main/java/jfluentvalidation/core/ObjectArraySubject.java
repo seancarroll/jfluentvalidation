@@ -11,6 +11,7 @@ import jfluentvalidation.constraints.array.nullorempty.IsNullOrEmptyObjectArrayC
 import jfluentvalidation.rules.PropertyRule;
 
 /**
+ * A Subject for {@code Object[]} and more generically {@code T[]}.
  *
  * @param <T>  the type of the instance
  * @param <E>  the type of elements in the actual array subject.

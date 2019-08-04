@@ -11,6 +11,11 @@ import jfluentvalidation.constraints.array.notempty.IsNotEmptyCharArrayConstrain
 import jfluentvalidation.constraints.array.nullorempty.IsNullOrEmptyCharArrayConstraint;
 import jfluentvalidation.rules.PropertyRule;
 
+/**
+ * Constraints for {@code char[]} typed subjects.
+ *
+ * @param <T>  the type of the instance
+ */
 public class CharArraySubject<T> extends AbstractArraySubject<CharArraySubject<T>, T, char[], Character> {
 
     public CharArraySubject(PropertyRule<T, char[]> rule) {

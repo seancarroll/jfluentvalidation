@@ -10,6 +10,7 @@ import jfluentvalidation.rules.PropertyRule;
 import java.util.Calendar;
 
 /**
+ * Constraints for {@link Calendar} typed subjects.
  *
  * @param <T>  the type of the instance
  */
@@ -57,6 +58,12 @@ public class CalendarSubject<T>
     }
 
     @CanIgnoreReturnValue
+    public CalendarSubject<T> isInTheFutureOrToday() {
+        // TODO: clock from context/provider
+        throw new RuntimeException("not implemented");
+    }
+
+    @CanIgnoreReturnValue
     public CalendarSubject<T> isInThePast() {
         // TODO: clock from context/provider
         return isBefore(Calendar.getInstance());
@@ -68,4 +75,15 @@ public class CalendarSubject<T>
         return isBeforeOrEqualTo(Calendar.getInstance());
     }
 
+    @CanIgnoreReturnValue
+    public CalendarSubject<T> isInThePastOrToday() {
+        // TODO: clock from context/provider
+        throw new RuntimeException("not implemented");
+    }
+
+    @CanIgnoreReturnValue
+    public CalendarSubject<T> isToday() {
+        // TODO:
+        return myself;
+    }
 }

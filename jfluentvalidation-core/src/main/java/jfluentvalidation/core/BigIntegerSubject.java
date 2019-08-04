@@ -5,6 +5,7 @@ import jfluentvalidation.rules.PropertyRule;
 import java.math.BigInteger;
 
 /**
+ * Constraints for {@link BigInteger} typed subjects.
  *
  * @param <T>  the type of the instance
  */

@@ -12,6 +12,7 @@ import java.time.OffsetDateTime;
 // TODO: isEquals vs equals
 
 /**
+ * Constraints for {@link OffsetDateTime} subjects.
  *
  * @param <T>  the type of the instance
  */
@@ -48,6 +49,24 @@ public class OffsetDateTimeSubject<T>
     }
 
     @CanIgnoreReturnValue
+    public OffsetDateTimeSubject<T> isInThePast() {
+        // TODO: clock from context/provider
+        return isBefore(OffsetDateTime.now());
+    }
+
+    @CanIgnoreReturnValue
+    public OffsetDateTimeSubject<T> isInThePastOrPresent() {
+        // TODO: clock from context/provider
+        return isBeforeOrEqualTo(OffsetDateTime.now());
+    }
+
+    @CanIgnoreReturnValue
+    public OffsetDateTimeSubject<T> isInThePastOrToday() {
+        // TODO: clock from context/provider
+        throw new RuntimeException("not implemented");
+    }
+
+    @CanIgnoreReturnValue
     public OffsetDateTimeSubject<T> isInTheFuture() {
         // TODO: clock from context/provider
         return isAfter(OffsetDateTime.now());
@@ -60,15 +79,15 @@ public class OffsetDateTimeSubject<T>
     }
 
     @CanIgnoreReturnValue
-    public OffsetDateTimeSubject<T> isInThePast() {
+    public OffsetDateTimeSubject<T> isInTheFutureOrToday() {
         // TODO: clock from context/provider
-        return isBefore(OffsetDateTime.now());
+        throw new RuntimeException("not implemented");
     }
 
     @CanIgnoreReturnValue
-    public OffsetDateTimeSubject<T> isInThePastOrPresent() {
+    public OffsetDateTimeSubject<T> isToday() {
         // TODO: clock from context/provider
-        return isBeforeOrEqualTo(OffsetDateTime.now());
+        throw new RuntimeException("not implemented");
     }
 
 }
