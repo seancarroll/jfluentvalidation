@@ -1,5 +1,6 @@
 package jfluentvalidation.validators;
 
+import jfluentvalidation.ValidationException;
 import jfluentvalidation.ValidationFailure;
 import org.junit.jupiter.api.Test;
 
@@ -12,6 +13,7 @@ import java.util.function.Predicate;
 
 import static jfluentvalidation.constraints.charsequence.CharSequenceConstraints.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ValidatorTests {
 
@@ -105,6 +107,19 @@ class ValidatorTests {
         List<ValidationFailure> validationFailures = validator.validate(person, "address");
 
         assertEquals(1, validationFailures.size());
+    }
+
+    @Test
+    void validateAndThrow() {
+        Person person = new Person("sean", 32, null);
+
+        DefaultValidator<Person> validator = new DefaultValidator<>(Person.class);
+        validator.ruleForString(p -> p.getName()).isNotEmpty().startsWith("s").length(5, 10).withMessage("Name must be between 5 and 10 yo");
+        validator.ruleForInteger(p -> p.getAge()).isPositive();
+
+        ValidationException exception = assertThrows(ValidationException.class, () -> validator.validateAndThrow(person));
+
+        assertEquals(1, exception.getFailures().size());
     }
 
     private class PersonValidator extends DefaultValidator<Person> {
