@@ -30,6 +30,7 @@ public class UrlSubject<T> extends Subject<UrlSubject<T>, T, URL> {
     }
 
     /**
+     * Verifies that the actual {@code URL} has the expected path.
      *
      * @param expected  the expected path of the actual {@code URL}.
      * @return {@code this} Url subject.
@@ -41,6 +42,7 @@ public class UrlSubject<T> extends Subject<UrlSubject<T>, T, URL> {
     }
 
     /**
+     * Verifies that the actual {@code URL} has no path.
      *
      * @return {@code this} Url subject.
      */
@@ -51,8 +53,9 @@ public class UrlSubject<T> extends Subject<UrlSubject<T>, T, URL> {
     }
 
     /**
+     * Verifies that the actual {@code URL} has the expected port.
      *
-     * @param expected
+     * @param expected  the expected port of the actual {@code URL}.
      * @return {@code this} Url subject.
      */
     @CanIgnoreReturnValue
@@ -62,7 +65,8 @@ public class UrlSubject<T> extends Subject<UrlSubject<T>, T, URL> {
     }
 
     /**
-     * Verifies that the actual {@code URI} has no port.
+     * Verifies that the actual {@code URL} has no port.
+     *
      * @return {@code this} Url subject.
      */
     @CanIgnoreReturnValue
@@ -72,8 +76,9 @@ public class UrlSubject<T> extends Subject<UrlSubject<T>, T, URL> {
     }
 
     /**
+     * Verifies that the actual {@code URL} has the expected host.
      *
-     * @param expected
+     * @param expected  the expected host of the actual {@code URL}.
      * @return {@code this} Url subject.
      */
     @CanIgnoreReturnValue
@@ -83,8 +88,9 @@ public class UrlSubject<T> extends Subject<UrlSubject<T>, T, URL> {
     }
 
     /**
+     * Verifies that the actual {@code URL} has the expected authority.
      *
-     * @param expected
+     * @param expected  the expected authority of the actual {@code URL}.
      * @return {@code this} Url subject.
      */
     @CanIgnoreReturnValue
@@ -94,8 +100,9 @@ public class UrlSubject<T> extends Subject<UrlSubject<T>, T, URL> {
     }
 
     /**
+     * Verifies that the actual {@code URL} has the expected query.
      *
-     * @param expected
+     * @param expected  the expected query of the actual {@code URL}.
      * @return {@code this} Url subject.
      */
     @CanIgnoreReturnValue
@@ -105,6 +112,7 @@ public class UrlSubject<T> extends Subject<UrlSubject<T>, T, URL> {
     }
 
     /**
+     * Verifies that the actual {@code URL} has no query.
      *
      * @return {@code this} Url subject.
      */
@@ -135,8 +143,9 @@ public class UrlSubject<T> extends Subject<UrlSubject<T>, T, URL> {
     }
 
     /**
+     * Verifies that the actual {@code URL} has a parameter with the expected name.
      *
-     * @param name
+     * @param name  the name of the parameter expected to be present.
      * @return {@code this} Url subject.
      */
     @CanIgnoreReturnValue
@@ -146,9 +155,10 @@ public class UrlSubject<T> extends Subject<UrlSubject<T>, T, URL> {
     }
 
     /**
+     * Verifies that the actual {@code URL} has a parameter with the expected name and value.
      *
-     * @param name
-     * @param value
+     * @param name  the name of the parameter expected to be present.
+     * @param value  the value of the parameter expected to be present.
      * @return {@code this} Url subject.
      */
     @CanIgnoreReturnValue
@@ -158,6 +168,7 @@ public class UrlSubject<T> extends Subject<UrlSubject<T>, T, URL> {
     }
 
     /**
+     * Verifies that the actual {@code URL} does not have any parameters.
      *
      * @return {@code this} Url subject.
      */
@@ -168,8 +179,9 @@ public class UrlSubject<T> extends Subject<UrlSubject<T>, T, URL> {
     }
 
     /**
+     * Verifies that the actual {@code URL} does not have a parameter with the specified name.
      *
-     * @param name
+     * @param name  the name of the parameter expected to be absent.
      * @return {@code this} Url subject.
      */
     @CanIgnoreReturnValue
@@ -179,9 +191,10 @@ public class UrlSubject<T> extends Subject<UrlSubject<T>, T, URL> {
     }
 
     /**
+     * Verifies that the actual {@code URL} has a parameter with the expected name and value.
      *
-     * @param name
-     * @param value
+     * @param name  the name of the parameter expected to be present.
+     * @param value  the value of the parameter expected to be present.
      * @return {@code this} Url subject.
      */
     @CanIgnoreReturnValue
