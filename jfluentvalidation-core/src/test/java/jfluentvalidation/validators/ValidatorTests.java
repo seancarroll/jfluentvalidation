@@ -5,10 +5,7 @@ import jfluentvalidation.ValidationFailure;
 import org.junit.jupiter.api.Test;
 
 import java.time.ZonedDateTime;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Predicate;
 
 import static jfluentvalidation.constraints.charsequence.CharSequenceConstraints.*;
@@ -89,7 +86,6 @@ class ValidatorTests {
         Person person = new Person("sean", 32, null);
 
         DefaultValidator<Person> validator = new DefaultValidator<>(Person.class);
-
         validator.ruleSet("name", () -> {
             validator.ruleForString(p -> p.getName()).isNotEmpty().startsWith("s").length(5, 10);
         });
@@ -118,6 +114,36 @@ class ValidatorTests {
         validator.ruleForInteger(p -> p.getAge()).isPositive();
 
         ValidationException exception = assertThrows(ValidationException.class, () -> validator.validateAndThrow(person));
+
+        assertEquals(1, exception.getFailures().size());
+    }
+
+    // TODO: should not throw when using rule set and not set
+
+    @Test
+    void validateAndThrowWithStringRuleSet() {
+        Person person = new Person("sean", 32, null);
+
+        DefaultValidator<Person> validator = new DefaultValidator<>(Person.class);
+        validator.ruleSet("name", () -> {
+            validator.ruleForString(Person::getName).isNotEmpty().startsWith("s").length(5, 10);
+        });
+
+        ValidationException exception = assertThrows(ValidationException.class, () ->validator.validateAndThrow(person, "name"));
+
+        assertEquals(1, exception.getFailures().size());
+    }
+
+    @Test
+    void validateAndThrowWithListRuleSet() {
+        Person person = new Person("sean", 32, null);
+
+        DefaultValidator<Person> validator = new DefaultValidator<>(Person.class);
+        validator.ruleSet("name", () -> {
+            validator.ruleForString(Person::getName).isNotEmpty().startsWith("s").length(5, 10);
+        });
+
+        ValidationException exception = assertThrows(ValidationException.class, () ->validator.validateAndThrow(person, Collections.singletonList("name")));
 
         assertEquals(1, exception.getFailures().size());
     }
