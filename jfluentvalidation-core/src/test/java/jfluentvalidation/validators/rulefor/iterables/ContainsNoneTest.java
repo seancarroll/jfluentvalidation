@@ -50,7 +50,7 @@ class ContainsNoneTest {
     @Test
     void shouldThrowExceptionWhenGivenIsNull() {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        assertThrows(NullPointerException.class, () -> validator.ruleForIterable(Target::getValue).containsNone((List<String>)null));
+        assertThrows(NullPointerException.class, () -> validator.ruleForIterable(Target::getValue).containsNone((List<String>) null));
     }
 
 }
