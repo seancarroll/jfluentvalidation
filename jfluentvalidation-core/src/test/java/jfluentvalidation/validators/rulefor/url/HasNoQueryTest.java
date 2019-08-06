@@ -11,7 +11,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class hasNoQueryTest {
+class HasNoQueryTest {
 
     @Test
     void shouldNotReturnFailureIfActualUrlDoesNotHaveQuery() throws MalformedURLException {
