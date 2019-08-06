@@ -19,7 +19,7 @@ class IsBeforeOrEqualToLocalDateTimeTest {
     void shouldNotReturnFailureWhenActualEqualsGivenDate() {
         Target p = new Target(ACTUAL);
 
-        DefaultValidator<Target> validator = new DefaultValidator<>( Target.class);
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForLocalDateTime(Target::getDateTime).isBeforeOrEqualTo(ACTUAL);
 
         List<ValidationFailure> failures = validator.validate(p);
@@ -31,7 +31,7 @@ class IsBeforeOrEqualToLocalDateTimeTest {
     void shouldNotReturnFailureWhenActualDateIsBeforeGivenDate() {
         Target p = new Target(ACTUAL);
 
-        DefaultValidator<Target> validator = new DefaultValidator<>( Target.class);
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForLocalDateTime(Target::getDateTime).isBeforeOrEqualTo(AFTER);
 
         List<ValidationFailure> failures = validator.validate(p);
@@ -43,7 +43,7 @@ class IsBeforeOrEqualToLocalDateTimeTest {
     void shouldNotReturnFailureWhenActualIsNull() {
         Target p = new Target(null);
 
-        DefaultValidator<Target> validator = new DefaultValidator<>( Target.class);
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForLocalDateTime(Target::getDateTime).isBeforeOrEqualTo(LocalDateTime.now());
 
         List<ValidationFailure> failures = validator.validate(p);
@@ -55,7 +55,7 @@ class IsBeforeOrEqualToLocalDateTimeTest {
     void shouldReturnFailureWhenActualIsNotStrictlyBeforeGivenDate() {
         Target p = new Target(ACTUAL);
 
-        DefaultValidator<Target> validator = new DefaultValidator<>( Target.class);
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForLocalDateTime(Target::getDateTime).isBeforeOrEqualTo(BEFORE);
 
         List<ValidationFailure> failures = validator.validate(p);
@@ -65,7 +65,7 @@ class IsBeforeOrEqualToLocalDateTimeTest {
 
     @Test
     void shouldThrowExceptionWhenGivenDateIsNull() {
-        DefaultValidator<Target> validator = new DefaultValidator<>( Target.class);
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         assertThrows(NullPointerException.class, () -> validator.ruleForLocalDateTime(Target::getDateTime).isBeforeOrEqualTo(null));
     }
 }
