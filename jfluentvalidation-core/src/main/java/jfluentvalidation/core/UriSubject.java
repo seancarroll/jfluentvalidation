@@ -22,7 +22,7 @@ public class UriSubject<T> extends Subject<UriSubject<T>, T, URI> implements Com
     /**
      * Verifies that the actual {@code URI} has the expected path.
      *
-     * @param expected
+     * @param expected  the expected path of the actual {@code URI}.
      * @return {@code this} Uri subject.
      */
     @CanIgnoreReturnValue
@@ -45,7 +45,7 @@ public class UriSubject<T> extends Subject<UriSubject<T>, T, URI> implements Com
     /**
      * Verifies that the actual {@code URI} has the expected port.
      *
-     * @param expected
+     * @param expected  the expected port of the actual {@code URI}.
      * @return {@code this} Uri subject.
      */
     @CanIgnoreReturnValue
