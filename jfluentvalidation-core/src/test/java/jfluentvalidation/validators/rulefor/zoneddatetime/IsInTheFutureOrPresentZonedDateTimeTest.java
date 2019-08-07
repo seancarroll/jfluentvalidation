@@ -20,7 +20,6 @@ class IsInTheFutureOrPresent {
     @Test
     void shouldNotReturnFailureWhenActualIsInTheFuture() {
         Target t = new Target(FUTURE);
-
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForZonedDateTime(Target::getDateTime).isInTheFutureOrPresent();
 

@@ -17,7 +17,7 @@ class IsInTheFutureOrPresent {
     private static final Date PAST = Date.from(Instant.now().minus(Duration.ofDays(1)));
     private static final Date FUTURE = Date.from(Instant.now().plus(Duration.ofDays(1)));
 
-    // TODO: test for same  need to implement clock.
+    // TODO: test for same need to implement clock.
 
     @Test
     void shouldNotReturnFailureWhenActualIsInTheFuture() {
