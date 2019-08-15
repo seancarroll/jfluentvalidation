@@ -130,6 +130,7 @@ public class FileSubject<T> extends Subject<FileSubject<T>, T, File> implements 
         return myself;
     }
 
+    // TODO: fix parameter names
     @Override
     public FileSubject<T> isBetween(File startInclusive, File endInclusive) {
         rule.addConstraint(new IsBetweenConstraint<>(startInclusive, endInclusive, true, true));
@@ -138,7 +139,7 @@ public class FileSubject<T> extends Subject<FileSubject<T>, T, File> implements 
 
     @Override
     public FileSubject<T> isStrictlyBetween(File startExclusive, File endExclusive) {
-        rule.addConstraint(new IsBetweenConstraint<>(startExclusive, endExclusive, true, true));
+        rule.addConstraint(ComparableConstraints.isStrictlyBetween(startExclusive, endExclusive));
         return myself;
     }
 
