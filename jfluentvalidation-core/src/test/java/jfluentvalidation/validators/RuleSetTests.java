@@ -2,11 +2,6 @@ package jfluentvalidation.validators;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.function.Function;
-
 class RuleSetTests {
 
     // RulesetTests
@@ -46,29 +41,6 @@ class RuleSetTests {
     @Test
     void wildcard() {
 
-    }
-
-    @Test
-    void map() {
-        Map<String, Integer> m = new HashMap<>();
-        m.put("hello", 1);
-        m.put("foo", 2);
-
-        Function<Map<String, Integer>, Collection<Map.Entry<String, Integer>>> fes = map -> map.entrySet();
-        Collection<Map.Entry<String, Integer>> ses = fes.apply(m);
-        Collection<Map.Entry<String, Integer>> a = getCollection(m, fes);
-
-        Function<Map<String, Integer>, Collection<String>> fks = map -> map.keySet();
-        Collection<String> sks = fks.apply(m);
-        Collection<String> b = getCollection(m, fks);
-
-        Function<Map<String, Integer>, Collection<Integer>> fmv = map -> map.values();
-        Collection<Integer> c = fmv.apply(m);
-        Collection<Integer> d = getCollection(m, fmv);
-    }
-
-    <K, V, T> Collection<T> getCollection(Map<K, V> m, Function<Map<K, V>, Collection<T>> f) {
-        return f.apply(m);
     }
 
 }
