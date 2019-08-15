@@ -1,11 +1,13 @@
 package jfluentvalidation.constraints.time;
 
+import jfluentvalidation.common.Suppliers;
 import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.DefaultMessages;
 import jfluentvalidation.internal.Ensure;
 import jfluentvalidation.validators.RuleContext;
 
 import java.time.ZonedDateTime;
+import java.util.function.Supplier;
 
 /**
  *
@@ -13,9 +15,13 @@ import java.time.ZonedDateTime;
  */
 public class IsBeforeOrEqualZonedDateTimeConstraint<T> extends AbstractConstraint<T, ZonedDateTime> {
 
-    private final ZonedDateTime other;
+    private final Supplier<ZonedDateTime> other;
 
     public IsBeforeOrEqualZonedDateTimeConstraint(ZonedDateTime other) {
+        this(Suppliers.create(other));
+    }
+
+    public IsBeforeOrEqualZonedDateTimeConstraint(Supplier<ZonedDateTime> other) {
         super(DefaultMessages.TIME_IS_BEFORE_OR_EQUAL);
         this.other = Ensure.notNull(other);
     }
@@ -25,7 +31,7 @@ public class IsBeforeOrEqualZonedDateTimeConstraint<T> extends AbstractConstrain
         if (context.getPropertyValue() == null) {
             return true;
         }
-        return !context.getPropertyValue().isAfter(other);
+        return !context.getPropertyValue().isAfter(other.get());
     }
 
 //    @Override

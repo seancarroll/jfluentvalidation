@@ -5,20 +5,23 @@ import jfluentvalidation.validators.DefaultValidator;
 import org.junit.jupiter.api.Test;
 
 import java.time.OffsetDateTime;
-import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
 import java.util.List;
 
+import static jfluentvalidation.TimeZones.TZ_CHICAGO;
 import static org.junit.jupiter.api.Assertions.*;
 
-class IsBeforeOffsetDateTimeTest {
+class IsBeforeOffsetDateTimeTest extends AbstractOffsetDateTime {
 
-    private static final OffsetDateTime ACTUAL = OffsetDateTime.of(2019, 06, 15, 0, 0, 0, 0, ZoneOffset.UTC);
-    private static final OffsetDateTime BEFORE = OffsetDateTime.of(2019, 06, 14, 0, 0, 0, 0, ZoneOffset.UTC);
-    private static final OffsetDateTime AFTER = OffsetDateTime.of(2019, 06, 16, 0, 0, 0, 0, ZoneOffset.UTC);
+    IsBeforeOffsetDateTimeTest() {
+        super(ZonedDateTime.of(
+            2019, 6, 15, 8, 0, 0, 0,
+            TZ_CHICAGO));
+    }
 
     @Test
     void shouldNotReturnFailureWhenActualDateIsBeforeGivenDate() {
-        Target t = new Target(ACTUAL);
+        Target t = new Target(REFERENCE);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForOffsetDateTime(Target::getDateTime).isBefore(AFTER);
@@ -42,7 +45,7 @@ class IsBeforeOffsetDateTimeTest {
 
     @Test
     void shouldReturnFailureWhenActualIsNotStrictlyBeforeGivenDate() {
-        Target t = new Target(ACTUAL);
+        Target t = new Target(REFERENCE);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForOffsetDateTime(Target::getDateTime).isBefore(BEFORE);
@@ -54,10 +57,10 @@ class IsBeforeOffsetDateTimeTest {
 
     @Test
     void shouldReturnFailureWhenActualEqualsGivenDate() {
-        Target t = new Target(ACTUAL);
+        Target t = new Target(REFERENCE);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForOffsetDateTime(Target::getDateTime).isBefore(ACTUAL);
+        validator.ruleForOffsetDateTime(Target::getDateTime).isBefore(REFERENCE);
 
         List<ValidationFailure> failures = validator.validate(t);
 

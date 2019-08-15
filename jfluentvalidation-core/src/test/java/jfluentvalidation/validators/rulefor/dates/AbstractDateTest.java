@@ -1,25 +1,36 @@
 package jfluentvalidation.validators.rulefor.dates;
 
-import java.util.Calendar;
+import jfluentvalidation.internal.FixedClockProvider;
+import jfluentvalidation.validators.DefaultValidator;
+import jfluentvalidation.validators.ValidatorFactory;
+
+import javax.validation.ClockProvider;
+import java.time.Duration;
+import java.time.Instant;
+import java.time.ZonedDateTime;
 import java.util.Date;
 
-public abstract class AbstractDateTest {
+abstract class AbstractDateTest {
 
-    protected final Date ACTUAL;
+    /**
+     * serves as the reference for {@code now}
+     */
+    protected final ClockProvider clockProvider;
+    protected final Date REFERENCE;
     protected final Date BEFORE;
     protected final Date AFTER;
 
-    AbstractDateTest() {
-        ACTUAL = Calendar.getInstance().getTime();
+    AbstractDateTest(ZonedDateTime dateTime) {
+        this.clockProvider = new FixedClockProvider(dateTime);
 
-        Calendar beforeCal = Calendar.getInstance();
-        beforeCal.add(Calendar.DATE, -1);
-        BEFORE = beforeCal.getTime();
-
-        Calendar afterCal = Calendar.getInstance();
-        afterCal.add(Calendar.DATE, 1);
-        AFTER = afterCal.getTime();
+        Instant instant = clockProvider.getClock().instant();
+        REFERENCE = Date.from(instant);
+        BEFORE = Date.from(instant.minus(Duration.ofDays(1)));
+        AFTER = Date.from(instant.plus(Duration.ofDays(1)));
     }
 
-
+    @SuppressWarnings("unchecked")
+    <T> DefaultValidator<T> getValidator() {
+        return new ValidatorFactory().withClockProvider(clockProvider).create((Class<T>) Target.class);
+    }
 }

@@ -4,18 +4,47 @@ import jfluentvalidation.ValidationFailure;
 import jfluentvalidation.validators.DefaultValidator;
 import org.junit.jupiter.api.Test;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
+import java.time.Instant;
+import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
+import static jfluentvalidation.TimeZones.TZ_CHICAGO;
 import static org.junit.jupiter.api.Assertions.*;
 
 class IsAfterDateTest extends AbstractDateTest {
 
+    IsAfterDateTest() {
+        super(ZonedDateTime.of(
+            2019, 8, 7, 9, 0, 0, 0,
+            TZ_CHICAGO)
+        );
+    }
+
+    @Test
+    void hibernateValidator() {
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        Validator validator = factory.getValidator();
+
+        Instant instant = Instant.now();
+        Date d = Date.from(instant);
+        Target t = new Target(d);
+
+        Set<ConstraintViolation<Target>> constraints = validator.validate(t);
+
+        System.out.println(constraints);
+    }
+
     @Test
     void shouldNotReturnFailureWhenActualDateIsAfterGivenDate() {
-        Target t = new Target(ACTUAL);
+        Target t = new Target(REFERENCE);
 
-        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        DefaultValidator<Target> validator = getValidator();
         validator.ruleForDate(Target::getDate).isAfter(BEFORE);
 
         List<ValidationFailure> failures = validator.validate(t);
@@ -27,7 +56,7 @@ class IsAfterDateTest extends AbstractDateTest {
     void shouldNotReturnFailureWhenActualIsNull() {
         Target t = new Target(null);
 
-        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        DefaultValidator<Target> validator = getValidator();
         validator.ruleForDate(Target::getDate).isAfter(new Date());
 
         List<ValidationFailure> failures = validator.validate(t);
@@ -37,9 +66,9 @@ class IsAfterDateTest extends AbstractDateTest {
 
     @Test
     void shouldReturnFailureWhenActualIsNotStrictlyAfterGivenDate() {
-        Target t = new Target(ACTUAL);
+        Target t = new Target(REFERENCE);
 
-        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        DefaultValidator<Target> validator = getValidator();
         validator.ruleForDate(Target::getDate).isAfter(AFTER);
 
         List<ValidationFailure> failures = validator.validate(t);
@@ -49,10 +78,10 @@ class IsAfterDateTest extends AbstractDateTest {
 
     @Test
     void shouldReturnFailureWhenActualEqualsGivenDate() {
-        Target t = new Target(ACTUAL);
+        Target t = new Target(REFERENCE);
 
-        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForDate(Target::getDate).isAfter(ACTUAL);
+        DefaultValidator<Target> validator = getValidator();
+        validator.ruleForDate(Target::getDate).isAfter(REFERENCE);
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -61,7 +90,7 @@ class IsAfterDateTest extends AbstractDateTest {
 
     @Test
     void shouldThrowExceptionWhenGivenDateIsNull() {
-        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        DefaultValidator<Target> validator = getValidator();
         assertThrows(NullPointerException.class, () -> validator.ruleForDate(Target::getDate).isAfter(null));
     }
 }

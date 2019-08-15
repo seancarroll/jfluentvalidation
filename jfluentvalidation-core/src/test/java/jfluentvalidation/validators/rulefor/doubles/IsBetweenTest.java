@@ -65,7 +65,7 @@ class IsBetweenTest {
         Target t = new Target(null);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForDouble(Target::getNumber).isBetween(0d , 5d);
+        validator.ruleForDouble(Target::getNumber).isBetween(0d, 5d);
 
         List<ValidationFailure> failures = validator.validate(t);
 

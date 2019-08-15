@@ -104,6 +104,7 @@ public class DefaultMessages {
     public static final String TIME_IS_AFTER_OR_EQUAL = "{jfluentvalidation.constraints.time.IsAfterOrEqual.message}";
     public static final String TIME_IS_BEFORE = "{jfluentvalidation.constraints.time.IsBefore.message}";
     public static final String TIME_IS_BEFORE_OR_EQUAL = "{jfluentvalidation.constraints.time.IsBeforeOrEqual.message}";
+    public static final String TIME_IS_TODAY = "{jfluentvalidation.constraints.time.IsToday.message}";
 
     public static final String HAS_AUTHORITY = "{jfluentvalidation.constraints.HasAuthority.message}";
     public static final String HAS_HOST = "{jfluentvalidation.constraints.HasHost.message}";

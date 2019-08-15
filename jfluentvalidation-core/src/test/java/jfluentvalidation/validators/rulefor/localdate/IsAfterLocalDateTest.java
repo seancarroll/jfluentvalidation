@@ -5,21 +5,25 @@ import jfluentvalidation.validators.DefaultValidator;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
+import java.time.ZonedDateTime;
 import java.util.List;
 
+import static jfluentvalidation.TimeZones.TZ_CHICAGO;
 import static org.junit.jupiter.api.Assertions.*;
 
-class IsAfterLocalDateTest {
+class IsAfterLocalDateTest extends AbstractLocalDateTest {
 
-    private static final LocalDate ACTUAL = LocalDate.of(2019, 6, 15);
-    private static final LocalDate BEFORE = LocalDate.of(2019, 6, 14);
-    private static final LocalDate AFTER = LocalDate.of(2019, 6, 16);
+    IsAfterLocalDateTest() {
+        super(ZonedDateTime.of(
+            2019, 6, 15, 0, 0, 0, 0,
+            TZ_CHICAGO));
+    }
 
     @Test
     void shouldNotReturnFailureWhenActualDateIsAfterGivenDate() {
-        Target p = new Target(ACTUAL);
+        Target p = new Target(REFERENCE);
 
-        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        DefaultValidator<Target> validator = getValidator();
         validator.ruleForLocalDate(Target::getDate).isAfter(BEFORE);
 
         List<ValidationFailure> failures = validator.validate(p);
@@ -31,7 +35,7 @@ class IsAfterLocalDateTest {
     void shouldNotReturnFailureWhenActualIsNull() {
         Target p = new Target(null);
 
-        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        DefaultValidator<Target> validator = getValidator();
         validator.ruleForLocalDate(Target::getDate).isAfter(LocalDate.now());
 
         List<ValidationFailure> failures = validator.validate(p);
@@ -41,9 +45,9 @@ class IsAfterLocalDateTest {
 
     @Test
     void shouldReturnFailureWhenActualIsNotStrictlyAfterGivenDate() {
-        Target p = new Target(ACTUAL);
+        Target p = new Target(REFERENCE);
 
-        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        DefaultValidator<Target> validator = getValidator();
         validator.ruleForLocalDate(Target::getDate).isAfter(AFTER);
 
         List<ValidationFailure> failures = validator.validate(p);
@@ -53,10 +57,10 @@ class IsAfterLocalDateTest {
 
     @Test
     void shouldReturnFailureWhenActualEqualsGivenDate() {
-        Target p = new Target(ACTUAL);
+        Target p = new Target(REFERENCE);
 
-        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForLocalDate(Target::getDate).isAfter(ACTUAL);
+        DefaultValidator<Target> validator = getValidator();
+        validator.ruleForLocalDate(Target::getDate).isAfter(REFERENCE);
 
         List<ValidationFailure> failures = validator.validate(p);
 
@@ -65,7 +69,7 @@ class IsAfterLocalDateTest {
 
     @Test
     void shouldThrowExceptionWhenGivenDateIsNull() {
-        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        DefaultValidator<Target> validator = getValidator();
         assertThrows(NullPointerException.class, () -> validator.ruleForLocalDate(Target::getDate).isAfter(null));
     }
 }

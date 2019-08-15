@@ -5,20 +5,27 @@ import jfluentvalidation.SerializableFunction;
 import jfluentvalidation.ValidationFailure;
 import jfluentvalidation.constraints.Constraint;
 import jfluentvalidation.validators.RuleContext;
+import jfluentvalidation.validators.RuleOptions;
 import jfluentvalidation.validators.ValidationContext;
 
 import java.util.*;
 
+/**
+ *
+ * @param <T>
+ * @param <K>
+ * @param <V>
+ */
 public class MapPropertyRule<T, K, V> extends PropertyRule<T, Map<K, V>> {
 
     private List<MapItemConstraint<T, K, V, ?>> itemConstraints = new ArrayList<>();
 
-    public MapPropertyRule(SerializableFunction<T, Map<K, V>> propertyFunc, String propertyName) {
-        super(propertyFunc, propertyName);
+    public MapPropertyRule(SerializableFunction<T, Map<K, V>> propertyFunc, String propertyName, RuleOptions ruleOptions) {
+        super(propertyFunc, propertyName, ruleOptions);
     }
 
-    public MapPropertyRule(Class<T> type, SerializableFunction<T, Map<K, V>> propertyFunc) {
-        super(type, propertyFunc);
+    public MapPropertyRule(Class<T> type, SerializableFunction<T, Map<K, V>> propertyFunc, RuleOptions ruleOptions) {
+        super(type, propertyFunc, ruleOptions);
     }
 
     @Override
@@ -45,7 +52,7 @@ public class MapPropertyRule<T, K, V> extends PropertyRule<T, Map<K, V>> {
                 for (Object e : itemConstraint.getCollection(propertyValue)) {
                     // TODO: this is yucky. need to fix/clean up/improve
                     ValidationContext<?> childContext = new ValidationContext<>(e);
-                    PropertyRule<T, Object> rule = new PropertyRule<>(null, propertyName);
+                    PropertyRule<T, Object> rule = new PropertyRule<>(null, propertyName, ruleOptions);
                     RuleContext ruleContext = new RuleContext(childContext, rule, e);
                     boolean isValid = itemConstraint.getConstraint().isValid(ruleContext);
                     if (!isValid) {

@@ -1,10 +1,7 @@
 package jfluentvalidation.core;
 
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
-import jfluentvalidation.constraints.time.IsAfterOrEqualZonedDateTimeConstraint;
-import jfluentvalidation.constraints.time.IsAfterZonedDateTimeConstraint;
-import jfluentvalidation.constraints.time.IsBeforeOrEqualZonedDateTimeConstraint;
-import jfluentvalidation.constraints.time.IsBeforeZonedDateTimeConstraint;
+import jfluentvalidation.constraints.time.*;
 import jfluentvalidation.rules.PropertyRule;
 
 import java.time.ZonedDateTime;
@@ -15,7 +12,7 @@ import java.time.ZonedDateTime;
 /**
  * Constraints for {@link ZonedDateTime} subjects.
  *
- * @param <T>  the type of the instance
+ * @param <T> the type of the instance
  */
 public class ZonedDateTimeSubject<T>
     extends AbstractComparableSubject<ZonedDateTimeSubject<T>, T, ZonedDateTime> {
@@ -24,41 +21,40 @@ public class ZonedDateTimeSubject<T>
         super(ZonedDateTimeSubject.class, rule);
     }
 
-    // QUESTION: which do we want to keep? isBefore / isAfter vs past / future?
     @CanIgnoreReturnValue
     public ZonedDateTimeSubject<T> isBefore(ZonedDateTime zonedDateTime) {
         rule.addConstraint(new IsBeforeZonedDateTimeConstraint<>(zonedDateTime));
-        return  myself;
+        return myself;
     }
 
     @CanIgnoreReturnValue
     public ZonedDateTimeSubject<T> isBeforeOrEqualTo(ZonedDateTime zonedDateTime) {
         rule.addConstraint(new IsBeforeOrEqualZonedDateTimeConstraint<>(zonedDateTime));
-        return  myself;
+        return myself;
     }
 
     @CanIgnoreReturnValue
     public ZonedDateTimeSubject<T> isAfter(ZonedDateTime zonedDateTime) {
         rule.addConstraint(new IsAfterZonedDateTimeConstraint<>(zonedDateTime));
-        return  myself;
+        return myself;
     }
 
     @CanIgnoreReturnValue
     public ZonedDateTimeSubject<T> isAfterOrEqualTo(ZonedDateTime zonedDateTime) {
         rule.addConstraint(new IsAfterOrEqualZonedDateTimeConstraint<>(zonedDateTime));
-        return  myself;
+        return myself;
     }
 
     @CanIgnoreReturnValue
     public ZonedDateTimeSubject<T> isInThePast() {
-        // TODO: clock from context/provider
-        return isBefore(ZonedDateTime.now());
+        rule.addConstraint(new IsBeforeZonedDateTimeConstraint<>(() -> ZonedDateTime.now(rule.getRuleOptions().getClockReference())));
+        return myself;
     }
 
     @CanIgnoreReturnValue
     public ZonedDateTimeSubject<T> isInThePastOrPresent() {
-        // TODO: clock from context/provider
-        return isBeforeOrEqualTo(ZonedDateTime.now());
+        rule.addConstraint(new IsBeforeOrEqualZonedDateTimeConstraint<>(() -> ZonedDateTime.now(rule.getRuleOptions().getClockReference())));
+        return myself;
     }
 
     @CanIgnoreReturnValue
@@ -69,14 +65,14 @@ public class ZonedDateTimeSubject<T>
 
     @CanIgnoreReturnValue
     public ZonedDateTimeSubject<T> isInTheFuture() {
-        // TODO: clock from context/provider
-        return isAfter(ZonedDateTime.now());
+        rule.addConstraint(new IsAfterZonedDateTimeConstraint<>(() -> ZonedDateTime.now(rule.getRuleOptions().getClockReference())));
+        return myself;
     }
 
     @CanIgnoreReturnValue
     public ZonedDateTimeSubject<T> isInTheFutureOrPresent() {
-        // TODO: clock from context/provider
-        return isAfterOrEqualTo(ZonedDateTime.now());
+        rule.addConstraint(new IsAfterOrEqualZonedDateTimeConstraint<>(() -> ZonedDateTime.now(rule.getRuleOptions().getClockReference())));
+        return myself;
     }
 
     @CanIgnoreReturnValue
@@ -88,8 +84,8 @@ public class ZonedDateTimeSubject<T>
 
     @CanIgnoreReturnValue
     public ZonedDateTimeSubject<T> isToday() {
-        // TODO: clock from context/provider
-        throw new RuntimeException("not implemented");
+        rule.addConstraint(new IsTodayZonedDateTimeConstraint<>(rule.getRuleOptions().getClockReference()));
+        return myself;
     }
 
 }

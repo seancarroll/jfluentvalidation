@@ -1,5 +1,13 @@
 package jfluentvalidation.validators;
 
+import jfluentvalidation.internal.DefaultClockProvider;
+
+import javax.validation.ClockProvider;
+import java.time.Duration;
+
+/**
+ * Global Validator runtime options...I dont really like the statics here
+ */
 public class ValidatorOptions {
 
     // Ideas of what to include
@@ -7,6 +15,11 @@ public class ValidatorOptions {
     // _messageFormatterFactory
     // error code resolver
     // ClockProvider
+    // temporal_validation_tolerance
+
+    public static ClockProvider CLOCK_PROVIDER = DefaultClockProvider.INSTANCE;
+    public static FailureMode FAILURE_MODE = FailureMode.CONTINUE;
+    public static Duration TEMPORAL_VALIDATION_TOLERANCE = Duration.ZERO;
 
     // should this be similar to hibernate validator ValidatorFactoryBean
 //    config.constraintValidatorFactory( createConstraintValidatorFactory( config ) );
@@ -17,6 +30,7 @@ public class ValidatorOptions {
 
     // private final ClockProvider clockProvider;
     // TODO: figure out what temporalValidationTolerance is for? I think I knew this at some point
+    // Its because "present" is a bit tricky especially with any date/time that accounts for changes in seconds or below
     // private final Duration temporalValidationTolerance;
 
 }

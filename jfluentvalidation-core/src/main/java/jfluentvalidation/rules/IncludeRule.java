@@ -1,6 +1,7 @@
 package jfluentvalidation.rules;
 
 import jfluentvalidation.ValidationFailure;
+import jfluentvalidation.validators.RuleOptions;
 import jfluentvalidation.validators.ValidationContext;
 import jfluentvalidation.validators.Validator;
 
@@ -17,14 +18,14 @@ public class IncludeRule<T> extends PropertyRule<T, Object> {
     private final Validator<T> validator;
     private List<String> ruleSet = RuleSet.DEFAULT_LIST;
 
-    public IncludeRule(Validator<T> validator) {
+    public IncludeRule(Validator<T> validator, RuleOptions ruleOptions) {
         // TODO: not sure what to do about propertyname. Can it be null? What does FluentValidator do? ValidatorOptions PropertyNameResolver
         // should this really extends PropertyRule...seems like this is a poor choice
-        this(v -> v, null, validator);
+        this(v -> v, null, validator, ruleOptions);
     }
 
-    private IncludeRule(Function<T, Object> propertyFunc, String propertyName, Validator<T> validator) {
-        super(propertyFunc, propertyName);
+    private IncludeRule(Function<T, Object> propertyFunc, String propertyName, Validator<T> validator, RuleOptions ruleOptions) {
+        super(propertyFunc, propertyName, ruleOptions);
         this.validator = validator;
     }
 

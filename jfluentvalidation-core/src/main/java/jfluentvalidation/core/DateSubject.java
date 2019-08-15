@@ -1,10 +1,7 @@
 package jfluentvalidation.core;
 
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
-import jfluentvalidation.constraints.comparable.IsGreaterThanConstraint;
-import jfluentvalidation.constraints.comparable.IsGreaterThanOrEqualToConstraint;
-import jfluentvalidation.constraints.comparable.IsLessThanConstraint;
-import jfluentvalidation.constraints.comparable.IsLessThanOrEqualToConstraint;
+import jfluentvalidation.constraints.time.*;
 import jfluentvalidation.rules.PropertyRule;
 
 import java.util.Date;
@@ -25,41 +22,39 @@ public class DateSubject<T> extends AbstractComparableSubject<DateSubject<T>, T,
     }
 
     @CanIgnoreReturnValue
-    // QUESTION: which do we want to keep? isBefore / isAfter vs past / future?
     public DateSubject<T> isBefore(Date other) {
-        rule.addConstraint(new IsLessThanConstraint<>(other));
+        rule.addConstraint(new IsBeforeDateConstraint<>(other));
         return myself;
     }
 
     @CanIgnoreReturnValue
     public DateSubject<T> isBeforeOrEqualTo(Date other) {
-        // TODO: should this match or be closer to java8 Temporal classes
-        rule.addConstraint(new IsLessThanOrEqualToConstraint<>(other));
+        rule.addConstraint(new IsBeforeOrEqualDateConstraint<>(other));
         return myself;
     }
 
     @CanIgnoreReturnValue
     public DateSubject<T> isAfter(Date other) {
-        rule.addConstraint(new IsGreaterThanConstraint<>(other));
+        rule.addConstraint(new IsAfterDateConstraint<>(other));
         return myself;
     }
 
     @CanIgnoreReturnValue
     public DateSubject<T> isAfterOrEqualTo(Date other) {
-        rule.addConstraint(new IsGreaterThanOrEqualToConstraint<>(other));
+        rule.addConstraint(new IsAfterOrEqualDateConstraint<>(other));
         return myself;
     }
 
     @CanIgnoreReturnValue
     public DateSubject<T> isInTheFuture() {
-        // TODO: should we have a Clock?
-        return isAfter(new Date());
+        rule.addConstraint(new IsAfterDateConstraint<>(() -> Date.from(rule.getRuleOptions().getClockReference().instant())));
+        return myself;
     }
 
     @CanIgnoreReturnValue
     public DateSubject<T> isInTheFutureOrPresent() {
-        // TODO: clock from context/provider
-        return isAfterOrEqualTo(new Date());
+        rule.addConstraint(new IsAfterOrEqualDateConstraint<>(() -> Date.from(rule.getRuleOptions().getClockReference().instant())));
+        return myself;
     }
 
     @CanIgnoreReturnValue
@@ -70,14 +65,14 @@ public class DateSubject<T> extends AbstractComparableSubject<DateSubject<T>, T,
 
     @CanIgnoreReturnValue
     public DateSubject<T> isInThePast() {
-        // TODO: should we have a Clock?
-        return isBefore(new Date());
+        rule.addConstraint(new IsBeforeDateConstraint<>(() -> Date.from(rule.getRuleOptions().getClockReference().instant())));
+        return myself;
     }
 
     @CanIgnoreReturnValue
     public DateSubject<T> isInThePastOrPresent() {
-        // TODO: clock from context/provider
-        return isBeforeOrEqualTo(new Date());
+        rule.addConstraint(new IsBeforeOrEqualDateConstraint<>(() -> Date.from(rule.getRuleOptions().getClockReference().instant())));
+        return myself;
     }
 
     @CanIgnoreReturnValue
@@ -88,7 +83,7 @@ public class DateSubject<T> extends AbstractComparableSubject<DateSubject<T>, T,
 
     @CanIgnoreReturnValue
     public DateSubject<T> isToday() {
-        // TODO:
+        rule.addConstraint(new IsTodayDateConstraint<>(rule.getRuleOptions().getClockReference()));
         return myself;
     }
 }

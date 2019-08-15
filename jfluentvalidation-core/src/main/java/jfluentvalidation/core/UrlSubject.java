@@ -19,8 +19,9 @@ public class UrlSubject<T> extends Subject<UrlSubject<T>, T, URL> {
     }
 
     /**
+     * Verifies that the actual {@code URL} has the expected protocol.
      *
-     * @param expected
+     * @param expected  the expected protocol of the actual {@code URL}.
      * @return {@code this} Url subject.
      */
     @CanIgnoreReturnValue
@@ -123,8 +124,9 @@ public class UrlSubject<T> extends Subject<UrlSubject<T>, T, URL> {
     }
 
     /**
+     * Verifies that the actual {@code URL} has the expected anchor.
      *
-     * @param expected
+     * @param expected  the expected anchor of the actual {@code URL}.
      * @return {@code this} Url subject.
      */
     @CanIgnoreReturnValue
@@ -134,9 +136,11 @@ public class UrlSubject<T> extends Subject<UrlSubject<T>, T, URL> {
     }
 
     /**
+     * Verifies that the actual {@code URL} has no anchor.
      *
      * @return {@code this} Url subject.
      */
+    @CanIgnoreReturnValue
     public UrlSubject<T> hasNoAnchor() {
         rule.addConstraint(new HasAnchorConstraint<>(null));
         return myself;

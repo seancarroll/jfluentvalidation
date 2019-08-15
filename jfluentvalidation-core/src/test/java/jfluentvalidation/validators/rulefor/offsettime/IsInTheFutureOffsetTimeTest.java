@@ -4,24 +4,29 @@ import jfluentvalidation.ValidationFailure;
 import jfluentvalidation.validators.DefaultValidator;
 import org.junit.jupiter.api.Test;
 
-import java.time.OffsetTime;
+import java.time.ZonedDateTime;
 import java.util.List;
 
+import static jfluentvalidation.TimeZones.TZ_CHICAGO;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class IsInTheFutureTest {
+class IsInTheFutureOffsetTimeTest extends AbstractOffsetTime {
 
-    private static final OffsetTime PAST = OffsetTime.now().minusHours(1);
-    private static final OffsetTime FUTURE = OffsetTime.now().plusHours(1);
+    IsInTheFutureOffsetTimeTest() {
+        super(ZonedDateTime.of(
+            2019, 6, 15, 8, 0, 0, 0,
+            TZ_CHICAGO));
+    }
 
+    // TODO: test temporal tolerance
     // TODO: test for same zonedDateTime. need to implement clock.
 
     @Test
     void shouldNotReturnFailureWhenActualIsInTheFuture() {
-        Target t = new Target(FUTURE);
+        Target t = new Target(AFTER);
 
-        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        DefaultValidator<Target> validator = getValidator();
         validator.ruleForOffsetTime(Target::getTime).isInTheFuture();
 
         List<ValidationFailure> failures = validator.validate(t);
@@ -33,7 +38,7 @@ class IsInTheFutureTest {
     void shouldNotReturnFailureWhenActualIsNull() {
         Target t = new Target(null);
 
-        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        DefaultValidator<Target> validator = getValidator();
         validator.ruleForOffsetTime(Target::getTime).isInTheFuture();
 
         List<ValidationFailure> failures = validator.validate(t);
@@ -44,9 +49,9 @@ class IsInTheFutureTest {
 
     @Test
     void shouldReturnFailureWhenActualIsInThePast() {
-        Target t = new Target(PAST);
+        Target t = new Target(BEFORE);
 
-        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        DefaultValidator<Target> validator = getValidator();
         validator.ruleForOffsetTime(Target::getTime).isInTheFuture();
 
         List<ValidationFailure> failures = validator.validate(t);

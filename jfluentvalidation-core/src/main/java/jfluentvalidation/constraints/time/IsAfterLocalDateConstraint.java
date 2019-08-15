@@ -1,11 +1,13 @@
 package jfluentvalidation.constraints.time;
 
+import jfluentvalidation.common.Suppliers;
 import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.DefaultMessages;
 import jfluentvalidation.internal.Ensure;
 import jfluentvalidation.validators.RuleContext;
 
 import java.time.LocalDate;
+import java.util.function.Supplier;
 
 /**
  *
@@ -13,9 +15,13 @@ import java.time.LocalDate;
  */
 public class IsAfterLocalDateConstraint<T> extends AbstractConstraint<T, LocalDate> {
 
-    private final LocalDate other;
+    private final Supplier<LocalDate> other;
 
     public IsAfterLocalDateConstraint(LocalDate other) {
+        this(Suppliers.create(other));
+    }
+
+    public IsAfterLocalDateConstraint(Supplier<LocalDate> other) {
         super(DefaultMessages.TIME_IS_AFTER);
         this.other = Ensure.notNull(other);
     }
@@ -25,7 +31,7 @@ public class IsAfterLocalDateConstraint<T> extends AbstractConstraint<T, LocalDa
         if (context.getPropertyValue() == null) {
             return true;
         }
-        return context.getPropertyValue().isAfter(other);
+        return context.getPropertyValue().isAfter(other.get());
     }
 
 //    @Override

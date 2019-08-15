@@ -4,6 +4,7 @@ import jfluentvalidation.constraints.array.length.ArrayExactLengthConstraint;
 import jfluentvalidation.constraints.array.length.BooleanArrayExactLengthConstraint;
 import jfluentvalidation.rules.PropertyRule;
 import jfluentvalidation.validators.RuleContext;
+import jfluentvalidation.validators.RuleOptions;
 import jfluentvalidation.validators.ValidationContext;
 import org.openjdk.jmh.annotations.*;
 import org.openjdk.jmh.runner.Runner;
@@ -36,7 +37,7 @@ public class LengthBenchmark {
     public void prepare() {
         Foo f = new Foo(new boolean[5]);
 
-        PropertyRule propertyRule = new PropertyRule(foo -> f.bar, "bar");
+        PropertyRule propertyRule = new PropertyRule(foo -> f.bar, "bar", new RuleOptions());
         ruleContext = new RuleContext<>(new ValidationContext(f), propertyRule);
 
         booleanArrayExactLengthConstraintAlternative = new BooleanArrayExactLengthConstraint(5);

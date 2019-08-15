@@ -1,11 +1,13 @@
 package jfluentvalidation.constraints.time;
 
+import jfluentvalidation.common.Suppliers;
 import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.DefaultMessages;
 import jfluentvalidation.internal.Ensure;
 import jfluentvalidation.validators.RuleContext;
 
 import java.time.OffsetDateTime;
+import java.util.function.Supplier;
 
 /**
  *
@@ -13,9 +15,13 @@ import java.time.OffsetDateTime;
  */
 public class IsBeforeOrEqualOffsetDateTimeConstraint<T> extends AbstractConstraint<T, OffsetDateTime> {
 
-    private final OffsetDateTime other;
+    private final Supplier<OffsetDateTime> other;
 
     public IsBeforeOrEqualOffsetDateTimeConstraint(OffsetDateTime other) {
+        this(Suppliers.create(other));
+    }
+
+    public IsBeforeOrEqualOffsetDateTimeConstraint(Supplier<OffsetDateTime> other) {
         super(DefaultMessages.TIME_IS_BEFORE_OR_EQUAL);
         this.other = Ensure.notNull(other);
     }
@@ -25,7 +31,7 @@ public class IsBeforeOrEqualOffsetDateTimeConstraint<T> extends AbstractConstrai
         if (context.getPropertyValue() == null) {
             return true;
         }
-        return !context.getPropertyValue().isAfter(other);
+        return !context.getPropertyValue().isAfter(other.get());
     }
 
 //    @Override

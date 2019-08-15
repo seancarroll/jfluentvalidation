@@ -11,14 +11,15 @@ import static jfluentvalidation.TimeZones.TZ_CHICAGO;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class IsInTheFutureLocalTieTest extends AbstractLocalTimeTest {
+class IsInTheFutureLocalTimeTest extends AbstractLocalTimeTest {
 
-    IsInTheFutureLocalTieTest() {
+    IsInTheFutureLocalTimeTest() {
         super(ZonedDateTime.of(
             2019, 6, 15, 8, 0, 0, 0,
             TZ_CHICAGO));
     }
 
+    // TODO: test temporal tolerance
     // TODO: test for same zonedDateTime. need to implement clock.
 
     @Test

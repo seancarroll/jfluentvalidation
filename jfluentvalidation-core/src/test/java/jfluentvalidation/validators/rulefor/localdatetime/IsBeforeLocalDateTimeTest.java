@@ -5,21 +5,25 @@ import jfluentvalidation.validators.DefaultValidator;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.List;
 
+import static jfluentvalidation.TimeZones.TZ_CHICAGO;
 import static org.junit.jupiter.api.Assertions.*;
 
-class IsBeforeLocalDateTimeTest {
+class IsBeforeLocalDateTimeTest extends AbstractLocalDateTimeTest {
 
-    private static final LocalDateTime ACTUAL = LocalDateTime.of(2019, 6, 15, 0, 0, 0);
-    private static final LocalDateTime BEFORE = LocalDateTime.of(2019, 6, 14, 0, 0, 0);
-    private static final LocalDateTime AFTER = LocalDateTime.of(2019, 6, 16, 0, 0, 0);
+    IsBeforeLocalDateTimeTest() {
+        super(ZonedDateTime.of(
+            2019, 6, 15, 0, 0, 0, 0,
+            TZ_CHICAGO));
+    }
 
     @Test
     void shouldNotReturnFailureWhenActualDateIsBeforeGivenDate() {
-        Target p = new Target(ACTUAL);
+        Target p = new Target(REFERENCE);
 
-        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        DefaultValidator<Target> validator = getValidator();
         validator.ruleForLocalDateTime(Target::getDateTime).isBefore(AFTER);
 
         List<ValidationFailure> failures = validator.validate(p);
@@ -31,7 +35,7 @@ class IsBeforeLocalDateTimeTest {
     void shouldNotReturnFailureWhenActualIsNull() {
         Target p = new Target(null);
 
-        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        DefaultValidator<Target> validator = getValidator();
         validator.ruleForLocalDateTime(Target::getDateTime).isBefore(LocalDateTime.now());
 
         List<ValidationFailure> failures = validator.validate(p);
@@ -41,9 +45,9 @@ class IsBeforeLocalDateTimeTest {
 
     @Test
     void shouldReturnFailureWhenActualIsNotStrictlyBeforeGivenDate() {
-        Target p = new Target(ACTUAL);
+        Target p = new Target(REFERENCE);
 
-        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        DefaultValidator<Target> validator = getValidator();
         validator.ruleForLocalDateTime(Target::getDateTime).isBefore(BEFORE);
 
         List<ValidationFailure> failures = validator.validate(p);
@@ -53,10 +57,10 @@ class IsBeforeLocalDateTimeTest {
 
     @Test
     void shouldReturnFailureWhenActualEqualsGivenDate() {
-        Target p = new Target(ACTUAL);
+        Target p = new Target(REFERENCE);
 
-        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForLocalDateTime(Target::getDateTime).isBefore(ACTUAL);
+        DefaultValidator<Target> validator = getValidator();
+        validator.ruleForLocalDateTime(Target::getDateTime).isBefore(REFERENCE);
 
         List<ValidationFailure> failures = validator.validate(p);
 
@@ -65,7 +69,7 @@ class IsBeforeLocalDateTimeTest {
 
     @Test
     void shouldThrowExceptionWhenGivenDateIsNull() {
-        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        DefaultValidator<Target> validator = getValidator();
         assertThrows(NullPointerException.class, () -> validator.ruleForLocalDateTime(Target::getDateTime).isBefore(null));
     }
 }

@@ -61,7 +61,7 @@ class IsBeforeOrEqualToCalendarTest extends AbstractCalendarTest {
 
     @Test
     void shouldThrowExceptionWhenGivenDateIsNull() {
-        DefaultValidator<Target> validator = new DefaultValidator<>( Target.class);
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         assertThrows(NullPointerException.class, () -> validator.ruleForCalendar(Target::getDate).isBeforeOrEqualTo(null));
     }
 

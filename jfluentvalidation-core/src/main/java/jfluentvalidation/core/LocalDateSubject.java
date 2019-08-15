@@ -1,10 +1,7 @@
 package jfluentvalidation.core;
 
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
-import jfluentvalidation.constraints.time.IsAfterLocalDateConstraint;
-import jfluentvalidation.constraints.time.IsAfterOrEqualLocalDateConstraint;
-import jfluentvalidation.constraints.time.IsBeforeLocalDateConstraint;
-import jfluentvalidation.constraints.time.IsBeforeOrEqualLocalDateConstraint;
+import jfluentvalidation.constraints.time.*;
 import jfluentvalidation.rules.PropertyRule;
 
 import java.time.LocalDate;
@@ -25,8 +22,7 @@ import java.time.LocalDate;
 // which it ues when constructing the reference clock via Clock.offset
 
 /**
- *
- * @param <T>  the type of the instance
+ * @param <T> the type of the instance
  */
 public class LocalDateSubject<T>
     extends AbstractComparableSubject<LocalDateSubject<T>, T, LocalDate> {
@@ -36,40 +32,39 @@ public class LocalDateSubject<T>
     }
 
     @CanIgnoreReturnValue
-    // QUESTION: which do we want to keep? isBefore / isAfter vs past / future?
     public LocalDateSubject<T> isBefore(LocalDate localDate) {
         rule.addConstraint(new IsBeforeLocalDateConstraint<>(localDate));
-        return  myself;
+        return myself;
     }
 
     @CanIgnoreReturnValue
     public LocalDateSubject<T> isBeforeOrEqualTo(LocalDate localDate) {
         rule.addConstraint(new IsBeforeOrEqualLocalDateConstraint<>(localDate));
-        return  myself;
+        return myself;
     }
 
     @CanIgnoreReturnValue
     public LocalDateSubject<T> isAfter(LocalDate localDate) {
         rule.addConstraint(new IsAfterLocalDateConstraint<>(localDate));
-        return  myself;
+        return myself;
     }
 
     @CanIgnoreReturnValue
     public LocalDateSubject<T> isAfterOrEqualTo(LocalDate localDate) {
         rule.addConstraint(new IsAfterOrEqualLocalDateConstraint<>(localDate));
-        return  myself;
+        return myself;
     }
 
     @CanIgnoreReturnValue
     public LocalDateSubject<T> isInThePast() {
-        // TODO: clock from context/provider
-        return isBefore(LocalDate.now());
+        rule.addConstraint(new IsBeforeLocalDateConstraint<>(() -> LocalDate.now(rule.getRuleOptions().getClockReference())));
+        return myself;
     }
 
     @CanIgnoreReturnValue
     public LocalDateSubject<T> isInThePastOrPresent() {
-        // TODO: clock from context/provider
-        return isBeforeOrEqualTo(LocalDate.now());
+        rule.addConstraint(new IsBeforeOrEqualLocalDateConstraint<>(() -> LocalDate.now(rule.getRuleOptions().getClockReference())));
+        return myself;
     }
 
     @CanIgnoreReturnValue
@@ -80,14 +75,14 @@ public class LocalDateSubject<T>
 
     @CanIgnoreReturnValue
     public LocalDateSubject<T> isInTheFuture() {
-        // TODO: clock from context/provider
-        return isAfter(LocalDate.now());
+        rule.addConstraint(new IsAfterLocalDateConstraint<>(() -> LocalDate.now(rule.getRuleOptions().getClockReference())));
+        return myself;
     }
 
     @CanIgnoreReturnValue
     public LocalDateSubject<T> isInTheFutureOrPresent() {
-        // TODO: clock from context/provider
-        return isAfterOrEqualTo(LocalDate.now());
+        rule.addConstraint(new IsAfterOrEqualLocalDateConstraint<>(() -> LocalDate.now(rule.getRuleOptions().getClockReference())));
+        return myself;
     }
 
     @CanIgnoreReturnValue
@@ -98,7 +93,9 @@ public class LocalDateSubject<T>
 
     @CanIgnoreReturnValue
     public LocalDateSubject<T> isToday() {
-        // TODO: clock from context/provider
-        throw new RuntimeException("not implemented");
+        rule.addConstraint(new IsTodayLocalDateConstraint<>(rule.getRuleOptions().getClockReference()));
+        return myself;
     }
+
+
 }

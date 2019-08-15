@@ -6,6 +6,7 @@ import jfluentvalidation.ValidationFailure;
 import jfluentvalidation.constraints.Constraint;
 import jfluentvalidation.constraints.SoftConstraint;
 import jfluentvalidation.validators.RuleContext;
+import jfluentvalidation.validators.RuleOptions;
 import jfluentvalidation.validators.ValidationContext;
 
 import java.util.ArrayList;
@@ -25,18 +26,21 @@ public class PropertyRule<T, P> implements Rule<T, P> {
     // could we have flip it and instead have Subject contain a Rule/PropertyRule?
     protected Function<T, P> propertyFunc;
     protected String propertyName;
+    protected RuleOptions ruleOptions;
     private List<Constraint<T, P>> constraints = new ArrayList<>();
     private Constraint<T, P> currentConstraint;
     private List<String> ruleSet = RuleSet.DEFAULT_LIST;
 
-    public PropertyRule(Function<T, P> propertyFunc, String propertyName) {
+    public PropertyRule(Function<T, P> propertyFunc, String propertyName, RuleOptions ruleOptions) {
         this.propertyFunc = propertyFunc;
         this.propertyName = propertyName;
+        this.ruleOptions = ruleOptions;
     }
 
-    public PropertyRule(Class<T> type, SerializableFunction<T, P> propertyFunc) {
+    public PropertyRule(Class<T> type, SerializableFunction<T, P> propertyFunc, RuleOptions ruleOptions) {
         this.propertyFunc = propertyFunc;
         this.propertyName = PropertyNameExtractor.getInstance().getPropertyName(type, propertyFunc);
+        this.ruleOptions = ruleOptions;
     }
 
     @Override
@@ -84,6 +88,10 @@ public class PropertyRule<T, P> implements Rule<T, P> {
     @Override
     public String getPropertyName() {
         return propertyName;
+    }
+
+    public RuleOptions getRuleOptions() {
+        return ruleOptions;
     }
 
     // TODO: swap out boolean with enum

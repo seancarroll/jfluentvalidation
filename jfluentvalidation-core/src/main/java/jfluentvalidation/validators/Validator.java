@@ -26,7 +26,7 @@ public interface Validator<T> {
     /**
      * Performs validation and then throws an exception if validation fails.
      * @param validationContext
-     * @param ruleSet a ruleset when need to validate against.
+     * @param ruleSet  a ruleset when need to validate against.
      */
     default void validateAndThrow(ValidationContext validationContext, List<String> ruleSet) {
         List<ValidationFailure> failures = validate(validationContext, ruleSet);

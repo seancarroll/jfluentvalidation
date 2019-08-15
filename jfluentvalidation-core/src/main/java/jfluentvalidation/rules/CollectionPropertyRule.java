@@ -5,20 +5,27 @@ import jfluentvalidation.ValidationFailure;
 import jfluentvalidation.common.MoreArrays;
 import jfluentvalidation.constraints.Constraint;
 import jfluentvalidation.validators.RuleContext;
+import jfluentvalidation.validators.RuleOptions;
 import jfluentvalidation.validators.ValidationContext;
 
 import java.util.*;
 
+/**
+ *
+ * @param <T>
+ * @param <P>
+ * @param <E>
+ */
 public class CollectionPropertyRule<T, P, E> extends PropertyRule<T, P> {
 
     private List<Constraint<T, ? super E>> itemConstraints = new ArrayList<>();
 
-    public CollectionPropertyRule(SerializableFunction<T, P> propertyFunc, String propertyName) {
-        super(propertyFunc, propertyName);
+    public CollectionPropertyRule(SerializableFunction<T, P> propertyFunc, String propertyName, RuleOptions ruleOptions) {
+        super(propertyFunc, propertyName, ruleOptions);
     }
 
-    public CollectionPropertyRule(Class<T> type, SerializableFunction<T, P> propertyFunc) {
-        super(type, propertyFunc);
+    public CollectionPropertyRule(Class<T> type, SerializableFunction<T, P> propertyFunc, RuleOptions ruleOptions) {
+        super(type, propertyFunc, ruleOptions);
     }
 
     @Override
@@ -44,7 +51,7 @@ public class CollectionPropertyRule<T, P, E> extends PropertyRule<T, P> {
                 int i = 0;
                 for (E e : collectionPropertyValue) {
                     ValidationContext childContext = new ValidationContext<>(e);
-                    PropertyRule<T, E> rule = new PropertyRule<>(null, propertyName);
+                    PropertyRule<T, E> rule = new PropertyRule<>(null, propertyName, ruleOptions);
                     RuleContext ruleContext = new RuleContext(childContext, rule, e);
                     boolean isValid = itemConstraint.isValid(ruleContext);
                     if (!isValid) {

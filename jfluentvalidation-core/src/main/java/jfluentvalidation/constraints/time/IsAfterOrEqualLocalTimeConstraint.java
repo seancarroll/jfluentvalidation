@@ -1,11 +1,13 @@
 package jfluentvalidation.constraints.time;
 
+import jfluentvalidation.common.Suppliers;
 import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.DefaultMessages;
 import jfluentvalidation.internal.Ensure;
 import jfluentvalidation.validators.RuleContext;
 
 import java.time.LocalTime;
+import java.util.function.Supplier;
 
 /**
  *
@@ -13,9 +15,13 @@ import java.time.LocalTime;
  */
 public class IsAfterOrEqualLocalTimeConstraint<T> extends AbstractConstraint<T, LocalTime> {
 
-    private final LocalTime other;
+    private final Supplier<LocalTime> other;
 
     public IsAfterOrEqualLocalTimeConstraint(LocalTime other) {
+        this(Suppliers.create(other));
+    }
+
+    public IsAfterOrEqualLocalTimeConstraint(Supplier<LocalTime> other) {
         super(DefaultMessages.TIME_IS_AFTER_OR_EQUAL);
         this.other = Ensure.notNull(other);
     }
@@ -25,7 +31,7 @@ public class IsAfterOrEqualLocalTimeConstraint<T> extends AbstractConstraint<T, 
         if (context.getPropertyValue() == null) {
             return true;
         }
-        return !context.getPropertyValue().isBefore(other);
+        return !context.getPropertyValue().isBefore(other.get());
     }
 
 //    @Override

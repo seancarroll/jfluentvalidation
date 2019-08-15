@@ -78,7 +78,15 @@ Potential Constraints to Add
   - DoesNotContain
 - Contains with a use of a Comparison strategy
 - Constraints that works with Optional including OptionalDouble, OptionalInt, OptionalLong
-
+- Dates (Date/Calendar/Time etc)
+  - isToday
+  - IsYear / IsMonth / IsDay
+  - assertIsInSameYearAs / areInSameYear
+  - assertIsInSameMonthAs / areInSameMonth
+  - assertIsInSameDayAs / areInSameDay
+- Have Date and Calendar use Instant similar to Hibernate Validator's AbstractInstantBasedTimeValidator
+ 
+ 
 
 add test similar to 
 ```java
@@ -129,3 +137,13 @@ add test similar to
                     .containsOnlyKeys("Key1", "Key2");
   }
 ```
+
+handling temporal tolerance. how should we allow users to override?
+
+
+https://issues.sonatype.org/secure/CreateIssue.jspa?issuetype=21&pid=10134
+* Summary
+* Description
+* group Id: com.seanthomascarroll
+* Project Url
+* SCM url

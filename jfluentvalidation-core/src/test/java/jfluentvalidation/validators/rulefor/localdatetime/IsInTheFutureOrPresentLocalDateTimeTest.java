@@ -4,24 +4,40 @@ import jfluentvalidation.ValidationFailure;
 import jfluentvalidation.validators.DefaultValidator;
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.List;
 
+import static jfluentvalidation.TimeZones.TZ_CHICAGO;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class IsInTheFutureOrPresent {
+class IsInTheFutureOrPresentLocalDateTimeTest extends AbstractLocalDateTimeTest {
 
-    private static final LocalDateTime PAST = LocalDateTime.now().minusDays(1);
-    private static final LocalDateTime FUTURE = LocalDateTime.now().plusDays(1);
+    IsInTheFutureOrPresentLocalDateTimeTest() {
+        super(ZonedDateTime.of(
+            2019, 6, 15, 0, 0, 0, 0,
+            TZ_CHICAGO));
+    }
 
-    // TODO: test for same  need to implement clock.
+    // TODO: test temporal tolerance
 
     @Test
     void shouldNotReturnFailureWhenActualIsInTheFuture() {
-        Target t = new Target(FUTURE);
+        Target t = new Target(AFTER);
 
-        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        DefaultValidator<Target> validator = getValidator();
+        validator.ruleForLocalDateTime(Target::getDateTime).isInTheFutureOrPresent();
+
+        List<ValidationFailure> failures = validator.validate(t);
+
+        assertTrue(failures.isEmpty());
+    }
+
+    @Test
+    void shouldNotReturnFailureWhenActualIsThePresent() {
+        Target t = new Target(REFERENCE);
+
+        DefaultValidator<Target> validator = getValidator();
         validator.ruleForLocalDateTime(Target::getDateTime).isInTheFutureOrPresent();
 
         List<ValidationFailure> failures = validator.validate(t);
@@ -33,7 +49,7 @@ class IsInTheFutureOrPresent {
     void shouldNotReturnFailureWhenActualIsNull() {
         Target t = new Target(null);
 
-        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        DefaultValidator<Target> validator = getValidator();
         validator.ruleForLocalDateTime(Target::getDateTime).isInTheFutureOrPresent();
 
         List<ValidationFailure> failures = validator.validate(t);
@@ -43,9 +59,9 @@ class IsInTheFutureOrPresent {
 
     @Test
     void shouldReturnFailureWhenActualIsInThePast() {
-        Target t = new Target(PAST);
+        Target t = new Target(BEFORE);
 
-        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        DefaultValidator<Target> validator = getValidator();
         validator.ruleForLocalDateTime(Target::getDateTime).isInTheFutureOrPresent();
 
         List<ValidationFailure> failures = validator.validate(t);

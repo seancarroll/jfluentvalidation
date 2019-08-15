@@ -54,11 +54,13 @@ public class StringSubject<T>
 
     @Override
     public StringSubject<T> isBetween(String startInclusive, String endInclusive) {
+        rule.addConstraint(ComparableConstraints.isBetween(startInclusive, endInclusive, true, true));
         return myself;
     }
 
     @Override
     public StringSubject<T> isStrictlyBetween(String startExclusive, String endExclusive) {
+        rule.addConstraint(ComparableConstraints.isBetween(startExclusive, endExclusive, false, false));
         return myself;
     }
 
@@ -70,6 +72,7 @@ public class StringSubject<T>
 
     @Override
     public StringSubject<T> isNotBetween(String startInclusive, String endInclusive) {
+        rule.addConstraint(ComparableConstraints.isNotBetween(startInclusive, endInclusive, true, true));
         return myself;
     }
 
@@ -78,6 +81,4 @@ public class StringSubject<T>
         rule.addConstraint(ComparableConstraints.isNotBetween(start, end, inclusiveStart, inclusiveEnd));
         return myself;
     }
-
-
 }

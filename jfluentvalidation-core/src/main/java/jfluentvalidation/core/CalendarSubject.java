@@ -1,13 +1,12 @@
 package jfluentvalidation.core;
 
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
-import jfluentvalidation.constraints.time.IsAfterCalendarConstraint;
-import jfluentvalidation.constraints.time.IsAfterOrEqualCalendarConstraint;
-import jfluentvalidation.constraints.time.IsBeforeCalendarConstraint;
-import jfluentvalidation.constraints.time.IsBeforeOrEqualCalendarConstraint;
+import jfluentvalidation.constraints.time.*;
 import jfluentvalidation.rules.PropertyRule;
 
 import java.util.Calendar;
+
+import static jfluentvalidation.common.Dates.calendarFromClock;
 
 /**
  * Constraints for {@link Calendar} typed subjects.
@@ -47,14 +46,12 @@ public class CalendarSubject<T>
 
     @CanIgnoreReturnValue
     public CalendarSubject<T> isInTheFuture() {
-        // TODO: clock from context/provider
-        return isAfter(Calendar.getInstance());
+        return isAfter(calendarFromClock(rule.getRuleOptions().getClockReference()));
     }
 
     @CanIgnoreReturnValue
     public CalendarSubject<T> isInTheFutureOrPresent() {
-        // TODO: clock from context/provider
-        return isAfterOrEqualTo(Calendar.getInstance());
+        return isAfterOrEqualTo(calendarFromClock(rule.getRuleOptions().getClockReference()));
     }
 
     @CanIgnoreReturnValue
@@ -65,14 +62,12 @@ public class CalendarSubject<T>
 
     @CanIgnoreReturnValue
     public CalendarSubject<T> isInThePast() {
-        // TODO: clock from context/provider
-        return isBefore(Calendar.getInstance());
+        return isBefore(calendarFromClock(rule.getRuleOptions().getClockReference()));
     }
 
     @CanIgnoreReturnValue
     public CalendarSubject<T> isInThePastOrPresent() {
-        // TODO: clock from context/provider
-        return isBeforeOrEqualTo(Calendar.getInstance());
+        return isBeforeOrEqualTo(calendarFromClock(rule.getRuleOptions().getClockReference()));
     }
 
     @CanIgnoreReturnValue
@@ -83,7 +78,7 @@ public class CalendarSubject<T>
 
     @CanIgnoreReturnValue
     public CalendarSubject<T> isToday() {
-        // TODO:
+        rule.addConstraint(new IsTodayCalendarConstraint<>(rule.getRuleOptions().getClockReference()));
         return myself;
     }
 }
