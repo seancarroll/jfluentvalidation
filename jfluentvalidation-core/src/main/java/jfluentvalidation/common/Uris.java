@@ -40,7 +40,8 @@ public final class Uris {
         try {
             return encoded == null ? null : URLDecoder.decode(encoded, "UTF-8");
         } catch(final UnsupportedEncodingException e) {
-            throw new RuntimeException("Impossible: UTF-8 is a required encoding", e);
+            // TODO: throw something other than a RuntimeException
+            throw new RuntimeException("UTF-8 is a required encoding", e);
         }
     }
 }
