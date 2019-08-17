@@ -55,3 +55,13 @@ https://www.lyh.me/lambda-serialization.html#.XCb-nRNKgWo
 - TODO: need to override Subject methods on superclasses
 - TODO: static methods to create constraints
 - TODO: look at argona primitive data structures that avoid boxing/unboxing.
+- TODO: move default messages to a constants class
+- TODO: is there a better way than forcing constraints to call super to set default message?
+
+Additional date constraints
+- TODO: isInSameYearAs
+- TODO: isInSameMonthAs
+- TODO: isInSameDayAs
+- TODO: isToday / isNotToday
+- TODO: isEquals vs equals
+- TODO: custom comparator

@@ -1,6 +1,7 @@
 package jfluentvalidation.constraints.charsequence;
 
-import jfluentvalidation.constraints.Constraint;
+import jfluentvalidation.constraints.AbstractConstraint;
+import jfluentvalidation.constraints.DefaultMessages;
 import jfluentvalidation.validators.RuleContext;
 
 /**
@@ -8,16 +9,20 @@ import jfluentvalidation.validators.RuleContext;
  *
  * @param <T>  type of instance to validate.
  */
-public class HasLengthLessThanConstraint<T> implements Constraint<T, CharSequence> {
+public class HasLengthLessThanConstraint<T, A extends CharSequence> extends AbstractConstraint<T, A> {
 
     private final int length;
 
     public HasLengthLessThanConstraint(int length) {
+        super(DefaultMessages.CHARSEQUENCE_HAS_LENGTH_LESS_THAN);
         this.length = length;
     }
 
     @Override
-    public boolean isValid(RuleContext<T, CharSequence> validationContext) {
-        return validationContext.getPropertyValue().length() < length;
+    public boolean isValid(RuleContext<T, A> context) {
+        if (context.getPropertyValue() == null) {
+            return true;
+        }
+        return context.getPropertyValue().length() < length;
     }
 }

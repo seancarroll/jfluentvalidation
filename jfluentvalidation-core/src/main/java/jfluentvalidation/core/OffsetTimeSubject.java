@@ -1,5 +1,6 @@
 package jfluentvalidation.core;
 
+import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import jfluentvalidation.constraints.time.IsAfterOffsetTimeConstraint;
 import jfluentvalidation.constraints.time.IsAfterOrEqualOffsetTimeConstraint;
 import jfluentvalidation.constraints.time.IsBeforeOffsetTimeConstraint;
@@ -11,8 +12,9 @@ import java.time.OffsetTime;
 // TODO: isEquals vs equals
 
 /**
+ * Constraints for {@link OffsetTime} subjects.
  *
- * @param <T>  the type of the instance
+ * @param <T> the type of the instance
  */
 public class OffsetTimeSubject<T>
     extends AbstractComparableSubject<OffsetTimeSubject<T>, T, OffsetTime> {
@@ -21,45 +23,52 @@ public class OffsetTimeSubject<T>
         super(OffsetTimeSubject.class, rule);
     }
 
-    // QUESTION: which do we want to keep? isBefore / isAfter vs past / future?
+    @CanIgnoreReturnValue
     public OffsetTimeSubject<T> isBefore(OffsetTime other) {
         rule.addConstraint(new IsBeforeOffsetTimeConstraint<>(other));
-        return  myself;
+        return myself;
     }
 
-    public OffsetTimeSubject<T> isBeforeOrEqual(OffsetTime other) {
+    @CanIgnoreReturnValue
+    public OffsetTimeSubject<T> isBeforeOrEqualTo(OffsetTime other) {
         rule.addConstraint(new IsBeforeOrEqualOffsetTimeConstraint<>(other));
-        return  myself;
+        return myself;
     }
 
+    @CanIgnoreReturnValue
     public OffsetTimeSubject<T> isAfter(OffsetTime other) {
         rule.addConstraint(new IsAfterOffsetTimeConstraint<>(other));
-        return  myself;
+        return myself;
     }
 
-    public OffsetTimeSubject<T> isAfterOrEqual(OffsetTime other) {
+    @CanIgnoreReturnValue
+    public OffsetTimeSubject<T> isAfterOrEqualTo(OffsetTime other) {
         rule.addConstraint(new IsAfterOrEqualOffsetTimeConstraint<>(other));
-        return  myself;
+        return myself;
     }
 
-    public OffsetTimeSubject isInTheFuture() {
-        // TODO: clock from context/provider
-        return isAfter(OffsetTime.now());
+    @CanIgnoreReturnValue
+    public OffsetTimeSubject<T> isInThePast() {
+        rule.addConstraint(new IsBeforeOffsetTimeConstraint<>(() -> OffsetTime.now(rule.getRuleOptions().getClockReference())));
+        return myself;
     }
 
-    public OffsetTimeSubject isInTheFutureOrPresent() {
-        // TODO: clock from context/provider
-        return isAfterOrEqual(OffsetTime.now());
+    @CanIgnoreReturnValue
+    public OffsetTimeSubject<T> isInThePastOrPresent() {
+        rule.addConstraint(new IsBeforeOrEqualOffsetTimeConstraint<>(() -> OffsetTime.now(rule.getRuleOptions().getClockReference())));
+        return myself;
     }
 
-    public OffsetTimeSubject isInThePast() {
-        // TODO: clock from context/provider
-        return isBefore(OffsetTime.now());
+    @CanIgnoreReturnValue
+    public OffsetTimeSubject<T> isInTheFuture() {
+        rule.addConstraint(new IsAfterOffsetTimeConstraint<>(() -> OffsetTime.now(rule.getRuleOptions().getClockReference())));
+        return myself;
     }
 
-    public OffsetTimeSubject isInThePastOrPresent() {
-        // TODO: clock from context/provider
-        return isBeforeOrEqual(OffsetTime.now());
+    @CanIgnoreReturnValue
+    public OffsetTimeSubject<T> isInTheFutureOrPresent() {
+        rule.addConstraint(new IsAfterOrEqualOffsetTimeConstraint<>(() -> OffsetTime.now(rule.getRuleOptions().getClockReference())));
+        return myself;
     }
 
 }

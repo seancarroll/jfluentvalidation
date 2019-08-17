@@ -3,6 +3,7 @@ package jfluentvalidation.core;
 import jfluentvalidation.rules.PropertyRule;
 
 /**
+ * Constraints for {@code long} subjects.
  *
  * @param <T>  the type of the instance
  */

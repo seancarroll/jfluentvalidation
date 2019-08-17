@@ -1,9 +1,10 @@
 package jfluentvalidation.core;
 
+import com.google.errorprone.annotations.CanIgnoreReturnValue;
+
 import java.util.regex.Pattern;
 
-// TODO: ugh...I dont really like the name but attempting to try and fix charsequence/string/stringbuffer/stringbuilder
-// incompatiblity issues
+// TODO: better name?
 
 /**
  *
@@ -14,126 +15,148 @@ import java.util.regex.Pattern;
  */
 public interface ReadableSequence<S extends ReadableSequence<S, T, A>, T, A> {
 
+    @CanIgnoreReturnValue
     S isNullOrEmpty();
 
+    @CanIgnoreReturnValue
     S isEmpty();
 
+    @CanIgnoreReturnValue
     S isNotEmpty();
 
+    @CanIgnoreReturnValue
     // TODO: do we want this? Is it common language?
     S isBlank();
 
+    @CanIgnoreReturnValue
     S isNotBlank();
 
-    // TODO: do we want this? Not sure this is helpful
+    @CanIgnoreReturnValue
     S containsWhitespaces();
 
-    // TODO: do we want this? Not sure this is helpful
+    @CanIgnoreReturnValue
     S containsOnlyWhitespaces();
 
+    @CanIgnoreReturnValue
     S doesNotContainAnyWhitespaces();
 
+    @CanIgnoreReturnValue
     S doesNotContainOnlyWhitespaces();
 
+    @CanIgnoreReturnValue
     S hasLength(int expected);
 
+    @CanIgnoreReturnValue
     S hasLengthLessThan(int expected);
 
+    @CanIgnoreReturnValue
     S hasLengthLessThanOrEqualTo(int expected);
 
+    @CanIgnoreReturnValue
     S hasLengthGreaterThan(int expected);
 
+    @CanIgnoreReturnValue
     S hasLengthGreaterThanOrEqualTo(int expected);
 
+    @CanIgnoreReturnValue
     S hasLengthBetween(int min, int max);
 
-    // TODO: do we want to keep this? Not sure how helpful
-    S hasLineCount(int expected);
+    @CanIgnoreReturnValue
+    S hasLengthBetween(int min, int max, boolean inclusiveStart, boolean inclusiveEnd);
 
-    S hasSameLengthAs(CharSequenceSubject other);
+    @CanIgnoreReturnValue
+    S hasSameLengthAs(CharSequence other);
 
-    // TODO: This is for an array. Why not just pass in an array? Do we want to keep? Does this make sense?
-    S hasSameLengthAs(Object other);
-
-    S hasSameLengthAs(Iterable<?> other);
-
+    @CanIgnoreReturnValue
     S isEqualToIgnoringCase(CharSequence expected);
 
+    @CanIgnoreReturnValue
     // TODO: expected here as parameter name might not make sense...other might be more appropriate
     S isNotEqualToIgnoringCase(CharSequence expected);
 
+    @CanIgnoreReturnValue
     S containsOnlyDigits();
 
+    @CanIgnoreReturnValue
     // TODO: Do we want to keep? Better name?
     S containsOnlyOnce(CharSequence sequence);
 
+    @CanIgnoreReturnValue
     S contains(CharSequence... values);
 
+    @CanIgnoreReturnValue
     S contains(Iterable<? extends  CharSequence> values);
 
-    S containsSequence(CharSequence... values);
-
-    S containsSequence(Iterable<? extends CharSequence> values);
-
-    S containsSubsequence(CharSequence... values);
-
-    S containsSubsequence(Iterable<? extends CharSequence> values);
-
+    @CanIgnoreReturnValue
     S containsIgnoreCase(CharSequence sequence);
 
+    @CanIgnoreReturnValue
     S doesNotContain(CharSequence... values);
 
+    @CanIgnoreReturnValue
     S doesNotContain(Iterable<? extends CharSequence> values);
 
+    @CanIgnoreReturnValue
     S doesNotContainPattern(CharSequence pattern);
 
+    @CanIgnoreReturnValue
     S doesNotContainPattern(Pattern pattern);
 
+    @CanIgnoreReturnValue
     S startsWith(CharSequence prefix);
 
+    @CanIgnoreReturnValue
+    S startsWith(CharSequence prefix, int offset);
+
+    @CanIgnoreReturnValue
     S doesNotStartWith(CharSequence prefix);
 
+    @CanIgnoreReturnValue
     S endsWith(CharSequence suffix);
 
+    @CanIgnoreReturnValue
     S doesNotEndWith(CharSequence suffix);
 
+    @CanIgnoreReturnValue
     S matches(CharSequence regex);
 
+    @CanIgnoreReturnValue
     S doesNotMatch(CharSequence regex);
 
+    @CanIgnoreReturnValue
     S matches(Pattern pattern);
 
-    S doesNotmatch(Pattern pattern);
+    @CanIgnoreReturnValue
+    S doesNotMatch(Pattern pattern);
 
-    // TODO: Not sure this makes sense to keep
-    S isXmlEqualTo(CharSequence expectedXml);
-
-    S inHexadecimal();
-
-    S inUnicode();
-
+    @CanIgnoreReturnValue
     S isEqualToIgnoringWhitespace(CharSequence expected);
 
+    @CanIgnoreReturnValue
     S isNotEqualToIgnoringWhitespace(CharSequence expected);
 
+    @CanIgnoreReturnValue
     S isEqualToNormalizingWhitespace(CharSequence expected);
 
+    @CanIgnoreReturnValue
     S isNotEqualToNormalizingWhitespace(CharSequence expected);
 
+    @CanIgnoreReturnValue
     S isSubstringOf(CharSequence sequence);
 
+    @CanIgnoreReturnValue
     S containsPattern(CharSequence regex);
 
+    @CanIgnoreReturnValue
     S containsPattern(Pattern pattern);
 
-    S isEqualToNormalizingNewlines(CharSequence expected);
-
-    S isEqualToIgnoringNewLines(CharSequence expected);
-
+    @CanIgnoreReturnValue
     S isLowerCase();
 
+    @CanIgnoreReturnValue
     S isUpperCase();
 
-    // TODO: isEmail();
+    @CanIgnoreReturnValue
+    S isEmail();
 
 }

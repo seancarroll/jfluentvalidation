@@ -1,40 +1,44 @@
 package jfluentvalidation.constraints.array.length;
 
-import jfluentvalidation.constraints.Constraint;
+import jfluentvalidation.common.Comparables;
+import jfluentvalidation.constraints.AbstractConstraint;
+import jfluentvalidation.constraints.DefaultMessages;
+import jfluentvalidation.internal.Ensure;
 import jfluentvalidation.validators.RuleContext;
 
 import java.lang.reflect.Array;
-import java.util.function.IntSupplier;
 
 // TODO: Could I do something like the following?
-// Seems like it will work. Whats the cost of the cast?
-public class ArrayLengthConstraint<T, A> implements Constraint<T, A> {
+// Seems like it will work. Whats the cost of the cast in Array.getLength?
+// Given ArrayExactLengthConstraint doesnt use this how about we change the name to something like ArrayRangeLengthConstraint?
+public class ArrayLengthConstraint<T, A> extends AbstractConstraint<T, A> {
 
-    private IntSupplier minSupplier;
-    private IntSupplier maxSupplier;
-
-    public ArrayLengthConstraint(IntSupplier minSupplier, IntSupplier maxSupplier) {
-        this.minSupplier = minSupplier;
-        this.maxSupplier = maxSupplier;
-    }
+    private final int min;
+    private final int max;
+    private final boolean inclusiveStart;
+    private final boolean inclusiveEnd;
 
     public ArrayLengthConstraint(int min, int max) {
-        this.minSupplier = () -> min;
-        this.maxSupplier = () -> max;
+        this(min, max, true, true);
+    }
+
+    public ArrayLengthConstraint(int min, int max, boolean inclusiveStart, boolean inclusiveEnd) {
+        super(DefaultMessages.ARRAY_LENGTH);
+        Ensure.argument(min <= max);
+        this.min = min;
+        this.max = max;
+        this.inclusiveStart = inclusiveStart;
+        this.inclusiveEnd = inclusiveEnd;
     }
 
     @Override
     public boolean isValid(RuleContext<T, A> context) {
-        int len = Array.getLength(context.getPropertyValue());
-        int min = minSupplier.getAsInt();
-        int max = maxSupplier.getAsInt();
-        if (len < min || (len > max && max != -1)) {
-            return false;
+        if (context.getPropertyValue() == null) {
+            return true;
         }
-
-        return true;
+        int len = Array.getLength(context.getPropertyValue());
+        return Comparables.isBetween(len, min, max, inclusiveStart, inclusiveEnd);
     }
-
 
 }
 

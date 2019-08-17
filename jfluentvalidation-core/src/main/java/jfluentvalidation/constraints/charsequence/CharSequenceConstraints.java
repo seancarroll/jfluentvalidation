@@ -46,14 +46,6 @@ public final class CharSequenceConstraints {
         return new ContainsPatternConstraint(regex);
     }
 
-    public static ContainsSequenceConstraint containsSequence(CharSequence... sequences) {
-        return new ContainsSequenceConstraint(sequences);
-    }
-
-    public static ContainsSubsequenceConstraint containsSubsequence(CharSequence... sequences) {
-        return new ContainsSubsequenceConstraint(sequences);
-    }
-
     public static ContainsWhitespacesConstraint containsWhitespaces() {
         return CONTAINS_WHITESPACES_CONSTRAINT;
     }
@@ -63,7 +55,7 @@ public final class CharSequenceConstraints {
     }
 
     public static EndsWithConstraint endsWith(CharSequence suffix) {
-        return new EndsWithConstraint(suffix);
+        return new EndsWithConstraint<>(suffix);
     }
 
     public static HasLengthBetweenConstraint hasLengthBetween(int min, int max) {
@@ -75,11 +67,11 @@ public final class CharSequenceConstraints {
     }
 
     public static HasLengthGreaterThanConstraint hasLengthGreaterThan(int length) {
-        return new HasLengthGreaterThanConstraint(length);
+        return new HasLengthGreaterThanConstraint<>(length);
     }
 
     public static HasLengthGreaterThanOrEqualToConstraint hasLengthGreaterThanOrEqualTo(int length) {
-        return new HasLengthGreaterThanOrEqualToConstraint(length);
+        return new HasLengthGreaterThanOrEqualToConstraint<>(length);
     }
 
     public static HasLengthLessThanConstraint hasLengthLessThan(int length) {
@@ -100,8 +92,8 @@ public final class CharSequenceConstraints {
     }
 
     // TODO: always return a single instance (make a singleton public static final)
-    public static IsEmailConstraint isEmail(CharSequence sequence) {
-        return new IsEmailConstraint(sequence);
+    public static IsEmailConstraint isEmail() {
+        return new IsEmailConstraint();
     }
 
     public static IsEmptyConstraint isEmpty() {
@@ -151,11 +143,11 @@ public final class CharSequenceConstraints {
 
     // TODO: do we want to add option to ignore case?
     public static StartsWithConstraint startsWith(CharSequence prefix) {
-        return new StartsWithConstraint(prefix);
+        return new StartsWithConstraint<>(prefix);
     }
 
     public static StartsWithConstraint startsWith(CharSequence prefix, int offset) {
-        return new StartsWithConstraint(prefix, offset);
+        return new StartsWithConstraint<>(prefix, offset);
     }
 
     private CharSequenceConstraints() {

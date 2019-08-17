@@ -33,18 +33,34 @@ public class ValidationFailure {
         this.attemptedValue = attemptedValue;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getPropertyName() {
         return propertyName;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getErrorMessage() {
         return errorMessage;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getErrorCode() {
         return errorCode;
     }
 
+    /**
+     *
+     * @return
+     */
     public Object getAttemptedValue() {
         return attemptedValue;
     }

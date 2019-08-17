@@ -1,6 +1,13 @@
 package jfluentvalidation.core;
 
 
+//* Base class for all assertions.
+//*
+//* @param <SELF> the "self" type of this assertion class. Please read &quot;<a href="http://bit.ly/1IZIRcY"
+//*          target="_blank">Emulating 'self types' using Java Generics to simplify fluent API implementation</a>&quot;
+//*          for more details.
+//* @param <ACTUAL> the type of the "actual" value.
+
 // assertJ has abstract class AbstractAssert and interface Assert
 //* @param <SELF> the "self" type of this assertion class. Please read &quot;<a href="http://bit.ly/1IZIRcY"
 //*          target="_blank">Emulating 'self types' using Java Generics to simplify fluent API implementation</a>&quot;
@@ -9,9 +16,10 @@ package jfluentvalidation.core;
 
 // Following assertj style we could have an Constraint interface an an abstract class AbstractConstraint
 
-import jfluentvalidation.constraints.Constraint;
+import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import jfluentvalidation.constraints.PredicateConstraint;
 import jfluentvalidation.constraints.object.IsEqualsConstraint;
+import jfluentvalidation.constraints.object.IsNotEqualsConstraint;
 import jfluentvalidation.constraints.object.IsNotNullConstraint;
 import jfluentvalidation.constraints.object.IsNullConstraint;
 import jfluentvalidation.rules.PropertyRule;
@@ -31,7 +39,9 @@ public class Subject<S extends Subject<S, T, A>, T, A> {
     // TODO: does the subject need propertyFunc, propertyName, constraints, currentConstraint or can these be moved elsewhere?
     protected final S myself;
     protected PropertyRule<T, A> rule;
-    protected Constraint<?, A> currentConstraint;
+
+    // TODO: do we need this? we added currentConstraint to rule...is that were it should be?
+    // protected Constraint<T, A> currentConstraint;
 
     public Subject(Class<?> selfType, PropertyRule<T, A> rule) {
         this.myself = (S) selfType.cast(this);
@@ -43,6 +53,7 @@ public class Subject<S extends Subject<S, T, A>, T, A> {
     // 1. constraints.add(instance -> instance == null)
     // 2. new IsNullConstraint
     // 3. static IsNullConstraint
+    @CanIgnoreReturnValue
     public S isNull() {
         // standardIsEqualTo(null);
         rule.addConstraint(new IsNullConstraint<>());
@@ -50,6 +61,7 @@ public class Subject<S extends Subject<S, T, A>, T, A> {
     }
 
     /** Fails if the subject is null. */
+    @CanIgnoreReturnValue
     public S isNotNull() {
         // standardIsNotEqualTo(null);
         rule.addConstraint(new IsNotNullConstraint<>());
@@ -57,43 +69,54 @@ public class Subject<S extends Subject<S, T, A>, T, A> {
     }
 
     // TODO: is there a better way to do this? What are some alternatives?
+    @CanIgnoreReturnValue
     public S isEquals(A other) {
         rule.addConstraint(new IsEqualsConstraint<>(other));
         return myself;
     }
 
-    protected S withMessage(String message) {
-        // TODO: implement
-        // set message
+    @CanIgnoreReturnValue
+    public S isNotEquals(A other) {
+        rule.addConstraint(new IsNotEqualsConstraint<>(other));
         return myself;
     }
 
-    protected S when(Predicate<A> predicate) {
+    public S withMessage(String message) {
+        rule.getCurrentConstraint().getOptions().setErrorMessage(message);
+        return myself;
+    }
+
+    public S when(Predicate<T> predicate) {
         return when(predicate, true);
     }
 
     // TODO: enum instead of boolean applyToAll?
-    protected S when(Predicate<A> predicate, boolean applyToAll) {
-        // TODO: implement
+    public S when(Predicate<T> predicate, boolean applyToAll) {
+        // TODO: use applyToAll
+        // TODO: crap...SoftConstraint predicate could be on a different type than the constraint
+        rule.applyCondition(predicate, applyToAll);
         return myself;
     }
 
-    protected S unless(Predicate<A> predicate) {
+    public S unless(Predicate<T> predicate) {
         return unless(predicate, true);
     }
 
     // TODO: enum instead of boolean applyToAll?
-    protected S unless(Predicate<A> predicate, boolean applyToAll) {
-        // TODO: implement
+    public S unless(Predicate<T> predicate, boolean applyToAll) {
+        rule.applyCondition(predicate.negate(), applyToAll);
         return myself;
     }
 
 
     //    RuleFor(x => x.Postcode).Must(BeAValidPostcode).WithMessage("Please specify a valid postcode");
     public S must(Predicate<A> predicate) {
-        // TODO: fix unchecked...not sure how to make generics work here.
         rule.addConstraint(new PredicateConstraint<>(predicate));
         return myself;
+    }
+
+    protected PropertyRule<T, A> getRule() {
+        return rule;
     }
 
 

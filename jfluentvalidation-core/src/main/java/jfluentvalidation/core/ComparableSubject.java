@@ -1,5 +1,7 @@
 package jfluentvalidation.core;
 
+import com.google.errorprone.annotations.CanIgnoreReturnValue;
+
 /**
  *
  * @param <S>  the self-type, allowing {@code this}-returning methods to avoid needing subclassing.
@@ -9,29 +11,36 @@ package jfluentvalidation.core;
  */
 public interface ComparableSubject<S extends ComparableSubject<S, T, A>, T, A extends Comparable<? super A>> {
 
+    @CanIgnoreReturnValue
     S isEqualAccordingToCompareTo(A other);
 
+    @CanIgnoreReturnValue
     S isNotEqualAccordingToCompareTo(A other);
 
+    @CanIgnoreReturnValue
     S isLessThan(A other);
 
+    @CanIgnoreReturnValue
     S isLessThanOrEqualTo(A other);
 
+    @CanIgnoreReturnValue
     S isGreaterThan(A other);
 
+    @CanIgnoreReturnValue
     S isGreaterThanOrEqualTo(A other);
 
-    // TODO: review. Do most things use inclusive start and an exclusive end? Duration.between does. others?
-    // Duration.between()
-    // Period.between()
-    // ChronoUnit between
+    @CanIgnoreReturnValue
     S isBetween(A startInclusive, A endInclusive);
 
+    @CanIgnoreReturnValue
     S isStrictlyBetween(A startExclusive, A endExclusive);
 
+    @CanIgnoreReturnValue
     S isBetween(A start, A end, boolean inclusiveStart, boolean inclusiveEnd);
 
+    @CanIgnoreReturnValue
     S isNotBetween(A startInclusive, A endInclusive);
 
+    @CanIgnoreReturnValue
     S isNotBetween(A start, A end, boolean inclusiveStart, boolean inclusiveEnd);
 }

@@ -1,11 +1,16 @@
 package jfluentvalidation.core;
 
+import com.google.errorprone.annotations.CanIgnoreReturnValue;
+import jfluentvalidation.MapItemConstraint;
 import jfluentvalidation.constraints.Constraint;
 import jfluentvalidation.constraints.map.*;
+import jfluentvalidation.rules.MapPropertyRule;
 import jfluentvalidation.rules.PropertyRule;
 
+import java.util.AbstractMap;
+import java.util.Collection;
 import java.util.Map;
-import java.util.function.Predicate;
+import java.util.function.Function;
 
 /**
  *
@@ -19,62 +24,75 @@ public class MapSubject<T, K, V> extends Subject<MapSubject<T, K, V>, T, Map<K, 
         super(MapSubject.class, rule);
     }
 
+    @CanIgnoreReturnValue
     public final MapSubject<T, K, V> isEmpty() {
         rule.addConstraint(new IsEmptyConstraint<>());
         return myself;
     }
 
+    @CanIgnoreReturnValue
     public final MapSubject<T, K, V> isNotEmpty() {
         rule.addConstraint(new IsNotEmptyConstraint<>());
         return myself;
     }
 
+    @CanIgnoreReturnValue
     public final MapSubject<T, K, V> hasSize(int expectedSize) {
         rule.addConstraint(new HasSizeConstraint<>(expectedSize));
         return myself;
     }
 
-    public final MapSubject<T, K, V> containsKey(Object key) {
-
+    @CanIgnoreReturnValue
+    public final MapSubject<T, K, V> containsKey(K key) {
+        rule.addConstraint(new ContainsKeyConstraint<>(key));
         return myself;
     }
 
-    public final MapSubject<T, K, V> containsEntry(Object key, Object value) {
-
+    @CanIgnoreReturnValue
+    // TODO: add overload which takes in Map.Entry?
+    public final MapSubject<T, K, V> containsEntry(K key, V value) {
+        rule.addConstraint(new ContainsEntryConstraint<>(new AbstractMap.SimpleEntry<>(key, value)));
         return myself;
     }
 
+    @CanIgnoreReturnValue
     public final MapSubject<T, K, V> doesNotContainsEntry(Object key, Object value) {
-
+        // TODO: implement
         return myself;
     }
 
-    // Fails if the map is not empty...This seems strange
+    @CanIgnoreReturnValue
     public final MapSubject<T, K, V> containsExactly() {
+        // TODO: implement
         return myself;
     }
 
+    @CanIgnoreReturnValue
     public final MapSubject<T, K, V> containsExactly(Object key, Object value, Object... rest) {
+        // TODO: implement
         return myself;
     }
 
+    @CanIgnoreReturnValue
     public final MapSubject<T, K, V> containsExactlyEntriesIn(Map<?, ?> expectedMap) {
-
+    // TODO: implement
         return myself;
     }
 
+    @CanIgnoreReturnValue
     public final MapSubject<T, K, V> containsExactlyEntriesInAnyOrder(Map<?, ?> expected) {
-
+        // TODO: implement
         return myself;
     }
 
+    @CanIgnoreReturnValue
     // TODO: review Google Truth MapSubject MapDifference
     public final MapSubject<T, K, V> doesNotContainEntry(Object key, Object value) {
-
+        // TODO: implement
         return myself;
     }
 
-
+    @CanIgnoreReturnValue
     public final MapSubject<T, K, V> containsValue(V value) {
         rule.addConstraint(new ContainsValueConstraint<>(value));
         return myself;
@@ -118,38 +136,48 @@ public class MapSubject<T, K, V> extends Subject<MapSubject<T, K, V>, T, Map<K, 
         return super.isEquals(other);
     }
 
+
+
+    // TODO: I'm not sure this makes sense given what would a Constraint for an Entry look like?
+    // Perhaps we do soemthing like assertj's satisfy/satisfyrequirements
     /**
      *
      * @param constraintsToAdd
      * @return
      */
+    @CanIgnoreReturnValue
     @SafeVarargs
     public final MapSubject<T, K, V> forEachEntry(Constraint<T, Map.Entry<K, V>>... constraintsToAdd) {
-        rule.addConstraint(new EntryConstraint<>(constraintsToAdd));
+        Function<Map<K, V>, Collection<Map.Entry<K, V>>> fks = Map::entrySet;
+        for (Constraint<T, Map.Entry<K, V>> constraint : constraintsToAdd) {
+            getRule().addItemConstraint(new MapItemConstraint<>(fks, constraint));
+        }
         return myself;
     }
 
-    /**
-     *
-     * @param predicate
-     * @param constraintsToAdd
-     * @return
-     */
-    @SafeVarargs
-    public final MapSubject<T, K, V> forEachEntry(Predicate<Map.Entry<K, V>> predicate, Constraint<T, Map.Entry<K, V>>... constraintsToAdd) {
-        rule.addConstraint(new EntryConstraint<>(predicate, constraintsToAdd));
-        return myself;
-    }
-
+//    /**
+//     *
+//     * @param constraintsToAdd
+//     * @return
+//     */
+//    @SafeVarargs
+//    public final MapSubject<T, K, V> forEachEntry(Constraint<T, Map.Entry<K, V>>... constraintsToAdd) {
+//        rule.addConstraint(new EntryConstraint<>(constraintsToAdd));
+//        return myself;
+//    }
 
     /**
      *
      * @param constraintsToAdd
      * @return
      */
+    @CanIgnoreReturnValue
     @SafeVarargs
     public final MapSubject<T, K, V> forEachKey(Constraint<T, K>... constraintsToAdd) {
-        rule.addConstraint(new KeyConstraint<>(constraintsToAdd));
+        Function<Map<K, V>, Collection<K>> fks = Map::keySet;
+        for (Constraint<T, K> constraint : constraintsToAdd) {
+            getRule().addItemConstraint(new MapItemConstraint<>(fks, constraint));
+        }
         return myself;
     }
 
@@ -159,8 +187,9 @@ public class MapSubject<T, K, V> extends Subject<MapSubject<T, K, V>, T, Map<K, 
 //     * @param constraintsToAdd
 //     * @return
 //     */
-//    public final MapSubject<K, V> forEachKey(Predicate<? super K> predicate, Constraint<?, ? super K>... constraintsToAdd) {
-//        rule.addConstraint(new KeyConstraint(constraintsToAdd));
+//    public final MapSubject<T, K, V> forEachKey(Predicate<? super K> predicate, Constraint<?, ? super K>... constraintsToAdd) {
+//        // TODO: fix generic
+//        rule.addConstraint(new KeyConstraint(predicate, constraintsToAdd));
 //        return myself;
 //    }
 
@@ -169,11 +198,26 @@ public class MapSubject<T, K, V> extends Subject<MapSubject<T, K, V>, T, Map<K, 
      * @param constraintsToAdd
      * @return
      */
+    @CanIgnoreReturnValue
     @SafeVarargs
     public final MapSubject<T, K, V> forEachValue(Constraint<T, V>... constraintsToAdd) {
-        rule.addConstraint(new ValueConstraint<>(constraintsToAdd));
+        Function<Map<K, V>, Collection<V>> fks = Map::values;
+        for (Constraint<T, V> constraint : constraintsToAdd) {
+            getRule().addItemConstraint(new MapItemConstraint<>(fks, constraint));
+        }
         return myself;
     }
+
+//    /**
+//     *
+//     * @param constraintsToAdd
+//     * @return
+//     */
+//    @SafeVarargs
+//    public final MapSubject<T, K, V> forEachValue(Constraint<T, V>... constraintsToAdd) {
+//        rule.addConstraint(new ValueConstraint<>(constraintsToAdd));
+//        return myself;
+//    }
 
 //    /**
 //     *
@@ -186,4 +230,9 @@ public class MapSubject<T, K, V> extends Subject<MapSubject<T, K, V>, T, Map<K, 
 //        rule.addConstraint(new ValueConstraint(constraintsToAdd));
 //        return myself;
 //    }
+
+    @Override
+    protected MapPropertyRule<T, K, V> getRule() {
+        return (MapPropertyRule<T,K, V>) super.getRule();
+    }
 }

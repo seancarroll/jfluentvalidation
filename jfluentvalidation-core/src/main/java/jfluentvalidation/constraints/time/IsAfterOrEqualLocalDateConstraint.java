@@ -1,25 +1,48 @@
 package jfluentvalidation.constraints.time;
 
-import jfluentvalidation.constraints.Constraint;
+import jfluentvalidation.common.Suppliers;
+import jfluentvalidation.constraints.AbstractConstraint;
+import jfluentvalidation.constraints.DefaultMessages;
 import jfluentvalidation.internal.Ensure;
 import jfluentvalidation.validators.RuleContext;
 
 import java.time.LocalDate;
+import java.util.function.Supplier;
 
 /**
  *
  * @param <T>  the target type supported by an implementation.
  */
-public class IsAfterOrEqualLocalDateConstraint<T> implements Constraint<T, LocalDate> {
+public class IsAfterOrEqualLocalDateConstraint<T> extends AbstractConstraint<T, LocalDate> {
 
-    private final LocalDate other;
+    private final Supplier<LocalDate> other;
 
     public IsAfterOrEqualLocalDateConstraint(LocalDate other) {
+        this(Suppliers.create(other));
+    }
+
+    public IsAfterOrEqualLocalDateConstraint(Supplier<LocalDate> other) {
+        super(DefaultMessages.TIME_IS_AFTER_OR_EQUAL);
         this.other = Ensure.notNull(other);
     }
 
     @Override
     public boolean isValid(RuleContext<T, LocalDate> context) {
-        return !context.getPropertyValue().isBefore(other);
+        if (context.getPropertyValue() == null) {
+            return true;
+        }
+        return !context.getPropertyValue().isBefore(other.get());
     }
+
+//    @Override
+//    protected void validate(RuleContext<T, LocalDate> context) {
+//        if (context.getPropertyValue().isBefore(other)) {
+//            addConstraint(ConstraintViolation.create(context, MESSAGE));
+//        }
+//    }
+
+//    @Override
+//    public String getMessage() {
+//        return DEFAULT_MESSAGE;
+//    }
 }

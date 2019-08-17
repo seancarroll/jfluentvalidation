@@ -1,29 +1,40 @@
 package jfluentvalidation.constraints;
 
-import java.util.function.Predicate;
+import jfluentvalidation.validators.ConstraintOptions;
+
+import java.util.ArrayList;
+import java.util.List;
 
 // TODO: does this make sense to have?
 // Lets see how things start coming together and if we need this
-public abstract class AbstractConstraint {
+public abstract class AbstractConstraint<T, P> implements Constraint<T, P> {
 
-    private String ruleSet;
-    private String customMessage; // failure message / constraint message. Can this also be a localization message source key?
-    private Object[] messageArgs;
-    private Predicate whenClause;
+    protected final ConstraintOptions options = new ConstraintOptions();
+    private final List<ConstraintViolation> constraintViolations = new ArrayList<>();
 
-    public String getRuleSet() {
-        return ruleSet;
+    public AbstractConstraint(String errorMessage) {
+        options.setErrorMessage(errorMessage);
     }
 
-    public String getCustomMessage() {
-        return customMessage;
+//    @Override
+//    public List<ConstraintViolation> isValid(RuleContext<T, P> context) {
+//        validate(context);
+//
+//        return constraintViolations;
+//    }
+
+    // protected abstract void validate(RuleContext<T, P> context);
+
+    protected void addConstraint(ConstraintViolation violation) {
+        constraintViolations.add(violation);
     }
 
-    public Object[] getMessageArgs() {
-        return messageArgs;
+    public List<ConstraintViolation> getConstraintViolations() {
+        return constraintViolations;
     }
 
-    public Predicate getWhenClause() {
-        return whenClause;
+    @Override
+    public ConstraintOptions getOptions() {
+        return options;
     }
 }

@@ -3,6 +3,7 @@ package jfluentvalidation.core;
 import jfluentvalidation.rules.PropertyRule;
 
 /**
+ * Constraints for {@link CharSequence[]} typed subjects.
  *
  * @param <T>  the type of the instance.
  * @param <A>  the type of the actual object being tested by this {@code Subject}.

@@ -1,9 +1,7 @@
 package jfluentvalidation.core;
 
-import jfluentvalidation.constraints.time.IsAfterOrEqualZonedDateTimeConstraint;
-import jfluentvalidation.constraints.time.IsAfterZonedDateTimeConstraint;
-import jfluentvalidation.constraints.time.IsBeforeOrEqualZonedDateTimeConstraint;
-import jfluentvalidation.constraints.time.IsBeforeZonedDateTimeConstraint;
+import com.google.errorprone.annotations.CanIgnoreReturnValue;
+import jfluentvalidation.constraints.time.*;
 import jfluentvalidation.rules.PropertyRule;
 
 import java.time.ZonedDateTime;
@@ -12,8 +10,9 @@ import java.time.ZonedDateTime;
 // TODO: still some unchecked assignments
 
 /**
+ * Constraints for {@link ZonedDateTime} subjects.
  *
- * @param <T>  the type of the instance
+ * @param <T> the type of the instance
  */
 public class ZonedDateTimeSubject<T>
     extends AbstractComparableSubject<ZonedDateTimeSubject<T>, T, ZonedDateTime> {
@@ -22,45 +21,71 @@ public class ZonedDateTimeSubject<T>
         super(ZonedDateTimeSubject.class, rule);
     }
 
-    // QUESTION: which do we want to keep? isBefore / isAfter vs past / future?
+    @CanIgnoreReturnValue
     public ZonedDateTimeSubject<T> isBefore(ZonedDateTime zonedDateTime) {
         rule.addConstraint(new IsBeforeZonedDateTimeConstraint<>(zonedDateTime));
-        return  myself;
+        return myself;
     }
 
-    public ZonedDateTimeSubject<T> isBeforeOrEqual(ZonedDateTime zonedDateTime) {
+    @CanIgnoreReturnValue
+    public ZonedDateTimeSubject<T> isBeforeOrEqualTo(ZonedDateTime zonedDateTime) {
         rule.addConstraint(new IsBeforeOrEqualZonedDateTimeConstraint<>(zonedDateTime));
-        return  myself;
+        return myself;
     }
 
+    @CanIgnoreReturnValue
     public ZonedDateTimeSubject<T> isAfter(ZonedDateTime zonedDateTime) {
         rule.addConstraint(new IsAfterZonedDateTimeConstraint<>(zonedDateTime));
-        return  myself;
+        return myself;
     }
 
-    public ZonedDateTimeSubject<T> isAfterOrEqual(ZonedDateTime zonedDateTime) {
+    @CanIgnoreReturnValue
+    public ZonedDateTimeSubject<T> isAfterOrEqualTo(ZonedDateTime zonedDateTime) {
         rule.addConstraint(new IsAfterOrEqualZonedDateTimeConstraint<>(zonedDateTime));
-        return  myself;
+        return myself;
     }
 
-    public ZonedDateTimeSubject<T> isInTheFuture() {
-        // TODO: clock from context/provider
-        return isAfter(ZonedDateTime.now());
-    }
-
-    public ZonedDateTimeSubject<T> isInTheFutureOrPresent() {
-        // TODO: clock from context/provider
-        return isAfterOrEqual(ZonedDateTime.now());
-    }
-
+    @CanIgnoreReturnValue
     public ZonedDateTimeSubject<T> isInThePast() {
-        // TODO: clock from context/provider
-        return isBefore(ZonedDateTime.now());
+        rule.addConstraint(new IsBeforeZonedDateTimeConstraint<>(() -> ZonedDateTime.now(rule.getRuleOptions().getClockReference())));
+        return myself;
     }
 
+    @CanIgnoreReturnValue
     public ZonedDateTimeSubject<T> isInThePastOrPresent() {
+        rule.addConstraint(new IsBeforeOrEqualZonedDateTimeConstraint<>(() -> ZonedDateTime.now(rule.getRuleOptions().getClockReference())));
+        return myself;
+    }
+
+    @CanIgnoreReturnValue
+    public ZonedDateTimeSubject<T> isInThePastOrToday() {
         // TODO: clock from context/provider
-        return isBeforeOrEqual(ZonedDateTime.now());
+        throw new RuntimeException("not implemented");
+    }
+
+    @CanIgnoreReturnValue
+    public ZonedDateTimeSubject<T> isInTheFuture() {
+        rule.addConstraint(new IsAfterZonedDateTimeConstraint<>(() -> ZonedDateTime.now(rule.getRuleOptions().getClockReference())));
+        return myself;
+    }
+
+    @CanIgnoreReturnValue
+    public ZonedDateTimeSubject<T> isInTheFutureOrPresent() {
+        rule.addConstraint(new IsAfterOrEqualZonedDateTimeConstraint<>(() -> ZonedDateTime.now(rule.getRuleOptions().getClockReference())));
+        return myself;
+    }
+
+    @CanIgnoreReturnValue
+    public ZonedDateTimeSubject<T> isInTheFutureOrToday() {
+        // TODO: clock from context/provider
+        throw new RuntimeException("not implemented");
+    }
+
+
+    @CanIgnoreReturnValue
+    public ZonedDateTimeSubject<T> isToday() {
+        rule.addConstraint(new IsTodayZonedDateTimeConstraint<>(rule.getRuleOptions().getClockReference()));
+        return myself;
     }
 
 }

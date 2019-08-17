@@ -1,7 +1,8 @@
 package jfluentvalidation.constraints.charsequence;
 
 import jfluentvalidation.common.Strings;
-import jfluentvalidation.constraints.Constraint;
+import jfluentvalidation.constraints.AbstractConstraint;
+import jfluentvalidation.constraints.DefaultMessages;
 import jfluentvalidation.validators.RuleContext;
 
 /**
@@ -9,10 +10,14 @@ import jfluentvalidation.validators.RuleContext;
  *
  * @param <T>  type of instance to validate.
  */
-public class ContainsWhitespacesConstraint<T> implements Constraint<T, CharSequence> {
+public class ContainsWhitespacesConstraint<T, A extends CharSequence> extends AbstractConstraint<T, A> {
+
+    public ContainsWhitespacesConstraint() {
+        super(DefaultMessages.CHARSEQUENCE_CONTAINS_WHITESPACES);
+    }
 
     @Override
-    public boolean isValid(RuleContext<T, CharSequence> validationContext) {
-        return !Strings.isNullOrEmpty(validationContext.getPropertyValue()) && Strings.containsWhitespaces(validationContext.getPropertyValue());
+    public boolean isValid(RuleContext<T, A> context) {
+        return !Strings.isNullOrEmpty(context.getPropertyValue()) && Strings.containsWhitespaces(context.getPropertyValue());
     }
 }

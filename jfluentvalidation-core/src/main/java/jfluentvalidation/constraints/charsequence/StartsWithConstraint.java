@@ -1,6 +1,7 @@
 package jfluentvalidation.constraints.charsequence;
 
-import jfluentvalidation.constraints.Constraint;
+import jfluentvalidation.constraints.AbstractConstraint;
+import jfluentvalidation.constraints.DefaultMessages;
 import jfluentvalidation.internal.Ensure;
 import jfluentvalidation.validators.RuleContext;
 
@@ -9,7 +10,7 @@ import jfluentvalidation.validators.RuleContext;
  *
  * @param <T>  type of instance to validate.
  */
-public class StartsWithConstraint<T> implements Constraint<T, CharSequence> {
+public class StartsWithConstraint<T> extends AbstractConstraint<T, CharSequence> {
 
     private final CharSequence prefix;
     private final int offset;
@@ -19,13 +20,17 @@ public class StartsWithConstraint<T> implements Constraint<T, CharSequence> {
     }
 
     public StartsWithConstraint(CharSequence prefix, int offset) {
+        super(DefaultMessages.CHARSEQUENCE_STARTS_WITH);
         this.prefix = Ensure.notNull(prefix);
         this.offset = Ensure.nonnegative(offset, "offset");
     }
 
     @Override
-    public boolean isValid(RuleContext<T, CharSequence> validationContext) {
+    public boolean isValid(RuleContext<T, CharSequence> context) {
         // TODO: this probably should be based on a comparison strategy
-        return validationContext.getPropertyValue().toString().startsWith(prefix.toString(), offset);
+        if (context.getPropertyValue() == null) {
+            return true;
+        }
+        return context.getPropertyValue().toString().startsWith(prefix.toString(), offset);
     }
 }

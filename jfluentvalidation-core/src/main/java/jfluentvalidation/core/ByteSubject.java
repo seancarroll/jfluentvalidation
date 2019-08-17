@@ -3,6 +3,7 @@ package jfluentvalidation.core;
 import jfluentvalidation.rules.PropertyRule;
 
 /**
+ * Assertion class for {@link java.net.URI}s
  *
  * @param <T>  the type of the instance
  */

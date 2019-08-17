@@ -5,6 +5,7 @@ import jfluentvalidation.rules.PropertyRule;
 import java.math.BigDecimal;
 
 /**
+ * Constraints for {@link BigDecimal} typed subjects.
  *
  * @param <T>  the type of the instance
  */

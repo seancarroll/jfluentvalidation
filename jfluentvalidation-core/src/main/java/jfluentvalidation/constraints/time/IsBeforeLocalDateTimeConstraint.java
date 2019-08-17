@@ -1,25 +1,48 @@
 package jfluentvalidation.constraints.time;
 
-import jfluentvalidation.constraints.Constraint;
+import jfluentvalidation.common.Suppliers;
+import jfluentvalidation.constraints.AbstractConstraint;
+import jfluentvalidation.constraints.DefaultMessages;
 import jfluentvalidation.internal.Ensure;
 import jfluentvalidation.validators.RuleContext;
 
 import java.time.LocalDateTime;
+import java.util.function.Supplier;
 
 /**
  *
  * @param <T>  the target type supported by an implementation.
  */
-public class IsBeforeLocalDateTimeConstraint<T> implements Constraint<T, LocalDateTime> {
+public class IsBeforeLocalDateTimeConstraint<T> extends AbstractConstraint<T, LocalDateTime> {
 
-    private final LocalDateTime other;
+    private final Supplier<LocalDateTime> other;
 
     public IsBeforeLocalDateTimeConstraint(LocalDateTime other) {
+        this(Suppliers.create(other));
+    }
+
+    public IsBeforeLocalDateTimeConstraint(Supplier<LocalDateTime> other) {
+        super(DefaultMessages.TIME_IS_BEFORE);
         this.other = Ensure.notNull(other);
     }
 
     @Override
     public boolean isValid(RuleContext<T, LocalDateTime> context) {
-        return context.getPropertyValue().isBefore(other);
+        if (context.getPropertyValue() == null) {
+            return true;
+        }
+        return context.getPropertyValue().isBefore(other.get());
     }
+
+//    @Override
+//    protected void validate(RuleContext<T, LocalDateTime> context) {
+//        if (!context.getPropertyValue().isBefore(other)) {
+//            addConstraint(ConstraintViolation.create(context, MESSAGE));
+//        }
+//    }
+
+//    @Override
+//    public String getMessage() {
+//        return DEFAULT_MESSAGE;
+//    }
 }

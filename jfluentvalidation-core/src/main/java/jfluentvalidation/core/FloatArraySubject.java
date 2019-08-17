@@ -1,13 +1,15 @@
 package jfluentvalidation.core;
 
-import jfluentvalidation.constraints.array.length.FloatArrayBetweenLengthConstraint;
-import jfluentvalidation.constraints.array.length.FloatArrayExactLengthConstraint;
-import jfluentvalidation.constraints.array.length.FloatArrayMaximumLengthConstraint;
-import jfluentvalidation.constraints.array.length.FloatArrayMinimumLengthConstraint;
+import com.google.errorprone.annotations.CanIgnoreReturnValue;
+import jfluentvalidation.constraints.array.contains.ContainsFloatConstraint;
+import jfluentvalidation.constraints.array.empty.IsEmptyFloatArrayConstraint;
+import jfluentvalidation.constraints.array.length.*;
 import jfluentvalidation.constraints.array.notempty.IsNotEmptyFloatArrayConstraint;
+import jfluentvalidation.constraints.array.nullorempty.IsNullOrEmptyFloatArrayConstraint;
 import jfluentvalidation.rules.PropertyRule;
 
 /**
+ * Constraints for {@code float[]} typed subjects.
  *
  * @param <T>  the type of the instance
  */
@@ -19,12 +21,12 @@ public class FloatArraySubject<T> extends AbstractArraySubject<FloatArraySubject
 
     @Override
     public void isNullOrEmpty() {
-
+        rule.addConstraint(new IsNullOrEmptyFloatArrayConstraint<>());
     }
 
     @Override
     public void isEmpty() {
-
+        rule.addConstraint(new IsEmptyFloatArrayConstraint<>());
     }
 
     @Override
@@ -53,19 +55,36 @@ public class FloatArraySubject<T> extends AbstractArraySubject<FloatArraySubject
 
     @Override
     public FloatArraySubject<T> hasLengthBetween(int min, int max) {
-        rule.addConstraint(new FloatArrayBetweenLengthConstraint<>(min, max));
+        return hasLengthBetween(min, max, true, true);
+    }
+
+    @Override
+    public FloatArraySubject<T> hasLengthBetween(int min, int max, boolean inclusiveStart, boolean inclusiveEnd) {
+        rule.addConstraint(new FloatArrayBetweenLengthConstraint<>(min, max, inclusiveStart, inclusiveEnd));
         return myself;
     }
 
     @Override
-    public FloatArraySubject<T> hasSameLengthAs(Iterable<?> other) {
+    public FloatArraySubject<T> hasSameLengthAs(Iterable<Float> other) {
         rule.addConstraint(new FloatArrayExactLengthConstraint<>(other));
         return myself;
     }
 
     @Override
-    public FloatArraySubject<T> hasSameLengthAs(Object other) {
+    public FloatArraySubject<T> hasSameLengthAs(Float[] other) {
         rule.addConstraint(new FloatArrayExactLengthConstraint<>(other));
+        return myself;
+    }
+
+    @CanIgnoreReturnValue
+    public FloatArraySubject<T> hasSameLengthAs(float[] other) {
+        rule.addConstraint(new FloatArrayExactLengthConstraint<>(other));
+        return myself;
+    }
+
+    @Override
+    public FloatArraySubject<T> contains(Float value) {
+        rule.addConstraint(new ContainsFloatConstraint<>(value));
         return myself;
     }
 }

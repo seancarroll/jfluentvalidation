@@ -19,7 +19,7 @@ import java.util.Map;
  * Validation context
  * @param <T> type of instance to validate
  */
-public class ValidationContext<T, P> {
+public class ValidationContext<T> {
 
     // TODO: could this just store the subject which has the instanceToValidate, propertyFunc, as well as the propertyValue?
 
@@ -27,11 +27,6 @@ public class ValidationContext<T, P> {
      * The object currently being validated
      */
     private final T instanceToValidate;
-
-    /**
-     * The value of the property being validated.
-     */
-    private P propertyValue;
 
     /**
      * Additional data associated with the validation request
@@ -48,10 +43,6 @@ public class ValidationContext<T, P> {
 
     public T getInstanceToValidate() {
         return instanceToValidate;
-    }
-
-    public P getPropertyValue() {
-        return propertyValue;
     }
 
     public Map<String, Object> getContextData() {

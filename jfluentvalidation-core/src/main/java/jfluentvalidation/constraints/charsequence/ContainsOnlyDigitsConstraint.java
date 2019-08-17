@@ -1,7 +1,8 @@
 package jfluentvalidation.constraints.charsequence;
 
 import jfluentvalidation.common.Strings;
-import jfluentvalidation.constraints.Constraint;
+import jfluentvalidation.constraints.AbstractConstraint;
+import jfluentvalidation.constraints.DefaultMessages;
 import jfluentvalidation.validators.RuleContext;
 
 /**
@@ -9,23 +10,18 @@ import jfluentvalidation.validators.RuleContext;
  *
  * @param <T>  type of instance to validate.
  */
-public class ContainsOnlyDigitsConstraint<T> implements Constraint<T, CharSequence> {
+public class ContainsOnlyDigitsConstraint<T, A extends CharSequence> extends AbstractConstraint<T, A> {
 
-    // TODO: null/empty
+    public ContainsOnlyDigitsConstraint() {
+        super(DefaultMessages.CHARSEQUENCE_CONTAINS_ONLY_DIGITS);
+    }
+
     @Override
-    public boolean isValid(RuleContext<T, CharSequence> validationContext) {
-        if (Strings.isNullOrEmpty(validationContext.getPropertyValue())) {
+    public boolean isValid(RuleContext<T, A> context) {
+        if (Strings.isNullOrEmpty(context.getPropertyValue())) {
             return false;
         }
 
-        // instance.chars().allMatch(Character::isDigit)
-
-        // TODO: should we return index of non-digit characters?
-        for (int i = 0; i < validationContext.getPropertyValue().length(); i++) {
-            if (!Character.isDigit(validationContext.getPropertyValue().charAt(i))) {
-                return false;
-            }
-        }
-        return true;
+        return context.getPropertyValue().chars().allMatch(Character::isDigit);
     }
 }

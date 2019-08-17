@@ -1,6 +1,7 @@
 package jfluentvalidation.rules;
 
 import jfluentvalidation.ValidationFailure;
+import jfluentvalidation.constraints.Constraint;
 import jfluentvalidation.validators.ValidationContext;
 
 import java.util.List;
@@ -19,7 +20,7 @@ public interface Rule<T, P> {
      * @param context
      * @return
      */
-    List<ValidationFailure> validate(ValidationContext<T, P> context);
+    List<ValidationFailure> validate(ValidationContext<T> context);
 
     /**
      * Name of the rule-set to which this rule belongs.
@@ -43,7 +44,9 @@ public interface Rule<T, P> {
      * Applies a condition to the rule
      * @param predicate
      */
-    void applyCondition(Predicate<T> predicate);
+    void applyCondition(Predicate<T> predicate, boolean applyToAll);
+
+    List<Constraint<T, P>> getConstraints();
 
     // void addConstraint(Constraint<T, P> constraint);
 

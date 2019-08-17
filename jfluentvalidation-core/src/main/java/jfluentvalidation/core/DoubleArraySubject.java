@@ -1,13 +1,18 @@
 package jfluentvalidation.core;
 
+import com.google.errorprone.annotations.CanIgnoreReturnValue;
+import jfluentvalidation.constraints.array.contains.ContainsDoubleConstraint;
+import jfluentvalidation.constraints.array.empty.IsEmptyDoubleArrayConstraint;
 import jfluentvalidation.constraints.array.length.DoubleArrayBetweenLengthConstraint;
 import jfluentvalidation.constraints.array.length.DoubleArrayExactLengthConstraint;
 import jfluentvalidation.constraints.array.length.DoubleArrayMaximumLengthConstraint;
 import jfluentvalidation.constraints.array.length.DoubleArrayMinimumLengthConstraint;
 import jfluentvalidation.constraints.array.notempty.IsNotEmptyDoubleArrayConstraint;
+import jfluentvalidation.constraints.array.nullorempty.IsNullOrEmptyDoubleArrayConstraint;
 import jfluentvalidation.rules.PropertyRule;
 
 /**
+ * Constraints for {@code double[]} typed subjects.
  *
  * @param <T>  the type of the instance
  */
@@ -19,12 +24,12 @@ public class DoubleArraySubject<T> extends AbstractArraySubject<DoubleArraySubje
 
     @Override
     public void isNullOrEmpty() {
-
+        rule.addConstraint(new IsNullOrEmptyDoubleArrayConstraint<>());
     }
 
     @Override
     public void isEmpty() {
-
+        rule.addConstraint(new IsEmptyDoubleArrayConstraint<>());
     }
 
     @Override
@@ -36,6 +41,12 @@ public class DoubleArraySubject<T> extends AbstractArraySubject<DoubleArraySubje
     @Override
     public DoubleArraySubject<T> hasLength(int expected) {
         rule.addConstraint(new DoubleArrayExactLengthConstraint<>(expected));
+        return myself;
+    }
+
+    @Override
+    public DoubleArraySubject<T> contains(Double element) {
+        rule.addConstraint(new ContainsDoubleConstraint<>(element));
         return myself;
     }
 
@@ -53,18 +64,29 @@ public class DoubleArraySubject<T> extends AbstractArraySubject<DoubleArraySubje
 
     @Override
     public DoubleArraySubject<T> hasLengthBetween(int min, int max) {
-        rule.addConstraint(new DoubleArrayBetweenLengthConstraint<>(min, max));
+        return hasLengthBetween(min, max, true, true);
+    }
+
+    @Override
+    public DoubleArraySubject<T> hasLengthBetween(int min, int max, boolean inclusiveStart, boolean inclusiveEnd) {
+        rule.addConstraint(new DoubleArrayBetweenLengthConstraint<>(min, max, inclusiveStart, inclusiveEnd));
         return myself;
     }
 
     @Override
-    public DoubleArraySubject<T> hasSameLengthAs(Iterable<?> other) {
+    public DoubleArraySubject<T> hasSameLengthAs(Iterable<Double> other) {
         rule.addConstraint(new DoubleArrayExactLengthConstraint<>(other));
         return myself;
     }
 
     @Override
-    public DoubleArraySubject<T> hasSameLengthAs(Object other) {
+    public DoubleArraySubject<T> hasSameLengthAs(Double[] other) {
+        rule.addConstraint(new DoubleArrayExactLengthConstraint<>(other));
+        return myself;
+    }
+
+    @CanIgnoreReturnValue
+    public DoubleArraySubject<T> hasSameLengthAs(double[] other) {
         rule.addConstraint(new DoubleArrayExactLengthConstraint<>(other));
         return myself;
     }

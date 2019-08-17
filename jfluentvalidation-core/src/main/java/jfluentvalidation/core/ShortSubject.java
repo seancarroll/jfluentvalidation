@@ -5,6 +5,7 @@ import jfluentvalidation.rules.PropertyRule;
 // TODO: verify we can handle primitives
 
 /**
+ * Constraints for {@code short} subjects.
  *
  * @param <T>  the type of the instance
  */

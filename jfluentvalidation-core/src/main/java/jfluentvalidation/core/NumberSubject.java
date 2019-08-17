@@ -3,6 +3,8 @@ package jfluentvalidation.core;
 // TODO: what should this extend from? Do we need an abstract class?
 // should it match java's type hierarchy? NumberSubject as an abstract class and Integer implementing Comparable?
 
+import com.google.errorprone.annotations.CanIgnoreReturnValue;
+
 /**
  *
  * @param <S>  the self-type, allowing {@code this}-returning methods to avoid needing subclassing.
@@ -11,25 +13,35 @@ package jfluentvalidation.core;
  */
 public interface NumberSubject<S extends NumberSubject<S, A>, A extends Number> {
 
+    @CanIgnoreReturnValue
     S isZero();
 
+    @CanIgnoreReturnValue
     S isNotZero();
 
+    @CanIgnoreReturnValue
     S isOne();
 
+    @CanIgnoreReturnValue
     S isNotOne();
 
+    @CanIgnoreReturnValue
     S isPositive();
 
+    @CanIgnoreReturnValue
     S isNotPositive();
 
+    @CanIgnoreReturnValue
     S isNegative();
 
+    @CanIgnoreReturnValue
     S isNotNegative();
 
     // TODO: alternative name
+    @CanIgnoreReturnValue
     S isCloseTo();
 
     // TODO: alternative name
+    @CanIgnoreReturnValue
     S isNotCloseTo();
 }

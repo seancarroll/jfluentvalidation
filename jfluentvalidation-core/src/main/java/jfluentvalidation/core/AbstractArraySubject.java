@@ -1,6 +1,12 @@
 package jfluentvalidation.core;
 
+import com.google.errorprone.annotations.CanIgnoreReturnValue;
+import jfluentvalidation.constraints.Constraint;
+import jfluentvalidation.constraints.SoftItemConstraint;
+import jfluentvalidation.rules.CollectionPropertyRule;
 import jfluentvalidation.rules.PropertyRule;
+
+import java.util.function.Predicate;
 
 // QUESTION: Should we remove this? I think we can do everything just via ArraySubject
 
@@ -22,4 +28,35 @@ public abstract class AbstractArraySubject<S extends AbstractArraySubject<S, T, 
         super(selfType, rule);
     }
 
+    /**
+     *
+     * @param constraintsToAdd
+     * @return
+     */
+    @CanIgnoreReturnValue
+    public final S forEach(Constraint<T, ? super E>... constraintsToAdd) {
+        for (Constraint<T, ? super E> constraintToAdd : constraintsToAdd) {
+            getRule().addItemConstraint(constraintToAdd);
+        }
+        return myself;
+    }
+
+    /**
+     *
+     * @param predicate
+     * @param constraintsToAdd
+     * @return
+     */
+    @CanIgnoreReturnValue
+    public final S forEach(Predicate<? super E> predicate, Constraint<T, E>... constraintsToAdd) {
+        for (Constraint<T, E> constraintToAdd : constraintsToAdd) {
+            getRule().addItemConstraint(new SoftItemConstraint<>(predicate, constraintToAdd));
+        }
+        return myself;
+    }
+
+    @Override
+    protected CollectionPropertyRule<T, A, E> getRule() {
+        return (CollectionPropertyRule<T, A, E>) super.getRule();
+    }
 }

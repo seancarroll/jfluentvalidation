@@ -1,12 +1,14 @@
 package jfluentvalidation.validators;
 
 import com.google.common.base.Splitter;
+import jfluentvalidation.SerializableFunction;
 import jfluentvalidation.ValidationFailure;
 import jfluentvalidation.core.*;
 import jfluentvalidation.internal.Ensure;
 import jfluentvalidation.rules.*;
 import net.jodah.typetools.TypeResolver;
 
+import javax.validation.ClockProvider;
 import java.io.File;
 import java.io.InputStream;
 import java.math.BigDecimal;
@@ -15,7 +17,6 @@ import java.net.URI;
 import java.net.URL;
 import java.time.*;
 import java.util.*;
-import java.util.function.Function;
 import java.util.function.Predicate;
 
 //TODO: check these out
@@ -29,6 +30,14 @@ import java.util.function.Predicate;
 
 // QUESTION: FluentValidator has an AbstractValidator and then an InlineValidator while we rolled it into one DefaultValidator
 // Does this matter? Is there a trade-off? Advantages/disadvantages between the two?
+// I guess it allows you to do the following which is cool
+//    var validator = new InlineValidator<TestObject> {
+//        v => v.RuleFor(x => x.SomeProperty).NotNull()
+//    };
+//but I think we can already do this will double brace initialization
+//    Validator<Person> v = new DefaultValidator<Person>() {{
+//        ruleForString(p -> p.getName()).isNotEmpty().startsWith("s").length(0, 4);
+//    }};
 public class DefaultValidator<T> implements Validator<T> {
 
     // TODO: I would prefer to not include guava so lets create our own splitter
@@ -37,6 +46,33 @@ public class DefaultValidator<T> implements Validator<T> {
     private T proxy; // source
     private Class<T> type;
     private RuleCollection<T> rules = new RuleCollection<>();
+    private ClockProvider clockProvider = ValidatorOptions.CLOCK_PROVIDER;
+    private FailureMode failureMode = FailureMode.CONTINUE;
+    private Duration temporalValidationTolerance = ValidatorOptions.TEMPORAL_VALIDATION_TOLERANCE;
+
+    public ClockProvider getClockProvider() {
+        return clockProvider;
+    }
+
+    public void setClockProvider(ClockProvider clockProvider) {
+        this.clockProvider = clockProvider;
+    }
+
+    public FailureMode getFailureMode() {
+        return failureMode;
+    }
+
+    public void setFailureMode(FailureMode failureMode) {
+        this.failureMode = failureMode;
+    }
+
+    public Duration getTemporalValidationTolerance() {
+        return temporalValidationTolerance;
+    }
+
+    public void setTemporalValidationTolerance(Duration temporalValidationTolerance) {
+        this.temporalValidationTolerance = temporalValidationTolerance;
+    }
 
     // QUESTION:  Should we wrap in a Locale aware interpolator? What does spring do?
     // private MessageInterpolator messageInterpolator = new ResourceBundleMessageInterpolator();
@@ -51,11 +87,11 @@ public class DefaultValidator<T> implements Validator<T> {
 
     /**
      *
-     * @param clazz The class of the instance to validate
+     * @param clazz  The class of the instance to validate
      */
     public DefaultValidator(Class<T> clazz) {
         this.type = clazz;
-        this.proxy = PropertyLiteralHelper.getPropertyNameCapturer(type);
+        //this.proxy = PropertyLiteralHelper.getPropertyNameCapturer(type);
     }
 
     /**
@@ -74,200 +110,222 @@ public class DefaultValidator<T> implements Validator<T> {
     protected DefaultValidator() {
         // TODO: can we remove dependency on typetools and roll this ourselves?
         this.type = (Class<T>) TypeResolver.resolveRawArguments(DefaultValidator.class, getClass())[0];
-        this.proxy = PropertyLiteralHelper.getPropertyNameCapturer(type);
     }
+
+    private <P> PropertyRule<T, P> addNewPropertyRule(SerializableFunction<T, P> propertyFunc) {
+        RuleOptions ruleOptions = new RuleOptions();
+        ruleOptions.setClockProvider(clockProvider);
+        ruleOptions.setFailureMode(failureMode);
+        ruleOptions.setTemporalValidationTolerance(temporalValidationTolerance);
+
+        PropertyRule<T, P> rule = new PropertyRule<>(type, propertyFunc, ruleOptions);
+        rules.add(rule);
+        return rule;
+    }
+
+    private <P, E> CollectionPropertyRule<T, P, E> addNewCollectionPropertyRule(SerializableFunction<T, P> propertyFunc) {
+        RuleOptions ruleOptions = new RuleOptions();
+        ruleOptions.setClockProvider(clockProvider);
+        ruleOptions.setFailureMode(failureMode);
+        ruleOptions.setTemporalValidationTolerance(temporalValidationTolerance);
+
+        CollectionPropertyRule<T, P, E> rule = new CollectionPropertyRule<>(type, propertyFunc, ruleOptions);
+        rules.add(rule);
+        return rule;
+    }
+
+    private <K, V> MapPropertyRule<T, K, V> addNewMapPropertyRule(SerializableFunction<T, Map<K, V>> propertyFunc) {
+        RuleOptions ruleOptions = new RuleOptions();
+        ruleOptions.setClockProvider(clockProvider);
+        ruleOptions.setFailureMode(failureMode);
+        ruleOptions.setTemporalValidationTolerance(temporalValidationTolerance);
+
+        MapPropertyRule<T, K, V> rule = new MapPropertyRule<>(type, propertyFunc, ruleOptions);
+        rules.add(rule);
+        return rule;
+    }
+
+    private IncludeRule<T> addNewIncludeRule(Validator<T> validator) {
+        RuleOptions ruleOptions = new RuleOptions();
+        ruleOptions.setClockProvider(clockProvider);
+        ruleOptions.setFailureMode(failureMode);
+        ruleOptions.setTemporalValidationTolerance(temporalValidationTolerance);
+
+        IncludeRule<T> rule = new IncludeRule<>(validator, ruleOptions);
+        rules.add(rule);
+        return rule;
+    }
+
 
     /**
      *
      * @param func The Function representing the property to validate
-     * @return
+     * @return the created subject.
      */
-    public BigDecimalSubject<T> ruleForBigDecimal(Function<T, BigDecimal> func) {
-        String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
-        PropertyRule<T, BigDecimal> rule = new PropertyRule<>(func, propertyName);
-        rules.add(rule);
+    public BigDecimalSubject<T> ruleForBigDecimal(SerializableFunction<T, BigDecimal> func) {
+        PropertyRule<T, BigDecimal> rule = addNewPropertyRule(func);
         return new BigDecimalSubject<>(rule);
     }
 
     /**
      *
      * @param func The Function representing the property to validate
-     * @return
+     * @return the created subject.
      */
-    public BigIntegerSubject<T> ruleForBigInteger(Function<T, BigInteger> func) {
-        String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
-        PropertyRule<T, BigInteger> rule = new PropertyRule<>(func, propertyName);
-        rules.add(rule);
+    public BigIntegerSubject<T> ruleForBigInteger(SerializableFunction<T, BigInteger> func) {
+        PropertyRule<T, BigInteger> rule = addNewPropertyRule(func);
         return new BigIntegerSubject<>(rule);
     }
 
     /**
      *
-     * @param func The Function representing the property to validate
-     * @return
+     * @param func  The Function representing the property to validate
+     * @return the created subject.
      */
-    public BooleanSubject<T> ruleForBoolean(Function<T, Boolean> func) {
-        String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
-        PropertyRule<T, Boolean> rule = new PropertyRule<>(func, propertyName);
-        rules.add(rule);
+    public BooleanSubject<T> ruleForBoolean(SerializableFunction<T, Boolean> func) {
+        PropertyRule<T, Boolean> rule = addNewPropertyRule(func);
         return new BooleanSubject<>(rule);
     }
 
     /**
      *
-     * @param func
-     * @return
+     * @param func  The Function representing the property to validate
+     * @return the created subject.
      */
-    public BooleanArraySubject<T> ruleForBooleanArray(Function<T, boolean[]> func) {
-        String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
-        PropertyRule<T, boolean[]> rule = new PropertyRule<>(func, propertyName);
-        rules.add(rule);
+    public BooleanArraySubject<T> ruleForBooleanArray(SerializableFunction<T, boolean[]> func) {
+        PropertyRule<T, boolean[]> rule = addNewPropertyRule(func);
         return new BooleanArraySubject<>(rule);
     }
 
     /**
      *
-     * @param func
-     * @return
+     * @param func  The Function representing the property to validate
+     * @return the created subject.
      */
-    public ByteSubject<T> ruleForByte(Function<T, Byte> func) {
-        String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
-        PropertyRule<T, Byte> rule = new PropertyRule<>(func, propertyName);
-        rules.add(rule);
+    public ByteSubject<T> ruleForByte(SerializableFunction<T, Byte> func) {
+        PropertyRule<T, Byte> rule = addNewPropertyRule(func);
         return new ByteSubject<>(rule);
     }
 
     /**
      *
-     * @param func
-     * @return
+     * @param func  The Function representing the property to validate
+     * @return the created subject.
      */
-    public ByteArraySubject<T> ruleForByteArray(Function<T, byte[]> func) {
-        String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
-        PropertyRule<T, byte[]> rule = new PropertyRule<>(func, propertyName);
-        rules.add(rule);
+    public ByteArraySubject<T> ruleForByteArray(SerializableFunction<T, byte[]> func) {
+        PropertyRule<T, byte[]> rule = addNewPropertyRule(func);
         return new ByteArraySubject<>(rule);
     }
 
     /**
      *
-     * @param func
-     * @return
+     * @param func  The Function representing the property to validate
+     * @return the created subject.
      */
-    public CalendarSubject<T> ruleForCalendar(Function<T, Calendar> func) {
-        String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
-        PropertyRule<T, Calendar> rule = new PropertyRule<>(func, propertyName);
-        rules.add(rule);
+    public CalendarSubject<T> ruleForCalendar(SerializableFunction<T, Calendar> func) {
+        PropertyRule<T, Calendar> rule = addNewPropertyRule(func);
         return new CalendarSubject<>(rule);
     }
 
     /**
+     * Defines a validation rule for a specify property.
      *
-     * @param func
-     * @return
+     * @param func  Function representing the property to validate
+     * @return the created subject.
      */
-    public CharArraySubject<T> ruleForCharArray(Function<T, char[]> func) {
-        String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
-        PropertyRule<T, char[]> rule = new PropertyRule<>(func, propertyName);
-        rules.add(rule);
+    public CharArraySubject<T> ruleForCharArray(SerializableFunction<T, char[]> func) {
+        PropertyRule<T, char[]> rule = addNewPropertyRule(func);
         return new CharArraySubject<>(rule);
     }
 
     /**
+     * Defines a validation rule for a specify property.
      *
-     * @param func
-     * @return
+     * @param func  The Function representing the property to validate
+     * @return the created subject.
      */
-    public DateSubject<T> ruleForDate(Function<T, Date> func) {
-        String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
-        PropertyRule<T, Date> rule = new PropertyRule<>(func, propertyName);
-        rules.add(rule);
+    public DateSubject<T> ruleForDate(SerializableFunction<T, Date> func) {
+        PropertyRule<T, Date> rule = addNewPropertyRule(func);
         return new DateSubject<>(rule);
     }
 
     /**
      *
-     * @param func
-     * @return
+     * @param func  The Function representing the property to validate
+     * @return the created subject.
      */
-    public DoubleSubject<T> ruleForDouble(Function<T, Double> func) {
-        String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
-        PropertyRule<T, Double> rule = new PropertyRule<>(func, propertyName);
-        rules.add(rule);
+    public DoubleSubject<T> ruleForDouble(SerializableFunction<T, Double> func) {
+        PropertyRule<T, Double> rule = addNewPropertyRule(func);
         return new DoubleSubject<>(rule);
     }
 
     /**
      *
-     * @param func
-     * @return
+     * @param func  The Function representing the property to validate
+     * @return the created subject.
      */
-    public DoubleArraySubject<T> ruleForDoubleArray(Function<T, double[]> func) {
-        String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
-        PropertyRule<T, double[]> rule = new PropertyRule<>(func, propertyName);
-        rules.add(rule);
+    public DoubleArraySubject<T> ruleForDoubleArray(SerializableFunction<T, double[]> func) {
+        PropertyRule<T, double[]> rule = addNewPropertyRule(func);
         return new DoubleArraySubject<>(rule);
     }
 
-    public FileSubject<T> ruleForFile(Function<T, File> func) {
-        String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
-        PropertyRule<T, File> rule = new PropertyRule<>(func, propertyName);
-        rules.add(rule);
+    /**
+     *
+     * @param func  The Function representing the property to validate
+     * @return the created subject.
+     */
+    public FileSubject<T> ruleForFile(SerializableFunction<T, File> func) {
+        PropertyRule<T, File> rule = addNewPropertyRule(func);
         return new FileSubject<>(rule);
     }
 
-    public FloatSubject<T> ruleForFloat(Function<T, Float> func) {
-        String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
-        PropertyRule<T, Float> rule = new PropertyRule<>(func, propertyName);
-        rules.add(rule);
+    /**
+     *
+     * @param func  The Function representing the property to validate
+     * @return the created subject.
+     */
+    public FloatSubject<T> ruleForFloat(SerializableFunction<T, Float> func) {
+        PropertyRule<T, Float> rule = addNewPropertyRule(func);
         return new FloatSubject<>(rule);
     }
 
     /**
      *
-     * @param func
-     * @return
+     * @param func  The Function representing the property to validate
+     * @return the created subject.
      */
-    public FloatArraySubject<T> ruleForFloatArray(Function<T, float[]> func) {
-        String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
-        PropertyRule<T, float[]> rule = new PropertyRule<>(func, propertyName);
-        rules.add(rule);
+    public FloatArraySubject<T> ruleForFloatArray(SerializableFunction<T, float[]> func) {
+        PropertyRule<T, float[]> rule = addNewPropertyRule(func);
         return new FloatArraySubject<>(rule);
     }
 
     /**
      *
-     * @param func
-     * @return
+     * @param func  The Function representing the property to validate
+     * @return the created subject.
      */
-    public InputStreamSubject<T> ruleForInputStream(Function<T, InputStream> func) {
-        String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
-        PropertyRule<T, InputStream> rule = new PropertyRule<>(func, propertyName);
-        rules.add(rule);
+    public InputStreamSubject<T> ruleForInputStream(SerializableFunction<T, InputStream> func) {
+        PropertyRule<T, InputStream> rule = addNewPropertyRule(func);
         return new InputStreamSubject<>(rule);
     }
 
     /**
      *
-     * @param func
-     * @return
+     * @param func  The Function representing the property to validate
+     * @return the created subject.
      */
-    public IntegerSubject<T> ruleForInteger(Function<T, Integer> func) {
-        String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
-        PropertyRule<T, Integer> rule = new PropertyRule<>(func, propertyName);
-        rules.add(rule);
+    public IntegerSubject<T> ruleForInteger(SerializableFunction<T, Integer> func) {
+        PropertyRule<T, Integer> rule = addNewPropertyRule(func);
         return new IntegerSubject<>(rule);
     }
 
     /**
      *
-     * @param func
-     * @return
+     * @param func  The Function representing the property to validate
+     * @return the created subject.
      */
-    public IntArraySubject<T> ruleForIntArray(Function<T, int[]> func) {
-        String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
-        PropertyRule<T, int[]> rule = new PropertyRule<>(func, propertyName);
-        rules.add(rule);
+    public IntArraySubject<T> ruleForIntArray(SerializableFunction<T, int[]> func) {
+        PropertyRule<T, int[]> rule = addNewPropertyRule(func);
         return new IntArraySubject<>(rule);
     }
 
@@ -278,232 +336,196 @@ public class DefaultValidator<T> implements Validator<T> {
     // TODO: confirm this can support sub/super types
     /**
      *
-     * @param func
+     * @param func  The Function representing the property to validate
      * @param <E>
-     * @return
+     * @return the created subject.
      */
-    public <E> IterableSubject<T, ? super E> ruleForIterable(Function<T, Iterable<? super E>> func) {
-        String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
-        PropertyRule<T, Iterable<? super E>> iterablePropertyRule = new PropertyRule<>(func, propertyName);
-        rules.add(iterablePropertyRule);
+    public <E> IterableSubject<T, E> ruleForIterable(SerializableFunction<T, Iterable<? super E>> func) {
+        CollectionPropertyRule<T, Iterable<? super E>, E> iterablePropertyRule = addNewCollectionPropertyRule(func);
         return new IterableSubject<>(iterablePropertyRule);
     }
 
     /**
      *
-     * @param func
-     * @return
+     * @param func  The Function representing the property to validate
+     * @return the created subject.
      */
-    public LocalDateSubject<T> ruleForLocalDate(Function<T, LocalDate> func) {
-        String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
-        PropertyRule<T, LocalDate> rule = new PropertyRule<>(func, propertyName);
-        rules.add(rule);
+    public LocalDateSubject<T> ruleForLocalDate(SerializableFunction<T, LocalDate> func) {
+        PropertyRule<T, LocalDate> rule = addNewPropertyRule(func);
         return new LocalDateSubject<>(rule);
     }
 
     /**
      *
-     * @param func
-     * @return
+     * @param func  The Function representing the property to validate
+     * @return the created subject.
      */
-    public LocalDateTimeSubject<T> ruleForLocalDateTime(Function<T, LocalDateTime> func) {
-        String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
-        PropertyRule<T, LocalDateTime> rule = new PropertyRule<>(func, propertyName);
-        rules.add(rule);
+    public LocalDateTimeSubject<T> ruleForLocalDateTime(SerializableFunction<T, LocalDateTime> func) {
+        PropertyRule<T, LocalDateTime> rule = addNewPropertyRule(func);
         return new LocalDateTimeSubject<>(rule);
     }
 
     /**
      *
-     * @param func
-     * @return
+     * @param func  The Function representing the property to validate
+     * @return the created subject.
      */
-    public LocalTimeSubject<T> ruleForLocalTime(Function<T, LocalTime> func) {
-        String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
-        PropertyRule<T, LocalTime> rule = new PropertyRule<>(func, propertyName);
-        rules.add(rule);
+    public LocalTimeSubject<T> ruleForLocalTime(SerializableFunction<T, LocalTime> func) {
+        PropertyRule<T, LocalTime> rule = addNewPropertyRule(func);
         return new LocalTimeSubject<>(rule);
     }
 
     /**
      *
-     * @param func
-     * @return
+     * @param func  The Function representing the property to validate
+     * @return the created subject.
      */
-    public LongSubject<T> ruleForLong(Function<T, Long> func) {
-        String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
-        PropertyRule<T, Long> rule = new PropertyRule<>(func, propertyName);
-        rules.add(rule);
+    public LongSubject<T> ruleForLong(SerializableFunction<T, Long> func) {
+        PropertyRule<T, Long> rule = addNewPropertyRule(func);
         return new LongSubject<>(rule);
     }
 
     /**
      *
-     * @param func
-     * @return
+     * @param func  The Function representing the property to validate
+     * @return the created subject.
      */
-    public LongArraySubject<T> ruleForLongArray(Function<T, long[]> func) {
-        String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
-        PropertyRule<T, long[]> rule = new PropertyRule<>(func, propertyName);
-        rules.add(rule);
+    public LongArraySubject<T> ruleForLongArray(SerializableFunction<T, long[]> func) {
+        PropertyRule<T, long[]> rule = addNewPropertyRule(func);
         return new LongArraySubject<>(rule);
     }
 
     /**
      *
-     * @param func
+     * @param func  The Function representing the property to validate
      * @param <K>
      * @param <V>
-     * @return
+     * @return the created subject.
      */
-    public <K, V> MapSubject<T, K, V> ruleForMap(Function<T, Map<K, V>> func) {
-        String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
-        PropertyRule<T, Map<K, V>> rule = new PropertyRule<>(func, propertyName);
-        rules.add(rule);
+    public <K, V> MapSubject<T, K, V> ruleForMap(SerializableFunction<T, Map<K, V>> func) {
+        MapPropertyRule<T, K, V> rule = addNewMapPropertyRule(func);
         return new MapSubject<>(rule);
     }
 
     /**
      *
-     * @param func
-     * @return
+     * @param func  The Function representing the property to validate
+     * @return the created subject.
      */
-    public ObjectSubject<T> ruleForObject(Function<T, Object> func) {
-        String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
-        PropertyRule<T, Object> rule = new PropertyRule<>(func, propertyName);
-        rules.add(rule);
+    public ObjectSubject<T> ruleForObject(SerializableFunction<T, Object> func) {
+        PropertyRule<T, Object> rule = addNewPropertyRule(func);
         return new ObjectSubject<>(rule);
     }
 
+    // TODO: try a ruleForArray that takes a generic
+
     /**
      * TODO: add a note this is does not work for primitives and to see other methods
-     * @param func
-     * @return
+     * @param func  The Function representing the property to validate
+     * @return the created subject.
      */
-    public ObjectArraySubject<T> ruleForObjectArray(Function<T, Object[]> func) {
-        String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
-        PropertyRule<T, Object[]> rule = new PropertyRule<>(func, propertyName);
-        rules.add(rule);
-        return new ObjectArraySubject<>(rule);
+    public <E> ObjectArraySubject<T, E> ruleForObjectArray(SerializableFunction<T, E[]> func) {
+        CollectionPropertyRule<T, E[], E> arrayPropertyRule = addNewCollectionPropertyRule(func);
+        return new ObjectArraySubject<>(arrayPropertyRule);
     }
 
     /**
      *
-     * @param func
-     * @return
+     * @param func  The Function representing the property to validate
+     * @return the created subject.
      */
-    public OffsetDateTimeSubject<T> ruleForOffsetDateTime(Function<T, OffsetDateTime> func) {
-        String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
-        PropertyRule<T, OffsetDateTime> rule = new PropertyRule<>(func, propertyName);
-        rules.add(rule);
+    public OffsetDateTimeSubject<T> ruleForOffsetDateTime(SerializableFunction<T, OffsetDateTime> func) {
+        PropertyRule<T, OffsetDateTime> rule = addNewPropertyRule(func);
         return new OffsetDateTimeSubject<>(rule);
     }
 
     /**
      *
-     * @param func
-     * @return
+     * @param func  The Function representing the property to validate
+     * @return the created subject.
      */
-    public OffsetTimeSubject<T> ruleForOffsetTime(Function<T, OffsetTime> func) {
-        String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
-        PropertyRule<T, OffsetTime> rule = new PropertyRule<>(func, propertyName);
-        rules.add(rule);
+    public OffsetTimeSubject<T> ruleForOffsetTime(SerializableFunction<T, OffsetTime> func) {
+        PropertyRule<T, OffsetTime> rule = addNewPropertyRule(func);
         return new OffsetTimeSubject<>(rule);
     }
 
     /**
      *
-     * @param func
-     * @return
+     * @param func  The Function representing the property to validate
+     * @return the created subject.
      */
-    public ShortSubject<T> ruleForShort(Function<T, Short> func) {
-        String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
-        PropertyRule<T, Short> rule = new PropertyRule<>(func, propertyName);
-        rules.add(rule);
+    public ShortSubject<T> ruleForShort(SerializableFunction<T, Short> func) {
+        PropertyRule<T, Short> rule = addNewPropertyRule(func);
         return new ShortSubject<>(rule);
     }
 
     /**
      *
-     * @param func
-     * @return
+     * @param func  The Function representing the property to validate
+     * @return the created subject.
      */
-    public ShortArraySubject<T> ruleForShortArray(Function<T, short[]> func) {
-        String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
-        PropertyRule<T, short[]> rule = new PropertyRule<>(func, propertyName);
-        rules.add(rule);
+    public ShortArraySubject<T> ruleForShortArray(SerializableFunction<T, short[]> func) {
+        PropertyRule<T, short[]> rule = addNewPropertyRule(func);
         return new ShortArraySubject<>(rule);
     }
 
     /**
      *
-     * @param func
-     * @return
+     * @param func  The Function representing the property to validate
+     * @return the created subject.
      */
-    public StringSubject<T> ruleForString(Function<T, String> func) {
-        String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
-        PropertyRule<T, String> rule = new PropertyRule<>(func, propertyName);
-        rules.add(rule);
+    public StringSubject<T> ruleForString(SerializableFunction<T, String> func) {
+        PropertyRule<T, String> rule = addNewPropertyRule(func);
         return new StringSubject<>(rule);
     }
 
     /**
      *
-     * @param func
-     * @return
+     * @param func  The Function representing the property to validate
+     * @return the created subject.
      */
-    public AbstractCharSequenceSubject<?, T, ? extends CharSequence> ruleForStringBuilder(Function<T, StringBuilder> func) {
-        String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
-        PropertyRule<T, StringBuilder> rule = new PropertyRule<>(func, propertyName);
-        rules.add(rule);
+    public AbstractCharSequenceSubject<?, T, ? extends CharSequence> ruleForStringBuilder(SerializableFunction<T, StringBuilder> func) {
+        PropertyRule<T, StringBuilder> rule = addNewPropertyRule(func);
         return new CharSequenceSubject<>(rule);
     }
 
     /**
      *
-     * @param func
-     * @return
+     * @param func  The Function representing the property to validate
+     * @return the created subject.
      */
-    public AbstractCharSequenceSubject<?, T, ? extends CharSequence> ruleForStringBuffer(Function<T, StringBuffer> func) {
-        String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
-        PropertyRule<T, StringBuffer> rule = new PropertyRule<>(func, propertyName);
-        rules.add(rule);
+    public AbstractCharSequenceSubject<?, T, ? extends CharSequence> ruleForStringBuffer(SerializableFunction<T, StringBuffer> func) {
+        PropertyRule<T, StringBuffer> rule = addNewPropertyRule(func);
         return new CharSequenceSubject<>(rule);
     }
 
     /**
      *
-     * @param func
-     * @return
+     * @param func  The Function representing the property to validate
+     * @return the created subject.
      */
-    public UriSubject<T> ruleForUri(Function<T, URI> func) {
-        String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
-        PropertyRule<T, URI> rule = new PropertyRule<>(func, propertyName);
-        rules.add(rule);
+    public UriSubject<T> ruleForUri(SerializableFunction<T, URI> func) {
+        PropertyRule<T, URI> rule = addNewPropertyRule(func);
         return new UriSubject<>(rule);
     }
 
     /**
      *
-     * @param func
-     * @return
+     * @param func  The Function representing the property to validate
+     * @return the created subject.
      */
-    public UrlSubject<T> ruleForUrl(Function<T, URL> func) {
-        String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
-        PropertyRule<T, URL> rule = new PropertyRule<>(func, propertyName);
-        rules.add(rule);
+    public UrlSubject<T> ruleForUrl(SerializableFunction<T, URL> func) {
+        PropertyRule<T, URL> rule = addNewPropertyRule(func);
         return new UrlSubject<>(rule);
     }
 
     /**
      *
-     * @param func
-     * @return
+     * @param func  The Function representing the property to validate
+     * @return the created subject.
      */
-    public ZonedDateTimeSubject<T> ruleForZonedDateTime(Function<T, ZonedDateTime> func) {
-        String propertyName = PropertyLiteralHelper.getPropertyName(proxy, func);
-        PropertyRule<T, ZonedDateTime> rule = new PropertyRule<>(func, propertyName);
-        rules.add(rule);
+    public ZonedDateTimeSubject<T> ruleForZonedDateTime(SerializableFunction<T, ZonedDateTime> func) {
+        PropertyRule<T, ZonedDateTime> rule = addNewPropertyRule(func);
         return new ZonedDateTimeSubject<>(rule);
     }
 
@@ -514,7 +536,7 @@ public class DefaultValidator<T> implements Validator<T> {
      * @param validator
      */
     public void include(Validator<T> validator) {
-        rules.add(new IncludeRule<>(validator));
+        rules.add(addNewIncludeRule(validator));
     }
 
 
@@ -526,8 +548,8 @@ public class DefaultValidator<T> implements Validator<T> {
 //    });
     /**
      * Defines a condition that applies to several rules
-     * @param predicate The condition that should apply to multiple rules
-     * @param runnable Action that encapsulates the rules.
+     * @param predicate  The condition that should apply to multiple rules
+     * @param runnable  Action that encapsulates the rules.
      */
     public void when(Predicate<T> predicate, Runnable runnable) {
         List<Rule<T, ?>> rulesToUpdate = new ArrayList<>();
@@ -537,7 +559,7 @@ public class DefaultValidator<T> implements Validator<T> {
         // TODO: is there a way we can group these all under something instead of iterating through rules?
         // Is that even a good idea?
         for (Rule<T, ?> rule : rulesToUpdate) {
-            rule.applyCondition(predicate);
+            rule.applyCondition(predicate, true);
         }
     }
 
@@ -548,8 +570,8 @@ public class DefaultValidator<T> implements Validator<T> {
 //    });
     /**
      * Defines an inverse condition that applies to several rules
-     * @param predicate The condition that should be applied to multiple rules
-     * @param runnable Action that encapsulates the rules.
+     * @param predicate  The condition that should be applied to multiple rules
+     * @param runnable  Action that encapsulates the rules.
      */
     public void unless(Predicate<T> predicate, Runnable runnable) {
         // The `Unless` method is simply the opposite of `When`
@@ -562,8 +584,8 @@ public class DefaultValidator<T> implements Validator<T> {
 //    });
     /**
      * Defines a RuleSet that can be used to group together several validators.
-     * @param ruleSetName The name of the ruleset.
-     * @param runnable Action that encapsulates the rules in the ruleset.
+     * @param ruleSetName  The name of the ruleset.
+     * @param runnable  Action that encapsulates the rules in the ruleset.
      */
     public void ruleSet(String ruleSetName, Runnable runnable) {
         // TODO: this sucks. How can we improve this?
@@ -578,7 +600,7 @@ public class DefaultValidator<T> implements Validator<T> {
 
     /**
      * Validates the specified instance
-     * @param entity The object to validate
+     * @param entity  The object to validate
      * @return A list of validation failures / A ValidationResult object containing any validation failures.
      */
     public List<ValidationFailure> validate(T entity) {
@@ -587,18 +609,19 @@ public class DefaultValidator<T> implements Validator<T> {
 
     /**
      * Validates the specified instance
-     * @param entity The object to validate
-     * @param ruleSet a ruleset when need to validate against.
+     * @param entity  The object to validate
+     * @param ruleSet  a ruleset when need to validate against.
      * @return A list of validation failures / A ValidationResult object containing any validation failures.
      */
     public List<ValidationFailure> validate(T entity, String ruleSet) {
+        // TODO: will need to find an alternative if/when we get rid of guava
         return validate(entity, RULESET_SPLITTER.splitToList(ruleSet));
     }
 
     /**
      * Validates the specified instance
-     * @param entity The object to validate
-     * @param ruleSet a ruleset when need to validate against.
+     * @param entity  The object to validate
+     * @param ruleSet  a ruleset when need to validate against.
      * @return A list of validation failures / A ValidationResult object containing any validation failures.
      */
     public List<ValidationFailure> validate(T entity, List<String> ruleSet) {
@@ -607,7 +630,7 @@ public class DefaultValidator<T> implements Validator<T> {
 
     /**
      *
-     * @param validationContext Validation Context
+     * @param validationContext  Validation Context
      * @return A list of validation failures / A ValidationResult object containing any validation failures.
      */
     public List<ValidationFailure> validate(ValidationContext validationContext) {
@@ -616,8 +639,8 @@ public class DefaultValidator<T> implements Validator<T> {
 
     /**
      * Performs validation and then throws an exception if validation fails.
-     * @param validationContext Validation Context
-     * @param ruleSet a ruleset when need to validate against.
+     * @param validationContext  Validation Context
+     * @param ruleSet  a ruleset when need to validate against.
      * @return A list of validation failures / A ValidationResult object containing any validation failures.
      */
     public List<ValidationFailure> validate(ValidationContext validationContext, List<String> ruleSet) {
@@ -639,7 +662,7 @@ public class DefaultValidator<T> implements Validator<T> {
 
     /**
      * Validates the specified instance and then throws an exception if validation fails.
-     * @param entity The object to validate
+     * @param entity  The object to validate
      */
     public void validateAndThrow(T entity) {
         validateAndThrow(new ValidationContext<>(entity));
@@ -647,8 +670,8 @@ public class DefaultValidator<T> implements Validator<T> {
 
     /**
      * Validates the specified instance and then throws an exception if validation fails.
-     * @param entity The object to validate
-     * @param ruleSet a ruleset when need to validate against.
+     * @param entity  The object to validate
+     * @param ruleSet  a ruleset when need to validate against.
      */
     public void validateAndThrow(T entity, String ruleSet) {
         validateAndThrow(entity, RULESET_SPLITTER.splitToList(ruleSet));
@@ -656,8 +679,8 @@ public class DefaultValidator<T> implements Validator<T> {
 
     /**
      * Validates the specified instance and then throws an exception if validation fails.
-     * @param entity The object to validate
-     * @param ruleSet a ruleset when need to validate against.
+     * @param entity  The object to validate
+     * @param ruleSet  a ruleset when need to validate against.
      */
     public void validateAndThrow(T entity, List<String> ruleSet) {
         validateAndThrow(new ValidationContext<>(entity), ruleSet);

@@ -3,12 +3,14 @@ package jfluentvalidation.rules;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *
+ */
 public class RuleSet {
 
     public static final String ALL = "*";
     public static final String DEFAULT = "default"; // aka unassigned which might be a clearer name?
     public static final List<String> DEFAULT_LIST = new ArrayList<>();
-
 
     // TODO: not sure where the best place for this should be but putting it here for now just to work through the rules
     // FluentValidator has IValidatorSelector and DefaultValidatorSelector / RulesetValidatorSelector with method signature
@@ -22,16 +24,16 @@ public class RuleSet {
 
         if (ruleSetsToExecute == null
             || ruleSetsToExecute.isEmpty()
-            || (ruleSetsToExecute.size() == 1 && ruleSetsToExecute.get(0).equals("default"))) {
+            || (ruleSetsToExecute.size() == 1 && ruleSetsToExecute.get(0).equals(DEFAULT))) {
             return rule.getRuleSet() == null || rule.getRuleSet().isEmpty();
         }
 
         for (String passedInRule : ruleSetsToExecute) {
-            if (passedInRule.equals("*")) {
+            if (passedInRule.equals(ALL)) {
                 return true;
             }
 
-            if (passedInRule.equals("default") && (rule.getRuleSet() == null || rule.getRuleSet().isEmpty())) {
+            if (passedInRule.equals(DEFAULT) && (rule.getRuleSet() == null || rule.getRuleSet().isEmpty())) {
                 return true;
             }
 

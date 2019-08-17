@@ -1,6 +1,7 @@
 package jfluentvalidation.constraints.charsequence;
 
-import jfluentvalidation.constraints.Constraint;
+import jfluentvalidation.constraints.AbstractConstraint;
+import jfluentvalidation.constraints.DefaultMessages;
 import jfluentvalidation.validators.RuleContext;
 
 /**
@@ -9,10 +10,17 @@ import jfluentvalidation.validators.RuleContext;
  * @param <T>  type of instance to validate.
  * @param <A>  the type of the actual object being tested by this {@code Constraint}.
  */
-public class IsEmptyConstraint<T, A extends CharSequence> implements Constraint<T, A> {
+public class IsEmptyConstraint<T, A extends CharSequence> extends AbstractConstraint<T, A> {
+
+    public IsEmptyConstraint() {
+        super(DefaultMessages.IS_EMPTY);
+    }
 
     @Override
-    public boolean isValid(RuleContext<T, A> validationContext) {
-        return validationContext.getPropertyValue().toString().isEmpty();
+    public boolean isValid(RuleContext<T, A> context) {
+        if (context.getPropertyValue() == null) {
+            return false;
+        }
+        return context.getPropertyValue().toString().isEmpty();
     }
 }

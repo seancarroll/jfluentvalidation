@@ -20,11 +20,9 @@ public abstract class AbstractCharSequenceSubject<S extends AbstractCharSequence
         super(selfType, rule);
     }
 
-    // TODO: isNullOrEmpty vs isBlank
-    // TODO: if we keep then we need a isNotNullOrEmpty
     @Override
     public S isNullOrEmpty() {
-
+        rule.addConstraint(new IsNullOrEmptyConstraint<>());
         return myself;
     }
 
@@ -42,6 +40,7 @@ public abstract class AbstractCharSequenceSubject<S extends AbstractCharSequence
 
     @Override
     public S isBlank() {
+        rule.addConstraint(new IsBlankConstraint<>());
         return myself;
     }
 
@@ -52,17 +51,19 @@ public abstract class AbstractCharSequenceSubject<S extends AbstractCharSequence
 
     @Override
     public S containsWhitespaces() {
-
+        rule.addConstraint(new ContainsWhitespacesConstraint<>());
         return myself;
     }
 
     @Override
     public S containsOnlyWhitespaces() {
+        rule.addConstraint(new ContainsOnlyWhitespacesConstraint<>());
         return myself;
     }
 
     @Override
     public S doesNotContainAnyWhitespaces() {
+        rule.addConstraint(new DoesNotContainAnyWhitespacesConstraint<>());
         return myself;
     }
 
@@ -73,62 +74,62 @@ public abstract class AbstractCharSequenceSubject<S extends AbstractCharSequence
 
     // TODO: decide on appropriate method names for length
     public S length(int minLength, int maxLength) {
-        rule.addConstraint(new LengthConstraint(minLength, maxLength));
+        rule.addConstraint(new LengthConstraint<>(minLength, maxLength));
         return myself;
     }
 
     @Override
     public S hasLength(int expected) {
+        rule.addConstraint(new HasLengthConstraint<>(expected));
         return myself;
     }
 
     @Override
     public S hasLengthLessThan(int expected) {
+        rule.addConstraint(new HasLengthLessThanConstraint<>(expected));
         return myself;
     }
 
     @Override
     public S hasLengthLessThanOrEqualTo(int expected) {
+        rule.addConstraint(new HasLengthLessThanOrEqualToConstraint<>(expected));
         return myself;
     }
 
     @Override
     public S hasLengthGreaterThan(int expected) {
+        rule.addConstraint(new HasLengthGreaterThanConstraint<>(expected));
         return myself;
     }
 
     @Override
     public S hasLengthGreaterThanOrEqualTo(int expected) {
+        rule.addConstraint(new HasLengthGreaterThanOrEqualToConstraint<>(expected));
         return myself;
     }
 
     @Override
     public S hasLengthBetween(int min, int max) {
+        // TODO: should we include start and end? whats the common pattern?
+        rule.addConstraint(new HasLengthBetweenConstraint<>(min, max, true, true));
         return myself;
     }
 
     @Override
-    public S hasLineCount(int expected) {
+    public S hasLengthBetween(int min, int max, boolean inclusiveStart, boolean inclusiveEnd) {
+        rule.addConstraint(new HasLengthBetweenConstraint<>(min, max, inclusiveStart, inclusiveEnd));
         return myself;
     }
 
     @Override
-    public S hasSameLengthAs(CharSequenceSubject other) {
-        return myself;
-    }
-
-    @Override
-    public S hasSameLengthAs(Object other) {
-        return myself;
-    }
-
-    @Override
-    public S hasSameLengthAs(Iterable<?> other) {
+    public S hasSameLengthAs(CharSequence other) {
+        rule.addConstraint(new HasSameLengthAsConstraint<>(other));
         return myself;
     }
 
     @Override
     public S isEqualToIgnoringCase(CharSequence expected) {
+        rule.addConstraint(new IsEqualToIgnoringCaseConstraint<>(expected));
         return myself;
     }
 
@@ -139,6 +140,7 @@ public abstract class AbstractCharSequenceSubject<S extends AbstractCharSequence
 
     @Override
     public S containsOnlyDigits() {
+        rule.addConstraint(new ContainsOnlyDigitsConstraint<>());
         return myself;
     }
 
@@ -149,6 +151,7 @@ public abstract class AbstractCharSequenceSubject<S extends AbstractCharSequence
 
     @Override
     public S contains(CharSequence... values) {
+        rule.addConstraint(new ContainsConstraint<>(values));
         return myself;
     }
 
@@ -158,27 +161,8 @@ public abstract class AbstractCharSequenceSubject<S extends AbstractCharSequence
     }
 
     @Override
-    public S containsSequence(CharSequence... values) {
-        return myself;
-    }
-
-    @Override
-    public S containsSequence(Iterable<? extends CharSequence> values) {
-        return myself;
-    }
-
-    @Override
-    public S containsSubsequence(CharSequence... values) {
-        return myself;
-    }
-
-    @Override
-    public S containsSubsequence(Iterable<? extends CharSequence> values) {
-        return myself;
-    }
-
-    @Override
     public S containsIgnoreCase(CharSequence sequence) {
+        rule.addConstraint(new ContainsIgnoreCaseConstraint<>(sequence));
         return myself;
     }
 
@@ -202,10 +186,14 @@ public abstract class AbstractCharSequenceSubject<S extends AbstractCharSequence
         return myself;
     }
 
-    // TODO: include method with offset
     @Override
     public S startsWith(CharSequence prefix) {
-        rule.addConstraint(CharSequenceConstraints.startsWith(prefix));
+        return startsWith(prefix, 0);
+    }
+
+    @Override
+    public S startsWith(CharSequence prefix, int offset) {
+        rule.addConstraint(CharSequenceConstraints.startsWith(prefix, offset));
         return myself;
     }
 
@@ -245,27 +233,13 @@ public abstract class AbstractCharSequenceSubject<S extends AbstractCharSequence
     }
 
     @Override
-    public S doesNotmatch(Pattern pattern) {
-        return myself;
-    }
-
-    @Override
-    public S isXmlEqualTo(CharSequence expectedXml) {
-        return myself;
-    }
-
-    @Override
-    public S inHexadecimal() {
-        return myself;
-    }
-
-    @Override
-    public S inUnicode() {
+    public S doesNotMatch(Pattern pattern) {
         return myself;
     }
 
     @Override
     public S isEqualToIgnoringWhitespace(CharSequence expected) {
+        rule.addConstraint(new IsEqualToIgnoringWhitespaceConstraint<>(expected));
         return myself;
     }
 
@@ -276,6 +250,7 @@ public abstract class AbstractCharSequenceSubject<S extends AbstractCharSequence
 
     @Override
     public S isEqualToNormalizingWhitespace(CharSequence expected) {
+        rule.addConstraint(new IsEqualToNormalizingWhitespaceConstraint<>(expected));
         return myself;
     }
 
@@ -303,16 +278,6 @@ public abstract class AbstractCharSequenceSubject<S extends AbstractCharSequence
     }
 
     @Override
-    public S isEqualToNormalizingNewlines(CharSequence expected) {
-        return myself;
-    }
-
-    @Override
-    public S isEqualToIgnoringNewLines(CharSequence expected) {
-        return myself;
-    }
-
-    @Override
     public S isLowerCase() {
         rule.addConstraint(CharSequenceConstraints.isLowerCase());
         return myself;
@@ -324,4 +289,9 @@ public abstract class AbstractCharSequenceSubject<S extends AbstractCharSequence
         return myself;
     }
 
+    @Override
+    public S isEmail() {
+        rule.addConstraint(new IsEmailConstraint<>());
+        return myself;
+    }
 }

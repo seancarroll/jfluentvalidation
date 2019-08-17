@@ -1,6 +1,7 @@
 package jfluentvalidation.constraints.map;
 
-import jfluentvalidation.constraints.Constraint;
+import jfluentvalidation.constraints.AbstractConstraint;
+import jfluentvalidation.constraints.DefaultMessages;
 import jfluentvalidation.validators.RuleContext;
 
 import java.util.Map;
@@ -13,16 +14,20 @@ import java.util.Map;
  * @param <K>
  * @param <V>
  */
-public class ContainsKeyConstraint<T, K, V> implements Constraint<T, Map<K, V>> {
+public class ContainsKeyConstraint<T, K, V> extends AbstractConstraint<T, Map<K, V>> {
 
     private final K key;
 
     public ContainsKeyConstraint(K key) {
+        super(DefaultMessages.MAP_CONTAINS_KEY);
         this.key = key;
     }
 
     @Override
     public boolean isValid(RuleContext<T, Map<K, V>> context) {
-        return false;
+        if (context.getPropertyValue() == null) {
+            return true;
+        }
+        return context.getPropertyValue().containsKey(key);
     }
 }
