@@ -1,7 +1,6 @@
 # jfluentvalidation
 
-A fluent validation library for Java heavily inspired by the 
-.NET [Fluent Validation](https://github.com/JeremySkinner/FluentValidation) library. 
+A fluent validation library for Java.
 
 So what exactly does that mean? It means instead of building programmatic validators like
 
@@ -64,7 +63,7 @@ I always thought that Fluent validation provided a easy to use API surface
 
 ## Inspiration
 
-Outside of Jeremy Skinner's Fluent Validation I'd like to call out some additional libraries that helped to shape this 
+This project was inspired by the following open source projects 
 
 * https://github.com/JeremySkinner/FluentValidation
 * http://joel-costigliola.github.io/assertj/assertj-core.html
