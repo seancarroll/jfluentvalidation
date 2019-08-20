@@ -15,11 +15,11 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class ValidatorTests {
 
     @Test
-    void supportMethodReference() {
+    void supportLambdaExpression() {
         Person person = new Person("sean", -1, null);
 
         DefaultValidator<Person> validator = new DefaultValidator<>(Person.class);
-        validator.ruleForInteger(Person::getAge).isPositive();
+        validator.ruleForInteger(p -> p.getAge()).isPositive();
 
         List<ValidationFailure> validationFailures = validator.validate(person);
 
@@ -32,8 +32,8 @@ class ValidatorTests {
         Person person = new Person("sean", 32, null);
 
         DefaultValidator<Person> validator = new DefaultValidator<>(Person.class);
-        validator.ruleForString(p -> p.getName()).isNotEmpty().startsWith("s").length(5, 10).withMessage("Name must be between 5 and 10 yo");
-        validator.ruleForInteger(p -> p.getAge()).isPositive();
+        validator.ruleForString(Person::getName).isNotEmpty().startsWith("s").length(5, 10).withMessage("Name must be between 5 and 10 yo");
+        validator.ruleForInteger(Person::getAge).isPositive();
 
         List<ValidationFailure> validationFailures = validator.validate(person);
 
@@ -45,8 +45,8 @@ class ValidatorTests {
         Person person = new Person("sean", 32, null);
 
         DefaultValidator<Person> validator = DefaultValidator.forClass(Person.class);
-        validator.ruleForString(p -> p.getName()).isNotEmpty().startsWith("s").length(5, 10);
-        validator.ruleForInteger(p -> p.getAge()).isPositive().isBetween(1, 50);
+        validator.ruleForString(Person::getName).isNotEmpty().startsWith("s").length(5, 10);
+        validator.ruleForInteger(Person::getAge).isPositive().isBetween(1, 50);
 
         List<ValidationFailure> validationFailures = validator.validate(person);
 
@@ -87,7 +87,7 @@ class ValidatorTests {
 
         DefaultValidator<Person> validator = new DefaultValidator<>(Person.class);
         validator.ruleSet("name", () -> {
-            validator.ruleForString(p -> p.getName()).isNotEmpty().startsWith("s").length(5, 10);
+            validator.ruleForString(Person::getName).isNotEmpty().startsWith("s").length(5, 10);
         });
 
         List<ValidationFailure> validationFailures = validator.validate(person, "name");
@@ -110,8 +110,8 @@ class ValidatorTests {
         Person person = new Person("sean", 32, null);
 
         DefaultValidator<Person> validator = new DefaultValidator<>(Person.class);
-        validator.ruleForString(p -> p.getName()).isNotEmpty().startsWith("s").length(5, 10).withMessage("Name must be between 5 and 10 yo");
-        validator.ruleForInteger(p -> p.getAge()).isPositive();
+        validator.ruleForString(Person::getName).isNotEmpty().startsWith("s").length(5, 10).withMessage("Name must be between 5 and 10 yo");
+        validator.ruleForInteger(Person::getAge).isPositive();
 
         ValidationException exception = assertThrows(ValidationException.class, () -> validator.validateAndThrow(person));
 
@@ -151,15 +151,15 @@ class ValidatorTests {
     private class PersonValidator extends DefaultValidator<Person> {
 
         public PersonValidator() {
-            ruleForString(p -> p.getName()).isNotEmpty().startsWith("s").length(0, 4);
-            ruleForObject(p -> p.getAddress()).isNull();
-            ruleForInteger(p -> p.getAge()).isPositive();
-            ruleForBoolean(p -> p.isMarried()).isFalse();
+            ruleForString(Person::getName).isNotEmpty().startsWith("s").length(0, 4);
+            ruleForObject(Person::getAddress).isNull();
+            ruleForInteger(Person::getAge).isPositive();
+            ruleForBoolean(Person::isMarried).isFalse();
             // TODO: fix this ... ruleForZonedDateTime(Person::getDob).isInThePast();
-            ruleForZonedDateTime(p -> p.getSignedIn()).isAfter(ZonedDateTime.now().minusDays(1));
-            ruleForMap(p -> p.getPets()).isNotEmpty().forEachKey(isLowerCase()).forEachValue(length(0, 5));
+            ruleForZonedDateTime(Person::getSignedIn).isAfter(ZonedDateTime.now().minusDays(1));
+            ruleForMap(Person::getPets).isNotEmpty().forEachKey(isLowerCase()).forEachValue(length(0, 5));
             // ruleForIterable(p -> p.getChildren()).isNotNull().forEach(startsWith("S"));
-            ruleForByteArray(p -> p.getBytes()).isNotNull();
+            ruleForByteArray(Person::getBytes).isNotNull();
 
             include(new PersonAgeValidator());
 
@@ -167,12 +167,12 @@ class ValidatorTests {
 //            TODO: how to include validator for a nested field such as address?
 
             ruleSet("address", () ->  {
-                ruleForObject(p -> p.getAddress()).isNotNull();
+                ruleForObject(Person::getAddress).isNotNull();
             });
         }
     }
 
-    private class PersonAgeValidator extends DefaultValidator<Person> {
+    private static class PersonAgeValidator extends DefaultValidator<Person> {
 
         public PersonAgeValidator() {
             // TODO: is kind of sucks...is there a better way to do this?
@@ -197,13 +197,13 @@ class ValidatorTests {
 
     // TODO: should this also be part of the `include` API or should be be something else?
     // Fluentvalidator has both include (used for the same type) and setValidator (used for different types)
-    private class AddressValidator extends DefaultValidator<Address> {
+    private static class AddressValidator extends DefaultValidator<Address> {
         public AddressValidator() {
-            when(address -> address != null, () -> {
-                ruleForString(a -> a.getStreet1()).isNotNull();
-                ruleForString(a -> a.getCity()).isNotNull();
-                ruleForString(a -> a.getState()).isNotNull();
-                ruleForString(a -> a.getZip()).isNotNull();
+            when(Objects::nonNull, () -> {
+                ruleForString(Address::getStreet1).isNotNull();
+                ruleForString(Address::getCity).isNotNull();
+                ruleForString(Address::getState).isNotNull();
+                ruleForString(Address::getZip).isNotNull();
             });
         }
     }
