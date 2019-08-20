@@ -150,7 +150,7 @@ class ValidatorTests {
 
     private class PersonValidator extends DefaultValidator<Person> {
 
-        public PersonValidator() {
+        PersonValidator() {
             ruleForString(Person::getName).isNotEmpty().startsWith("s").length(0, 4);
             ruleForObject(Person::getAddress).isNull();
             ruleForInteger(Person::getAge).isPositive();
@@ -174,7 +174,7 @@ class ValidatorTests {
 
     private static class PersonAgeValidator extends DefaultValidator<Person> {
 
-        public PersonAgeValidator() {
+        PersonAgeValidator() {
             // TODO: is kind of sucks...is there a better way to do this?
             //ruleForInteger(Person::getAge).must(this::beOver18);
 
