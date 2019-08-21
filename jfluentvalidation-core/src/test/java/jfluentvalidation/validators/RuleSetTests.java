@@ -2,6 +2,7 @@ package jfluentvalidation.validators;
 
 import org.junit.jupiter.api.Test;
 
+// TODO: add ruleset tests
 class RuleSetTests {
 
     // RulesetTests
