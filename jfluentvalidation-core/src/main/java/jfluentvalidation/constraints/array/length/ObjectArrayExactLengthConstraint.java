@@ -7,7 +7,6 @@ import jfluentvalidation.constraints.DefaultMessages;
 import jfluentvalidation.internal.Ensure;
 import jfluentvalidation.validators.RuleContext;
 
-import java.lang.reflect.Array;
 import java.util.function.IntSupplier;
 
 public class ObjectArrayExactLengthConstraint<T, E> extends AbstractConstraint<T, E[]> {
@@ -18,12 +17,6 @@ public class ObjectArrayExactLengthConstraint<T, E> extends AbstractConstraint<T
         super(DefaultMessages.ARRAY_EXACT_LENGTH);
         Ensure.notNull(other);
         this.lengthSupplier = () -> Iterables.size(other);
-    }
-
-    public ObjectArrayExactLengthConstraint(Object other) {
-        super(DefaultMessages.ARRAY_EXACT_LENGTH);
-        Ensure.argument(MoreArrays.isArray(other));
-        this.lengthSupplier = () -> Array.getLength(other);
     }
 
     public ObjectArrayExactLengthConstraint(E[] other) {
