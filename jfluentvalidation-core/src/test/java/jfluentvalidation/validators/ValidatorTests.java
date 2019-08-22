@@ -14,6 +14,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ValidatorTests {
 
+    // TODO: include a double brace initializer sample
+
     @Test
     void supportLambdaExpression() {
         Person person = new Person("sean", -1, null);

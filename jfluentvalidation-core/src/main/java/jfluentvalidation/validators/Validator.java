@@ -6,6 +6,7 @@ import jfluentvalidation.rules.RuleSet;
 
 import java.util.List;
 
+// TODO: add generic T (<T>) to ValidationContext?
 // TODO: should we return a ValidationResult instead?
 public interface Validator<T> {
 
