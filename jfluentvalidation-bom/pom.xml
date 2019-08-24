@@ -22,7 +22,7 @@
         <checker-qual.version>2.10.1</checker-qual.version>
         <errorprone.version>2.3.3</errorprone.version>
         <!--TODO: can we avoid bringing in guava as a dependency?-->
-        <guava.version>27.0.1-jre</guava.version>
+        <guava.version>28.0-jre</guava.version>
         <hibernate-validator.version>6.0.16.Final</hibernate-validator.version>
         <javax.el.version>3.0.0</javax.el.version>
         <objenesis.version>3.0.1</objenesis.version>
