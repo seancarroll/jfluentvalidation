@@ -1,6 +1,5 @@
 package jfluentvalidation.constraints.array.notempty;
 
-import jfluentvalidation.common.MoreArrays;
 import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.DefaultMessages;
 import jfluentvalidation.validators.RuleContext;
@@ -20,6 +19,6 @@ public class IsNotEmptyIntArrayConstraint<T> extends AbstractConstraint<T, int[]
         if (context.getPropertyValue() == null) {
             return true;
         }
-        return MoreArrays.isArrayNotEmpty(context.getPropertyValue());
+        return context.getPropertyValue().length > 0;
     }
 }

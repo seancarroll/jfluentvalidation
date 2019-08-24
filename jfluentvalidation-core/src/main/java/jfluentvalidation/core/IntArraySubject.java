@@ -3,6 +3,7 @@ package jfluentvalidation.core;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import jfluentvalidation.constraints.array.contains.ContainsIntConstraint;
 import jfluentvalidation.constraints.array.empty.IsEmptyIntArrayConstraint;
+import jfluentvalidation.constraints.array.isnotnullorempty.IsNotNullOrEmptyIntArrayConstraint;
 import jfluentvalidation.constraints.array.length.IntArrayBetweenLengthConstraint;
 import jfluentvalidation.constraints.array.length.IntArrayExactLengthConstraint;
 import jfluentvalidation.constraints.array.length.IntArrayMaximumLengthConstraint;
@@ -25,6 +26,11 @@ public class IntArraySubject<T> extends AbstractIntArraySubject<IntArraySubject<
     @Override
     public void isNullOrEmpty() {
         rule.addConstraint(new IsNullOrEmptyIntArrayConstraint<>());
+    }
+
+    @Override
+    public void isNotNullOrEmpty() {
+        rule.addConstraint(new IsNotNullOrEmptyIntArrayConstraint<>());
     }
 
     @Override

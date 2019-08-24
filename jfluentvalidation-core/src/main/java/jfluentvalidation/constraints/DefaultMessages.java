@@ -5,6 +5,7 @@ public class DefaultMessages {
     public static final String IS_EMPTY = "{jfluentvalidation.constraints.IsEmpty.message}";
     public static final String IS_EQUALS = "{jfluentvalidation.constraints.IsEquals.message}";
     public static final String IS_NOT_EMPTY = "{jfluentvalidation.constraints.IsNotEmpty.message}";
+    public static final String IS_NOT_EMPTY_OR_NULL = "{jfluentvalidation.constraints.IsNotEmptyOrNull.message}";
     public static final String IS_NOT_EQUALS = "{jfluentvalidation.constraints.IsNotEquals.message}";
     public static final String IS_NOT_NULL = "{jfluentvalidation.constraints.IsNotNUll.message}";
     public static final String IS_NULL = "{jfluentvalidation.constraints.IsNull.message}";

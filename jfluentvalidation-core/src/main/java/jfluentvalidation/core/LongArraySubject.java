@@ -3,6 +3,7 @@ package jfluentvalidation.core;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import jfluentvalidation.constraints.array.contains.ContainsLongConstraint;
 import jfluentvalidation.constraints.array.empty.IsEmptyLongArrayConstraint;
+import jfluentvalidation.constraints.array.isnotnullorempty.IsNotNullOrEmptyLongArrayConstraint;
 import jfluentvalidation.constraints.array.length.LongArrayBetweenLengthConstraint;
 import jfluentvalidation.constraints.array.length.LongArrayExactLengthConstraint;
 import jfluentvalidation.constraints.array.length.LongArrayMaximumLengthConstraint;
@@ -26,6 +27,11 @@ public class LongArraySubject<T> extends AbstractArraySubject<LongArraySubject<T
     @Override
     public void isNullOrEmpty() {
         rule.addConstraint(new IsNullOrEmptyLongArrayConstraint<>());
+    }
+
+    @Override
+    public void isNotNullOrEmpty() {
+        rule.addConstraint(new IsNotNullOrEmptyLongArrayConstraint<>());
     }
 
     @Override

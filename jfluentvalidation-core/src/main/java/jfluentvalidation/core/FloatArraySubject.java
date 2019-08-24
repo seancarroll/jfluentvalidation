@@ -3,7 +3,11 @@ package jfluentvalidation.core;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import jfluentvalidation.constraints.array.contains.ContainsFloatConstraint;
 import jfluentvalidation.constraints.array.empty.IsEmptyFloatArrayConstraint;
-import jfluentvalidation.constraints.array.length.*;
+import jfluentvalidation.constraints.array.isnotnullorempty.IsNotNullOrEmptyFloatArrayConstraint;
+import jfluentvalidation.constraints.array.length.FloatArrayBetweenLengthConstraint;
+import jfluentvalidation.constraints.array.length.FloatArrayExactLengthConstraint;
+import jfluentvalidation.constraints.array.length.FloatArrayMaximumLengthConstraint;
+import jfluentvalidation.constraints.array.length.FloatArrayMinimumLengthConstraint;
 import jfluentvalidation.constraints.array.notempty.IsNotEmptyFloatArrayConstraint;
 import jfluentvalidation.constraints.array.nullorempty.IsNullOrEmptyFloatArrayConstraint;
 import jfluentvalidation.rules.PropertyRule;
@@ -22,6 +26,11 @@ public class FloatArraySubject<T> extends AbstractArraySubject<FloatArraySubject
     @Override
     public void isNullOrEmpty() {
         rule.addConstraint(new IsNullOrEmptyFloatArrayConstraint<>());
+    }
+
+    @Override
+    public void isNotNullOrEmpty() {
+        rule.addConstraint(new IsNotNullOrEmptyFloatArrayConstraint<>());
     }
 
     @Override

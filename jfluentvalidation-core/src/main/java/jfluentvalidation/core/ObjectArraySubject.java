@@ -2,6 +2,7 @@ package jfluentvalidation.core;
 
 import jfluentvalidation.constraints.array.contains.ContainsObjectConstraint;
 import jfluentvalidation.constraints.array.empty.IsEmptyObjectArrayConstraint;
+import jfluentvalidation.constraints.array.isnotnullorempty.IsNotNullOrEmptyObjectArrayConstraint;
 import jfluentvalidation.constraints.array.length.ObjectArrayBetweenLengthConstraint;
 import jfluentvalidation.constraints.array.length.ObjectArrayExactLengthConstraint;
 import jfluentvalidation.constraints.array.length.ObjectArrayMaximumLengthConstraint;
@@ -25,6 +26,11 @@ public class ObjectArraySubject<T, E> extends AbstractArraySubject<ObjectArraySu
     @Override
     public void isNullOrEmpty() {
         rule.addConstraint(new IsNullOrEmptyObjectArrayConstraint<>());
+    }
+
+    @Override
+    public void isNotNullOrEmpty() {
+        rule.addConstraint(new IsNotNullOrEmptyObjectArrayConstraint<>());
     }
 
     @Override

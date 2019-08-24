@@ -3,6 +3,7 @@ package jfluentvalidation.core;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import jfluentvalidation.constraints.array.contains.ContainsShortConstraint;
 import jfluentvalidation.constraints.array.empty.IsEmptyShortArrayConstraint;
+import jfluentvalidation.constraints.array.isnotnullorempty.IsNotNullOrEmptyShortArrayConstraint;
 import jfluentvalidation.constraints.array.length.ShortArrayBetweenLengthConstraint;
 import jfluentvalidation.constraints.array.length.ShortArrayExactLengthConstraint;
 import jfluentvalidation.constraints.array.length.ShortArrayMaximumLengthConstraint;
@@ -25,6 +26,11 @@ public class ShortArraySubject<T> extends AbstractArraySubject<ShortArraySubject
     @Override
     public void isNullOrEmpty() {
         rule.addConstraint(new IsNullOrEmptyShortArrayConstraint<>());
+    }
+
+    @Override
+    public void isNotNullOrEmpty() {
+        rule.addConstraint(new IsNotNullOrEmptyShortArrayConstraint<>());
     }
 
     @Override

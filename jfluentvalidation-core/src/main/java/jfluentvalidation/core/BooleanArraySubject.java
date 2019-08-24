@@ -3,6 +3,7 @@ package jfluentvalidation.core;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import jfluentvalidation.constraints.array.contains.ContainsBooleanConstraint;
 import jfluentvalidation.constraints.array.empty.IsEmptyBooleanArrayConstraint;
+import jfluentvalidation.constraints.array.isnotnullorempty.IsNotNullOrEmptyBoolenArrayConstraint;
 import jfluentvalidation.constraints.array.length.ArrayExactLengthConstraint;
 import jfluentvalidation.constraints.array.length.ArrayLengthConstraint;
 import jfluentvalidation.constraints.array.length.BooleanArrayMaximumLengthConstraint;
@@ -25,6 +26,11 @@ public class BooleanArraySubject<T> extends AbstractArraySubject<BooleanArraySub
     @Override
     public void isNullOrEmpty() {
         rule.addConstraint(new IsNullOrEmptyBooleanArrayConstraint<>());
+    }
+
+    @Override
+    public void isNotNullOrEmpty() {
+        rule.addConstraint(new IsNotNullOrEmptyBoolenArrayConstraint<>());
     }
 
     @Override

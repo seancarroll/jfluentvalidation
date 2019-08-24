@@ -3,6 +3,7 @@ package jfluentvalidation.core;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import jfluentvalidation.constraints.array.contains.ContainsDoubleConstraint;
 import jfluentvalidation.constraints.array.empty.IsEmptyDoubleArrayConstraint;
+import jfluentvalidation.constraints.array.isnotnullorempty.IsNotNullOrEmptyDoubleArrayConstraint;
 import jfluentvalidation.constraints.array.length.DoubleArrayBetweenLengthConstraint;
 import jfluentvalidation.constraints.array.length.DoubleArrayExactLengthConstraint;
 import jfluentvalidation.constraints.array.length.DoubleArrayMaximumLengthConstraint;
@@ -25,6 +26,11 @@ public class DoubleArraySubject<T> extends AbstractArraySubject<DoubleArraySubje
     @Override
     public void isNullOrEmpty() {
         rule.addConstraint(new IsNullOrEmptyDoubleArrayConstraint<>());
+    }
+
+    @Override
+    public void isNotNullOrEmpty() {
+        rule.addConstraint(new IsNotNullOrEmptyDoubleArrayConstraint<>());
     }
 
     @Override

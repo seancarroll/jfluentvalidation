@@ -3,6 +3,7 @@ package jfluentvalidation.core;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import jfluentvalidation.constraints.array.contains.ContainsByteConstraint;
 import jfluentvalidation.constraints.array.empty.IsEmptyByteArrayConstraint;
+import jfluentvalidation.constraints.array.isnotnullorempty.IsNotNullOrEmptyByteArrayConstraint;
 import jfluentvalidation.constraints.array.length.ByteArrayBetweenLengthConstraint;
 import jfluentvalidation.constraints.array.length.ByteArrayExactLengthConstraint;
 import jfluentvalidation.constraints.array.length.ByteArrayMaximumLengthConstraint;
@@ -30,6 +31,11 @@ public class ByteArraySubject<T> extends AbstractByteArraySubject<ByteArraySubje
     @Override
     public void isNullOrEmpty() {
         rule.addConstraint(new IsNullOrEmptyByteArrayConstraint<>());
+    }
+
+    @Override
+    public void isNotNullOrEmpty() {
+        rule.addConstraint(new IsNotNullOrEmptyByteArrayConstraint<>());
     }
 
     @Override

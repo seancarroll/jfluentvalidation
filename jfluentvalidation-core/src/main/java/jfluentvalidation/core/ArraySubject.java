@@ -7,7 +7,8 @@ public interface ArraySubject<S extends ArraySubject<S, A, E>, A, E> {
     @CanIgnoreReturnValue
     void isNullOrEmpty();
 
-    // TODO: add isNotNullOrEmpty()
+    @CanIgnoreReturnValue
+    void isNotNullOrEmpty();
 
     @CanIgnoreReturnValue
     void isEmpty();
