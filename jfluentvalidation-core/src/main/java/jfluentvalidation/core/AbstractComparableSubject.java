@@ -56,14 +56,12 @@ public class AbstractComparableSubject<S extends AbstractComparableSubject<S, T,
 
     @Override
     public S isBetween(A startInclusive, A endInclusive) {
-        rule.addConstraint(new IsBetweenConstraint<>(startInclusive, endInclusive, true, true));
-        return myself;
+        return isBetween(startInclusive, endInclusive, true, true);
     }
 
     @Override
     public S isStrictlyBetween(A startExclusive, A endExclusive) {
-        rule.addConstraint(new IsBetweenConstraint<>(startExclusive, endExclusive, true, true));
-        return myself;
+        return isBetween(startExclusive, endExclusive, false, false);
     }
 
     @Override
@@ -74,8 +72,7 @@ public class AbstractComparableSubject<S extends AbstractComparableSubject<S, T,
 
     @Override
     public S isNotBetween(A startInclusive, A endInclusive) {
-        rule.addConstraint(new IsNotBetweenConstraint<>(startInclusive, endInclusive, true, true));
-        return myself;
+        return isNotBetween(startInclusive, endInclusive, true, true);
     }
 
     @Override
