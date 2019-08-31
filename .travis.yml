@@ -6,7 +6,7 @@ addons:
   sonarcloud:
     organization: "seancarroll-github"
     token:
-      secure: "$SONAR_TOKEN"
+      secure: "A3Ym1LnQVo8nCJN9UqSM37tkrLNUBHfyzjoEgLI1jG/R7Lh433FESzkFNz5hOd6ON/Y+Jg2CNPg36rvfmvL9u2iGrz7vikEMRjRtxLKKoRzu+bXP3x5r5J0MhREPPBkGDAf1CdmA2akGxRj6sU3VikwdHZeCNtFGHROctsBhP0PgYtYJlZH7QqP3jiI4S/YKRxKqLnd5PZYeA1CrwbfSGc+H2OsUe7wXAM8SxExTrUFr/EVXuc8979UrpSerZHqG9QammrVawFJL9wr/iwcLDjyfmojjLtZ43VfRmz/meDkhzZPLC447j3G9a1OJ/RLtE8PfC4GOqFVSGHT67r2+MMjRaQJKMY/DJa2G/eswlBmibTcX5zzisbQkZ5rErNY4b2qGlcCwuLmavTMCVFug/D8sHd4Ygp5sCxU8SvtdmbwVua0W4EBWJFJFLwrcpsGpyoDB7IbC2Ckjg7MPW40Lrc/BHpocN3Y06aBITfufHOXpgwF60Lrjr3VBHNSHhR9foYPuUgfxXZsjXSu4KVkQwLsTTJC0iVsMxtj4LRGXaXTT2C1sFcO9NbPoy+w2gIMf2f1hPwx7wZioZJLUKq0yLa8Wxq2ERYGWvNlHqFtU9WiyGKCjA1rPgQil+dNUIpE6HIFTWyfYhFvq+sFipsuAJDeil+CbJvI5MVSudnK9JHA="
 
 cache:
   directories:
@@ -15,8 +15,6 @@ cache:
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
-#  - snyk monitor
-
 
 script:
   - mvn clean verify sonar:sonar -Dsonar.projectKey=seancarroll_jfluentvalidation -Pcode-coverage
