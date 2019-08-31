@@ -1,5 +1,14 @@
 # jfluentvalidation
 
+[![Build Status](https://travis-ci.org/seancarroll/jfluentvalidation.svg?branch=master)](https://travis-ci.org/seancarroll/jfluentvalidation)
+[![codecov](https://codecov.io/gh/seancarroll/jfluentvalidation/branch/master/graph/badge.svg)](https://codecov.io/gh/seancarroll/jfluentvalidation)
+[![Maintainability](https://api.codeclimate.com/v1/badges/7120177d6f1e69203073/maintainability)](https://codeclimate.com/github/seancarroll/jfluentvalidation/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/7120177d6f1e69203073/test_coverage)](https://codeclimate.com/github/seancarroll/jfluentvalidation/test_coverage)
+[![Sonarcloud Status](https://sonarcloud.io/api/project_badges/measure?project=seancarroll_jfluentvalidation&metric=alert_status)](https://sonarcloud.io/dashboard?id=seancarroll_jfluentvalidation) 
+[![SonarCloud Coverage](https://sonarcloud.io/api/project_badges/measure?project=seancarroll_jfluentvalidation&metric=coverage)](https://sonarcloud.io/component_measures/metric/coverage/list?id=seancarroll_jfluentvalidation)
+[![SonarCloud Bugs](https://sonarcloud.io/api/project_badges/measure?project=seancarroll_jfluentvalidation&metric=bugs)](https://sonarcloud.io/component_measures/metric/reliability_rating/list?id=seancarroll_jfluentvalidation)
+[![SonarCloud Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=seancarroll_jfluentvalidation&metric=vulnerabilities)](https://sonarcloud.io/component_measures/metric/security_rating/list?id=seancarroll_jfluentvalidation)
+
 A fluent validation library for Java.
 
 ## System Requirements
