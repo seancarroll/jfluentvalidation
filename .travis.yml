@@ -13,8 +13,17 @@ cache:
     - '$HOME/.m2/repository'
     - '$HOME/.sonar/cache'
 
-after_success:
-  - bash <(curl -s https://codecov.io/bash)
+before_script:
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
 
 script:
   - mvn clean verify sonar:sonar -Dsonar.projectKey=seancarroll_jfluentvalidation -Pcode-coverage
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
+
+after_script:
+  - ./cc-test-reporter format-coverage -d -t jacoco ./target/site/jacoco/jacoco.xml
+  - ./cc-test-reporter upload-coverage -d
