@@ -19,7 +19,7 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>com.seancarroll</groupId>
+                <groupId>com.seanthomascarroll.jfluentvalidation</groupId>
                 <artifactId>jfluentvalidation-bom</artifactId>
                 <version>${project.version}</version>
                 <type>pom</type>
@@ -41,7 +41,7 @@
             <version>${jmh.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.seancarroll</groupId>
+            <groupId>com.seanthomascarroll.jfluentvalidation</groupId>
             <artifactId>jfluentvalidation-core</artifactId>
         </dependency>
 

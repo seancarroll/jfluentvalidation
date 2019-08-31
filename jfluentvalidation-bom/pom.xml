@@ -81,7 +81,7 @@
 
 
             <dependency>
-                <groupId>com.seancarroll</groupId>
+                <groupId>com.seanthomascarroll.jfluentvalidation</groupId>
                 <artifactId>jfluentvalidation-core</artifactId>
                 <version>${project.version}</version>
             </dependency>
