@@ -10,8 +10,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class IsBetweenTest {
 
-    // TODO: add tests for between override inclusive false
-
     @Test
     void shouldThrowExceptionWhenStartIsNull() {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
@@ -49,6 +47,18 @@ class IsBetweenTest {
     }
 
     @Test
+    void shouldReturnFailureWhenActualIsEqualToStartAndStartIsExclusive() {
+        Target t = new Target(0d);
+
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        validator.ruleForDouble(Target::getNumber).isBetween(0d, 5d, false, true);
+
+        List<ValidationFailure> failures = validator.validate(t);
+
+        assertFalse(failures.isEmpty());
+    }
+
+    @Test
     void shouldNotReturnFailureWhenActualIsEqualToEnd() {
         Target t = new Target(5d);
 
@@ -58,6 +68,18 @@ class IsBetweenTest {
         List<ValidationFailure> failures = validator.validate(t);
 
         assertTrue(failures.isEmpty());
+    }
+
+    @Test
+    void shouldReturnFailureWhenActualIsEqualToEndAndEndIsExclusive() {
+        Target t = new Target(5d);
+
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        validator.ruleForDouble(Target::getNumber).isBetween(0d, 5d, true, false);
+
+        List<ValidationFailure> failures = validator.validate(t);
+
+        assertFalse(failures.isEmpty());
     }
 
     @Test

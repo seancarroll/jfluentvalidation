@@ -72,6 +72,18 @@ class IsNotBetweenTest {
     }
 
     @Test
+    void shouldNotReturnFailureWhenActualIsEqualToStartAndStartIsExclusive() {
+        Target t = new Target(ZERO);
+
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        validator.ruleForShort(Target::getNumber).isNotBetween(ZERO, FIVE, false, true);
+
+        List<ValidationFailure> failures = validator.validate(t);
+
+        assertTrue(failures.isEmpty());
+    }
+
+    @Test
     void shouldReturnFailureWhenActualIsEqualToEnd() {
         Target t = new Target(FIVE);
 
@@ -81,6 +93,18 @@ class IsNotBetweenTest {
         List<ValidationFailure> failures = validator.validate(t);
 
         assertFalse(failures.isEmpty());
+    }
+
+    @Test
+    void shouldNotReturnFailureWhenActualIsEqualToEndAndEndIsExclusive() {
+        Target t = new Target(FIVE);
+
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        validator.ruleForShort(Target::getNumber).isNotBetween(ZERO, FIVE, true, false);
+
+        List<ValidationFailure> failures = validator.validate(t);
+
+        assertTrue(failures.isEmpty());
     }
 
     @Test

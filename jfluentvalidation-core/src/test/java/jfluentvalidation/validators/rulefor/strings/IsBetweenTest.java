@@ -62,7 +62,6 @@ class IsBetweenTest {
         assertFalse(failures.isEmpty());
     }
 
-
     @Test
     void shouldNotReturnFailureWhenActualIsEqualToEnd() {
         Target t = new Target("carrot");
@@ -86,7 +85,6 @@ class IsBetweenTest {
 
         assertFalse(failures.isEmpty());
     }
-
 
     @Test
     void shouldNotReturnFailureWhenActualIsNull() {

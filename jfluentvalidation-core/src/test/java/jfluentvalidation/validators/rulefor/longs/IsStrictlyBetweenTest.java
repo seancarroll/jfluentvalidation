@@ -7,27 +7,28 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
-class IsBetweenTest {
+class IsStrictlyBetweenTest {
 
     @Test
     void shouldThrowExceptionWhenStartIsNull() {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        assertThrows(NullPointerException.class, () -> validator.ruleForLong(Target::getNumber).isBetween(null, 5L));
+        assertThrows(NullPointerException.class, () -> validator.ruleForLong(Target::getNumber).isStrictlyBetween(null, 5L));
     }
 
     @Test
     void shouldThrowExceptionWhenEndIsNull() {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        assertThrows(NullPointerException.class, () -> validator.ruleForLong(Target::getNumber).isBetween(0L, null));
+        assertThrows(NullPointerException.class, () -> validator.ruleForLong(Target::getNumber).isStrictlyBetween(0L, null));
     }
 
     @Test
-    void shouldNotReturnFailureWhenActualIsInRange() {
+    void shouldNotReturnFailureWhenActualIsStrictlyInRange() {
         Target t = new Target(1L);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForLong(Target::getNumber).isBetween(0L, 5L);
+        validator.ruleForLong(Target::getNumber).isStrictlyBetween(0L, 5L);
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -35,23 +36,11 @@ class IsBetweenTest {
     }
 
     @Test
-    void shouldNotReturnFailureWhenActualIsEqualToStart() {
+    void shouldReturnFailureWhenActualIsEqualToStart() {
         Target t = new Target(0L);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForLong(Target::getNumber).isBetween(0L, 5L);
-
-        List<ValidationFailure> failures = validator.validate(t);
-
-        assertTrue(failures.isEmpty());
-    }
-
-    @Test
-    void shouldReturnFailureWhenActualIsEqualToStartAndStartIsExclusive() {
-        Target t = new Target(0L);
-
-        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForLong(Target::getNumber).isBetween(0L, 5L, false, true);
+        validator.ruleForLong(Target::getNumber).isStrictlyBetween(0L, 5L);
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -59,23 +48,11 @@ class IsBetweenTest {
     }
 
     @Test
-    void shouldNotReturnFailureWhenActualIsEqualToEnd() {
+    void shouldReturnFailureWhenActualIsEqualToEnd() {
         Target t = new Target(5L);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForLong(Target::getNumber).isBetween(0L, 5L);
-
-        List<ValidationFailure> failures = validator.validate(t);
-
-        assertTrue(failures.isEmpty());
-    }
-
-    @Test
-    void shouldReturnFailureWhenActualIsEqualToEndAndEndIsExclusive() {
-        Target t = new Target(5L);
-
-        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForLong(Target::getNumber).isBetween(0L, 5L, true, false);
+        validator.ruleForLong(Target::getNumber).isStrictlyBetween(0L, 5L);
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -87,7 +64,7 @@ class IsBetweenTest {
         Target t = new Target(null);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForLong(Target::getNumber).isBetween(0L, 5L);
+        validator.ruleForLong(Target::getNumber).isStrictlyBetween(0L, 5L);
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -99,7 +76,7 @@ class IsBetweenTest {
         Target t = new Target(-1L);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForLong(Target::getNumber).isBetween(0L, 5L);
+        validator.ruleForLong(Target::getNumber).isStrictlyBetween(0L, 5L);
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -111,7 +88,7 @@ class IsBetweenTest {
         Target t = new Target(6L);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForLong(Target::getNumber).isBetween(0L, 5L);
+        validator.ruleForLong(Target::getNumber).isStrictlyBetween(0L, 5L);
 
         List<ValidationFailure> failures = validator.validate(t);
 
