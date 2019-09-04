@@ -7,7 +7,7 @@ public class DefaultMessages {
     public static final String IS_NOT_EMPTY = "{jfluentvalidation.constraints.IsNotEmpty.message}";
     public static final String IS_NOT_EMPTY_OR_NULL = "{jfluentvalidation.constraints.IsNotEmptyOrNull.message}";
     public static final String IS_NOT_EQUALS = "{jfluentvalidation.constraints.IsNotEquals.message}";
-    public static final String IS_NOT_NULL = "{jfluentvalidation.constraints.IsNotNUll.message}";
+    public static final String IS_NOT_NULL = "{jfluentvalidation.constraints.IsNotNull.message}";
     public static final String IS_NULL = "{jfluentvalidation.constraints.IsNull.message}";
     public static final String IS_NULL_OR_EMPTY = "{jfluentvalidation.constraints.IsNullOrEmpty.message}";
 
