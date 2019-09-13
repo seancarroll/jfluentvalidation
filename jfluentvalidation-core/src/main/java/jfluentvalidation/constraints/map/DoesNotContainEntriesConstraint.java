@@ -12,21 +12,22 @@ import java.util.Set;
 
 import static jfluentvalidation.common.Maps.containsEntry;
 
-// TODO: QUESTION: do we need all the Constains(Entry|Key|Value)Constraint classes?
-
 /**
  *
  * @param <T>  the target type supported by an implementation.
  * @param <K>  the type of keys maintained by this map
  * @param <V>  the type of mapped values
  */
-public class ContainsEntriesConstraint<T, K, V> extends AbstractConstraint<T, Map<K, V>> {
+public class DoesNotContainEntriesConstraint<T, K, V> extends AbstractConstraint<T, Map<K, V>> {
+
+    // TODO: how to handle when given is empty...how does map handle contains null/empty?
 
     private final Map.Entry<? extends K, ? extends V>[] entries;
 
-    public ContainsEntriesConstraint(@Nonnull Map.Entry<? extends K, ? extends V>[] entries) {
-        super(DefaultMessages.MAP_CONTAINS_ENTRIES);
-        this.entries = Ensure.notNull(entries);
+    // TODO: how do we want to handle null and empty entries?
+    public DoesNotContainEntriesConstraint(@Nonnull Map.Entry<? extends K, ? extends V>[] entries) {
+        super(DefaultMessages.MAP_DOES_NOT_CONTAIN_ENTRIES);
+        this.entries = Ensure.notNullOrEmpty(entries);
     }
 
     @Override
@@ -36,24 +37,22 @@ public class ContainsEntriesConstraint<T, K, V> extends AbstractConstraint<T, Ma
             return true;
         }
 
-        // if both actual and values are empty, then constraint passes but fail if entries is empty and actual is not
-        // TODO: does this make sense?
-        if (entries.length == 0) {
-            return context.getPropertyValue().isEmpty();
+        // TODO: handle empty
+        if (context.getPropertyValue().isEmpty() && entries.length == 0) {
+            return true;
         }
 
-        Set<Map.Entry<? extends K, ? extends V>> notFound = new LinkedHashSet<>();
+        Set<Map.Entry<? extends K, ? extends V>> found = new LinkedHashSet<>();
         for (Map.Entry<? extends K, ? extends V> entry : entries) {
-            if (!containsEntry(context.getPropertyValue(), entry)) {
-                notFound.add(entry);
+            if (containsEntry(context.getPropertyValue(), entry)) {
+                found.add(entry);
             }
         }
 
-        if (!notFound.isEmpty()) {
-            context.appendArgument("missingEntries", notFound);
+        if (!found.isEmpty()) {
+            context.appendArgument("foundEntries", found);
         }
 
-        return notFound.isEmpty();
+        return found.isEmpty();
     }
-
 }

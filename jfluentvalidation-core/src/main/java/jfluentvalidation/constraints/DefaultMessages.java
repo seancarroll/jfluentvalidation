@@ -93,12 +93,15 @@ public class DefaultMessages {
     public static final String ITERABLE_ITERABLE_TEM = "{jfluentvalidation.constraints.iterable.IterableItem.message}";
 
 
-    public static final String MAP_CONTAINS_ENTRY = "{jfluentvalidation.constraints.map.ContainsEntry.message}";
-    public static final String MAP_CONTAINS_KEY = "{jfluentvalidation.constraints.map.ContainsKey.message}";
-    public static final String MAP_CONTAINS_VALUE = "{jfluentvalidation.constraints.map.ContainsValue.message}";
+    public static final String MAP_CONTAINS_ENTRIES = "{jfluentvalidation.constraints.map.ContainsEntries.message}";
+    public static final String MAP_CONTAINS_KEYS = "{jfluentvalidation.constraints.map.ContainsKeys.message}";
+    public static final String MAP_CONTAINS_VALUES = "{jfluentvalidation.constraints.map.ContainsValues.message}";
     public static final String MAP_ENTRY = "{jfluentvalidation.constraints.map.Entry.message}";
     public static final String MAP_KEY = "{jfluentvalidation.constraints.map.Key.message}";
     public static final String MAP_VALUE = "{jfluentvalidation.constraints.map.Value.message}";
+    public static final String MAP_DOES_NOT_CONTAIN_ENTRIES = "{jfluentvalidation.constraints.map.DoesNotContain.message}";
+    public static final String MAP_DOES_NOT_CONTAIN_KEYS = "{jfluentvalidation.constraints.map.DoesNotContainKeys.message}";
+    public static final String MAP_DOES_NOT_CONTAIN_VALUES = "{jfluentvalidation.constraints.map.DoesNotContainValues.message}";
 
 
     public static final String TIME_IS_AFTER = "{jfluentvalidation.constraints.time.IsAfter.message}";

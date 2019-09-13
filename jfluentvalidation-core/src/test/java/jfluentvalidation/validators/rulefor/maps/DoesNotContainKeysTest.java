@@ -3,35 +3,29 @@ package jfluentvalidation.validators.rulefor.maps;
 import jfluentvalidation.ValidationFailure;
 import jfluentvalidation.validators.DefaultValidator;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ContainsValuesTest {
+class DoesNotContainKeysTest {
+
+    // TODO: how to handle when given is empty
 
     @Test
-    void shouldNotReturnFailureWhenActualContainsGivenValues() {
+    void shouldNotReturnFailureWhenActualDoesNotContainGivenKeys() {
         Target t = new Target(new HashMap<String, String>() {{
             put("hello", "world");
             put("foo", "bar");
         }});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForMap(Target::getMap).containsValues("world", "bar");
-
-        List<ValidationFailure> failures = validator.validate(t);
-
-        assertTrue(failures.isEmpty());
-    }
-
-    @Test
-    void shouldNotReturnFailureWhenActualAndGivenValuesAreEmpty() {
-        Target t = new Target(new HashMap<>());
-
-        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForMap(Target::getMap).containsValues();
+        validator.ruleForMap(Target::getMap).doesNotContainKeys("baz");
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -43,29 +37,7 @@ class ContainsValuesTest {
         Target t = new Target(null);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForMap(Target::getMap).containsValues("world");
-
-        List<ValidationFailure> failures = validator.validate(t);
-
-        assertTrue(failures.isEmpty());
-    }
-
-    // TODO: is this how we want to handle? make sure we are consistent between containsEntries/keys/values and doesNotContainEntires/keys/values
-    @Test
-    void shouldThrowExceptionWhenValuesIsNull() {
-        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        assertThrows(NullPointerException.class, () -> validator.ruleForMap(Target::getMap).containsValues((String[]) null));
-    }
-
-    @Test
-    void shouldNotReturnFailureWhenActualAndValuesContainsNull() {
-        Target t = new Target(new HashMap<String, String>() {{
-            put("hello", "world");
-            put(null, null);
-        }});
-
-        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForMap(Target::getMap).containsValues("world", null);
+        validator.ruleForMap(Target::getMap).doesNotContainKeys("hello", "foo");
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -73,18 +45,47 @@ class ContainsValuesTest {
     }
 
     @Test
-    void shouldReturnFailureWhenActualDoesNotContainValue() {
+    void shouldThrowExceptionWhenGivenKeysIsNull() {
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        assertThrows(NullPointerException.class, () -> validator.ruleForMap(Target::getMap).doesNotContainKeys((String[])null));
+    }
+
+    @Test
+    void shouldReturnFailureWhenGivenKeyIsNull() {
         Target t = new Target(new HashMap<String, String>() {{
             put("hello", "world");
             put("foo", "bar");
         }});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForMap(Target::getMap).containsValues("world", "baz");
+        validator.ruleForMap(Target::getMap).doesNotContainKeys((String) null);
+
+        List<ValidationFailure> failures = validator.validate(t);
+
+        assertTrue(failures.isEmpty());
+    }
+
+    @ParameterizedTest
+    @MethodSource("shouldReturnFailureWhenActualContainsAtLeastOneGivenKeySource")
+    void shouldReturnFailureWhenActualContainsAtLeastOneGivenKey(String[] keys) {
+        Target t = new Target(new HashMap<String, String>() {{
+            put("hello", "world");
+            put("foo", "bar");
+        }});
+
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        validator.ruleForMap(Target::getMap).doesNotContainKeys(keys);
 
         List<ValidationFailure> failures = validator.validate(t);
 
         assertFalse(failures.isEmpty());
+    }
+
+    private static Stream<Arguments> shouldReturnFailureWhenActualContainsAtLeastOneGivenKeySource() {
+        return Stream.of(
+            Arguments.of((Object) new String[]{"hello"}),
+            Arguments.of((Object) new String[] {"baz", "foo"})
+        );
     }
 
 }

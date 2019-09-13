@@ -10,21 +10,20 @@ import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 
-// TODO: value sucks here...hmmmm
-// TODO: QUESTION: do we need all the Constains(Entry|Key|Value)Constraint classes?
-
 /**
  *
  * @param <T>  the target type supported by an implementation.
  * @param <K>  the type of keys maintained by this map
  * @param <V>  the type of mapped values
  */
-public class ContainsValuesConstraint<T, K, V> extends AbstractConstraint<T, Map<K, V>> {
+public class DoesNotContainValuesConstraint<T, K, V> extends AbstractConstraint<T, Map<K, V>> {
+
+    // TODO: how to handle when given is empty
 
     private final V[] values;
 
-    public ContainsValuesConstraint(@Nonnull V[] values) {
-        super(DefaultMessages.MAP_CONTAINS_VALUES);
+    public DoesNotContainValuesConstraint(@Nonnull V[] values) {
+        super(DefaultMessages.MAP_DOES_NOT_CONTAIN_VALUES);
         this.values = Ensure.notNull(values);
     }
 
@@ -35,23 +34,23 @@ public class ContainsValuesConstraint<T, K, V> extends AbstractConstraint<T, Map
             return true;
         }
 
-        // if both actual and values are empty, then constraint passes but fail if entries is empty and actual is not
-        // TODO: does this make sense?
-        if (values.length == 0) {
-            return context.getPropertyValue().isEmpty();
+        // TODO: handle empty
+        if (context.getPropertyValue().isEmpty() && values.length == 0) {
+            return true;
         }
 
-        Set<V> notFound = new LinkedHashSet<>();
+        Set<V> found = new LinkedHashSet<>();
         for (V value : values) {
-            if (!context.getPropertyValue().containsValue(value)) {
-                notFound.add(value);
+            if (context.getPropertyValue().containsValue(value)) {
+                found.add(value);
             }
         }
 
-        if (!notFound.isEmpty()) {
-            context.appendArgument("missingValues", notFound);
+        if (!found.isEmpty()) {
+            context.appendArgument("foundValues", found);
         }
 
-        return notFound.isEmpty();
+        return found.isEmpty();
     }
 }
+

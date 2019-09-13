@@ -7,16 +7,19 @@ import jfluentvalidation.constraints.map.*;
 import jfluentvalidation.rules.MapPropertyRule;
 import jfluentvalidation.rules.PropertyRule;
 
-import java.util.AbstractMap;
+import javax.annotation.Nonnull;
 import java.util.Collection;
 import java.util.Map;
 import java.util.function.Function;
 
+import static jfluentvalidation.common.Maps.entry;
+import static jfluentvalidation.common.MoreArrays.array;
+
 /**
  *
- * @param <T>  the type of the instance
- * @param <K>
- * @param <V>
+ * @param <T>  the target type supported by an implementation.
+ * @param <K>  the type of keys maintained by the map
+ * @param <V>  the type of mapped values
  */
 public class MapSubject<T, K, V> extends Subject<MapSubject<T, K, V>, T, Map<K, V>> {
 
@@ -24,49 +27,101 @@ public class MapSubject<T, K, V> extends Subject<MapSubject<T, K, V>, T, Map<K, 
         super(MapSubject.class, rule);
     }
 
+    /**
+     * Verifies that the {@link Map} is empty.
+     *
+     * @return
+     */
+    // TODO: should this return void?
     @CanIgnoreReturnValue
     public final MapSubject<T, K, V> isEmpty() {
         rule.addConstraint(new IsEmptyConstraint<>());
         return myself;
     }
 
+    /**
+     * Verifies that the {@link Map} is not empty.
+     *
+     * @return  {@code this} subject.
+     */
     @CanIgnoreReturnValue
     public final MapSubject<T, K, V> isNotEmpty() {
         rule.addConstraint(new IsNotEmptyConstraint<>());
         return myself;
     }
 
+    /**
+     *
+     * @param expectedSize
+     * @return  {@code this} subject.
+     */
     @CanIgnoreReturnValue
     public final MapSubject<T, K, V> hasSize(int expectedSize) {
         rule.addConstraint(new HasSizeConstraint<>(expectedSize));
         return myself;
     }
 
+    /**
+     *
+     * @param entries
+     * @return  {@code this} subject.
+     * @throws NullPointerException if entries is {@code null}.
+     */
     @CanIgnoreReturnValue
-    public final MapSubject<T, K, V> containsKey(K key) {
-        rule.addConstraint(new ContainsKeyConstraint<>(key));
+    public final MapSubject<T, K, V> contains(@Nonnull Map.Entry<? extends K, ? extends V>... entries) {
+        rule.addConstraint(new ContainsEntriesConstraint<>(entries));
         return myself;
     }
 
+    /**
+     *
+     * @param key
+     * @param value
+     * @return  {@code this} subject.
+     */
     @CanIgnoreReturnValue
-    // TODO: add overload which takes in Map.Entry?
     public final MapSubject<T, K, V> containsEntry(K key, V value) {
-        rule.addConstraint(new ContainsEntryConstraint<>(new AbstractMap.SimpleEntry<>(key, value)));
+        rule.addConstraint(new ContainsEntriesConstraint<>(array(entry(key, value))));
         return myself;
     }
 
+    /**
+     *
+     * @param keys
+     * @return  {@code this} subject.
+     * @throws NullPointerException if keys is {@code null}.
+     */
+    @SafeVarargs
     @CanIgnoreReturnValue
-    public final MapSubject<T, K, V> doesNotContainsEntry(Object key, Object value) {
-        // TODO: implement
+    public final MapSubject<T, K, V> containsKeys(@Nonnull K... keys) {
+        rule.addConstraint(new ContainsKeysConstraint<>(keys));
         return myself;
     }
 
+    /**
+     *
+     * @param values
+     * @return  {@code this} subject.
+     * @throws NullPointerException if values is {@code null}.
+     */
+    @SafeVarargs
+    @CanIgnoreReturnValue
+    public final MapSubject<T, K, V> containsValues(@Nonnull V... values) {
+        rule.addConstraint(new ContainsValuesConstraint<>(values));
+        return myself;
+    }
+
+    /**
+     *
+     * @return  {@code this} subject.
+     */
     @CanIgnoreReturnValue
     public final MapSubject<T, K, V> containsExactly() {
         // TODO: implement
         return myself;
     }
 
+    // TODO: method args suck...remove or improve
     @CanIgnoreReturnValue
     public final MapSubject<T, K, V> containsExactly(Object key, Object value, Object... rest) {
         // TODO: implement
@@ -85,16 +140,54 @@ public class MapSubject<T, K, V> extends Subject<MapSubject<T, K, V>, T, Map<K, 
         return myself;
     }
 
+    /**
+     *
+     * @param entries
+     * @return  {@code this} subject.
+     * @throws NullPointerException if entries is {@code null}.
+     */
+    @SafeVarargs
     @CanIgnoreReturnValue
-    // TODO: review Google Truth MapSubject MapDifference
-    public final MapSubject<T, K, V> doesNotContainEntry(Object key, Object value) {
-        // TODO: implement
+    public final MapSubject<T, K, V> doesNotContain(@Nonnull Map.Entry<? extends K, ? extends V>... entries) {
+        rule.addConstraint(new DoesNotContainEntriesConstraint<>(entries));
         return myself;
     }
 
+    /**
+     *
+     * @param key
+     * @param value
+     * @return  {@code this} subject.
+     */
     @CanIgnoreReturnValue
-    public final MapSubject<T, K, V> containsValue(V value) {
-        rule.addConstraint(new ContainsValueConstraint<>(value));
+    public final MapSubject<T, K, V> doesNotContainEntry(K key, V value) {
+        rule.addConstraint(new DoesNotContainEntriesConstraint<>(array(entry(key, value))));
+        return myself;
+    }
+
+    /**
+     *
+     * @param keys
+     * @return  {@code this} subject.
+     * @throws NullPointerException if keys is {@code null}.
+     */
+    @SafeVarargs
+    @CanIgnoreReturnValue
+    public final MapSubject<T, K, V> doesNotContainKeys(@Nonnull K... keys) {
+        rule.addConstraint(new DoesNotContainKeysConstraint<>(keys));
+        return myself;
+    }
+
+    /**
+     *
+     * @param values
+     * @return  {@code this} subject.
+     * @throws NullPointerException if values is {@code null}.
+     */
+    @SafeVarargs
+    @CanIgnoreReturnValue
+    public final MapSubject<T, K, V> doesNotContainValues(@Nonnull V... values) {
+        rule.addConstraint(new DoesNotContainValuesConstraint<>(values));
         return myself;
     }
 
@@ -112,7 +205,6 @@ public class MapSubject<T, K, V> extends Subject<MapSubject<T, K, V>, T, Map<K, 
     // isNotEqualTo
     // isNotIn(Iterable<?> values)
     // isNotIn(Object...values)
-    // isNotNull
     // hasEntrySatisfying(K key, Condition<? super V> valueCondition)
     // hasEntrySatisfying(K key, Consumer<? super V> valueRequirements)
     // hasEntrySatisfying(Condition<? super Map.Entry<K, V>> entryCondition)
@@ -121,6 +213,7 @@ public class MapSubject<T, K, V> extends Subject<MapSubject<T, K, V>, T, Map<K, 
     // hasValueSatisfying(Condition<? super V> valueCondition)
 
 
+    // TODO: can remove as these arent necessary
     @Override
     public MapSubject<T, K, V> isNull() {
         return super.isNull();
@@ -143,7 +236,7 @@ public class MapSubject<T, K, V> extends Subject<MapSubject<T, K, V>, T, Map<K, 
     /**
      *
      * @param constraintsToAdd
-     * @return
+     * @return  {@code this} subject.
      */
     @CanIgnoreReturnValue
     @SafeVarargs
@@ -169,7 +262,7 @@ public class MapSubject<T, K, V> extends Subject<MapSubject<T, K, V>, T, Map<K, 
     /**
      *
      * @param constraintsToAdd
-     * @return
+     * @return  {@code this} subject.
      */
     @CanIgnoreReturnValue
     @SafeVarargs
@@ -196,7 +289,7 @@ public class MapSubject<T, K, V> extends Subject<MapSubject<T, K, V>, T, Map<K, 
     /**
      *
      * @param constraintsToAdd
-     * @return
+     * @return  {@code this} subject.
      */
     @CanIgnoreReturnValue
     @SafeVarargs

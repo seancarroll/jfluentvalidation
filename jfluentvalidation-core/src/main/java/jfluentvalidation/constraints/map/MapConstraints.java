@@ -11,16 +11,18 @@ public final class MapConstraints {
     private static final IsEmptyConstraint IS_EMPTY_CONSTRAINT = new IsEmptyConstraint();
     private static final IsNotEmptyConstraint IS_NOT_EMPTY_CONSTRAINT = new IsNotEmptyConstraint();
 
-    public static <K,V>  ContainsEntryConstraint containsEntry(Map.Entry<K, V> entry) {
-        return new ContainsEntryConstraint<>(entry);
+    public static <K,V> ContainsEntriesConstraint containsEntries(Map.Entry<K, V>... entries) {
+        return new ContainsEntriesConstraint<>(entries);
     }
 
-    public static <K> ContainsKeyConstraint containsKey(K key) {
-        return new ContainsKeyConstraint<>(key);
+    @SafeVarargs
+    public static <K> ContainsKeysConstraint containsKeys(K... keys) {
+        return new ContainsKeysConstraint<>(keys);
     }
 
-    public static <V> ContainsValueConstraint containsValue(V value) {
-        return new ContainsValueConstraint<>(value);
+    @SafeVarargs
+    public static <V> ContainsValuesConstraint containsValues(V... values) {
+        return new ContainsValuesConstraint<>(values);
     }
 
     public static HasSizeConstraint hasSize(int size) {

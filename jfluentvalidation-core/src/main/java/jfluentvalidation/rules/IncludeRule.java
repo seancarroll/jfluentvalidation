@@ -32,6 +32,7 @@ public class IncludeRule<T> extends PropertyRule<T, Object> {
     // TODO: fluentvalidation include rule extends property
     // return new IncludeRule(ctx => func((T)ctx.InstanceToValidate), cascadeModeThunk, typeof(T), typeof(T), typeof(TValidator));
 
+    // TODO: do we need to pass in rule set? Is it possible to do an Include rule with a ruleset?
     @Override
     public List<ValidationFailure> validate(ValidationContext<T> context) {
         return validator.validate(context);

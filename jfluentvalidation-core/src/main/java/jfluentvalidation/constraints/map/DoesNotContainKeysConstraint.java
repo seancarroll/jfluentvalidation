@@ -10,20 +10,20 @@ import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 
-// TODO: QUESTION: do we need all the Constains(Entry|Key|Value)Constraint classes?
-
 /**
  *
  * @param <T>  the target type supported by an implementation.
  * @param <K>  the type of keys maintained by this map
  * @param <V>  the type of mapped values
  */
-public class ContainsKeysConstraint<T, K, V> extends AbstractConstraint<T, Map<K, V>> {
+public class DoesNotContainKeysConstraint<T, K, V> extends AbstractConstraint<T, Map<K, V>> {
+
+    // TODO: how to handle when given is empty
 
     private final K[] keys;
 
-    public ContainsKeysConstraint(@Nonnull  K[] keys) {
-        super(DefaultMessages.MAP_CONTAINS_KEYS);
+    public DoesNotContainKeysConstraint(@Nonnull K[] keys) {
+        super(DefaultMessages.MAP_DOES_NOT_CONTAIN_KEYS);
         this.keys = Ensure.notNull(keys);
     }
 
@@ -34,23 +34,22 @@ public class ContainsKeysConstraint<T, K, V> extends AbstractConstraint<T, Map<K
             return true;
         }
 
-        // if both actual and values are empty, then constraint passes but fail if entries is empty and actual is not
-        // TODO: does this make sense?
-        if (keys.length == 0) {
-            return context.getPropertyValue().isEmpty();
+        // TODO: handle empty
+        if (context.getPropertyValue().isEmpty() && keys.length == 0) {
+            return true;
         }
 
-        Set<K> notFound = new LinkedHashSet<>();
+        Set<K> found = new LinkedHashSet<>();
         for (K key : keys) {
-            if (!context.getPropertyValue().containsKey(key)) {
-                notFound.add(key);
+            if (context.getPropertyValue().containsKey(key)) {
+                found.add(key);
             }
         }
 
-        if (!notFound.isEmpty()) {
-            context.appendArgument("missingKeys", notFound);
+        if (!found.isEmpty()) {
+            context.appendArgument("foundKeys", found);
         }
 
-        return notFound.isEmpty();
+        return found.isEmpty();
     }
 }

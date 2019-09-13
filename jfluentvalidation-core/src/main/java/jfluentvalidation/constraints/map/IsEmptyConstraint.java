@@ -8,9 +8,10 @@ import java.util.Map;
 
 /**
  * Check that the given {@code Map} being validated is empty.
- * @param <T>
- * @param <K>
- * @param <V>
+ *
+ * @param <T>  the target type supported by an implementation.
+ * @param <K>  the type of keys maintained by this map
+ * @param <V>  the type of mapped values
  */
 public class IsEmptyConstraint<T, K, V> extends AbstractConstraint<T, Map<K, V>> {
 

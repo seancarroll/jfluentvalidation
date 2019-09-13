@@ -58,4 +58,34 @@ class UnlessTest {
         assertTrue(validationFailures.get(0).getErrorMessage().contains("StartsWith"));
     }
 
+    @Test
+    void shouldNotIncludeUnlessValidationsWhenPredicateIsFalse() {
+        Person person = new Person("bobby", 20, null);
+
+        PersonValidator validator = new PersonValidator();
+        List<ValidationFailure> validationFailures = validator.validate(person);
+
+        assertTrue(validationFailures.isEmpty());
+    }
+
+    @Test
+    void customValidatorWithUnlessBlock() {
+        Person person = new Person("bobby", 32, null);
+
+        PersonValidator validator = new PersonValidator();
+        List<ValidationFailure> validationFailures = validator.validate(person);
+
+        assertEquals(2, validationFailures.size());
+    }
+
+
+
+    private class PersonValidator extends DefaultValidator<Person> {
+        PersonValidator() {
+            unless(p -> p.getAge() < 25, () -> {
+                ruleForString(Person::getName).isNotEmpty().startsWith("s");
+                ruleForObject(Person::getAddress).isNotNull();
+            });
+        }
+    }
 }

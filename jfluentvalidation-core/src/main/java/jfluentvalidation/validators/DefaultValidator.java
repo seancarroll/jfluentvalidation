@@ -19,31 +19,13 @@ import java.time.*;
 import java.util.*;
 import java.util.function.Predicate;
 
-//TODO: check these out
-//import javax.validation.Constraint;
-//import javax.validation.ConstraintValidator;
-
-// TODO: how to encapsulate type/proxy/propertyName/Subject?
-// stackify overcoming type erasure
-
 // TODO: should cache bytebuddy proxies either via a hashmap or bytebuddy TypeCache
 
-// QUESTION: FluentValidator has an AbstractValidator and then an InlineValidator while we rolled it into one DefaultValidator
-// Does this matter? Is there a trade-off? Advantages/disadvantages between the two?
-// I guess it allows you to do the following which is cool
-//    var validator = new InlineValidator<TestObject> {
-//        v => v.RuleFor(x => x.SomeProperty).NotNull()
-//    };
-//but I think we can already do this will double brace initialization
-//    Validator<Person> v = new DefaultValidator<Person>() {{
-//        ruleForString(p -> p.getName()).isNotEmpty().startsWith("s").length(0, 4);
-//    }};
 public class DefaultValidator<T> implements Validator<T> {
 
     // TODO: I would prefer to not include guava so lets create our own splitter
     private static final Splitter RULESET_SPLITTER = Splitter.on(',').omitEmptyStrings().trimResults();
 
-    private T proxy; // source
     private Class<T> type;
     private RuleCollection<T> rules = new RuleCollection<>();
     private ClockProvider clockProvider = ValidatorOptions.CLOCK_PROVIDER;
@@ -74,24 +56,12 @@ public class DefaultValidator<T> implements Validator<T> {
         this.temporalValidationTolerance = temporalValidationTolerance;
     }
 
-    // QUESTION:  Should we wrap in a Locale aware interpolator? What does spring do?
-    // private MessageInterpolator messageInterpolator = new ResourceBundleMessageInterpolator();
-
-    // AggregateResourceBundleLocator, CachingResourceBundleLocator, DelegatingResourceBundleLocator, PlatformResourceBundleLocator
-    // springs MessageSourceResourceBundleLocator
-    // Spring validationMessageSource
-    // private ResourceBundleLocator resourceBundleLocator = new ResourceBundleLocator();
-
-    // private final Errors proxyErrors = new Errors();
-    // private final Errors errors = new Errors();
-
     /**
      *
      * @param clazz  The class of the instance to validate
      */
     public DefaultValidator(Class<T> clazz) {
         this.type = clazz;
-        //this.proxy = PropertyLiteralHelper.getPropertyNameCapturer(type);
     }
 
     /**
@@ -109,6 +79,7 @@ public class DefaultValidator<T> implements Validator<T> {
      */
     protected DefaultValidator() {
         // TODO: can we remove dependency on typetools and roll this ourselves?
+        // https://github.com/quarkusio/quarkus/blob/688ee16b0641ac60239c0c7970ce23b6cbff35ff/independent-projects/arc/runtime/src/main/java/io/quarkus/arc/TypeResolver.java
         this.type = (Class<T>) TypeResolver.resolveRawArguments(DefaultValidator.class, getClass())[0];
     }
 
@@ -539,13 +510,6 @@ public class DefaultValidator<T> implements Validator<T> {
         rules.add(addNewIncludeRule(validator));
     }
 
-
-//    Fluentvalidation AbstractValidator#228
-//    When(x => x.Address != null, () => {
-//        RuleFor(x => x.Address.Postcode).NotNull();
-//        RuleFor(x => x.Address.Country.Name).NotNull().When(x => x.Address.Country != null);
-//        RuleFor(x => x.Address.Line1).NotNull().When(x => x.Address.Line2 != null);
-//    });
     /**
      * Defines a condition that applies to several rules
      * @param predicate  The condition that should apply to multiple rules
@@ -685,5 +649,4 @@ public class DefaultValidator<T> implements Validator<T> {
     public void validateAndThrow(T entity, List<String> ruleSet) {
         validateAndThrow(new ValidationContext<>(entity), ruleSet);
     }
-
 }

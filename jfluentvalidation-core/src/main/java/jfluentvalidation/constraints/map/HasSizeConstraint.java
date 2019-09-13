@@ -10,9 +10,9 @@ import java.util.Map;
 /**
  * Check that the size of the given {@code Map} being validated is equal to the given size.
  *
- * @param <T>
- * @param <K>
- * @param <V>
+ * @param <T>  the target type supported by an implementation.
+ * @param <K>  the type of keys maintained by this map
+ * @param <V>  the type of mapped values
  */
 public class HasSizeConstraint<T, K, V> extends AbstractConstraint<T, Map<K, V>> {
 
