@@ -19,7 +19,7 @@ class ContainsKeyTest {
         }});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForMap(Target::getMap).containsKey("hello");
+        validator.ruleForMap(Target::getMap).containsKeys("hello");
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -31,7 +31,7 @@ class ContainsKeyTest {
         Target t = new Target(null);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForMap(Target::getMap).containsValue("hello");
+        validator.ruleForMap(Target::getMap).containsValues("hello");
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -45,7 +45,7 @@ class ContainsKeyTest {
         }});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForMap(Target::getMap).containsKey(null);
+        validator.ruleForMap(Target::getMap).containsKeys(null);
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -59,7 +59,7 @@ class ContainsKeyTest {
         }});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForMap(Target::getMap).containsKey("foo");
+        validator.ruleForMap(Target::getMap).containsKeys("foo");
 
         List<ValidationFailure> failures = validator.validate(t);
 

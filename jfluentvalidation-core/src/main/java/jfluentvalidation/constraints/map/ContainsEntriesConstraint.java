@@ -29,6 +29,7 @@ public class ContainsEntryConstraint<T, K, V> extends AbstractConstraint<T, Map<
         if (context.getPropertyValue() == null) {
             return true;
         }
+
         return context.getPropertyValue().containsKey(entry.getKey())
             && Objects.equals(context.getPropertyValue().get(entry.getKey()), entry.getValue());
     }
