@@ -117,6 +117,17 @@ public final class Ensure {
         }
     }
 
+
+    public static <T> T[] notNullOrEmpty(T[] arr) {
+        notNull(arr);
+        notEmpty(arr);
+        return arr;
+    }
+
+    public static <T> void notEmpty(T[] arr) {
+        argument(arr.length > 0, "Array should not be empty");
+    }
+
     /**
      *
      * @param sequences
