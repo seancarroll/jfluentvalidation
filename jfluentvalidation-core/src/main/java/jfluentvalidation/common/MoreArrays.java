@@ -6,6 +6,9 @@ import java.util.HashSet;
 
 import static jfluentvalidation.common.Comparables.*;
 
+/**
+ *
+ */
 public final class MoreArrays {
 
     private MoreArrays() {

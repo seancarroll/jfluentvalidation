@@ -4,6 +4,9 @@ import com.google.errorprone.annotations.CanIgnoreReturnValue;
 
 import java.util.function.Supplier;
 
+/**
+ *
+ */
 public final class Suppliers {
 
     // Guava have Suppliers with ofInstance

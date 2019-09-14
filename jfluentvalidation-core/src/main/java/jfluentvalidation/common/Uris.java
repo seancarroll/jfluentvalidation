@@ -36,6 +36,11 @@ public final class Uris {
             .collect(groupingBy(s -> decode(s[0]), mapping(s -> decode(s[1]), toList())));
     }
 
+    /**
+     *
+     * @param encoded
+     * @return
+     */
     private static String decode(final String encoded) {
         try {
             return encoded == null ? null : URLDecoder.decode(encoded, "UTF-8");

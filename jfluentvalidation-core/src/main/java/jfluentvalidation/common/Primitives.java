@@ -10,6 +10,9 @@ import java.util.Map;
 // TODO: guava license
 // TODO: or just use something like https://github.com/melezov/runtime-bytegen/blob/master/src/main/java/org/revenj/Primitives.java
 
+/**
+ *
+ */
 public final class Primitives {
 
     private Primitives() {}

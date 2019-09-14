@@ -2,6 +2,7 @@ package jfluentvalidation.common;
 
 import jfluentvalidation.internal.Ensure;
 
+import javax.annotation.Nonnull;
 import java.time.Clock;
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
@@ -20,6 +21,11 @@ public final class Dates {
         // public statics only
     }
 
+    /**
+     *
+     * @param date
+     * @return
+     */
     public static Calendar truncateTime(Calendar date) {
         // TODO: throw?
         if (date == null) {
@@ -59,22 +65,48 @@ public final class Dates {
         return cal.getTime();
     }
 
-    public static LocalDateTime truncateTime(LocalDateTime date) {
+    /**
+     * Truncates a time from the date.
+     *
+     * @param date  the date, not null
+     * @return  the truncated date, not null
+     */
+    public static LocalDateTime truncateTime(@Nonnull LocalDateTime date) {
         // TODO: how to handle null?
         return date.truncatedTo(ChronoUnit.DAYS);
     }
 
-    public static OffsetDateTime truncateTime(OffsetDateTime date) {
+    /**
+     * Truncates a time from the date.
+     *
+     * @param date  the date, not null
+     * @return  the truncated date, not null
+     */
+    public static OffsetDateTime truncateTime(@Nonnull OffsetDateTime date) {
         // TODO: how to handle null?
         return date.truncatedTo(ChronoUnit.DAYS);
     }
 
-    public static ZonedDateTime truncateTime(ZonedDateTime date) {
+    /**
+     * Truncates a time from the date.
+     *
+     * @param date  the date, not null
+     * @return  the truncated date, not null
+     */
+    public static ZonedDateTime truncateTime(@Nonnull ZonedDateTime date) {
         // TODO: how to handle null?
         return date.truncatedTo(ChronoUnit.DAYS);
     }
 
-    public static boolean isSameDay(Calendar date1, Calendar date2) {
+    /**
+     * Checks if two date objects are on the same day ignoring time.
+     *
+     * @param date1  the first date, not null
+     * @param date2  the second date, not null
+     * @return  true if they represent the same day
+     * @throws NullPointerException if date1 or date2 is {@code null}.
+     */
+    public static boolean isSameDay(@Nonnull Calendar date1, @Nonnull Calendar date2) {
         Ensure.notNull(date1);
         Ensure.notNull(date2);
         return date1.get(Calendar.ERA) == date2.get(Calendar.ERA) &&
@@ -83,31 +115,68 @@ public final class Dates {
         // return truncateTime(date1).equals(truncateTime(date2));
     }
 
-    public static boolean isSameDay(Date date1, Date date2) {
+    /**
+     * Checks if two date objects are on the same day ignoring time.
+     *
+     * @param date1  the first date, not null
+     * @param date2  the second date, not null
+     * @return  true if they represent the same day
+     * @throws NullPointerException if date1 or date2 is {@code null}.
+     */
+    public static boolean isSameDay(@Nonnull Date date1, @Nonnull Date date2) {
         Ensure.notNull(date1);
         Ensure.notNull(date2);
         // return isSameDay(truncateTime(date1), truncateTime(date2));
         return truncateTime(date1).equals(truncateTime(date2));
     }
 
-    public static boolean isSameDay(LocalDateTime date1, LocalDateTime date2) {
+    /**
+     * Checks if two date objects are on the same day ignoring time.
+     *
+     * @param date1  the first date, not null
+     * @param date2  the second date, not null
+     * @return  true if they represent the same day
+     * @throws NullPointerException if date1 or date2 is {@code null}.
+     */
+    public static boolean isSameDay(@Nonnull LocalDateTime date1, @Nonnull LocalDateTime date2) {
         Ensure.notNull(date1);
         Ensure.notNull(date2);
         return truncateTime(date1).equals(truncateTime(date2));
     }
 
-    public static boolean isSameDay(OffsetDateTime date1, OffsetDateTime date2) {
+    /**
+     * Checks if two date objects are on the same day ignoring time.
+     *
+     * @param date1  the first date, not null
+     * @param date2  the second date, not null
+     * @return  true if they represent the same day
+     * @throws NullPointerException if date1 or date2 is {@code null}.
+     */
+    public static boolean isSameDay(@Nonnull OffsetDateTime date1, @Nonnull OffsetDateTime date2) {
         Ensure.notNull(date1);
         Ensure.notNull(date2);
         return truncateTime(date1).equals(truncateTime(date2));
     }
 
-    public static boolean isSameDay(ZonedDateTime date1, ZonedDateTime date2) {
+    /**
+     * Checks if two date objects are on the same day ignoring time.
+     *
+     * @param date1  the first date, not null
+     * @param date2  the second date, not null
+     * @return  true if they represent the same day
+     * @throws NullPointerException if date1 or date2 is {@code null}.
+     */
+    public static boolean isSameDay(@Nonnull ZonedDateTime date1, @Nonnull ZonedDateTime date2) {
         Ensure.notNull(date1);
         Ensure.notNull(date2);
         return truncateTime(date1).equals(truncateTime(date2));
     }
 
+    /**
+     *
+     * @param clock
+     * @return
+     */
     public static Calendar calendarFromClock(Clock clock) {
         return GregorianCalendar.from(ZonedDateTime.now(clock));
     }
