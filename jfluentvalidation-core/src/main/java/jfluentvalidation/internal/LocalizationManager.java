@@ -1,4 +1,4 @@
-package jfluentvalidation;
+package jfluentvalidation.internal;
 
 import java.util.Locale;
 import java.util.ResourceBundle;

@@ -91,4 +91,8 @@ public class MessageFormatter {
         }
     }
 
+    public Map<String, Object> getPlaceholderValues() {
+        return placeholderValues;
+    }
+
 }
