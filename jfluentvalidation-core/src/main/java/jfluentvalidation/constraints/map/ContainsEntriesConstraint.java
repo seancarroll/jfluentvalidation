@@ -50,7 +50,7 @@ public class ContainsEntriesConstraint<T, K, V> extends AbstractConstraint<T, Ma
         }
 
         if (!notFound.isEmpty()) {
-            context.appendArgument("missingEntries", notFound);
+            context.getMessageFormatter().appendArgument("missingEntries", notFound);
         }
 
         return notFound.isEmpty();

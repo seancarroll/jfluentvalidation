@@ -50,7 +50,7 @@ public class DoesNotContainEntriesConstraint<T, K, V> extends AbstractConstraint
         }
 
         if (!found.isEmpty()) {
-            context.appendArgument("foundEntries", found);
+            context.getMessageFormatter().appendArgument("foundEntries", found);
         }
 
         return found.isEmpty();

@@ -47,7 +47,7 @@ public class DoesNotContainKeysConstraint<T, K, V> extends AbstractConstraint<T,
         }
 
         if (!found.isEmpty()) {
-            context.appendArgument("foundKeys", found);
+            context.getMessageFormatter().appendArgument("foundKeys", found);
         }
 
         return found.isEmpty();

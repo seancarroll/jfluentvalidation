@@ -22,18 +22,15 @@ public final class Dates {
     }
 
     /**
+     * Truncates time from the date.
      *
-     * @param date
-     * @return
+     * @param date  the date, not null
+     * @return  the truncated date.
      */
-    public static Calendar truncateTime(Calendar date) {
-        // TODO: throw?
-        if (date == null) {
-            return null;
-        }
+    public static Calendar truncateTime(@Nonnull Calendar date) {
+        Ensure.notNull(date);
         Calendar cal = Calendar.getInstance();
         cal.setTime(date.getTime());
-        // TODO: do I need to explicitly set these?
         cal.set(Calendar.HOUR_OF_DAY, 0);
         cal.set(Calendar.MINUTE, 0);
         cal.set(Calendar.SECOND, 0);
@@ -48,16 +45,12 @@ public final class Dates {
      * Returns null if the given Date is null.
      *
      * @param date we want to get the day part (the parameter is read only).
-     * @return the truncated date.
+     * @return  the truncated date.
      */
     public static Date truncateTime(Date date) {
-        // TODO: throw?
-        if (date == null) {
-            return null;
-        }
+        Ensure.notNull(date);
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
-        // TODO: do I need to explicitly set these?
         cal.set(Calendar.HOUR_OF_DAY, 0);
         cal.set(Calendar.MINUTE, 0);
         cal.set(Calendar.SECOND, 0);
@@ -66,35 +59,35 @@ public final class Dates {
     }
 
     /**
-     * Truncates a time from the date.
+     * Truncates time from the date.
      *
      * @param date  the date, not null
      * @return  the truncated date, not null
      */
     public static LocalDateTime truncateTime(@Nonnull LocalDateTime date) {
-        // TODO: how to handle null?
+        Ensure.notNull(date);
         return date.truncatedTo(ChronoUnit.DAYS);
     }
 
     /**
-     * Truncates a time from the date.
+     * Truncates time from the date.
      *
      * @param date  the date, not null
      * @return  the truncated date, not null
      */
     public static OffsetDateTime truncateTime(@Nonnull OffsetDateTime date) {
-        // TODO: how to handle null?
+        Ensure.notNull(date);
         return date.truncatedTo(ChronoUnit.DAYS);
     }
 
     /**
-     * Truncates a time from the date.
+     * Truncates time from the date.
      *
      * @param date  the date, not null
      * @return  the truncated date, not null
      */
     public static ZonedDateTime truncateTime(@Nonnull ZonedDateTime date) {
-        // TODO: how to handle null?
+        Ensure.notNull(date);
         return date.truncatedTo(ChronoUnit.DAYS);
     }
 
@@ -112,7 +105,6 @@ public final class Dates {
         return date1.get(Calendar.ERA) == date2.get(Calendar.ERA) &&
             date1.get(Calendar.YEAR) == date2.get(Calendar.YEAR) &&
             date1.get(Calendar.DAY_OF_YEAR) == date2.get(Calendar.DAY_OF_YEAR);
-        // return truncateTime(date1).equals(truncateTime(date2));
     }
 
     /**
@@ -126,7 +118,6 @@ public final class Dates {
     public static boolean isSameDay(@Nonnull Date date1, @Nonnull Date date2) {
         Ensure.notNull(date1);
         Ensure.notNull(date2);
-        // return isSameDay(truncateTime(date1), truncateTime(date2));
         return truncateTime(date1).equals(truncateTime(date2));
     }
 

@@ -14,6 +14,12 @@ public class Lists {
         // statics only
     }
 
+    /**
+     *
+     * @param elements
+     * @param <E>  the type of element
+     * @return
+     */
     public static <E> List<E> newArrayList(Iterable<? extends E> elements) {
         return (elements instanceof Collection)
             ? new ArrayList<>((Collection<E>)elements)
@@ -23,7 +29,7 @@ public class Lists {
     /**
      *
      * @param elements
-     * @param <E>
+     * @param <E>  the type of element
      * @return
      */
     public static <E> List<E> newArrayList(Iterator<? extends E> elements) {

@@ -40,14 +40,14 @@ public class ContainsAllConstraint<T, P> extends AbstractConstraint<T, Iterable<
         if (context.getPropertyValue() == null) {
             return true;
         }
-        
+
         Object[] valuesAsArray = Iterables.toArray(values);
         Set<Object> notFound = stream(valuesAsArray)
             .filter(value -> !Iterables.contains(context.getPropertyValue(), value))
             .collect(toCollection(LinkedHashSet::new));
 
         if (!notFound.isEmpty()) {
-            context.appendArgument("missingValues", notFound);
+            context.getMessageFormatter().appendArgument("missingValues", notFound);
         }
 
         return notFound.isEmpty();

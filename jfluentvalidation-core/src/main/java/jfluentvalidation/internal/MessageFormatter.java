@@ -1,6 +1,7 @@
 package jfluentvalidation.internal;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 // QUESTION: should we implement MessageInterpolator?
@@ -23,25 +24,7 @@ public class MessageFormatter {
     private static final Pattern SLASH = Pattern.compile( "\\\\", Pattern.LITERAL );
     private static final Pattern DOLLAR = Pattern.compile( "\\$", Pattern.LITERAL );
 
-
-
-
-
-
     private final Map<String, Object> placeholderValues = new HashMap<>();
-    private final List<Object> additionalArguments = new ArrayList<>();
-
-    /**
-     * Adds a value for a validation message placeholder.
-     *
-     * @param name
-     * @param value
-     * @return
-     */
-    public MessageFormatter appendArgument(String name, Object value) {
-        placeholderValues.put(name, value);
-        return this;
-    }
 
     /**
      * Appends a property name to the message.
@@ -59,17 +42,19 @@ public class MessageFormatter {
      * @param value  The value of the property
      * @return
      */
-    public MessageFormatter AppendPropertyValue(Object value) {
+    public MessageFormatter appendPropertyValue(Object value) {
         return appendArgument(PROPERTY_VALUE, value);
     }
 
-    /// <summary>
-    /// Adds additional arguments to the message for use with standard string placeholders.
-    /// </summary>
-    /// <param name="additionalArgs">Additional arguments</param>
-    /// <returns></returns>
-    public MessageFormatter appendAdditionalArguments(Object... additionalArgs) {
-        additionalArguments.addAll(Arrays.asList(additionalArgs));
+    /**
+     * Adds a value for a validation message placeholder.
+     *
+     * @param name
+     * @param value
+     * @return
+     */
+    public MessageFormatter appendArgument(String name, Object value) {
+        placeholderValues.put(name, value);
         return this;
     }
 
@@ -79,37 +64,31 @@ public class MessageFormatter {
      * @param messageTemplate  Message template
      * @return The message with placeholders replaced with their appropriate values
      */
-    public String BuildMessage(String messageTemplate) {
+    public String buildMessage(String messageTemplate) {
 
         String result = messageTemplate;
 
-        for (Map.Entry entry : placeholderValues.entrySet()) {
-            // result = ReplacePlaceholderWithValue(result, pair.Key, pair.Value);
-            // result
-        }
-
-        for (Object arg : additionalArguments) {
-            // return string.Format(result, _additionalArguments);
+        for (Map.Entry<String, Object> entry : placeholderValues.entrySet()) {
+            result = replacePlaceholderWithValue(result, entry.getKey(), entry.getValue());
         }
 
         return result;
     }
 
-//    protected virtual string ReplacePlaceholderWithValue(string template, string key, object value) {
-//        string placeholder =  GetPlaceholder(key);
-//        return template.Replace(placeholder, value?.ToString());
-//    }
-//
-//    protected string GetPlaceholder(string key) {
-//        // Performance: String concat causes much overhead when not needed. Concatting constants results in constants being compiled.
-//        switch (key) {
-//            case PropertyName:
-//                return "{" + PropertyName + "}";
-//            case PropertyValue:
-//                return "{" + PropertyValue + "}";
-//            default:
-//                return "{" + key + "}";
-//        }
-//    }
+    protected String replacePlaceholderWithValue(String template, String key, Object value) {
+        String placeholder = getPlaceholder(key);
+        return template.replace(placeholder, value.toString());
+    }
+
+    protected String getPlaceholder(String key) {
+        switch (key) {
+            case PROPERTY_NAME:
+                return "{" + PROPERTY_NAME + "}";
+            case PROPERTY_VALUE:
+                return "{" + PROPERTY_VALUE + "}";
+            default:
+                return "{" + key + "}";
+        }
+    }
 
 }

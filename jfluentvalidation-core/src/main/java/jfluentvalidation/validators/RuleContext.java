@@ -1,9 +1,7 @@
 package jfluentvalidation.validators;
 
+import jfluentvalidation.internal.MessageFormatter;
 import jfluentvalidation.rules.Rule;
-
-import java.util.HashMap;
-import java.util.Map;
 
 // QUESTION: would ConstraintContext be a better name?
 /**
@@ -16,9 +14,11 @@ public class RuleContext<T, P> {
     private final ValidationContext<T> validationContext;
     private final Rule<T, P> rule;
     private final P propertyValue;
+    private final MessageFormatter messageFormatter;
 
     // TODO: I dont know where I want this to belong but for right now I'm putting it here
-    private final Map<String, Object> additionalArguments = new HashMap<>();
+    // TODO: should this be a linkedhashmap?
+    //private final Map<String, Object> additionalArguments = new HashMap<>();
 
     //
 
@@ -31,6 +31,7 @@ public class RuleContext<T, P> {
         this.validationContext = validationContext;
         this.rule = rule;
         this.propertyValue = rule.getPropertyFunc().apply(validationContext.getInstanceToValidate());
+        this.messageFormatter = new MessageFormatter();
     }
 
     /**
@@ -43,6 +44,7 @@ public class RuleContext<T, P> {
         this.validationContext = validationContext;
         this.rule = rule;
         this.propertyValue = propertyValue;
+        this.messageFormatter = new MessageFormatter();
     }
 
     public T getInstanceToValidate() {
@@ -61,11 +63,15 @@ public class RuleContext<T, P> {
         return rule;
     }
 
-    public void appendArgument(String name, Object arg) {
-        this.additionalArguments.put(name, arg);
+    public MessageFormatter getMessageFormatter() {
+        return messageFormatter;
     }
 
-    public Map<String, Object> getAdditionalArguments() {
-        return additionalArguments;
-    }
+//    public void appendArgument(String name, Object arg) {
+//        this.additionalArguments.put(name, arg);
+//    }
+//
+//    public Map<String, Object> getAdditionalArguments() {
+//        return additionalArguments;
+//    }
 }

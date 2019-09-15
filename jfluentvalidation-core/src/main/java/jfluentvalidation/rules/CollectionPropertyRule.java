@@ -55,9 +55,9 @@ public class CollectionPropertyRule<T, P, E> extends PropertyRule<T, P> {
                     RuleContext ruleContext = new RuleContext(childContext, rule, e);
                     boolean isValid = itemConstraint.isValid(ruleContext);
                     if (!isValid) {
-                        ruleContext.appendArgument("PropertyName", ruleContext.getRule().getPropertyName());
-                        ruleContext.appendArgument("index", i);
-                        ruleContext.appendArgument("PropertyValue", ruleContext.getPropertyValue());
+                        ruleContext.getMessageFormatter().appendArgument("PropertyName", ruleContext.getRule().getPropertyName());
+                        ruleContext.getMessageFormatter().appendArgument("index", i);
+                        ruleContext.getMessageFormatter().appendArgument("PropertyValue", ruleContext.getPropertyValue());
 
                         failures.add(new ValidationFailure(getPropertyName(), itemConstraint.getOptions().getErrorMessage(), e));
                     }

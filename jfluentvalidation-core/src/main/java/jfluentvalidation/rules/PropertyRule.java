@@ -1,5 +1,6 @@
 package jfluentvalidation.rules;
 
+import jfluentvalidation.LocalizationManager;
 import jfluentvalidation.PropertyNameExtractor;
 import jfluentvalidation.SerializableFunction;
 import jfluentvalidation.ValidationFailure;
@@ -31,16 +32,20 @@ public class PropertyRule<T, P> implements Rule<T, P> {
     private Constraint<T, P> currentConstraint;
     private List<String> ruleSet = RuleSet.DEFAULT_LIST;
 
+    private LocalizationManager localizationManager;
+
     public PropertyRule(Function<T, P> propertyFunc, String propertyName, RuleOptions ruleOptions) {
         this.propertyFunc = propertyFunc;
         this.propertyName = propertyName;
         this.ruleOptions = ruleOptions;
+        this.localizationManager = new LocalizationManager();
     }
 
     public PropertyRule(Class<T> type, SerializableFunction<T, P> propertyFunc, RuleOptions ruleOptions) {
         this.propertyFunc = propertyFunc;
         this.propertyName = PropertyNameExtractor.getInstance().getPropertyName(type, propertyFunc);
         this.ruleOptions = ruleOptions;
+        this.localizationManager = new LocalizationManager();
     }
 
     @Override
@@ -56,9 +61,14 @@ public class PropertyRule<T, P> implements Rule<T, P> {
             RuleContext<T, P> ruleContext = new RuleContext<>(context, this);
             boolean isValid = constraint.isValid(ruleContext);
             if (!isValid) {
+
 //                String errorMessage = constraint.getClass().getName() + "." + context.getInstanceToValidate().getClass().getName() + ".";
-                ruleContext.appendArgument("PropertyName", ruleContext.getRule().getPropertyName());
-                ruleContext.appendArgument("PropertyValue", ruleContext.getPropertyValue());
+                ruleContext.getMessageFormatter().appendArgument("PropertyName", ruleContext.getRule().getPropertyName());
+                ruleContext.getMessageFormatter().appendArgument("PropertyValue", ruleContext.getPropertyValue());
+
+                // Object[] args = toArray(ruleContext.getAdditionalArguments().values());
+                String message = localizationManager.getString(constraint.getOptions().getErrorMessage());
+                String formattedMessage = ruleContext.getMessageFormatter().buildMessage(message);
 
                 failures.add(new ValidationFailure(propertyName, constraint.getOptions().getErrorMessage(), propertyValue));
             }

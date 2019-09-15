@@ -48,7 +48,7 @@ public class ContainsKeysConstraint<T, K, V> extends AbstractConstraint<T, Map<K
         }
 
         if (!notFound.isEmpty()) {
-            context.appendArgument("missingKeys", notFound);
+            context.getMessageFormatter().appendArgument("missingKeys", notFound);
         }
 
         return notFound.isEmpty();
