@@ -77,7 +77,7 @@ public class MessageFormatter {
 
     protected String replacePlaceholderWithValue(String template, String key, Object value) {
         String placeholder = getPlaceholder(key);
-        return template.replace(placeholder, value.toString());
+        return template.replace(placeholder, value == null ? "" : value.toString());
     }
 
     protected String getPlaceholder(String key) {

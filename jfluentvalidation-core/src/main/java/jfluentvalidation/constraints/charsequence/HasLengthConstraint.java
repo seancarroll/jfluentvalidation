@@ -24,6 +24,7 @@ public class HasLengthConstraint<T, A extends CharSequence> extends AbstractCons
         if (context.getPropertyValue() == null) {
             return true;
         }
+        context.getMessageFormatter().appendArgument("length", length);
         return context.getPropertyValue().length() == length;
     }
 }

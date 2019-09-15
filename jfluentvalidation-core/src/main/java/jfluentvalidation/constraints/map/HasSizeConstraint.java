@@ -28,6 +28,7 @@ public class HasSizeConstraint<T, K, V> extends AbstractConstraint<T, Map<K, V>>
         if (context.getPropertyValue() == null) {
             return true;
         }
+        context.getMessageFormatter().appendArgument("size", size);
         return context.getPropertyValue().size() == size;
     }
 }

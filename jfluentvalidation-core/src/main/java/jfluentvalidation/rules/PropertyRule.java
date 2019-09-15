@@ -12,6 +12,7 @@ import jfluentvalidation.validators.ValidationContext;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.MissingResourceException;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
@@ -66,9 +67,20 @@ public class PropertyRule<T, P> implements Rule<T, P> {
                 ruleContext.getMessageFormatter().appendArgument("PropertyName", ruleContext.getRule().getPropertyName());
                 ruleContext.getMessageFormatter().appendArgument("PropertyValue", ruleContext.getPropertyValue());
 
-                // Object[] args = toArray(ruleContext.getAdditionalArguments().values());
-                String message = localizationManager.getString(constraint.getOptions().getErrorMessage());
-                String formattedMessage = ruleContext.getMessageFormatter().buildMessage(message);
+                // TODO: move this somewhere else
+                // TODO: things to consider
+                // - hibernate validator allows for nested interpolation via {}. see AbstractMessageInterpolator
+                // - handle EL expressions
+                String parameterValue;
+                try {
+                    parameterValue = localizationManager.getString(constraint.getOptions().getErrorMessage());
+                } catch (MissingResourceException e) {
+                    // log
+                    parameterValue = constraint.getOptions().getErrorMessage();
+                }
+
+                String formattedMessage = ruleContext.getMessageFormatter().buildMessage(parameterValue);
+
 
                 failures.add(new ValidationFailure(propertyName, constraint.getOptions().getErrorMessage(), propertyValue));
             }
