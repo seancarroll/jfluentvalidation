@@ -36,21 +36,25 @@ public class ResourceBundleMessageInterpolator {
     }
 
     public String interpolate(String key, Map<String, Object> context) {
-        ResourceBundle bundle = ResourceBundle.getBundle(DEFAULT_VALIDATION_MESSAGES, defaultLocale);
-        String expression = bundle.getString(key);
+        try {
+            ResourceBundle bundle = ResourceBundle.getBundle(DEFAULT_VALIDATION_MESSAGES, defaultLocale);
+            String expression = bundle.getString(key);
 
-        String[] tokens = expression.split("(?=\\$)");
-        List<String> eval = new ArrayList<>();
-        for (String token : tokens) {
-            if (token.startsWith("$")) {
+            String[] tokens = expression.split("(?=\\$)");
+            List<String> eval = new ArrayList<>();
+            for (String token : tokens) {
+                if (token.startsWith("$")) {
 //                String t = token.substring(2, token.length() - 16);
 //                eval.add(MVEL.evalToString(t, new MapVariableResolverFactory(context)));
+                }
             }
+
+
+            // String evaluated = MVEL.evalToString(expression, new MapVariableResolverFactory(context));
+            return "";
+        } catch (MissingResourceException ex) {
+            return key;
         }
-
-
-        // String evaluated = MVEL.evalToString(expression, new MapVariableResolverFactory(context));
-        return "";
     }
 
     private String removeCurlyBraces(String parameter) {
