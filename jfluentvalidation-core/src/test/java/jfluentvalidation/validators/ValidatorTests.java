@@ -8,7 +8,8 @@ import java.time.ZonedDateTime;
 import java.util.*;
 import java.util.function.Predicate;
 
-import static jfluentvalidation.constraints.charsequence.CharSequenceConstraints.*;
+import static jfluentvalidation.constraints.charsequence.CharSequenceConstraints.isLowerCase;
+import static jfluentvalidation.constraints.charsequence.CharSequenceConstraints.length;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -131,7 +132,7 @@ class ValidatorTests {
             validator.ruleForString(Person::getName).isNotEmpty().startsWith("s").length(5, 10);
         });
 
-        ValidationException exception = assertThrows(ValidationException.class, () ->validator.validateAndThrow(person, "name"));
+        ValidationException exception = assertThrows(ValidationException.class, () -> validator.validateAndThrow(person, "name"));
 
         assertEquals(1, exception.getFailures().size());
     }
@@ -145,7 +146,7 @@ class ValidatorTests {
             validator.ruleForString(Person::getName).isNotEmpty().startsWith("s").length(5, 10);
         });
 
-        ValidationException exception = assertThrows(ValidationException.class, () ->validator.validateAndThrow(person, Collections.singletonList("name")));
+        ValidationException exception = assertThrows(ValidationException.class, () -> validator.validateAndThrow(person, Collections.singletonList("name")));
 
         assertEquals(1, exception.getFailures().size());
     }
@@ -168,7 +169,7 @@ class ValidatorTests {
 //            TODO: how to mix and match ruleset with when?
 //            TODO: how to include validator for a nested field such as address?
 
-            ruleSet("address", () ->  {
+            ruleSet("address", () -> {
                 ruleForObject(Person::getAddress).isNotNull();
             });
         }
