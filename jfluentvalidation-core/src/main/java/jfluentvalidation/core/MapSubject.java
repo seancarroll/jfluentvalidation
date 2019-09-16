@@ -326,6 +326,6 @@ public class MapSubject<T, K, V> extends Subject<MapSubject<T, K, V>, T, Map<K, 
 
     @Override
     protected MapPropertyRule<T, K, V> getRule() {
-        return (MapPropertyRule<T,K, V>) super.getRule();
+        return (MapPropertyRule<T, K, V>) super.getRule();
     }
 }

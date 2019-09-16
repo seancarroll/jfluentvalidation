@@ -12,10 +12,10 @@ class ContainsTest {
 
     @Test
     void shouldNotReturnFailureWhenActualContainsGivenValue() {
-        Target t = new Target(new short[] {1});
+        Target t = new Target(new short[]{1});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForShortArray(Target::getValue).contains((short)1);
+        validator.ruleForShortArray(Target::getValue).contains((short) 1);
 
         List<ValidationFailure> failures = validator.validate(t);
 

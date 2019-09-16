@@ -6,6 +6,7 @@ import jfluentvalidation.ValidationFailure;
 import jfluentvalidation.constraints.Constraint;
 import jfluentvalidation.constraints.SoftConstraint;
 import jfluentvalidation.internal.LocalizationManager;
+import jfluentvalidation.internal.ResourceBundleMessageInterpolator;
 import jfluentvalidation.validators.RuleContext;
 import jfluentvalidation.validators.RuleOptions;
 import jfluentvalidation.validators.ValidationContext;
@@ -79,8 +80,8 @@ public class PropertyRule<T, P> implements Rule<T, P> {
                     parameterValue = constraint.getOptions().getErrorMessage();
                 }
 
-//                ResourceBundleMessageInterpolator interpolator = new ResourceBundleMessageInterpolator();
-//                interpolator.interpolate(constraint.getOptions().getErrorMessage(), ruleContext.getMessageFormatter().getPlaceholderValues());
+                ResourceBundleMessageInterpolator interpolator = new ResourceBundleMessageInterpolator();
+                interpolator.interpolate(constraint.getOptions().getErrorMessage(), ruleContext.getMessageFormatter().getPlaceholderValues());
 //                String formattedMessage = ruleContext.getMessageFormatter().buildMessage(parameterValue);
 
 

@@ -11,7 +11,7 @@ public final class MapConstraints {
     private static final IsEmptyConstraint IS_EMPTY_CONSTRAINT = new IsEmptyConstraint();
     private static final IsNotEmptyConstraint IS_NOT_EMPTY_CONSTRAINT = new IsNotEmptyConstraint();
 
-    public static <K,V> ContainsEntriesConstraint containsEntries(Map.Entry<K, V>... entries) {
+    public static <K, V> ContainsEntriesConstraint containsEntries(Map.Entry<K, V>... entries) {
         return new ContainsEntriesConstraint<>(entries);
     }
 

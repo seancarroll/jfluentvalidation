@@ -52,7 +52,7 @@ class ContainsKeysTest {
     @Test
     void shouldThrowWhenKeyIsNullAndGivenIsNull() {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        assertThrows(NullPointerException.class, () -> validator.ruleForMap(Target::getMap).containsKeys((String[])null));
+        assertThrows(NullPointerException.class, () -> validator.ruleForMap(Target::getMap).containsKeys((String[]) null));
     }
 
     @Test

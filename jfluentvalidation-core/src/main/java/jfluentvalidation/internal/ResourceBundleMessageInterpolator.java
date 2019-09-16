@@ -1,8 +1,5 @@
 package jfluentvalidation.internal;
 
-import org.mvel2.MVEL;
-import org.mvel2.integration.impl.MapVariableResolverFactory;
-
 import java.util.*;
 import java.util.regex.Pattern;
 
@@ -21,7 +18,7 @@ public class ResourceBundleMessageInterpolator {
     private static final Pattern LEFT_BRACE = Pattern.compile( "\\{", Pattern.LITERAL );
     private static final Pattern RIGHT_BRACE = Pattern.compile( "\\}", Pattern.LITERAL );
     private static final Pattern SLASH = Pattern.compile( "\\\\", Pattern.LITERAL );
-    private static final Pattern DOLLAR = Pattern.compile( "\\$", Pattern.LITERAL );
+    private static final Pattern DOLLAR = Pattern.compile( "\\$", Pattern.LITERAL );  // EL_DESIGNATOR
 
 
 
@@ -44,29 +41,19 @@ public class ResourceBundleMessageInterpolator {
 
         String[] tokens = expression.split("(?=\\$)");
         List<String> eval = new ArrayList<>();
-//        for (String token : tokens) {
-//            if (token.startsWith("$")) {
+        for (String token : tokens) {
+            if (token.startsWith("$")) {
 //                String t = token.substring(2, token.length() - 16);
 //                eval.add(MVEL.evalToString(t, new MapVariableResolverFactory(context)));
-//            }
-//        }
+            }
+        }
 
 
         // String evaluated = MVEL.evalToString(expression, new MapVariableResolverFactory(context));
         return "";
     }
 
-//    Foo foo = new Foo();
-//    foo.setName("test");
-//    Map context = new HashMap();
-//    String expression = "foo.name == 'test'";
-//    VariableResolverFactory functionFactory = new MapVariableResolverFactory(context);
-//    context.put("foo",foo);
-//    Boolean result = (Boolean) MVEL.eval(expression,functionFactory);
-//    System.out.println(result);
-//
-//
-//    Serializable compileExpression = MVEL.compileExpression(expression);
-//    result = (Boolean) MVEL.executeExpression(compileExpression, context, functionFactory);
-//    System.out.print(result);
+    private String removeCurlyBraces(String parameter) {
+        return parameter.substring( 1, parameter.length() - 1 );
+    }
 }

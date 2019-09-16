@@ -67,7 +67,7 @@ public final class Comparables {
      * @return
      */
     public static <T extends Comparable<? super T>> boolean isBetween(T actual, T start, T end) {
-        return isBetween(actual, start, end, true ,true);
+        return isBetween(actual, start, end, true,true);
     }
 
     /**
@@ -79,7 +79,7 @@ public final class Comparables {
      * @return
      */
     public static <T extends Comparable<? super T>> boolean isStrictlyBetween(T actual, T start, T end) {
-        return isBetween(actual, start, end, false ,false);
+        return isBetween(actual, start, end, false,false);
     }
 
     /**

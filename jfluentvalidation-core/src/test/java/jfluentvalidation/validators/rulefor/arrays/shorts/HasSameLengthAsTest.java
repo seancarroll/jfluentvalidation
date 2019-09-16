@@ -15,10 +15,10 @@ class HasSameLengthAsTest {
 
     @Test
     void shouldNotReturnFailureWhenActualLengthIsEqualToExpectedPrimitiveByteArray() {
-        Target t = new Target(new short[] {1});
+        Target t = new Target(new short[]{1});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForShortArray(Target::getValue).hasSameLengthAs(new short[] {1});
+        validator.ruleForShortArray(Target::getValue).hasSameLengthAs(new short[]{1});
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -27,10 +27,10 @@ class HasSameLengthAsTest {
 
     @Test
     void shouldNotReturnFailureWhenActualLengthIsEqualToExpectedByteArray() {
-        Target t = new Target(new short[] {1});
+        Target t = new Target(new short[]{1});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForShortArray(Target::getValue).hasSameLengthAs(new Short[] {1});
+        validator.ruleForShortArray(Target::getValue).hasSameLengthAs(new Short[]{1});
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -39,10 +39,10 @@ class HasSameLengthAsTest {
 
     @Test
     void shouldNotReturnFailureWhenActualLengthIsEqualToExpectedList() {
-        Target t = new Target(new short[] {1});
+        Target t = new Target(new short[]{1});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForShortArray(Target::getValue).hasSameLengthAs(Collections.singletonList((short)1));
+        validator.ruleForShortArray(Target::getValue).hasSameLengthAs(Collections.singletonList((short) 1));
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -54,7 +54,7 @@ class HasSameLengthAsTest {
         Target t = new Target(null);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForShortArray(Target::getValue).hasSameLengthAs(new Short[] {1});
+        validator.ruleForShortArray(Target::getValue).hasSameLengthAs(new Short[]{1});
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -63,10 +63,10 @@ class HasSameLengthAsTest {
 
     @Test
     void shouldReturnFailureWhenActualLengthIsNotEqualToExpectedPrimitiveByteArray() {
-        Target t = new Target(new short[] {1});
+        Target t = new Target(new short[]{1});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForShortArray(Target::getValue).hasSameLengthAs(new short[] {1, 2});
+        validator.ruleForShortArray(Target::getValue).hasSameLengthAs(new short[]{1, 2});
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -75,10 +75,10 @@ class HasSameLengthAsTest {
 
     @Test
     void shouldReturnFailureWhenActualLengthIsNotEqualToExpectedByteArray() {
-        Target t = new Target(new short[] {1});
+        Target t = new Target(new short[]{1});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForShortArray(Target::getValue).hasSameLengthAs(new Short[] {1, 2});
+        validator.ruleForShortArray(Target::getValue).hasSameLengthAs(new Short[]{1, 2});
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -87,10 +87,10 @@ class HasSameLengthAsTest {
 
     @Test
     void shouldReturnFailureWhenActualLengthIsNotEqualToExpectedList() {
-        Target t = new Target(new short[] {1});
+        Target t = new Target(new short[]{1});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForShortArray(Target::getValue).hasSameLengthAs(Arrays.asList((short)1, (short)2));
+        validator.ruleForShortArray(Target::getValue).hasSameLengthAs(Arrays.asList((short) 1, (short) 2));
 
         List<ValidationFailure> failures = validator.validate(t);
 

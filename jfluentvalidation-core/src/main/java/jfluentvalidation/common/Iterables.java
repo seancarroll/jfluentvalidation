@@ -27,7 +27,7 @@ public final class Iterables {
      */
     public static int size(Iterable<?> iterable) {
         return iterable instanceof Collection
-            ? ((Collection)iterable).size()
+            ? ((Collection) iterable).size()
             : Iterators.size(iterable.iterator());
     }
 
@@ -39,7 +39,7 @@ public final class Iterables {
      */
     public static boolean contains(Iterable<?> iterable, @Nullable Object element) {
         if (iterable instanceof Collection) {
-            Collection<?> collection = (Collection)iterable;
+            Collection<?> collection = (Collection) iterable;
             return safeContains(collection, element);
         } else {
             return Iterators.contains(iterable.iterator(), element);
