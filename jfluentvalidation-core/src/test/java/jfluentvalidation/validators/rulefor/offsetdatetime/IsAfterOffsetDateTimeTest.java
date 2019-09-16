@@ -21,10 +21,10 @@ class IsAfterOffsetDateTimeTest extends AbstractOffsetDateTime {
 
     @Test
     void shouldNotReturnFailureWhenActualDateIsAfterGivenDate() {
-        Target t = new Target(REFERENCE);
+        Target t = new Target(reference);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForOffsetDateTime(Target::getDateTime).isAfter(BEFORE);
+        validator.ruleForOffsetDateTime(Target::getDateTime).isAfter(before);
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -46,10 +46,10 @@ class IsAfterOffsetDateTimeTest extends AbstractOffsetDateTime {
 
     @Test
     void shouldReturnFailureWhenActualIsNotStrictlyAfterGivenDate() {
-        Target t = new Target(REFERENCE);
+        Target t = new Target(reference);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForOffsetDateTime(Target::getDateTime).isAfter(AFTER);
+        validator.ruleForOffsetDateTime(Target::getDateTime).isAfter(after);
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -58,10 +58,10 @@ class IsAfterOffsetDateTimeTest extends AbstractOffsetDateTime {
 
     @Test
     void shouldReturnFailureWhenActualEqualsGivenDate() {
-        Target t = new Target(REFERENCE);
+        Target t = new Target(reference);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForOffsetDateTime(Target::getDateTime).isAfter(REFERENCE);
+        validator.ruleForOffsetDateTime(Target::getDateTime).isAfter(reference);
 
         List<ValidationFailure> failures = validator.validate(t);
 

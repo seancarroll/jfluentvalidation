@@ -16,7 +16,7 @@ class IsAfterCalendarTest extends AbstractCalendarTest {
         Target p = new Target(Calendar.getInstance());
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForCalendar(Target::getDate).isAfter(BEFORE);
+        validator.ruleForCalendar(Target::getDate).isAfter(before);
 
         List<ValidationFailure> failures = validator.validate(p);
 
@@ -37,10 +37,10 @@ class IsAfterCalendarTest extends AbstractCalendarTest {
 
     @Test
     void shouldReturnFailureWhenActualIsNotStrictlyAfterGivenDate() {
-        Target p = new Target(ACTUAL);
+        Target p = new Target(reference);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForCalendar(Target::getDate).isAfter(AFTER);
+        validator.ruleForCalendar(Target::getDate).isAfter(after);
 
         List<ValidationFailure> failures = validator.validate(p);
 
@@ -49,10 +49,10 @@ class IsAfterCalendarTest extends AbstractCalendarTest {
 
     @Test
     void shouldReturnFailureWhenActualEqualsGivenDate() {
-        Target p = new Target(ACTUAL);
+        Target p = new Target(reference);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForCalendar(Target::getDate).isAfter(ACTUAL);
+        validator.ruleForCalendar(Target::getDate).isAfter(reference);
 
         List<ValidationFailure> failures = validator.validate(p);
 

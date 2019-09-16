@@ -23,7 +23,7 @@ class IsInThePastLocalDateTimeTest extends AbstractLocalDateTimeTest {
 
     @Test
     void shouldNotReturnFailureWhenActualIsInThePast() {
-        Target t = new Target(BEFORE);
+        Target t = new Target(before);
 
         DefaultValidator<Target> validator = getValidator();
         validator.ruleForLocalDateTime(Target::getDateTime).isInThePast();
@@ -47,7 +47,7 @@ class IsInThePastLocalDateTimeTest extends AbstractLocalDateTimeTest {
 
     @Test
     void shouldReturnFailureWhenActualIsInTheFuture() {
-        Target t = new Target(AFTER);
+        Target t = new Target(after);
 
         DefaultValidator<Target> validator = getValidator();
         validator.ruleForLocalDateTime(Target::getDateTime).isInThePast();

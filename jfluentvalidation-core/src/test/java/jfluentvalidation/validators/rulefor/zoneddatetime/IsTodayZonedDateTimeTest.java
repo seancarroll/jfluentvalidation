@@ -45,7 +45,7 @@ class IsTodayZonedDateTimeTest extends AbstractZonedDateTime {
 
     @Test
     void shouldReturnFailureWhenActualIsNotToday() {
-        Target t = new Target(BEFORE);
+        Target t = new Target(before);
 
         DefaultValidator<Target> validator = getValidator();
         validator.ruleForZonedDateTime(Target::getDateTime).isToday();

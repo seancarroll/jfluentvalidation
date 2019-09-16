@@ -11,16 +11,16 @@ import java.time.ZonedDateTime;
 abstract class AbstractOffsetTime {
 
     protected final ClockProvider clockProvider;
-    protected final OffsetTime REFERENCE;
-    protected final OffsetTime BEFORE;
-    protected final OffsetTime AFTER;
+    protected final OffsetTime reference;
+    protected final OffsetTime before;
+    protected final OffsetTime after;
 
     AbstractOffsetTime(ZonedDateTime dateTime) {
         this.clockProvider = new FixedClockProvider(dateTime);
 
-        REFERENCE = OffsetTime.now(clockProvider.getClock());
-        BEFORE = REFERENCE.minusHours(1);
-        AFTER = REFERENCE.plusHours(1);
+        reference = OffsetTime.now(clockProvider.getClock());
+        before = reference.minusHours(1);
+        after = reference.plusHours(1);
     }
 
     @SuppressWarnings("unchecked")

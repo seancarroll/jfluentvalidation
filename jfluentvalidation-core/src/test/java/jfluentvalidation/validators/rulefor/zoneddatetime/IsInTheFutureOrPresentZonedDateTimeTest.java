@@ -24,7 +24,7 @@ class IsInTheFutureOrPresentZonedDateTimeTest extends AbstractZonedDateTime {
 
     @Test
     void shouldNotReturnFailureWhenActualIsInTheFuture() {
-        Target t = new Target(AFTER);
+        Target t = new Target(after);
         DefaultValidator<Target> validator = getValidator();
         validator.ruleForZonedDateTime(Target::getDateTime).isInTheFutureOrPresent();
 
@@ -35,7 +35,7 @@ class IsInTheFutureOrPresentZonedDateTimeTest extends AbstractZonedDateTime {
 
     @Test
     void shouldNotReturnFailureWhenActualIsThePresent() {
-        Target t = new Target(REFERENCE);
+        Target t = new Target(reference);
 
         DefaultValidator<Target> validator = getValidator();
         validator.ruleForZonedDateTime(Target::getDateTime).isInTheFutureOrPresent();
@@ -59,7 +59,7 @@ class IsInTheFutureOrPresentZonedDateTimeTest extends AbstractZonedDateTime {
 
     @Test
     void shouldReturnFailureWhenActualIsInThePast() {
-        Target t = new Target(BEFORE);
+        Target t = new Target(before);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForZonedDateTime(Target::getDateTime).isInTheFutureOrPresent();

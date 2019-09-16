@@ -22,7 +22,7 @@ class IsInTheFutureDateTest extends AbstractDateTest {
 
     @Test
     void shouldNotReturnFailureWhenActualIsInTheFuture() {
-        Target t = new Target(AFTER);
+        Target t = new Target(after);
 
         DefaultValidator<Target> validator = getValidator();
         validator.ruleForDate(Target::getDate).isInTheFuture();
@@ -46,7 +46,7 @@ class IsInTheFutureDateTest extends AbstractDateTest {
 
     @Test
     void shouldReturnFailureWhenActualIsInThePast() {
-        Target t = new Target(BEFORE);
+        Target t = new Target(before);
 
         DefaultValidator<Target> validator = getValidator();
         validator.ruleForDate(Target::getDate).isInTheFuture();

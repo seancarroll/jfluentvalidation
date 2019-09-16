@@ -13,7 +13,7 @@ class IsTodayCalendarTest extends AbstractCalendarTest {
 
     @Test
     void shouldNotReturnFailureWhenActualIsToday() {
-        Target t = new Target(ACTUAL);
+        Target t = new Target(reference);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForCalendar(Target::getDate).isToday();
@@ -37,7 +37,7 @@ class IsTodayCalendarTest extends AbstractCalendarTest {
 
     @Test
     void shouldReturnFailureWhenActualIsNotToday() {
-        Target t = new Target(BEFORE);
+        Target t = new Target(before);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForCalendar(Target::getDate).isToday();

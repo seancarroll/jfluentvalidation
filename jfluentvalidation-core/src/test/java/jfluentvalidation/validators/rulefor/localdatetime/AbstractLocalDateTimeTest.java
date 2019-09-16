@@ -11,16 +11,16 @@ import java.time.ZonedDateTime;
 abstract class AbstractLocalDateTimeTest {
 
     protected final ClockProvider clockProvider;
-    protected final LocalDateTime REFERENCE;
-    protected final LocalDateTime BEFORE;
-    protected final LocalDateTime AFTER;
+    protected final LocalDateTime reference;
+    protected final LocalDateTime before;
+    protected final LocalDateTime after;
 
     AbstractLocalDateTimeTest(ZonedDateTime dateTime) {
         this.clockProvider = new FixedClockProvider(dateTime);
 
-        REFERENCE = LocalDateTime.now(clockProvider.getClock());
-        BEFORE = REFERENCE.minusDays(1);
-        AFTER = REFERENCE.plusDays(1);
+        reference = LocalDateTime.now(clockProvider.getClock());
+        before = reference.minusDays(1);
+        after = reference.plusDays(1);
     }
 
     @SuppressWarnings("unchecked")

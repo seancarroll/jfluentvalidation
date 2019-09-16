@@ -22,10 +22,10 @@ class IsAfterOrEqualToDateTest extends AbstractDateTest {
 
     @Test
     void shouldNotReturnFailureWhenActualEqualsGivenDate() {
-        Target t = new Target(REFERENCE);
+        Target t = new Target(reference);
 
         DefaultValidator<Target> validator = getValidator();
-        validator.ruleForDate(Target::getDate).isAfterOrEqualTo(REFERENCE);
+        validator.ruleForDate(Target::getDate).isAfterOrEqualTo(reference);
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -34,10 +34,10 @@ class IsAfterOrEqualToDateTest extends AbstractDateTest {
 
     @Test
     void shouldNotReturnFailureWhenActualDateIsAfterGivenDate() {
-        Target t = new Target(REFERENCE);
+        Target t = new Target(reference);
 
         DefaultValidator<Target> validator = getValidator();
-        validator.ruleForDate(Target::getDate).isAfterOrEqualTo(BEFORE);
+        validator.ruleForDate(Target::getDate).isAfterOrEqualTo(before);
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -58,10 +58,10 @@ class IsAfterOrEqualToDateTest extends AbstractDateTest {
 
     @Test
     void shouldReturnFailureWhenActualIsNotStrictlyAfterGivenDate() {
-        Target t = new Target(REFERENCE);
+        Target t = new Target(reference);
 
         DefaultValidator<Target> validator = getValidator();
-        validator.ruleForDate(Target::getDate).isAfterOrEqualTo(AFTER);
+        validator.ruleForDate(Target::getDate).isAfterOrEqualTo(after);
 
         List<ValidationFailure> failures = validator.validate(t);
 

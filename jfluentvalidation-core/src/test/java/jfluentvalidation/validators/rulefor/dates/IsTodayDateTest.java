@@ -22,7 +22,7 @@ class IsTodayDateTest extends AbstractDateTest {
 
     @Test
     void shouldNotReturnFailureWhenActualIsToday() {
-        Target t = new Target(REFERENCE);
+        Target t = new Target(reference);
 
         DefaultValidator<Target> validator = getValidator();
         validator.ruleForDate(Target::getDate).isToday();
@@ -46,7 +46,7 @@ class IsTodayDateTest extends AbstractDateTest {
 
     @Test
     void shouldReturnFailureWhenActualIsNotToday() {
-        Target t = new Target(BEFORE);
+        Target t = new Target(before);
 
         DefaultValidator<Target> validator = getValidator();
         validator.ruleForDate(Target::getDate).isToday();

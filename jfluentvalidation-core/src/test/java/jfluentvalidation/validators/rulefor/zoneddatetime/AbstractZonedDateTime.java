@@ -10,16 +10,16 @@ import java.time.ZonedDateTime;
 abstract class AbstractZonedDateTime {
 
     protected final ClockProvider clockProvider;
-    protected final ZonedDateTime REFERENCE;
-    protected final ZonedDateTime BEFORE;
-    protected final ZonedDateTime AFTER;
+    protected final ZonedDateTime reference;
+    protected final ZonedDateTime before;
+    protected final ZonedDateTime after;
 
     AbstractZonedDateTime(ZonedDateTime dateTime) {
         this.clockProvider = new FixedClockProvider(dateTime);
 
-        REFERENCE = ZonedDateTime.now(clockProvider.getClock());
-        BEFORE = REFERENCE.minusDays(1);
-        AFTER = REFERENCE.plusDays(1);
+        reference = ZonedDateTime.now(clockProvider.getClock());
+        before = reference.minusDays(1);
+        after = reference.plusDays(1);
     }
 
     @SuppressWarnings("unchecked")

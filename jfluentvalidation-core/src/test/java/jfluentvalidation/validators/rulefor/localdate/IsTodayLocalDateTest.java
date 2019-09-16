@@ -46,7 +46,7 @@ class IsTodayLocalDateTest extends AbstractLocalDateTest {
 
     @Test
     void shouldReturnFailureWhenActualIsNotToday() {
-        Target t = new Target(BEFORE);
+        Target t = new Target(before);
 
         DefaultValidator<Target> validator = getValidator();
         validator.ruleForLocalDate(Target::getDate).isToday();

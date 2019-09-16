@@ -24,7 +24,7 @@ class IsInThePastOffsetDateTimeTest extends AbstractOffsetDateTime {
 
     @Test
     void shouldNotReturnFailureWhenActualIsInThePast() {
-        Target t = new Target(BEFORE);
+        Target t = new Target(before);
 
         DefaultValidator<Target> validator = getValidator();
         validator.ruleForOffsetDateTime(Target::getDateTime).isInThePast();
@@ -48,7 +48,7 @@ class IsInThePastOffsetDateTimeTest extends AbstractOffsetDateTime {
 
     @Test
     void shouldReturnFailureWhenActualIsInTheFuture() {
-        Target t = new Target(AFTER);
+        Target t = new Target(after);
 
         DefaultValidator<Target> validator = getValidator();
         validator.ruleForOffsetDateTime(Target::getDateTime).isInThePast();

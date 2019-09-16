@@ -23,7 +23,7 @@ class IsInThePastOrPresentLocalTimeTest extends AbstractLocalTimeTest {
 
     @Test
     void shouldNotReturnFailureWhenActualIsInThePast() {
-        Target t = new Target(BEFORE);
+        Target t = new Target(before);
 
         DefaultValidator<Target> validator = getValidator();
         validator.ruleForLocalTime(Target::getTime).isInThePastOrPresent();
@@ -35,7 +35,7 @@ class IsInThePastOrPresentLocalTimeTest extends AbstractLocalTimeTest {
 
     @Test
     void shouldNotReturnFailureWhenActualIsThePresent() {
-        Target t = new Target(REFERENCE);
+        Target t = new Target(reference);
 
         DefaultValidator<Target> validator = getValidator();
         validator.ruleForLocalTime(Target::getTime).isInThePastOrPresent();
@@ -59,7 +59,7 @@ class IsInThePastOrPresentLocalTimeTest extends AbstractLocalTimeTest {
 
     @Test
     void shouldReturnFailureWhenActualIsInTheFuture() {
-        Target t = new Target(AFTER);
+        Target t = new Target(after);
 
         DefaultValidator<Target> validator = getValidator();
         validator.ruleForLocalTime(Target::getTime).isInThePastOrPresent();

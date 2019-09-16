@@ -16,17 +16,17 @@ abstract class AbstractDateTest {
      * serves as the reference for {@code now}
      */
     protected final ClockProvider clockProvider;
-    protected final Date REFERENCE;
-    protected final Date BEFORE;
-    protected final Date AFTER;
+    protected final Date reference;
+    protected final Date before;
+    protected final Date after;
 
     AbstractDateTest(ZonedDateTime dateTime) {
         this.clockProvider = new FixedClockProvider(dateTime);
 
         Instant instant = clockProvider.getClock().instant();
-        REFERENCE = Date.from(instant);
-        BEFORE = Date.from(instant.minus(Duration.ofDays(1)));
-        AFTER = Date.from(instant.plus(Duration.ofDays(1)));
+        reference = Date.from(instant);
+        before = Date.from(instant.minus(Duration.ofDays(1)));
+        after = Date.from(instant.plus(Duration.ofDays(1)));
     }
 
     @SuppressWarnings("unchecked")

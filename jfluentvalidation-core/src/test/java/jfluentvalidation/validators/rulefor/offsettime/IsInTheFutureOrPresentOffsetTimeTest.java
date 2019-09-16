@@ -23,7 +23,7 @@ class IsInTheFutureOrPresentOffsetTimeTest extends AbstractOffsetTime {
 
     @Test
     void shouldNotReturnFailureWhenActualIsInTheFuture() {
-        Target t = new Target(AFTER);
+        Target t = new Target(after);
 
         DefaultValidator<Target> validator = getValidator();
         validator.ruleForOffsetTime(Target::getTime).isInTheFutureOrPresent();
@@ -35,7 +35,7 @@ class IsInTheFutureOrPresentOffsetTimeTest extends AbstractOffsetTime {
 
     @Test
     void shouldNotReturnFailureWhenActualIsThePresent() {
-        Target t = new Target(REFERENCE);
+        Target t = new Target(reference);
 
         DefaultValidator<Target> validator = getValidator();
         validator.ruleForOffsetTime(Target::getTime).isInTheFutureOrPresent();
@@ -59,7 +59,7 @@ class IsInTheFutureOrPresentOffsetTimeTest extends AbstractOffsetTime {
 
     @Test
     void shouldReturnFailureWhenActualIsInThePast() {
-        Target t = new Target(BEFORE);
+        Target t = new Target(before);
 
         DefaultValidator<Target> validator = getValidator();
         validator.ruleForOffsetTime(Target::getTime).isInTheFutureOrPresent();

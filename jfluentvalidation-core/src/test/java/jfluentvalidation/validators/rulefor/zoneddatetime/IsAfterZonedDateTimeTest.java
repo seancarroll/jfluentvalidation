@@ -21,10 +21,10 @@ class IsAfterZonedDateTimeTest extends AbstractZonedDateTime {
 
     @Test
     void shouldNotReturnFailureWhenActualDateIsAfterGivenDate() {
-        Target t = new Target(REFERENCE);
+        Target t = new Target(reference);
 
         DefaultValidator<Target> validator = getValidator();
-        validator.ruleForZonedDateTime(Target::getDateTime).isAfter(BEFORE);
+        validator.ruleForZonedDateTime(Target::getDateTime).isAfter(before);
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -33,10 +33,10 @@ class IsAfterZonedDateTimeTest extends AbstractZonedDateTime {
 
     @Test
     void shouldNotReturnFailureWhenActualDateIsAfterGivenDateBasedOnTimeZone() {
-        Target t = new Target(REFERENCE);
+        Target t = new Target(reference);
 
         DefaultValidator<Target> validator = getValidator();
-        validator.ruleForZonedDateTime(Target::getDateTime).isAfter(BEFORE.withZoneSameInstant(ZoneId.of("America/Chicago")));
+        validator.ruleForZonedDateTime(Target::getDateTime).isAfter(before.withZoneSameInstant(ZoneId.of("America/Chicago")));
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -57,10 +57,10 @@ class IsAfterZonedDateTimeTest extends AbstractZonedDateTime {
 
     @Test
     void shouldReturnFailureWhenActualIsNotStrictlyAfterGivenDate() {
-        Target t = new Target(REFERENCE);
+        Target t = new Target(reference);
 
         DefaultValidator<Target> validator = getValidator();
-        validator.ruleForZonedDateTime(Target::getDateTime).isAfter(AFTER);
+        validator.ruleForZonedDateTime(Target::getDateTime).isAfter(after);
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -69,10 +69,10 @@ class IsAfterZonedDateTimeTest extends AbstractZonedDateTime {
 
     @Test
     void shouldReturnFailureWhenActualIsNotStrictlyAfterGivenDateBasedOnTimeZone() {
-        Target t = new Target(REFERENCE);
+        Target t = new Target(reference);
 
         DefaultValidator<Target> validator = getValidator();
-        validator.ruleForZonedDateTime(Target::getDateTime).isAfter(AFTER.withZoneSameInstant(ZoneId.of("Europe/London")));
+        validator.ruleForZonedDateTime(Target::getDateTime).isAfter(after.withZoneSameInstant(ZoneId.of("Europe/London")));
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -81,10 +81,10 @@ class IsAfterZonedDateTimeTest extends AbstractZonedDateTime {
 
     @Test
     void shouldReturnFailureWhenActualEqualsGivenDate() {
-        Target t = new Target(REFERENCE);
+        Target t = new Target(reference);
 
         DefaultValidator<Target> validator = getValidator();
-        validator.ruleForZonedDateTime(Target::getDateTime).isAfter(REFERENCE);
+        validator.ruleForZonedDateTime(Target::getDateTime).isAfter(reference);
 
         List<ValidationFailure> failures = validator.validate(t);
 

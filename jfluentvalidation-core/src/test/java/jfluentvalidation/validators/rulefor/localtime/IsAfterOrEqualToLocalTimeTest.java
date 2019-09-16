@@ -21,10 +21,10 @@ class IsAfterOrEqualToLocalTimeTest extends AbstractLocalTimeTest {
 
     @Test
     void shouldNotReturnFailureWhenActualEqualsGivenDate() {
-        Target t = new Target(REFERENCE);
+        Target t = new Target(reference);
 
         DefaultValidator<Target> validator = getValidator();
-        validator.ruleForLocalTime(Target::getTime).isAfterOrEqualTo(REFERENCE);
+        validator.ruleForLocalTime(Target::getTime).isAfterOrEqualTo(reference);
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -33,10 +33,10 @@ class IsAfterOrEqualToLocalTimeTest extends AbstractLocalTimeTest {
 
     @Test
     void shouldNotReturnFailureWhenActualDateIsAfterGivenDate() {
-        Target t = new Target(REFERENCE);
+        Target t = new Target(reference);
 
         DefaultValidator<Target> validator = getValidator();
-        validator.ruleForLocalTime(Target::getTime).isAfterOrEqualTo(BEFORE);
+        validator.ruleForLocalTime(Target::getTime).isAfterOrEqualTo(before);
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -57,10 +57,10 @@ class IsAfterOrEqualToLocalTimeTest extends AbstractLocalTimeTest {
 
     @Test
     void shouldReturnFailureWhenActualIsNotStrictlyAfterGivenDate() {
-        Target t = new Target(REFERENCE);
+        Target t = new Target(reference);
 
         DefaultValidator<Target> validator = getValidator();
-        validator.ruleForLocalTime(Target::getTime).isAfterOrEqualTo(AFTER);
+        validator.ruleForLocalTime(Target::getTime).isAfterOrEqualTo(after);
 
         List<ValidationFailure> failures = validator.validate(t);
 

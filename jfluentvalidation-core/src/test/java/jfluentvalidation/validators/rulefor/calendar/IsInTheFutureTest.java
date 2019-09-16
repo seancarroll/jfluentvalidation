@@ -15,7 +15,7 @@ class IsInTheFutureTest extends AbstractCalendarTest {
 
     @Test
     void shouldNotReturnFailureWhenActualIsInTheFuture() {
-        Target t = new Target(AFTER);
+        Target t = new Target(after);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForCalendar(Target::getDate).isInTheFuture();
@@ -39,7 +39,7 @@ class IsInTheFutureTest extends AbstractCalendarTest {
 
     @Test
     void shouldReturnFailureWhenActualIsInThePast() {
-        Target t = new Target(BEFORE);
+        Target t = new Target(before);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForCalendar(Target::getDate).isInTheFuture();
