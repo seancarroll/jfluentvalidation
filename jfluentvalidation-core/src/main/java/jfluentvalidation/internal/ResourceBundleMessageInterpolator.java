@@ -1,5 +1,8 @@
 package jfluentvalidation.internal;
 
+import org.mvel2.MVEL;
+import org.mvel2.integration.impl.MapVariableResolverFactory;
+
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Matcher;
@@ -83,6 +86,12 @@ public class ResourceBundleMessageInterpolator {
             ResourceBundle bundle = ResourceBundle.getBundle(DEFAULT_VALIDATION_MESSAGES, locale);
             String messageTemplate = bundle.getString(message);
 
+            // TODO: Replace parameters. iterate over placeholders...
+
+            // TODO: EL
+
+            // TODO: replace escaped
+
             // TODO: need to split messages into tokens
             // 1. parameters {}...I think hibernate validator also uses {} as a marker for resource bundle keys
             // 2. EL expressions ${}
@@ -98,79 +107,30 @@ public class ResourceBundleMessageInterpolator {
 
             // allow users to set resource bundles
 
-
-            // String[] tokens = expression.split("(?=\\$)");
-
-            // these two work in the regex tester
-            // [^${]+|\$?{([^${]*)}
-            // [^${]+|\$?{[^${]*}
-
-            // TODO: this does not handle escaped characters (\$, \{, \}) so we can treat them as literals.
-
-            // original one that works for non-escaped
-            // [^\$\{]+|\$?\{[^\$\{]*}
-            // "[^\\$\\{]+|\\$?\\{[^\\$\\{]*}"
-            // "[^${]+|\\$?\\{([^${]*)}"
-
-            // might work for escaped
-            // "[^\\$\\{]+|\\$?\\{[^\\$\\{]*}"
-            // ([^${]|((?<=\\)[${]))+|\$?{[^${]*}
-            // ([^${]|(?<=\\)[${])+|\$?{[^${]*}
-
-            // [^\$\{]+|\$?\{[^\$\{]*}
-            // ([^\$\{]|(?<\=\)[\$\{])+|\$?{[^\$\{]*}
-
-            // escape --> ([^\$\{]|(?<=\\)[${])+|\$?\{[^\$\{]*}
-            // java ---> "([^\\$\\{]|(?<=\\\\)[${])+|\\$?\\{[^\\$\\{]*}"
-
-
-            // regex negative lookbehind (?<!Y)X matches an X that is not preceded by a Y
-            // (?<!\\{1,2})
-
-            // "[^\\$\\{]+|\\$?\\{[^\\$\\{]*}"
-
-            // js works but not java "([^${]|(?<=\\\\)[${])+|\\$?{[^${]*}"
-
-
-
-
-            // Pattern pattern = Pattern.compile("([^\\$\\{]|(?<=\\\\)[${])+|\\$?\\{[^\\$\\{]*}");
             Matcher matcher = TOKEN_PATTERN.matcher(messageTemplate);
             List<Token> matches = new ArrayList<>();
             while (matcher.find()) {
                 matches.add(new Token(matcher.group()));
             }
 
-
-
-            // TODO: Replace parameters. iterate over placeholders...
-
-            // TODO: EL
-
-            // TODO: replace escaped
-
-//            String group = matcher.group();
-//            if (group.startsWith("$")) {
-//                sb.append((MVEL.evalToString(group, new MapVariableResolverFactory(context)));
-//            } else if (group.startsWith("{")) {
-//                sb.append()
-//            } else {
-//                sb.append(group);
-//            }
-
-
-            String[] tokens = messageTemplate.split("[^\\$\\{]+|\\$?\\{[^\\$\\{]*}");
-            List<String> eval = new ArrayList<>();
-            for (String token : tokens) {
-//                if (token.startsWith("$")) {
-//                String t = token.substring(2, token.length() - 16);
-//                eval.add(MVEL.evalToString(t, new MapVariableResolverFactory(context)));
-//                }
+            // TODO: clean up
+            List<String> resolvedMessages = new ArrayList<>();
+            for (Token t : matches) {
+                if (t.isParameter()) {
+                    String placeHolderKey = removeCurlyBraces(t.getValue());
+                    Object placeHolderValue = context.get(placeHolderKey);
+                    String resolvedMessage = placeHolderValue == null
+                        ? t.getValue()
+                        : replacePlaceholderWithValue(t.getValue(), placeHolderKey, placeHolderValue);
+                    resolvedMessages.add(resolvedMessage);
+                } else if (t.isEL()) {
+                    resolvedMessages.add(MVEL.evalToString(t.getValue().substring(2, t.getValue().length() - 1), new MapVariableResolverFactory(context)));
+                } else {
+                    resolvedMessages.add(t.value);
+                }
             }
 
-
-            // String evaluated = MVEL.evalToString(expression, new MapVariableResolverFactory(context));
-            return "";
+            return String.join("", resolvedMessages);
         } catch (MissingResourceException ex) {
             return message;
         }
@@ -207,7 +167,7 @@ public class ResourceBundleMessageInterpolator {
     }
 
     private String removeCurlyBraces(String parameter) {
-        return parameter.substring( 1, parameter.length() - 1 );
+        return parameter.substring(1, parameter.length() - 1);
     }
 
 

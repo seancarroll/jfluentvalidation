@@ -55,7 +55,6 @@ class UnlessTest {
         List<ValidationFailure> validationFailures = validator.validate(person);
 
         assertEquals(1, validationFailures.size());
-        assertTrue(validationFailures.get(0).getErrorMessage().contains("StartsWith"));
     }
 
     @Test

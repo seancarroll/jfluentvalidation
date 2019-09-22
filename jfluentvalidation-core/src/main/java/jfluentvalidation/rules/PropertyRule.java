@@ -81,11 +81,11 @@ public class PropertyRule<T, P> implements Rule<T, P> {
                 }
 
                 ResourceBundleMessageInterpolator interpolator = new ResourceBundleMessageInterpolator();
-                interpolator.interpolate(constraint.getOptions().getErrorMessage(), ruleContext.getMessageFormatter().getPlaceholderValues());
+                String resolvedMessage = interpolator.interpolate(constraint.getOptions().getErrorMessage(), ruleContext.getMessageFormatter().getPlaceholderValues());
 //                String formattedMessage = ruleContext.getMessageFormatter().buildMessage(parameterValue);
 
 
-                failures.add(new ValidationFailure(propertyName, constraint.getOptions().getErrorMessage(), propertyValue));
+                failures.add(new ValidationFailure(propertyName, resolvedMessage, propertyValue));
             }
         }
 
