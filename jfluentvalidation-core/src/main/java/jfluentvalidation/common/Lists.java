@@ -22,7 +22,7 @@ public class Lists {
      */
     public static <E> List<E> newArrayList(Iterable<? extends E> elements) {
         return (elements instanceof Collection)
-            ? new ArrayList<>((Collection<E>)elements)
+            ? new ArrayList<>((Collection<E>) elements)
             : newArrayList(elements.iterator());
     }
 

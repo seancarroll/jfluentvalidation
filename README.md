@@ -60,3 +60,4 @@ This project was inspired by the following open source projects
 * https://github.com/JeremySkinner/FluentValidation
 * http://joel-costigliola.github.io/assertj/assertj-core.html
 * https://github.com/google/truth
+* https://github.com/hibernate/hibernate-validator
