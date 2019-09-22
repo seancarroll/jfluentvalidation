@@ -124,7 +124,7 @@ public class ResourceBundleMessageInterpolator {
                         : replacePlaceholderWithValue(t.getValue(), placeHolderKey, placeHolderValue);
                     resolvedMessages.add(resolvedMessage);
                 } else if (t.isEL()) {
-                    resolvedMessages.add(MVEL.evalToString(t.getValue().substring(2, t.getValue().length() - 1), new MapVariableResolverFactory(context)));
+                    resolvedMessages.add(MVEL.evalToString(removeDollarAndCurlyBraces(t.getValue()), new MapVariableResolverFactory(context)));
                 } else {
                     resolvedMessages.add(t.value);
                 }
@@ -156,6 +156,8 @@ public class ResourceBundleMessageInterpolator {
     private static final String PROPERTY_VALUE = "PropertyValue";
 
     protected String getPlaceholder(String key) {
+        // Probably a micro optimization...
+        // Concatenate constants results in constants being compiled so we avoid String concatenation when not needed.
         switch (key) {
             case PROPERTY_NAME:
                 return "{" + PROPERTY_NAME + "}";
@@ -168,6 +170,10 @@ public class ResourceBundleMessageInterpolator {
 
     private String removeCurlyBraces(String parameter) {
         return parameter.substring(1, parameter.length() - 1);
+    }
+
+    private String removeDollarAndCurlyBraces(String parameter) {
+        return parameter.substring(2, parameter.length() - 1);
     }
 
 
