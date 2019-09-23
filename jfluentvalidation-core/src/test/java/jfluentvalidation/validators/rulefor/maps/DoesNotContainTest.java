@@ -15,7 +15,9 @@ import java.util.stream.Stream;
 
 import static org.assertj.core.data.MapEntry.entry;
 import static org.assertj.core.util.Arrays.array;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class DoesNotContainTest {
 

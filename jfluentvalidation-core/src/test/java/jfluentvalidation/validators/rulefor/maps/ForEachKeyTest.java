@@ -9,7 +9,8 @@ import java.util.List;
 
 import static jfluentvalidation.constraints.charsequence.CharSequenceConstraints.isLowerCase;
 import static jfluentvalidation.constraints.charsequence.CharSequenceConstraints.isUpperCase;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ForEachKeyTest {
 

@@ -6,10 +6,13 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static java.math.BigInteger.*;
+import static java.math.BigInteger.ONE;
+import static java.math.BigInteger.TEN;
+import static java.math.BigInteger.ZERO;
 import static jfluentvalidation.validators.rulefor.bigintegers.Constants.FIVE;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class IsStrictlyBetweenTest {
 
