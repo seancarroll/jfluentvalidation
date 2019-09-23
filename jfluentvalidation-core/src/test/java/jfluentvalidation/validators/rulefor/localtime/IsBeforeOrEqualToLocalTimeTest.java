@@ -9,7 +9,9 @@ import java.time.ZonedDateTime;
 import java.util.List;
 
 import static jfluentvalidation.TimeZones.TZ_CHICAGO;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class IsBeforeOrEqualToLocalTimeTest extends AbstractLocalTimeTest {
 

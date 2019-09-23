@@ -3,7 +3,11 @@ package jfluentvalidation.common;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Objects;
 
 import static java.util.Collections.unmodifiableList;
 import static jfluentvalidation.common.MoreCollections.safeContains;
@@ -21,7 +25,6 @@ public final class Iterables {
     }
 
     /**
-     *
      * @param iterable
      * @return
      */
@@ -32,7 +35,6 @@ public final class Iterables {
     }
 
     /**
-     *
      * @param iterable
      * @param element
      * @return
@@ -47,7 +49,6 @@ public final class Iterables {
     }
 
     /**
-     *
      * @param iterable
      * @return
      */
@@ -59,7 +60,6 @@ public final class Iterables {
     }
 
     /**
-     *
      * @param iterable
      * @param <T>
      * @return
@@ -87,7 +87,6 @@ public final class Iterables {
     }
 
     /**
-     *
      * @param first
      * @param second
      * @param <T>
@@ -109,7 +108,6 @@ public final class Iterables {
     }
 
     /**
-     *
      * @param iterable
      * @param value
      * @param <T>

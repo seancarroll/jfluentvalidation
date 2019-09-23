@@ -4,7 +4,9 @@ import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.HashSet;
 
-import static jfluentvalidation.common.Comparables.*;
+import static jfluentvalidation.common.Comparables.isGreaterThan;
+import static jfluentvalidation.common.Comparables.isGreaterThanOrEqual;
+import static jfluentvalidation.common.Comparables.isLessThan;
 
 /**
  *
@@ -18,7 +20,7 @@ public final class MoreArrays {
     /**
      * Indicates whether the given object is not {@code null} and is an array.
      *
-     * @param o the given object.
+     * @param o  the given object.
      * @return {@code true} if the given object is not {@code null} and is an array, otherwise {@code false}.
      */
     public static boolean isArray(Object o) {
@@ -128,14 +130,17 @@ public final class MoreArrays {
     public static <T> boolean contains2(final T[] array, final T v) {
         // TODO: simplify
         if (v == null) {
-            for (final T e : array)
-                if (e == null)
+            for (final T e : array) {
+                if (e == null) {
                     return true;
-        }
-        else {
-            for (final T e : array)
-                if (e == v || v.equals(e))
+                }
+            }
+        } else {
+            for (final T e : array) {
+                if (e == v || v.equals(e)) {
                     return true;
+                }
+            }
         }
 
         return false;
