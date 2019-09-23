@@ -606,7 +606,7 @@ public class DefaultValidator<T> implements Validator<T> {
     public void ruleSet(String ruleSetName, Runnable runnable) {
         // TODO: this sucks. How can we improve this?
         List<String> ruleSet = Collections.singletonList(ruleSetName);
-        rules.run(runnable, (rule) -> rule.setRuleSet(ruleSet));
+        rules.run(runnable, rule -> rule.setRuleSet(ruleSet));
     }
 
 

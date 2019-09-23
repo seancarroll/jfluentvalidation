@@ -50,7 +50,7 @@ class DoesNotContainValuesTest {
     @Test
     void shouldThrowExceptionWhenGivenValuesIsNull() {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        assertThrows(NullPointerException.class, () -> validator.ruleForMap(Target::getMap).doesNotContainValues((String[])null));
+        assertThrows(NullPointerException.class, () -> validator.ruleForMap(Target::getMap).doesNotContainValues((String[]) null));
     }
 
     @Test

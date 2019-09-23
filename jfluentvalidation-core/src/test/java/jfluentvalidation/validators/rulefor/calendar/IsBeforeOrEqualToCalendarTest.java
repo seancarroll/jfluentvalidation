@@ -53,7 +53,7 @@ class IsBeforeOrEqualToCalendarTest extends AbstractCalendarTest {
     void shouldReturnFailureWhenActualIsNotStrictlyBeforeGivenDate() {
         Target p = new Target(reference);
 
-        DefaultValidator<Target> validator = new DefaultValidator<>( Target.class);
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForCalendar(Target::getDate).isBeforeOrEqualTo(before);
 
         List<ValidationFailure> failures = validator.validate(p);

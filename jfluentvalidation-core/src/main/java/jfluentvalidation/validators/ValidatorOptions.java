@@ -17,9 +17,9 @@ public class ValidatorOptions {
     // ClockProvider
     // temporal_validation_tolerance
 
-    public static ClockProvider CLOCK_PROVIDER = DefaultClockProvider.INSTANCE;
-    public static FailureMode FAILURE_MODE = FailureMode.CONTINUE;
-    public static Duration TEMPORAL_VALIDATION_TOLERANCE = Duration.ZERO;
+    public static final ClockProvider CLOCK_PROVIDER = DefaultClockProvider.INSTANCE;
+    public static final FailureMode FAILURE_MODE = FailureMode.CONTINUE;
+    public static final Duration TEMPORAL_VALIDATION_TOLERANCE = Duration.ZERO;
 
     // should this be similar to hibernate validator ValidatorFactoryBean
 //    config.constraintValidatorFactory( createConstraintValidatorFactory( config ) );

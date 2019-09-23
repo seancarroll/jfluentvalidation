@@ -1,7 +1,11 @@
 package jfluentvalidation.core;
 
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
-import jfluentvalidation.constraints.time.*;
+import jfluentvalidation.constraints.time.IsAfterCalendarConstraint;
+import jfluentvalidation.constraints.time.IsAfterOrEqualCalendarConstraint;
+import jfluentvalidation.constraints.time.IsBeforeCalendarConstraint;
+import jfluentvalidation.constraints.time.IsBeforeOrEqualCalendarConstraint;
+import jfluentvalidation.constraints.time.IsTodayCalendarConstraint;
 import jfluentvalidation.rules.PropertyRule;
 
 import java.util.Calendar;
