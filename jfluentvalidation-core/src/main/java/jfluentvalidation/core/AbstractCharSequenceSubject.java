@@ -1,6 +1,28 @@
 package jfluentvalidation.core;
 
-import jfluentvalidation.constraints.charsequence.*;
+import jfluentvalidation.constraints.charsequence.CharSequenceConstraints;
+import jfluentvalidation.constraints.charsequence.ContainsConstraint;
+import jfluentvalidation.constraints.charsequence.ContainsIgnoreCaseConstraint;
+import jfluentvalidation.constraints.charsequence.ContainsOnlyDigitsConstraint;
+import jfluentvalidation.constraints.charsequence.ContainsOnlyWhitespacesConstraint;
+import jfluentvalidation.constraints.charsequence.ContainsWhitespacesConstraint;
+import jfluentvalidation.constraints.charsequence.DoesNotContainAnyWhitespacesConstraint;
+import jfluentvalidation.constraints.charsequence.HasLengthBetweenConstraint;
+import jfluentvalidation.constraints.charsequence.HasLengthConstraint;
+import jfluentvalidation.constraints.charsequence.HasLengthGreaterThanConstraint;
+import jfluentvalidation.constraints.charsequence.HasLengthGreaterThanOrEqualToConstraint;
+import jfluentvalidation.constraints.charsequence.HasLengthLessThanConstraint;
+import jfluentvalidation.constraints.charsequence.HasLengthLessThanOrEqualToConstraint;
+import jfluentvalidation.constraints.charsequence.HasSameLengthAsConstraint;
+import jfluentvalidation.constraints.charsequence.IsBlankConstraint;
+import jfluentvalidation.constraints.charsequence.IsEmailConstraint;
+import jfluentvalidation.constraints.charsequence.IsEmptyConstraint;
+import jfluentvalidation.constraints.charsequence.IsEqualToIgnoringCaseConstraint;
+import jfluentvalidation.constraints.charsequence.IsEqualToIgnoringWhitespaceConstraint;
+import jfluentvalidation.constraints.charsequence.IsEqualToNormalizingWhitespaceConstraint;
+import jfluentvalidation.constraints.charsequence.IsNotEmptyConstraint;
+import jfluentvalidation.constraints.charsequence.IsNullOrEmptyConstraint;
+import jfluentvalidation.constraints.charsequence.LengthConstraint;
 import jfluentvalidation.rules.PropertyRule;
 
 import java.util.regex.Pattern;

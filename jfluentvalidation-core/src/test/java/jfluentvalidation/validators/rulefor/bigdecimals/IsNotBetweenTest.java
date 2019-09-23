@@ -6,7 +6,9 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static java.math.BigDecimal.*;
+import static java.math.BigDecimal.ONE;
+import static java.math.BigDecimal.TEN;
+import static java.math.BigDecimal.ZERO;
 import static jfluentvalidation.validators.rulefor.bigdecimals.Constants.FIVE;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;

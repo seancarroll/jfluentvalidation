@@ -1,6 +1,11 @@
 package jfluentvalidation.constraints.time;
 
-import java.time.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.OffsetDateTime;
+import java.time.OffsetTime;
+import java.time.ZonedDateTime;
 import java.util.Calendar;
 
 // TODO: singleton instead of statics?

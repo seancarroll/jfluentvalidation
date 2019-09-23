@@ -1,7 +1,11 @@
 package jfluentvalidation.core;
 
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
-import jfluentvalidation.constraints.time.*;
+import jfluentvalidation.constraints.time.IsAfterOffsetDateTimeConstraint;
+import jfluentvalidation.constraints.time.IsAfterOrEqualOffsetDateTimeConstraint;
+import jfluentvalidation.constraints.time.IsBeforeOffsetDateTimeConstraint;
+import jfluentvalidation.constraints.time.IsBeforeOrEqualOffsetDateTimeConstraint;
+import jfluentvalidation.constraints.time.IsTodayOffsetDateTimeConstraint;
 import jfluentvalidation.rules.PropertyRule;
 
 import java.time.OffsetDateTime;

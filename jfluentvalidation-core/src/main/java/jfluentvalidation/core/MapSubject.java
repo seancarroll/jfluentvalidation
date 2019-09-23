@@ -3,7 +3,15 @@ package jfluentvalidation.core;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import jfluentvalidation.MapItemConstraint;
 import jfluentvalidation.constraints.Constraint;
-import jfluentvalidation.constraints.map.*;
+import jfluentvalidation.constraints.map.ContainsEntriesConstraint;
+import jfluentvalidation.constraints.map.ContainsKeysConstraint;
+import jfluentvalidation.constraints.map.ContainsValuesConstraint;
+import jfluentvalidation.constraints.map.DoesNotContainEntriesConstraint;
+import jfluentvalidation.constraints.map.DoesNotContainKeysConstraint;
+import jfluentvalidation.constraints.map.DoesNotContainValuesConstraint;
+import jfluentvalidation.constraints.map.HasSizeConstraint;
+import jfluentvalidation.constraints.map.IsEmptyConstraint;
+import jfluentvalidation.constraints.map.IsNotEmptyConstraint;
 import jfluentvalidation.rules.MapPropertyRule;
 import jfluentvalidation.rules.PropertyRule;
 

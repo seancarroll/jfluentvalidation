@@ -37,7 +37,7 @@ class IsNullOrEmptyTest {
 
     @Test
     void shouldReturnFailureWhenActualIsNotNullOrEmpty() {
-        Target t = new Target(new byte[] {(byte)1});
+        Target t = new Target(new byte[]{(byte) 1});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForByteArray(Target::getValue).isNullOrEmpty();

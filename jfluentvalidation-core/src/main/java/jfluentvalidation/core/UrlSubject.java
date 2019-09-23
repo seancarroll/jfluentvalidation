@@ -1,7 +1,15 @@
 package jfluentvalidation.core;
 
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
-import jfluentvalidation.constraints.url.*;
+import jfluentvalidation.constraints.url.HasAnchorConstraint;
+import jfluentvalidation.constraints.url.HasAuthorityConstraint;
+import jfluentvalidation.constraints.url.HasHostConstraint;
+import jfluentvalidation.constraints.url.HasNoParameterConstraint;
+import jfluentvalidation.constraints.url.HasParameterConstraint;
+import jfluentvalidation.constraints.url.HasPathConstraint;
+import jfluentvalidation.constraints.url.HasPortConstraint;
+import jfluentvalidation.constraints.url.HasProtocolConstraint;
+import jfluentvalidation.constraints.url.HasQueryConstraint;
 import jfluentvalidation.rules.PropertyRule;
 
 import java.net.URL;

@@ -1,7 +1,15 @@
 package jfluentvalidation.core;
 
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
-import jfluentvalidation.constraints.iterable.*;
+import jfluentvalidation.constraints.iterable.ContainsAllConstraint;
+import jfluentvalidation.constraints.iterable.ContainsAnyConstraint;
+import jfluentvalidation.constraints.iterable.ContainsConstraint;
+import jfluentvalidation.constraints.iterable.ContainsExactlyConstraint;
+import jfluentvalidation.constraints.iterable.ContainsNoneConstraint;
+import jfluentvalidation.constraints.iterable.DoesNotContainConstraint;
+import jfluentvalidation.constraints.iterable.HasSizeConstraint;
+import jfluentvalidation.constraints.iterable.IsEmptyConstraint;
+import jfluentvalidation.constraints.iterable.IsNotEmptyConstraint;
 import jfluentvalidation.rules.CollectionPropertyRule;
 
 import java.util.Arrays;

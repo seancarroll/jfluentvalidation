@@ -1,6 +1,13 @@
 package jfluentvalidation.core;
 
-import jfluentvalidation.constraints.comparable.*;
+import jfluentvalidation.constraints.comparable.IsBetweenConstraint;
+import jfluentvalidation.constraints.comparable.IsEqualAccordingToCompareToConstraint;
+import jfluentvalidation.constraints.comparable.IsGreaterThanConstraint;
+import jfluentvalidation.constraints.comparable.IsGreaterThanOrEqualToConstraint;
+import jfluentvalidation.constraints.comparable.IsLessThanConstraint;
+import jfluentvalidation.constraints.comparable.IsLessThanOrEqualToConstraint;
+import jfluentvalidation.constraints.comparable.IsNotBetweenConstraint;
+import jfluentvalidation.constraints.comparable.IsNotEqualAccordingToCompareToConstraint;
 import jfluentvalidation.rules.PropertyRule;
 
 /**

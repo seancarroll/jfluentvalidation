@@ -34,7 +34,7 @@ public class ContainsOnlyOnceConstraint<T> extends AbstractConstraint<T, CharSeq
         // TODO: do we want to count all instances and include in message/context
         int count = 0;
         int fromIndex = 0;
-        while ((fromIndex = instanceAsString.indexOf(sequenceAsString, fromIndex)) != -1 ) {
+        while ((fromIndex = instanceAsString.indexOf(sequenceAsString, fromIndex)) != -1) {
             count++;
             if (count >= 2) {
                 return false;

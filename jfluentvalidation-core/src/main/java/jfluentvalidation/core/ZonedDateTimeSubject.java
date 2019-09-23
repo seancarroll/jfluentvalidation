@@ -1,7 +1,11 @@
 package jfluentvalidation.core;
 
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
-import jfluentvalidation.constraints.time.*;
+import jfluentvalidation.constraints.time.IsAfterOrEqualZonedDateTimeConstraint;
+import jfluentvalidation.constraints.time.IsAfterZonedDateTimeConstraint;
+import jfluentvalidation.constraints.time.IsBeforeOrEqualZonedDateTimeConstraint;
+import jfluentvalidation.constraints.time.IsBeforeZonedDateTimeConstraint;
+import jfluentvalidation.constraints.time.IsTodayZonedDateTimeConstraint;
 import jfluentvalidation.rules.PropertyRule;
 
 import java.time.ZonedDateTime;
