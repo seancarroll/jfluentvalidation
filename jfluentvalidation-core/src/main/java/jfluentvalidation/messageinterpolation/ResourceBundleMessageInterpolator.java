@@ -203,17 +203,6 @@ public class ResourceBundleMessageInterpolator {
         return resolvedMessage;
     }
 
-
-    // Hibernate validator classes...
-    // InterpolationTerm
-    // TermResolver
-    // ElTermResolver
-    // ParameterTermResolver
-    // Token
-    //  private boolean isParameter;
-    //  private boolean isEL;
-    //  private String value;
-
     /**
      * Meta character to designate an EL expression.
      */
