@@ -23,7 +23,8 @@ public class ValidationResult {
     /**
      * Creates a new ValidationResult from a collection of failures
      *
-     * @param violations  List of <see cref="ValidationFailure"/> which is later available through <see cref="Errors"/>. This list get's copied.
+     * @param violations  List of {@link ValidationFailure} which is later available through {@link Errors}.
+     *                    This list get's copied.
      */
     public ValidationResult(List<ConstraintViolation> violations) {
         this.violations = violations;

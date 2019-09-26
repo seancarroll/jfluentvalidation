@@ -1,4 +1,4 @@
-package jfluentvalidation.internal;
+package jfluentvalidation.messageinterpolation;
 
 import java.util.HashMap;
 import java.util.Map;

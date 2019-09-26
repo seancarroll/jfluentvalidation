@@ -1,6 +1,6 @@
 package jfluentvalidation.validators;
 
-import jfluentvalidation.internal.MessageFormatter;
+import jfluentvalidation.messageinterpolation.MessageFormatter;
 import jfluentvalidation.rules.Rule;
 
 // QUESTION: would ConstraintContext be a better name?

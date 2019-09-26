@@ -21,6 +21,8 @@ public class ValidatorOptions {
     public static final FailureMode FAILURE_MODE = FailureMode.CONTINUE;
     public static final Duration TEMPORAL_VALIDATION_TOLERANCE = Duration.ZERO;
 
+    // TODO: date format option for error messages
+
     // should this be similar to hibernate validator ValidatorFactoryBean
 //    config.constraintValidatorFactory( createConstraintValidatorFactory( config ) );
 //	config.messageInterpolator( createMessageInterpolator( config ) );

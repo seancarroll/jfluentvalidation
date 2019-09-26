@@ -61,3 +61,8 @@ This project was inspired by the following open source projects
 * http://joel-costigliola.github.io/assertj/assertj-core.html
 * https://github.com/google/truth
 * https://github.com/hibernate/hibernate-validator
+https://github.com/lawrencewu/fluentvalidation4j
+
+## Run Benchmark
+
+java -jar jfluentvalidation-benchmarks/target/benchmarks.jar

@@ -7,7 +7,7 @@ import jfluentvalidation.validators.RuleContext;
 public class IsNotNullOrEmptyBoolenArrayConstraint<T> extends AbstractConstraint<T, boolean[]> {
 
     public IsNotNullOrEmptyBoolenArrayConstraint() {
-        super(DefaultMessages.IS_NOT_EMPTY_OR_NULL);
+        super(DefaultMessages.IS_NOT_NULL_OR_EMPTY);
     }
 
     @Override
