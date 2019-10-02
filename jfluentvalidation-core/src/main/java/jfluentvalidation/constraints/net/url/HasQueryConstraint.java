@@ -1,4 +1,4 @@
-package jfluentvalidation.constraints.url;
+package jfluentvalidation.constraints.net.url;
 
 import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.DefaultMessages;
@@ -11,12 +11,12 @@ import java.util.Objects;
  *
  * @param <T>  the target type supported by an implementation.
  */
-public class HasAuthorityConstraint<T> extends AbstractConstraint<T, URL> {
+public class HasQueryConstraint<T> extends AbstractConstraint<T, URL> {
 
     private final String expected;
 
-    public HasAuthorityConstraint(String expected) {
-        super(DefaultMessages.HAS_AUTHORITY);
+    public HasQueryConstraint(String expected) {
+        super(DefaultMessages.NET_HAS_QUERY);
         this.expected = expected;
     }
 
@@ -25,7 +25,7 @@ public class HasAuthorityConstraint<T> extends AbstractConstraint<T, URL> {
         if (context.getPropertyValue() == null) {
             return true;
         }
-        return Objects.equals(expected, context.getPropertyValue().getAuthority());
+        return Objects.equals(expected, context.getPropertyValue().getQuery());
     }
 
 //    @Override
@@ -33,17 +33,18 @@ public class HasAuthorityConstraint<T> extends AbstractConstraint<T, URL> {
 //        return DEFAULT_MESSAGE;
 //    }
 
+
 //    @Override
 //    public List<ConstraintViolation> isValid(RuleContext<T, URL> context) {
-//        return context.getPropertyValue().getAuthority().equals(expected)
+//        return context.getPropertyValue().getQuery().equals(expected)
 //            ? Empty.CONSTRAINT_VIOLATIONS
-//            : Collections.singletonList(ConstraintViolation.create(context,"jfluentvalidation.constraints.HasAuthority.message"));
+//            : Collections.singletonList(ConstraintViolation.create(context,"jfluentvalidation.constraints.HasQuery.message"));
 //    }
-//
+
 //    @Override
 //    protected void validate(RuleContext<T, URL> context) {
-//        if (!context.getPropertyValue().getAuthority().equals(expected)) {
-//            addConstraint(ConstraintViolation.create(context, MESSAGE));
+//        if (!expected.equals(context.getPropertyValue().getQuery())) {
+//            addConstraint(ConstraintViolation.create(context, DEFAULT_MESSAGE));
 //        }
 //    }
 

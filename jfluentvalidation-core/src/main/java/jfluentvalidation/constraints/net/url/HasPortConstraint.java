@@ -1,24 +1,22 @@
-package jfluentvalidation.constraints.url;
+package jfluentvalidation.constraints.net.url;
 
 import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.DefaultMessages;
-import jfluentvalidation.internal.Ensure;
 import jfluentvalidation.validators.RuleContext;
 
-import javax.annotation.Nonnull;
 import java.net.URL;
 
 /**
  *
  * @param <T>  the target type supported by an implementation.
  */
-public class HasProtocolConstraint<T> extends AbstractConstraint<T, URL> {
+public class HasPortConstraint<T> extends AbstractConstraint<T, URL> {
 
-    private final String expected;
+    private final int expected;
 
-    public HasProtocolConstraint(@Nonnull String expected) {
-        super(DefaultMessages.URL_HAS_PROTOCOL);
-        this.expected = Ensure.notNull(expected);
+    public HasPortConstraint(int expected) {
+        super(DefaultMessages.NET_HAS_PORT);
+        this.expected = expected;
     }
 
     @Override
@@ -26,29 +24,26 @@ public class HasProtocolConstraint<T> extends AbstractConstraint<T, URL> {
         if (context.getPropertyValue() == null) {
             return true;
         }
-        return expected.equals(context.getPropertyValue().getProtocol());
+        return context.getPropertyValue().getPort() == expected;
     }
+
 
 //    @Override
 //    public String getMessage() {
 //        return DEFAULT_MESSAGE;
 //    }
 
-
 //    @Override
 //    public List<ConstraintViolation> isValid(RuleContext<T, URL> context) {
-//        return expected.equals(context.getPropertyValue().getProtocol())
+//        return context.getPropertyValue().getPort() == expected
 //            ? Empty.CONSTRAINT_VIOLATIONS
-//            : Collections.singletonList(ConstraintViolation.create(context,DEFAULT_MESSAGE));
+//            : Collections.singletonList(ConstraintViolation.create(context,"jfluentvalidation.constraints.HasPort.message"));
 //    }
-
+//
 //    @Override
 //    protected void validate(RuleContext<T, URL> context) {
-//        if (expected.equals(context.getPropertyValue().getProtocol())) {
+//        if (context.getPropertyValue().getPort() != expected) {
 //            addConstraint(ConstraintViolation.create(context, DEFAULT_MESSAGE));
 //        }
-//
 //    }
-
-
 }

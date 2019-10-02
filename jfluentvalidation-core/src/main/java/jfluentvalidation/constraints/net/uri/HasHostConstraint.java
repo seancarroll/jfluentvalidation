@@ -1,26 +1,24 @@
-package jfluentvalidation.constraints.uri;
+package jfluentvalidation.constraints.net.uri;
 
 import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.DefaultMessages;
-import jfluentvalidation.internal.Ensure;
 import jfluentvalidation.validators.RuleContext;
 
-import javax.annotation.Nonnull;
 import java.net.URI;
-
-// TODO: better name?
+import java.util.Objects;
 
 /**
+ * Verifies that the actual {@code URI} has the expected host.
  *
  * @param <T>  the target type supported by an implementation.
  */
-public class HasPathConstraint<T> extends AbstractConstraint<T, URI> {
+public class HasHostConstraint<T> extends AbstractConstraint<T, URI> {
 
     private final String expected;
 
-    public HasPathConstraint(@Nonnull String expected) {
-        super(DefaultMessages.HAS_PATH);
-        this.expected = Ensure.notNull(expected);
+    public HasHostConstraint(String expected) {
+        super(DefaultMessages.NET_HAS_HOST);
+        this.expected = expected;
     }
 
     @Override
@@ -28,7 +26,7 @@ public class HasPathConstraint<T> extends AbstractConstraint<T, URI> {
         if (context.getPropertyValue() == null) {
             return true;
         }
-        return expected.equals(context.getPropertyValue().getPath());
+        return Objects.equals(expected, context.getPropertyValue().getHost());
     }
 
 //    @Override
@@ -38,9 +36,10 @@ public class HasPathConstraint<T> extends AbstractConstraint<T, URI> {
 
 //    @Override
 //    protected void validate(RuleContext<T, URI> context) {
-//        if (!expected.equals(context.getPropertyValue().getPath())) {
+//        if (!context.getPropertyValue().getHost().equals(expected)) {
 //            addConstraint(ConstraintViolation.create(context, DEFAULT_MESSAGE));
 //        }
 //    }
+
 
 }

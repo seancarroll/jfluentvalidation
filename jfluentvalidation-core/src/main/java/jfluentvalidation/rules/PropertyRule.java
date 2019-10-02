@@ -5,7 +5,6 @@ import jfluentvalidation.SerializableFunction;
 import jfluentvalidation.ValidationFailure;
 import jfluentvalidation.constraints.Constraint;
 import jfluentvalidation.constraints.SoftConstraint;
-import jfluentvalidation.messageinterpolation.LocalizationManager;
 import jfluentvalidation.messageinterpolation.ResourceBundleMessageInterpolator;
 import jfluentvalidation.validators.RuleContext;
 import jfluentvalidation.validators.RuleOptions;
@@ -13,7 +12,6 @@ import jfluentvalidation.validators.ValidationContext;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.MissingResourceException;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
@@ -34,20 +32,16 @@ public class PropertyRule<T, P> implements Rule<T, P> {
     private Constraint<T, P> currentConstraint;
     private List<String> ruleSet = RuleSet.DEFAULT_LIST;
 
-    private LocalizationManager localizationManager;
-
     public PropertyRule(Function<T, P> propertyFunc, String propertyName, RuleOptions ruleOptions) {
         this.propertyFunc = propertyFunc;
         this.propertyName = propertyName;
         this.ruleOptions = ruleOptions;
-        this.localizationManager = new LocalizationManager();
     }
 
     public PropertyRule(Class<T> type, SerializableFunction<T, P> propertyFunc, RuleOptions ruleOptions) {
         this.propertyFunc = propertyFunc;
         this.propertyName = PropertyNameExtractor.getInstance().getPropertyName(type, propertyFunc);
         this.ruleOptions = ruleOptions;
-        this.localizationManager = new LocalizationManager();
     }
 
     @Override
@@ -63,24 +57,14 @@ public class PropertyRule<T, P> implements Rule<T, P> {
             RuleContext<T, P> ruleContext = new RuleContext<>(context, this);
             boolean isValid = constraint.isValid(ruleContext);
             if (!isValid) {
-
 //                String errorMessage = constraint.getClass().getName() + "." + context.getInstanceToValidate().getClass().getName() + ".";
                 ruleContext.getMessageFormatter().appendArgument("PropertyName", ruleContext.getRule().getPropertyName());
                 ruleContext.getMessageFormatter().appendArgument("PropertyValue", ruleContext.getPropertyValue());
-
-                // TODO: move this somewhere else
-                // TODO: things to consider
-                // - hibernate validator allows for nested interpolation via {}. see AbstractMessageInterpolator
-                // - handle EL expressions
-                String parameterValue;
-                try {
-                    parameterValue = localizationManager.getString(constraint.getOptions().getErrorMessage());
-                } catch (MissingResourceException e) {
-                    // log
-                    parameterValue = constraint.getOptions().getErrorMessage();
-                }
+                constraint.addParametersToContext(ruleContext);
 
                 ResourceBundleMessageInterpolator interpolator = new ResourceBundleMessageInterpolator();
+                // TODO: I dont think we need MessageFormatter any more. Should delete and fix
+                // ruleContext.getMessageFormatter().getPlaceholderValues()
                 String resolvedMessage = interpolator.interpolate(constraint.getOptions().getErrorMessage(), ruleContext.getMessageFormatter().getPlaceholderValues());
 //                String formattedMessage = ruleContext.getMessageFormatter().buildMessage(parameterValue);
 

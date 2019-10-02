@@ -1,23 +1,24 @@
-package jfluentvalidation.constraints.url;
+package jfluentvalidation.constraints.net.url;
 
 import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.DefaultMessages;
+import jfluentvalidation.internal.Ensure;
 import jfluentvalidation.validators.RuleContext;
 
+import javax.annotation.Nonnull;
 import java.net.URL;
-import java.util.Objects;
 
 /**
  *
  * @param <T>  the target type supported by an implementation.
  */
-public class HasQueryConstraint<T> extends AbstractConstraint<T, URL> {
+public class HasPathConstraint<T> extends AbstractConstraint<T, URL> {
 
     private final String expected;
 
-    public HasQueryConstraint(String expected) {
-        super(DefaultMessages.HAS_QUERY);
-        this.expected = expected;
+    public HasPathConstraint(@Nonnull String expected) {
+        super(DefaultMessages.NET_HAS_PATH);
+        this.expected = Ensure.notNull(expected);
     }
 
     @Override
@@ -25,7 +26,7 @@ public class HasQueryConstraint<T> extends AbstractConstraint<T, URL> {
         if (context.getPropertyValue() == null) {
             return true;
         }
-        return Objects.equals(expected, context.getPropertyValue().getQuery());
+        return expected.equals(context.getPropertyValue().getPath());
     }
 
 //    @Override
@@ -33,18 +34,17 @@ public class HasQueryConstraint<T> extends AbstractConstraint<T, URL> {
 //        return DEFAULT_MESSAGE;
 //    }
 
-
 //    @Override
 //    public List<ConstraintViolation> isValid(RuleContext<T, URL> context) {
-//        return context.getPropertyValue().getQuery().equals(expected)
+//        return expected.equals(context.getPropertyValue().getPath())
 //            ? Empty.CONSTRAINT_VIOLATIONS
-//            : Collections.singletonList(ConstraintViolation.create(context,"jfluentvalidation.constraints.HasQuery.message"));
+//            : Collections.singletonList(ConstraintViolation.create(context,"jfluentvalidation.constraints.HasPath.message"));
 //    }
-
+//
 //    @Override
 //    protected void validate(RuleContext<T, URL> context) {
-//        if (!expected.equals(context.getPropertyValue().getQuery())) {
-//            addConstraint(ConstraintViolation.create(context, DEFAULT_MESSAGE));
+//        if (!expected.equals(context.getPropertyValue().getPath())) {
+//            addConstraint(ConstraintViolation.create(context, MESSAGE));
 //        }
 //    }
 

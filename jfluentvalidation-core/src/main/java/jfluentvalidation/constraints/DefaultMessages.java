@@ -110,16 +110,16 @@ public class DefaultMessages {
     public static final String TIME_IS_BEFORE_OR_EQUAL = "{jfluentvalidation.constraints.time.IsBeforeOrEqual.message}";
     public static final String TIME_IS_TODAY = "{jfluentvalidation.constraints.time.IsToday.message}";
 
-    public static final String HAS_AUTHORITY = "{jfluentvalidation.constraints.HasAuthority.message}";
-    public static final String HAS_HOST = "{jfluentvalidation.constraints.HasHost.message}";
-    public static final String HAS_NO_PARAMETER = "{jfluentvalidation.constraints.HasNoParameter.message}";
-    public static final String HAS_PARAMETER = "{jfluentvalidation.constraints.HasParameter.message}";
-    public static final String HAS_PATH = "{jfluentvalidation.constraints.HasPath.message}";
-    public static final String HAS_PORT = "{jfluentvalidation.constraints.HasPort.message}";
-    public static final String HAS_QUERY = "{jfluentvalidation.constraints.HasQuery.message}";
+    public static final String NET_HAS_AUTHORITY = "{jfluentvalidation.constraints.net.HasAuthority.message}";
+    public static final String NET_HAS_HOST = "{jfluentvalidation.constraints.net.HasHost.message}";
+    public static final String NET_HAS_NO_PARAMETER = "{jfluentvalidation.constraints.net.HasNoParameter.message}";
+    public static final String NET_HAS_PARAMETER = "{jfluentvalidation.constraints.net.HasParameter.message}";
+    public static final String NET_HAS_PATH = "{jfluentvalidation.constraints.net.HasPath.message}";
+    public static final String NET_HAS_PORT = "{jfluentvalidation.constraints.net.HasPort.message}";
+    public static final String NET_HAS_QUERY = "{jfluentvalidation.constraints.net.HasQuery.message}";
 
-    public static final String URL_HAS_ANCHOR = "{jfluentvalidation.constraints.url.HasAnchor.message}";
-    public static final String URL_HAS_PROTOCOL = "{jfluentvalidation.constraints.url.HasProtocol.message}";
+    public static final String URL_HAS_ANCHOR = "{jfluentvalidation.constraints.net.url.HasAnchor.message}";
+    public static final String URL_HAS_PROTOCOL = "{jfluentvalidation.constraints.net.url.HasProtocol.message}";
 
     private DefaultMessages() {
         // public statics only

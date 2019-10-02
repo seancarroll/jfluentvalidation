@@ -1,4 +1,4 @@
-package jfluentvalidation.constraints.uri;
+package jfluentvalidation.constraints.net.uri;
 
 import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.DefaultMessages;
@@ -27,7 +27,7 @@ public class HasParameterConstraint<T> extends AbstractConstraint<T, URI> {
     }
 
     public HasParameterConstraint(String name, String value) {
-        super(DefaultMessages.HAS_PARAMETER);
+        super(DefaultMessages.NET_HAS_PARAMETER);
         this.name = name;
         this.value = value;
     }
@@ -71,4 +71,12 @@ public class HasParameterConstraint<T> extends AbstractConstraint<T, URI> {
 //        }
 //    }
 
+
+//    @Override
+//    public void addParametersToContext(RuleContext<T, URI> context) {
+//        context.getMessageFormatter().appendArgument("ParameterName", name);
+//        context.getMessageFormatter().appendArgument("ParameterValue", value);
+//        context.getValidationContext().getContextData().put("ParameterName", name);
+//        context.getValidationContext().getContextData().put("ParameterValue", value);
+//    }
 }

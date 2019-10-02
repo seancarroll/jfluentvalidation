@@ -1,22 +1,22 @@
-package jfluentvalidation.constraints.uri;
+package jfluentvalidation.constraints.net.uri;
 
 import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.DefaultMessages;
 import jfluentvalidation.validators.RuleContext;
 
 import java.net.URI;
-import java.util.Objects;
 
 /**
+ * Verifies that the actual {@code URI} has the expected authority.
  *
  * @param <T>  the target type supported by an implementation.
  */
-public class HasQueryConstraint<T> extends AbstractConstraint<T, URI> {
+public class HasAuthorityConstraint<T> extends AbstractConstraint<T, URI> {
 
     private final String expected;
 
-    public HasQueryConstraint(String expected) {
-        super(DefaultMessages.HAS_QUERY);
+    public HasAuthorityConstraint(String expected) {
+        super(DefaultMessages.NET_HAS_AUTHORITY);
         this.expected = expected;
     }
 
@@ -25,7 +25,7 @@ public class HasQueryConstraint<T> extends AbstractConstraint<T, URI> {
         if (context.getPropertyValue() == null) {
             return true;
         }
-        return Objects.equals(expected, context.getPropertyValue().getQuery());
+        return context.getPropertyValue().getAuthority().equals(expected);
     }
 
 //    @Override
@@ -33,10 +33,9 @@ public class HasQueryConstraint<T> extends AbstractConstraint<T, URI> {
 //        return DEFAULT_MESSAGE;
 //    }
 
-
 //    @Override
 //    protected void validate(RuleContext<T, URI> context) {
-//        if (!expected.equals(context.getPropertyValue().getQuery())) {
+//        if (!context.getPropertyValue().getAuthority().equals(expected)) {
 //            addConstraint(ConstraintViolation.create(context, DEFAULT_MESSAGE));
 //        }
 //    }

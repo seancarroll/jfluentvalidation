@@ -1,22 +1,22 @@
-package jfluentvalidation.constraints.uri;
+package jfluentvalidation.constraints.net.uri;
 
 import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.DefaultMessages;
 import jfluentvalidation.validators.RuleContext;
 
 import java.net.URI;
+import java.util.Objects;
 
 /**
- * Verifies that the actual {@code URI} has the expected port.
  *
  * @param <T>  the target type supported by an implementation.
  */
-public class HasPortConstraint<T> extends AbstractConstraint<T, URI> {
+public class HasQueryConstraint<T> extends AbstractConstraint<T, URI> {
 
-    private final int expected;
+    private final String expected;
 
-    public HasPortConstraint(int expected) {
-        super(DefaultMessages.HAS_PORT);
+    public HasQueryConstraint(String expected) {
+        super(DefaultMessages.NET_HAS_QUERY);
         this.expected = expected;
     }
 
@@ -25,7 +25,7 @@ public class HasPortConstraint<T> extends AbstractConstraint<T, URI> {
         if (context.getPropertyValue() == null) {
             return true;
         }
-        return context.getPropertyValue().getPort() == expected;
+        return Objects.equals(expected, context.getPropertyValue().getQuery());
     }
 
 //    @Override
@@ -33,9 +33,10 @@ public class HasPortConstraint<T> extends AbstractConstraint<T, URI> {
 //        return DEFAULT_MESSAGE;
 //    }
 
+
 //    @Override
 //    protected void validate(RuleContext<T, URI> context) {
-//        if (context.getPropertyValue().getPort() != expected) {
+//        if (!expected.equals(context.getPropertyValue().getQuery())) {
 //            addConstraint(ConstraintViolation.create(context, DEFAULT_MESSAGE));
 //        }
 //    }

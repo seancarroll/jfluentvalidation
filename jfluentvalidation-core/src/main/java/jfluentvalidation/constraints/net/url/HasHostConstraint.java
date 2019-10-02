@@ -1,28 +1,27 @@
-package jfluentvalidation.constraints.uri;
+package jfluentvalidation.constraints.net.url;
 
 import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.DefaultMessages;
 import jfluentvalidation.validators.RuleContext;
 
-import java.net.URI;
+import java.net.URL;
 import java.util.Objects;
 
 /**
- * Verifies that the actual {@code URI} has the expected host.
  *
  * @param <T>  the target type supported by an implementation.
  */
-public class HasHostConstraint<T> extends AbstractConstraint<T, URI> {
+public class HasHostConstraint<T> extends AbstractConstraint<T, URL> {
 
     private final String expected;
 
     public HasHostConstraint(String expected) {
-        super(DefaultMessages.HAS_HOST);
+        super(DefaultMessages.NET_HAS_HOST);
         this.expected = expected;
     }
 
     @Override
-    public boolean isValid(RuleContext<T, URI> context) {
+    public boolean isValid(RuleContext<T, URL> context) {
         if (context.getPropertyValue() == null) {
             return true;
         }
@@ -35,9 +34,16 @@ public class HasHostConstraint<T> extends AbstractConstraint<T, URI> {
 //    }
 
 //    @Override
-//    protected void validate(RuleContext<T, URI> context) {
+//    public List<ConstraintViolation> isValid(RuleContext<T, URL> context) {
+//        return context.getPropertyValue().getHost().equals(expected)
+//            ? Empty.CONSTRAINT_VIOLATIONS
+//            : Collections.singletonList(ConstraintViolation.create(context,"jfluentvalidation.constraints.HasHost.message"));
+//    }
+//
+//    @Override
+//    protected void validate(RuleContext<T, URL> context) {
 //        if (!context.getPropertyValue().getHost().equals(expected)) {
-//            addConstraint(ConstraintViolation.create(context, DEFAULT_MESSAGE));
+//            addConstraint(ConstraintViolation.create(context, MESSAGE));
 //        }
 //    }
 

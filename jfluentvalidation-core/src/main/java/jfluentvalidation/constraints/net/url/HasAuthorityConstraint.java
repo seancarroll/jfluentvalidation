@@ -1,4 +1,4 @@
-package jfluentvalidation.constraints.url;
+package jfluentvalidation.constraints.net.url;
 
 import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.DefaultMessages;
@@ -8,16 +8,15 @@ import java.net.URL;
 import java.util.Objects;
 
 /**
- * Gets the anchor (also known as the "reference") of this {@code URL}.
  *
  * @param <T>  the target type supported by an implementation.
  */
-public class HasAnchorConstraint<T> extends AbstractConstraint<T, URL> {
+public class HasAuthorityConstraint<T> extends AbstractConstraint<T, URL> {
 
     private final String expected;
 
-    public HasAnchorConstraint(String expected) {
-        super(DefaultMessages.URL_HAS_ANCHOR);
+    public HasAuthorityConstraint(String expected) {
+        super(DefaultMessages.NET_HAS_AUTHORITY);
         this.expected = expected;
     }
 
@@ -26,7 +25,7 @@ public class HasAnchorConstraint<T> extends AbstractConstraint<T, URL> {
         if (context.getPropertyValue() == null) {
             return true;
         }
-        return Objects.equals(expected, context.getPropertyValue().getRef());
+        return Objects.equals(expected, context.getPropertyValue().getAuthority());
     }
 
 //    @Override
@@ -36,14 +35,14 @@ public class HasAnchorConstraint<T> extends AbstractConstraint<T, URL> {
 
 //    @Override
 //    public List<ConstraintViolation> isValid(RuleContext<T, URL> context) {
-//        return context.getPropertyValue().getRef().equals(expected)
+//        return context.getPropertyValue().getAuthority().equals(expected)
 //            ? Empty.CONSTRAINT_VIOLATIONS
-//            : Collections.singletonList(ConstraintViolation.create(context,"jfluentvalidation.constraints.HasAnchor.message"));
+//            : Collections.singletonList(ConstraintViolation.create(context,"jfluentvalidation.constraints.HasAuthority.message"));
 //    }
 //
 //    @Override
 //    protected void validate(RuleContext<T, URL> context) {
-//        if (!expected.equals(context.getPropertyValue().getRef())) {
+//        if (!context.getPropertyValue().getAuthority().equals(expected)) {
 //            addConstraint(ConstraintViolation.create(context, MESSAGE));
 //        }
 //    }

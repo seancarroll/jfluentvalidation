@@ -1,4 +1,4 @@
-package jfluentvalidation.constraints.url;
+package jfluentvalidation.constraints.net.url;
 
 import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.DefaultMessages;
@@ -29,7 +29,7 @@ public class HasNoParameterConstraint<T> extends AbstractConstraint<T, URL> {
     }
 
     public HasNoParameterConstraint(String name, String value) {
-        super(DefaultMessages.HAS_NO_PARAMETER);
+        super(DefaultMessages.NET_HAS_NO_PARAMETER);
         this.name = name;
         this.value = value;  // unwantedValue
     }
