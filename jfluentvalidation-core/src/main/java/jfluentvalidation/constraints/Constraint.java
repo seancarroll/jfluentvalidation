@@ -76,6 +76,7 @@ public interface Constraint<T, P> {
     // String getMessage();
 
     ConstraintOptions getOptions();
-    
+
+    void addParametersToContext(RuleContext<T, P> context);
 
 }

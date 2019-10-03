@@ -60,7 +60,7 @@ public class PropertyRule<T, P> implements Rule<T, P> {
 //                String errorMessage = constraint.getClass().getName() + "." + context.getInstanceToValidate().getClass().getName() + ".";
                 ruleContext.getMessageFormatter().appendArgument("PropertyName", ruleContext.getRule().getPropertyName());
                 ruleContext.getMessageFormatter().appendArgument("PropertyValue", ruleContext.getPropertyValue());
-//                constraint.addParametersToContext(ruleContext);
+                constraint.addParametersToContext(ruleContext);
 
                 ResourceBundleMessageInterpolator interpolator = new ResourceBundleMessageInterpolator();
                 // TODO: I dont think we need MessageFormatter any more. Should delete and fix

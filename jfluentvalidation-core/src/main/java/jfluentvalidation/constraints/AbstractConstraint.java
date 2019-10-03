@@ -1,6 +1,7 @@
 package jfluentvalidation.constraints;
 
 import jfluentvalidation.validators.ConstraintOptions;
+import jfluentvalidation.validators.RuleContext;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,5 +37,10 @@ public abstract class AbstractConstraint<T, P> implements Constraint<T, P> {
     @Override
     public ConstraintOptions getOptions() {
         return options;
+    }
+
+    @Override
+    public void addParametersToContext(RuleContext<T, P> context) {
+        // default do nothing
     }
 }

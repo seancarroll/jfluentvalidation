@@ -87,12 +87,12 @@ public class HasParameterConstraint<T> extends AbstractConstraint<T, URL> {
 //
 //    }
 
-//    @Override
-//    public void addParametersToContext(RuleContext<T, URL> context) {
-//        context.getMessageFormatter().appendArgument("ParameterName", name);
-//        context.getMessageFormatter().appendArgument("ParameterValue", value);
-//        context.getValidationContext().getContextData().put("ParameterName", name);
-//        context.getValidationContext().getContextData().put("ParameterValue", value);
-//    }
+    @Override
+    public void addParametersToContext(RuleContext<T, URL> context) {
+        context.getMessageFormatter().appendArgument("ParameterName", name);
+        context.getMessageFormatter().appendArgument("ParameterValue", value);
+        context.getValidationContext().getContextData().put("ParameterName", name);
+        context.getValidationContext().getContextData().put("ParameterValue", value);
+    }
 
 }

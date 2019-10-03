@@ -107,6 +107,7 @@ public class ResourceBundleMessageInterpolator {
                     : replacePlaceholderWithValue(t.getValue(), placeHolderKey, placeHolderValue);
                 resolvedMessages.add(resolvedToken);
             } else if (t.isEL()) {
+                // TODO: catch unresolvable property or identifier exception. Others?
                 resolvedMessages.add(MVEL.evalToString(removeDollarAndCurlyBraces(t.getValue()), new MapVariableResolverFactory(context)));
             } else {
                 resolvedMessages.add(t.getValue());
