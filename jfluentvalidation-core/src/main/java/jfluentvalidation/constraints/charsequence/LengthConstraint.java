@@ -35,4 +35,10 @@ public class LengthConstraint<T, A extends CharSequence> extends AbstractConstra
 
         return true;
     }
+
+    @Override
+    public void addParametersToContext(RuleContext<T, A> context) {
+        context.getMessageContext().appendArgument("min", min);
+        context.getMessageContext().appendArgument("max", max);
+    }
 }

@@ -57,15 +57,18 @@ public class PropertyRule<T, P> implements Rule<T, P> {
             RuleContext<T, P> ruleContext = new RuleContext<>(context, this);
             boolean isValid = constraint.isValid(ruleContext);
             if (!isValid) {
+                ruleContext.getMessageContext().appendPropertyName(ruleContext.getRule().getPropertyName());
+                ruleContext.getMessageContext().appendPropertyValue(ruleContext.getPropertyValue());
 //                String errorMessage = constraint.getClass().getName() + "." + context.getInstanceToValidate().getClass().getName() + ".";
-                ruleContext.getMessageFormatter().appendArgument("PropertyName", ruleContext.getRule().getPropertyName());
-                ruleContext.getMessageFormatter().appendArgument("PropertyValue", ruleContext.getPropertyValue());
+                // ruleContext.getMessageFormatter().appendArgument("PropertyName", ruleContext.getRule().getPropertyName());
+                // ruleContext.getMessageFormatter().appendArgument("PropertyValue", ruleContext.getPropertyValue());
                 constraint.addParametersToContext(ruleContext);
 
                 ResourceBundleMessageInterpolator interpolator = new ResourceBundleMessageInterpolator();
                 // TODO: I dont think we need MessageFormatter any more. Should delete and fix
                 // ruleContext.getMessageFormatter().getPlaceholderValues()
-                String resolvedMessage = interpolator.interpolate(constraint.getOptions().getErrorMessage(), ruleContext.getMessageFormatter().getPlaceholderValues());
+                // String resolvedMessage = interpolator.interpolate(constraint.getOptions().getErrorMessage(), ruleContext.getMessageFormatter().getPlaceholderValues());
+                String resolvedMessage = interpolator.interpolate(constraint.getOptions().getErrorMessage(), ruleContext.getMessageContext().getPlaceholderValues());
 //                String formattedMessage = ruleContext.getMessageFormatter().buildMessage(parameterValue);
 
 

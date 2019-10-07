@@ -38,4 +38,12 @@ public class HasLengthBetweenConstraint<T, A extends CharSequence> extends Abstr
         int len = context.getPropertyValue().length();
         return Comparables.isBetween(len, min, max, inclusiveStart, inclusiveEnd);
     }
+
+    @Override
+    public void addParametersToContext(RuleContext<T, A> context) {
+        context.getMessageContext().appendArgument("min", min);
+        context.getMessageContext().appendArgument("max", max);
+        context.getMessageContext().appendArgument("inclusiveStart", inclusiveStart);
+        context.getMessageContext().appendArgument("inclusiveEnd", inclusiveEnd);
+    }
 }

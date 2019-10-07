@@ -28,4 +28,9 @@ public class ContainsIgnoreCaseConstraint<T, A extends CharSequence> extends Abs
         }
         return context.getPropertyValue().toString().toLowerCase().contains(charSequence.toString().toLowerCase());
     }
+
+    @Override
+    public void addParametersToContext(RuleContext<T, A> context) {
+        context.getMessageContext().appendArgument("value", charSequence);
+    }
 }

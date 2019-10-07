@@ -28,4 +28,9 @@ public class IsEqualToIgnoringCaseConstraint<T, A extends CharSequence> extends 
         }
         return context.getPropertyValue().toString().equalsIgnoreCase(other.toString());
     }
+
+    @Override
+    public void addParametersToContext(RuleContext<T, A> context) {
+        context.getMessageContext().appendArgument("other", other);
+    }
 }

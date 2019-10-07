@@ -4,6 +4,8 @@ import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.DefaultMessages;
 import jfluentvalidation.validators.RuleContext;
 
+import static jfluentvalidation.common.Strings.isUpperCase;
+
 /**
  * Check that the given {@code CharSequence} being validated contains only uppercase characters.
  *
@@ -22,6 +24,8 @@ public class IsUpperCaseConstraint<T> extends AbstractConstraint<T, CharSequence
         if (val == null) {
             return true;
         }
-        return val.equals(val.toString().toUpperCase());
+
+        return isUpperCase(val);
     }
+
 }

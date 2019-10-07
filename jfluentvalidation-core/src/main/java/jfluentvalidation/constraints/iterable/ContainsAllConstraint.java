@@ -47,7 +47,7 @@ public class ContainsAllConstraint<T, P> extends AbstractConstraint<T, Iterable<
             .collect(toCollection(LinkedHashSet::new));
 
         if (!notFound.isEmpty()) {
-            context.getMessageFormatter().appendArgument("missingValues", notFound);
+            context.getMessageContext().appendArgument("missingValues", notFound);
         }
 
         return notFound.isEmpty();

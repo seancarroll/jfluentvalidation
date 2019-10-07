@@ -4,6 +4,8 @@ import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.DefaultMessages;
 import jfluentvalidation.validators.RuleContext;
 
+import static jfluentvalidation.common.Strings.isLowerCase;
+
 /**
  * Check that the given {@code CharSequence} being validated contains only lowercase characters.
  *
@@ -22,6 +24,9 @@ public class IsLowerCaseConstraint<T> extends AbstractConstraint<T, CharSequence
         if (val == null) {
             return true;
         }
-        return val.equals(val.toString().toLowerCase());
+
+        return isLowerCase(val);
     }
+
+
 }

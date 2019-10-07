@@ -16,7 +16,7 @@ import java.util.regex.Pattern;
  *
  * @param <T>  type of instance to validate.
  */
-public class ContainsPatternConstraint<T> extends AbstractConstraint<T, CharSequence> {
+public class ContainsPatternConstraint<T, A extends CharSequence> extends AbstractConstraint<T, A> {
 
     private final Pattern pattern;
 
@@ -31,10 +31,15 @@ public class ContainsPatternConstraint<T> extends AbstractConstraint<T, CharSequ
     }
 
     @Override
-    public boolean isValid(RuleContext<T, CharSequence> context) {
+    public boolean isValid(RuleContext<T, A> context) {
         if (context.getPropertyValue() == null) {
             return true;
         }
         return pattern.matcher(context.getPropertyValue()).find();
+    }
+
+    @Override
+    public void addParametersToContext(RuleContext<T, A> context) {
+        context.getMessageContext().appendArgument("pattern", pattern);
     }
 }

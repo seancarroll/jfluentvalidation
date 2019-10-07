@@ -29,23 +29,8 @@ public class HasPathConstraint<T> extends AbstractConstraint<T, URL> {
         return expected.equals(context.getPropertyValue().getPath());
     }
 
-//    @Override
-//    public String getMessage() {
-//        return DEFAULT_MESSAGE;
-//    }
-
-//    @Override
-//    public List<ConstraintViolation> isValid(RuleContext<T, URL> context) {
-//        return expected.equals(context.getPropertyValue().getPath())
-//            ? Empty.CONSTRAINT_VIOLATIONS
-//            : Collections.singletonList(ConstraintViolation.create(context,"jfluentvalidation.constraints.HasPath.message"));
-//    }
-//
-//    @Override
-//    protected void validate(RuleContext<T, URL> context) {
-//        if (!expected.equals(context.getPropertyValue().getPath())) {
-//            addConstraint(ConstraintViolation.create(context, MESSAGE));
-//        }
-//    }
-
+    @Override
+    public void addParametersToContext(RuleContext<T, URL> context) {
+        context.getMessageContext().appendArgument("value", expected);
+    }
 }

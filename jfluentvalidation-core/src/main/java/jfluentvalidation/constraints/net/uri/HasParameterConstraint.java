@@ -45,38 +45,9 @@ public class HasParameterConstraint<T> extends AbstractConstraint<T, URI> {
         return values.contains(value);
     }
 
-//    @Override
-//    public String getMessage() {
-//        return DEFAULT_MESSAGE;
-//    }
-
-
-//
-//    @Override
-//    protected void validate(RuleContext<T, URI> context) {
-//        Map<String, List<String>> parameters = getParameters(context.getPropertyValue().getQuery());
-//        boolean containsName = parameters.containsKey(name);
-//
-//        if (value == null) {
-//            if (!containsName) {
-//                addConstraint(ConstraintViolation.create(context, DEFAULT_MESSAGE));
-//            }
-//            return;
-//        }
-//
-//        // TODO: could return null
-//        List<String> values = parameters.get(name);
-//        if (!values.contains(value)) {
-//            addConstraint(ConstraintViolation.create(context, DEFAULT_MESSAGE));
-//        }
-//    }
-
-
     @Override
     public void addParametersToContext(RuleContext<T, URI> context) {
-        context.getMessageFormatter().appendArgument("ParameterName", name);
-        context.getMessageFormatter().appendArgument("ParameterValue", value);
-        context.getValidationContext().getContextData().put("ParameterName", name);
-        context.getValidationContext().getContextData().put("ParameterValue", value);
+        context.getMessageContext().appendArgument("ParameterName", name);
+        context.getMessageContext().appendArgument("ParameterValue", value);
     }
 }

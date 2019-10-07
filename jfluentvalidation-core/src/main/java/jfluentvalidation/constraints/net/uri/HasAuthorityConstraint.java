@@ -28,16 +28,8 @@ public class HasAuthorityConstraint<T> extends AbstractConstraint<T, URI> {
         return context.getPropertyValue().getAuthority().equals(expected);
     }
 
-//    @Override
-//    public String getMessage() {
-//        return DEFAULT_MESSAGE;
-//    }
-
-//    @Override
-//    protected void validate(RuleContext<T, URI> context) {
-//        if (!context.getPropertyValue().getAuthority().equals(expected)) {
-//            addConstraint(ConstraintViolation.create(context, DEFAULT_MESSAGE));
-//        }
-//    }
-
+    @Override
+    public void addParametersToContext(RuleContext<T, URI> context) {
+        context.getMessageContext().appendArgument("value", expected);
+    }
 }

@@ -29,17 +29,8 @@ public class HasHostConstraint<T> extends AbstractConstraint<T, URI> {
         return Objects.equals(expected, context.getPropertyValue().getHost());
     }
 
-//    @Override
-//    public String getMessage() {
-//        return DEFAULT_MESSAGE;
-//    }
-
-//    @Override
-//    protected void validate(RuleContext<T, URI> context) {
-//        if (!context.getPropertyValue().getHost().equals(expected)) {
-//            addConstraint(ConstraintViolation.create(context, DEFAULT_MESSAGE));
-//        }
-//    }
-
-
+    @Override
+    public void addParametersToContext(RuleContext<T, URI> context) {
+        context.getMessageContext().appendArgument("value", expected);
+    }
 }

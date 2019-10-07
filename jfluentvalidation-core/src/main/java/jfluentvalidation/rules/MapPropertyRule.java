@@ -58,9 +58,9 @@ public class MapPropertyRule<T, K, V> extends PropertyRule<T, Map<K, V>> {
                     RuleContext ruleContext = new RuleContext(childContext, rule, e);
                     boolean isValid = itemConstraint.getConstraint().isValid(ruleContext);
                     if (!isValid) {
-                        ruleContext.getMessageFormatter().appendArgument("PropertyName", ruleContext.getRule().getPropertyName());
-                        ruleContext.getMessageFormatter().appendArgument("index", i);
-                        ruleContext.getMessageFormatter().appendArgument("PropertyValue", ruleContext.getPropertyValue());
+                        ruleContext.getMessageContext().appendPropertyName(ruleContext.getRule().getPropertyName());
+                        ruleContext.getMessageContext().appendArgument("index", i);
+                        ruleContext.getMessageContext().appendPropertyValue(ruleContext.getPropertyValue());
 
                         failures.add(new ValidationFailure(getPropertyName(), itemConstraint.getConstraint().getOptions().getErrorMessage(), e));
                     }

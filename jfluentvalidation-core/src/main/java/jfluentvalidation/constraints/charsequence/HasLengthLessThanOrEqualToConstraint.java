@@ -25,4 +25,9 @@ public class HasLengthLessThanOrEqualToConstraint<T, A extends CharSequence> ext
         }
         return context.getPropertyValue().length() <= length;
     }
+
+    @Override
+    public void addParametersToContext(RuleContext<T, A> context) {
+        context.getMessageContext().appendArgument("length", length);
+    }
 }

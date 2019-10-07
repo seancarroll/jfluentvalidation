@@ -1,6 +1,6 @@
 package jfluentvalidation.validators;
 
-import jfluentvalidation.messageinterpolation.MessageFormatter;
+import jfluentvalidation.messageinterpolation.MessageContext;
 import jfluentvalidation.rules.Rule;
 
 // QUESTION: would ConstraintContext be a better name?
@@ -14,7 +14,8 @@ public class RuleContext<T, P> {
     private final ValidationContext<T> validationContext;
     private final Rule<T, P> rule;
     private final P propertyValue;
-    private final MessageFormatter messageFormatter;
+    //private final MessageFormatter messageFormatter;
+    private final MessageContext messageContext;
 
     // TODO: I dont know where I want this to belong but for right now I'm putting it here
     // TODO: should this be a linkedhashmap?
@@ -31,7 +32,8 @@ public class RuleContext<T, P> {
         this.validationContext = validationContext;
         this.rule = rule;
         this.propertyValue = rule.getPropertyFunc().apply(validationContext.getInstanceToValidate());
-        this.messageFormatter = new MessageFormatter();
+        //this.messageFormatter = new MessageFormatter();
+        this.messageContext = new MessageContext();
     }
 
     /**
@@ -44,7 +46,8 @@ public class RuleContext<T, P> {
         this.validationContext = validationContext;
         this.rule = rule;
         this.propertyValue = propertyValue;
-        this.messageFormatter = new MessageFormatter();
+        //this.messageFormatter = new MessageFormatter();
+        this.messageContext = new MessageContext();
     }
 
     public T getInstanceToValidate() {
@@ -63,9 +66,13 @@ public class RuleContext<T, P> {
         return rule;
     }
 
-    public MessageFormatter getMessageFormatter() {
-        return messageFormatter;
+    public MessageContext getMessageContext() {
+        return messageContext;
     }
+
+    //    public MessageFormatter getMessageFormatter() {
+//        return messageFormatter;
+//    }
 
 //    public void appendArgument(String name, Object arg) {
 //        this.additionalArguments.put(name, arg);

@@ -49,7 +49,7 @@ public class ContainsValuesConstraint<T, K, V> extends AbstractConstraint<T, Map
         }
 
         if (!notFound.isEmpty()) {
-            context.getMessageFormatter().appendArgument("missingValues", notFound);
+            context.getMessageContext().appendArgument("missingValues", notFound);
         }
 
         return notFound.isEmpty();

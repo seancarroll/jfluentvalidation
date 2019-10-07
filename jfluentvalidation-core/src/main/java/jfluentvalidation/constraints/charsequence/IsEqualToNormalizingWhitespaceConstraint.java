@@ -46,4 +46,9 @@ public class IsEqualToNormalizingWhitespaceConstraint<T, A extends CharSequence>
         }
         return result.toString().trim();
     }
+
+    @Override
+    public void addParametersToContext(RuleContext<T, A> context) {
+        context.getMessageContext().appendArgument("expected", expected);
+    }
 }

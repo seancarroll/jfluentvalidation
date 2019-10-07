@@ -9,7 +9,7 @@ import jfluentvalidation.validators.RuleContext;
  *
  * @param <T>  type of instance to validate.
  */
-public class IsSubstringOfConstraint<T> extends AbstractConstraint<T, CharSequence> {
+public class IsSubstringOfConstraint<T, A extends CharSequence> extends AbstractConstraint<T, A> {
 
     private final CharSequence sequence;
 
@@ -20,10 +20,15 @@ public class IsSubstringOfConstraint<T> extends AbstractConstraint<T, CharSequen
 
     // TODO: comparison strategy
     @Override
-    public boolean isValid(RuleContext<T, CharSequence> context) {
+    public boolean isValid(RuleContext<T, A> context) {
         if (context.getPropertyValue() == null) {
             return true;
         }
         return sequence.toString().contains(context.getPropertyValue());
+    }
+
+    @Override
+    public void addParametersToContext(RuleContext<T, A> context) {
+        context.getMessageContext().appendArgument("sequence", sequence);
     }
 }

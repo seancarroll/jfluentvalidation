@@ -10,7 +10,7 @@ import jfluentvalidation.validators.RuleContext;
  *
  * @param <T>  type of instance to validate.
  */
-public class StartsWithConstraint<T> extends AbstractConstraint<T, CharSequence> {
+public class StartsWithConstraint<T, A extends CharSequence> extends AbstractConstraint<T, A> {
 
     private final CharSequence prefix;
     private final int offset;
@@ -26,11 +26,18 @@ public class StartsWithConstraint<T> extends AbstractConstraint<T, CharSequence>
     }
 
     @Override
-    public boolean isValid(RuleContext<T, CharSequence> context) {
+    public boolean isValid(RuleContext<T, A> context) {
         // TODO: this probably should be based on a comparison strategy
         if (context.getPropertyValue() == null) {
             return true;
         }
         return context.getPropertyValue().toString().startsWith(prefix.toString(), offset);
+    }
+
+
+    @Override
+    public void addParametersToContext(RuleContext<T, A> context) {
+        context.getMessageContext().appendArgument("prefix", prefix);
+        context.getMessageContext().appendArgument("offset", offset);
     }
 }

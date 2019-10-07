@@ -31,8 +31,6 @@ final class EmailValidator {
             "(\\." + "(" + LOCAL_PART_ATOM + "+|\"" + LOCAL_PART_INSIDE_QUOTES_ATOM + "+\")" + ")*", CASE_INSENSITIVE
     );
 
-    public EmailValidator() { }
-
     public static boolean isValid(CharSequence value) {
         // cannot split email string at @ as it can be a part of quoted local part of email.
         // so we need to split at a position of last @ present in the string:
@@ -62,4 +60,5 @@ final class EmailValidator {
         return matcher.matches();
     }
 
+    private EmailValidator() { }
 }

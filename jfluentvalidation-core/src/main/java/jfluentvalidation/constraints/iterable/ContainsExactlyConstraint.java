@@ -50,7 +50,7 @@ public class ContainsExactlyConstraint<T, P> extends AbstractConstraint<T, Itera
             int i = 0;
             for (P elementFromActual : actual) {
                 if (!Objects.equals(elementFromActual, expectedAsList.get(i))) {
-                    context.getMessageFormatter().appendArgument("differentOrder", elementFromActual);
+                    context.getMessageContext().appendArgument("differentOrder", elementFromActual);
                     return false;
                 }
                 i++;
@@ -59,11 +59,11 @@ public class ContainsExactlyConstraint<T, P> extends AbstractConstraint<T, Itera
         }
 
         if (diff.hasMissing()) {
-            context.getMessageFormatter().appendArgument("missingValues", diff.getMissing());
+            context.getMessageContext().appendArgument("missingValues", diff.getMissing());
         }
 
         if (diff.hasUnexpected()) {
-            context.getMessageFormatter().appendArgument("unexpectedValues", diff.getUnexpected());
+            context.getMessageContext().appendArgument("unexpectedValues", diff.getUnexpected());
         }
 
         return false;

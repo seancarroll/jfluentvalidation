@@ -44,55 +44,10 @@ public class HasParameterConstraint<T> extends AbstractConstraint<T, URL> {
         return values.contains(value);
     }
 
-//    @Override
-//    public String getMessage() {
-//        return DEFAULT_MESSAGE;
-//    }
-
-//    @Override
-//    public List<ConstraintViolation> isValid(RuleContext<T, URL> context) {
-//        Map<String, List<String>> parameters = getParameters(context.getPropertyValue().getQuery());
-//        boolean containsName = parameters.containsKey(name);
-//
-//        // TODO: do we need two separate messages? one with just the name for here and one with both name and value for below?
-//        if (value == null) {
-//             return containsName
-//                 ? Empty.CONSTRAINT_VIOLATIONS
-//                 : Collections.singletonList(ConstraintViolation.create(context,"jfluentvalidation.constraints.HasParameter.message"));
-//        }
-//
-//        List<String> values = parameters.get(name);
-//        return values.contains(value)
-//            ? Empty.CONSTRAINT_VIOLATIONS
-//            : Collections.singletonList(ConstraintViolation.create(context,"jfluentvalidation.constraints.HasParameter.message"));
-//    }
-//
-//    @Override
-//    protected void validate(RuleContext<T, URL> context) {
-//        Map<String, List<String>> parameters = getParameters(context.getPropertyValue().getQuery());
-//        boolean containsName = parameters.containsKey(name);
-//
-//        if (value == null) {
-//            if (!containsName) {
-//                addConstraint(ConstraintViolation.create(context, MESSAGE));
-//            }
-//            return;
-//        }
-//
-//        // TODO: could return null
-//        List<String> values = parameters.get(name);
-//        if (!values.contains(value)) {
-//            addConstraint(ConstraintViolation.create(context, MESSAGE));
-//        }
-//
-//    }
-
     @Override
     public void addParametersToContext(RuleContext<T, URL> context) {
-        context.getMessageFormatter().appendArgument("ParameterName", name);
-        context.getMessageFormatter().appendArgument("ParameterValue", value);
-        context.getValidationContext().getContextData().put("ParameterName", name);
-        context.getValidationContext().getContextData().put("ParameterValue", value);
+        context.getMessageContext().appendArgument("ParameterName", name);
+        context.getMessageContext().appendArgument("ParameterValue", value);
     }
 
 }

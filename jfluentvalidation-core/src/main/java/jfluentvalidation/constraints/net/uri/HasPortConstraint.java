@@ -28,16 +28,8 @@ public class HasPortConstraint<T> extends AbstractConstraint<T, URI> {
         return context.getPropertyValue().getPort() == expected;
     }
 
-//    @Override
-//    public String getMessage() {
-//        return DEFAULT_MESSAGE;
-//    }
-
-//    @Override
-//    protected void validate(RuleContext<T, URI> context) {
-//        if (context.getPropertyValue().getPort() != expected) {
-//            addConstraint(ConstraintViolation.create(context, DEFAULT_MESSAGE));
-//        }
-//    }
-
+    @Override
+    public void addParametersToContext(RuleContext<T, URI> context) {
+        context.getMessageContext().appendArgument("value", expected);
+    }
 }

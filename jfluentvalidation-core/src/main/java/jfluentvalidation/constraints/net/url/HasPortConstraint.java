@@ -27,23 +27,8 @@ public class HasPortConstraint<T> extends AbstractConstraint<T, URL> {
         return context.getPropertyValue().getPort() == expected;
     }
 
-
-//    @Override
-//    public String getMessage() {
-//        return DEFAULT_MESSAGE;
-//    }
-
-//    @Override
-//    public List<ConstraintViolation> isValid(RuleContext<T, URL> context) {
-//        return context.getPropertyValue().getPort() == expected
-//            ? Empty.CONSTRAINT_VIOLATIONS
-//            : Collections.singletonList(ConstraintViolation.create(context,"jfluentvalidation.constraints.HasPort.message"));
-//    }
-//
-//    @Override
-//    protected void validate(RuleContext<T, URL> context) {
-//        if (context.getPropertyValue().getPort() != expected) {
-//            addConstraint(ConstraintViolation.create(context, DEFAULT_MESSAGE));
-//        }
-//    }
+    @Override
+    public void addParametersToContext(RuleContext<T, URL> context) {
+        context.getMessageContext().appendArgument("value", expected);
+    }
 }

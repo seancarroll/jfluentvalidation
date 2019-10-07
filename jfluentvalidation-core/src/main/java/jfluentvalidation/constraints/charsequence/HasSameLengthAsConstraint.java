@@ -28,4 +28,9 @@ public class HasSameLengthAsConstraint<T, A extends CharSequence> extends Abstra
         }
         return context.getPropertyValue().length() == other.length();
     }
+
+    @Override
+    public void addParametersToContext(RuleContext<T, A> context) {
+        context.getMessageContext().appendArgument("other", other);
+    }
 }

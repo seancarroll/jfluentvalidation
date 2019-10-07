@@ -50,44 +50,9 @@ public class HasNoParameterConstraint<T> extends AbstractConstraint<T, URL> {
         return values == null || !values.contains(value);
     }
 
-//    @Override
-//    public String getMessage() {
-//        return DEFAULT_MESSAGE;
-//    }
-
-//    @Override
-//    public List<ConstraintViolation> isValid(RuleContext<T, URL> context) {
-//        if (name == null) {
-//            return getParameters(context.getPropertyValue().getQuery()).isEmpty()
-//                ? Empty.CONSTRAINT_VIOLATIONS
-//                : Collections.singletonList(ConstraintViolation.create(context,"jfluentvalidation.constraints.HasNoParameter.message"));
-//        }
-//
-//        Map<String, List<String>> parameters = getParameters(context.getPropertyValue().getQuery());
-//        boolean containsName = parameters.containsKey(name);
-//
-//        if (value == null) {
-//            return containsName
-//                ? Empty.CONSTRAINT_VIOLATIONS
-//                : Collections.singletonList(ConstraintViolation.create(context,"jfluentvalidation.constraints.HasNoParameter.message"));
-//        }
-//
-//        List<String> values = parameters.get(name);
-//        return !values.contains(value)
-//            ? Empty.CONSTRAINT_VIOLATIONS
-//            : Collections.singletonList(ConstraintViolation.create(context,"jfluentvalidation.constraints.HasNoParameter.message"));
-//    }
-//
-//    @Override
-//    protected void validate(RuleContext<T, URL> context) {
-//        if (name == null && !getParameters(context.getPropertyValue().getQuery()).isEmpty()) {
-//            addConstraint(ConstraintViolation.create(context, MESSAGE));
-//        }
-//
-//        Map<String, List<String>> parameters = getParameters(context.getPropertyValue().getQuery());
-//        if (value == null && !parameters.containsKey(name)) {
-//            addConstraint(ConstraintViolation.create(context, MESSAGE));
-//        }
-//    }
-
+    @Override
+    public void addParametersToContext(RuleContext<T, URL> context) {
+        context.getMessageContext().appendArgument("ParameterName", name);
+        context.getMessageContext().appendArgument("ParameterValue", value);
+    }
 }

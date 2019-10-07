@@ -31,16 +31,8 @@ public class HasPathConstraint<T> extends AbstractConstraint<T, URI> {
         return expected.equals(context.getPropertyValue().getPath());
     }
 
-//    @Override
-//    public String getMessage() {
-//        return DEFAULT_MESSAGE;
-//    }
-
-//    @Override
-//    protected void validate(RuleContext<T, URI> context) {
-//        if (!expected.equals(context.getPropertyValue().getPath())) {
-//            addConstraint(ConstraintViolation.create(context, DEFAULT_MESSAGE));
-//        }
-//    }
-
+    @Override
+    public void addParametersToContext(RuleContext<T, URI> context) {
+        context.getMessageContext().appendArgument("value", expected);
+    }
 }

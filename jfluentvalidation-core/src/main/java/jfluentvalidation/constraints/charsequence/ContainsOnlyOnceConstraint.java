@@ -13,7 +13,7 @@ import jfluentvalidation.validators.RuleContext;
  *
  * @param <T>  type of instance to validate.
  */
-public class ContainsOnlyOnceConstraint<T> extends AbstractConstraint<T, CharSequence> {
+public class ContainsOnlyOnceConstraint<T, A extends CharSequence> extends AbstractConstraint<T, A> {
 
     private final CharSequence sequence;
 
@@ -23,7 +23,7 @@ public class ContainsOnlyOnceConstraint<T> extends AbstractConstraint<T, CharSeq
     }
 
     @Override
-    public boolean isValid(RuleContext<T, CharSequence> validationContext) {
+    public boolean isValid(RuleContext<T, A> validationContext) {
         if (Strings.isNull(validationContext.getPropertyValue())) {
             return false;
         }
@@ -43,5 +43,10 @@ public class ContainsOnlyOnceConstraint<T> extends AbstractConstraint<T, CharSeq
         }
 
         return count == 1;
+    }
+
+    @Override
+    public void addParametersToContext(RuleContext<T, A> context) {
+        context.getMessageContext().appendArgument("value", sequence);
     }
 }
