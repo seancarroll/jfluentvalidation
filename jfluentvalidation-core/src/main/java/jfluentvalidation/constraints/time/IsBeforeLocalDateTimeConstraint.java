@@ -34,4 +34,8 @@ public class IsBeforeLocalDateTimeConstraint<T> extends AbstractConstraint<T, Lo
         return context.getPropertyValue().isBefore(other.get());
     }
 
+    @Override
+    public void addParametersToContext(RuleContext<T, LocalDateTime> context) {
+        context.getMessageContext().appendArgument("other", other.get());
+    }
 }

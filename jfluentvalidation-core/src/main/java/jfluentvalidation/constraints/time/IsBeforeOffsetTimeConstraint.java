@@ -34,4 +34,8 @@ public class IsBeforeOffsetTimeConstraint<T> extends AbstractConstraint<T, Offse
         return context.getPropertyValue().isBefore(other.get());
     }
 
+    @Override
+    public void addParametersToContext(RuleContext<T, OffsetTime> context) {
+        context.getMessageContext().appendArgument("other", other.get());
+    }
 }

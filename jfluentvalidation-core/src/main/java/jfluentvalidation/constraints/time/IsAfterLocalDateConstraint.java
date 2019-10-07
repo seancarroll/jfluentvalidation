@@ -34,5 +34,8 @@ public class IsAfterLocalDateConstraint<T> extends AbstractConstraint<T, LocalDa
         return context.getPropertyValue().isAfter(other.get());
     }
 
-
+    @Override
+    public void addParametersToContext(RuleContext<T, LocalDate> context) {
+        context.getMessageContext().appendArgument("other", other.get());
+    }
 }

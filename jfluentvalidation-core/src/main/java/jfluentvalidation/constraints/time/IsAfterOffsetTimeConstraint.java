@@ -34,4 +34,8 @@ public class IsAfterOffsetTimeConstraint<T> extends AbstractConstraint<T, Offset
         return context.getPropertyValue().isAfter(other.get());
     }
 
+    @Override
+    public void addParametersToContext(RuleContext<T, OffsetTime> context) {
+        context.getMessageContext().appendArgument("other", other.get());
+    }
 }

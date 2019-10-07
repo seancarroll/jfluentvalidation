@@ -7,6 +7,7 @@ import jfluentvalidation.internal.Ensure;
 import jfluentvalidation.validators.RuleContext;
 
 import java.time.LocalDateTime;
+import java.util.Calendar;
 import java.util.function.Supplier;
 
 /**
@@ -34,4 +35,8 @@ public class IsAfterOrEqualLocalDateTimeConstraint<T> extends AbstractConstraint
         return !context.getPropertyValue().isBefore(other.get());
     }
 
+    @Override
+    public void addParametersToContext(RuleContext<T, LocalDateTime> context) {
+        context.getMessageContext().appendArgument("other", other.get());
+    }
 }

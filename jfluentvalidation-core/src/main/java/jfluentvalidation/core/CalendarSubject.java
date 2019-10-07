@@ -50,12 +50,14 @@ public class CalendarSubject<T>
 
     @CanIgnoreReturnValue
     public CalendarSubject<T> isInTheFuture() {
-        return isAfter(calendarFromClock(rule.getRuleOptions().getClockReference()));
+        rule.addConstraint(new IsAfterCalendarConstraint<>(() -> calendarFromClock(rule.getRuleOptions().getClockReference())));
+        return myself;
     }
 
     @CanIgnoreReturnValue
     public CalendarSubject<T> isInTheFutureOrPresent() {
-        return isAfterOrEqualTo(calendarFromClock(rule.getRuleOptions().getClockReference()));
+        rule.addConstraint(new IsAfterOrEqualCalendarConstraint<>(() -> calendarFromClock(rule.getRuleOptions().getClockReference())));
+        return myself;
     }
 
     @CanIgnoreReturnValue
@@ -66,12 +68,14 @@ public class CalendarSubject<T>
 
     @CanIgnoreReturnValue
     public CalendarSubject<T> isInThePast() {
-        return isBefore(calendarFromClock(rule.getRuleOptions().getClockReference()));
+        rule.addConstraint(new IsBeforeCalendarConstraint<>(() -> calendarFromClock(rule.getRuleOptions().getClockReference())));
+        return myself;
     }
 
     @CanIgnoreReturnValue
     public CalendarSubject<T> isInThePastOrPresent() {
-        return isBeforeOrEqualTo(calendarFromClock(rule.getRuleOptions().getClockReference()));
+        rule.addConstraint(new IsBeforeOrEqualCalendarConstraint<>(() -> calendarFromClock(rule.getRuleOptions().getClockReference())));
+        return myself;
     }
 
     @CanIgnoreReturnValue

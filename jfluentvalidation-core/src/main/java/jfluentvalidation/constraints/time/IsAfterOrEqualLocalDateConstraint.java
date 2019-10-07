@@ -34,4 +34,8 @@ public class IsAfterOrEqualLocalDateConstraint<T> extends AbstractConstraint<T, 
         return !context.getPropertyValue().isBefore(other.get());
     }
 
+    @Override
+    public void addParametersToContext(RuleContext<T, LocalDate> context) {
+        context.getMessageContext().appendArgument("other", other.get());
+    }
 }

@@ -34,4 +34,8 @@ public class IsAfterOrEqualLocalTimeConstraint<T> extends AbstractConstraint<T, 
         return !context.getPropertyValue().isBefore(other.get());
     }
 
+    @Override
+    public void addParametersToContext(RuleContext<T, LocalTime> context) {
+        context.getMessageContext().appendArgument("other", other.get());
+    }
 }

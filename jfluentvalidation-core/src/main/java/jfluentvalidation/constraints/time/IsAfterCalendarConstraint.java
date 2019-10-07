@@ -34,4 +34,8 @@ public class IsAfterCalendarConstraint<T> extends AbstractConstraint<T, Calendar
         return context.getPropertyValue().after(other.get());
     }
 
+    @Override
+    public void addParametersToContext(RuleContext<T, Calendar> context) {
+        context.getMessageContext().appendArgument("other", other.get());
+    }
 }

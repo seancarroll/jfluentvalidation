@@ -6,6 +6,7 @@ import jfluentvalidation.constraints.DefaultMessages;
 import jfluentvalidation.internal.Ensure;
 import jfluentvalidation.validators.RuleContext;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.function.Supplier;
 
@@ -30,4 +31,8 @@ public class IsBeforeDateConstraint<T> extends AbstractConstraint<T, Date> {
         return context.getPropertyValue().before(other.get());
     }
 
+    @Override
+    public void addParametersToContext(RuleContext<T, Date> context) {
+        context.getMessageContext().appendArgument("other", other.get());
+    }
 }

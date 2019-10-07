@@ -34,4 +34,8 @@ public class IsAfterOrEqualCalendarConstraint<T> extends AbstractConstraint<T, C
         return !context.getPropertyValue().before(other.get());
     }
 
+    @Override
+    public void addParametersToContext(RuleContext<T, Calendar> context) {
+        context.getMessageContext().appendArgument("other", other.get());
+    }
 }

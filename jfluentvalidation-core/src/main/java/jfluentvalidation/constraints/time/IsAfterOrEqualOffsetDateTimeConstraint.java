@@ -34,4 +34,8 @@ public class IsAfterOrEqualOffsetDateTimeConstraint<T> extends AbstractConstrain
         return !context.getPropertyValue().isBefore(other.get());
     }
 
+    @Override
+    public void addParametersToContext(RuleContext<T, OffsetDateTime> context) {
+        context.getMessageContext().appendArgument("other", other.get());
+    }
 }

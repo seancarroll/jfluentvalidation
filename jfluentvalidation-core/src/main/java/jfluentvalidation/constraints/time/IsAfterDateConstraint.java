@@ -29,4 +29,9 @@ public class IsAfterDateConstraint<T> extends AbstractConstraint<T, Date> {
         }
         return context.getPropertyValue().after(other.get());
     }
+
+    @Override
+    public void addParametersToContext(RuleContext<T, Date> context) {
+        context.getMessageContext().appendArgument("other", other.get());
+    }
 }

@@ -49,6 +49,12 @@ public final class Strings {
         return value.chars().allMatch(Character::isWhitespace);
     }
 
+    /**
+     * Checks if the CharSequence contains only lowercase characters.
+     *
+     * @param charSequence  the CharSequence to check, may be null
+     * @return true if only contains lowercase characters, and is non-null
+     */
     public static boolean isLowerCase(CharSequence charSequence) {
         for (int i = 0; i < charSequence.length(); i++) {
             if (!Character.isLowerCase(charSequence.charAt(i))) {
@@ -59,6 +65,12 @@ public final class Strings {
         return true;
     }
 
+    /**
+     * Checks if the CharSequence contains only uppercase characters.
+     *
+     * @param charSequence  the CharSequence to check, may be null
+     * @return true if only contains uppercase characters, and is non-null
+     */
     public static boolean isUpperCase(CharSequence charSequence) {
         for (int i = 0; i < charSequence.length(); i++) {
             if (!Character.isUpperCase(charSequence.charAt(i))) {

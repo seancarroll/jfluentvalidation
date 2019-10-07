@@ -34,4 +34,8 @@ public class IsBeforeCalendarConstraint<T> extends AbstractConstraint<T, Calenda
         return context.getPropertyValue().before(other.get());
     }
 
+    @Override
+    public void addParametersToContext(RuleContext<T, Calendar> context) {
+        context.getMessageContext().appendArgument("other", other.get());
+    }
 }
