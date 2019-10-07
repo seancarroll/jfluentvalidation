@@ -48,4 +48,24 @@ public final class Strings {
     public static boolean containsOnlyWhitespace(CharSequence value) {
         return value.chars().allMatch(Character::isWhitespace);
     }
+
+    public static boolean isLowerCase(CharSequence charSequence) {
+        for (int i = 0; i < charSequence.length(); i++) {
+            if (!Character.isLowerCase(charSequence.charAt(i))) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public static boolean isUpperCase(CharSequence charSequence) {
+        for (int i = 0; i < charSequence.length(); i++) {
+            if (!Character.isUpperCase(charSequence.charAt(i))) {
+                return false;
+            }
+        }
+
+        return true;
+    }
 }
