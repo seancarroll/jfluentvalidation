@@ -34,15 +34,4 @@ public class IsAfterZonedDateTimeConstraint<T> extends AbstractConstraint<T, Zon
         return context.getPropertyValue().isAfter(other.get());
     }
 
-//    @Override
-//    protected void validate(RuleContext<T, ZonedDateTime> context) {
-//        if (!context.getPropertyValue().isAfter(other)) {
-//            addConstraint(ConstraintViolation.create(context, MESSAGE));
-//        }
-//    }
-
-//    @Override
-//    public String getMessage() {
-//        return DEFAULT_MESSAGE;
-//    }
 }

@@ -36,16 +36,4 @@ public class IsBeforeZonedDateTimeConstraint<T> extends AbstractConstraint<T, Zo
         return context.getPropertyValue().isBefore(other.get());
     }
 
-//    @Override
-//    public String getMessage() {
-//        return DEFAULT_MESSAGE;
-//    }
-
-//    @Override
-//    protected void validate(RuleContext<T, ZonedDateTime> context) {
-//        if (!context.getPropertyValue().isBefore(other)) {
-//            addConstraint(ConstraintViolation.create(context, DEFAULT_MESSAGE));
-//        }
-//    }
-
 }

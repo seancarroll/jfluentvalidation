@@ -34,15 +34,4 @@ public class IsAfterOffsetDateTimeConstraint<T> extends AbstractConstraint<T, Of
         return context.getPropertyValue().isAfter(other.get());
     }
 
-//    @Override
-//    protected void validate(RuleContext<T, OffsetDateTime> context) {
-//        if (!context.getPropertyValue().isAfter(other)) {
-//            addConstraint(ConstraintViolation.create(context, MESSAGE));
-//        }
-//    }
-
-//    @Override
-//    public String getMessage() {
-//        return DEFAULT_MESSAGE;
-//    }
 }
