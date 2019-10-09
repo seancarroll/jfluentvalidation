@@ -18,4 +18,9 @@ public class ContainsLongConstraint<T> extends AbstractConstraint<T, long[]> {
     public boolean isValid(RuleContext<T, long[]> context) {
         return MoreArrays.contains(context.getPropertyValue(), element);
     }
+
+    @Override
+    public void addParametersToContext(RuleContext<T, long[]> context) {
+        context.getMessageContext().appendArgument("element", element);
+    }
 }

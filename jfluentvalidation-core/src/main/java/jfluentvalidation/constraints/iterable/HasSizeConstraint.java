@@ -29,4 +29,8 @@ public class HasSizeConstraint<T, P> extends AbstractConstraint<T, Iterable<? su
         return Iterables.size(context.getPropertyValue()) == expectedSize;
     }
 
+    @Override
+    public void addParametersToContext(RuleContext<T, Iterable<? super P>> context) {
+        context.getMessageContext().appendArgument("size", expectedSize);
+    }
 }

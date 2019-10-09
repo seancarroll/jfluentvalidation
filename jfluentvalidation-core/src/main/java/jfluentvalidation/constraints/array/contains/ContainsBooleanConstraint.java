@@ -18,4 +18,9 @@ public class ContainsBooleanConstraint<T> extends AbstractConstraint<T, boolean[
     public boolean isValid(RuleContext<T, boolean[]> context) {
         return MoreArrays.contains(context.getPropertyValue(), element);
     }
+
+    @Override
+    public void addParametersToContext(RuleContext<T, boolean[]> context) {
+        context.getMessageContext().appendArgument("element", element);
+    }
 }

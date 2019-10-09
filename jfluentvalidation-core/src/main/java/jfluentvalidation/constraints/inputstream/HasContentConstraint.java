@@ -44,7 +44,7 @@ public class HasContentConstraint<T> extends AbstractConstraint<T, InputStream> 
             }
 
             for (int i = 0; i < actualLines.size(); i++) {
-                if (!Objects.equals(actualLines.get(i), expectedLines.get(0))) {
+                if (!Objects.equals(actualLines.get(i), expectedLines.get(i))) {
                     return false;
                 }
             }
@@ -55,4 +55,8 @@ public class HasContentConstraint<T> extends AbstractConstraint<T, InputStream> 
         }
     }
 
+    @Override
+    public void addParametersToContext(RuleContext<T, InputStream> context) {
+        context.getMessageContext().appendArgument("content", expected);
+    }
 }

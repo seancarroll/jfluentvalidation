@@ -18,4 +18,9 @@ public class ContainsByteConstraint<T> extends AbstractConstraint<T, byte[]> {
     public boolean isValid(RuleContext<T, byte[]> context) {
         return MoreArrays.contains(context.getPropertyValue(), element);
     }
+
+    @Override
+    public void addParametersToContext(RuleContext<T, byte[]> context) {
+        context.getMessageContext().appendArgument("element", element);
+    }
 }

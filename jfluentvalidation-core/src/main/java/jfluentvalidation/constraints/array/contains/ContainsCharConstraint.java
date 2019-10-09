@@ -18,4 +18,9 @@ public class ContainsCharConstraint<T> extends AbstractConstraint<T, char[]> {
     public boolean isValid(RuleContext<T, char[]> context) {
         return MoreArrays.contains(context.getPropertyValue(), element);
     }
+
+    @Override
+    public void addParametersToContext(RuleContext<T, char[]> context) {
+        context.getMessageContext().appendArgument("element", element);
+    }
 }

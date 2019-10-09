@@ -21,16 +21,4 @@ public class IsNotNullConstraint<T, P> extends AbstractConstraint<T, P> {
         return context.getPropertyValue() != null;
     }
 
-//    @Override
-//    public String getMessage() {
-//        return DEFAULT_MESSAGE;
-//    }
-
-//    @Override
-//    protected void validate(RuleContext<T, P> context) {
-//        if (context.getPropertyValue() == null) {
-//            addConstraint(ConstraintViolation.create(context, DEFAULT_MESSAGE));
-//        }
-//    }
-
 }

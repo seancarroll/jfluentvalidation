@@ -34,6 +34,8 @@ public class IsAfterCalendarConstraint<T> extends AbstractConstraint<T, Calendar
         return context.getPropertyValue().after(other.get());
     }
 
+    // TODO: given we are using a supplier I dont think we should do this.
+    // For example, if the supplier returns current date the time that we grab above will be different than what we use here
     @Override
     public void addParametersToContext(RuleContext<T, Calendar> context) {
         context.getMessageContext().appendArgument("other", other.get());

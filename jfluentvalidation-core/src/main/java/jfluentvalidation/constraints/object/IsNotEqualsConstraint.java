@@ -26,16 +26,8 @@ public class IsNotEqualsConstraint<T, P> extends AbstractConstraint<T, P> {
         return !Objects.equals(context.getPropertyValue(), other);
     }
 
-//    @Override
-//    public String getMessage() {
-//        return DEFAULT_MESSAGE;
-//    }
-
-//    @Override
-//    protected void validate(RuleContext<T, P> context) {
-//        if (Objects.equals(context.getPropertyValue(), other)) {
-//            addConstraint(ConstraintViolation.create(context, DEFAULT_MESSAGE));
-//        }
-//    }
-
+    @Override
+    public void addParametersToContext(RuleContext<T, P> context) {
+        context.getMessageContext().appendArgument("other", other);
+    }
 }

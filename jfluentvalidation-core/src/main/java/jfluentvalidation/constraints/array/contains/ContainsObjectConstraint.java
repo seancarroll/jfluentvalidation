@@ -18,4 +18,9 @@ public class ContainsObjectConstraint<T, A> extends AbstractConstraint<T, A[]> {
     public boolean isValid(RuleContext<T, A[]> context) {
         return MoreArrays.contains2(context.getPropertyValue(), element);
     }
+
+    @Override
+    public void addParametersToContext(RuleContext<T, A[]> context) {
+        context.getMessageContext().appendArgument("element", element);
+    }
 }

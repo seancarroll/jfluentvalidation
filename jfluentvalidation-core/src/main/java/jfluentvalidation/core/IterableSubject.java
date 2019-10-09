@@ -15,8 +15,8 @@ import jfluentvalidation.rules.CollectionPropertyRule;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.google.common.collect.Lists.newArrayList;
 import static java.util.Arrays.asList;
+import static jfluentvalidation.common.Lists.newArrayList;
 
 /**
  *

@@ -50,4 +50,10 @@ public class HasContentConstraint<T> extends AbstractConstraint<T, File> {
             throw new IORuntimeException(msg, e);
         }
     }
+
+    @Override
+    public void addParametersToContext(RuleContext<T, File> context) {
+        context.getMessageContext().appendArgument("content", expectedContent);
+        context.getMessageContext().appendArgument("charset", expectedCharset);
+    }
 }

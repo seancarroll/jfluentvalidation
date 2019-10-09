@@ -2,6 +2,7 @@ package jfluentvalidation.common;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -12,6 +13,13 @@ public class Lists {
 
     private Lists() {
         // statics only
+    }
+
+    @SafeVarargs
+    public static <E> List<E> newArrayList(E... elements) {
+        ArrayList<E> list = new ArrayList<>(elements.length);
+        Collections.addAll(list, elements);
+        return list;
     }
 
     /**

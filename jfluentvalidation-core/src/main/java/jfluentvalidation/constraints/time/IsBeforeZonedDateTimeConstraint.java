@@ -17,8 +17,6 @@ public class IsBeforeZonedDateTimeConstraint<T> extends AbstractConstraint<T, Zo
 
     private final Supplier<ZonedDateTime> other;
 
-    // TODO: pass in clock?
-
     public IsBeforeZonedDateTimeConstraint(ZonedDateTime other) {
         this(Suppliers.create(other));
     }

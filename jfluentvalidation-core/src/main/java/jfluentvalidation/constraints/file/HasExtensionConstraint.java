@@ -42,4 +42,8 @@ public class HasExtensionConstraint<T> extends AbstractConstraint<T, File> {
         return (dotAt == -1) ? null : name.substring(dotAt + 1);
     }
 
+    @Override
+    public void addParametersToContext(RuleContext<T, File> context) {
+        context.getMessageContext().appendArgument("extension", expected);
+    }
 }

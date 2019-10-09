@@ -26,4 +26,8 @@ public class IsEqualsConstraint<T, P> extends AbstractConstraint<T, P> {
         return Objects.equals(context.getPropertyValue(), other);
     }
 
+    @Override
+    public void addParametersToContext(RuleContext<T, P> context) {
+        context.getMessageContext().appendArgument("other", other);
+    }
 }

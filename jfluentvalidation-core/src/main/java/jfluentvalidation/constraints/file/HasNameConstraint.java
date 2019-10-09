@@ -28,4 +28,9 @@ public class HasNameConstraint<T> extends AbstractConstraint<T, File> {
         }
         return expected.equals(context.getPropertyValue().getName());
     }
+
+    @Override
+    public void addParametersToContext(RuleContext<T, File> context) {
+        context.getMessageContext().appendArgument("name", expected);
+    }
 }
