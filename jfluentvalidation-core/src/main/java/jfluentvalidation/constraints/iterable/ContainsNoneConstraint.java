@@ -1,6 +1,5 @@
 package jfluentvalidation.constraints.iterable;
 
-import com.google.common.collect.Sets;
 import jfluentvalidation.common.Iterables;
 import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.DefaultMessages;
@@ -9,6 +8,7 @@ import jfluentvalidation.validators.RuleContext;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedHashSet;
 
 /**
  * TODO: From Google Truth...we want similar behavior
@@ -25,11 +25,11 @@ import java.util.Collection;
  */
 public class ContainsNoneConstraint<T, P> extends AbstractConstraint<T, Iterable<? super P>> {
 
-    private final Iterable<? super P> excluded;
+    private final Collection<? super P> excluded;
 
     public ContainsNoneConstraint(Iterable<? super P> excluded) {
         super(DefaultMessages.ITERABLE_CONTAINS_NONE_IN);
-        this.excluded = Ensure.notNull(excluded);
+        this.excluded = Iterables.toCollection(Ensure.notNull(excluded));
     }
 
     @Override
@@ -40,27 +40,23 @@ public class ContainsNoneConstraint<T, P> extends AbstractConstraint<T, Iterable
 
         Collection<?> actual = Iterables.toCollection(context.getPropertyValue());
         Collection<Object> present = new ArrayList<>();
-
-        // TODO: remove guava
-        for (Object item : Sets.newLinkedHashSet(excluded)) {
+        for (Object item : new LinkedHashSet<>(excluded)) {
             if (actual.contains(item)) {
                 present.add(item);
             }
         }
 
         if (!present.isEmpty()) {
-            // TODO: add to arguments
+            // TODO: do I want to use this in the message?
+            context.getMessageContext().appendArgument("present", present);
             return false;
         }
 
         return true;
     }
 
-//    checkIsNotNullAndNotEmpty(values);
-//    assertNotNull(info, actual);
-//    Set<Object> found = new LinkedHashSet<>();
-//    for (Object o : values) {
-//        if (iterableContains(actual, o)) found.add(o);
-//    }
-//    if (!found.isEmpty()) throw failures.failure(info, shouldNotContain(actual, values, found, comparisonStrategy));
+    @Override
+    public void addParametersToContext(RuleContext<T, Iterable<? super P>> context) {
+        context.getMessageContext().appendArgument("values", excluded);
+    }
 }
