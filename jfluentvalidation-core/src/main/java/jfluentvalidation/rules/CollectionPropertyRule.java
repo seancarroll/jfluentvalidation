@@ -4,6 +4,7 @@ import jfluentvalidation.SerializableFunction;
 import jfluentvalidation.ValidationFailure;
 import jfluentvalidation.common.MoreArrays;
 import jfluentvalidation.constraints.Constraint;
+import jfluentvalidation.messageinterpolation.ResourceBundleMessageInterpolator;
 import jfluentvalidation.validators.RuleContext;
 import jfluentvalidation.validators.RuleOptions;
 import jfluentvalidation.validators.ValidationContext;
@@ -23,6 +24,7 @@ import java.util.Set;
 public class CollectionPropertyRule<T, P, E> extends PropertyRule<T, P> {
 
     private List<Constraint<T, ? super E>> itemConstraints = new ArrayList<>();
+    private ResourceBundleMessageInterpolator interpolator = new ResourceBundleMessageInterpolator();
 
     public CollectionPropertyRule(SerializableFunction<T, P> propertyFunc, String propertyName, RuleOptions ruleOptions) {
         super(propertyFunc, propertyName, ruleOptions);
@@ -38,13 +40,18 @@ public class CollectionPropertyRule<T, P, E> extends PropertyRule<T, P> {
 
         P propertyValue = propertyFunc.apply(context.getInstanceToValidate());
 
-        Collection<E> collectionPropertyValue = (Collection<E>) toCollection(propertyValue);
+        Collection<E> collectionPropertyValue = toCollection(propertyValue);
         for (Constraint<?, ? extends P> constraint : getConstraints()) {
             // TODO: is this the best way to handle this?
             RuleContext ruleContext = new RuleContext(context, this);
             boolean isValid = constraint.isValid(ruleContext);
             if (!isValid) {
-                failures.add(new ValidationFailure(getPropertyName(), constraint.getOptions().getErrorMessage(), propertyValue));
+                ruleContext.getMessageContext().appendPropertyName(ruleContext.getRule().getPropertyName());
+                ruleContext.getMessageContext().appendPropertyValue(ruleContext.getPropertyValue());
+                constraint.addParametersToContext(ruleContext);
+
+                String resolvedMessage = interpolator.interpolate(constraint.getOptions().getErrorMessage(), ruleContext.getMessageContext().getPlaceholderValues());
+                failures.add(new ValidationFailure(getPropertyName(), resolvedMessage, propertyValue));
             }
         }
 
@@ -62,8 +69,10 @@ public class CollectionPropertyRule<T, P, E> extends PropertyRule<T, P> {
                         ruleContext.getMessageContext().appendPropertyName(ruleContext.getRule().getPropertyName());
                         ruleContext.getMessageContext().appendArgument("index", i);
                         ruleContext.getMessageContext().appendPropertyValue(ruleContext.getPropertyValue());
+                        itemConstraint.addParametersToContext(ruleContext);
+                        String resolvedMessage = interpolator.interpolate(itemConstraint.getOptions().getErrorMessage(), ruleContext.getMessageContext().getPlaceholderValues());
 
-                        failures.add(new ValidationFailure(getPropertyName(), itemConstraint.getOptions().getErrorMessage(), e));
+                        failures.add(new ValidationFailure(getPropertyName(), resolvedMessage, e));
                     }
                 }
 //            for (Iterator<E> it = itemConstraint.getCollection(collectionPropertyValue.iterator()); it.hasNext(); i++) {
@@ -118,17 +127,17 @@ public class CollectionPropertyRule<T, P, E> extends PropertyRule<T, P> {
 //    }
 
     // https://stackoverflow.com/questions/2651632/how-to-check-if-an-object-is-a-collection-type-in-java
-    private Collection<?> toCollection(P propertyValue) {
+    private Collection<E> toCollection(P propertyValue) {
         if (propertyValue == null) {
             return null;
         }
 
         if (propertyValue instanceof List) {
-            return (List) propertyValue;
+            return (List<E>) propertyValue;
         } else if (MoreArrays.isArray(propertyValue)) {
             return Arrays.asList((E[]) propertyValue);
         } else if (propertyValue instanceof Set) {
-            return (Set) propertyValue;
+            return (Set<E>) propertyValue;
         }
 
         throw new RuntimeException("collection property must validate a collection");

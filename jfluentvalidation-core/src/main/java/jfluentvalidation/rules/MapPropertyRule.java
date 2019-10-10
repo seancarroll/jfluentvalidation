@@ -4,6 +4,7 @@ import jfluentvalidation.MapItemConstraint;
 import jfluentvalidation.SerializableFunction;
 import jfluentvalidation.ValidationFailure;
 import jfluentvalidation.constraints.Constraint;
+import jfluentvalidation.messageinterpolation.ResourceBundleMessageInterpolator;
 import jfluentvalidation.validators.RuleContext;
 import jfluentvalidation.validators.RuleOptions;
 import jfluentvalidation.validators.ValidationContext;
@@ -21,6 +22,7 @@ import java.util.Map;
 public class MapPropertyRule<T, K, V> extends PropertyRule<T, Map<K, V>> {
 
     private List<MapItemConstraint<T, K, V, ?>> itemConstraints = new ArrayList<>();
+    private ResourceBundleMessageInterpolator interpolator = new ResourceBundleMessageInterpolator();
 
     public MapPropertyRule(SerializableFunction<T, Map<K, V>> propertyFunc, String propertyName, RuleOptions ruleOptions) {
         super(propertyFunc, propertyName, ruleOptions);
@@ -41,7 +43,11 @@ public class MapPropertyRule<T, K, V> extends PropertyRule<T, Map<K, V>> {
             RuleContext<T, Map<K, V>> ruleContext = new RuleContext<>(context, this);
             boolean isValid = constraint.isValid(ruleContext);
             if (!isValid) {
-                failures.add(new ValidationFailure(getPropertyName(), constraint.getOptions().getErrorMessage(), propertyValue));
+                ruleContext.getMessageContext().appendPropertyName(ruleContext.getRule().getPropertyName());
+                ruleContext.getMessageContext().appendPropertyValue(ruleContext.getPropertyValue());
+                constraint.addParametersToContext(ruleContext);
+                String resolvedMessage = interpolator.interpolate(constraint.getOptions().getErrorMessage(), ruleContext.getMessageContext().getPlaceholderValues());
+                failures.add(new ValidationFailure(getPropertyName(), resolvedMessage, propertyValue));
             }
         }
 
@@ -61,8 +67,11 @@ public class MapPropertyRule<T, K, V> extends PropertyRule<T, Map<K, V>> {
                         ruleContext.getMessageContext().appendPropertyName(ruleContext.getRule().getPropertyName());
                         ruleContext.getMessageContext().appendArgument("index", i);
                         ruleContext.getMessageContext().appendPropertyValue(ruleContext.getPropertyValue());
+                        itemConstraint.getConstraint().addParametersToContext(ruleContext);
 
-                        failures.add(new ValidationFailure(getPropertyName(), itemConstraint.getConstraint().getOptions().getErrorMessage(), e));
+                        String resolvedMessage = interpolator.interpolate(itemConstraint.getConstraint().getOptions().getErrorMessage(), ruleContext.getMessageContext().getPlaceholderValues());
+
+                        failures.add(new ValidationFailure(getPropertyName(), resolvedMessage, e));
                     }
                 }
             }
