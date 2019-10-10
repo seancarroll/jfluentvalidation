@@ -28,6 +28,7 @@ public class PropertyRule<T, P> implements Rule<T, P> {
     protected Function<T, P> propertyFunc;
     protected String propertyName;
     protected RuleOptions ruleOptions;
+    private ResourceBundleMessageInterpolator interpolator = new ResourceBundleMessageInterpolator();
     private List<Constraint<T, P>> constraints = new ArrayList<>();
     private Constraint<T, P> currentConstraint;
     private List<String> ruleSet = RuleSet.DEFAULT_LIST;
@@ -64,7 +65,6 @@ public class PropertyRule<T, P> implements Rule<T, P> {
                 // ruleContext.getMessageFormatter().appendArgument("PropertyValue", ruleContext.getPropertyValue());
                 constraint.addParametersToContext(ruleContext);
 
-                ResourceBundleMessageInterpolator interpolator = new ResourceBundleMessageInterpolator();
                 // TODO: I dont think we need MessageFormatter any more. Should delete and fix
                 // ruleContext.getMessageFormatter().getPlaceholderValues()
                 // String resolvedMessage = interpolator.interpolate(constraint.getOptions().getErrorMessage(), ruleContext.getMessageFormatter().getPlaceholderValues());
