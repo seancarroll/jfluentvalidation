@@ -63,4 +63,9 @@ public final class MoreCollections {
 //        System.arraycopy(rest, 0, result, 1, rest.length);
 //        return result;
 //    }
+
+    /** Used to avoid http://bugs.sun.com/view_bug.do?bug_id=6558557 */
+    static <T> Collection<T> cast(Iterable<T> iterable) {
+        return (Collection<T>) iterable;
+    }
 }

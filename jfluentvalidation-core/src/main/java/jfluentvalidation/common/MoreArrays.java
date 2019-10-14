@@ -3,6 +3,7 @@ package jfluentvalidation.common;
 import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Objects;
 
 import static jfluentvalidation.common.Comparables.isGreaterThan;
 import static jfluentvalidation.common.Comparables.isGreaterThanOrEqual;
@@ -111,7 +112,16 @@ public final class MoreArrays {
 
     public static boolean contains(Object[] arr, Object x) {
         for (Object elem : arr) {
-            if (elem.equals(x)) {
+            if (Objects.equals(elem, x)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static <T> boolean contains2(final T[] array, final T v) {
+        for (final T e : array) {
+            if (Objects.equals(e, v)) {
                 return true;
             }
         }
@@ -127,24 +137,6 @@ public final class MoreArrays {
         return (T[]) Array.newInstance(type, length);
     }
 
-    public static <T> boolean contains2(final T[] array, final T v) {
-        // TODO: simplify
-        if (v == null) {
-            for (final T e : array) {
-                if (e == null) {
-                    return true;
-                }
-            }
-        } else {
-            for (final T e : array) {
-                if (e == v || v.equals(e)) {
-                    return true;
-                }
-            }
-        }
-
-        return false;
-    }
 
     public static boolean hasDuplicates(Object[] arr) {
         return new HashSet<>(Arrays.asList(arr)).size() < arr.length;
