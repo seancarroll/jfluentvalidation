@@ -15,7 +15,7 @@ public class Token {
     private boolean isEL;
     private String value;
 
-    public Token(String value) {
+    Token(String value) {
         this.value = Ensure.notNull(value);
         if (value.startsWith(EL_DESIGNATION_CHARACTER)) {
             isEL = true;
@@ -24,26 +24,24 @@ public class Token {
         }
     }
 
-    public boolean isParameter() {
+    boolean isParameter() {
         return isParameter;
     }
 
-    public boolean isEL() {
+    boolean isEL() {
         return isEL;
     }
 
-    public String getValue() {
+    String getValue() {
         return value;
     }
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("Token{");
-        sb.append("value='").append(value).append('\'');
-        sb.append(", isEL=").append(isEL);
-        sb.append(", isParameter=").append(isParameter);
-        sb.append('}');
-        return sb.toString();
+        return "Token{" + "value='" + value + '\'' +
+            ", isEL=" + isEL +
+            ", isParameter=" + isParameter +
+            '}';
     }
 
 }
