@@ -22,7 +22,6 @@ public class IsBetweenConstraint<T, P extends Comparable<? super P>> extends Abs
     private final boolean inclusiveStart;
     private final boolean inclusiveEnd;
 
-    // TODO: add other constructors?
     public IsBetweenConstraint(@Nonnull P start, @Nonnull P end, boolean inclusiveStart, boolean inclusiveEnd) {
         super(DefaultMessages.COMPARABLE_IS_BETWEEN);
         // TODO: check bounds

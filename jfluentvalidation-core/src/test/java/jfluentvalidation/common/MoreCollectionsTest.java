@@ -6,6 +6,8 @@ import java.util.List;
 
 class MoreCollectionsTest {
 
+    // TODO: add tests
+
     @Test
     void accumulate() {
         List<String> accumulated = MoreCollections.accumulate("first", "second");

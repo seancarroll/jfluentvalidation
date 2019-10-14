@@ -64,6 +64,7 @@ public class MapPropertyRule<T, K, V> extends PropertyRule<T, Map<K, V>> {
                     RuleContext ruleContext = new RuleContext(childContext, rule, e);
                     boolean isValid = itemConstraint.getConstraint().isValid(ruleContext);
                     if (!isValid) {
+                        // TODO: how to include index in message
                         ruleContext.getMessageContext().appendPropertyName(ruleContext.getRule().getPropertyName());
                         ruleContext.getMessageContext().appendArgument("index", i);
                         ruleContext.getMessageContext().appendPropertyValue(ruleContext.getPropertyValue());

@@ -8,8 +8,6 @@ import jfluentvalidation.validators.RuleContext;
 import javax.annotation.Nonnull;
 import java.net.URI;
 
-// TODO: better name?
-
 /**
  *
  * @param <T>  the target type supported by an implementation.

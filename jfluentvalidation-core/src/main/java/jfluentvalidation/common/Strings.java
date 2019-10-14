@@ -37,6 +37,7 @@ public final class Strings {
      * @return
      */
     public static boolean containsWhitespaces(CharSequence value) {
+        // TODO: check to see how slow this is
         return value.chars().anyMatch(Character::isWhitespace);
     }
 
@@ -46,6 +47,7 @@ public final class Strings {
      * @return
      */
     public static boolean containsOnlyWhitespace(CharSequence value) {
+        // TODO: check to see how slow this is
         return value.chars().allMatch(Character::isWhitespace);
     }
 
