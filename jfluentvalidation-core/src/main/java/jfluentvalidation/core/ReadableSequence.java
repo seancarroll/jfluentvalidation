@@ -16,10 +16,10 @@ import java.util.regex.Pattern;
 public interface ReadableSequence<S extends ReadableSequence<S, T, A>, T, A> {
 
     @CanIgnoreReturnValue
-    S isNullOrEmpty();
+    void isNullOrEmpty();
 
     @CanIgnoreReturnValue
-    S isEmpty();
+    void isEmpty();
 
     @CanIgnoreReturnValue
     S isNotEmpty();
