@@ -43,15 +43,13 @@ public abstract class AbstractCharSequenceSubject<S extends AbstractCharSequence
     }
 
     @Override
-    public S isNullOrEmpty() {
+    public void isNullOrEmpty() {
         rule.addConstraint(new IsNullOrEmptyConstraint<>());
-        return myself;
     }
 
     @Override
-    public S isEmpty() {
+    public void isEmpty() {
         rule.addConstraint(new IsEmptyConstraint<>());
-        return myself;
     }
 
     @Override

@@ -54,10 +54,9 @@ public class Subject<S extends Subject<S, T, A>, T, A> {
     // 2. new IsNullConstraint
     // 3. static IsNullConstraint
     @CanIgnoreReturnValue
-    public S isNull() {
+    public void isNull() {
         // standardIsEqualTo(null);
         rule.addConstraint(new IsNullConstraint<>());
-        return myself;
     }
 
     /** Fails if the subject is null. */
