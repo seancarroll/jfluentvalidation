@@ -37,8 +37,12 @@ public final class Strings {
      * @return
      */
     public static boolean containsWhitespaces(CharSequence value) {
-        // TODO: check to see how slow this is
-        return value.chars().anyMatch(Character::isWhitespace);
+        for (int i = 0; i < value.length(); i++) {
+            if (Character.isWhitespace(value.charAt(i))) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -47,8 +51,12 @@ public final class Strings {
      * @return
      */
     public static boolean containsOnlyWhitespace(CharSequence value) {
-        // TODO: check to see how slow this is
-        return value.chars().allMatch(Character::isWhitespace);
+        for (int i = 0; i < value.length(); i++) {
+            if (!Character.isWhitespace(value.charAt(i))) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
