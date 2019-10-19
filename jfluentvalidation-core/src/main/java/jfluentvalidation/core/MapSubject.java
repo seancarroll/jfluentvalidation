@@ -38,13 +38,9 @@ public class MapSubject<T, K, V> extends Subject<MapSubject<T, K, V>, T, Map<K, 
     /**
      * Verifies that the {@link Map} is empty.
      *
-     * @return
      */
-    // TODO: should this return void?
-    @CanIgnoreReturnValue
-    public final MapSubject<T, K, V> isEmpty() {
+    public final void isEmpty() {
         rule.addConstraint(new IsEmptyConstraint<>());
-        return myself;
     }
 
     /**
@@ -219,24 +215,6 @@ public class MapSubject<T, K, V> extends Subject<MapSubject<T, K, V>, T, Map<K, 
     // hasEntrySatisfying(Condition<? super K> keyCondition, Condition<? super V> valueCondition)
     // hasKeySatisfying(Condition<? super K> keyCondition)
     // hasValueSatisfying(Condition<? super V> valueCondition)
-
-
-    // TODO: can remove as these arent necessary
-    @Override
-    public MapSubject<T, K, V> isNull() {
-        return super.isNull();
-    }
-
-    @Override
-    public MapSubject<T, K, V> isNotNull() {
-        return super.isNotNull();
-    }
-
-    @Override
-    public MapSubject<T, K, V> isEquals(Map<K, V> other) {
-        return super.isEquals(other);
-    }
-
 
 
     // TODO: I'm not sure this makes sense given what would a Constraint for an Entry look like?
