@@ -24,7 +24,7 @@ class IsNotNullTest {
     }
 
     @Test
-    void shouldReturnFailureWhenActualIsNotNull() {
+    void shouldReturnFailureWhenActualIsNull() {
         Target t = new Target(null);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
