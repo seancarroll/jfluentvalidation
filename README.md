@@ -8,6 +8,7 @@
 [![SonarCloud Coverage](https://sonarcloud.io/api/project_badges/measure?project=seancarroll_jfluentvalidation&metric=coverage)](https://sonarcloud.io/component_measures/metric/coverage/list?id=seancarroll_jfluentvalidation)
 [![SonarCloud Bugs](https://sonarcloud.io/api/project_badges/measure?project=seancarroll_jfluentvalidation&metric=bugs)](https://sonarcloud.io/component_measures/metric/reliability_rating/list?id=seancarroll_jfluentvalidation)
 [![SonarCloud Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=seancarroll_jfluentvalidation&metric=vulnerabilities)](https://sonarcloud.io/component_measures/metric/security_rating/list?id=seancarroll_jfluentvalidation)
+[![Known Vulnerabilities](https://snyk.io/test/github/seancarroll/jmediator/badge.svg)](https://snyk.io/test/github/seancarroll/jmediator)
 
 A fluent validation library for Java.
 
