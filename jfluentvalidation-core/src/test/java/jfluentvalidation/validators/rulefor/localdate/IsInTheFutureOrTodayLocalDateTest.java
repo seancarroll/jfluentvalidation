@@ -26,7 +26,7 @@ class IsInTheFutureOrPresentLocalDateTest extends AbstractLocalDateTest {
         Target t = new Target(after);
 
         DefaultValidator<Target> validator = getValidator();
-        validator.ruleForLocalDate(Target::getDate).isInTheFutureOrPresent();
+        validator.ruleForLocalDate(Target::getDate).isInTheFutureOrToday();
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -38,7 +38,7 @@ class IsInTheFutureOrPresentLocalDateTest extends AbstractLocalDateTest {
         Target t = new Target(reference);
 
         DefaultValidator<Target> validator = getValidator();
-        validator.ruleForLocalDate(Target::getDate).isInTheFutureOrPresent();
+        validator.ruleForLocalDate(Target::getDate).isInTheFutureOrToday();
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -50,7 +50,7 @@ class IsInTheFutureOrPresentLocalDateTest extends AbstractLocalDateTest {
         Target t = new Target(null);
 
         DefaultValidator<Target> validator = getValidator();
-        validator.ruleForLocalDate(Target::getDate).isInTheFutureOrPresent();
+        validator.ruleForLocalDate(Target::getDate).isInTheFutureOrToday();
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -62,7 +62,7 @@ class IsInTheFutureOrPresentLocalDateTest extends AbstractLocalDateTest {
         Target t = new Target(before);
 
         DefaultValidator<Target> validator = getValidator();
-        validator.ruleForLocalDate(Target::getDate).isInTheFutureOrPresent();
+        validator.ruleForLocalDate(Target::getDate).isInTheFutureOrToday();
 
         List<ValidationFailure> failures = validator.validate(t);
 

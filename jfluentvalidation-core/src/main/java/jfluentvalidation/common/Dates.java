@@ -4,8 +4,10 @@ import jfluentvalidation.internal.Ensure;
 
 import javax.annotation.Nonnull;
 import java.time.Clock;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
@@ -89,6 +91,35 @@ public final class Dates {
     public static ZonedDateTime truncateTime(@Nonnull ZonedDateTime date) {
         Ensure.notNull(date);
         return date.truncatedTo(ChronoUnit.DAYS);
+    }
+
+    /**
+     * Truncates Date to the specified date period unit
+     *
+     * @param date  the date, not null
+     * @param truncateTo  The date period unit to truncate to
+     * @return  the truncated date, not null
+     */
+    public static Calendar truncateTo(Calendar date, ChronoUnit truncateTo) {
+        Instant instant = date.toInstant();
+        ZonedDateTime zonedDateTime = instant.atZone(ZoneId.systemDefault());
+        ZonedDateTime truncatedZonedDateTime = zonedDateTime.truncatedTo(truncateTo);
+        return GregorianCalendar.from(truncatedZonedDateTime);
+    }
+
+    /**
+     * Truncates Date to the specified date period unit
+     *
+     * @param date  the date, not null
+     * @param truncateTo  The date period unit to truncate to
+     * @return  the truncated date, not null
+     */
+    public static Date truncateTo(Date date, ChronoUnit truncateTo) {
+        Instant instant = date.toInstant();
+        ZonedDateTime zonedDateTime = instant.atZone(ZoneId.systemDefault());
+        ZonedDateTime truncatedZonedDateTime = zonedDateTime.truncatedTo(truncateTo);
+        Instant truncatedInstant = truncatedZonedDateTime.toInstant();
+        return Date.from(truncatedInstant);
     }
 
     /**
