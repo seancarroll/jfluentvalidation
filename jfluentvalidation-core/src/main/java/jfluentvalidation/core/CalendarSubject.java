@@ -1,6 +1,7 @@
 package jfluentvalidation.core;
 
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
+import jfluentvalidation.common.Dates;
 import jfluentvalidation.constraints.time.IsAfterCalendarConstraint;
 import jfluentvalidation.constraints.time.IsAfterOrEqualCalendarConstraint;
 import jfluentvalidation.constraints.time.IsBeforeCalendarConstraint;
@@ -8,6 +9,7 @@ import jfluentvalidation.constraints.time.IsBeforeOrEqualCalendarConstraint;
 import jfluentvalidation.constraints.time.IsTodayCalendarConstraint;
 import jfluentvalidation.rules.PropertyRule;
 
+import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 
 import static jfluentvalidation.common.Dates.calendarFromClock;
@@ -62,8 +64,10 @@ public class CalendarSubject<T>
 
     @CanIgnoreReturnValue
     public CalendarSubject<T> isInTheFutureOrToday() {
-        // TODO: clock from context/provider
-        throw new RuntimeException("not implemented");
+        rule.addConstraint(new IsAfterOrEqualCalendarConstraint<>(() ->
+            Dates.truncateTime(calendarFromClock(rule.getRuleOptions().getClockReference())), ChronoUnit.DAYS)
+        );
+        return myself;
     }
 
     @CanIgnoreReturnValue
@@ -80,8 +84,10 @@ public class CalendarSubject<T>
 
     @CanIgnoreReturnValue
     public CalendarSubject<T> isInThePastOrToday() {
-        // TODO: clock from context/provider
-        throw new RuntimeException("not implemented");
+        rule.addConstraint(new IsBeforeOrEqualCalendarConstraint<>(() ->
+            Dates.truncateTime(calendarFromClock(rule.getRuleOptions().getClockReference())), ChronoUnit.DAYS)
+        );
+        return myself;
     }
 
     @CanIgnoreReturnValue

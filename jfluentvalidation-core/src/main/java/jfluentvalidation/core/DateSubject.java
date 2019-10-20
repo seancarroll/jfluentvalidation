@@ -1,6 +1,7 @@
 package jfluentvalidation.core;
 
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
+import jfluentvalidation.common.Dates;
 import jfluentvalidation.constraints.time.IsAfterDateConstraint;
 import jfluentvalidation.constraints.time.IsAfterOrEqualDateConstraint;
 import jfluentvalidation.constraints.time.IsBeforeDateConstraint;
@@ -8,6 +9,7 @@ import jfluentvalidation.constraints.time.IsBeforeOrEqualDateConstraint;
 import jfluentvalidation.constraints.time.IsTodayDateConstraint;
 import jfluentvalidation.rules.PropertyRule;
 
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
 // rather than isLessThan, isGreaterThan etc should we have isBefore, isAfter, etc? How to separate from other Comparable?
@@ -63,8 +65,10 @@ public class DateSubject<T> extends AbstractComparableSubject<DateSubject<T>, T,
 
     @CanIgnoreReturnValue
     public DateSubject<T> isInTheFutureOrToday() {
-        // TODO: clock from context/provider
-        throw new RuntimeException("not implemented");
+        rule.addConstraint(new IsAfterOrEqualDateConstraint<>(() ->
+            Dates.truncateTime(Date.from(rule.getRuleOptions().getClockReference().instant())), ChronoUnit.DAYS)
+        );
+        return myself;
     }
 
     @CanIgnoreReturnValue
@@ -81,8 +85,10 @@ public class DateSubject<T> extends AbstractComparableSubject<DateSubject<T>, T,
 
     @CanIgnoreReturnValue
     public DateSubject<T> isInThePastOrToday() {
-        // TODO: clock from context/provider
-        throw new RuntimeException("not implemented");
+        rule.addConstraint(new IsBeforeOrEqualDateConstraint<>(() ->
+            Dates.truncateTime(Date.from(rule.getRuleOptions().getClockReference().instant())), ChronoUnit.DAYS)
+        );
+        return myself;
     }
 
     @CanIgnoreReturnValue

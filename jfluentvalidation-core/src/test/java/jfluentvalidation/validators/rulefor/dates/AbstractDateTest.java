@@ -24,7 +24,7 @@ abstract class AbstractDateTest {
         this.clockProvider = new FixedClockProvider(dateTime);
 
         Instant instant = clockProvider.getClock().instant();
-        reference = Date.from(instant);
+        reference = Date.from(dateTime.toInstant());
         before = Date.from(instant.minus(Duration.ofDays(1)));
         after = Date.from(instant.plus(Duration.ofDays(1)));
     }

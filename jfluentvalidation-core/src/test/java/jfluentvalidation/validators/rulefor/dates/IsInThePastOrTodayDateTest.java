@@ -1,4 +1,4 @@
-package jfluentvalidation.validators.rulefor.localdate;
+package jfluentvalidation.validators.rulefor.dates;
 
 import jfluentvalidation.ValidationFailure;
 import jfluentvalidation.validators.DefaultValidator;
@@ -11,12 +11,13 @@ import static jfluentvalidation.TimeZones.TZ_CHICAGO;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class IsInThePastOrTodayLocalDateTest extends AbstractLocalDateTest {
+class IsInThePastOrTodayDateTest extends AbstractDateTest {
 
-    IsInThePastOrTodayLocalDateTest() {
+    IsInThePastOrTodayDateTest() {
         super(ZonedDateTime.of(
-            2019, 6, 15, 0, 0, 0, 0,
-            TZ_CHICAGO));
+            2019, 8, 7, 9, 0, 0, 0,
+            TZ_CHICAGO)
+        );
     }
 
     // TODO: test temporal tolerance
@@ -26,7 +27,7 @@ class IsInThePastOrTodayLocalDateTest extends AbstractLocalDateTest {
         Target t = new Target(before);
 
         DefaultValidator<Target> validator = getValidator();
-        validator.ruleForLocalDate(Target::getDate).isInThePastOrToday();
+        validator.ruleForDate(Target::getDate).isInThePastOrToday();
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -34,11 +35,11 @@ class IsInThePastOrTodayLocalDateTest extends AbstractLocalDateTest {
     }
 
     @Test
-    void shouldNotReturnFailureWhenActualIsThePresent() {
+    void shouldNotReturnFailureWhenActualIsToday() {
         Target t = new Target(reference);
 
         DefaultValidator<Target> validator = getValidator();
-        validator.ruleForLocalDate(Target::getDate).isInThePastOrToday();
+        validator.ruleForDate(Target::getDate).isInThePastOrToday();
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -50,7 +51,7 @@ class IsInThePastOrTodayLocalDateTest extends AbstractLocalDateTest {
         Target t = new Target(null);
 
         DefaultValidator<Target> validator = getValidator();
-        validator.ruleForLocalDate(Target::getDate).isInThePastOrToday();
+        validator.ruleForDate(Target::getDate).isInThePastOrToday();
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -62,7 +63,7 @@ class IsInThePastOrTodayLocalDateTest extends AbstractLocalDateTest {
         Target t = new Target(after);
 
         DefaultValidator<Target> validator = getValidator();
-        validator.ruleForLocalDate(Target::getDate).isInThePastOrToday();
+        validator.ruleForDate(Target::getDate).isInThePastOrToday();
 
         List<ValidationFailure> failures = validator.validate(t);
 

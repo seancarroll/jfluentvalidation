@@ -66,20 +66,14 @@ public class LocalDateSubject<T>
     }
 
     @CanIgnoreReturnValue
-    public LocalDateSubject<T> isInThePastOrPresent() {
+    public LocalDateSubject<T> isInThePastOrToday() {
         rule.addConstraint(new IsBeforeOrEqualLocalDateConstraint<>(() -> LocalDate.now(rule.getRuleOptions().getClockReference())));
         return myself;
     }
 
     @CanIgnoreReturnValue
     public LocalDateSubject<T> isInTheFutureOrToday() {
-        // TODO: clock from context/provider
-        throw new RuntimeException("not implemented");
-    }
-
-    @CanIgnoreReturnValue
-    public LocalDateSubject<T> isInTheFuture() {
-        rule.addConstraint(new IsAfterLocalDateConstraint<>(() -> LocalDate.now(rule.getRuleOptions().getClockReference())));
+        rule.addConstraint(new IsAfterOrEqualLocalDateConstraint<>(() -> LocalDate.now(rule.getRuleOptions().getClockReference())));
         return myself;
     }
 
@@ -90,9 +84,9 @@ public class LocalDateSubject<T>
     }
 
     @CanIgnoreReturnValue
-    public LocalDateSubject<T> isInThePastOrToday() {
-        // TODO: clock from context/provider
-        throw new RuntimeException("not implemented");
+    public LocalDateSubject<T> isInTheFuture() {
+        rule.addConstraint(new IsAfterLocalDateConstraint<>(() -> LocalDate.now(rule.getRuleOptions().getClockReference())));
+        return myself;
     }
 
     @CanIgnoreReturnValue

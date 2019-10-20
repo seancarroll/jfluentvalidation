@@ -9,6 +9,7 @@ import jfluentvalidation.constraints.time.IsTodayLocalDateTimeConstraint;
 import jfluentvalidation.rules.PropertyRule;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
 // TODO: isEquals vs equals
 
@@ -59,9 +60,11 @@ public class LocalDateTimeSubject<T>
     }
 
     @CanIgnoreReturnValue
-    public LocalDateSubject<T> isInTheFutureOrToday() {
-        // TODO: clock from context/provider
-        throw new RuntimeException("not implemented");
+    public LocalDateTimeSubject<T> isInThePastOrToday() {
+        rule.addConstraint(new IsBeforeOrEqualLocalDateTimeConstraint<>(() ->
+            LocalDateTime.now(rule.getRuleOptions().getClockReference()).truncatedTo(ChronoUnit.DAYS), ChronoUnit.DAYS)
+        );
+        return myself;
     }
 
     @CanIgnoreReturnValue
@@ -77,9 +80,11 @@ public class LocalDateTimeSubject<T>
     }
 
     @CanIgnoreReturnValue
-    public LocalDateSubject<T> isInThePastOrToday() {
-        // TODO: clock from context/provider
-        throw new RuntimeException("not implemented");
+    public LocalDateTimeSubject<T> isInTheFutureOrToday() {
+        rule.addConstraint(new IsAfterOrEqualLocalDateTimeConstraint<>(() ->
+            LocalDateTime.now(rule.getRuleOptions().getClockReference()).truncatedTo(ChronoUnit.DAYS), ChronoUnit.DAYS)
+        );
+        return myself;
     }
 
     @CanIgnoreReturnValue

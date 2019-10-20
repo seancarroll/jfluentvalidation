@@ -9,6 +9,7 @@ import jfluentvalidation.constraints.time.IsTodayOffsetDateTimeConstraint;
 import jfluentvalidation.rules.PropertyRule;
 
 import java.time.OffsetDateTime;
+import java.time.temporal.ChronoUnit;
 
 // TODO: isEquals vs equals
 
@@ -62,8 +63,10 @@ public class OffsetDateTimeSubject<T>
 
     @CanIgnoreReturnValue
     public OffsetDateTimeSubject<T> isInThePastOrToday() {
-        // TODO: clock from context/provider
-        throw new RuntimeException("not implemented");
+        rule.addConstraint(new IsBeforeOrEqualOffsetDateTimeConstraint<>(() ->
+            OffsetDateTime.now(rule.getRuleOptions().getClockReference()).truncatedTo(ChronoUnit.DAYS), ChronoUnit.DAYS)
+        );
+        return myself;
     }
 
     @CanIgnoreReturnValue
@@ -80,8 +83,10 @@ public class OffsetDateTimeSubject<T>
 
     @CanIgnoreReturnValue
     public OffsetDateTimeSubject<T> isInTheFutureOrToday() {
-        // TODO: clock from context/provider
-        throw new RuntimeException("not implemented");
+        rule.addConstraint(new IsAfterOrEqualOffsetDateTimeConstraint<>(() ->
+            OffsetDateTime.now(rule.getRuleOptions().getClockReference()).truncatedTo(ChronoUnit.DAYS), ChronoUnit.DAYS)
+        );
+        return myself;
     }
 
     @CanIgnoreReturnValue

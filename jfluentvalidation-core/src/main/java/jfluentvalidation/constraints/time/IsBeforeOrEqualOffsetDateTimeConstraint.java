@@ -7,6 +7,7 @@ import jfluentvalidation.internal.Ensure;
 import jfluentvalidation.validators.RuleContext;
 
 import java.time.OffsetDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.function.Supplier;
 
 /**
@@ -16,14 +17,24 @@ import java.util.function.Supplier;
 public class IsBeforeOrEqualOffsetDateTimeConstraint<T> extends AbstractConstraint<T, OffsetDateTime> {
 
     private final Supplier<OffsetDateTime> other;
+    private final ChronoUnit truncateTo;
 
     public IsBeforeOrEqualOffsetDateTimeConstraint(OffsetDateTime other) {
-        this(Suppliers.create(other));
+        this(Suppliers.create(other), null);
+    }
+
+    public IsBeforeOrEqualOffsetDateTimeConstraint(OffsetDateTime other, ChronoUnit truncateTo) {
+        this(Suppliers.create(other), truncateTo);
     }
 
     public IsBeforeOrEqualOffsetDateTimeConstraint(Supplier<OffsetDateTime> other) {
+        this(other, null);
+    }
+
+    public IsBeforeOrEqualOffsetDateTimeConstraint(Supplier<OffsetDateTime> other, ChronoUnit truncateTo) {
         super(DefaultMessages.TIME_IS_BEFORE_OR_EQUAL);
         this.other = Ensure.notNull(other);
+        this.truncateTo = truncateTo;
     }
 
     @Override
@@ -31,7 +42,12 @@ public class IsBeforeOrEqualOffsetDateTimeConstraint<T> extends AbstractConstrai
         if (context.getPropertyValue() == null) {
             return true;
         }
-        return !context.getPropertyValue().isAfter(other.get());
+
+        OffsetDateTime value = context.getPropertyValue();
+        if (truncateTo != null) {
+            value = value.truncatedTo(truncateTo);
+        }
+        return !value.isAfter(other.get());
     }
 
     @Override

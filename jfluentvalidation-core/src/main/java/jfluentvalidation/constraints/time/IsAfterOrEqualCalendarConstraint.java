@@ -1,11 +1,13 @@
 package jfluentvalidation.constraints.time;
 
+import jfluentvalidation.common.Dates;
 import jfluentvalidation.common.Suppliers;
 import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.DefaultMessages;
 import jfluentvalidation.internal.Ensure;
 import jfluentvalidation.validators.RuleContext;
 
+import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.function.Supplier;
 
@@ -16,14 +18,24 @@ import java.util.function.Supplier;
 public class IsAfterOrEqualCalendarConstraint<T> extends AbstractConstraint<T, Calendar> {
 
     private final Supplier<Calendar> other;
+    private final ChronoUnit truncateTo;
 
     public IsAfterOrEqualCalendarConstraint(Calendar other) {
-        this(Suppliers.create(other));
+        this(Suppliers.create(other), null);
+    }
+
+    public IsAfterOrEqualCalendarConstraint(Calendar other, ChronoUnit truncateTo) {
+        this(Suppliers.create(other), truncateTo);
     }
 
     public IsAfterOrEqualCalendarConstraint(Supplier<Calendar> other) {
+        this(other, null);
+    }
+
+    public IsAfterOrEqualCalendarConstraint(Supplier<Calendar> other, ChronoUnit truncateTo) {
         super(DefaultMessages.TIME_IS_AFTER_OR_EQUAL);
         this.other = Ensure.notNull(other);
+        this.truncateTo = truncateTo;
     }
 
     @Override
@@ -31,7 +43,12 @@ public class IsAfterOrEqualCalendarConstraint<T> extends AbstractConstraint<T, C
         if (context.getPropertyValue() == null) {
             return true;
         }
-        return !context.getPropertyValue().before(other.get());
+
+        Calendar value = context.getPropertyValue();
+        if (truncateTo != null) {
+            value = Dates.truncateTo(value, truncateTo);
+        }
+        return !value.before(other.get());
     }
 
     @Override

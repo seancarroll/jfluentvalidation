@@ -9,6 +9,7 @@ import jfluentvalidation.constraints.time.IsTodayZonedDateTimeConstraint;
 import jfluentvalidation.rules.PropertyRule;
 
 import java.time.ZonedDateTime;
+import java.time.temporal.ChronoUnit;
 
 // TODO: isEquals vs equals
 // TODO: still some unchecked assignments
@@ -63,8 +64,10 @@ public class ZonedDateTimeSubject<T>
 
     @CanIgnoreReturnValue
     public ZonedDateTimeSubject<T> isInThePastOrToday() {
-        // TODO: clock from context/provider
-        throw new RuntimeException("not implemented");
+        rule.addConstraint(new IsBeforeOrEqualZonedDateTimeConstraint<>(() ->
+            ZonedDateTime.now(rule.getRuleOptions().getClockReference()).truncatedTo(ChronoUnit.DAYS), ChronoUnit.DAYS)
+        );
+        return myself;
     }
 
     @CanIgnoreReturnValue
@@ -81,10 +84,11 @@ public class ZonedDateTimeSubject<T>
 
     @CanIgnoreReturnValue
     public ZonedDateTimeSubject<T> isInTheFutureOrToday() {
-        // TODO: clock from context/provider
-        throw new RuntimeException("not implemented");
+        rule.addConstraint(new IsAfterOrEqualZonedDateTimeConstraint<>(() ->
+            ZonedDateTime.now(rule.getRuleOptions().getClockReference()).truncatedTo(ChronoUnit.DAYS), ChronoUnit.DAYS)
+        );
+        return myself;
     }
-
 
     @CanIgnoreReturnValue
     public ZonedDateTimeSubject<T> isToday() {

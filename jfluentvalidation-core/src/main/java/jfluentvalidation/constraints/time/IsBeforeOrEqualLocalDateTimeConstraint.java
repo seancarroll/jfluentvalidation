@@ -7,6 +7,7 @@ import jfluentvalidation.internal.Ensure;
 import jfluentvalidation.validators.RuleContext;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.function.Supplier;
 
 /**
@@ -16,14 +17,24 @@ import java.util.function.Supplier;
 public class IsBeforeOrEqualLocalDateTimeConstraint<T> extends AbstractConstraint<T, LocalDateTime> {
 
     private final Supplier<LocalDateTime> other;
+    private final ChronoUnit truncateTo;
 
     public IsBeforeOrEqualLocalDateTimeConstraint(LocalDateTime other) {
         this(Suppliers.create(other));
     }
 
+    public IsBeforeOrEqualLocalDateTimeConstraint(LocalDateTime other, ChronoUnit truncateTo) {
+        this(Suppliers.create(other), truncateTo);
+    }
+
     public IsBeforeOrEqualLocalDateTimeConstraint(Supplier<LocalDateTime> other) {
+        this(other, null);
+    }
+
+    public IsBeforeOrEqualLocalDateTimeConstraint(Supplier<LocalDateTime> other, ChronoUnit truncateTo) {
         super(DefaultMessages.TIME_IS_BEFORE_OR_EQUAL);
         this.other = Ensure.notNull(other);
+        this.truncateTo = truncateTo;
     }
 
     @Override
@@ -31,7 +42,12 @@ public class IsBeforeOrEqualLocalDateTimeConstraint<T> extends AbstractConstrain
         if (context.getPropertyValue() == null) {
             return true;
         }
-        return !context.getPropertyValue().isAfter(other.get());
+
+        LocalDateTime value = context.getPropertyValue();
+        if (truncateTo != null) {
+            value = value.truncatedTo(truncateTo);
+        }
+        return !value.isAfter(other.get());
     }
 
     @Override

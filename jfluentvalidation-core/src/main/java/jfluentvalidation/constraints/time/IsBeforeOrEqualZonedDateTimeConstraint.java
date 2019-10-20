@@ -7,6 +7,7 @@ import jfluentvalidation.internal.Ensure;
 import jfluentvalidation.validators.RuleContext;
 
 import java.time.ZonedDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.function.Supplier;
 
 /**
@@ -16,14 +17,24 @@ import java.util.function.Supplier;
 public class IsBeforeOrEqualZonedDateTimeConstraint<T> extends AbstractConstraint<T, ZonedDateTime> {
 
     private final Supplier<ZonedDateTime> other;
+    private final ChronoUnit truncateTo;
 
     public IsBeforeOrEqualZonedDateTimeConstraint(ZonedDateTime other) {
-        this(Suppliers.create(other));
+        this(Suppliers.create(other), null);
+    }
+
+    public IsBeforeOrEqualZonedDateTimeConstraint(ZonedDateTime other, ChronoUnit truncateTo) {
+        this(Suppliers.create(other), truncateTo);
     }
 
     public IsBeforeOrEqualZonedDateTimeConstraint(Supplier<ZonedDateTime> other) {
+        this(other, null);
+    }
+
+    public IsBeforeOrEqualZonedDateTimeConstraint(Supplier<ZonedDateTime> other, ChronoUnit truncateTo) {
         super(DefaultMessages.TIME_IS_BEFORE_OR_EQUAL);
         this.other = Ensure.notNull(other);
+        this.truncateTo = truncateTo;
     }
 
     @Override
@@ -31,7 +42,13 @@ public class IsBeforeOrEqualZonedDateTimeConstraint<T> extends AbstractConstrain
         if (context.getPropertyValue() == null) {
             return true;
         }
-        return !context.getPropertyValue().isAfter(other.get());
+
+        ZonedDateTime value = context.getPropertyValue();
+        if (truncateTo != null) {
+            value = value.truncatedTo(truncateTo);
+        }
+
+        return !value.isAfter(other.get());
     }
 
     @Override
