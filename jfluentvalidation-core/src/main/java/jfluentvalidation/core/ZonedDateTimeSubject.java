@@ -20,7 +20,7 @@ import java.time.temporal.ChronoUnit;
  * @param <T> the type of the instance
  */
 public class ZonedDateTimeSubject<T>
-    extends AbstractComparableSubject<ZonedDateTimeSubject<T>, T, ZonedDateTime> {
+    extends AbstractTemporalSubject<ZonedDateTimeSubject<T>, T, ZonedDateTime> {
 
     public ZonedDateTimeSubject(PropertyRule<T, ZonedDateTime> rule) {
         super(ZonedDateTimeSubject.class, rule);

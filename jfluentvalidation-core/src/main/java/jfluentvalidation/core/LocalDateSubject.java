@@ -29,7 +29,7 @@ import java.time.LocalDate;
  * @param <T> the type of the instance
  */
 public class LocalDateSubject<T>
-    extends AbstractComparableSubject<LocalDateSubject<T>, T, LocalDate> {
+    extends AbstractTemporalSubject<LocalDateSubject<T>, T, LocalDate> {
 
     public LocalDateSubject(PropertyRule<T, LocalDate> rule) {
         super(LocalDateSubject.class, rule);
@@ -78,12 +78,6 @@ public class LocalDateSubject<T>
     }
 
     @CanIgnoreReturnValue
-    public LocalDateSubject<T> isInTheFutureOrPresent() {
-        rule.addConstraint(new IsAfterOrEqualLocalDateConstraint<>(() -> LocalDate.now(rule.getRuleOptions().getClockReference())));
-        return myself;
-    }
-
-    @CanIgnoreReturnValue
     public LocalDateSubject<T> isInTheFuture() {
         rule.addConstraint(new IsAfterLocalDateConstraint<>(() -> LocalDate.now(rule.getRuleOptions().getClockReference())));
         return myself;
@@ -94,6 +88,4 @@ public class LocalDateSubject<T>
         rule.addConstraint(new IsTodayLocalDateConstraint<>(rule.getRuleOptions().getClockReference()));
         return myself;
     }
-
-
 }

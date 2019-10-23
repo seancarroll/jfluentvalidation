@@ -1,5 +1,6 @@
 package jfluentvalidation.core;
 
+import jfluentvalidation.constraints.numbers.IsCloseToBigDecimalConstraint;
 import jfluentvalidation.rules.PropertyRule;
 
 import java.math.BigDecimal;
@@ -13,6 +14,19 @@ public class BigDecimalSubject<T> extends AbstractComparableNumber<BigDecimalSub
 
     public BigDecimalSubject(PropertyRule<T, BigDecimal> rule) {
         super(BigDecimalSubject.class, rule);
+    }
+
+    @Override
+    public BigDecimalSubject<T> isCloseTo(BigDecimal expected, BigDecimal offset, boolean strict) {
+        rule.addConstraint(new IsCloseToBigDecimalConstraint<>(expected, offset, strict));
+        return myself;
+    }
+
+    @Override
+    public BigDecimalSubject<T> isNotCloseTo(BigDecimal expected, BigDecimal offset, boolean strict) {
+        // TODO: implement
+        // rule.addConstraint(new IsNotCloseToBigDecimalConstraint<>(expected, offset, strict));
+        return myself;
     }
 
     @Override

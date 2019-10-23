@@ -77,15 +77,9 @@ public abstract class AbstractComparableNumber<S extends AbstractComparableNumbe
         return myself;
     }
 
-    @Override
-    public S isCloseTo() {
-        return null;
-    }
+    public abstract S isCloseTo(A expected, A offset, boolean strict);
 
-    @Override
-    public S isNotCloseTo() {
-        return null;
-    }
+    public abstract S isNotCloseTo(A expected, A offset, boolean strict);
 
     protected abstract A zero();
 

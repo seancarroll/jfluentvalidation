@@ -37,11 +37,14 @@ public interface NumberSubject<S extends NumberSubject<S, A>, A extends Number> 
     @CanIgnoreReturnValue
     S isNotNegative();
 
-    // TODO: alternative name
     @CanIgnoreReturnValue
-    S isCloseTo();
+    S isCloseTo(A expected, A offset, boolean strict);
 
-    // TODO: alternative name
+    // TODO: isCloseTo...percentage
+
+
     @CanIgnoreReturnValue
-    S isNotCloseTo();
+    S isNotCloseTo(A expected, A offset, boolean strict);
+
+    // TODO: isNotCloseTo...percentage
 }

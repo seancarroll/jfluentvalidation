@@ -1,5 +1,6 @@
 package jfluentvalidation.core;
 
+import jfluentvalidation.constraints.numbers.IsCloseToFloatConstraint;
 import jfluentvalidation.rules.PropertyRule;
 
 // TODO: verify we can handle primitives
@@ -13,6 +14,19 @@ public class FloatSubject<T> extends AbstractComparableNumber<FloatSubject<T>, T
 
     public FloatSubject(PropertyRule<T, Float> rule) {
         super(FloatSubject.class, rule);
+    }
+
+    @Override
+    public FloatSubject<T> isCloseTo(Float expected, Float offset, boolean strict) {
+        rule.addConstraint(new IsCloseToFloatConstraint<>(expected, offset, strict));
+        return myself;
+    }
+
+    @Override
+    public FloatSubject<T> isNotCloseTo(Float expected, Float offset, boolean strict) {
+        // TODO: implement
+        // rule.addConstraint(new IsNotCloseToFloatConstraint<>(expected, offset, strict));
+        return myself;
     }
 
     @Override

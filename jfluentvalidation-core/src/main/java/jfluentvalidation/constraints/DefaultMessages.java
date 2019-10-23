@@ -11,6 +11,9 @@ public class DefaultMessages {
     public static final String IS_NULL = "{jfluentvalidation.constraints.IsNull.message}";
     public static final String IS_NULL_OR_EMPTY = "{jfluentvalidation.constraints.IsNullOrEmpty.message}";
 
+    public static final String IS_CLOSE_TO = "{jfluentvalidation.constraints.IsCloseTo.message}";
+    public static final String IS_NOT_CLOSE_TO = "{jfluentvalidation.constraints.IsNotCloseTo.message}";
+
     public static final String HAS_SIZE = "{jfluentvalidation.constraints.HasSize.message}";
 
     // TODO: is this the same as other contain

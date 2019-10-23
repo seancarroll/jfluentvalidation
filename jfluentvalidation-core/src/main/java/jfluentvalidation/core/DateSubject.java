@@ -96,4 +96,9 @@ public class DateSubject<T> extends AbstractComparableSubject<DateSubject<T>, T,
         rule.addConstraint(new IsTodayDateConstraint<>(rule.getRuleOptions().getClockReference()));
         return myself;
     }
+
+    // TOOD: use long for millis? use Temporal / ChronoUnit?
+    public DateSubject<T> isCloseTo(Date other, long offset) {
+        return null;
+    }
 }

@@ -15,7 +15,7 @@ import java.time.LocalTime;
  * @param <T> the type of the instance
  */
 public class LocalTimeSubject<T>
-    extends AbstractComparableSubject<LocalTimeSubject<T>, T, LocalTime> {
+    extends AbstractTemporalSubject<LocalTimeSubject<T>, T, LocalTime> {
 
     public LocalTimeSubject(PropertyRule<T, LocalTime> rule) {
         super(LocalTimeSubject.class, rule);

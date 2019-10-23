@@ -17,7 +17,7 @@ import java.time.OffsetTime;
  * @param <T> the type of the instance
  */
 public class OffsetTimeSubject<T>
-    extends AbstractComparableSubject<OffsetTimeSubject<T>, T, OffsetTime> {
+    extends AbstractTemporalSubject<OffsetTimeSubject<T>, T, OffsetTime> {
 
     public OffsetTimeSubject(PropertyRule<T, OffsetTime> rule) {
         super(OffsetTimeSubject.class, rule);

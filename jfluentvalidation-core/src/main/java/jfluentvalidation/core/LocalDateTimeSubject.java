@@ -17,7 +17,7 @@ import java.time.temporal.ChronoUnit;
  * @param <T> the type of the instance
  */
 public class LocalDateTimeSubject<T>
-    extends AbstractComparableSubject<LocalDateTimeSubject<T>, T, LocalDateTime> {
+    extends AbstractTemporalSubject<LocalDateTimeSubject<T>, T, LocalDateTime> {
 
     public LocalDateTimeSubject(PropertyRule<T, LocalDateTime> rule) {
         super(LocalDateTimeSubject.class, rule);

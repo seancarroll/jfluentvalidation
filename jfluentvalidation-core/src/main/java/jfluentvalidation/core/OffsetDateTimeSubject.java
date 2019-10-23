@@ -19,7 +19,7 @@ import java.time.temporal.ChronoUnit;
  * @param <T> the type of the instance
  */
 public class OffsetDateTimeSubject<T>
-    extends AbstractComparableSubject<OffsetDateTimeSubject<T>, T, OffsetDateTime> {
+    extends AbstractTemporalSubject<OffsetDateTimeSubject<T>, T, OffsetDateTime> {
 
     public OffsetDateTimeSubject(PropertyRule<T, OffsetDateTime> rule) {
         super(OffsetDateTimeSubject.class, rule);

@@ -1,5 +1,6 @@
 package jfluentvalidation.core;
 
+import jfluentvalidation.constraints.numbers.IsCloseToBigIntegerConstraint;
 import jfluentvalidation.rules.PropertyRule;
 
 import java.math.BigInteger;
@@ -13,6 +14,19 @@ public class BigIntegerSubject<T> extends AbstractComparableNumber<BigIntegerSub
 
     public BigIntegerSubject(PropertyRule<T, BigInteger> rule) {
         super(BigIntegerSubject.class, rule);
+    }
+
+    @Override
+    public BigIntegerSubject<T> isCloseTo(BigInteger expected, BigInteger offset, boolean strict) {
+        rule.addConstraint(new IsCloseToBigIntegerConstraint<>(expected, offset, strict));
+        return myself;
+    }
+
+    @Override
+    public BigIntegerSubject<T> isNotCloseTo(BigInteger expected, BigInteger offset, boolean strict) {
+        // TODO: implement
+        // rule.addConstraint(new IsNotCloseToBigIntegerConstraint<>(expected, offset, strict));
+        return myself;
     }
 
     @Override

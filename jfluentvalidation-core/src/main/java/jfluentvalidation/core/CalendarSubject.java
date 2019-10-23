@@ -95,4 +95,10 @@ public class CalendarSubject<T>
         rule.addConstraint(new IsTodayCalendarConstraint<>(rule.getRuleOptions().getClockReference()));
         return myself;
     }
+
+    // TOOD: use long for millis? use Temporal / ChronoUnit?
+    public CalendarSubject<T> isCloseTo(Calendar other, long offset) {
+        return null;
+    }
+
 }
