@@ -1,0 +1,119 @@
+package jfluentvalidation.validators.rulefor.bigintegers;
+
+import jfluentvalidation.ValidationFailure;
+import jfluentvalidation.validators.DefaultValidator;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+
+import java.math.BigInteger;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+class IsCloseToTest {
+
+    @ParameterizedTest
+    @CsvSource({
+        "1, 1, 1",
+        "1, 2, 10",
+        "-2, 0, 3",
+        "-1, 1, 3",
+        "0, 2, 5"
+    })
+    void shouldNotReturnFailureWhenDifferenceIsLessThanOffset(BigInteger actual, BigInteger expected, BigInteger offset) {
+        Target t = new Target(actual);
+
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        validator.ruleForBigInteger(Target::getNumber).isCloseTo(expected, offset, false);
+
+        List<ValidationFailure> failures = validator.validate(t);
+
+        assertTrue(failures.isEmpty());
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "1, 3, 2",
+        "3, 1, 2",
+        "-2, 0, 2",
+        "-1, 1, 2",
+        "0, 2, 2"
+    })
+    void shouldNotReturnFailureWhenDifferenceIsEqualToOffset(BigInteger actual, BigInteger expected, BigInteger offset) {
+        Target t = new Target(actual);
+
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        validator.ruleForBigInteger(Target::getNumber).isCloseTo(expected, offset, false);
+
+        List<ValidationFailure> failures = validator.validate(t);
+
+        assertTrue(failures.isEmpty());
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "1, 3, 1",
+        "3, 1, 1",
+        "-2, 0, 1",
+        "-1, 1, 1",
+        "0, 2, 1"
+    })
+    void shouldReturnFailureWhenActualIsNotCloseToExpected(BigInteger actual, BigInteger expected, BigInteger offset) {
+        Target t = new Target(actual);
+
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        validator.ruleForBigInteger(Target::getNumber).isCloseTo(expected, offset, false);
+
+        List<ValidationFailure> failures = validator.validate(t);
+
+        assertFalse(failures.isEmpty());
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "1, 2, 1",
+        "3, 2, 1",
+        "-2, -1, 1",
+        "-1, 1, 2",
+        "0, 2, 2"
+    })
+    void shouldReturnFailureWhenDifferenceIsEqualToGivenWithStrictOffset(BigInteger actual, BigInteger expected, BigInteger offset) {
+        Target t = new Target(actual);
+
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        validator.ruleForBigInteger(Target::getNumber).isCloseTo(expected, offset, true);
+
+        List<ValidationFailure> failures = validator.validate(t);
+
+        assertFalse(failures.isEmpty());
+    }
+
+    @Test
+    void shouldNotThrowWhenActualIsNull() {
+        Target t = new Target(null);
+
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        validator.ruleForBigInteger(Target::getNumber).isCloseTo(BigInteger.ZERO, BigInteger.ONE, false);
+
+        List<ValidationFailure> failures = validator.validate(t);
+
+        assertTrue(failures.isEmpty());
+    }
+
+    @Test
+    void shouldThrowExceptionWhenExpectedIsNull() {
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        assertThrows(NullPointerException.class, () -> validator.ruleForBigInteger(Target::getNumber).isCloseTo(null, BigInteger.ONE, false));
+
+    }
+
+    @Test
+    void shouldThrowExceptionWhenOffsetIsNull() {
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        assertThrows(NullPointerException.class, () -> validator.ruleForBigInteger(Target::getNumber).isCloseTo(BigInteger.ZERO, null, false));
+    }
+
+}

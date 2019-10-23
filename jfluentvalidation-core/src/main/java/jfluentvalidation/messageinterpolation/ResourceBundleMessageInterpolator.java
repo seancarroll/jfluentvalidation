@@ -29,11 +29,11 @@ public class ResourceBundleMessageInterpolator {
     public static final String USER_VALIDATION_MESSAGES = "ValidationMessages";
 
     private static final Pattern LEFT_BRACE = Pattern.compile("\\{", Pattern.LITERAL);
-    private static final Pattern RIGHT_BRACE = Pattern.compile("\\}", Pattern.LITERAL);
+    private static final Pattern RIGHT_BRACE = Pattern.compile("}", Pattern.LITERAL);
     private static final Pattern SLASH = Pattern.compile("\\\\", Pattern.LITERAL);
     private static final Pattern DOLLAR = Pattern.compile("\\$", Pattern.LITERAL);  // EL_DESIGNATOR
 
-    private static final Pattern TOKEN_PATTERN = Pattern.compile("([^\\$\\{]|(?<=\\\\)[${])+|\\$?\\{[^\\$\\{]*}");
+    private static final Pattern TOKEN_PATTERN = Pattern.compile("([^${]|(?<=\\\\)[${])+|\\$?\\{[^${]*}");
 
     /**
      * Default property name placeholder

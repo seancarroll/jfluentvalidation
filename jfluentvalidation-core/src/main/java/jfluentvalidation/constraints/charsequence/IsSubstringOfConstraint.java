@@ -18,7 +18,8 @@ public class IsSubstringOfConstraint<T, A extends CharSequence> extends Abstract
         this.sequence = Ensure.notNull(sequence);
     }
 
-    // TODO: comparison strategy
+    // TODO: comparison strategy? Something like insensitive the following for case insensitive?
+    // Pattern.compile(Pattern.quote(s2), Pattern.CASE_INSENSITIVE).matcher(s1).find();
     @Override
     public boolean isValid(RuleContext<T, A> context) {
         if (context.getPropertyValue() == null) {

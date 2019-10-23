@@ -46,7 +46,6 @@ public class CollectionPropertyRule<T, P, E> extends PropertyRule<T, P> {
             RuleContext ruleContext = new RuleContext(context, this);
             boolean isValid = constraint.isValid(ruleContext);
             if (!isValid) {
-                // TODO: how to include index in message
                 ruleContext.getMessageContext().appendPropertyName(ruleContext.getRule().getPropertyName());
                 ruleContext.getMessageContext().appendPropertyValue(ruleContext.getPropertyValue());
                 constraint.addParametersToContext(ruleContext);
