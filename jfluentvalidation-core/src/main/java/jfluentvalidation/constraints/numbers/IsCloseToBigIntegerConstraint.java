@@ -2,7 +2,7 @@ package jfluentvalidation.constraints.numbers;
 
 import java.math.BigInteger;
 
-public class IsCloseToBigIntegerConstraint<T> extends AbstractIsCloseConstraint<T, BigInteger> {
+public class IsCloseToBigIntegerConstraint<T> extends AbstractIsCloseToConstraint<T, BigInteger> {
 
     public IsCloseToBigIntegerConstraint(BigInteger other, BigInteger offset) {
         super(other, offset);

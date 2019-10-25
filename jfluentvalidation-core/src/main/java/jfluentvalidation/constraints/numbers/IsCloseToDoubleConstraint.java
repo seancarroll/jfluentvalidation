@@ -1,6 +1,6 @@
 package jfluentvalidation.constraints.numbers;
 
-public class IsCloseToDoubleConstraint<T> extends AbstractIsCloseConstraint<T, Double> {
+public class IsCloseToDoubleConstraint<T> extends AbstractIsCloseToConstraint<T, Double> {
 
     public IsCloseToDoubleConstraint(Double other, Double offset) {
         super(other, offset);

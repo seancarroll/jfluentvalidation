@@ -1,6 +1,6 @@
 package jfluentvalidation.constraints.numbers;
 
-public class IsCloseToFloatConstraint<T> extends AbstractIsCloseConstraint<T, Float> {
+public class IsCloseToFloatConstraint<T> extends AbstractIsCloseToConstraint<T, Float> {
 
     public IsCloseToFloatConstraint(Float other, Float offset) {
         super(other, offset);

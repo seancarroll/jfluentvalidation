@@ -1,6 +1,6 @@
 package jfluentvalidation.constraints.numbers;
 
-public class IsCloseToByteConstraint<T> extends AbstractIsCloseConstraint<T, Byte> {
+public class IsCloseToByteConstraint<T> extends AbstractIsCloseToConstraint<T, Byte> {
 
     public IsCloseToByteConstraint(Byte other, Byte offset) {
         super(other, offset);

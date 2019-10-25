@@ -2,7 +2,7 @@ package jfluentvalidation.constraints.numbers;
 
 import java.math.BigDecimal;
 
-public class IsCloseToBigDecimalConstraint<T> extends AbstractIsCloseConstraint<T, BigDecimal> {
+public class IsCloseToBigDecimalConstraint<T> extends AbstractIsCloseToConstraint<T, BigDecimal> {
 
     public IsCloseToBigDecimalConstraint(BigDecimal other, BigDecimal offset) {
         super(other, offset);

@@ -10,17 +10,17 @@ import java.util.Objects;
 import static jfluentvalidation.common.Comparables.isLessThan;
 import static jfluentvalidation.common.Comparables.isLessThanOrEqual;
 
-public abstract class AbstractIsCloseConstraint<T, P extends Number & Comparable<P>> extends AbstractConstraint<T, P> {
+public abstract class AbstractIsCloseToConstraint<T, P extends Number & Comparable<P>> extends AbstractConstraint<T, P> {
 
     private final P other;
     private final P offset;
     private final boolean strict;
 
-    public AbstractIsCloseConstraint(P other, P offset) {
+    public AbstractIsCloseToConstraint(P other, P offset) {
         this(other, offset, false);
     }
 
-    public AbstractIsCloseConstraint(P other, P offset, boolean strict) {
+    public AbstractIsCloseToConstraint(P other, P offset, boolean strict) {
         super(DefaultMessages.IS_CLOSE_TO);
         this.other = Ensure.notNull(other);
         this.offset = Ensure.notNull(offset);

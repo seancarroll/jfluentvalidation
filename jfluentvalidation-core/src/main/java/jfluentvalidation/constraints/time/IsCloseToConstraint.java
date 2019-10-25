@@ -18,16 +18,17 @@ import static java.lang.Math.abs;
  */
 public class IsCloseToConstraint<T, P extends Temporal> extends AbstractConstraint<T, P> {
 
-    // TODO: strict?
     private final P other;
     private final long offsetValue;
     private final TemporalUnit offsetUnit;
+    private final boolean strict;
 
-    public IsCloseToConstraint(@Nonnull P other, @Nonnull long offsetValue, @Nonnull TemporalUnit offsetUnit) {
+    public IsCloseToConstraint(@Nonnull P other, @Nonnull long offsetValue, @Nonnull TemporalUnit offsetUnit, boolean strict) {
         super(DefaultMessages.IS_CLOSE_TO);
         this.other = Ensure.notNull(other);
         this.offsetValue = offsetValue;
         this.offsetUnit = Ensure.notNull(offsetUnit);
+        this.strict = strict;
     }
 
     @Override
@@ -36,10 +37,15 @@ public class IsCloseToConstraint<T, P extends Temporal> extends AbstractConstrai
             return true;
         }
 
-        return getDifference(context.getPropertyValue(), other) > offsetValue;
+        long absDiff = absDiff(context.getPropertyValue(), other);
+        if (strict) {
+            return absDiff < offsetValue;
+        }
+
+        return absDiff <= offsetValue;
     }
 
-    private long getDifference(P first, P second) {
+    private long absDiff(P first, P second) {
         return abs(offsetUnit.between(first, second));
     }
 
