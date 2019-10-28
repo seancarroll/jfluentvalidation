@@ -1,6 +1,7 @@
 package jfluentvalidation.core;
 
 import jfluentvalidation.constraints.time.IsCloseToConstraint;
+import jfluentvalidation.constraints.time.IsNotCloseToConstraint;
 import jfluentvalidation.rules.PropertyRule;
 
 import java.time.temporal.Temporal;
@@ -24,13 +25,13 @@ public abstract class AbstractTemporalSubject<S extends AbstractTemporalSubject<
         super(selfType, rule);
     }
 
-    public S isCloseTo(A other, long offsetValue, TemporalUnit offsetUnit) {
-        rule.addConstraint(new IsCloseToConstraint<>(other, offsetValue, offsetUnit));
+    public S isCloseTo(A other, long offsetValue, TemporalUnit offsetUnit, boolean strict) {
+        rule.addConstraint(new IsCloseToConstraint<>(other, offsetValue, offsetUnit, strict));
         return myself;
     }
 
-    public S isNotCloseTo(A other, long offsetValue, TemporalUnit offsetUnit) {
-        // rule.addConstraint(new IsCloseToConstraint<>(other, offsetValue, offsetUnit));
+    public S isNotCloseTo(A other, long offsetValue, TemporalUnit offsetUnit, boolean strict) {
+        rule.addConstraint(new IsNotCloseToConstraint<>(other, offsetValue, offsetUnit, strict));
         return myself;
     }
 
