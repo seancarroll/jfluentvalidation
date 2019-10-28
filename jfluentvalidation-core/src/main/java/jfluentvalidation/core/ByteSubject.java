@@ -1,6 +1,7 @@
 package jfluentvalidation.core;
 
 import jfluentvalidation.constraints.numbers.IsCloseToByteConstraint;
+import jfluentvalidation.constraints.numbers.IsNotCloseToByteConstraint;
 import jfluentvalidation.rules.PropertyRule;
 
 /**
@@ -22,8 +23,7 @@ public class ByteSubject<T> extends AbstractComparableNumber<ByteSubject<T>, T, 
 
     @Override
     public ByteSubject<T> isNotCloseTo(Byte expected, Byte offset, boolean strict) {
-        // TODO: implement
-        // rule.addConstraint(new IsNotCloseToByteConstraint<>(expected, offset, strict));
+        rule.addConstraint(new IsNotCloseToByteConstraint<>(expected, offset, strict));
         return myself;
     }
 

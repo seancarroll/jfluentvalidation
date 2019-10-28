@@ -77,8 +77,24 @@ public abstract class AbstractComparableNumber<S extends AbstractComparableNumbe
         return myself;
     }
 
+    /**
+     * Constraint that the actual value is close to the expected one by less than the given offset.
+     *
+     * @param expected
+     * @param offset
+     * @param strict
+     * @return
+     */
     public abstract S isCloseTo(A expected, A offset, boolean strict);
 
+    /**
+     * Constraint that the actual value is not close to the expected one by less than the given offset.
+     *
+     * @param expected
+     * @param offset
+     * @param strict
+     * @return
+     */
     public abstract S isNotCloseTo(A expected, A offset, boolean strict);
 
     protected abstract A zero();

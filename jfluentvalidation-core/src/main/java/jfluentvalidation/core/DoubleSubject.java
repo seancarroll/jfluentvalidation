@@ -1,6 +1,7 @@
 package jfluentvalidation.core;
 
 import jfluentvalidation.constraints.numbers.IsCloseToDoubleConstraint;
+import jfluentvalidation.constraints.numbers.IsNotCloseToDoubleConstraint;
 import jfluentvalidation.rules.PropertyRule;
 
 // TODO: verify we can handle primitives
@@ -24,8 +25,7 @@ public class DoubleSubject<T> extends AbstractComparableNumber<DoubleSubject<T>,
 
     @Override
     public DoubleSubject<T> isNotCloseTo(Double expected, Double offset, boolean strict) {
-        // TODO: implement
-        // rule.addConstraint(new IsNotCloseToDoubleConstraint<>(expected, offset, strict));
+        rule.addConstraint(new IsNotCloseToDoubleConstraint<>(expected, offset, strict));
         return myself;
     }
 

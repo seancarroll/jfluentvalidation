@@ -1,6 +1,7 @@
 package jfluentvalidation.core;
 
 import jfluentvalidation.constraints.numbers.IsCloseToShortConstraint;
+import jfluentvalidation.constraints.numbers.IsNotCloseToShortConstraint;
 import jfluentvalidation.rules.PropertyRule;
 
 // TODO: verify we can handle primitives
@@ -24,8 +25,7 @@ public class ShortSubject<T> extends AbstractComparableNumber<ShortSubject<T>, T
 
     @Override
     public ShortSubject<T> isNotCloseTo(Short expected, Short offset, boolean strict) {
-        // TODO: implement
-        // rule.addConstraint(new IsNotCloseToShortConstraint<>(expected, offset, strict));
+        rule.addConstraint(new IsNotCloseToShortConstraint<>(expected, offset, strict));
         return myself;
     }
 

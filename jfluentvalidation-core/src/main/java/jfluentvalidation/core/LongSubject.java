@@ -1,6 +1,7 @@
 package jfluentvalidation.core;
 
 import jfluentvalidation.constraints.numbers.IsCloseToLongConstraint;
+import jfluentvalidation.constraints.numbers.IsNotCloseToLongConstraint;
 import jfluentvalidation.rules.PropertyRule;
 
 /**
@@ -22,8 +23,7 @@ public class LongSubject<T> extends AbstractComparableNumber<LongSubject<T>, T, 
 
     @Override
     public LongSubject<T> isNotCloseTo(Long expected, Long offset, boolean strict) {
-        // TODO: implement
-        // rule.addConstraint(new IsNotCloseToLongConstraint<>(expected, offset, strict));
+        rule.addConstraint(new IsNotCloseToLongConstraint<>(expected, offset, strict));
         return myself;
     }
 

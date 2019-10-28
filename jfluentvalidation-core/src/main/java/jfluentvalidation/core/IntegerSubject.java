@@ -1,6 +1,7 @@
 package jfluentvalidation.core;
 
 import jfluentvalidation.constraints.numbers.IsCloseToIntegerConstraint;
+import jfluentvalidation.constraints.numbers.IsNotCloseToIntegerConstraint;
 import jfluentvalidation.rules.PropertyRule;
 
 // TODO: what should the type hierarchy be?
@@ -24,8 +25,7 @@ public class IntegerSubject<T> extends AbstractComparableNumber<IntegerSubject<T
 
     @Override
     public IntegerSubject<T> isNotCloseTo(Integer expected, Integer offset, boolean strict) {
-        // TODO: implement
-        // rule.addConstraint(new IsNotCloseToIntegerConstraint<>(expected, offset, strict));
+        rule.addConstraint(new IsNotCloseToIntegerConstraint<>(expected, offset, strict));
         return myself;
     }
 
