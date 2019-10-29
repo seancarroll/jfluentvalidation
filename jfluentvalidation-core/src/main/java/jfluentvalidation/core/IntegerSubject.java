@@ -4,8 +4,6 @@ import jfluentvalidation.constraints.numbers.IsCloseToIntegerConstraint;
 import jfluentvalidation.constraints.numbers.IsNotCloseToIntegerConstraint;
 import jfluentvalidation.rules.PropertyRule;
 
-// TODO: what should the type hierarchy be?
-
 /**
  * Constraints for {@code int} subjects.
  *

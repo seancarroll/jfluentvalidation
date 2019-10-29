@@ -13,6 +13,7 @@ import java.time.temporal.UnsupportedTemporalTypeException;
 import static java.lang.Math.abs;
 
 /**
+ * Constraint that the actual value is close to the expected one by less than the given offset.
  *
  * @param <T>  type of instance to validate.
  * @param <P>  the type of the actual object being tested by this {@code Constraint}.

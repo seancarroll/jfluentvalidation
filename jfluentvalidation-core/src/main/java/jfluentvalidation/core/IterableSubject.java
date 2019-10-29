@@ -21,7 +21,7 @@ import static jfluentvalidation.common.Lists.newArrayList;
 /**
  *
  * @param <T>  the type of the instance
- * @param <E>
+ * @param <E>  the type of the "actual" array element.
  */
 public class IterableSubject<T, E> extends AbstractIterableSubject<IterableSubject<T, E>, T, Iterable<? super E>, E> {
 

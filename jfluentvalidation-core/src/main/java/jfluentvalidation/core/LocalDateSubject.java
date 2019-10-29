@@ -26,6 +26,8 @@ import java.time.LocalDate;
 // which it ues when constructing the reference clock via Clock.offset
 
 /**
+ * Constraints for {@code LocalDate} subjects.
+ *
  * @param <T> the type of the instance
  */
 public class LocalDateSubject<T>

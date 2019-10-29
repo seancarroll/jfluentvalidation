@@ -12,6 +12,8 @@ import java.time.LocalTime;
 // TODO: isEquals vs equals
 
 /**
+ * Constraints for {@code LocalTime} subjects.
+ *
  * @param <T> the type of the instance
  */
 public class LocalTimeSubject<T>

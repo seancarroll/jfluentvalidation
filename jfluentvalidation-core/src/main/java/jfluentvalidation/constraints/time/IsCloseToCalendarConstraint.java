@@ -10,6 +10,11 @@ import java.util.Calendar;
 
 import static java.lang.Math.abs;
 
+/**
+ * Constraint that the actual value is close to the expected one by less than the given offset.
+ *
+ * @param <T>  the target type supported by an implementation.
+ */
 public class IsCloseToCalendarConstraint<T> extends AbstractConstraint<T, Calendar> {
 
     private final Calendar other;

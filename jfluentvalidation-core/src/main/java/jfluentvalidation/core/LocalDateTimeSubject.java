@@ -14,6 +14,8 @@ import java.time.temporal.ChronoUnit;
 // TODO: isEquals vs equals
 
 /**
+ * Constraints for {@code LocalDateTime} subjects.
+ *
  * @param <T> the type of the instance
  */
 public class LocalDateTimeSubject<T>

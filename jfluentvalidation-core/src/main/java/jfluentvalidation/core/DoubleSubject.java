@@ -4,8 +4,6 @@ import jfluentvalidation.constraints.numbers.IsCloseToDoubleConstraint;
 import jfluentvalidation.constraints.numbers.IsNotCloseToDoubleConstraint;
 import jfluentvalidation.rules.PropertyRule;
 
-// TODO: verify we can handle primitives
-
 /**
  * Constraints for {@link Double} subjects.
  *

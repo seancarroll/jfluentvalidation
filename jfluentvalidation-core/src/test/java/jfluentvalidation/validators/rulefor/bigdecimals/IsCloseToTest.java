@@ -107,7 +107,6 @@ class IsCloseToTest {
     void shouldThrowExceptionWhenExpectedIsNull() {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         assertThrows(NullPointerException.class, () -> validator.ruleForBigDecimal(Target::getNumber).isCloseTo(null, BigDecimal.ONE, false));
-
     }
 
     @Test

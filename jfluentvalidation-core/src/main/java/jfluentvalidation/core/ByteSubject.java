@@ -5,7 +5,7 @@ import jfluentvalidation.constraints.numbers.IsNotCloseToByteConstraint;
 import jfluentvalidation.rules.PropertyRule;
 
 /**
- * Assertion class for {@link java.net.URI}s
+ * Constraints for {@link Byte} subjects.
  *
  * @param <T>  the type of the instance
  */

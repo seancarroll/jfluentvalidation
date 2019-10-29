@@ -11,6 +11,12 @@ import java.time.temporal.TemporalUnit;
 
 import static java.lang.Math.abs;
 
+/**
+ * Constraint that the actual value is not close to the expected one by less than the given offset.
+ *
+ * @param <T>  type of instance to validate.
+ * @param <P>  the type of the actual object being tested by this {@code Constraint}.
+ */
 public class IsNotCloseToConstraint<T, P extends Temporal> extends AbstractConstraint<T, P> {
 
     private final P other;
