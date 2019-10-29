@@ -9,8 +9,6 @@ import jfluentvalidation.rules.PropertyRule;
 
 import java.time.LocalTime;
 
-// TODO: isEquals vs equals
-
 /**
  * Constraints for {@code LocalTime} subjects.
  *

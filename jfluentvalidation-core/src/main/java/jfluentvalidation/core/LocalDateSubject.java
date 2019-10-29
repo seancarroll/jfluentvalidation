@@ -10,7 +10,6 @@ import jfluentvalidation.rules.PropertyRule;
 
 import java.time.LocalDate;
 
-// TODO: isEquals vs equals
 // From javadoc: This class does not store or represent a time or time-zone.
 // Instead, it is a description of the date, as used for birthdays.
 // It cannot represent an instant on the time-line without additional information such as an offset or time-zone.

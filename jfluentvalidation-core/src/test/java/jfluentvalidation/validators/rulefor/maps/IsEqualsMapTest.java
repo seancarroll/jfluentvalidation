@@ -19,7 +19,7 @@ class IsEqualsMapTest {
         Target t = new Target(reference);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForMap(Target::getMap).isEquals(reference);
+        validator.ruleForMap(Target::getMap).isEqualTo(reference);
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -38,7 +38,7 @@ class IsEqualsMapTest {
         Map<String, String> other = new HashMap<String, String>() {{
             put("key1", "value1");
         }};
-        validator.ruleForMap(Target::getMap).isEquals(other);
+        validator.ruleForMap(Target::getMap).isEqualTo(other);
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -50,7 +50,7 @@ class IsEqualsMapTest {
         Target t = new Target(null);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForMap(Target::getMap).isEquals(new HashMap<>());
+        validator.ruleForMap(Target::getMap).isEqualTo(new HashMap<>());
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -69,7 +69,7 @@ class IsEqualsMapTest {
         Map<String, String> other = new HashMap<String, String>() {{
             put("Key1", "Value1");
         }};
-        validator.ruleForMap(Target::getMap).isEquals(other);
+        validator.ruleForMap(Target::getMap).isEqualTo(other);
 
         List<ValidationFailure> failures = validator.validate(t);
 

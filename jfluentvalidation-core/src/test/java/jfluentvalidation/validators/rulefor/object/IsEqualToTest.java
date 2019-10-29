@@ -9,14 +9,14 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class IsEqualsTest {
+class IsEqualToTest {
 
     @Test
     void shouldNotReturnFailureWhenActualAsPrimitiveEqualsGiven() {
         Target t = new Target(5);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForObject(Target::getId).isEquals(5);
+        validator.ruleForObject(Target::getId).isEqualTo(5);
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -29,7 +29,7 @@ class IsEqualsTest {
         Target t = new Target(o);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForObject(Target::getId).isEquals(o);
+        validator.ruleForObject(Target::getId).isEqualTo(o);
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -41,7 +41,7 @@ class IsEqualsTest {
         Target t = new Target(null);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForObject(Target::getId).isEquals(5);
+        validator.ruleForObject(Target::getId).isEqualTo(5);
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -53,7 +53,7 @@ class IsEqualsTest {
         Target t = new Target(new IdOverriddenEquals("some-id"));
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForObject(Target::getId).isEquals(new IdOverriddenEquals("some-id"));
+        validator.ruleForObject(Target::getId).isEqualTo(new IdOverriddenEquals("some-id"));
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -65,7 +65,7 @@ class IsEqualsTest {
         Target t = new Target(5);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForObject(Target::getId).isEquals(7);
+        validator.ruleForObject(Target::getId).isEqualTo(7);
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -78,7 +78,7 @@ class IsEqualsTest {
         Target t = new Target(o);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForObject(Target::getId).isEquals(new Object());
+        validator.ruleForObject(Target::getId).isEqualTo(new Object());
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -90,7 +90,7 @@ class IsEqualsTest {
         Target t = new Target(new IdOverriddenEquals("some-id"));
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForObject(Target::getId).isEquals(new IdOverriddenEquals("other-id"));
+        validator.ruleForObject(Target::getId).isEqualTo(new IdOverriddenEquals("other-id"));
 
         List<ValidationFailure> failures = validator.validate(t);
 

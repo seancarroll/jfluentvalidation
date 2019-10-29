@@ -3,10 +3,10 @@ package jfluentvalidation.constraints;
 public class DefaultMessages {
 
     public static final String IS_EMPTY = "{jfluentvalidation.constraints.IsEmpty.message}";
-    public static final String IS_EQUALS = "{jfluentvalidation.constraints.IsEquals.message}";
+    public static final String IS_EQUALS = "{jfluentvalidation.constraints.IsEqualTo.message}";
     public static final String IS_NOT_EMPTY = "{jfluentvalidation.constraints.IsNotEmpty.message}";
     public static final String IS_NOT_NULL_OR_EMPTY = "{jfluentvalidation.constraints.IsNotNullOrEmpty.message}";
-    public static final String IS_NOT_EQUALS = "{jfluentvalidation.constraints.IsNotEquals.message}";
+    public static final String IS_NOT_EQUALS = "{jfluentvalidation.constraints.IsNotEqual.message}";
     public static final String IS_NOT_NULL = "{jfluentvalidation.constraints.IsNotNull.message}";
     public static final String IS_NULL = "{jfluentvalidation.constraints.IsNull.message}";
     public static final String IS_NULL_OR_EMPTY = "{jfluentvalidation.constraints.IsNullOrEmpty.message}";

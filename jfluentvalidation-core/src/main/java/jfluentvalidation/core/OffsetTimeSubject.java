@@ -9,8 +9,6 @@ import jfluentvalidation.rules.PropertyRule;
 
 import java.time.OffsetTime;
 
-// TODO: isEquals vs equals
-
 /**
  * Constraints for {@link OffsetTime} subjects.
  *

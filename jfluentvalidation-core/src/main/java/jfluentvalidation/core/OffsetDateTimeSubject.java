@@ -11,8 +11,6 @@ import jfluentvalidation.rules.PropertyRule;
 import java.time.OffsetDateTime;
 import java.time.temporal.ChronoUnit;
 
-// TODO: isEquals vs equals
-
 /**
  * Constraints for {@link OffsetDateTime} subjects.
  *

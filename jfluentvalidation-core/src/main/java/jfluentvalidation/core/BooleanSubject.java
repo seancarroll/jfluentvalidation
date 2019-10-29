@@ -18,12 +18,12 @@ public class BooleanSubject<T> extends AbstractComparableSubject<BooleanSubject<
 
     @CanIgnoreReturnValue
     public BooleanSubject<T> isTrue() {
-        return isEquals(true);
+        return isEqualTo(true);
     }
 
     @CanIgnoreReturnValue
     public BooleanSubject<T> isFalse() {
-        return isEquals(false);
+        return isEqualTo(false);
     }
 
 }

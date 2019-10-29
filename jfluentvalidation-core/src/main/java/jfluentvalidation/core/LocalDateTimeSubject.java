@@ -11,8 +11,6 @@ import jfluentvalidation.rules.PropertyRule;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
-// TODO: isEquals vs equals
-
 /**
  * Constraints for {@code LocalDateTime} subjects.
  *

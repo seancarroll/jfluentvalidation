@@ -7,23 +7,23 @@ import jfluentvalidation.validators.RuleContext;
 import java.util.Objects;
 
 /**
- * Check that the given {@code Object} being validated is not equal to the given object.
+ * Check that the given {@code Object} being validated is equal to the given object.
  *
  * @param <T>  the target type supported by an implementation.
  * @param <P>  the type of the actual object being tested by this {@code Constraint}.
  */
-public class IsNotEqualsConstraint<T, P> extends AbstractConstraint<T, P> {
+public class IsEqualToConstraint<T, P> extends AbstractConstraint<T, P> {
 
     private final P other;
 
-    public IsNotEqualsConstraint(P other) {
-        super(DefaultMessages.IS_NOT_EQUALS);
+    public IsEqualToConstraint(P other) {
+        super(DefaultMessages.IS_EQUALS);
         this.other = other;
     }
 
     @Override
     public boolean isValid(RuleContext<T, P> context) {
-        return !Objects.equals(context.getPropertyValue(), other);
+        return Objects.equals(context.getPropertyValue(), other);
     }
 
     @Override

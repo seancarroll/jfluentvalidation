@@ -10,12 +10,12 @@ public final class ObjectConstraints {
     private static final IsNotNullConstraint IS_NOT_NULL_CONSTRAINT = new IsNotNullConstraint();
     private static final IsNullConstraint IS_NULL_CONSTRAINT = new IsNullConstraint();
 
-    public static <T> IsEqualsConstraint isEquals(T other) {
-        return new IsEqualsConstraint<>(other);
+    public static <T> IsEqualToConstraint isEqualTo(T other) {
+        return new IsEqualToConstraint<>(other);
     }
 
-    public static <T> IsNotEqualsConstraint isNotEquals(T other) {
-        return new IsNotEqualsConstraint<>(other);
+    public static <T> IsNotEqualToConstraint isNotEqualTo(T other) {
+        return new IsNotEqualToConstraint<>(other);
     }
 
     public static IsNotNullConstraint isNotNull() {

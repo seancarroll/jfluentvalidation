@@ -11,7 +11,6 @@ import jfluentvalidation.rules.PropertyRule;
 import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
 
-// TODO: isEquals vs equals
 // TODO: still some unchecked assignments
 
 /**
