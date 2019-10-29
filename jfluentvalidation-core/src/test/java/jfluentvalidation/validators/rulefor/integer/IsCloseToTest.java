@@ -106,7 +106,6 @@ class IsCloseToTest {
     void shouldThrowExceptionWhenExpectedIsNull() {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         assertThrows(NullPointerException.class, () -> validator.ruleForInteger(Target::getNumber).isCloseTo(null, 1, false));
-
     }
 
     @Test

@@ -8,6 +8,7 @@ import jfluentvalidation.validators.RuleContext;
 import javax.annotation.Nonnull;
 import java.time.temporal.Temporal;
 import java.time.temporal.TemporalUnit;
+import java.time.temporal.UnsupportedTemporalTypeException;
 
 import static java.lang.Math.abs;
 
@@ -23,12 +24,15 @@ public class IsCloseToConstraint<T, P extends Temporal> extends AbstractConstrai
     private final TemporalUnit offsetUnit;
     private final boolean strict;
 
-    public IsCloseToConstraint(@Nonnull P other, @Nonnull long offsetValue, @Nonnull TemporalUnit offsetUnit, boolean strict) {
+    public IsCloseToConstraint(@Nonnull P other, long offsetValue, @Nonnull TemporalUnit offsetUnit, boolean strict) {
         super(DefaultMessages.IS_CLOSE_TO);
         this.other = Ensure.notNull(other);
         this.offsetValue = offsetValue;
         this.offsetUnit = Ensure.notNull(offsetUnit);
         this.strict = strict;
+        if (!other.isSupported(offsetUnit)) {
+            throw new UnsupportedTemporalTypeException("Unsupported unit: " + offsetUnit);
+        }
     }
 
     @Override

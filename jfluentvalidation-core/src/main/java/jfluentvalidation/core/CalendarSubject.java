@@ -6,6 +6,7 @@ import jfluentvalidation.constraints.time.IsAfterCalendarConstraint;
 import jfluentvalidation.constraints.time.IsAfterOrEqualCalendarConstraint;
 import jfluentvalidation.constraints.time.IsBeforeCalendarConstraint;
 import jfluentvalidation.constraints.time.IsBeforeOrEqualCalendarConstraint;
+import jfluentvalidation.constraints.time.IsCloseToCalendarConstraint;
 import jfluentvalidation.constraints.time.IsTodayCalendarConstraint;
 import jfluentvalidation.rules.PropertyRule;
 
@@ -97,8 +98,10 @@ public class CalendarSubject<T>
     }
 
     // TOOD: use long for millis? use Temporal / ChronoUnit?
-    public CalendarSubject<T> isCloseTo(Calendar other, long offset) {
-        return null;
+    @CanIgnoreReturnValue
+    public CalendarSubject<T> isCloseTo(Calendar other, long offset, boolean strict) {
+        rule.addConstraint(new IsCloseToCalendarConstraint<>(other, offset, strict));
+        return myself;
     }
 
 }

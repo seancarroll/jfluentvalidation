@@ -19,7 +19,7 @@ abstract class AbstractLocalDateTest {
         this.clockProvider = new FixedClockProvider(dateTime);
 
         reference = LocalDate.now(clockProvider.getClock());
-        before = reference.minusDays(1);
+        before = reference.minusDays(2);
         after = reference.plusDays(1);
     }
 

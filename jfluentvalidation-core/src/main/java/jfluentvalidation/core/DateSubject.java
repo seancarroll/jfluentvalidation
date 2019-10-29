@@ -6,6 +6,7 @@ import jfluentvalidation.constraints.time.IsAfterDateConstraint;
 import jfluentvalidation.constraints.time.IsAfterOrEqualDateConstraint;
 import jfluentvalidation.constraints.time.IsBeforeDateConstraint;
 import jfluentvalidation.constraints.time.IsBeforeOrEqualDateConstraint;
+import jfluentvalidation.constraints.time.IsCloseToDateConstraint;
 import jfluentvalidation.constraints.time.IsTodayDateConstraint;
 import jfluentvalidation.rules.PropertyRule;
 
@@ -98,7 +99,9 @@ public class DateSubject<T> extends AbstractComparableSubject<DateSubject<T>, T,
     }
 
     // TOOD: use long for millis? use Temporal / ChronoUnit?
-    public DateSubject<T> isCloseTo(Date other, long offset) {
-        return null;
+    @CanIgnoreReturnValue
+    public DateSubject<T> isCloseTo(Date other, long offset, boolean strict) {
+        rule.addConstraint(new IsCloseToDateConstraint<>(other, offset, strict));
+        return myself;
     }
 }
