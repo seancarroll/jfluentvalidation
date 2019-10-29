@@ -12,17 +12,17 @@ import java.time.temporal.TemporalUnit;
 import static java.lang.Math.abs;
 
 public class IsNotCloseToConstraint<T, P extends Temporal> extends AbstractConstraint<T, P> {
-    
+
     private final P other;
     private final long offsetValue;
     private final TemporalUnit offsetUnit;
     private final boolean strict;
 
-    public IsNotCloseToConstraint(@Nonnull P other, @Nonnull long offsetValue, @Nonnull TemporalUnit offsetUnit) {
+    public IsNotCloseToConstraint(@Nonnull P other, long offsetValue, @Nonnull TemporalUnit offsetUnit) {
         this(other, offsetValue, offsetUnit, false);
     }
 
-    public IsNotCloseToConstraint(@Nonnull P other, @Nonnull long offsetValue, @Nonnull TemporalUnit offsetUnit, boolean strict) {
+    public IsNotCloseToConstraint(@Nonnull P other, long offsetValue, @Nonnull TemporalUnit offsetUnit, boolean strict) {
         super(DefaultMessages.IS_CLOSE_TO);
         this.other = Ensure.notNull(other);
         this.offsetValue = offsetValue;
