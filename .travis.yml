@@ -20,11 +20,10 @@ before_script:
 
 script:
   - mvn clean verify sonar:sonar -Dsonar.projectKey=seancarroll_jfluentvalidation -Pcode-coverage
-  - ls -R ./target
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
 
 after_script:
-  - ./cc-test-reporter format-coverage ./target/site/jacoco-aggregate/jacoco.xml -d -t jacoco
+  - ./cc-test-reporter format-coverage ./target/site/jacoco-aggregate/ -d -t jacoco
   - ./cc-test-reporter upload-coverage
