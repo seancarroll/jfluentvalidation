@@ -29,4 +29,6 @@ after_success:
   - bash <(curl -s https://codecov.io/bash)
 
 after_script:
-  - ./cc-test-reporter after-build -d -t jacoco ./target/site/jacoco-aggregate/jacoco.xml --exit-code $TRAVIS_TEST_RESULT
+  - ./cc-test-reporter format-coverage ./target/site/jacoco-aggregate/jacoco.xml -d -t jacoco
+  - ./cc-test-reporter upload-coverage -d
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
