@@ -24,7 +24,7 @@ before_script:
 
 script:
   - mvn clean verify sonar:sonar -Dsonar.projectKey=seancarroll_jfluentvalidation -Pcode-coverage
-  - ls
+  - ls -R ./target
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
