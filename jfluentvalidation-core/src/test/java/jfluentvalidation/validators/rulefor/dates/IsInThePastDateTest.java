@@ -19,7 +19,8 @@ class IsInThePastDateTest extends AbstractDateTest {
             TZ_CHICAGO)
         );
     }
-    // TODO: test for same  need to implement clock.
+
+    // TODO: test temporal tolerance
 
     @Test
     void shouldNotReturnFailureWhenActualIsInThePast() {
@@ -43,6 +44,18 @@ class IsInThePastDateTest extends AbstractDateTest {
         List<ValidationFailure> failures = validator.validate(t);
 
         assertTrue(failures.isEmpty());
+    }
+
+    @Test
+    void shouldReturnFailureWhenActualIsThePresent() {
+        Target t = new Target(reference);
+
+        DefaultValidator<Target> validator = getValidator();
+        validator.ruleForDate(Target::getDate).isInThePast();
+
+        List<ValidationFailure> failures = validator.validate(t);
+
+        assertFalse(failures.isEmpty());
     }
 
     @Test

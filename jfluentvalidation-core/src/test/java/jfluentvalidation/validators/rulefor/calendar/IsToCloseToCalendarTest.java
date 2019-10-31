@@ -4,19 +4,28 @@ import jfluentvalidation.ValidationFailure;
 import jfluentvalidation.validators.DefaultValidator;
 import org.junit.jupiter.api.Test;
 
+import java.time.ZonedDateTime;
 import java.util.Calendar;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import static jfluentvalidation.TimeZones.TZ_CHICAGO;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class IsToCloseToCalendarTest extends AbstractCalendarTest {
 
+    IsToCloseToCalendarTest() {
+        super(ZonedDateTime.of(
+            2019, 8, 7, 9, 0, 0, 0,
+            TZ_CHICAGO)
+        );
+    }
+
     @Test
     void shouldThrowExceptionWhenExpectedIsNull() {
-        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        DefaultValidator<Target> validator = getValidator();
         assertThrows(NullPointerException.class, () -> validator.ruleForCalendar(Target::getDate).isCloseTo(null, 1_000, false));
     }
 
@@ -24,7 +33,7 @@ class IsToCloseToCalendarTest extends AbstractCalendarTest {
     void shouldNotReturnFailureWhenActualIsNull() {
         Target t = new Target(null);
 
-        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        DefaultValidator<Target> validator = getValidator();
         validator.ruleForCalendar(Target::getDate).isCloseTo(Calendar.getInstance(), 1_000, false);
 
         List<ValidationFailure> failures = validator.validate(t);
@@ -36,7 +45,7 @@ class IsToCloseToCalendarTest extends AbstractCalendarTest {
     void shouldNotReturnFailureWhenWithinOffset() {
         Target t = new Target(reference);
 
-        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        DefaultValidator<Target> validator = getValidator();
         validator.ruleForCalendar(Target::getDate).isCloseTo(before, TimeUnit.DAYS.toMillis(1), false);
 
         List<ValidationFailure> failures = validator.validate(t);
@@ -48,7 +57,7 @@ class IsToCloseToCalendarTest extends AbstractCalendarTest {
     void shouldNotReturnFailureWhenEqualsOffset() {
         Target t = new Target(reference);
 
-        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        DefaultValidator<Target> validator = getValidator();
         validator.ruleForCalendar(Target::getDate).isCloseTo(before, TimeUnit.DAYS.toMillis(2), false);
 
         List<ValidationFailure> failures = validator.validate(t);
@@ -60,7 +69,7 @@ class IsToCloseToCalendarTest extends AbstractCalendarTest {
     void shouldReturnFailureWhenOutsideOffset() {
         Target t = new Target(reference);
 
-        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        DefaultValidator<Target> validator = getValidator();
         validator.ruleForCalendar(Target::getDate).isCloseTo(before, TimeUnit.HOURS.toMillis(1), false);
 
         List<ValidationFailure> failures = validator.validate(t);
@@ -72,7 +81,7 @@ class IsToCloseToCalendarTest extends AbstractCalendarTest {
     void shouldReturnFailureWhenEqualsStrictOffset() {
         Target t = new Target(reference);
 
-        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        DefaultValidator<Target> validator = getValidator();
         validator.ruleForCalendar(Target::getDate).isCloseTo(before, TimeUnit.DAYS.toMillis(1), true);
 
         List<ValidationFailure> failures = validator.validate(t);

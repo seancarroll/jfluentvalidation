@@ -20,7 +20,6 @@ class IsInTheFutureOrPresentOffsetDateTimeTest extends AbstractOffsetDateTime {
     }
 
     // TODO: test temporal tolerance
-    // TODO: test for same  need to implement clock.
 
     @Test
     void shouldNotReturnFailureWhenActualIsInTheFuture() {

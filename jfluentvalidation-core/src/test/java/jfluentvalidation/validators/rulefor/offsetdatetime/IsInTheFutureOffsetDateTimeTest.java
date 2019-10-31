@@ -20,7 +20,6 @@ class IsInTheFutureOffsetDateTimeTest extends AbstractOffsetDateTime {
     }
 
     // TODO: test temporal tolerance
-    // TODO: test for same  need to implement clock.
 
     @Test
     void shouldNotReturnFailureWhenActualIsInTheFuture() {
@@ -44,6 +43,18 @@ class IsInTheFutureOffsetDateTimeTest extends AbstractOffsetDateTime {
         List<ValidationFailure> failures = validator.validate(t);
 
         assertTrue(failures.isEmpty());
+    }
+
+    @Test
+    void shouldReturnFailureWhenActualIsThePresent() {
+        Target t = new Target(reference);
+
+        DefaultValidator<Target> validator = getValidator();
+        validator.ruleForOffsetDateTime(Target::getDateTime).isInThePast();
+
+        List<ValidationFailure> failures = validator.validate(t);
+
+        assertFalse(failures.isEmpty());
     }
 
     @Test

@@ -4,20 +4,29 @@ import jfluentvalidation.ValidationFailure;
 import jfluentvalidation.validators.DefaultValidator;
 import org.junit.jupiter.api.Test;
 
+import java.time.ZonedDateTime;
 import java.util.Calendar;
 import java.util.List;
 
+import static jfluentvalidation.TimeZones.TZ_CHICAGO;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class IsAfterOrEqualToCalendarTest extends AbstractCalendarTest {
 
+    IsAfterOrEqualToCalendarTest() {
+        super(ZonedDateTime.of(
+            2019, 8, 7, 9, 0, 0, 0,
+            TZ_CHICAGO)
+        );
+    }
+
     @Test
     void shouldNotReturnFailureWhenActualEqualsGivenDate() {
         Target p = new Target(reference);
 
-        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        DefaultValidator<Target> validator = getValidator();
         validator.ruleForCalendar(Target::getDate).isAfterOrEqualTo(reference);
 
         List<ValidationFailure> failures = validator.validate(p);
@@ -29,7 +38,7 @@ class IsAfterOrEqualToCalendarTest extends AbstractCalendarTest {
     void shouldNotReturnFailureWhenActualDateIsAfterGivenDate() {
         Target p = new Target(reference);
 
-        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        DefaultValidator<Target> validator = getValidator();
         validator.ruleForCalendar(Target::getDate).isAfterOrEqualTo(before);
 
         List<ValidationFailure> failures = validator.validate(p);
@@ -41,7 +50,7 @@ class IsAfterOrEqualToCalendarTest extends AbstractCalendarTest {
     void shouldNotReturnFailureWhenActualIsNull() {
         Target p = new Target(null);
 
-        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        DefaultValidator<Target> validator = getValidator();
         validator.ruleForCalendar(Target::getDate).isAfterOrEqualTo(Calendar.getInstance());
 
         List<ValidationFailure> failures = validator.validate(p);
@@ -53,7 +62,7 @@ class IsAfterOrEqualToCalendarTest extends AbstractCalendarTest {
     void shouldReturnFailureWhenActualIsNotStrictlyAfterGivenDate() {
         Target p = new Target(reference);
 
-        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        DefaultValidator<Target> validator = getValidator();
         validator.ruleForCalendar(Target::getDate).isAfterOrEqualTo(after);
 
         List<ValidationFailure> failures = validator.validate(p);
@@ -63,7 +72,7 @@ class IsAfterOrEqualToCalendarTest extends AbstractCalendarTest {
 
     @Test
     void shouldThrowExceptionWhenGivenDateIsNull() {
-        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        DefaultValidator<Target> validator = getValidator();
         assertThrows(NullPointerException.class, () -> validator.ruleForCalendar(Target::getDate).isAfterOrEqualTo(null));
     }
 }
