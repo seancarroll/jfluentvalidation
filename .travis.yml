@@ -29,5 +29,5 @@ after_success:
   - bash <(curl -s https://codecov.io/bash)
 
 after_script:
-  - JACOCO_SOURCE_PATH=jfluentvalidation-core/src/main/java/ jfluentvalidation/jfluentvalidation-spring/src/main/java/ ./cc-test-reporter format-coverage ./target/site/jacoco-aggregate/jacoco.xml -d -t jacoco
+  - JACOCO_SOURCE_PATH=jfluentvalidation-core/src/main/java/ ./cc-test-reporter format-coverage ./target/site/jacoco-aggregate/jacoco.xml -d -t jacoco
   - ./cc-test-reporter upload-coverage
