@@ -29,5 +29,7 @@ after_success:
   - bash <(curl -s https://codecov.io/bash)
 
 after_script:
-  - JACOCO_SOURCE_PATH=./jfluentvalidation-core/src/main/java ./cc-test-reporter format-coverage ./target/site/jacoco-aggregate/jacoco.xml -d -t jacoco
+  - JACOCO_SOURCE_PATH=jfluentvalidation-core/src/main/java ./cc-test-reporter format-coverage ./jfluentvalidation-core/target/site/jacoco.xml -d -t jacoco
+#  - JACOCO_SOURCE_PATH=./jfluentvalidation-spring/src/main/java ./cc-test-reporter format-coverage ./target/site/jacoco-aggregate/jacoco.xml -d -t jacoco
+#  - ./cc-test-reporter sum-coverage coverage/codeclimate.*.json -p 2
   - ./cc-test-reporter upload-coverage
