@@ -51,6 +51,9 @@ public class IsAfterOrEqualCalendarConstraint<T> extends AbstractConstraint<T, C
         Calendar otherValue = other.get();
         boolean isAfterOrEqual = !value.before(otherValue);
         if (!isAfterOrEqual) {
+            // doing this here instead of using addParametersToContext because there are instances were we are
+            // getting a supplier for the current date/time and if we do it in addParametersToContext we will
+            // get a slightly different values than what we used for the comparison
             context.getMessageContext().appendArgument("other", otherValue);
         }
 

@@ -35,6 +35,9 @@ public class IsBeforeOrEqualOffsetTimeConstraint<T> extends AbstractConstraint<T
         OffsetTime otherValue = other.get();
         boolean isBeforeOrEqual = !context.getPropertyValue().isAfter(otherValue);
         if (!isBeforeOrEqual) {
+            // doing this here instead of using addParametersToContext because there are instances were we are
+            // getting a supplier for the current date/time and if we do it in addParametersToContext we will
+            // get a slightly different values than what we used for the comparison
             context.getMessageContext().appendArgument("other", otherValue);
         }
 
