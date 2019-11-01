@@ -4,7 +4,6 @@ import jfluentvalidation.common.Dates;
 import jfluentvalidation.common.Suppliers;
 import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.DefaultMessages;
-import jfluentvalidation.internal.Ensure;
 import jfluentvalidation.validators.RuleContext;
 
 import java.time.temporal.ChronoUnit;
@@ -34,7 +33,7 @@ public class IsAfterOrEqualCalendarConstraint<T> extends AbstractConstraint<T, C
 
     public IsAfterOrEqualCalendarConstraint(Supplier<Calendar> other, ChronoUnit truncateTo) {
         super(DefaultMessages.TIME_IS_AFTER_OR_EQUAL);
-        this.other = Ensure.notNull(other);
+        this.other = other;
         this.truncateTo = truncateTo;
     }
 
@@ -48,11 +47,13 @@ public class IsAfterOrEqualCalendarConstraint<T> extends AbstractConstraint<T, C
         if (truncateTo != null) {
             value = Dates.truncateTo(value, truncateTo);
         }
-        return !value.before(other.get());
-    }
 
-    @Override
-    public void addParametersToContext(RuleContext<T, Calendar> context) {
-        context.getMessageContext().appendArgument("other", other.get());
+        Calendar otherValue = other.get();
+        boolean isAfterOrEqual = !value.before(otherValue);
+        if (!isAfterOrEqual) {
+            context.getMessageContext().appendArgument("other", otherValue);
+        }
+
+        return isAfterOrEqual;
     }
 }

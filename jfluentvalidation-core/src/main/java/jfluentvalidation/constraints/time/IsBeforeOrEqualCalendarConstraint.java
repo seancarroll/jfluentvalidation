@@ -48,11 +48,13 @@ public class IsBeforeOrEqualCalendarConstraint<T> extends AbstractConstraint<T, 
         if (truncateTo != null) {
             value = Dates.truncateTo(value, truncateTo);
         }
-        return !value.after(other.get());
-    }
 
-    @Override
-    public void addParametersToContext(RuleContext<T, Calendar> context) {
-        context.getMessageContext().appendArgument("other", other.get());
+        Calendar otherValue = other.get();
+        boolean isBeforeOrEqual = !value.after(otherValue);
+        if (!isBeforeOrEqual) {
+            context.getMessageContext().appendArgument("other", otherValue);
+        }
+
+        return isBeforeOrEqual;
     }
 }

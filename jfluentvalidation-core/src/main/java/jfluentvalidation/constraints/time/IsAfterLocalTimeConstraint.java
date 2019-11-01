@@ -3,7 +3,6 @@ package jfluentvalidation.constraints.time;
 import jfluentvalidation.common.Suppliers;
 import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.DefaultMessages;
-import jfluentvalidation.internal.Ensure;
 import jfluentvalidation.validators.RuleContext;
 
 import java.time.LocalTime;
@@ -23,7 +22,7 @@ public class IsAfterLocalTimeConstraint<T> extends AbstractConstraint<T, LocalTi
 
     public IsAfterLocalTimeConstraint(Supplier<LocalTime> other) {
         super(DefaultMessages.TIME_IS_AFTER);
-        this.other = Ensure.notNull(other);
+        this.other = other;
     }
 
     @Override
@@ -31,11 +30,17 @@ public class IsAfterLocalTimeConstraint<T> extends AbstractConstraint<T, LocalTi
         if (context.getPropertyValue() == null) {
             return true;
         }
-        return context.getPropertyValue().isAfter(other.get());
+
+        LocalTime otherValue = other.get();
+        boolean isAfter = context.getPropertyValue().isAfter(otherValue);
+        if (!isAfter) {
+            // doing this here instead of using addParametersToContext because there are instances were we are
+            // getting a supplier for the current date/time and if we do it in addParametersToContext we will
+            // get a slightly different values than what we used for the comparison
+            context.getMessageContext().appendArgument("other", otherValue);
+        }
+
+        return isAfter;
     }
 
-    @Override
-    public void addParametersToContext(RuleContext<T, LocalTime> context) {
-        context.getMessageContext().appendArgument("other", other.get());
-    }
 }

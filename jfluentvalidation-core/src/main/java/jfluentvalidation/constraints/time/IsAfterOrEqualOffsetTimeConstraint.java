@@ -3,7 +3,6 @@ package jfluentvalidation.constraints.time;
 import jfluentvalidation.common.Suppliers;
 import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.DefaultMessages;
-import jfluentvalidation.internal.Ensure;
 import jfluentvalidation.validators.RuleContext;
 
 import java.time.OffsetTime;
@@ -23,7 +22,7 @@ public class IsAfterOrEqualOffsetTimeConstraint<T> extends AbstractConstraint<T,
 
     public IsAfterOrEqualOffsetTimeConstraint(Supplier<OffsetTime> other) {
         super(DefaultMessages.TIME_IS_AFTER_OR_EQUAL);
-        this.other = Ensure.notNull(other);
+        this.other = other;
     }
 
     @Override
@@ -31,11 +30,12 @@ public class IsAfterOrEqualOffsetTimeConstraint<T> extends AbstractConstraint<T,
         if (context.getPropertyValue() == null) {
             return true;
         }
-        return !context.getPropertyValue().isBefore(other.get());
-    }
 
-    @Override
-    public void addParametersToContext(RuleContext<T, OffsetTime> context) {
-        context.getMessageContext().appendArgument("other", other.get());
+        OffsetTime otherValue = other.get();
+        boolean isAfterOrEqual = !context.getPropertyValue().isBefore(otherValue);
+        if (!isAfterOrEqual) {
+            context.getMessageContext().appendArgument("other", otherValue);
+        }
+        return isAfterOrEqual;
     }
 }

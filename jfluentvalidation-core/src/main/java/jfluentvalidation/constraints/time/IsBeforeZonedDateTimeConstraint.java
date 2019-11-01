@@ -31,11 +31,17 @@ public class IsBeforeZonedDateTimeConstraint<T> extends AbstractConstraint<T, Zo
         if (context.getPropertyValue() == null) {
             return true;
         }
-        return context.getPropertyValue().isBefore(other.get());
+
+        ZonedDateTime otherValue = other.get();
+        boolean isBefore = context.getPropertyValue().isBefore(otherValue);
+        if (!isBefore) {
+            // doing this here instead of using addParametersToContext because there are instances were we are
+            // getting a supplier for the current date/time and if we do it in addParametersToContext we will
+            // get a slightly different values than what we used for the comparison
+            context.getMessageContext().appendArgument("other", otherValue);
+        }
+
+        return isBefore;
     }
 
-    @Override
-    public void addParametersToContext(RuleContext<T, ZonedDateTime> context) {
-        context.getMessageContext().appendArgument("other", other.get());
-    }
 }

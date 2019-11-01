@@ -47,11 +47,13 @@ public class IsBeforeOrEqualLocalDateTimeConstraint<T> extends AbstractConstrain
         if (truncateTo != null) {
             value = value.truncatedTo(truncateTo);
         }
-        return !value.isAfter(other.get());
-    }
 
-    @Override
-    public void addParametersToContext(RuleContext<T, LocalDateTime> context) {
-        context.getMessageContext().appendArgument("other", other.get());
+        LocalDateTime otherValue = other.get();
+        boolean isBeforeOrEqual = !context.getPropertyValue().isAfter(otherValue);
+        if (!isBeforeOrEqual) {
+            context.getMessageContext().appendArgument("other", otherValue);
+        }
+
+        return isBeforeOrEqual;
     }
 }

@@ -3,7 +3,6 @@ package jfluentvalidation.constraints.time;
 import jfluentvalidation.common.Suppliers;
 import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.DefaultMessages;
-import jfluentvalidation.internal.Ensure;
 import jfluentvalidation.validators.RuleContext;
 
 import java.util.Calendar;
@@ -23,7 +22,7 @@ public class IsAfterCalendarConstraint<T> extends AbstractConstraint<T, Calendar
 
     public IsAfterCalendarConstraint(Supplier<Calendar> other) {
         super(DefaultMessages.TIME_IS_AFTER);
-        this.other = Ensure.notNull(other);
+        this.other = other;
     }
 
     @Override
@@ -31,13 +30,17 @@ public class IsAfterCalendarConstraint<T> extends AbstractConstraint<T, Calendar
         if (context.getPropertyValue() == null) {
             return true;
         }
-        return context.getPropertyValue().after(other.get());
+
+        Calendar otherValue = other.get();
+        boolean isAfter = context.getPropertyValue().after(otherValue);
+        if (!isAfter) {
+            // doing this here instead of using addParametersToContext because there are instances were we are
+            // getting a supplier for the current date/time and if we do it in addParametersToContext we will
+            // get a slightly different values than what we used for the comparison
+            context.getMessageContext().appendArgument("other", otherValue);
+        }
+
+        return isAfter;
     }
 
-    // TODO: given we are using a supplier I dont think we should do this.
-    // For example, if the supplier returns current date the time that we grab above will be different than what we use here
-    @Override
-    public void addParametersToContext(RuleContext<T, Calendar> context) {
-        context.getMessageContext().appendArgument("other", other.get());
-    }
 }

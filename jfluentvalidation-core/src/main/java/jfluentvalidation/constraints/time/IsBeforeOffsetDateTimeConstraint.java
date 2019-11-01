@@ -31,11 +31,16 @@ public class IsBeforeOffsetDateTimeConstraint<T> extends AbstractConstraint<T, O
         if (context.getPropertyValue() == null) {
             return true;
         }
-        return context.getPropertyValue().isBefore(other.get());
-    }
 
-    @Override
-    public void addParametersToContext(RuleContext<T, OffsetDateTime> context) {
-        context.getMessageContext().appendArgument("other", other.get());
+        OffsetDateTime otherValue = other.get();
+        boolean isBefore = context.getPropertyValue().isBefore(otherValue);
+        if (!isBefore) {
+            // doing this here instead of using addParametersToContext because there are instances were we are
+            // getting a supplier for the current date/time and if we do it in addParametersToContext we will
+            // get a slightly different values than what we used for the comparison
+            context.getMessageContext().appendArgument("other", otherValue);
+        }
+
+        return isBefore;
     }
 }

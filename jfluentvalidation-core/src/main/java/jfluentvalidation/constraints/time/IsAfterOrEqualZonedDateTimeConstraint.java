@@ -3,7 +3,6 @@ package jfluentvalidation.constraints.time;
 import jfluentvalidation.common.Suppliers;
 import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.DefaultMessages;
-import jfluentvalidation.internal.Ensure;
 import jfluentvalidation.validators.RuleContext;
 
 import java.time.ZonedDateTime;
@@ -33,7 +32,7 @@ public class IsAfterOrEqualZonedDateTimeConstraint<T> extends AbstractConstraint
 
     public IsAfterOrEqualZonedDateTimeConstraint(Supplier<ZonedDateTime> other, ChronoUnit truncateTo) {
         super(DefaultMessages.TIME_IS_AFTER_OR_EQUAL);
-        this.other = Ensure.notNull(other);
+        this.other = other;
         this.truncateTo = truncateTo;
     }
 
@@ -47,11 +46,13 @@ public class IsAfterOrEqualZonedDateTimeConstraint<T> extends AbstractConstraint
         if (truncateTo != null) {
             value = value.truncatedTo(truncateTo);
         }
-        return !value.isBefore(other.get());
+
+        ZonedDateTime otherValue = other.get();
+        boolean isAfterOrEqual = !value.isBefore(otherValue);
+        if (!isAfterOrEqual) {
+            context.getMessageContext().appendArgument("other", otherValue);
+        }
+        return isAfterOrEqual;
     }
 
-    @Override
-    public void addParametersToContext(RuleContext<T, ZonedDateTime> context) {
-        context.getMessageContext().appendArgument("other", other.get());
-    }
 }

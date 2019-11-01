@@ -47,11 +47,13 @@ public class IsBeforeOrEqualOffsetDateTimeConstraint<T> extends AbstractConstrai
         if (truncateTo != null) {
             value = value.truncatedTo(truncateTo);
         }
-        return !value.isAfter(other.get());
-    }
 
-    @Override
-    public void addParametersToContext(RuleContext<T, OffsetDateTime> context) {
-        context.getMessageContext().appendArgument("other", other.get());
+        OffsetDateTime otherValue = other.get();
+        boolean isBeforeOrEqual = !value.isAfter(otherValue);
+        if (!isBeforeOrEqual) {
+            context.getMessageContext().appendArgument("other", otherValue);
+        }
+
+        return isBeforeOrEqual;
     }
 }

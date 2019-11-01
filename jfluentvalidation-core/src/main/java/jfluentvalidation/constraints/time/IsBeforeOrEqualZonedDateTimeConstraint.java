@@ -48,11 +48,12 @@ public class IsBeforeOrEqualZonedDateTimeConstraint<T> extends AbstractConstrain
             value = value.truncatedTo(truncateTo);
         }
 
-        return !value.isAfter(other.get());
-    }
+        ZonedDateTime otherValue = other.get();
+        boolean isBeforeOrEqual = !value.isAfter(otherValue);
+        if (!isBeforeOrEqual) {
+            context.getMessageContext().appendArgument("other", otherValue);
+        }
 
-    @Override
-    public void addParametersToContext(RuleContext<T, ZonedDateTime> context) {
-        context.getMessageContext().appendArgument("other", other.get());
+        return isBeforeOrEqual;
     }
 }
