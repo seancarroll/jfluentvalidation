@@ -10,6 +10,11 @@ import java.time.OffsetDateTime;
 
 import static jfluentvalidation.common.Dates.isSameDay;
 
+/**
+ * Verifies that the actual {@code OffsetDateTime} is today, matching current year, month and day.
+ *
+ * @param <T>  type of instance to validate.
+ */
 public class IsTodayOffsetDateTimeConstraint<T> extends AbstractConstraint<T, OffsetDateTime> {
 
     private final Clock clock;

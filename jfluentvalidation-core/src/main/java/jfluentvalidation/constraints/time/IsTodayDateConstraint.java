@@ -10,6 +10,11 @@ import java.util.Date;
 
 import static jfluentvalidation.common.Dates.isSameDay;
 
+/**
+ * Verifies that the actual {@code Date} is today, matching current year, month and day.
+ *
+ * @param <T>  type of instance to validate.
+ */
 public class IsTodayDateConstraint<T> extends AbstractConstraint<T, Date> {
 
     private final Clock clock;

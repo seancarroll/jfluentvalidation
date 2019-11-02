@@ -11,6 +11,11 @@ import java.util.Calendar;
 import static jfluentvalidation.common.Dates.calendarFromClock;
 import static jfluentvalidation.common.Dates.isSameDay;
 
+/**
+ * Verifies that the actual {@code Calendar} is today, matching current year, month and day.
+ *
+ * @param <T>  type of instance to validate.
+ */
 public class IsTodayCalendarConstraint<T> extends AbstractConstraint<T, Calendar> {
 
     private final Clock clock;

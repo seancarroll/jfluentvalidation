@@ -8,6 +8,11 @@ import jfluentvalidation.validators.RuleContext;
 import java.time.Clock;
 import java.time.LocalDate;
 
+/**
+ * Verifies that the actual {@code LocalDate} is today, matching current year, month and day.
+ *
+ * @param <T>  type of instance to validate.
+ */
 public class IsTodayLocalDateConstraint<T> extends AbstractConstraint<T, LocalDate> {
 
     private final Clock clock;

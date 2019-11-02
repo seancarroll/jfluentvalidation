@@ -10,6 +10,11 @@ import java.time.ZonedDateTime;
 
 import static jfluentvalidation.common.Dates.isSameDay;
 
+/**
+ * Verifies that the actual {@code ZonedDateTime} is today, matching current year, month and day.
+ *
+ * @param <T>  type of instance to validate.
+ */
 public class IsTodayZonedDateTimeConstraint<T> extends AbstractConstraint<T, ZonedDateTime> {
 
     private final Clock clock;
