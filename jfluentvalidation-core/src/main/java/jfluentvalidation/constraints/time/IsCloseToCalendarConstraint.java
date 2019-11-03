@@ -44,7 +44,6 @@ public class IsCloseToCalendarConstraint<T> extends AbstractConstraint<T, Calend
     }
 
     private static long absDiff(Calendar first, Calendar second) {
-        // TODO: check if there is a better way other than this
         return abs(first.getTime().getTime() - second.getTime().getTime());
     }
 

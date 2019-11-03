@@ -14,8 +14,6 @@ public class BooleanSubject<T> extends AbstractComparableSubject<BooleanSubject<
         super(BooleanSubject.class, rule);
     }
 
-    // TODO: isEqual and isNotEqual
-
     @CanIgnoreReturnValue
     public BooleanSubject<T> isTrue() {
         return isEqualTo(true);

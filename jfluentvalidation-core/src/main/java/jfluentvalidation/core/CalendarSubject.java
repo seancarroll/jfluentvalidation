@@ -97,7 +97,7 @@ public class CalendarSubject<T>
         return myself;
     }
 
-    // TOOD: use long for millis? use Temporal / ChronoUnit?
+    // TODO: use long for millis? use Temporal / ChronoUnit?
     @CanIgnoreReturnValue
     public CalendarSubject<T> isCloseTo(Calendar other, long offset, boolean strict) {
         rule.addConstraint(new IsCloseToCalendarConstraint<>(other, offset, strict));

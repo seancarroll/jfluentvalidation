@@ -12,7 +12,7 @@ import java.time.OffsetTime;
 /**
  * Constraints for {@link OffsetTime} subjects.
  *
- * @param <T> the type of the instance
+ * @param <T>  the type of the instance
  */
 public class OffsetTimeSubject<T>
     extends AbstractTemporalSubject<OffsetTimeSubject<T>, T, OffsetTime> {
