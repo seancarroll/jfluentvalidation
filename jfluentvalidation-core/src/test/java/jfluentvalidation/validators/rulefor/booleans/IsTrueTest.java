@@ -11,8 +11,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class IsTrueTest {
 
-    // TODO: test for primitive and non-primitive
-
     @Test
     void shouldNotReturnFailureWhenActualIsNull() {
         Target t = new Target(null);
