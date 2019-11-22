@@ -1,6 +1,5 @@
 package jfluentvalidation.messageinterpolation;
 
-import org.hibernate.validator.internal.engine.messageinterpolation.LocalizedMessage;
 import org.mvel2.MVEL;
 import org.mvel2.integration.impl.MapVariableResolverFactory;
 
