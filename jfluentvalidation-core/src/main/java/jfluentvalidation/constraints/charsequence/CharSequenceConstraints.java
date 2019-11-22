@@ -82,12 +82,11 @@ public final class CharSequenceConstraints {
         return new HasLengthLessThanOrEqualToConstraint(length);
     }
 
-    public static HasSameLengthAsConstraint hasSameLenghtAs(CharSequence other) {
+    public static HasSameLengthAsConstraint hasSameLengthAs(CharSequence other) {
         return new HasSameLengthAsConstraint(other);
     }
 
-    // TODO: isBlank
-    public static IsBlankConstraint isBlank(CharSequence sequence) {
+    public static IsBlankConstraint isBlank() {
         return IS_BLANK_CONSTRAINT;
     }
 
