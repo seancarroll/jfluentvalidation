@@ -25,6 +25,12 @@ class IsNotBetweenTest {
     }
 
     @Test
+    void shouldThrowExceptionWhenStartIsAfterEnd() {
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        assertThrows(IllegalArgumentException.class, () -> validator.ruleForInteger(Target::getNumber).isNotBetween(2, 1));
+    }
+
+    @Test
     void shouldNotReturnFailureWhenActualIsBeforeStart() {
         Target t = new Target(-1);
 

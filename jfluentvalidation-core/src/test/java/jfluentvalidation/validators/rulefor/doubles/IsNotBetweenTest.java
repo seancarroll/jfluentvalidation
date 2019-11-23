@@ -24,6 +24,12 @@ class IsNotBetweenTest {
         assertThrows(NullPointerException.class, () -> validator.ruleForDouble(Target::getNumber).isNotBetween(0d, null));
     }
 
+        @Test
+    void shouldThrowExceptionWhenStartIsAfterEnd() {
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        assertThrows(IllegalArgumentException.class, () -> validator.ruleForDouble(Target::getNumber).isNotBetween(2d, 1d));
+    }
+
     @Test
     void shouldNotReturnFailureWhenActualIsBeforeStart() {
         Target t = new Target(-1d);

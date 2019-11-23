@@ -30,9 +30,9 @@ public class IsNotBetweenConstraint<T, P extends Comparable<? super P>> extends 
      */
     public IsNotBetweenConstraint(@Nonnull P start, @Nonnull P end, boolean inclusiveStart, boolean inclusiveEnd) {
         super(DefaultMessages.COMPARABLE_IS_NOT_BETWEEN);
-        // TODO: check bounds
         this.start = Ensure.notNull(start);
         this.end = Ensure.notNull(end);
+        Ensure.argument(start.compareTo(end) <= 0, "start must be less than or equal to end");
         this.inclusiveStart = inclusiveStart;
         this.inclusiveEnd = inclusiveEnd;
     }
