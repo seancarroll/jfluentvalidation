@@ -18,33 +18,33 @@ JDK 8 or above.
 ## Examples
 
 ```java
-    private class PersonValidator extends DefaultValidator<Person> {
+private class PersonValidator extends DefaultValidator<Person> {
 
-        PersonValidator() {
-            ruleForString(Person::getName).isNotEmpty().startsWith("s").length(0, 4);
-            ruleForInteger(Person::getAge).isPositive();
-            ruleForBoolean(Person::isMarried).isFalse();
-            ruleForZonedDateTime(Person::getSignedIn).isAfter(ZonedDateTime.now().minusDays(1));
-            ruleForMap(Person::getPets).isNotEmpty().forEachKey(isLowerCase()).forEachValue(length(0, 5));
+    PersonValidator() {
+        ruleForString(Person::getName).isNotEmpty().startsWith("s").length(0, 4);
+        ruleForInteger(Person::getAge).isPositive();
+        ruleForBoolean(Person::isMarried).isFalse();
+        ruleForZonedDateTime(Person::getSignedIn).isAfter(ZonedDateTime.now().minusDays(1));
+        ruleForMap(Person::getPets).isNotEmpty().forEachKey(isLowerCase()).forEachValue(length(0, 5));
 
-            include(new PersonAgeValidator());
+        include(new PersonAgeValidator());
 
-            ruleSet("address", () ->  {
-                ruleForObject(Person::getAddress).isNotNull();
-            });
-        }
+        ruleSet("address", () ->  {
+            ruleForObject(Person::getAddress).isNotNull();
+        });
+    }
+}
+
+private static class PersonAgeValidator extends DefaultValidator<Person> {
+
+    PersonAgeValidator() {
+        ruleForInteger(Person::getAge).must(isOver18());
     }
 
-    private static class PersonAgeValidator extends DefaultValidator<Person> {
-
-        PersonAgeValidator() {
-            ruleForInteger(Person::getAge).must(isOver18());
-        }
-
-        private Predicate<Integer> isOver18() {
-            return age -> age > 18;
-        }
+    private Predicate<Integer> isOver18() {
+        return age -> age > 18;
     }
+}
 ```
 
 ## Motivation
