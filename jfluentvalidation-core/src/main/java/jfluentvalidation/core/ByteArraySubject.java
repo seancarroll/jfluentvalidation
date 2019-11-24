@@ -22,7 +22,7 @@ import jfluentvalidation.rules.PropertyRule;
  *
  * @param <T>  the type of the instance
  */
-public class ByteArraySubject<T> extends AbstractByteArraySubject<ByteArraySubject<T>, T> {
+public class ByteArraySubject<T> extends AbstractArraySubject<ByteArraySubject<T>, T, byte[], Byte> {
 
     public ByteArraySubject(PropertyRule<T, byte[]> rule) {
         super(ByteArraySubject.class, rule);

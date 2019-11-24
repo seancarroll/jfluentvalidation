@@ -17,7 +17,7 @@ import jfluentvalidation.rules.PropertyRule;
  *
  * @param <T>  the type of the instance
  */
-public class IntArraySubject<T> extends AbstractIntArraySubject<IntArraySubject<T>, T> {
+public class IntArraySubject<T> extends AbstractArraySubject<IntArraySubject<T>, T, int[], Integer> {
 
     public IntArraySubject(PropertyRule<T, int[]> rule) {
         super(IntArraySubject.class, rule);
