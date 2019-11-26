@@ -2,6 +2,7 @@ package jfluentvalidation.core;
 
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import jfluentvalidation.constraints.array.contains.ContainsBooleanConstraint;
+import jfluentvalidation.constraints.array.containsany.ContainsAnyBooleanConstraint;
 import jfluentvalidation.constraints.array.empty.IsEmptyBooleanArrayConstraint;
 import jfluentvalidation.constraints.array.isnotnullorempty.IsNotNullOrEmptyBoolenArrayConstraint;
 import jfluentvalidation.constraints.array.length.ArrayExactLengthConstraint;
@@ -11,6 +12,8 @@ import jfluentvalidation.constraints.array.length.BooleanArrayMinimumLengthConst
 import jfluentvalidation.constraints.array.notempty.IsNotEmptyBooleanArrayConstraint;
 import jfluentvalidation.constraints.array.nullorempty.IsNullOrEmptyBooleanArrayConstraint;
 import jfluentvalidation.rules.PropertyRule;
+
+import java.util.Arrays;
 
 /**
  * Constraints for {@code boolean[]} typed subjects.
@@ -54,6 +57,47 @@ public class BooleanArraySubject<T> extends AbstractArraySubject<BooleanArraySub
     public BooleanArraySubject<T> contains(Boolean element) {
         rule.addConstraint(new ContainsBooleanConstraint<>(element));
         return myself;
+    }
+
+    @Override
+    public BooleanArraySubject<T> containsAnyOf(Boolean... values) {
+        return containsAnyOf(Arrays.asList(values));
+    }
+
+    @Override
+    public BooleanArraySubject<T> containsAnyOf(Iterable<Boolean> values) {
+        rule.addConstraint(new ContainsAnyBooleanConstraint<>(values));
+        return myself;
+    }
+
+    @Override
+    public BooleanArraySubject<T> containsAllOf(Boolean... expected) {
+        return null;
+    }
+
+    @Override
+    public BooleanArraySubject<T> containsAllOf(Iterable<Boolean> expected) {
+        return null;
+    }
+
+    @Override
+    public BooleanArraySubject<T> containsExactly(Boolean... exactly) {
+        return null;
+    }
+
+    @Override
+    public BooleanArraySubject<T> containsExactly(Iterable<Boolean> expected) {
+        return null;
+    }
+
+    @Override
+    public BooleanArraySubject<T> containsNone(Boolean... values) {
+        return null;
+    }
+
+    @Override
+    public BooleanArraySubject<T> containsNone(Iterable<? super Boolean> values) {
+        return null;
     }
 
     @Override

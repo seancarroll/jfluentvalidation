@@ -1,6 +1,7 @@
 package jfluentvalidation.core;
 
 import jfluentvalidation.constraints.array.contains.ContainsObjectConstraint;
+import jfluentvalidation.constraints.array.containsany.ContainsAnyObjectConstraint;
 import jfluentvalidation.constraints.array.empty.IsEmptyObjectArrayConstraint;
 import jfluentvalidation.constraints.array.isnotnullorempty.IsNotNullOrEmptyObjectArrayConstraint;
 import jfluentvalidation.constraints.array.length.ObjectArrayBetweenLengthConstraint;
@@ -10,6 +11,8 @@ import jfluentvalidation.constraints.array.length.ObjectArrayMinimumLengthConstr
 import jfluentvalidation.constraints.array.notempty.IsNotEmptyObjectArrayConstraint;
 import jfluentvalidation.constraints.array.nullorempty.IsNullOrEmptyObjectArrayConstraint;
 import jfluentvalidation.rules.PropertyRule;
+
+import java.util.Arrays;
 
 /**
  * A Subject for {@code Object[]} and more generically {@code T[]}.
@@ -100,6 +103,47 @@ public class ObjectArraySubject<T, E> extends AbstractArraySubject<ObjectArraySu
     public ObjectArraySubject<T, E> contains(E value) {
         rule.addConstraint(new ContainsObjectConstraint<>(value));
         return myself;
+    }
+
+    @Override
+    public ObjectArraySubject<T, E> containsAnyOf(E... values) {
+        return containsAnyOf(Arrays.asList(values));
+    }
+
+    @Override
+    public ObjectArraySubject<T, E> containsAnyOf(Iterable<E> values) {
+        rule.addConstraint(new ContainsAnyObjectConstraint<>(values));
+        return myself;
+    }
+
+    @Override
+    public ObjectArraySubject<T, E> containsAllOf(E... expected) {
+        return null;
+    }
+
+    @Override
+    public ObjectArraySubject<T, E> containsAllOf(Iterable<E> expected) {
+        return null;
+    }
+
+    @Override
+    public ObjectArraySubject<T, E> containsExactly(E... exactly) {
+        return null;
+    }
+
+    @Override
+    public ObjectArraySubject<T, E> containsExactly(Iterable<E> expected) {
+        return null;
+    }
+
+    @Override
+    public ObjectArraySubject<T, E> containsNone(E... values) {
+        return null;
+    }
+
+    @Override
+    public ObjectArraySubject<T, E> containsNone(Iterable<? super E> values) {
+        return null;
     }
 
 

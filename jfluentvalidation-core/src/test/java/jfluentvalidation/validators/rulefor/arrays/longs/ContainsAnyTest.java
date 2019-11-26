@@ -1,11 +1,9 @@
-package jfluentvalidation.validators.rulefor.iterables;
+package jfluentvalidation.validators.rulefor.arrays.longs;
 
-import jfluentvalidation.TestValueObject;
 import jfluentvalidation.ValidationFailure;
 import jfluentvalidation.validators.DefaultValidator;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -17,10 +15,10 @@ class ContainsAnyTest {
 
     @Test
     void shouldNotReturnFailureWhenActualContainsGivenValues() {
-        Target t = new Target(Arrays.asList("hello", "world", "foo"));
+        Target t = new Target(new long[] {1L, 5L});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForIterable(Target::getValue).containsAnyOf("hello");
+        validator.ruleForLongArray(Target::getValue).containsAnyOf(1L);
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -30,27 +28,15 @@ class ContainsAnyTest {
     @Test
     void shouldSupportLists() {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForIterable(Target::getValue).containsAnyOf(Collections.singletonList("hello"));
-    }
-
-    @Test
-    void shouldNotReturnFailureWhenActualContainsGivenNonComparableValue() {
-        TargetWithNonComparable t = new TargetWithNonComparable(Arrays.asList(new TestValueObject("hello"), new TestValueObject("hello"), new TestValueObject("hello")));
-
-        DefaultValidator<TargetWithNonComparable> validator = new DefaultValidator<>(TargetWithNonComparable.class);
-        validator.ruleForIterable(TargetWithNonComparable::getValue).containsAnyOf(new TestValueObject("hello"));
-
-        List<ValidationFailure> failures = validator.validate(t);
-
-        assertTrue(failures.isEmpty());
+        validator.ruleForLongArray(Target::getValue).containsAnyOf(Collections.singletonList(1L));
     }
 
     @Test
     void shouldNotReturnFailureWhenActualContainsAllGivenValues() {
-        Target t = new Target(Arrays.asList("hello", "world", "foo"));
+        Target t = new Target(new long[] {1L, 5L});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForIterable(Target::getValue).containsAnyOf("hello", "world", "foo");
+        validator.ruleForLongArray(Target::getValue).containsAnyOf(1L, 5L);
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -59,10 +45,10 @@ class ContainsAnyTest {
 
     @Test
     void shouldNotReturnFailureWhenActualContainsGivenValuesInDifferentOrder() {
-        Target t = new Target(Arrays.asList("hello", "world", "foo"));
+        Target t = new Target(new long[] {1L, 5L});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForIterable(Target::getValue).containsAnyOf("foo", "hello");
+        validator.ruleForLongArray(Target::getValue).containsAnyOf(5L, 1L);
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -71,10 +57,10 @@ class ContainsAnyTest {
 
     @Test
     void shouldNotReturnFailureWhenActualContainsGivenValuesMoreThanOnce() {
-        Target t = new Target(Arrays.asList("hello", "hello"));
+        Target t = new Target(new long[] {1L, 1L});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForIterable(Target::getValue).containsAnyOf("hello");
+        validator.ruleForLongArray(Target::getValue).containsAnyOf(1L);
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -83,10 +69,10 @@ class ContainsAnyTest {
 
     @Test
     void shouldNotReturnFailureWhenActualContainsJustOneOfTheGivenValues() {
-        Target t = new Target(Arrays.asList("hello", "hello"));
+        Target t = new Target(new long[] {1L, 1L});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForIterable(Target::getValue).containsAnyOf("hello", "foo", "bar");
+        validator.ruleForLongArray(Target::getValue).containsAnyOf(1L, 5L);
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -95,10 +81,10 @@ class ContainsAnyTest {
 
     @Test
     void shouldNotReturnFailureWhenActualContainsGivenValuesEvenIfDuplicated() {
-        Target t = new Target(Arrays.asList("hello", "hello"));
+        Target t = new Target(new long[] {1L, 1L});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForIterable(Target::getValue).containsAnyOf("hello", "hello");
+        validator.ruleForLongArray(Target::getValue).containsAnyOf(1L, 1L);
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -107,10 +93,10 @@ class ContainsAnyTest {
 
     @Test
     void shouldNotReturnFailureWhenActualAndGivenAreEmpty() {
-        Target t = new Target(Collections.emptyList());
+        Target t = new Target(new long[0]);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForIterable(Target::getValue).containsAnyOf(Collections.emptyList());
+        validator.ruleForLongArray(Target::getValue).containsAnyOf(Collections.emptyList());
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -122,7 +108,7 @@ class ContainsAnyTest {
         Target t = new Target(null);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForIterable(Target::getValue).containsAnyOf("hello", "hello");
+        validator.ruleForLongArray(Target::getValue).containsAnyOf(1L);
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -131,10 +117,10 @@ class ContainsAnyTest {
 
     @Test
     void shouldReturnFailureWhenGivenValuesIsEmptyAndActualIsNot() {
-        Target t = new Target(Arrays.asList("hello", "hello"));
+        Target t = new Target(new long[] {1L, 5L});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForIterable(Target::getValue).containsAnyOf(Collections.emptyList());
+        validator.ruleForLongArray(Target::getValue).containsAnyOf(Collections.emptyList());
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -143,10 +129,10 @@ class ContainsAnyTest {
 
     @Test
     void shouldReturnFailureWhenActualDoesNotContainAnyOfTheGivenValues() {
-        Target t = new Target(Arrays.asList("hello", "hello"));
+        Target t = new Target(new long[] {1L});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForIterable(Target::getValue).containsAnyOf("foo", "bar");
+        validator.ruleForLongArray(Target::getValue).containsAnyOf(5L);
 
         List<ValidationFailure> failures = validator.validate(t);
 
@@ -156,19 +142,8 @@ class ContainsAnyTest {
     @Test
     void shouldThrowExceptionWhenGivenValuesIsNull() {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        assertThrows(NullPointerException.class, () -> validator.ruleForIterable(Target::getValue).containsAnyOf((Iterable<String>) null));
+        assertThrows(NullPointerException.class, () -> validator.ruleForLongArray(Target::getValue).containsAnyOf((Iterable<Long>) null));
     }
 
-    private static class TargetWithNonComparable {
-        private final List<TestValueObject> value;
-
-        TargetWithNonComparable(List<TestValueObject> value) {
-            this.value = value;
-        }
-
-        public List<TestValueObject> getValue() {
-            return value;
-        }
-    }
 
 }

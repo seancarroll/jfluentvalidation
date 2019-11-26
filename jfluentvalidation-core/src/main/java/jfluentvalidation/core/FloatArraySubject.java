@@ -2,6 +2,7 @@ package jfluentvalidation.core;
 
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import jfluentvalidation.constraints.array.contains.ContainsFloatConstraint;
+import jfluentvalidation.constraints.array.containsany.ContainsAnyFloatConstraint;
 import jfluentvalidation.constraints.array.empty.IsEmptyFloatArrayConstraint;
 import jfluentvalidation.constraints.array.isnotnullorempty.IsNotNullOrEmptyFloatArrayConstraint;
 import jfluentvalidation.constraints.array.length.FloatArrayBetweenLengthConstraint;
@@ -11,6 +12,8 @@ import jfluentvalidation.constraints.array.length.FloatArrayMinimumLengthConstra
 import jfluentvalidation.constraints.array.notempty.IsNotEmptyFloatArrayConstraint;
 import jfluentvalidation.constraints.array.nullorempty.IsNullOrEmptyFloatArrayConstraint;
 import jfluentvalidation.rules.PropertyRule;
+
+import java.util.Arrays;
 
 /**
  * Constraints for {@code float[]} typed subjects.
@@ -95,5 +98,46 @@ public class FloatArraySubject<T> extends AbstractArraySubject<FloatArraySubject
     public FloatArraySubject<T> contains(Float value) {
         rule.addConstraint(new ContainsFloatConstraint<>(value));
         return myself;
+    }
+
+    @Override
+    public FloatArraySubject<T> containsAnyOf(Float... values) {
+        return containsAnyOf(Arrays.asList(values));
+    }
+
+    @Override
+    public FloatArraySubject<T> containsAnyOf(Iterable<Float> values) {
+        rule.addConstraint(new ContainsAnyFloatConstraint<>(values));
+        return myself;
+    }
+
+    @Override
+    public FloatArraySubject<T> containsAllOf(Float... expected) {
+        return null;
+    }
+
+    @Override
+    public FloatArraySubject<T> containsAllOf(Iterable<Float> expected) {
+        return null;
+    }
+
+    @Override
+    public FloatArraySubject<T> containsExactly(Float... exactly) {
+        return null;
+    }
+
+    @Override
+    public FloatArraySubject<T> containsExactly(Iterable<Float> expected) {
+        return null;
+    }
+
+    @Override
+    public FloatArraySubject<T> containsNone(Float... values) {
+        return null;
+    }
+
+    @Override
+    public FloatArraySubject<T> containsNone(Iterable<? super Float> values) {
+        return null;
     }
 }

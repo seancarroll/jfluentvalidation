@@ -23,6 +23,30 @@ public interface ArraySubject<S extends ArraySubject<S, A, E>, A, E> {
     S contains(E element);
 
     @CanIgnoreReturnValue
+    S containsAnyOf(E... values);
+
+    @CanIgnoreReturnValue
+    S containsAnyOf(Iterable<E> values);
+
+    @CanIgnoreReturnValue
+    S containsAllOf(E... expected);
+
+    @CanIgnoreReturnValue
+    S containsAllOf(Iterable<E> expected);
+
+    @CanIgnoreReturnValue
+    S containsExactly(E... exactly);
+
+    @CanIgnoreReturnValue
+    S containsExactly(Iterable<E> expected);
+
+    @CanIgnoreReturnValue
+    S containsNone(E... values);
+
+    @CanIgnoreReturnValue
+    S containsNone(Iterable<? super E> values);
+
+    @CanIgnoreReturnValue
     S hasMinimumLength(int min);
 
     @CanIgnoreReturnValue

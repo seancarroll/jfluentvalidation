@@ -2,6 +2,7 @@ package jfluentvalidation.core;
 
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import jfluentvalidation.constraints.array.contains.ContainsIntConstraint;
+import jfluentvalidation.constraints.array.containsany.ContainsAnyIntConstraint;
 import jfluentvalidation.constraints.array.empty.IsEmptyIntArrayConstraint;
 import jfluentvalidation.constraints.array.isnotnullorempty.IsNotNullOrEmptyIntArrayConstraint;
 import jfluentvalidation.constraints.array.length.IntArrayBetweenLengthConstraint;
@@ -11,6 +12,8 @@ import jfluentvalidation.constraints.array.length.IntArrayMinimumLengthConstrain
 import jfluentvalidation.constraints.array.notempty.IsNotEmptyIntArrayConstraint;
 import jfluentvalidation.constraints.array.nullorempty.IsNullOrEmptyIntArrayConstraint;
 import jfluentvalidation.rules.PropertyRule;
+
+import java.util.Arrays;
 
 /**
  * Constraints for {@code int[]} typed subjects.
@@ -54,6 +57,47 @@ public class IntArraySubject<T> extends AbstractArraySubject<IntArraySubject<T>,
     public IntArraySubject<T> contains(Integer element) {
         rule.addConstraint(new ContainsIntConstraint<>(element));
         return myself;
+    }
+
+    @Override
+    public IntArraySubject<T> containsAnyOf(Integer... values) {
+        return containsAnyOf(Arrays.asList(values));
+    }
+
+    @Override
+    public IntArraySubject<T> containsAnyOf(Iterable<Integer> values) {
+        rule.addConstraint(new ContainsAnyIntConstraint<>(values));
+        return myself;
+    }
+
+    @Override
+    public IntArraySubject<T> containsAllOf(Integer... expected) {
+        return null;
+    }
+
+    @Override
+    public IntArraySubject<T> containsAllOf(Iterable<Integer> expected) {
+        return null;
+    }
+
+    @Override
+    public IntArraySubject<T> containsExactly(Integer... exactly) {
+        return null;
+    }
+
+    @Override
+    public IntArraySubject<T> containsExactly(Iterable<Integer> expected) {
+        return null;
+    }
+
+    @Override
+    public IntArraySubject<T> containsNone(Integer... values) {
+        return null;
+    }
+
+    @Override
+    public IntArraySubject<T> containsNone(Iterable<? super Integer> values) {
+        return null;
     }
 
     @Override

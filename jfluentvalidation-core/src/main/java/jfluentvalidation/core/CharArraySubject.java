@@ -2,6 +2,7 @@ package jfluentvalidation.core;
 
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import jfluentvalidation.constraints.array.contains.ContainsCharConstraint;
+import jfluentvalidation.constraints.array.containsany.ContainsAnyCharConstraint;
 import jfluentvalidation.constraints.array.empty.IsEmptyCharArrayConstraint;
 import jfluentvalidation.constraints.array.isnotnullorempty.IsNotNullOrEmptyCharArrayConstraint;
 import jfluentvalidation.constraints.array.length.CharArrayBetweenLengthConstraint;
@@ -11,6 +12,8 @@ import jfluentvalidation.constraints.array.length.CharArrayMinimumLengthConstrai
 import jfluentvalidation.constraints.array.notempty.IsNotEmptyCharArrayConstraint;
 import jfluentvalidation.constraints.array.nullorempty.IsNullOrEmptyCharArrayConstraint;
 import jfluentvalidation.rules.PropertyRule;
+
+import java.util.Arrays;
 
 /**
  * Constraints for {@code char[]} typed subjects.
@@ -54,6 +57,47 @@ public class CharArraySubject<T> extends AbstractArraySubject<CharArraySubject<T
     public CharArraySubject<T> contains(Character element) {
         rule.addConstraint(new ContainsCharConstraint<>(element));
         return myself;
+    }
+
+    @Override
+    public CharArraySubject<T> containsAnyOf(Character... values) {
+        return containsAnyOf(Arrays.asList(values));
+    }
+
+    @Override
+    public CharArraySubject<T> containsAnyOf(Iterable<Character> values) {
+        rule.addConstraint(new ContainsAnyCharConstraint<>(values));
+        return myself;
+    }
+
+    @Override
+    public CharArraySubject<T> containsAllOf(Character... expected) {
+        return null;
+    }
+
+    @Override
+    public CharArraySubject<T> containsAllOf(Iterable<Character> expected) {
+        return null;
+    }
+
+    @Override
+    public CharArraySubject<T> containsExactly(Character... exactly) {
+        return null;
+    }
+
+    @Override
+    public CharArraySubject<T> containsExactly(Iterable<Character> expected) {
+        return null;
+    }
+
+    @Override
+    public CharArraySubject<T> containsNone(Character... values) {
+        return null;
+    }
+
+    @Override
+    public CharArraySubject<T> containsNone(Iterable<? super Character> values) {
+        return null;
     }
 
     @Override

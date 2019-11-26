@@ -2,6 +2,7 @@ package jfluentvalidation.core;
 
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import jfluentvalidation.constraints.array.contains.ContainsShortConstraint;
+import jfluentvalidation.constraints.array.containsany.ContainsAnyShortConstraint;
 import jfluentvalidation.constraints.array.empty.IsEmptyShortArrayConstraint;
 import jfluentvalidation.constraints.array.isnotnullorempty.IsNotNullOrEmptyShortArrayConstraint;
 import jfluentvalidation.constraints.array.length.ShortArrayBetweenLengthConstraint;
@@ -11,6 +12,8 @@ import jfluentvalidation.constraints.array.length.ShortArrayMinimumLengthConstra
 import jfluentvalidation.constraints.array.notempty.IsNotEmptyShortArrayConstraint;
 import jfluentvalidation.constraints.array.nullorempty.IsNullOrEmptyShortArrayConstraint;
 import jfluentvalidation.rules.PropertyRule;
+
+import java.util.Arrays;
 
 /**
  * Constraints for {@code short[]} subjects.
@@ -54,6 +57,47 @@ public class ShortArraySubject<T> extends AbstractArraySubject<ShortArraySubject
     public ShortArraySubject<T> contains(Short element) {
         rule.addConstraint(new ContainsShortConstraint<>(element));
         return myself;
+    }
+
+    @Override
+    public ShortArraySubject<T> containsAnyOf(Short... values) {
+        return containsAnyOf(Arrays.asList(values));
+    }
+
+    @Override
+    public ShortArraySubject<T> containsAnyOf(Iterable<Short> values) {
+        rule.addConstraint(new ContainsAnyShortConstraint<>(values));
+        return myself;
+    }
+
+    @Override
+    public ShortArraySubject<T> containsAllOf(Short... expected) {
+        return null;
+    }
+
+    @Override
+    public ShortArraySubject<T> containsAllOf(Iterable<Short> expected) {
+        return null;
+    }
+
+    @Override
+    public ShortArraySubject<T> containsExactly(Short... exactly) {
+        return null;
+    }
+
+    @Override
+    public ShortArraySubject<T> containsExactly(Iterable<Short> expected) {
+        return null;
+    }
+
+    @Override
+    public ShortArraySubject<T> containsNone(Short... values) {
+        return null;
+    }
+
+    @Override
+    public ShortArraySubject<T> containsNone(Iterable<? super Short> values) {
+        return null;
     }
 
     @Override

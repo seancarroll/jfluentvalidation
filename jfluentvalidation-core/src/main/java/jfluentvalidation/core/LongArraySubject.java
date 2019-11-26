@@ -2,6 +2,7 @@ package jfluentvalidation.core;
 
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import jfluentvalidation.constraints.array.contains.ContainsLongConstraint;
+import jfluentvalidation.constraints.array.containsany.ContainsAnyLongConstraint;
 import jfluentvalidation.constraints.array.empty.IsEmptyLongArrayConstraint;
 import jfluentvalidation.constraints.array.isnotnullorempty.IsNotNullOrEmptyLongArrayConstraint;
 import jfluentvalidation.constraints.array.length.LongArrayBetweenLengthConstraint;
@@ -12,9 +13,10 @@ import jfluentvalidation.constraints.array.notempty.IsNotEmptyLongArrayConstrain
 import jfluentvalidation.constraints.array.nullorempty.IsNullOrEmptyLongArrayConstraint;
 import jfluentvalidation.rules.PropertyRule;
 
+import java.util.Arrays;
+
 /**
- * Constraints for {@code double[]} typed subjects.
- * A Subject for {@code long[]}.
+ * Constraints for {@code long[]} typed subjects.
  *
  * @param <T>  the type of the instance
  */
@@ -55,6 +57,47 @@ public class LongArraySubject<T> extends AbstractArraySubject<LongArraySubject<T
     public LongArraySubject<T> contains(Long element) {
         rule.addConstraint(new ContainsLongConstraint<>(element));
         return myself;
+    }
+
+    @Override
+    public LongArraySubject<T> containsAnyOf(Long... values) {
+        return containsAnyOf(Arrays.asList(values));
+    }
+
+    @Override
+    public LongArraySubject<T> containsAnyOf(Iterable<Long> values) {
+        rule.addConstraint(new ContainsAnyLongConstraint<>(values));
+        return myself;
+    }
+
+    @Override
+    public LongArraySubject<T> containsAllOf(Long... expected) {
+        return null;
+    }
+
+    @Override
+    public LongArraySubject<T> containsAllOf(Iterable<Long> expected) {
+        return null;
+    }
+
+    @Override
+    public LongArraySubject<T> containsExactly(Long... exactly) {
+        return null;
+    }
+
+    @Override
+    public LongArraySubject<T> containsExactly(Iterable<Long> expected) {
+        return null;
+    }
+
+    @Override
+    public LongArraySubject<T> containsNone(Long... values) {
+        return null;
+    }
+
+    @Override
+    public LongArraySubject<T> containsNone(Iterable<? super Long> values) {
+        return null;
     }
 
     @Override

@@ -2,6 +2,7 @@ package jfluentvalidation.core;
 
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import jfluentvalidation.constraints.array.contains.ContainsByteConstraint;
+import jfluentvalidation.constraints.array.containsany.ContainsAnyByteConstraint;
 import jfluentvalidation.constraints.array.empty.IsEmptyByteArrayConstraint;
 import jfluentvalidation.constraints.array.isnotnullorempty.IsNotNullOrEmptyByteArrayConstraint;
 import jfluentvalidation.constraints.array.length.ByteArrayBetweenLengthConstraint;
@@ -11,6 +12,8 @@ import jfluentvalidation.constraints.array.length.ByteArrayMinimumLengthConstrai
 import jfluentvalidation.constraints.array.notempty.IsNotEmptyByteArrayConstraint;
 import jfluentvalidation.constraints.array.nullorempty.IsNullOrEmptyByteArrayConstraint;
 import jfluentvalidation.rules.PropertyRule;
+
+import java.util.Arrays;
 
 // TODO: We could potentially have many different types of array
 // what makes sense to include? assertj has the following:
@@ -59,6 +62,47 @@ public class ByteArraySubject<T> extends AbstractArraySubject<ByteArraySubject<T
     public ByteArraySubject<T> contains(Byte element) {
         rule.addConstraint(new ContainsByteConstraint<>(element));
         return myself;
+    }
+
+    @Override
+    public ByteArraySubject<T> containsAnyOf(Byte... values) {
+        return containsAnyOf(Arrays.asList(values));
+    }
+
+    @Override
+    public ByteArraySubject<T> containsAnyOf(Iterable<Byte> values) {
+        rule.addConstraint(new ContainsAnyByteConstraint<>(values));
+        return myself;
+    }
+
+    @Override
+    public ByteArraySubject<T> containsAllOf(Byte... expected) {
+        return null;
+    }
+
+    @Override
+    public ByteArraySubject<T> containsAllOf(Iterable<Byte> expected) {
+        return null;
+    }
+
+    @Override
+    public ByteArraySubject<T> containsExactly(Byte... exactly) {
+        return null;
+    }
+
+    @Override
+    public ByteArraySubject<T> containsExactly(Iterable<Byte> expected) {
+        return null;
+    }
+
+    @Override
+    public ByteArraySubject<T> containsNone(Byte... values) {
+        return null;
+    }
+
+    @Override
+    public ByteArraySubject<T> containsNone(Iterable<? super Byte> values) {
+        return null;
     }
 
     @Override

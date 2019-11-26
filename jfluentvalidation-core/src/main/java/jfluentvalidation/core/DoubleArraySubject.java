@@ -2,6 +2,7 @@ package jfluentvalidation.core;
 
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import jfluentvalidation.constraints.array.contains.ContainsDoubleConstraint;
+import jfluentvalidation.constraints.array.containsany.ContainsAnyDoubleConstraint;
 import jfluentvalidation.constraints.array.empty.IsEmptyDoubleArrayConstraint;
 import jfluentvalidation.constraints.array.isnotnullorempty.IsNotNullOrEmptyDoubleArrayConstraint;
 import jfluentvalidation.constraints.array.length.DoubleArrayBetweenLengthConstraint;
@@ -11,6 +12,8 @@ import jfluentvalidation.constraints.array.length.DoubleArrayMinimumLengthConstr
 import jfluentvalidation.constraints.array.notempty.IsNotEmptyDoubleArrayConstraint;
 import jfluentvalidation.constraints.array.nullorempty.IsNullOrEmptyDoubleArrayConstraint;
 import jfluentvalidation.rules.PropertyRule;
+
+import java.util.Arrays;
 
 /**
  * Constraints for {@code double[]} typed subjects.
@@ -54,6 +57,47 @@ public class DoubleArraySubject<T> extends AbstractArraySubject<DoubleArraySubje
     public DoubleArraySubject<T> contains(Double element) {
         rule.addConstraint(new ContainsDoubleConstraint<>(element));
         return myself;
+    }
+
+    @Override
+    public DoubleArraySubject<T> containsAnyOf(Double... values) {
+        return containsAnyOf(Arrays.asList(values));
+    }
+
+    @Override
+    public DoubleArraySubject<T> containsAnyOf(Iterable<Double> values) {
+        rule.addConstraint(new ContainsAnyDoubleConstraint<>(values));
+        return myself;
+    }
+
+    @Override
+    public DoubleArraySubject<T> containsAllOf(Double... expected) {
+        return null;
+    }
+
+    @Override
+    public DoubleArraySubject<T> containsAllOf(Iterable<Double> expected) {
+        return null;
+    }
+
+    @Override
+    public DoubleArraySubject<T> containsExactly(Double... exactly) {
+        return null;
+    }
+
+    @Override
+    public DoubleArraySubject<T> containsExactly(Iterable<Double> expected) {
+        return null;
+    }
+
+    @Override
+    public DoubleArraySubject<T> containsNone(Double... values) {
+        return null;
+    }
+
+    @Override
+    public DoubleArraySubject<T> containsNone(Iterable<? super Double> values) {
+        return null;
     }
 
     @Override
