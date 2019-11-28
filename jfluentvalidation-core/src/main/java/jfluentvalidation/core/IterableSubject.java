@@ -59,12 +59,6 @@ public class IterableSubject<T, E> extends AbstractIterableSubject<IterableSubje
         return myself;
     }
 
-//    @CanIgnoreReturnValue
-//    public final IterableSubject<T, E> containsAnyOf(E[] values) {
-//        rule.addConstraint(new ContainsAnyInConstraint<>(Arrays.asList(values)));
-//        return myself;
-//    }
-
     @CanIgnoreReturnValue
     public final IterableSubject<T, E> containsAnyOf(E... values) {
         rule.addConstraint(new ContainsAnyConstraint<>(Arrays.asList(values)));
@@ -77,12 +71,6 @@ public class IterableSubject<T, E> extends AbstractIterableSubject<IterableSubje
         return myself;
     }
 
-//    @CanIgnoreReturnValue
-//    public final IterableSubject<T, E> containsAllOf(E[] expected) {
-//        rule.addConstraint(new ContainsAllOfConstraint<>(Arrays.asList(expected)));
-//        return myself;
-//    }
-
     @CanIgnoreReturnValue
     public final IterableSubject<T, E> containsAllOf(E... expected) {
         rule.addConstraint(new ContainsAllConstraint<>(Arrays.asList(expected)));
@@ -94,12 +82,6 @@ public class IterableSubject<T, E> extends AbstractIterableSubject<IterableSubje
         rule.addConstraint(new ContainsAnyConstraint<>(expected));
         return myself;
     }
-
-//    @CanIgnoreReturnValue
-//    public final IterableSubject<T, E> containsExactly(E[] expected) {
-//        rule.addConstraint(new ContainsExactlyElementsInConstraint<>(Arrays.asList(expected)));
-//        return myself;
-//    }
 
     @CanIgnoreReturnValue
     public final IterableSubject<T, E> containsExactly(E... exactly) {
@@ -118,12 +100,6 @@ public class IterableSubject<T, E> extends AbstractIterableSubject<IterableSubje
         return myself;
     }
 
-//    @CanIgnoreReturnValue
-//    public final IterableSubject<T, E> containsNone(E[] values) {
-//        rule.addConstraint(new ContainsNoneInConstraint<>(Arrays.asList(values)));
-//        return myself;
-//    }
-
     @CanIgnoreReturnValue
     public final IterableSubject<T, E> containsNone(E... values) {
         rule.addConstraint(new ContainsNoneConstraint<>(Arrays.asList(values)));
@@ -135,8 +111,6 @@ public class IterableSubject<T, E> extends AbstractIterableSubject<IterableSubje
         rule.addConstraint(new ContainsNoneConstraint<>(values));
         return myself;
     }
-
-    // TODO: isOrdered
 
 //    // TODO: the problem with this is that constraint isValid returns a boolean which doesn't work with this
 //    // is there a way to turn this into a rule? Problem being that we could define constraints for the actual iterable
@@ -196,21 +170,6 @@ public class IterableSubject<T, E> extends AbstractIterableSubject<IterableSubje
 //    }
 
     // TODO: should we add a forEach that takes softConstraint?
-//
-//    @Override
-//    public IterableSubject<T, E> isNull() {
-//        return super.isNull();
-//    }
-//
-//    @Override
-//    public IterableSubject<T, E> isNotNull() {
-//        return super.isNotNull();
-//    }
-//
-//    @Override
-//    public IterableSubject<T, E> isEquals(Iterable<? super E> other) {
-//        return super.isEquals(other);
-//    }
 
     @Override
     protected CollectionPropertyRule<T, Iterable<? super E>, E> getRule() {

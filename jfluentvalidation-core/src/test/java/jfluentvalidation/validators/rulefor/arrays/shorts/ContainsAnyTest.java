@@ -7,14 +7,13 @@ import org.junit.jupiter.api.Test;
 import java.util.Collections;
 import java.util.List;
 
+import static jfluentvalidation.validators.rulefor.arrays.shorts.Shorts.FIVE;
+import static jfluentvalidation.validators.rulefor.arrays.shorts.Shorts.ONE;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ContainsAnyTest {
-
-    private final static short ONE = 1;
-    private final static short FIVE = 5;
 
     @Test
     void shouldNotReturnFailureWhenActualContainsGivenValues() {

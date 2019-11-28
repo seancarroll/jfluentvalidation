@@ -145,5 +145,4 @@ class ContainsAnyTest {
         assertThrows(NullPointerException.class, () -> validator.ruleForLongArray(Target::getValue).containsAnyOf((Iterable<Long>) null));
     }
 
-
 }

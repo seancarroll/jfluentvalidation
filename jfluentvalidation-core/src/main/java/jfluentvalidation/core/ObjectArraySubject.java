@@ -1,6 +1,7 @@
 package jfluentvalidation.core;
 
 import jfluentvalidation.constraints.array.contains.ContainsObjectConstraint;
+import jfluentvalidation.constraints.array.containsallof.ContainsAllOfObjectConstraint;
 import jfluentvalidation.constraints.array.containsany.ContainsAnyObjectConstraint;
 import jfluentvalidation.constraints.array.empty.IsEmptyObjectArrayConstraint;
 import jfluentvalidation.constraints.array.isnotnullorempty.IsNotNullOrEmptyObjectArrayConstraint;
@@ -118,12 +119,13 @@ public class ObjectArraySubject<T, E> extends AbstractArraySubject<ObjectArraySu
 
     @Override
     public ObjectArraySubject<T, E> containsAllOf(E... expected) {
-        return null;
+        return containsAllOf(Arrays.asList(expected));
     }
 
     @Override
     public ObjectArraySubject<T, E> containsAllOf(Iterable<E> expected) {
-        return null;
+        rule.addConstraint(new ContainsAllOfObjectConstraint<>(expected));
+        return myself;
     }
 
     @Override

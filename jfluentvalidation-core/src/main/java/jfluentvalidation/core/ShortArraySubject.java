@@ -2,6 +2,7 @@ package jfluentvalidation.core;
 
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import jfluentvalidation.constraints.array.contains.ContainsShortConstraint;
+import jfluentvalidation.constraints.array.containsallof.ContainsAllOfShortConstraint;
 import jfluentvalidation.constraints.array.containsany.ContainsAnyShortConstraint;
 import jfluentvalidation.constraints.array.empty.IsEmptyShortArrayConstraint;
 import jfluentvalidation.constraints.array.isnotnullorempty.IsNotNullOrEmptyShortArrayConstraint;
@@ -72,12 +73,13 @@ public class ShortArraySubject<T> extends AbstractArraySubject<ShortArraySubject
 
     @Override
     public ShortArraySubject<T> containsAllOf(Short... expected) {
-        return null;
+        return containsAllOf(Arrays.asList(expected));
     }
 
     @Override
     public ShortArraySubject<T> containsAllOf(Iterable<Short> expected) {
-        return null;
+        rule.addConstraint(new ContainsAllOfShortConstraint<>(expected));
+        return myself;
     }
 
     @Override

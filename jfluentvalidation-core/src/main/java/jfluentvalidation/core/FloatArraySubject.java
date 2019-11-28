@@ -2,6 +2,7 @@ package jfluentvalidation.core;
 
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import jfluentvalidation.constraints.array.contains.ContainsFloatConstraint;
+import jfluentvalidation.constraints.array.containsallof.ContainsAllOfFloatConstraint;
 import jfluentvalidation.constraints.array.containsany.ContainsAnyFloatConstraint;
 import jfluentvalidation.constraints.array.empty.IsEmptyFloatArrayConstraint;
 import jfluentvalidation.constraints.array.isnotnullorempty.IsNotNullOrEmptyFloatArrayConstraint;
@@ -113,12 +114,13 @@ public class FloatArraySubject<T> extends AbstractArraySubject<FloatArraySubject
 
     @Override
     public FloatArraySubject<T> containsAllOf(Float... expected) {
-        return null;
+        return containsAllOf(Arrays.asList(expected));
     }
 
     @Override
     public FloatArraySubject<T> containsAllOf(Iterable<Float> expected) {
-        return null;
+        rule.addConstraint(new ContainsAllOfFloatConstraint<>(expected));
+        return myself;
     }
 
     @Override

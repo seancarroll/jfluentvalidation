@@ -2,6 +2,7 @@ package jfluentvalidation.core;
 
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import jfluentvalidation.constraints.array.contains.ContainsByteConstraint;
+import jfluentvalidation.constraints.array.containsallof.ContainsAllOfByteConstraint;
 import jfluentvalidation.constraints.array.containsany.ContainsAnyByteConstraint;
 import jfluentvalidation.constraints.array.empty.IsEmptyByteArrayConstraint;
 import jfluentvalidation.constraints.array.isnotnullorempty.IsNotNullOrEmptyByteArrayConstraint;
@@ -77,12 +78,13 @@ public class ByteArraySubject<T> extends AbstractArraySubject<ByteArraySubject<T
 
     @Override
     public ByteArraySubject<T> containsAllOf(Byte... expected) {
-        return null;
+        return containsAllOf(Arrays.asList(expected));
     }
 
     @Override
     public ByteArraySubject<T> containsAllOf(Iterable<Byte> expected) {
-        return null;
+        rule.addConstraint(new ContainsAllOfByteConstraint<>(expected));
+        return myself;
     }
 
     @Override

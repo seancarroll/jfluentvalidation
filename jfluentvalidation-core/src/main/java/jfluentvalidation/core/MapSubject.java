@@ -3,15 +3,7 @@ package jfluentvalidation.core;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import jfluentvalidation.MapItemConstraint;
 import jfluentvalidation.constraints.Constraint;
-import jfluentvalidation.constraints.map.ContainsEntriesConstraint;
-import jfluentvalidation.constraints.map.ContainsKeysConstraint;
-import jfluentvalidation.constraints.map.ContainsValuesConstraint;
-import jfluentvalidation.constraints.map.DoesNotContainEntriesConstraint;
-import jfluentvalidation.constraints.map.DoesNotContainKeysConstraint;
-import jfluentvalidation.constraints.map.DoesNotContainValuesConstraint;
-import jfluentvalidation.constraints.map.HasSizeConstraint;
-import jfluentvalidation.constraints.map.IsEmptyConstraint;
-import jfluentvalidation.constraints.map.IsNotEmptyConstraint;
+import jfluentvalidation.constraints.map.*;
 import jfluentvalidation.rules.MapPropertyRule;
 import jfluentvalidation.rules.PropertyRule;
 
@@ -120,24 +112,19 @@ public class MapSubject<T, K, V> extends Subject<MapSubject<T, K, V>, T, Map<K, 
      * @return  {@code this} subject.
      */
     @CanIgnoreReturnValue
-    public final MapSubject<T, K, V> containsExactly() {
-        // TODO: implement
-        return myself;
-    }
-
-    // TODO: method args suck...remove or improve
-    @CanIgnoreReturnValue
-    public final MapSubject<T, K, V> containsExactly(Object key, Object value, Object... rest) {
-        // TODO: implement
+    public final MapSubject<T, K, V> containsExactly(Map.Entry<? extends K, ? extends V>... entries) {
+        rule.addConstraint(new ContainsExactlyConstraint<>(entries));
         return myself;
     }
 
     @CanIgnoreReturnValue
-    public final MapSubject<T, K, V> containsExactlyEntriesIn(Map<?, ?> expectedMap) {
-    // TODO: implement
+    public final MapSubject<T, K, V> containsExactly(Map<?, ?> expectedMap) {
+        // TODO: implement
+        // rule.addConstraint(new ContainsExactlyConstraint<>(expectedMap));
         return myself;
     }
 
+    // aka containsOnly
     @CanIgnoreReturnValue
     public final MapSubject<T, K, V> containsExactlyEntriesInAnyOrder(Map<?, ?> expected) {
         // TODO: implement
@@ -219,6 +206,8 @@ public class MapSubject<T, K, V> extends Subject<MapSubject<T, K, V>, T, Map<K, 
 
     // TODO: I'm not sure this makes sense given what would a Constraint for an Entry look like?
     // Perhaps we do soemthing like assertj's satisfy/satisfyrequirements
+
+
     /**
      *
      * @param constraintsToAdd
