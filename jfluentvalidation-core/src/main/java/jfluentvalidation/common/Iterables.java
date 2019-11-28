@@ -82,8 +82,9 @@ public final class Iterables {
         return toCollection(iterable).toArray(array);
     }
 
-    public static Object[] toArray(Iterable<?> iterable) {
-        return toCollection(iterable).toArray();
+
+    public static <T> T[] toArray(Iterable<T> iterable) {
+        return (T[]) toCollection(iterable).toArray();
     }
 
     /**
