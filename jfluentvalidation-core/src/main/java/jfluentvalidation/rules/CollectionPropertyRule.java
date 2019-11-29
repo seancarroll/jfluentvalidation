@@ -49,7 +49,7 @@ public class CollectionPropertyRule<T, P, E> extends PropertyRule<T, P> {
                 ruleContext.getMessageContext().appendPropertyName(ruleContext.getRule().getPropertyName());
                 ruleContext.getMessageContext().appendPropertyValue(ruleContext.getPropertyValue());
                 constraint.addParametersToContext(ruleContext);
-
+                // TODO: locale?
                 String resolvedMessage = interpolator.interpolate(constraint.getOptions().getErrorMessage(), ruleContext.getMessageContext().getPlaceholderValues());
                 failures.add(new ValidationFailure(getPropertyName(), resolvedMessage, propertyValue));
             }
@@ -70,6 +70,7 @@ public class CollectionPropertyRule<T, P, E> extends PropertyRule<T, P> {
                         ruleContext.getMessageContext().appendArgument("index", i);
                         ruleContext.getMessageContext().appendPropertyValue(ruleContext.getPropertyValue());
                         itemConstraint.addParametersToContext(ruleContext);
+                        // TODO: locale?
                         String resolvedMessage = interpolator.interpolate(itemConstraint.getOptions().getErrorMessage(), ruleContext.getMessageContext().getPlaceholderValues());
 
                         failures.add(new ValidationFailure(getPropertyName(), resolvedMessage, e));

@@ -28,5 +28,4 @@ public class IsLowerCaseConstraint<T> extends AbstractConstraint<T, CharSequence
         return isLowerCase(val);
     }
 
-
 }

@@ -69,7 +69,7 @@ class IsNotCloseToZonedDateTimeTest extends AbstractZonedDateTime {
 
         assertTrue(failures.isEmpty());
     }
-    
+
     @Test
     void shouldReturnFailureWhenWithinOffset() {
         Target t = new Target(reference);

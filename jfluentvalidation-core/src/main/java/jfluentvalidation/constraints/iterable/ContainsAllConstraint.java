@@ -12,9 +12,12 @@ import java.util.Set;
 import static java.util.Arrays.stream;
 import static java.util.stream.Collectors.toCollection;
 
+// Does it make sense to have a contains and containsAll? Can we just merge? assertJ
+// has both contains and containsAll but the implementation is the same. Only difference is the input
 // AKA containsAllOf
+// TODO: fix javadoc
 /**
- * TODO: from Google Truth...we want something similar ot this behavior
+ * TODO: from Google Truth...we want something similar to this behavior
  * Checks that the actual iterable contains at least all of the expected elements or fails. If an
  * element appears more than once in the expected elements to this call then it must appear at
  * least that number of times in the actual elements.

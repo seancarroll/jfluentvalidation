@@ -118,9 +118,8 @@ public class MapSubject<T, K, V> extends Subject<MapSubject<T, K, V>, T, Map<K, 
     }
 
     @CanIgnoreReturnValue
-    public final MapSubject<T, K, V> containsExactly(Map<?, ?> expectedMap) {
-        // TODO: implement
-        // rule.addConstraint(new ContainsExactlyConstraint<>(expectedMap));
+    public final MapSubject<T, K, V> containsExactly(Map<? extends K, ? extends V> expectedMap) {
+        rule.addConstraint(new ContainsExactlyConstraint<>(expectedMap));
         return myself;
     }
 

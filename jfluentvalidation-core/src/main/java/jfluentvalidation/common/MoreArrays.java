@@ -110,8 +110,8 @@ public final class MoreArrays {
         return false;
     }
 
-    public static boolean contains(Object[] arr, Object x) {
-        for (Object elem : arr) {
+    public static <P>  boolean contains(P[] arr, P x) {
+        for (P elem : arr) {
             if (Objects.equals(elem, x)) {
                 return true;
             }
