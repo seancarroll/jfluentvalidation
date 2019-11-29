@@ -5,8 +5,9 @@ import jfluentvalidation.constraints.DefaultMessages;
 import jfluentvalidation.internal.Ensure;
 import jfluentvalidation.validators.RuleContext;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import static jfluentvalidation.common.Lists.asList;
 
 public class ContainsAnyShortConstraint<T> extends AbstractConstraint<T, short[]> {
 
@@ -38,11 +39,4 @@ public class ContainsAnyShortConstraint<T> extends AbstractConstraint<T, short[]
         return false;
     }
 
-    private static List<Short> asList(short[] shorts) {
-        final List<Short> list = new ArrayList<>(shorts.length);
-        for (short b : shorts) {
-            list.add(b);
-        }
-        return list;
-    }
 }

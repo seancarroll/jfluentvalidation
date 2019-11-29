@@ -8,6 +8,8 @@ import jfluentvalidation.validators.RuleContext;
 import java.util.ArrayList;
 import java.util.List;
 
+import static jfluentvalidation.common.Lists.asList;
+
 public class ContainsAnyCharConstraint<T> extends AbstractConstraint<T, char[]> {
 
     private final Iterable<Character> values;
@@ -38,11 +40,4 @@ public class ContainsAnyCharConstraint<T> extends AbstractConstraint<T, char[]> 
         return false;
     }
 
-    private static List<Character> asList(char[] chars) {
-        final List<Character> list = new ArrayList<>(chars.length);
-        for (char b : chars) {
-            list.add(b);
-        }
-        return list;
-    }
 }

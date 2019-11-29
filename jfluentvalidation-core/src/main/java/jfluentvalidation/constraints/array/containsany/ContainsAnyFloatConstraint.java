@@ -5,8 +5,9 @@ import jfluentvalidation.constraints.DefaultMessages;
 import jfluentvalidation.internal.Ensure;
 import jfluentvalidation.validators.RuleContext;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import static jfluentvalidation.common.Lists.asList;
 
 public class ContainsAnyFloatConstraint<T> extends AbstractConstraint<T, float[]> {
 
@@ -38,11 +39,4 @@ public class ContainsAnyFloatConstraint<T> extends AbstractConstraint<T, float[]
         return false;
     }
 
-    private static List<Float> asList(float[] floats) {
-        final List<Float> list = new ArrayList<>(floats.length);
-        for (float b : floats) {
-            list.add(b);
-        }
-        return list;
-    }
 }

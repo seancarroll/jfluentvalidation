@@ -5,8 +5,9 @@ import jfluentvalidation.constraints.DefaultMessages;
 import jfluentvalidation.internal.Ensure;
 import jfluentvalidation.validators.RuleContext;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import static jfluentvalidation.common.Lists.asList;
 
 public class ContainsAnyByteConstraint<T> extends AbstractConstraint<T, byte[]> {
 
@@ -38,11 +39,4 @@ public class ContainsAnyByteConstraint<T> extends AbstractConstraint<T, byte[]> 
         return false;
     }
 
-    private static List<Byte> asList(byte[] bytes) {
-        final List<Byte> list = new ArrayList<>(bytes.length);
-        for (byte b : bytes) {
-            list.add(b);
-        }
-        return list;
-    }
 }

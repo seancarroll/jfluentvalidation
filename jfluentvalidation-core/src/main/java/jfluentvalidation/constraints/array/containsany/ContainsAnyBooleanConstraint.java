@@ -5,8 +5,9 @@ import jfluentvalidation.constraints.DefaultMessages;
 import jfluentvalidation.internal.Ensure;
 import jfluentvalidation.validators.RuleContext;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import static jfluentvalidation.common.Lists.asList;
 
 public class ContainsAnyBooleanConstraint<T> extends AbstractConstraint<T, boolean[]> {
 
@@ -36,13 +37,5 @@ public class ContainsAnyBooleanConstraint<T> extends AbstractConstraint<T, boole
         }
 
         return false;
-    }
-
-    private static List<Boolean> asList(boolean[] booleans) {
-        final List<Boolean> list = new ArrayList<>(booleans.length);
-        for (boolean b : booleans) {
-            list.add(b);
-        }
-        return list;
     }
 }

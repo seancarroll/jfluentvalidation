@@ -8,6 +8,8 @@ import jfluentvalidation.validators.RuleContext;
 import java.util.ArrayList;
 import java.util.List;
 
+import static jfluentvalidation.common.Lists.asList;
+
 public class ContainsAnyDoubleConstraint<T> extends AbstractConstraint<T, double[]> {
 
     private final Iterable<Double> values;
@@ -38,11 +40,4 @@ public class ContainsAnyDoubleConstraint<T> extends AbstractConstraint<T, double
         return false;
     }
 
-    private static List<Double> asList(double[] doubles) {
-        final List<Double> list = new ArrayList<>(doubles.length);
-        for (double b : doubles) {
-            list.add(b);
-        }
-        return list;
-    }
 }

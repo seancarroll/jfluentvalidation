@@ -8,6 +8,8 @@ import jfluentvalidation.validators.RuleContext;
 import java.util.ArrayList;
 import java.util.List;
 
+import static jfluentvalidation.common.Lists.asList;
+
 public class ContainsAnyIntConstraint<T> extends AbstractConstraint<T, int[]> {
 
     private final Iterable<Integer> values;
@@ -38,11 +40,4 @@ public class ContainsAnyIntConstraint<T> extends AbstractConstraint<T, int[]> {
         return false;
     }
 
-    private static List<Integer> asList(int[] ints) {
-        final List<Integer> list = new ArrayList<>(ints.length);
-        for (int b : ints) {
-            list.add(b);
-        }
-        return list;
-    }
 }
