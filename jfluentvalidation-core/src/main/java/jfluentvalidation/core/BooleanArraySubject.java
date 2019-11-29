@@ -4,6 +4,7 @@ import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import jfluentvalidation.constraints.array.contains.ContainsBooleanConstraint;
 import jfluentvalidation.constraints.array.containsallof.ContainsAllOfBooleanConstraint;
 import jfluentvalidation.constraints.array.containsany.ContainsAnyBooleanConstraint;
+import jfluentvalidation.constraints.array.containsnone.ContainsNoneBooleanConstraint;
 import jfluentvalidation.constraints.array.empty.IsEmptyBooleanArrayConstraint;
 import jfluentvalidation.constraints.array.isnotnullorempty.IsNotNullOrEmptyBoolenArrayConstraint;
 import jfluentvalidation.constraints.array.length.ArrayExactLengthConstraint;
@@ -94,12 +95,13 @@ public class BooleanArraySubject<T> extends AbstractArraySubject<BooleanArraySub
 
     @Override
     public BooleanArraySubject<T> containsNone(Boolean... values) {
-        return null;
+        return containsNone(Arrays.asList(values));
     }
 
     @Override
-    public BooleanArraySubject<T> containsNone(Iterable<? super Boolean> values) {
-        return null;
+    public BooleanArraySubject<T> containsNone(Iterable<Boolean> values) {
+        rule.addConstraint(new ContainsNoneBooleanConstraint<>(values));
+        return myself;
     }
 
     @Override

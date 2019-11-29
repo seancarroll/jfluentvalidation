@@ -4,6 +4,7 @@ import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import jfluentvalidation.constraints.array.contains.ContainsShortConstraint;
 import jfluentvalidation.constraints.array.containsallof.ContainsAllOfShortConstraint;
 import jfluentvalidation.constraints.array.containsany.ContainsAnyShortConstraint;
+import jfluentvalidation.constraints.array.containsnone.ContainsNoneShortConstraint;
 import jfluentvalidation.constraints.array.empty.IsEmptyShortArrayConstraint;
 import jfluentvalidation.constraints.array.isnotnullorempty.IsNotNullOrEmptyShortArrayConstraint;
 import jfluentvalidation.constraints.array.length.ShortArrayBetweenLengthConstraint;
@@ -94,12 +95,13 @@ public class ShortArraySubject<T> extends AbstractArraySubject<ShortArraySubject
 
     @Override
     public ShortArraySubject<T> containsNone(Short... values) {
-        return null;
+        return containsNone(Arrays.asList(values));
     }
 
     @Override
-    public ShortArraySubject<T> containsNone(Iterable<? super Short> values) {
-        return null;
+    public ShortArraySubject<T> containsNone(Iterable<Short> values) {
+        rule.addConstraint(new ContainsNoneShortConstraint<>(values));
+        return myself;
     }
 
     @Override

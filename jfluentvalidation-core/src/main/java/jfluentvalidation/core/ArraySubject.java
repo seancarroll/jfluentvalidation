@@ -44,7 +44,7 @@ public interface ArraySubject<S extends ArraySubject<S, A, E>, A, E> {
     S containsNone(E... values);
 
     @CanIgnoreReturnValue
-    S containsNone(Iterable<? super E> values);
+    S containsNone(Iterable<E> values);
 
     @CanIgnoreReturnValue
     S hasMinimumLength(int min);

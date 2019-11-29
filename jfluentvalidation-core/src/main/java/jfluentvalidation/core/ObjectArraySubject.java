@@ -3,6 +3,7 @@ package jfluentvalidation.core;
 import jfluentvalidation.constraints.array.contains.ContainsObjectConstraint;
 import jfluentvalidation.constraints.array.containsallof.ContainsAllOfObjectConstraint;
 import jfluentvalidation.constraints.array.containsany.ContainsAnyObjectConstraint;
+import jfluentvalidation.constraints.array.containsnone.ContainsNoneObjectConstraint;
 import jfluentvalidation.constraints.array.empty.IsEmptyObjectArrayConstraint;
 import jfluentvalidation.constraints.array.isnotnullorempty.IsNotNullOrEmptyObjectArrayConstraint;
 import jfluentvalidation.constraints.array.length.ObjectArrayBetweenLengthConstraint;
@@ -140,12 +141,13 @@ public class ObjectArraySubject<T, E> extends AbstractArraySubject<ObjectArraySu
 
     @Override
     public ObjectArraySubject<T, E> containsNone(E... values) {
-        return null;
+        return containsNone(Arrays.asList(values));
     }
 
     @Override
-    public ObjectArraySubject<T, E> containsNone(Iterable<? super E> values) {
-        return null;
+    public ObjectArraySubject<T, E> containsNone(Iterable<E> values) {
+        rule.addConstraint(new ContainsNoneObjectConstraint<>(values));
+        return myself;
     }
 
 

@@ -4,6 +4,7 @@ import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import jfluentvalidation.constraints.array.contains.ContainsByteConstraint;
 import jfluentvalidation.constraints.array.containsallof.ContainsAllOfByteConstraint;
 import jfluentvalidation.constraints.array.containsany.ContainsAnyByteConstraint;
+import jfluentvalidation.constraints.array.containsnone.ContainsNoneByteConstraint;
 import jfluentvalidation.constraints.array.empty.IsEmptyByteArrayConstraint;
 import jfluentvalidation.constraints.array.isnotnullorempty.IsNotNullOrEmptyByteArrayConstraint;
 import jfluentvalidation.constraints.array.length.ByteArrayBetweenLengthConstraint;
@@ -99,12 +100,13 @@ public class ByteArraySubject<T> extends AbstractArraySubject<ByteArraySubject<T
 
     @Override
     public ByteArraySubject<T> containsNone(Byte... values) {
-        return null;
+        return containsNone(Arrays.asList(values));
     }
 
     @Override
-    public ByteArraySubject<T> containsNone(Iterable<? super Byte> values) {
-        return null;
+    public ByteArraySubject<T> containsNone(Iterable<Byte> values) {
+        rule.addConstraint(new ContainsNoneByteConstraint<>(values));
+        return myself;
     }
 
     @Override

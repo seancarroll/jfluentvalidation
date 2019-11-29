@@ -4,6 +4,7 @@ import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import jfluentvalidation.constraints.array.contains.ContainsCharConstraint;
 import jfluentvalidation.constraints.array.containsallof.ContainsAllOfCharConstraint;
 import jfluentvalidation.constraints.array.containsany.ContainsAnyCharConstraint;
+import jfluentvalidation.constraints.array.containsnone.ContainsNoneCharConstraint;
 import jfluentvalidation.constraints.array.empty.IsEmptyCharArrayConstraint;
 import jfluentvalidation.constraints.array.isnotnullorempty.IsNotNullOrEmptyCharArrayConstraint;
 import jfluentvalidation.constraints.array.length.CharArrayBetweenLengthConstraint;
@@ -94,12 +95,13 @@ public class CharArraySubject<T> extends AbstractArraySubject<CharArraySubject<T
 
     @Override
     public CharArraySubject<T> containsNone(Character... values) {
-        return null;
+        return containsNone(Arrays.asList(values));
     }
 
     @Override
-    public CharArraySubject<T> containsNone(Iterable<? super Character> values) {
-        return null;
+    public CharArraySubject<T> containsNone(Iterable<Character> values) {
+        rule.addConstraint(new ContainsNoneCharConstraint<>(values));
+        return myself;
     }
 
     @Override

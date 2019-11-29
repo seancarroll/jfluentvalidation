@@ -4,6 +4,7 @@ import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import jfluentvalidation.constraints.array.contains.ContainsIntConstraint;
 import jfluentvalidation.constraints.array.containsallof.ContainsAllOfIntConstraint;
 import jfluentvalidation.constraints.array.containsany.ContainsAnyIntConstraint;
+import jfluentvalidation.constraints.array.containsnone.ContainsNoneIntConstraint;
 import jfluentvalidation.constraints.array.empty.IsEmptyIntArrayConstraint;
 import jfluentvalidation.constraints.array.isnotnullorempty.IsNotNullOrEmptyIntArrayConstraint;
 import jfluentvalidation.constraints.array.length.IntArrayBetweenLengthConstraint;
@@ -94,12 +95,13 @@ public class IntArraySubject<T> extends AbstractArraySubject<IntArraySubject<T>,
 
     @Override
     public IntArraySubject<T> containsNone(Integer... values) {
-        return null;
+        return containsNone(Arrays.asList(values));
     }
 
     @Override
-    public IntArraySubject<T> containsNone(Iterable<? super Integer> values) {
-        return null;
+    public IntArraySubject<T> containsNone(Iterable<Integer> values) {
+        rule.addConstraint(new ContainsNoneIntConstraint<>(values));
+        return myself;
     }
 
     @Override

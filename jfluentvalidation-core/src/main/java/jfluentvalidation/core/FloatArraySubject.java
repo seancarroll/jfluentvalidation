@@ -4,6 +4,7 @@ import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import jfluentvalidation.constraints.array.contains.ContainsFloatConstraint;
 import jfluentvalidation.constraints.array.containsallof.ContainsAllOfFloatConstraint;
 import jfluentvalidation.constraints.array.containsany.ContainsAnyFloatConstraint;
+import jfluentvalidation.constraints.array.containsnone.ContainsNoneFloatConstraint;
 import jfluentvalidation.constraints.array.empty.IsEmptyFloatArrayConstraint;
 import jfluentvalidation.constraints.array.isnotnullorempty.IsNotNullOrEmptyFloatArrayConstraint;
 import jfluentvalidation.constraints.array.length.FloatArrayBetweenLengthConstraint;
@@ -135,11 +136,12 @@ public class FloatArraySubject<T> extends AbstractArraySubject<FloatArraySubject
 
     @Override
     public FloatArraySubject<T> containsNone(Float... values) {
-        return null;
+        return containsNone(Arrays.asList(values));
     }
 
     @Override
-    public FloatArraySubject<T> containsNone(Iterable<? super Float> values) {
-        return null;
+    public FloatArraySubject<T> containsNone(Iterable<Float> values) {
+        rule.addConstraint(new ContainsNoneFloatConstraint<>(values));
+        return myself;
     }
 }

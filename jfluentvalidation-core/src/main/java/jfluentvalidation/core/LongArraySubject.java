@@ -4,6 +4,7 @@ import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import jfluentvalidation.constraints.array.contains.ContainsLongConstraint;
 import jfluentvalidation.constraints.array.containsallof.ContainsAllOfLongConstraint;
 import jfluentvalidation.constraints.array.containsany.ContainsAnyLongConstraint;
+import jfluentvalidation.constraints.array.containsnone.ContainsNoneLongConstraint;
 import jfluentvalidation.constraints.array.empty.IsEmptyLongArrayConstraint;
 import jfluentvalidation.constraints.array.isnotnullorempty.IsNotNullOrEmptyLongArrayConstraint;
 import jfluentvalidation.constraints.array.length.LongArrayBetweenLengthConstraint;
@@ -94,12 +95,13 @@ public class LongArraySubject<T> extends AbstractArraySubject<LongArraySubject<T
 
     @Override
     public LongArraySubject<T> containsNone(Long... values) {
-        return null;
+        return containsNone(Arrays.asList(values));
     }
 
     @Override
-    public LongArraySubject<T> containsNone(Iterable<? super Long> values) {
-        return null;
+    public LongArraySubject<T> containsNone(Iterable<Long> values) {
+        rule.addConstraint(new ContainsNoneLongConstraint<>(values));
+        return myself;
     }
 
     @Override

@@ -4,6 +4,7 @@ import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import jfluentvalidation.constraints.array.contains.ContainsDoubleConstraint;
 import jfluentvalidation.constraints.array.containsallof.ContainsAllOfDoubleConstraint;
 import jfluentvalidation.constraints.array.containsany.ContainsAnyDoubleConstraint;
+import jfluentvalidation.constraints.array.containsnone.ContainsNoneDoubleConstraint;
 import jfluentvalidation.constraints.array.empty.IsEmptyDoubleArrayConstraint;
 import jfluentvalidation.constraints.array.isnotnullorempty.IsNotNullOrEmptyDoubleArrayConstraint;
 import jfluentvalidation.constraints.array.length.DoubleArrayBetweenLengthConstraint;
@@ -94,12 +95,13 @@ public class DoubleArraySubject<T> extends AbstractArraySubject<DoubleArraySubje
 
     @Override
     public DoubleArraySubject<T> containsNone(Double... values) {
-        return null;
+        return containsNone(Arrays.asList(values));
     }
 
     @Override
-    public DoubleArraySubject<T> containsNone(Iterable<? super Double> values) {
-        return null;
+    public DoubleArraySubject<T> containsNone(Iterable<Double> values) {
+        rule.addConstraint(new ContainsNoneDoubleConstraint<>(values));
+        return myself;
     }
 
     @Override
