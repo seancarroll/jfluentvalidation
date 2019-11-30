@@ -1,6 +1,8 @@
 package jfluentvalidation.core;
 
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
+import jfluentvalidation.constraints.Constraint;
+import jfluentvalidation.constraints.SoftItemConstraint;
 import jfluentvalidation.constraints.iterable.ContainsAllConstraint;
 import jfluentvalidation.constraints.iterable.ContainsAnyConstraint;
 import jfluentvalidation.constraints.iterable.ContainsConstraint;
@@ -14,6 +16,7 @@ import jfluentvalidation.rules.CollectionPropertyRule;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Predicate;
 
 import static java.util.Arrays.asList;
 import static jfluentvalidation.common.Lists.newArrayList;
@@ -124,58 +127,30 @@ public class IterableSubject<T, E> extends AbstractIterableSubject<IterableSubje
 //    // Does IterableSubject need to include a collection of item constraints?
 //    // Should Subjects contain a rule instead of a list of constraints?
 //    // Does this need to be a varargs?
-//    /**
-//     *
-//     * @param constraintsToAdd
-//     * @return
-//     */
-//    public final IterableSubject<T, E> forEach(Constraint<T, E>... constraintsToAdd) {
-//        // QUESTION: what if I didnt use the existing rule but created a new CollectionPropertyRule?
-//        // would need to have access to the Subject to do so which might not be a good idea
-//        // Otherwise we need to change Constraint to violations
-//        rule.addConstraint(new ItemConstraint<>(constraintsToAdd));
-//        return myself;
-//    }
+    /**
+     *
+     * @param constraintsToAdd
+     * @return
+     */
+    public final IterableSubject<T, E> forEach(Constraint<T, E>... constraintsToAdd) {
+        for (Constraint<T, ? super E> constraintToAdd : constraintsToAdd) {
+            getRule().addItemConstraint(constraintToAdd);
+        }
+        return myself;
+    }
 
-//    /**
-//     *
-//     * @param predicate
-//     * @param constraintsToAdd
-//     * @return
-//     */
-//    public final IterableSubject<T, E> forEach(Predicate<? super E> predicate, Constraint<T, ? super E>... constraintsToAdd) {
-//        rule.addConstraint(new ItemConstraint<>(predicate, constraintsToAdd));
-//        return myself;
-//    }
-
-
-//    /**
-//     *
-//     * @param constraintsToAdd
-//     * @return
-//     */
-//    public final IterableSubject<T, E> forEach(Constraint<T, ? super E>... constraintsToAdd) {
-//        for (Constraint<T, ? super E> constraintToAdd : constraintsToAdd) {
-//            getRule().addItemConstraint(constraintToAdd);
-//        }
-//        return myself;
-//    }
-//
-//    /**
-//     *
-//     * @param predicate
-//     * @param constraintsToAdd
-//     * @return
-//     */
-//    public final IterableSubject<T, E> forEach(Predicate<? super E> predicate, Constraint<T, ? super E>... constraintsToAdd) {
-//        for (Constraint<T, ? super E> constraintToAdd : constraintsToAdd) {
-//            // TODO: fix generic
-//            getRule().addItemConstraint(new SoftConstraint(predicate, constraintToAdd));
-//        }
-//        return myself;
-//    }
-
-    // TODO: should we add a forEach that takes softConstraint?
+    /**
+     *
+     * @param predicate
+     * @param constraintsToAdd
+     * @return
+     */
+    public final IterableSubject<T, E> forEach(Predicate<? super E> predicate, Constraint<T, E>... constraintsToAdd) {
+        for (Constraint<T, E> constraintToAdd : constraintsToAdd) {
+            getRule().addItemConstraint(new SoftItemConstraint<>(predicate, constraintToAdd));
+        }
+        return myself;
+    }
 
     @Override
     protected CollectionPropertyRule<T, Iterable<? super E>, E> getRule() {
