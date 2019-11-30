@@ -1,6 +1,6 @@
 TODO:
-- [ ] exception messages
-- [ ] all constraints can be used in forEach
+- [ ] validation failure messages
+- [ ] tests verify static method for each validation...I want to make sure we can use all appropriate validations with ruleForEach
 - [ ] add tests for bytes / charsequence / stringbuffer / stringbuilder
 - [ ] Instead of returning a list of failures return an wrapper object. 
   should include boolean such as hasErrors. 
@@ -8,7 +8,6 @@ TODO:
   Lots of tests will break
 - [ ] better way to pass context. I think we are juggling too many.
 - [ ] better way to do ruleForEach on collections, maps, etc
-- [ ] tests verify static method for each validation...I want to make sure we can use all approprivate validations with ruleForEach
 - [ ] move subjects into core/subjects package
 - [ ] where to put exceptions?
 - [ ] Do some of the CharSequence constraints need to be moved to String?
