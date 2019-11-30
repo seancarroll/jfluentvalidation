@@ -1,12 +1,11 @@
 package jfluentvalidation.validators.rulefor.localtime;
 
-import jfluentvalidation.ValidationFailure;
+import jfluentvalidation.ValidationResult;
 import jfluentvalidation.validators.DefaultValidator;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalTime;
 import java.time.ZonedDateTime;
-import java.util.List;
 
 import static jfluentvalidation.TimeZones.TZ_CHICAGO;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -28,9 +27,9 @@ class IsAfterLocalTimeTest extends AbstractLocalTimeTest {
         DefaultValidator<Target> validator = getValidator();
         validator.ruleForLocalTime(Target::getTime).isAfter(before);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -40,9 +39,9 @@ class IsAfterLocalTimeTest extends AbstractLocalTimeTest {
         DefaultValidator<Target> validator = getValidator();
         validator.ruleForLocalTime(Target::getTime).isAfter(LocalTime.now());
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -52,9 +51,9 @@ class IsAfterLocalTimeTest extends AbstractLocalTimeTest {
         DefaultValidator<Target> validator = getValidator();
         validator.ruleForLocalTime(Target::getTime).isAfter(after);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertFalse(failures.isEmpty());
+        assertFalse(validationResult.isValid());
     }
 
 
@@ -65,9 +64,9 @@ class IsAfterLocalTimeTest extends AbstractLocalTimeTest {
         DefaultValidator<Target> validator = getValidator();
         validator.ruleForLocalTime(Target::getTime).isAfter(reference);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertFalse(failures.isEmpty());
+        assertFalse(validationResult.isValid());
     }
 
     @Test

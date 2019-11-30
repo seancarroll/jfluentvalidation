@@ -1,10 +1,8 @@
 package jfluentvalidation.validators.rulefor.arrays.bytes;
 
-import jfluentvalidation.ValidationFailure;
+import jfluentvalidation.ValidationResult;
 import jfluentvalidation.validators.DefaultValidator;
 import org.junit.jupiter.api.Test;
-
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -21,9 +19,9 @@ class HasLengthBetweenTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForByteArray(Target::getValue).hasLengthBetween(0, 5);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -33,9 +31,9 @@ class HasLengthBetweenTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForByteArray(Target::getValue).hasLengthBetween(0, 5);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -45,9 +43,9 @@ class HasLengthBetweenTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForByteArray(Target::getValue).hasLengthBetween(10, 20);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertFalse(failures.isEmpty());
+        assertFalse(validationResult.isValid());
     }
 
     @Test
@@ -57,9 +55,9 @@ class HasLengthBetweenTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForByteArray(Target::getValue).hasLengthBetween(1, 5, false, true);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertFalse(failures.isEmpty());
+        assertFalse(validationResult.isValid());
     }
 
     @Test
@@ -69,9 +67,9 @@ class HasLengthBetweenTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForByteArray(Target::getValue).hasLengthBetween(0, 1);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertFalse(failures.isEmpty());
+        assertFalse(validationResult.isValid());
     }
 
     @Test
@@ -81,9 +79,9 @@ class HasLengthBetweenTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForByteArray(Target::getValue).hasLengthBetween(0, 2, true, false);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertFalse(failures.isEmpty());
+        assertFalse(validationResult.isValid());
     }
 
     @Test

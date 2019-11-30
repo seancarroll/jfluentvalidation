@@ -1,13 +1,12 @@
 package jfluentvalidation.validators.rulefor.bigintegers;
 
-import jfluentvalidation.ValidationFailure;
+import jfluentvalidation.ValidationResult;
 import jfluentvalidation.validators.DefaultValidator;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
 import java.math.BigInteger;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -29,9 +28,9 @@ class IsCloseToTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForBigInteger(Target::getNumber).isCloseTo(expected, offset, false);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @ParameterizedTest
@@ -48,9 +47,9 @@ class IsCloseToTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForBigInteger(Target::getNumber).isCloseTo(expected, offset, false);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @ParameterizedTest
@@ -67,9 +66,9 @@ class IsCloseToTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForBigInteger(Target::getNumber).isCloseTo(expected, offset, false);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertFalse(failures.isEmpty());
+        assertFalse(validationResult.isValid());
     }
 
     @ParameterizedTest
@@ -86,9 +85,9 @@ class IsCloseToTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForBigInteger(Target::getNumber).isCloseTo(expected, offset, true);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertFalse(failures.isEmpty());
+        assertFalse(validationResult.isValid());
     }
 
     @Test
@@ -98,9 +97,9 @@ class IsCloseToTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForBigInteger(Target::getNumber).isCloseTo(BigInteger.ZERO, BigInteger.ONE, false);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test

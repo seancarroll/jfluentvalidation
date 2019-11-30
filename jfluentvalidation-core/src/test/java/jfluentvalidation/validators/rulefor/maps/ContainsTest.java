@@ -1,12 +1,11 @@
 package jfluentvalidation.validators.rulefor.maps;
 
-import jfluentvalidation.ValidationFailure;
+import jfluentvalidation.ValidationResult;
 import jfluentvalidation.validators.DefaultValidator;
 import org.assertj.core.data.MapEntry;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import static org.assertj.core.data.MapEntry.entry;
@@ -27,9 +26,9 @@ class ContainsTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForMap(Target::getMap).contains(array(entry("hello", "world")));
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -43,9 +42,9 @@ class ContainsTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForMap(Target::getMap).contains(array(entry("name", "sean"), entry("hello", "world")));
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -58,9 +57,9 @@ class ContainsTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForMap(Target::getMap).contains(array(entry("hello", "world"), entry("foo", "bar")));
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @SuppressWarnings("unchecked")
@@ -71,9 +70,9 @@ class ContainsTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForMap(Target::getMap).contains(new MapEntry[0]);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -83,9 +82,9 @@ class ContainsTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForMap(Target::getMap).contains(array(entry("hello", "world")));
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -104,9 +103,9 @@ class ContainsTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForMap(Target::getMap).contains(new MapEntry[0]);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertFalse(failures.isEmpty());
+        assertFalse(validationResult.isValid());
     }
 
     @SuppressWarnings("unchecked")
@@ -119,9 +118,9 @@ class ContainsTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForMap(Target::getMap).contains(new MapEntry[]{null});
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertFalse(failures.isEmpty());
+        assertFalse(validationResult.isValid());
     }
 
     @Test
@@ -134,8 +133,8 @@ class ContainsTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForMap(Target::getMap).contains(array(entry("hello", "world"), entry("name", "sean")));
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertFalse(failures.isEmpty());
+        assertFalse(validationResult.isValid());
     }
 }

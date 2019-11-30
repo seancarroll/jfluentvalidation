@@ -1,11 +1,10 @@
 package jfluentvalidation.validators.rulefor.file;
 
-import jfluentvalidation.ValidationFailure;
+import jfluentvalidation.ValidationResult;
 import jfluentvalidation.validators.DefaultValidator;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -26,9 +25,9 @@ class HasNameTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForFile(Target::getFile).hasName("tmp.txt");
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -38,9 +37,9 @@ class HasNameTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForFile(Target::getFile).hasName("tmp");
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -60,9 +59,9 @@ class HasNameTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForFile(Target::getFile).hasName("tmp2.txt");
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertFalse(failures.isEmpty());
+        assertFalse(validationResult.isValid());
     }
 
 }

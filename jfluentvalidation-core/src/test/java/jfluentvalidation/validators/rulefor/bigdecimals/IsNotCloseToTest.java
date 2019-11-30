@@ -1,13 +1,12 @@
 package jfluentvalidation.validators.rulefor.bigdecimals;
 
-import jfluentvalidation.ValidationFailure;
+import jfluentvalidation.ValidationResult;
 import jfluentvalidation.validators.DefaultValidator;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 import static java.math.BigDecimal.ONE;
 import static java.math.BigDecimal.TEN;
@@ -32,9 +31,9 @@ class IsNotCloseToTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForBigDecimal(Target::getNumber).isNotCloseTo(expected, offset, false);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @ParameterizedTest
@@ -49,9 +48,9 @@ class IsNotCloseToTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForBigDecimal(Target::getNumber).isNotCloseTo(expected, offsetValue, true);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -61,9 +60,9 @@ class IsNotCloseToTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForBigDecimal(Target::getNumber).isNotCloseTo(ONE, TEN, false);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertFalse(failures.isEmpty());
+        assertFalse(validationResult.isValid());
     }
 
     @Test
@@ -73,9 +72,9 @@ class IsNotCloseToTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForBigDecimal(Target::getNumber).isNotCloseTo(ONE, TEN, true);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertFalse(failures.isEmpty());
+        assertFalse(validationResult.isValid());
     }
 
     @ParameterizedTest
@@ -92,9 +91,9 @@ class IsNotCloseToTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForBigDecimal(Target::getNumber).isNotCloseTo(expected, offsetValue, false);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertFalse(failures.isEmpty());
+        assertFalse(validationResult.isValid());
     }
 
     @Test
@@ -104,9 +103,9 @@ class IsNotCloseToTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForBigDecimal(Target::getNumber).isNotCloseTo(ZERO, ONE, false);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test

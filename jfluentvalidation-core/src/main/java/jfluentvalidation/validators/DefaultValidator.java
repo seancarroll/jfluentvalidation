@@ -3,42 +3,8 @@ package jfluentvalidation.validators;
 import com.google.common.base.Splitter;
 import jfluentvalidation.SerializableFunction;
 import jfluentvalidation.ValidationFailure;
-import jfluentvalidation.core.AbstractCharSequenceSubject;
-import jfluentvalidation.core.BigDecimalSubject;
-import jfluentvalidation.core.BigIntegerSubject;
-import jfluentvalidation.core.BooleanArraySubject;
-import jfluentvalidation.core.BooleanSubject;
-import jfluentvalidation.core.ByteArraySubject;
-import jfluentvalidation.core.ByteSubject;
-import jfluentvalidation.core.CalendarSubject;
-import jfluentvalidation.core.CharArraySubject;
-import jfluentvalidation.core.CharSequenceSubject;
-import jfluentvalidation.core.DateSubject;
-import jfluentvalidation.core.DoubleArraySubject;
-import jfluentvalidation.core.DoubleSubject;
-import jfluentvalidation.core.FileSubject;
-import jfluentvalidation.core.FloatArraySubject;
-import jfluentvalidation.core.FloatSubject;
-import jfluentvalidation.core.InputStreamSubject;
-import jfluentvalidation.core.IntArraySubject;
-import jfluentvalidation.core.IntegerSubject;
-import jfluentvalidation.core.IterableSubject;
-import jfluentvalidation.core.LocalDateSubject;
-import jfluentvalidation.core.LocalDateTimeSubject;
-import jfluentvalidation.core.LocalTimeSubject;
-import jfluentvalidation.core.LongArraySubject;
-import jfluentvalidation.core.LongSubject;
-import jfluentvalidation.core.MapSubject;
-import jfluentvalidation.core.ObjectArraySubject;
-import jfluentvalidation.core.ObjectSubject;
-import jfluentvalidation.core.OffsetDateTimeSubject;
-import jfluentvalidation.core.OffsetTimeSubject;
-import jfluentvalidation.core.ShortArraySubject;
-import jfluentvalidation.core.ShortSubject;
-import jfluentvalidation.core.StringSubject;
-import jfluentvalidation.core.UriSubject;
-import jfluentvalidation.core.UrlSubject;
-import jfluentvalidation.core.ZonedDateTimeSubject;
+import jfluentvalidation.ValidationResult;
+import jfluentvalidation.core.*;
 import jfluentvalidation.internal.Ensure;
 import jfluentvalidation.rules.CollectionPropertyRule;
 import jfluentvalidation.rules.IncludeRule;
@@ -619,7 +585,7 @@ public class DefaultValidator<T> implements Validator<T> {
      * @param entity  The object to validate
      * @return A list of validation failures / A ValidationResult object containing any validation failures.
      */
-    public List<ValidationFailure> validate(T entity) {
+    public ValidationResult validate(T entity) {
         return validate(new ValidationContext<>(entity));
     }
 
@@ -629,7 +595,7 @@ public class DefaultValidator<T> implements Validator<T> {
      * @param ruleSet  a ruleset when need to validate against.
      * @return A list of validation failures / A ValidationResult object containing any validation failures.
      */
-    public List<ValidationFailure> validate(T entity, String ruleSet) {
+    public ValidationResult validate(T entity, String ruleSet) {
         // TODO: will need to find an alternative if/when we get rid of guava
         return validate(entity, RULESET_SPLITTER.splitToList(ruleSet));
     }
@@ -640,7 +606,7 @@ public class DefaultValidator<T> implements Validator<T> {
      * @param ruleSet  a ruleset when need to validate against.
      * @return A list of validation failures / A ValidationResult object containing any validation failures.
      */
-    public List<ValidationFailure> validate(T entity, List<String> ruleSet) {
+    public ValidationResult validate(T entity, List<String> ruleSet) {
         return validate(new ValidationContext<>(entity), ruleSet);
     }
 
@@ -649,7 +615,7 @@ public class DefaultValidator<T> implements Validator<T> {
      * @param validationContext  Validation Context
      * @return A list of validation failures / A ValidationResult object containing any validation failures.
      */
-    public List<ValidationFailure> validate(ValidationContext validationContext) {
+    public ValidationResult validate(ValidationContext validationContext) {
         return validate(validationContext, RuleSet.DEFAULT_LIST);
     }
 
@@ -659,7 +625,7 @@ public class DefaultValidator<T> implements Validator<T> {
      * @param ruleSet  a ruleset when need to validate against.
      * @return A list of validation failures / A ValidationResult object containing any validation failures.
      */
-    public List<ValidationFailure> validate(ValidationContext validationContext, List<String> ruleSet) {
+    public ValidationResult validate(ValidationContext validationContext, List<String> ruleSet) {
         Ensure.notNull(validationContext, "Cannot pass null context to Validate.");
 
         // TODO: add preValidate method?
@@ -673,7 +639,7 @@ public class DefaultValidator<T> implements Validator<T> {
             }
         }
 
-        return failures;
+        return new ValidationResult(failures);
     }
 
     /**

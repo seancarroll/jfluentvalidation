@@ -1,14 +1,13 @@
 package jfluentvalidation.validators.rulefor.inputstream;
 
 import jfluentvalidation.IORuntimeException;
-import jfluentvalidation.ValidationFailure;
+import jfluentvalidation.ValidationResult;
 import jfluentvalidation.validators.DefaultValidator;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -25,9 +24,9 @@ class HasSameContentAsTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForInputStream(Target::getInputStream).hasSameContentAs(new ByteArrayInputStream(new byte[0]));
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -37,9 +36,9 @@ class HasSameContentAsTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForInputStream(Target::getInputStream).hasSameContentAs(new ByteArrayInputStream(new byte[0]));
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -69,8 +68,8 @@ class HasSameContentAsTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForInputStream(Target::getInputStream).hasSameContentAs(new ByteArrayInputStream(" ".getBytes()));
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertFalse(failures.isEmpty());
+        assertFalse(validationResult.isValid());
     }
 }

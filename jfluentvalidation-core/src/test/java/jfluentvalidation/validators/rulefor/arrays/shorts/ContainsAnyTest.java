@@ -1,11 +1,10 @@
 package jfluentvalidation.validators.rulefor.arrays.shorts;
 
-import jfluentvalidation.ValidationFailure;
+import jfluentvalidation.ValidationResult;
 import jfluentvalidation.validators.DefaultValidator;
 import org.junit.jupiter.api.Test;
 
 import java.util.Collections;
-import java.util.List;
 
 import static jfluentvalidation.validators.rulefor.arrays.shorts.Shorts.FIVE;
 import static jfluentvalidation.validators.rulefor.arrays.shorts.Shorts.ONE;
@@ -22,9 +21,9 @@ class ContainsAnyTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForShortArray(Target::getValue).containsAnyOf(ONE);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -40,9 +39,9 @@ class ContainsAnyTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForShortArray(Target::getValue).containsAnyOf(ONE, FIVE);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -52,9 +51,9 @@ class ContainsAnyTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForShortArray(Target::getValue).containsAnyOf(FIVE, ONE);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -64,9 +63,9 @@ class ContainsAnyTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForShortArray(Target::getValue).containsAnyOf(ONE);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -76,9 +75,9 @@ class ContainsAnyTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForShortArray(Target::getValue).containsAnyOf(ONE, FIVE);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -88,9 +87,9 @@ class ContainsAnyTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForShortArray(Target::getValue).containsAnyOf(ONE, ONE);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -100,9 +99,9 @@ class ContainsAnyTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForShortArray(Target::getValue).containsAnyOf(Collections.emptyList());
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -112,9 +111,9 @@ class ContainsAnyTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForShortArray(Target::getValue).containsAnyOf(ONE);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -124,9 +123,9 @@ class ContainsAnyTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForShortArray(Target::getValue).containsAnyOf(Collections.emptyList());
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertFalse(failures.isEmpty());
+        assertFalse(validationResult.isValid());
     }
 
     @Test
@@ -136,9 +135,9 @@ class ContainsAnyTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForShortArray(Target::getValue).containsAnyOf(FIVE);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertFalse(failures.isEmpty());
+        assertFalse(validationResult.isValid());
     }
 
     @Test

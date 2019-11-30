@@ -1,27 +1,13 @@
 package jfluentvalidation.validators.rulefor.booleans;
 
-import jfluentvalidation.ValidationFailure;
+import jfluentvalidation.ValidationResult;
 import jfluentvalidation.validators.DefaultValidator;
 import org.junit.jupiter.api.Test;
-
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class IsTrueTest {
-
-    @Test
-    void shouldNotReturnFailureWhenActualIsNull() {
-        Target t = new Target(null);
-
-        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForBoolean(Target::isPresent).isTrue();
-
-        List<ValidationFailure> failures = validator.validate(t);
-
-        assertFalse(failures.isEmpty());
-    }
 
     @Test
     void shouldNotReturnFailureWhenActualIsTrue() {
@@ -30,9 +16,21 @@ class IsTrueTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForBoolean(Target::isPresent).isTrue();
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
+    }
+
+    @Test
+    void shouldReturnFailureWhenActualIsNull() {
+        Target t = new Target(null);
+
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        validator.ruleForBoolean(Target::isPresent).isTrue();
+
+        ValidationResult validationResult = validator.validate(t);
+
+        assertFalse(validationResult.isValid());
     }
 
     @Test
@@ -42,9 +40,9 @@ class IsTrueTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForBoolean(Target::isPresent).isTrue();
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertFalse(failures.isEmpty());
+        assertFalse(validationResult.isValid());
     }
 
 }

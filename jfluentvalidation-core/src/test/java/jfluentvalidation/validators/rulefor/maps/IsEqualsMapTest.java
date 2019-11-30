@@ -1,11 +1,10 @@
 package jfluentvalidation.validators.rulefor.maps;
 
-import jfluentvalidation.ValidationFailure;
+import jfluentvalidation.ValidationResult;
 import jfluentvalidation.validators.DefaultValidator;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -21,9 +20,9 @@ class IsEqualsMapTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForMap(Target::getMap).isEqualTo(reference);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -40,9 +39,9 @@ class IsEqualsMapTest {
         }};
         validator.ruleForMap(Target::getMap).isEqualTo(other);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -52,9 +51,9 @@ class IsEqualsMapTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForMap(Target::getMap).isEqualTo(new HashMap<>());
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertFalse(failures.isEmpty());
+        assertFalse(validationResult.isValid());
     }
 
     @Test
@@ -71,9 +70,9 @@ class IsEqualsMapTest {
         }};
         validator.ruleForMap(Target::getMap).isEqualTo(other);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertFalse(failures.isEmpty());
+        assertFalse(validationResult.isValid());
     }
 
 }

@@ -1,11 +1,10 @@
 package jfluentvalidation.validators.rulefor.strings;
 
-import jfluentvalidation.ValidationFailure;
+import jfluentvalidation.ValidationResult;
 import jfluentvalidation.validators.DefaultValidator;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import java.util.List;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -21,9 +20,9 @@ class IsBlankTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForString(Target::getValue).isBlank();
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     private static Stream<String> blank() {
@@ -45,9 +44,9 @@ class IsBlankTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForString(Target::getValue).isBlank();
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertFalse(failures.isEmpty());
+        assertFalse(validationResult.isValid());
     }
 
     private static Stream<String> notBlank() {

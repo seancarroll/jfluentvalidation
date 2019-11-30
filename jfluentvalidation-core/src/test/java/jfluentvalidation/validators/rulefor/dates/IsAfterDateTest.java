@@ -1,6 +1,6 @@
 package jfluentvalidation.validators.rulefor.dates;
 
-import jfluentvalidation.ValidationFailure;
+import jfluentvalidation.ValidationResult;
 import jfluentvalidation.validators.DefaultValidator;
 import org.junit.jupiter.api.Test;
 
@@ -11,7 +11,6 @@ import javax.validation.ValidatorFactory;
 import java.time.Instant;
 import java.time.ZonedDateTime;
 import java.util.Date;
-import java.util.List;
 import java.util.Set;
 
 import static jfluentvalidation.TimeZones.TZ_CHICAGO;
@@ -28,6 +27,7 @@ class IsAfterDateTest extends AbstractDateTest {
         );
     }
 
+    // TODO: delete
     @Test
     void hibernateValidator() {
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
@@ -49,9 +49,9 @@ class IsAfterDateTest extends AbstractDateTest {
         DefaultValidator<Target> validator = getValidator();
         validator.ruleForDate(Target::getDate).isAfter(before);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -61,9 +61,9 @@ class IsAfterDateTest extends AbstractDateTest {
         DefaultValidator<Target> validator = getValidator();
         validator.ruleForDate(Target::getDate).isAfter(new Date());
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -73,9 +73,9 @@ class IsAfterDateTest extends AbstractDateTest {
         DefaultValidator<Target> validator = getValidator();
         validator.ruleForDate(Target::getDate).isAfter(after);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertFalse(failures.isEmpty());
+        assertFalse(validationResult.isValid());
     }
 
     @Test
@@ -85,9 +85,9 @@ class IsAfterDateTest extends AbstractDateTest {
         DefaultValidator<Target> validator = getValidator();
         validator.ruleForDate(Target::getDate).isAfter(reference);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertFalse(failures.isEmpty());
+        assertFalse(validationResult.isValid());
     }
 
     @Test

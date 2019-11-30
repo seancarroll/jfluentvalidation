@@ -1,10 +1,8 @@
 package jfluentvalidation.validators.rulefor.shorts;
 
-import jfluentvalidation.ValidationFailure;
+import jfluentvalidation.ValidationResult;
 import jfluentvalidation.validators.DefaultValidator;
 import org.junit.jupiter.api.Test;
-
-import java.util.List;
 
 import static jfluentvalidation.validators.rulefor.shorts.Constants.FIVE;
 import static jfluentvalidation.validators.rulefor.shorts.Constants.ONE;
@@ -35,9 +33,9 @@ class IsBetweenTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForShort(Target::getNumber).isBetween(ZERO, FIVE);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -47,9 +45,9 @@ class IsBetweenTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForShort(Target::getNumber).isBetween(ZERO, FIVE);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -59,9 +57,9 @@ class IsBetweenTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForShort(Target::getNumber).isBetween(ZERO,  FIVE, false, true);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertFalse(failures.isEmpty());
+        assertFalse(validationResult.isValid());
     }
 
     @Test
@@ -71,9 +69,9 @@ class IsBetweenTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForShort(Target::getNumber).isBetween(ZERO, FIVE);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -83,9 +81,9 @@ class IsBetweenTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForShort(Target::getNumber).isBetween(ZERO, FIVE, true, false);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertFalse(failures.isEmpty());
+        assertFalse(validationResult.isValid());
     }
 
     @Test
@@ -95,9 +93,9 @@ class IsBetweenTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForShort(Target::getNumber).isBetween(ZERO, FIVE);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
 
@@ -108,9 +106,9 @@ class IsBetweenTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForShort(Target::getNumber).isBetween(ONE, FIVE);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertFalse(failures.isEmpty());
+        assertFalse(validationResult.isValid());
     }
 
     @Test
@@ -120,8 +118,8 @@ class IsBetweenTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForShort(Target::getNumber).isBetween(ZERO, FIVE);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertFalse(failures.isEmpty());
+        assertFalse(validationResult.isValid());
     }
 }

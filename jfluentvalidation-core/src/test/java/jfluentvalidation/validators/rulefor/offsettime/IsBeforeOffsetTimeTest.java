@@ -1,12 +1,11 @@
 package jfluentvalidation.validators.rulefor.offsettime;
 
-import jfluentvalidation.ValidationFailure;
+import jfluentvalidation.ValidationResult;
 import jfluentvalidation.validators.DefaultValidator;
 import org.junit.jupiter.api.Test;
 
 import java.time.OffsetTime;
 import java.time.ZonedDateTime;
-import java.util.List;
 
 import static jfluentvalidation.TimeZones.TZ_CHICAGO;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -28,9 +27,9 @@ class IsBeforeOffsetTimeTest extends AbstractOffsetTime {
         DefaultValidator<Target> validator = getValidator();
         validator.ruleForOffsetTime(Target::getTime).isBefore(after);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -40,9 +39,9 @@ class IsBeforeOffsetTimeTest extends AbstractOffsetTime {
         DefaultValidator<Target> validator = getValidator();
         validator.ruleForOffsetTime(Target::getTime).isBefore(OffsetTime.now());
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -52,9 +51,9 @@ class IsBeforeOffsetTimeTest extends AbstractOffsetTime {
         DefaultValidator<Target> validator = getValidator();
         validator.ruleForOffsetTime(Target::getTime).isBefore(before);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertFalse(failures.isEmpty());
+        assertFalse(validationResult.isValid());
     }
 
     @Test
@@ -64,9 +63,9 @@ class IsBeforeOffsetTimeTest extends AbstractOffsetTime {
         DefaultValidator<Target> validator = getValidator();
         validator.ruleForOffsetTime(Target::getTime).isBefore(reference);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertFalse(failures.isEmpty());
+        assertFalse(validationResult.isValid());
     }
 
     @Test

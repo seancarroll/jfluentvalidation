@@ -11,6 +11,14 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class ContainsOnlyOnceConstraintTest {
 
     // TODO: better test method names
+
+    @Test
+    void shouldReturnIsValidWhenActualIsNull() {
+        ContainsOnlyOnceConstraint constraint = new ContainsOnlyOnceConstraint("blue");
+        RuleContext context = new RuleContext(new ValidationContext("credit"), null, null);
+        assertTrue(constraint.isValid(context));
+    }
+
     @Test
     void shouldReturnTrueWhenActualContainsGivenStringOnlyOnce() {
         ContainsOnlyOnceConstraint constraint = new ContainsOnlyOnceConstraint("red");
@@ -42,12 +50,5 @@ class ContainsOnlyOnceConstraintTest {
     @Test
     void shouldThrowIfSequenceIsNull() {
         assertThrows(NullPointerException.class, () -> new ContainsOnlyOnceConstraint(null));
-    }
-
-    @Test
-    void shouldReturnFalseWhenActualIsNull() {
-        ContainsOnlyOnceConstraint constraint = new ContainsOnlyOnceConstraint("blue");
-        RuleContext context = new RuleContext(new ValidationContext("credit"), null, null);
-        assertFalse(constraint.isValid(context));
     }
 }

@@ -1,11 +1,10 @@
 package jfluentvalidation.validators.rulefor.maps;
 
-import jfluentvalidation.ValidationFailure;
+import jfluentvalidation.ValidationResult;
 import jfluentvalidation.validators.DefaultValidator;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
-import java.util.List;
 
 import static jfluentvalidation.constraints.charsequence.CharSequenceConstraints.isLowerCase;
 import static jfluentvalidation.constraints.charsequence.CharSequenceConstraints.isUpperCase;
@@ -24,9 +23,9 @@ class ForEachKeyTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForMap(Target::getMap).forEachKey(isLowerCase());
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -39,10 +38,9 @@ class ForEachKeyTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForMap(Target::getMap).forEachKey(isUpperCase());
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        System.out.println(failures);
-        assertEquals(2, failures.size());
+        assertEquals(2, validationResult.getViolations().size());
     }
 
 

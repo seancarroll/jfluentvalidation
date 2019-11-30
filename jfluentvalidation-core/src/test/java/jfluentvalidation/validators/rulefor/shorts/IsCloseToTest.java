@@ -1,12 +1,10 @@
 package jfluentvalidation.validators.rulefor.shorts;
 
-import jfluentvalidation.ValidationFailure;
+import jfluentvalidation.ValidationResult;
 import jfluentvalidation.validators.DefaultValidator;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
-
-import java.util.List;
 
 import static jfluentvalidation.validators.rulefor.shorts.Constants.ONE;
 import static jfluentvalidation.validators.rulefor.shorts.Constants.ZERO;
@@ -30,9 +28,9 @@ class IsCloseToTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForShort(Target::getNumber).isCloseTo(expected, offset, false);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @ParameterizedTest
@@ -49,9 +47,9 @@ class IsCloseToTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForShort(Target::getNumber).isCloseTo(expected, offset, false);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @ParameterizedTest
@@ -68,9 +66,9 @@ class IsCloseToTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForShort(Target::getNumber).isCloseTo(expected, offset, false);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertFalse(failures.isEmpty());
+        assertFalse(validationResult.isValid());
     }
 
     @ParameterizedTest
@@ -87,9 +85,9 @@ class IsCloseToTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForShort(Target::getNumber).isCloseTo(expected, offset, true);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertFalse(failures.isEmpty());
+        assertFalse(validationResult.isValid());
     }
 
     @Test
@@ -99,9 +97,9 @@ class IsCloseToTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForShort(Target::getNumber).isCloseTo(ZERO, ONE, false);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test

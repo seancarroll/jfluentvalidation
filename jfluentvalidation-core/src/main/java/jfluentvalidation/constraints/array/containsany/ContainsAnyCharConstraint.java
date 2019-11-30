@@ -5,7 +5,6 @@ import jfluentvalidation.constraints.DefaultMessages;
 import jfluentvalidation.internal.Ensure;
 import jfluentvalidation.validators.RuleContext;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static jfluentvalidation.common.Lists.asList;

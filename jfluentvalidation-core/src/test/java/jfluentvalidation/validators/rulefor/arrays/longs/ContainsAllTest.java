@@ -1,11 +1,10 @@
 package jfluentvalidation.validators.rulefor.arrays.longs;
 
-import jfluentvalidation.ValidationFailure;
+import jfluentvalidation.ValidationResult;
 import jfluentvalidation.validators.DefaultValidator;
 import org.junit.jupiter.api.Test;
 
 import java.util.Collections;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -20,9 +19,9 @@ class ContainsAllTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForLongArray(Target::getValue).containsAllOf(1L, 5L);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -32,9 +31,9 @@ class ContainsAllTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForLongArray(Target::getValue).containsAllOf(5L, 1L);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -44,9 +43,9 @@ class ContainsAllTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForLongArray(Target::getValue).containsAllOf(1L);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -56,9 +55,9 @@ class ContainsAllTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForLongArray(Target::getValue).containsAllOf(1L, 1L);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -68,9 +67,9 @@ class ContainsAllTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForLongArray(Target::getValue).containsAllOf(Collections.emptyList());
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -86,9 +85,9 @@ class ContainsAllTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForLongArray(Target::getValue).containsAllOf(1L);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -98,8 +97,8 @@ class ContainsAllTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForLongArray(Target::getValue).containsAllOf(5L);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertFalse(failures.isEmpty());
+        assertFalse(validationResult.isValid());
     }
 }

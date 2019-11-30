@@ -1,10 +1,8 @@
 package jfluentvalidation.validators.rulefor.arrays.bytes;
 
-import jfluentvalidation.ValidationFailure;
+import jfluentvalidation.ValidationResult;
 import jfluentvalidation.validators.DefaultValidator;
 import org.junit.jupiter.api.Test;
-
-import java.util.List;
 
 import static jfluentvalidation.validators.rulefor.arrays.bytes.Bytes.ONE;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -18,9 +16,9 @@ class ContainsTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForByteArray(Target::getValue).contains(ONE);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     // TODO: more tests

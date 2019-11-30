@@ -1,7 +1,7 @@
 package jfluentvalidation.validators.rulefor.inputstream;
 
 import jfluentvalidation.IORuntimeException;
-import jfluentvalidation.ValidationFailure;
+import jfluentvalidation.ValidationResult;
 import jfluentvalidation.validators.DefaultValidator;
 import org.junit.jupiter.api.Test;
 
@@ -9,7 +9,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -26,9 +25,9 @@ class HasContentTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForInputStream(Target::getInputStream).hasContent("Some words and stuff.");
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -38,9 +37,9 @@ class HasContentTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForInputStream(Target::getInputStream).hasContent("some content");
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -70,8 +69,8 @@ class HasContentTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForInputStream(Target::getInputStream).hasContent("Some words and other stuff.");
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertFalse(failures.isEmpty());
+        assertFalse(validationResult.isValid());
     }
 }

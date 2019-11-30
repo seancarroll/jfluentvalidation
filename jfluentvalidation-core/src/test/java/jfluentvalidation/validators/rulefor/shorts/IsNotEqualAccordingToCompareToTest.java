@@ -1,10 +1,8 @@
 package jfluentvalidation.validators.rulefor.shorts;
 
-import jfluentvalidation.ValidationFailure;
+import jfluentvalidation.ValidationResult;
 import jfluentvalidation.validators.DefaultValidator;
 import org.junit.jupiter.api.Test;
-
-import java.util.List;
 
 import static jfluentvalidation.validators.rulefor.shorts.Constants.TEN;
 import static jfluentvalidation.validators.rulefor.shorts.Constants.ZERO;
@@ -20,9 +18,9 @@ class IsNotEqualAccordingToCompareToTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForShort(Target::getNumber).isNotEqualAccordingToCompareTo(TEN);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -32,9 +30,9 @@ class IsNotEqualAccordingToCompareToTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForShort(Target::getNumber).isNotEqualAccordingToCompareTo(TEN);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -44,9 +42,9 @@ class IsNotEqualAccordingToCompareToTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForShort(Target::getNumber).isNotEqualAccordingToCompareTo(TEN);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertFalse(failures.isEmpty());
+        assertFalse(validationResult.isValid());
     }
 
 }

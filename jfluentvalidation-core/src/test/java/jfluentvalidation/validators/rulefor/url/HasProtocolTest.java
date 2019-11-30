@@ -1,12 +1,11 @@
 package jfluentvalidation.validators.rulefor.url;
 
-import jfluentvalidation.ValidationFailure;
+import jfluentvalidation.ValidationResult;
 import jfluentvalidation.validators.DefaultValidator;
 import org.junit.jupiter.api.Test;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -20,9 +19,9 @@ class HasProtocolTest {
         DefaultValidator<Profile> validator = new DefaultValidator<>(Profile.class);
         validator.ruleForUrl(Profile::getWebsite).hasProtocol("http");
 
-        List<ValidationFailure> failures = validator.validate(p);
+        ValidationResult validationResult = validator.validate(p);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -32,9 +31,9 @@ class HasProtocolTest {
         DefaultValidator<Profile> validator = new DefaultValidator<>(Profile.class);
         validator.ruleForUrl(Profile::getWebsite).hasProtocol("http");
 
-        List<ValidationFailure> failures = validator.validate(p);
+        ValidationResult validationResult = validator.validate(p);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -44,8 +43,8 @@ class HasProtocolTest {
         DefaultValidator<Profile> validator = new DefaultValidator<>(Profile.class);
         validator.ruleForUrl(Profile::getWebsite).hasProtocol("ftp");
 
-        List<ValidationFailure> failures = validator.validate(p);
+        ValidationResult validationResult = validator.validate(p);
 
-        assertFalse(failures.isEmpty());
+        assertFalse(validationResult.isValid());
     }
 }

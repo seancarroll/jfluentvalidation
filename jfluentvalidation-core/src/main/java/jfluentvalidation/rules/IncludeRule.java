@@ -35,7 +35,8 @@ public class IncludeRule<T> extends PropertyRule<T, Object> {
     // TODO: do we need to pass in rule set? Is it possible to do an Include rule with a ruleset?
     @Override
     public List<ValidationFailure> validate(ValidationContext<T> context) {
-        return validator.validate(context);
+        // TODO: not in love with this.
+        return validator.validate(context).getViolations();
     }
 
     @Override

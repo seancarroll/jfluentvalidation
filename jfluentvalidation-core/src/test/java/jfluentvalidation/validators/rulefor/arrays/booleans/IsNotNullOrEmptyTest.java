@@ -1,10 +1,8 @@
 package jfluentvalidation.validators.rulefor.arrays.booleans;
 
-import jfluentvalidation.ValidationFailure;
+import jfluentvalidation.ValidationResult;
 import jfluentvalidation.validators.DefaultValidator;
 import org.junit.jupiter.api.Test;
-
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -18,9 +16,9 @@ class IsNotNullOrEmptyTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForBooleanArray(Target::getValue).isNotNullOrEmpty();
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -30,9 +28,9 @@ class IsNotNullOrEmptyTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForBooleanArray(Target::getValue).isNotNullOrEmpty();
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertFalse(failures.isEmpty());
+        assertFalse(validationResult.isValid());
     }
 
     @Test
@@ -42,8 +40,8 @@ class IsNotNullOrEmptyTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForBooleanArray(Target::getValue).isNotNullOrEmpty();
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertFalse(failures.isEmpty());
+        assertFalse(validationResult.isValid());
     }
 }

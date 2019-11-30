@@ -1,12 +1,10 @@
 package jfluentvalidation.validators.rulefor.floats;
 
-import jfluentvalidation.ValidationFailure;
+import jfluentvalidation.ValidationResult;
 import jfluentvalidation.validators.DefaultValidator;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
-
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -27,9 +25,9 @@ class IsNotCloseToTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForFloat(Target::getNumber).isNotCloseTo(expected, offset, false);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @ParameterizedTest
@@ -44,9 +42,9 @@ class IsNotCloseToTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForFloat(Target::getNumber).isNotCloseTo(expected, offsetValue, true);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @ParameterizedTest
@@ -62,9 +60,9 @@ class IsNotCloseToTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForFloat(Target::getNumber).isNotCloseTo(expected, offset, false);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertFalse(failures.isEmpty());
+        assertFalse(validationResult.isValid());
     }
 
     @Test
@@ -74,9 +72,9 @@ class IsNotCloseToTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForFloat(Target::getNumber).isNotCloseTo(1f, 10f, true);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertFalse(failures.isEmpty());
+        assertFalse(validationResult.isValid());
     }
 
     @ParameterizedTest
@@ -93,9 +91,9 @@ class IsNotCloseToTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForFloat(Target::getNumber).isNotCloseTo(expected, offsetValue, false);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertFalse(failures.isEmpty());
+        assertFalse(validationResult.isValid());
     }
 
     @Test
@@ -105,9 +103,9 @@ class IsNotCloseToTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForFloat(Target::getNumber).isNotCloseTo(0f, 1f, false);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test

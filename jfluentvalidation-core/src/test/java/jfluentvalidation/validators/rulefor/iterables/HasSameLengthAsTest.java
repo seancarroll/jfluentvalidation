@@ -1,5 +1,6 @@
 package jfluentvalidation.validators.rulefor.iterables;
 
+// TODO: tests
 class HasSameLengthAsTest {
 
 //    @Test
@@ -9,9 +10,9 @@ class HasSameLengthAsTest {
 //        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
 //        validator.ruleForIterable(Target::getValue).hasSameSizeAs(Arrays.asList("foo", "bar"));
 //
-//        List<ValidationFailure> failures = validator.validate(t);
+//        ValidationResult validationResult = validator.validate(t);
 //
-//        assertTrue(failures.isEmpty());
+//        assertTrue(validationResult.isValid());
 //    }
 //
 //    @Test
@@ -21,9 +22,9 @@ class HasSameLengthAsTest {
 //        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
 //        validator.ruleForIterable(Target::getValue).hasSameSizeAs(new String[]{"foo", "bar"});
 //
-//        List<ValidationFailure> failures = validator.validate(t);
+//        ValidationResult validationResult = validator.validate(t);
 //
-//        assertTrue(failures.isEmpty());
+//        assertTrue(validationResult.isValid());
 //    }
 //
 //    @Test
@@ -33,9 +34,9 @@ class HasSameLengthAsTest {
 //        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
 //        validator.ruleForIterable(Target::getValue).hasSameSizeAs(Arrays.asList("foo", "bar"));
 //
-//        List<ValidationFailure> failures = validator.validate(t);
+//        ValidationResult validationResult = validator.validate(t);
 //
-//        assertTrue(failures.isEmpty());
+//        assertTrue(validationResult.isValid());
 //    }
 //
 //    @Test
@@ -45,9 +46,9 @@ class HasSameLengthAsTest {
 //        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
 //        validator.ruleForIterable(Target::getValue).hasSameSizeAs(new String[]{"foo"});
 //
-//        List<ValidationFailure> failures = validator.validate(t);
+//        ValidationResult validationResult = validator.validate(t);
 //
-//        assertFalse(failures.isEmpty());
+//        assertFalse(validationResult.isValid());
 //    }
 //
 //    @Test

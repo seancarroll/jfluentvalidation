@@ -1,10 +1,8 @@
 package jfluentvalidation.validators.rulefor.shorts;
 
-import jfluentvalidation.ValidationFailure;
+import jfluentvalidation.ValidationResult;
 import jfluentvalidation.validators.DefaultValidator;
 import org.junit.jupiter.api.Test;
-
-import java.util.List;
 
 import static jfluentvalidation.validators.rulefor.shorts.Constants.FIVE;
 import static jfluentvalidation.validators.rulefor.shorts.Constants.TEN;
@@ -20,9 +18,9 @@ class IsGreaterThanOrEqualTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForShort(Target::getNumber).isGreaterThanOrEqualTo(FIVE);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -32,9 +30,9 @@ class IsGreaterThanOrEqualTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForShort(Target::getNumber).isGreaterThanOrEqualTo(TEN);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -44,9 +42,9 @@ class IsGreaterThanOrEqualTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForShort(Target::getNumber).isGreaterThanOrEqualTo(TEN);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -56,8 +54,8 @@ class IsGreaterThanOrEqualTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForShort(Target::getNumber).isGreaterThanOrEqualTo(TEN);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertFalse(failures.isEmpty());
+        assertFalse(validationResult.isValid());
     }
 }

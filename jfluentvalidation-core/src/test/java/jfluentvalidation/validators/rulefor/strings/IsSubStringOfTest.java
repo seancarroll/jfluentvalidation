@@ -1,12 +1,10 @@
 package jfluentvalidation.validators.rulefor.strings;
 
-import jfluentvalidation.ValidationFailure;
+import jfluentvalidation.ValidationResult;
 import jfluentvalidation.validators.DefaultValidator;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -21,9 +19,9 @@ class IsSubStringOfTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForString(Target::getValue).isSubstringOf("hello world");
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -33,9 +31,9 @@ class IsSubStringOfTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForString(Target::getValue).isSubstringOf("hello");
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @ParameterizedTest
@@ -46,9 +44,9 @@ class IsSubStringOfTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForString(Target::getValue).isSubstringOf(given);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -58,9 +56,9 @@ class IsSubStringOfTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForString(Target::getValue).isSubstringOf("world");
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -70,9 +68,9 @@ class IsSubStringOfTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForString(Target::getValue).isSubstringOf("el");
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertFalse(failures.isEmpty());
+        assertFalse(validationResult.isValid());
     }
 
     @Test
@@ -82,9 +80,9 @@ class IsSubStringOfTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForString(Target::getValue).isSubstringOf("world");
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertFalse(failures.isEmpty());
+        assertFalse(validationResult.isValid());
     }
 
     @Test

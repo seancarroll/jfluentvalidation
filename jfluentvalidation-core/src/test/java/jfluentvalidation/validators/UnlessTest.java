@@ -1,9 +1,7 @@
 package jfluentvalidation.validators;
 
-import jfluentvalidation.ValidationFailure;
+import jfluentvalidation.ValidationResult;
 import org.junit.jupiter.api.Test;
-
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -18,9 +16,9 @@ class UnlessTest {
         DefaultValidator<Person> validator = new DefaultValidator<>(Person.class);
         validator.ruleForString(Person::getName).isNotNull().unless(p -> p.getAge() == 0);
 
-        List<ValidationFailure> validationFailures = validator.validate(person);
+        ValidationResult validationResult = validator.validate(person);
 
-        assertTrue(validationFailures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -30,9 +28,9 @@ class UnlessTest {
         DefaultValidator<Person> validator = new DefaultValidator<>(Person.class);
         validator.ruleForString(Person::getName).isNotNull().unless(p -> p.getAge() == 0);
 
-        List<ValidationFailure> validationFailures = validator.validate(person);
+        ValidationResult validationResult = validator.validate(person);
 
-        assertFalse(validationFailures.isEmpty());
+        assertFalse(validationResult.isValid());
     }
 
     @Test
@@ -42,9 +40,9 @@ class UnlessTest {
         DefaultValidator<Person> validator = new DefaultValidator<>(Person.class);
         validator.ruleForString(Person::getName).isNotNull().startsWith("a").hasLengthGreaterThan(5).unless(p -> p.getAge() == 0);
 
-        List<ValidationFailure> validationFailures = validator.validate(person);
+        ValidationResult validationResult = validator.validate(person);
 
-        assertTrue(validationFailures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -54,9 +52,9 @@ class UnlessTest {
         DefaultValidator<Person> validator = new DefaultValidator<>(Person.class);
         validator.ruleForString(Person::getName).startsWith("a").hasLengthGreaterThan(5).unless(p -> p.getAge() > 30, false);
 
-        List<ValidationFailure> validationFailures = validator.validate(person);
+        ValidationResult validationResult = validator.validate(person);
 
-        assertEquals(1, validationFailures.size());
+        assertEquals(1, validationResult.getViolations().size());
     }
 
     @Test
@@ -64,9 +62,9 @@ class UnlessTest {
         Person person = new Person("bobby", 20, null);
 
         PersonValidator validator = new PersonValidator();
-        List<ValidationFailure> validationFailures = validator.validate(person);
+        ValidationResult validationResult = validator.validate(person);
 
-        assertTrue(validationFailures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -74,14 +72,14 @@ class UnlessTest {
         Person person = new Person("bobby", 32, null);
 
         PersonValidator validator = new PersonValidator();
-        List<ValidationFailure> validationFailures = validator.validate(person);
+        ValidationResult validationResult = validator.validate(person);
 
-        assertEquals(2, validationFailures.size());
+        assertEquals(2, validationResult.getViolations().size());
     }
 
 
 
-    private class PersonValidator extends DefaultValidator<Person> {
+    private static class PersonValidator extends DefaultValidator<Person> {
         PersonValidator() {
             unless(p -> p.getAge() < 25, () -> {
                 ruleForString(Person::getName).isNotEmpty().startsWith("s");

@@ -19,7 +19,7 @@ public class ContainsOnlyDigitsConstraint<T, A extends CharSequence> extends Abs
     @Override
     public boolean isValid(RuleContext<T, A> context) {
         if (Strings.isNullOrEmpty(context.getPropertyValue())) {
-            return false;
+            return true;
         }
 
         return context.getPropertyValue().chars().allMatch(Character::isDigit);

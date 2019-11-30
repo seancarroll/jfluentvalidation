@@ -1,6 +1,6 @@
 package jfluentvalidation.validators.rulefor.iterables;
 
-import jfluentvalidation.ValidationFailure;
+import jfluentvalidation.ValidationResult;
 import jfluentvalidation.validators.DefaultValidator;
 import org.junit.jupiter.api.Test;
 
@@ -20,9 +20,9 @@ class ContainsNoneTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForIterable(Target::getValue).containsNone("he", "baz");
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -32,9 +32,9 @@ class ContainsNoneTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForIterable(Target::getValue).containsNone("he", "baz");
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -44,9 +44,9 @@ class ContainsNoneTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForIterable(Target::getValue).containsNone("he", "baz", "world");
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertFalse(failures.isEmpty());
+        assertFalse(validationResult.isValid());
     }
 
     @Test

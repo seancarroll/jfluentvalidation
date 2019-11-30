@@ -1,5 +1,6 @@
 package jfluentvalidation.validators.rulefor.iterables;
 
+// TODO: tests
 class ForEachTest {
 
 //    @Test
@@ -9,9 +10,9 @@ class ForEachTest {
 //        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
 //        validator.ruleForIterable(Target::getValue).forEach(startsWith("s"));
 //
-//        List<ValidationFailure> failures = validator.validate(t);
+//        ValidationResult validationResult = validator.validate(t);
 //
-//        assertTrue(failures.isEmpty());
+//        assertTrue(validationResult.isValid());
 //    }
 //
 //    @Test
@@ -21,7 +22,7 @@ class ForEachTest {
 //        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
 //        validator.ruleForIterable(Target::getValue).forEach(startsWith("a"));
 //
-//        List<ValidationFailure> failures = validator.validate(t);
+//        ValidationResult validationResult = validator.validate(t);
 //
 //        assertEquals(2, failures.size());
 //    }
@@ -34,9 +35,9 @@ class ForEachTest {
 //
 //        validator.ruleForIterable(Target::getValue).forEach(s -> s.length() > 3, startsWith("s"));
 //
-//        List<ValidationFailure> failures = validator.validate(t);
+//        ValidationResult validationResult = validator.validate(t);
 //
-//        assertTrue(failures.isEmpty());
+//        assertTrue(validationResult.isValid());
 //    }
 //
 //    @Test
@@ -46,7 +47,7 @@ class ForEachTest {
 //        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
 //        validator.ruleForIterable(Target::getValue).forEach(s -> s.length() > 2, startsWith("s"));
 //
-//        List<ValidationFailure> failures = validator.validate(t);
+//        ValidationResult validationResult = validator.validate(t);
 //
 //        assertEquals(2, failures.size());
 //    }

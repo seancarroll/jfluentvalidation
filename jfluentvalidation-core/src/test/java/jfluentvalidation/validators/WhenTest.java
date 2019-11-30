@@ -1,9 +1,7 @@
 package jfluentvalidation.validators;
 
-import jfluentvalidation.ValidationFailure;
+import jfluentvalidation.ValidationResult;
 import org.junit.jupiter.api.Test;
-
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -18,9 +16,9 @@ class WhenTest {
         DefaultValidator<Person> validator = new DefaultValidator<>(Person.class);
         validator.ruleForString(Person::getName).isNotNull().when(p -> p.getAge() != 0);
 
-        List<ValidationFailure> validationFailures = validator.validate(person);
+        ValidationResult validationResult = validator.validate(person);
 
-        assertFalse(validationFailures.isEmpty());
+        assertTrue(validationResult.hasFailures());
     }
 
     @Test
@@ -30,9 +28,9 @@ class WhenTest {
         DefaultValidator<Person> validator = new DefaultValidator<>(Person.class);
         validator.ruleForString(Person::getName).isNotNull().when(p -> p.getAge() == 0);
 
-        List<ValidationFailure> validationFailures = validator.validate(person);
+        ValidationResult validationResult = validator.validate(person);
 
-        assertTrue(validationFailures.isEmpty());
+        assertFalse(validationResult.hasFailures());
     }
 
     @Test
@@ -42,9 +40,9 @@ class WhenTest {
         DefaultValidator<Person> validator = new DefaultValidator<>(Person.class);
         validator.ruleForString(Person::getName).startsWith("a").hasLengthGreaterThan(5).when(p -> p.getAge() > 30);
 
-        List<ValidationFailure> validationFailures = validator.validate(person);
+        ValidationResult validationResult = validator.validate(person);
 
-        assertEquals(2, validationFailures.size());
+        assertEquals(2, validationResult.getViolations().size());
     }
 
     @Test
@@ -54,9 +52,9 @@ class WhenTest {
         DefaultValidator<Person> validator = new DefaultValidator<>(Person.class);
         validator.ruleForString(Person::getName).startsWith("a").hasLengthGreaterThan(5).when(p -> p.getAge() > 35, false);
 
-        List<ValidationFailure> validationFailures = validator.validate(person);
+        ValidationResult validationResult = validator.validate(person);
 
-        assertEquals(1, validationFailures.size());
+        assertEquals(1, validationResult.getViolations().size());
     }
 
     @Test
@@ -64,16 +62,16 @@ class WhenTest {
         PersonValidator validator = new PersonValidator();
 
         Person sean = new Person("sean", 32);
-        List<ValidationFailure> validationFailuresForSean = validator.validate(sean);
-        assertTrue(validationFailuresForSean.isEmpty());
+        ValidationResult validationResultForSean = validator.validate(sean);
+        assertFalse(validationResultForSean.hasFailures());
 
         Person bobby = new Person("bobby", 36);
-        List<ValidationFailure> validationFailuresForBobby = validator.validate(bobby);
-        assertEquals(2, validationFailuresForBobby.size());
+        ValidationResult validationResultForBobby = validator.validate(bobby);
+        assertEquals(2, validationResultForBobby.getViolations().size());
     }
 
 
-    private class PersonValidator extends DefaultValidator<Person> {
+    private static class PersonValidator extends DefaultValidator<Person> {
         PersonValidator() {
             when(p -> p.getAge() > 35, () -> {
                 ruleForString(Person::getName).isNotEmpty().startsWith("s");

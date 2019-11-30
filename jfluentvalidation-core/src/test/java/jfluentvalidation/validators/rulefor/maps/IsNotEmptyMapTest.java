@@ -1,11 +1,10 @@
 package jfluentvalidation.validators.rulefor.maps;
 
-import jfluentvalidation.ValidationFailure;
+import jfluentvalidation.ValidationResult;
 import jfluentvalidation.validators.DefaultValidator;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -21,9 +20,9 @@ class IsNotEmptyMapTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForMap(Target::getMap).isNotEmpty();
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -33,9 +32,9 @@ class IsNotEmptyMapTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForMap(Target::getMap).isNotEmpty();
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -45,8 +44,8 @@ class IsNotEmptyMapTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForMap(Target::getMap).isNotEmpty();
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertFalse(failures.isEmpty());
+        assertFalse(validationResult.isValid());
     }
 }

@@ -1,7 +1,7 @@
 package jfluentvalidation.validators.rulefor.iterables;
 
 import jfluentvalidation.TestValueObject;
-import jfluentvalidation.ValidationFailure;
+import jfluentvalidation.ValidationResult;
 import jfluentvalidation.validators.DefaultValidator;
 import org.junit.jupiter.api.Test;
 
@@ -22,9 +22,9 @@ class ContainsAnyTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForIterable(Target::getValue).containsAnyOf("hello");
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -40,9 +40,9 @@ class ContainsAnyTest {
         DefaultValidator<TargetWithNonComparable> validator = new DefaultValidator<>(TargetWithNonComparable.class);
         validator.ruleForIterable(TargetWithNonComparable::getValue).containsAnyOf(new TestValueObject("hello"));
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -52,9 +52,9 @@ class ContainsAnyTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForIterable(Target::getValue).containsAnyOf("hello", "world", "foo");
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -64,9 +64,9 @@ class ContainsAnyTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForIterable(Target::getValue).containsAnyOf("foo", "hello");
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -76,9 +76,9 @@ class ContainsAnyTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForIterable(Target::getValue).containsAnyOf("hello");
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -88,9 +88,9 @@ class ContainsAnyTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForIterable(Target::getValue).containsAnyOf("hello", "foo", "bar");
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -100,9 +100,9 @@ class ContainsAnyTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForIterable(Target::getValue).containsAnyOf("hello", "hello");
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -112,9 +112,9 @@ class ContainsAnyTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForIterable(Target::getValue).containsAnyOf(Collections.emptyList());
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -124,9 +124,9 @@ class ContainsAnyTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForIterable(Target::getValue).containsAnyOf("hello", "hello");
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -136,9 +136,9 @@ class ContainsAnyTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForIterable(Target::getValue).containsAnyOf(Collections.emptyList());
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertFalse(failures.isEmpty());
+        assertFalse(validationResult.isValid());
     }
 
     @Test
@@ -148,9 +148,9 @@ class ContainsAnyTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForIterable(Target::getValue).containsAnyOf("foo", "bar");
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertFalse(failures.isEmpty());
+        assertFalse(validationResult.isValid());
     }
 
     @Test

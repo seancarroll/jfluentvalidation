@@ -1,12 +1,11 @@
 package jfluentvalidation.validators.rulefor.uri;
 
-import jfluentvalidation.ValidationFailure;
+import jfluentvalidation.ValidationResult;
 import jfluentvalidation.validators.DefaultValidator;
 import org.junit.jupiter.api.Test;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -15,27 +14,27 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class HasPathTest {
 
     @Test
-    void shouldNotReturnFailureWhenGivenPathIsPresent() throws URISyntaxException {
-        Media m = new Media(new URI("http://example.com/pages"));
-
-        DefaultValidator<Media> validator = new DefaultValidator<>(Media.class);
-        validator.ruleForUri(Media::getContentLocation).hasPath("pages");
-
-        List<ValidationFailure> failures = validator.validate(m);
-
-        assertFalse(failures.isEmpty());
-    }
-
-    @Test
     void shouldNotReturnFailureWhenUriIsNull() {
         Media m = new Media(null);
 
         DefaultValidator<Media> validator = new DefaultValidator<>(Media.class);
         validator.ruleForUri(Media::getContentLocation).hasPath("pages");
 
-        List<ValidationFailure> failures = validator.validate(m);
+        ValidationResult validationResult = validator.validate(m);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
+    }
+
+    @Test
+    void shouldNotReturnFailureWhenGivenPathIsPresent() throws URISyntaxException {
+        Media m = new Media(new URI("http://example.com/pages"));
+
+        DefaultValidator<Media> validator = new DefaultValidator<>(Media.class);
+        validator.ruleForUri(Media::getContentLocation).hasPath("/pages");
+
+        ValidationResult validationResult = validator.validate(m);
+
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -52,9 +51,9 @@ class HasPathTest {
         DefaultValidator<Media> validator = new DefaultValidator<>(Media.class);
         validator.ruleForUri(Media::getContentLocation).hasPath("pages");
 
-        List<ValidationFailure> failures = validator.validate(m);
+        ValidationResult validationResult = validator.validate(m);
 
-        assertFalse(failures.isEmpty());
+        assertFalse(validationResult.isValid());
     }
 
     @Test
@@ -64,9 +63,9 @@ class HasPathTest {
         DefaultValidator<Media> validator = new DefaultValidator<>(Media.class);
         validator.ruleForUri(Media::getContentLocation).hasPath("pages");
 
-        List<ValidationFailure> failures = validator.validate(m);
+        ValidationResult validationResult = validator.validate(m);
 
-        assertFalse(failures.isEmpty());
+        assertFalse(validationResult.isValid());
     }
 
 }

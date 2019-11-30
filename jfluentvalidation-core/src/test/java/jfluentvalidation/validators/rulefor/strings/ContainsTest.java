@@ -1,10 +1,8 @@
 package jfluentvalidation.validators.rulefor.strings;
 
-import jfluentvalidation.ValidationFailure;
+import jfluentvalidation.ValidationResult;
 import jfluentvalidation.validators.DefaultValidator;
 import org.junit.jupiter.api.Test;
-
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -20,9 +18,9 @@ class ContainsTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForString(Target::getValue).contains("He");
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -32,9 +30,9 @@ class ContainsTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForString(Target::getValue).contains("He", "lo");
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -44,9 +42,9 @@ class ContainsTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForString(Target::getValue).contains("hello");
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -56,9 +54,9 @@ class ContainsTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForString(Target::getValue).contains("world");
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertFalse(failures.isEmpty());
+        assertFalse(validationResult.isValid());
     }
 
     @Test
@@ -68,9 +66,9 @@ class ContainsTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForString(Target::getValue).contains("He", "lo", "world");
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertFalse(failures.isEmpty());
+        assertFalse(validationResult.isValid());
     }
 
     @Test
@@ -80,9 +78,9 @@ class ContainsTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForString(Target::getValue).contains("he");
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertFalse(failures.isEmpty());
+        assertFalse(validationResult.isValid());
     }
 
     @Test

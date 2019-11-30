@@ -1,12 +1,11 @@
 package jfluentvalidation.validators.rulefor.calendar;
 
-import jfluentvalidation.ValidationFailure;
+import jfluentvalidation.ValidationResult;
 import jfluentvalidation.validators.DefaultValidator;
 import org.junit.jupiter.api.Test;
 
 import java.time.ZonedDateTime;
 import java.util.Calendar;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import static jfluentvalidation.TimeZones.TZ_CHICAGO;
@@ -36,9 +35,9 @@ class IsToCloseToCalendarTest extends AbstractCalendarTest {
         DefaultValidator<Target> validator = getValidator();
         validator.ruleForCalendar(Target::getDate).isCloseTo(Calendar.getInstance(), 1_000, false);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -48,9 +47,9 @@ class IsToCloseToCalendarTest extends AbstractCalendarTest {
         DefaultValidator<Target> validator = getValidator();
         validator.ruleForCalendar(Target::getDate).isCloseTo(before, TimeUnit.DAYS.toMillis(1), false);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -60,9 +59,9 @@ class IsToCloseToCalendarTest extends AbstractCalendarTest {
         DefaultValidator<Target> validator = getValidator();
         validator.ruleForCalendar(Target::getDate).isCloseTo(before, TimeUnit.DAYS.toMillis(2), false);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -72,9 +71,9 @@ class IsToCloseToCalendarTest extends AbstractCalendarTest {
         DefaultValidator<Target> validator = getValidator();
         validator.ruleForCalendar(Target::getDate).isCloseTo(before, TimeUnit.HOURS.toMillis(1), false);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertFalse(failures.isEmpty());
+        assertFalse(validationResult.isValid());
     }
 
     @Test
@@ -84,9 +83,9 @@ class IsToCloseToCalendarTest extends AbstractCalendarTest {
         DefaultValidator<Target> validator = getValidator();
         validator.ruleForCalendar(Target::getDate).isCloseTo(before, TimeUnit.DAYS.toMillis(1), true);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertFalse(failures.isEmpty());
+        assertFalse(validationResult.isValid());
     }
 
 }

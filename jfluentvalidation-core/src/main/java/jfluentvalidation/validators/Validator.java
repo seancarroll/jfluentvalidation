@@ -1,7 +1,7 @@
 package jfluentvalidation.validators;
 
 import jfluentvalidation.ValidationException;
-import jfluentvalidation.ValidationFailure;
+import jfluentvalidation.ValidationResult;
 import jfluentvalidation.rules.RuleSet;
 
 import java.util.List;
@@ -13,15 +13,15 @@ public interface Validator<T> {
 
     // which of these to make default?
 
-    List<ValidationFailure> validate(T entity);
+    ValidationResult validate(T entity);
 
-    List<ValidationFailure> validate(T entity, String ruleSet);
+    ValidationResult validate(T entity, String ruleSet);
 
-    List<ValidationFailure> validate(T entity, List<String> ruleSet);
+    ValidationResult validate(T entity, List<String> ruleSet);
 
-    List<ValidationFailure> validate(ValidationContext context);
+    ValidationResult validate(ValidationContext context);
 
-    List<ValidationFailure> validate(ValidationContext context, List<String> ruleSet);
+    ValidationResult validate(ValidationContext context, List<String> ruleSet);
 
     void validateAndThrow(T entity);
 
@@ -40,9 +40,9 @@ public interface Validator<T> {
      * @param ruleSet a ruleset when need to validate against.
      */
     default void validateAndThrow(ValidationContext validationContext, List<String> ruleSet) {
-        List<ValidationFailure> failures = validate(validationContext, ruleSet);
-        if (!failures.isEmpty()) {
-            throw new ValidationException(failures);
+        ValidationResult result = validate(validationContext, ruleSet);
+        if (result.hasFailures()) {
+            throw new ValidationException(result.getViolations());
         }
     }
 }

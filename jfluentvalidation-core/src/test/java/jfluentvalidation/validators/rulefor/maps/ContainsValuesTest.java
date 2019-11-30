@@ -1,11 +1,10 @@
 package jfluentvalidation.validators.rulefor.maps;
 
-import jfluentvalidation.ValidationFailure;
+import jfluentvalidation.ValidationResult;
 import jfluentvalidation.validators.DefaultValidator;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -23,9 +22,9 @@ class ContainsValuesTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForMap(Target::getMap).containsValues("world", "bar");
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -35,9 +34,9 @@ class ContainsValuesTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForMap(Target::getMap).containsValues();
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -47,9 +46,9 @@ class ContainsValuesTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForMap(Target::getMap).containsValues("world");
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     // TODO: is this how we want to handle? make sure we are consistent between containsEntries/keys/values and doesNotContainEntires/keys/values
@@ -69,9 +68,9 @@ class ContainsValuesTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForMap(Target::getMap).containsValues("world", null);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -84,9 +83,9 @@ class ContainsValuesTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForMap(Target::getMap).containsValues("world", "baz");
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertFalse(failures.isEmpty());
+        assertFalse(validationResult.isValid());
     }
 
 }

@@ -1,7 +1,5 @@
 package jfluentvalidation;
 
-import jfluentvalidation.constraints.ConstraintViolation;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +8,7 @@ import java.util.List;
  */
 public class ValidationResult {
 
-    private List<ConstraintViolation> violations;
+    private List<ValidationFailure> violations;
 
 
     /**
@@ -23,26 +21,30 @@ public class ValidationResult {
     /**
      * Creates a new ValidationResult from a collection of failures
      *
-     * @param violations  List of {@link ValidationFailure} which is later available through {@link Errors}.
-     *                    This list get's copied.
+     * @param violations  List of {@link ValidationFailure}
      */
-    public ValidationResult(List<ConstraintViolation> violations) {
+    public ValidationResult(List<ValidationFailure> violations) {
         this.violations = violations;
     }
 
     /**
+     * Whether validation succeeded
      *
-     * @return
+     * @return true if there are no validation failures otherwise false
      */
     public boolean isValid() {
         return violations.isEmpty();
     }
 
+    public boolean hasFailures() {
+        return !violations.isEmpty();
+    }
+
     /**
      *
      * @return
      */
-    public List<ConstraintViolation> getViolations() {
+    public List<ValidationFailure> getViolations() {
         return violations;
     }
 

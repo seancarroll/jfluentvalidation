@@ -25,7 +25,7 @@ public class ContainsOnlyOnceConstraint<T, A extends CharSequence> extends Abstr
     @Override
     public boolean isValid(RuleContext<T, A> validationContext) {
         if (Strings.isNull(validationContext.getPropertyValue())) {
-            return false;
+            return true;
         }
 
         String sequenceAsString = sequence.toString();

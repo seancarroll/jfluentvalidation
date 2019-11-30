@@ -1,11 +1,10 @@
 package jfluentvalidation.validators.rulefor.localdatetime;
 
-import jfluentvalidation.ValidationFailure;
+import jfluentvalidation.ValidationResult;
 import jfluentvalidation.validators.DefaultValidator;
 import org.junit.jupiter.api.Test;
 
 import java.time.ZonedDateTime;
-import java.util.List;
 
 import static jfluentvalidation.TimeZones.TZ_CHICAGO;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -28,9 +27,9 @@ class IsInThePastLocalDateTimeTest extends AbstractLocalDateTimeTest {
         DefaultValidator<Target> validator = getValidator();
         validator.ruleForLocalDateTime(Target::getDateTime).isInThePast();
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -40,9 +39,9 @@ class IsInThePastLocalDateTimeTest extends AbstractLocalDateTimeTest {
         DefaultValidator<Target> validator = getValidator();
         validator.ruleForLocalDateTime(Target::getDateTime).isInThePast();
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -52,9 +51,9 @@ class IsInThePastLocalDateTimeTest extends AbstractLocalDateTimeTest {
         DefaultValidator<Target> validator = getValidator();
         validator.ruleForLocalDateTime(Target::getDateTime).isInThePast();
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertFalse(failures.isEmpty());
+        assertFalse(validationResult.isValid());
     }
 
 }

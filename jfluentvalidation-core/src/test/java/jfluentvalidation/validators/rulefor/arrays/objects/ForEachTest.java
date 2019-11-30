@@ -1,10 +1,9 @@
 package jfluentvalidation.validators.rulefor.arrays.objects;
 
-import jfluentvalidation.ValidationFailure;
+import jfluentvalidation.ValidationResult;
 import jfluentvalidation.validators.DefaultValidator;
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
 import java.util.function.Predicate;
 
 import static jfluentvalidation.constraints.charsequence.CharSequenceConstraints.startsWith;
@@ -20,9 +19,9 @@ class ForEachTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForObjectArray(Target::getValue).forEach(startsWith("s"));
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -32,9 +31,9 @@ class ForEachTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForObjectArray(Target::getValue).forEach(startsWith("a"));
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertEquals(2, failures.size());
+        assertEquals(2, validationResult.getViolations().size());
     }
 
     @Test
@@ -45,9 +44,9 @@ class ForEachTest {
 
         validator.ruleForObjectArray(Target::getValue).forEach(s -> s.length() > 3, startsWith("s"));
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -59,9 +58,9 @@ class ForEachTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForObjectArray(Target::getValue).forEach(stringGreaterThan3Predicate, startsWith("s"));
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertEquals(2, failures.size());
+        assertEquals(2, validationResult.getViolations().size());
     }
 
 

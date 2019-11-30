@@ -7,9 +7,21 @@ import com.google.common.base.MoreObjects;
  */
 public class ValidationFailure {
 
+    /**
+     * The name of the property.
+     */
     private String propertyName;
+
+    /**
+     * The error message
+     */
     private String errorMessage;
+
     private String errorCode;
+
+    /**
+     * The property value that caused the failure.
+     */
     private Object attemptedValue;
 
     /**

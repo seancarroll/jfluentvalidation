@@ -1,12 +1,11 @@
 package jfluentvalidation.validators.rulefor.localdatetime;
 
-import jfluentvalidation.ValidationFailure;
+import jfluentvalidation.ValidationResult;
 import jfluentvalidation.validators.DefaultValidator;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
-import java.util.List;
 
 import static jfluentvalidation.TimeZones.TZ_CHICAGO;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -28,9 +27,9 @@ class IsBeforeLocalDateTimeTest extends AbstractLocalDateTimeTest {
         DefaultValidator<Target> validator = getValidator();
         validator.ruleForLocalDateTime(Target::getDateTime).isBefore(after);
 
-        List<ValidationFailure> failures = validator.validate(p);
+        ValidationResult validationResult = validator.validate(p);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -40,9 +39,9 @@ class IsBeforeLocalDateTimeTest extends AbstractLocalDateTimeTest {
         DefaultValidator<Target> validator = getValidator();
         validator.ruleForLocalDateTime(Target::getDateTime).isBefore(LocalDateTime.now());
 
-        List<ValidationFailure> failures = validator.validate(p);
+        ValidationResult validationResult = validator.validate(p);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -52,9 +51,9 @@ class IsBeforeLocalDateTimeTest extends AbstractLocalDateTimeTest {
         DefaultValidator<Target> validator = getValidator();
         validator.ruleForLocalDateTime(Target::getDateTime).isBefore(before);
 
-        List<ValidationFailure> failures = validator.validate(p);
+        ValidationResult validationResult = validator.validate(p);
 
-        assertFalse(failures.isEmpty());
+        assertFalse(validationResult.isValid());
     }
 
     @Test
@@ -64,9 +63,9 @@ class IsBeforeLocalDateTimeTest extends AbstractLocalDateTimeTest {
         DefaultValidator<Target> validator = getValidator();
         validator.ruleForLocalDateTime(Target::getDateTime).isBefore(reference);
 
-        List<ValidationFailure> failures = validator.validate(p);
+        ValidationResult validationResult = validator.validate(p);
 
-        assertFalse(failures.isEmpty());
+        assertFalse(validationResult.isValid());
     }
 
     @Test

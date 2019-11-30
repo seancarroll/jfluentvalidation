@@ -1,11 +1,10 @@
 package jfluentvalidation.validators.rulefor.offsettime;
 
-import jfluentvalidation.ValidationFailure;
+import jfluentvalidation.ValidationResult;
 import jfluentvalidation.validators.DefaultValidator;
 import org.junit.jupiter.api.Test;
 
 import java.time.ZonedDateTime;
-import java.util.List;
 
 import static jfluentvalidation.TimeZones.TZ_CHICAGO;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -29,9 +28,9 @@ class IsInTheFutureOffsetTimeTest extends AbstractOffsetTime {
         DefaultValidator<Target> validator = getValidator();
         validator.ruleForOffsetTime(Target::getTime).isInTheFuture();
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -41,9 +40,9 @@ class IsInTheFutureOffsetTimeTest extends AbstractOffsetTime {
         DefaultValidator<Target> validator = getValidator();
         validator.ruleForOffsetTime(Target::getTime).isInTheFuture();
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
 
@@ -54,8 +53,8 @@ class IsInTheFutureOffsetTimeTest extends AbstractOffsetTime {
         DefaultValidator<Target> validator = getValidator();
         validator.ruleForOffsetTime(Target::getTime).isInTheFuture();
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertFalse(failures.isEmpty());
+        assertFalse(validationResult.isValid());
     }
 }

@@ -1,12 +1,11 @@
 package jfluentvalidation.validators.rulefor.arrays.longs;
 
-import jfluentvalidation.ValidationFailure;
+import jfluentvalidation.ValidationResult;
 import jfluentvalidation.validators.DefaultValidator;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -20,9 +19,9 @@ class HasSameLengthAsTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForLongArray(Target::getValue).hasSameLengthAs(new long[] {1});
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -32,9 +31,9 @@ class HasSameLengthAsTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForLongArray(Target::getValue).hasSameLengthAs(new Long[] {1L});
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -44,9 +43,9 @@ class HasSameLengthAsTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForLongArray(Target::getValue).hasSameLengthAs(Collections.singletonList(1L));
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -56,9 +55,9 @@ class HasSameLengthAsTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForLongArray(Target::getValue).hasSameLengthAs(new Long[] {1L});
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -68,9 +67,9 @@ class HasSameLengthAsTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForLongArray(Target::getValue).hasSameLengthAs(new long[] {1, 2});
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertFalse(failures.isEmpty());
+        assertFalse(validationResult.isValid());
     }
 
     @Test
@@ -80,9 +79,9 @@ class HasSameLengthAsTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForLongArray(Target::getValue).hasSameLengthAs(new Long[] {1L, 2L});
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertFalse(failures.isEmpty());
+        assertFalse(validationResult.isValid());
     }
 
     @Test
@@ -92,8 +91,8 @@ class HasSameLengthAsTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForLongArray(Target::getValue).hasSameLengthAs(Arrays.asList(1L, 2L));
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertFalse(failures.isEmpty());
+        assertFalse(validationResult.isValid());
     }
 }

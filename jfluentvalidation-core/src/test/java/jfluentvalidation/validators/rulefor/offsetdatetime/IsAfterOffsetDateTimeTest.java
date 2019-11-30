@@ -1,12 +1,11 @@
 package jfluentvalidation.validators.rulefor.offsetdatetime;
 
-import jfluentvalidation.ValidationFailure;
+import jfluentvalidation.ValidationResult;
 import jfluentvalidation.validators.DefaultValidator;
 import org.junit.jupiter.api.Test;
 
 import java.time.OffsetDateTime;
 import java.time.ZonedDateTime;
-import java.util.List;
 
 import static jfluentvalidation.TimeZones.TZ_CHICAGO;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -28,9 +27,9 @@ class IsAfterOffsetDateTimeTest extends AbstractOffsetDateTime {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForOffsetDateTime(Target::getDateTime).isAfter(before);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
 
@@ -41,9 +40,9 @@ class IsAfterOffsetDateTimeTest extends AbstractOffsetDateTime {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForOffsetDateTime(Target::getDateTime).isAfter(OffsetDateTime.now());
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -53,9 +52,9 @@ class IsAfterOffsetDateTimeTest extends AbstractOffsetDateTime {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForOffsetDateTime(Target::getDateTime).isAfter(after);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertFalse(failures.isEmpty());
+        assertFalse(validationResult.isValid());
     }
 
     @Test
@@ -65,9 +64,9 @@ class IsAfterOffsetDateTimeTest extends AbstractOffsetDateTime {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForOffsetDateTime(Target::getDateTime).isAfter(reference);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertFalse(failures.isEmpty());
+        assertFalse(validationResult.isValid());
     }
 
     @Test

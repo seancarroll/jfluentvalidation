@@ -1,12 +1,11 @@
 package jfluentvalidation.validators.rulefor.zoneddatetime;
 
-import jfluentvalidation.ValidationFailure;
+import jfluentvalidation.ValidationResult;
 import jfluentvalidation.validators.DefaultValidator;
 import org.junit.jupiter.api.Test;
 
 import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.List;
 
 import static jfluentvalidation.TimeZones.TZ_CHICAGO;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -40,9 +39,9 @@ class IsCloseToZonedDateTimeTest extends AbstractZonedDateTime {
         DefaultValidator<Target> validator = getValidator();
         validator.ruleForZonedDateTime(Target::getDateTime).isCloseTo(ZonedDateTime.now(), 1, ChronoUnit.MINUTES, false);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -52,9 +51,9 @@ class IsCloseToZonedDateTimeTest extends AbstractZonedDateTime {
         DefaultValidator<Target> validator = getValidator();
         validator.ruleForZonedDateTime(Target::getDateTime).isCloseTo(before, 2, ChronoUnit.DAYS, false);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -64,9 +63,9 @@ class IsCloseToZonedDateTimeTest extends AbstractZonedDateTime {
         DefaultValidator<Target> validator = getValidator();
         validator.ruleForZonedDateTime(Target::getDateTime).isCloseTo(before, 1, ChronoUnit.DAYS, false);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -76,9 +75,9 @@ class IsCloseToZonedDateTimeTest extends AbstractZonedDateTime {
         DefaultValidator<Target> validator = getValidator();
         validator.ruleForZonedDateTime(Target::getDateTime).isCloseTo(before, 1, ChronoUnit.HOURS, false);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertFalse(failures.isEmpty());
+        assertFalse(validationResult.isValid());
     }
 
     @Test
@@ -88,8 +87,8 @@ class IsCloseToZonedDateTimeTest extends AbstractZonedDateTime {
         DefaultValidator<Target> validator = getValidator();
         validator.ruleForZonedDateTime(Target::getDateTime).isCloseTo(before, 1, ChronoUnit.DAYS, true);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertFalse(failures.isEmpty());
+        assertFalse(validationResult.isValid());
     }
 }

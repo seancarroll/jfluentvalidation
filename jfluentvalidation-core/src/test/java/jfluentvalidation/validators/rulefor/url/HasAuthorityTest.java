@@ -1,12 +1,11 @@
 package jfluentvalidation.validators.rulefor.url;
 
-import jfluentvalidation.ValidationFailure;
+import jfluentvalidation.ValidationResult;
 import jfluentvalidation.validators.DefaultValidator;
 import org.junit.jupiter.api.Test;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -21,9 +20,9 @@ class HasAuthorityTest {
         DefaultValidator<Profile> validator = new DefaultValidator<>(Profile.class);
         validator.ruleForUrl(Profile::getWebsite).hasAuthority("example.com:8080");
 
-        List<ValidationFailure> failures = validator.validate(p);
+        ValidationResult validationResult = validator.validate(p);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -33,9 +32,9 @@ class HasAuthorityTest {
         DefaultValidator<Profile> validator = new DefaultValidator<>(Profile.class);
         validator.ruleForUrl(Profile::getWebsite).hasAuthority("pages");
 
-        List<ValidationFailure> failures = validator.validate(p);
+        ValidationResult validationResult = validator.validate(p);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -45,9 +44,9 @@ class HasAuthorityTest {
         DefaultValidator<Profile> validator = new DefaultValidator<>(Profile.class);
         validator.ruleForUrl(Profile::getWebsite).hasAuthority("something");
 
-        List<ValidationFailure> failures = validator.validate(p);
+        ValidationResult validationResult = validator.validate(p);
 
-        assertFalse(failures.isEmpty());
+        assertFalse(validationResult.isValid());
     }
 
     @Test
@@ -57,9 +56,9 @@ class HasAuthorityTest {
         DefaultValidator<Profile> validator = new DefaultValidator<>(Profile.class);
         validator.ruleForUrl(Profile::getWebsite).hasAuthority("other.com");
 
-        List<ValidationFailure> failures = validator.validate(p);
+        ValidationResult validationResult = validator.validate(p);
 
-        assertFalse(failures.isEmpty());
+        assertFalse(validationResult.isValid());
     }
 
     @Test
@@ -69,9 +68,9 @@ class HasAuthorityTest {
         DefaultValidator<Profile> validator = new DefaultValidator<>(Profile.class);
         validator.ruleForUrl(Profile::getWebsite).hasAuthority("");
 
-        List<ValidationFailure> failures = validator.validate(p);
+        ValidationResult validationResult = validator.validate(p);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -81,9 +80,9 @@ class HasAuthorityTest {
         DefaultValidator<Profile> validator = new DefaultValidator<>(Profile.class);
         validator.ruleForUrl(Profile::getWebsite).hasAuthority(null);
 
-        List<ValidationFailure> failures = validator.validate(p);
+        ValidationResult validationResult = validator.validate(p);
 
-        assertFalse(failures.isEmpty());
+        assertFalse(validationResult.isValid());
     }
 
     @Test
@@ -93,8 +92,8 @@ class HasAuthorityTest {
         DefaultValidator<Profile> validator = new DefaultValidator<>(Profile.class);
         validator.ruleForUrl(Profile::getWebsite).hasAuthority("example.com:8081");
 
-        List<ValidationFailure> failures = validator.validate(p);
+        ValidationResult validationResult = validator.validate(p);
 
-        assertFalse(failures.isEmpty());
+        assertFalse(validationResult.isValid());
     }
 }

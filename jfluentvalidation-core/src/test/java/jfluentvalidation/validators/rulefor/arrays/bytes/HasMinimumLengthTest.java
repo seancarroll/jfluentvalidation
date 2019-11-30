@@ -1,10 +1,8 @@
 package jfluentvalidation.validators.rulefor.arrays.bytes;
 
-import jfluentvalidation.ValidationFailure;
+import jfluentvalidation.ValidationResult;
 import jfluentvalidation.validators.DefaultValidator;
 import org.junit.jupiter.api.Test;
-
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -20,9 +18,9 @@ class HasMinimumLengthTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForByteArray(Target::getValue).hasMinimumLength(1);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -32,9 +30,9 @@ class HasMinimumLengthTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForByteArray(Target::getValue).hasMinimumLength(1);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -44,9 +42,9 @@ class HasMinimumLengthTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForByteArray(Target::getValue).hasMinimumLength(3);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -56,8 +54,8 @@ class HasMinimumLengthTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForByteArray(Target::getValue).hasMinimumLength(2);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertFalse(failures.isEmpty());
+        assertFalse(validationResult.isValid());
     }
 }

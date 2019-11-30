@@ -1,10 +1,9 @@
 package jfluentvalidation.validators.rulefor.strings;
 
-import jfluentvalidation.ValidationFailure;
+import jfluentvalidation.ValidationResult;
 import jfluentvalidation.validators.DefaultValidator;
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
@@ -23,9 +22,9 @@ class MatchesTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForString(Target::getValue).matches(".+sleep.*");
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -35,9 +34,9 @@ class MatchesTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForString(Target::getValue).matches(Pattern.compile(".+sleep.*"));
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -47,9 +46,9 @@ class MatchesTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForString(Target::getValue).matches(MATCH_ANYTHING_REGEX);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     // TODO: include in java doc
@@ -82,9 +81,9 @@ class MatchesTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForString(Target::getValue).matches("hello");
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertFalse(failures.isEmpty());
+        assertFalse(validationResult.isValid());
     }
 
     @Test
@@ -94,8 +93,8 @@ class MatchesTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForString(Target::getValue).matches(Pattern.compile("hello"));
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertFalse(failures.isEmpty());
+        assertFalse(validationResult.isValid());
     }
 }

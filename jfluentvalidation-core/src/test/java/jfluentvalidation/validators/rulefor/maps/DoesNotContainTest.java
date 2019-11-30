@@ -1,6 +1,6 @@
 package jfluentvalidation.validators.rulefor.maps;
 
-import jfluentvalidation.ValidationFailure;
+import jfluentvalidation.ValidationResult;
 import jfluentvalidation.common.Maps;
 import jfluentvalidation.common.MoreArrays;
 import jfluentvalidation.validators.DefaultValidator;
@@ -9,7 +9,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.provider.Arguments;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
@@ -33,9 +32,9 @@ class DoesNotContainTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForMap(Target::getMap).doesNotContain(array(entry("name", "sean")));
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     // TODO: not sure this is appropriate
@@ -53,9 +52,9 @@ class DoesNotContainTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForMap(Target::getMap).doesNotContain(array(entry("hello", "world")));
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -74,9 +73,9 @@ class DoesNotContainTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForMap(Target::getMap).doesNotContain((Map.Entry<? extends String, ? extends String>) null);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -89,11 +88,12 @@ class DoesNotContainTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForMap(Target::getMap).doesNotContain(array(entry("hello", "world"), entry("name", "sean")));
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertFalse(failures.isEmpty());
+        assertFalse(validationResult.isValid());
     }
 
+    // TODO: use this or remove
     private static Stream<Arguments> shouldReturnFailureWhenActualContainsAtLeastOneGivenValueSource() {
         return Stream.of(
             Arguments.of((Object) MoreArrays.array(Maps.entry("hello", "world"))),

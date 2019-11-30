@@ -1,14 +1,13 @@
 package jfluentvalidation.validators;
 
 import jfluentvalidation.ValidationException;
-import jfluentvalidation.ValidationFailure;
+import jfluentvalidation.ValidationResult;
 import org.junit.jupiter.api.Test;
 
 import java.time.ZonedDateTime;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.function.Predicate;
@@ -16,6 +15,7 @@ import java.util.function.Predicate;
 import static jfluentvalidation.constraints.charsequence.CharSequenceConstraints.isLowerCase;
 import static jfluentvalidation.constraints.charsequence.CharSequenceConstraints.length;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ValidatorTests {
@@ -29,10 +29,10 @@ class ValidatorTests {
         DefaultValidator<Person> validator = new DefaultValidator<>(Person.class);
         validator.ruleForInteger(p -> p.getAge()).isPositive();
 
-        List<ValidationFailure> validationFailures = validator.validate(person);
+        ValidationResult validationResult = validator.validate(person);
 
-        assertEquals(1, validationFailures.size());
-        assertEquals("age", validationFailures.get(0).getPropertyName());
+        assertEquals(1, validationResult.getViolations().size());
+        assertEquals("age", validationResult.getViolations().get(0).getPropertyName());
     }
 
     @Test
@@ -43,9 +43,9 @@ class ValidatorTests {
         validator.ruleForString(Person::getName).isNotEmpty().startsWith("s").length(5, 10).withMessage("Name must be between 5 and 10 yo");
         validator.ruleForInteger(Person::getAge).isPositive();
 
-        List<ValidationFailure> validationFailures = validator.validate(person);
+        ValidationResult validationResult = validator.validate(person);
 
-        assertEquals(1, validationFailures.size());
+        assertEquals(1, validationResult.getViolations().size());
     }
 
     @Test
@@ -56,9 +56,9 @@ class ValidatorTests {
         validator.ruleForString(Person::getName).isNotEmpty().startsWith("s").length(5, 10);
         validator.ruleForInteger(Person::getAge).isPositive().isBetween(1, 50);
 
-        List<ValidationFailure> validationFailures = validator.validate(person);
+        ValidationResult validationResult = validator.validate(person);
 
-        assertEquals(1, validationFailures.size());
+        assertEquals(1, validationResult.getViolations().size());
     }
 
     @Test
@@ -73,9 +73,8 @@ class ValidatorTests {
 
         PersonValidator validator = new PersonValidator();
 
-        List<ValidationFailure> validationFailures = validator.validate(person);
-        System.out.println(validationFailures);
-        assertEquals(0, validationFailures.size());
+        ValidationResult validationResult = validator.validate(person);
+        assertFalse(validationResult.hasFailures());
     }
 
     @Test
@@ -84,9 +83,9 @@ class ValidatorTests {
 
         PersonAgeValidator validator = new PersonAgeValidator();
 
-        List<ValidationFailure> validationFailures = validator.validate(person);
+        ValidationResult validationResult = validator.validate(person);
 
-        assertEquals(0, validationFailures.size());
+        assertFalse(validationResult.hasFailures());
     }
 
     @Test
@@ -98,9 +97,9 @@ class ValidatorTests {
             validator.ruleForString(Person::getName).isNotEmpty().startsWith("s").length(5, 10);
         });
 
-        List<ValidationFailure> validationFailures = validator.validate(person, "name");
+        ValidationResult validationResult = validator.validate(person, "name");
 
-        assertEquals(1, validationFailures.size());
+        assertEquals(1, validationResult.getViolations().size());
     }
 
     @Test
@@ -108,9 +107,9 @@ class ValidatorTests {
         Person person = new Person("sean", 32, null);
 
         PersonValidator validator = new PersonValidator();
-        List<ValidationFailure> validationFailures = validator.validate(person, "address");
+        ValidationResult validationResult = validator.validate(person, "address");
 
-        assertEquals(1, validationFailures.size());
+        assertEquals(1, validationResult.getViolations().size());
     }
 
     @Test
@@ -183,13 +182,6 @@ class ValidatorTests {
     private static class PersonAgeValidator extends DefaultValidator<Person> {
 
         PersonAgeValidator() {
-            // TODO: is kind of sucks...is there a better way to do this?
-            //ruleForInteger(Person::getAge).must(this::beOver18);
-
-            // This isnt an improvement
-            // ruleForInteger(Person::getAge).must(a -> beOver18(a));
-
-            // this is pretty good.
             ruleForInteger(Person::getAge).must(isOver18());
         }
 

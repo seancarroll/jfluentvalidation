@@ -1,10 +1,8 @@
 package jfluentvalidation.validators.rulefor.doubles;
 
-import jfluentvalidation.ValidationFailure;
+import jfluentvalidation.ValidationResult;
 import jfluentvalidation.validators.DefaultValidator;
 import org.junit.jupiter.api.Test;
-
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -37,9 +35,9 @@ class IsNotBetweenTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForDouble(Target::getNumber).isNotBetween(0d, 5d);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -49,9 +47,9 @@ class IsNotBetweenTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForDouble(Target::getNumber).isNotBetween(0d, 5d);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -61,9 +59,9 @@ class IsNotBetweenTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForDouble(Target::getNumber).isNotBetween(0d, 5d);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -73,9 +71,9 @@ class IsNotBetweenTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForDouble(Target::getNumber).isNotBetween(0d, 5d);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertFalse(failures.isEmpty());
+        assertFalse(validationResult.isValid());
     }
 
     @Test
@@ -85,9 +83,9 @@ class IsNotBetweenTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForDouble(Target::getNumber).isNotBetween(0d, 5d, false, true);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -97,9 +95,9 @@ class IsNotBetweenTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForDouble(Target::getNumber).isNotBetween(0d, 5d);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertFalse(failures.isEmpty());
+        assertFalse(validationResult.isValid());
     }
 
     @Test
@@ -109,9 +107,9 @@ class IsNotBetweenTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForDouble(Target::getNumber).isNotBetween(0d, 5d, true, false);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -121,8 +119,8 @@ class IsNotBetweenTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForDouble(Target::getNumber).isNotBetween(0d, 5d);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertFalse(failures.isEmpty());
+        assertFalse(validationResult.isValid());
     }
 }

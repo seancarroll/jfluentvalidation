@@ -1,13 +1,12 @@
 package jfluentvalidation.validators.rulefor.strings;
 
-import jfluentvalidation.ValidationFailure;
+import jfluentvalidation.ValidationResult;
 import jfluentvalidation.validators.DefaultValidator;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import java.util.List;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -22,9 +21,9 @@ class IsEqualToNormalizingWhitespaceTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForString(Target::getValue).isEqualToNormalizingWhitespace("world");
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertFalse(failures.isEmpty());
+        assertFalse(validationResult.isValid());
     }
 
     @Test
@@ -34,9 +33,9 @@ class IsEqualToNormalizingWhitespaceTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForString(Target::getValue).isEqualToNormalizingWhitespace(null);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertFalse(failures.isEmpty());
+        assertFalse(validationResult.isValid());
     }
 
     @Test
@@ -46,9 +45,9 @@ class IsEqualToNormalizingWhitespaceTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForString(Target::getValue).isEqualToNormalizingWhitespace("world");
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertFalse(failures.isEmpty());
+        assertFalse(validationResult.isValid());
     }
 
     @ParameterizedTest
@@ -59,9 +58,9 @@ class IsEqualToNormalizingWhitespaceTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForString(Target::getValue).isEqualToNormalizingWhitespace(expected);
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     private static Stream<Arguments> equalNormalizingWhitespaceGenerator() {

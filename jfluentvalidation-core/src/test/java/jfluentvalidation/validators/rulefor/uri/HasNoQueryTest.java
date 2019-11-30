@@ -1,12 +1,11 @@
 package jfluentvalidation.validators.rulefor.uri;
 
-import jfluentvalidation.ValidationFailure;
+import jfluentvalidation.ValidationResult;
 import jfluentvalidation.validators.DefaultValidator;
 import org.junit.jupiter.api.Test;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -20,9 +19,9 @@ class HasNoQueryTest {
         DefaultValidator<Media> validator = new DefaultValidator<>(Media.class);
         validator.ruleForUri(Media::getContentLocation).hasNoQuery();
 
-        List<ValidationFailure> failures = validator.validate(m);
+        ValidationResult validationResult = validator.validate(m);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -32,9 +31,9 @@ class HasNoQueryTest {
         DefaultValidator<Media> validator = new DefaultValidator<>(Media.class);
         validator.ruleForUri(Media::getContentLocation).hasNoQuery();
 
-        List<ValidationFailure> failures = validator.validate(m);
+        ValidationResult validationResult = validator.validate(m);
 
-        assertTrue(failures.isEmpty());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -44,9 +43,9 @@ class HasNoQueryTest {
         DefaultValidator<Media> validator = new DefaultValidator<>(Media.class);
         validator.ruleForUri(Media::getContentLocation).hasNoQuery();
 
-        List<ValidationFailure> failures = validator.validate(m);
+        ValidationResult validationResult = validator.validate(m);
 
-        assertFalse(failures.isEmpty());
+        assertFalse(validationResult.isValid());
     }
 
 }

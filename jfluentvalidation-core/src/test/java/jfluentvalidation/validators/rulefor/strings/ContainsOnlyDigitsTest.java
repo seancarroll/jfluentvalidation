@@ -1,29 +1,15 @@
 package jfluentvalidation.validators.rulefor.strings;
 
-import jfluentvalidation.ValidationFailure;
+import jfluentvalidation.ValidationResult;
 import jfluentvalidation.validators.DefaultValidator;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ContainsOnlyDigitsTest {
-
-    @Test
-    void shouldNotReturnFailureWhenActualContainsOnlyDigits() {
-        Target t = new Target("109");
-
-        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForString(Target::getValue).containsOnlyDigits();
-
-        List<ValidationFailure> failures = validator.validate(t);
-
-        assertTrue(failures.isEmpty());
-    }
 
     @Test
     void shouldNotReturnFailureWhenActualIsNull() {
@@ -32,9 +18,33 @@ class ContainsOnlyDigitsTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForString(Target::getValue).containsOnlyDigits();
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertFalse(failures.isEmpty());
+        assertTrue(validationResult.isValid());
+    }
+
+    @Test
+    void shouldNotReturnFailureWhenActualIsEmpty() {
+        Target t = new Target("");
+
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        validator.ruleForString(Target::getValue).containsOnlyDigits();
+
+        ValidationResult validationResult = validator.validate(t);
+
+        assertTrue(validationResult.isValid());
+    }
+
+    @Test
+    void shouldNotReturnFailureWhenActualContainsOnlyDigits() {
+        Target t = new Target("109");
+
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        validator.ruleForString(Target::getValue).containsOnlyDigits();
+
+        ValidationResult validationResult = validator.validate(t);
+
+        assertTrue(validationResult.isValid());
     }
 
     @ParameterizedTest
@@ -45,20 +55,9 @@ class ContainsOnlyDigitsTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForString(Target::getValue).containsOnlyDigits();
 
-        List<ValidationFailure> failures = validator.validate(t);
+        ValidationResult validationResult = validator.validate(t);
 
-        assertFalse(failures.isEmpty());
+        assertFalse(validationResult.isValid());
     }
 
-    @Test
-    void shouldReturnFailureWhenActualIsEmpty() {
-        Target t = new Target("");
-
-        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForString(Target::getValue).containsOnlyDigits();
-
-        List<ValidationFailure> failures = validator.validate(t);
-
-        assertFalse(failures.isEmpty());
-    }
 }
