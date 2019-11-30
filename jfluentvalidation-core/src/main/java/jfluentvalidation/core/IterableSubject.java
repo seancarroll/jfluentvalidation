@@ -48,6 +48,12 @@ public class IterableSubject<T, E> extends AbstractIterableSubject<IterableSubje
     }
 
     @CanIgnoreReturnValue
+    public final IterableSubject<T, E> hasSameSizeAs(Iterable<E> other) {
+        rule.addConstraint(new HasSizeConstraint<>(other));
+        return myself;
+    }
+
+    @CanIgnoreReturnValue
     public final IterableSubject<T, E> contains(E element) {
         rule.addConstraint(new ContainsConstraint<>(element));
         return myself;

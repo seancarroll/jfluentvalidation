@@ -6,6 +6,8 @@ import jfluentvalidation.constraints.DefaultMessages;
 import jfluentvalidation.internal.Ensure;
 import jfluentvalidation.validators.RuleContext;
 
+import java.util.function.IntSupplier;
+
 /**
  * Check that the given {@code Iterable} being validated has the expected size.
  *
@@ -14,11 +16,23 @@ import jfluentvalidation.validators.RuleContext;
  */
 public class HasSizeConstraint<T, P> extends AbstractConstraint<T, Iterable<? super P>> {
 
-    private final int expectedSize;
+    private IntSupplier sizeSupplier;
+    private int expectedSize;
 
-    public HasSizeConstraint(int expectedSize) {
+    public HasSizeConstraint(int size) {
         super(DefaultMessages.HAS_SIZE);
-        this.expectedSize = Ensure.nonnegative(expectedSize, "expectedSize");
+        this.expectedSize = Ensure.nonnegative(size, "size");
+    }
+
+    public HasSizeConstraint(Iterable<?> other) {
+        super(DefaultMessages.HAS_SIZE);
+        Ensure.notNull(other);
+        this.sizeSupplier = () -> Iterables.size(other);
+    }
+
+    public HasSizeConstraint(IntSupplier sizeSupplier) {
+        super(DefaultMessages.HAS_SIZE);
+        this.sizeSupplier = sizeSupplier;
     }
 
     @Override
@@ -26,11 +40,13 @@ public class HasSizeConstraint<T, P> extends AbstractConstraint<T, Iterable<? su
         if (context.getPropertyValue() == null) {
             return true;
         }
-        return Iterables.size(context.getPropertyValue()) == expectedSize;
+
+        int size = Iterables.size(context.getPropertyValue());
+        return size == (sizeSupplier != null ? sizeSupplier.getAsInt() : expectedSize);
     }
 
     @Override
     public void addParametersToContext(RuleContext<T, Iterable<? super P>> context) {
-        context.getMessageContext().appendArgument("size", expectedSize);
+        context.getMessageContext().appendArgument("size", sizeSupplier != null ? sizeSupplier.getAsInt() : expectedSize);
     }
 }
