@@ -1,27 +1,29 @@
 TODO:
-[ ] add tests for bytes / charsequence / stringbuffer / stringbuilder
-[ ] Instead of returning a list of failures return an wrapper object. 
+- [ ] exception messages
+- [ ] all constraints can be used in forEach
+- [ ] add tests for bytes / charsequence / stringbuffer / stringbuilder
+- [ ] Instead of returning a list of failures return an wrapper object. 
   should include boolean such as hasErrors. 
   See what other helper methods might be useful.
   Lots of tests will break
-[ ] better way to pass context. I think we are juggling too many.
-[ ] better way to do ruleForEach on collections, maps, etc
-[ ] tests verify static method for each validation...I want to make sure we can use all approprivate validations with ruleForEach
-[ ] move subjects into core/subjects package
-[ ] where to put exceptions?
-[ ] Do some of the CharSequence constraints need to be moved to String?
-[ ] What about adding a base class that checks property value for null
-[ ] what about adding a Not|NegateConstraint that wraps another constraint to negate it. similar ot what we do for softconstraint
-[ ] I'm not sure 100% happy with how we do error messages. when I get to localization take another look at how we could improve
-[ ] Do we need to return true when property is null instead of false...showcase examples.
-[ ] have an issue getting the appropriate property name for nested fields ex: `ruleForString(p -> p.getAddress().getZip())`. 
+- [ ] better way to pass context. I think we are juggling too many.
+- [ ] better way to do ruleForEach on collections, maps, etc
+- [ ] tests verify static method for each validation...I want to make sure we can use all approprivate validations with ruleForEach
+- [ ] move subjects into core/subjects package
+- [ ] where to put exceptions?
+- [ ] Do some of the CharSequence constraints need to be moved to String?
+- [ ] What about adding a base class that checks property value for null
+- [ ] what about adding a Not|NegateConstraint that wraps another constraint to negate it. similar ot what we do for softconstraint
+- [ ] I'm not sure 100% happy with how we do error messages. when I get to localization take another look at how we could improve
+- [ ] Do we need to return true when property is null instead of false...showcase examples.
+- [ ] have an issue getting the appropriate property name for nested fields ex: `ruleForString(p -> p.getAddress().getZip())`. 
 I'm not sure what would be a good mechanism to determine if the property is nested or not. 
 My initial thought is if I have some way to determine if its nested than I can return another bytebuddy proxy. 
 One idea is to use serialablelamba. 
 If I'm bringing back serialableLamba then I can use that for method references and fall back to bytebuddy for lambda expressions.
 If I do that then I may need to alter when I create the proxy (right now its in the constructor of the validator) and how I grab the property name. 
-[ ] Might want to check constraint null checks and when to return true vs false.
-[ ] review assertj AbstractIterableAssert which has 
+- [ ] Might want to check constraint null checks and when to return true vs false.
+- [ ] review assertj AbstractIterableAssert which has 
 ```java 
 @Override
 public SELF hasOnlyOneElementSatisfying(Consumer<? super ELEMENT> elementAssertions) {
@@ -62,37 +64,37 @@ AssertJ offers `ClassBasedNavigableIterableAssert` and `FactoryBasedNavigableIte
 
 
 Potential Constraints to Add
-[ ] CharSequence/String
-  [ ] isXmlEqualTo: `isXmlEqualTo(CharSequence expectedXml)`
-  [ ] inHexadecimal
-  [ ] inUnicode
-  [ ] hasLineCount: `hasLineCount(int expected)`
-  [ ] isEqualToNormalizingNewlines: `isEqualToNormalizingNewlines(CharSequence expected)`
-  [ ] isEqualToIgnoringNewLines: `isEqualToIgnoringNewLines(CharSequence expected)`
-  [ ] containsSequence: 
-    [ ] `containsSequence(CharSequence... values)`
-    [ ] `containsSequence(Iterable<? extends CharSequence> values)`
-  [ ] containsSubsequence
-    [ ] `containsSubsequence(CharSequence... values)`
-    [ ] `containsSubsequence(Iterable<? extends CharSequence> values)`
-  [ ] isURL 
-  [ ] isURI
-  [ ] isNotNullOrEmpty
-[ ] File
-  [ ] hasSameContentAs
-    [ ] `hasSameContentAs(File expected)`
-    [ ] `hasSameContentAs(File expected, Charset expectedCharset)`
-[ ] Array
-  [ ] DoesNotContain
-[ ] Contains with a use of a Comparison strategy
-[ ] Constraints that works with Optional including OptionalDouble, OptionalInt, OptionalLong
-[ ] Dates (Date/Calendar/Time etc)
-  [ ] isToday
-  [ ] IsYear / IsMonth / IsDay
-  [ ] assertIsInSameYearAs / areInSameYear
-  [ ] assertIsInSameMonthAs / areInSameMonth
-  [ ] assertIsInSameDayAs / areInSameDay
-[ ] Have Date and Calendar use Instant similar to Hibernate Validator's AbstractInstantBasedTimeValidator
+- [ ] CharSequence/String
+  - [ ] isXmlEqualTo: `isXmlEqualTo(CharSequence expectedXml)`
+  - [ ] inHexadecimal
+  - [ ] inUnicode
+  - [ ] hasLineCount: `hasLineCount(int expected)`
+  - [ ] isEqualToNormalizingNewlines: `isEqualToNormalizingNewlines(CharSequence expected)`
+  - [ ] isEqualToIgnoringNewLines: `isEqualToIgnoringNewLines(CharSequence expected)`
+  - [ ] containsSequence: 
+    - [ ] `containsSequence(CharSequence... values)`
+    - [ ] `containsSequence(Iterable<? extends CharSequence> values)`
+  - [ ] containsSubsequence
+    - [ ] `containsSubsequence(CharSequence... values)`
+    - [ ] `containsSubsequence(Iterable<? extends CharSequence> values)`
+  - [ ] isURL 
+  - [ ] isURI
+  - [ ] isNotNullOrEmpty
+- [ ] File
+  - [ ] hasSameContentAs
+    - [ ] `hasSameContentAs(File expected)`
+    - [ ] `hasSameContentAs(File expected, Charset expectedCharset)`
+- [ ] Array
+  - [ ] DoesNotContain
+- [ ] Contains with a use of a Comparison strategy
+- [ ] Constraints that works with Optional including OptionalDouble, OptionalInt, OptionalLong
+- [ ] Dates (Date/Calendar/Time etc)
+  - [ ] isToday
+  - [ ] IsYear / IsMonth / IsDay
+  - [ ] assertIsInSameYearAs / areInSameYear
+  - [ ] assertIsInSameMonthAs / areInSameMonth
+  - [ ] assertIsInSameDayAs / areInSameDay
+- [ ] Have Date and Calendar use Instant similar to Hibernate Validator's AbstractInstantBasedTimeValidator
  
  
 
@@ -155,3 +157,5 @@ https://issues.sonatype.org/secure/CreateIssue.jspa?issuetype=21&pid=10134
 * group Id: com.seanthomascarroll
 * Project Url
 * SCM url
+
+
