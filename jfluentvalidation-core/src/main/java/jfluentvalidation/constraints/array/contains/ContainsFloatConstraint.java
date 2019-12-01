@@ -16,6 +16,9 @@ public class ContainsFloatConstraint<T> extends AbstractConstraint<T, float[]> {
 
     @Override
     public boolean isValid(RuleContext<T, float[]> context) {
+        if (context.getPropertyValue() == null) {
+            return true;
+        }
         return MoreArrays.contains(context.getPropertyValue(), element);
     }
 

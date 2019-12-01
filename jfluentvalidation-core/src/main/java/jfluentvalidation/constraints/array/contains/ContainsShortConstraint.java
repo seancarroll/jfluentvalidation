@@ -16,6 +16,9 @@ public class ContainsShortConstraint<T> extends AbstractConstraint<T, short[]> {
 
     @Override
     public boolean isValid(RuleContext<T, short[]> context) {
+        if (context.getPropertyValue() == null) {
+            return true;
+        }
         return MoreArrays.contains(context.getPropertyValue(), element);
     }
 

@@ -16,6 +16,9 @@ public class ContainsDoubleConstraint<T> extends AbstractConstraint<T, double[]>
 
     @Override
     public boolean isValid(RuleContext<T, double[]> context) {
+        if (context.getPropertyValue() == null) {
+            return true;
+        }
         return MoreArrays.contains(context.getPropertyValue(), element);
     }
 

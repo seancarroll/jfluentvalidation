@@ -16,6 +16,9 @@ public class ContainsIntConstraint<T> extends AbstractConstraint<T, int[]> {
 
     @Override
     public boolean isValid(RuleContext<T, int[]> context) {
+        if (context.getPropertyValue() == null) {
+            return true;
+        }
         return MoreArrays.contains(context.getPropertyValue(), element);
     }
 
