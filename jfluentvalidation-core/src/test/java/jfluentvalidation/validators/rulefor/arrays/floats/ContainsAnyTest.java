@@ -17,7 +17,7 @@ class ContainsAnyTest {
         Target t = new Target(new float[] {1f, 5f});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForFloatArray(Target::getValue).containsAnyOf(1f);
+        validator.ruleForFloatArray(Target::getValue).containsAny(1f);
 
         ValidationResult validationResult = validator.validate(t);
 
@@ -27,7 +27,7 @@ class ContainsAnyTest {
     @Test
     void shouldSupportLists() {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForFloatArray(Target::getValue).containsAnyOf(Collections.singletonList(1f));
+        validator.ruleForFloatArray(Target::getValue).containsAny(Collections.singletonList(1f));
     }
 
     @Test
@@ -35,7 +35,7 @@ class ContainsAnyTest {
         Target t = new Target(new float[] {1f, 5f});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForFloatArray(Target::getValue).containsAnyOf(1f, 5f);
+        validator.ruleForFloatArray(Target::getValue).containsAny(1f, 5f);
 
         ValidationResult validationResult = validator.validate(t);
 
@@ -47,7 +47,7 @@ class ContainsAnyTest {
         Target t = new Target(new float[] {1f, 5f});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForFloatArray(Target::getValue).containsAnyOf(5f, 1f);
+        validator.ruleForFloatArray(Target::getValue).containsAny(5f, 1f);
 
         ValidationResult validationResult = validator.validate(t);
 
@@ -59,7 +59,7 @@ class ContainsAnyTest {
         Target t = new Target(new float[] {1f, 1f});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForFloatArray(Target::getValue).containsAnyOf(1f);
+        validator.ruleForFloatArray(Target::getValue).containsAny(1f);
 
         ValidationResult validationResult = validator.validate(t);
 
@@ -71,7 +71,7 @@ class ContainsAnyTest {
         Target t = new Target(new float[] {1f, 1f});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForFloatArray(Target::getValue).containsAnyOf(1f, 5f);
+        validator.ruleForFloatArray(Target::getValue).containsAny(1f, 5f);
 
         ValidationResult validationResult = validator.validate(t);
 
@@ -83,7 +83,7 @@ class ContainsAnyTest {
         Target t = new Target(new float[] {1f, 1f});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForFloatArray(Target::getValue).containsAnyOf(1f, 1f);
+        validator.ruleForFloatArray(Target::getValue).containsAny(1f, 1f);
 
         ValidationResult validationResult = validator.validate(t);
 
@@ -95,7 +95,7 @@ class ContainsAnyTest {
         Target t = new Target(new float[0]);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForFloatArray(Target::getValue).containsAnyOf(Collections.emptyList());
+        validator.ruleForFloatArray(Target::getValue).containsAny(Collections.emptyList());
 
         ValidationResult validationResult = validator.validate(t);
 
@@ -107,7 +107,7 @@ class ContainsAnyTest {
         Target t = new Target(null);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForFloatArray(Target::getValue).containsAnyOf(1f);
+        validator.ruleForFloatArray(Target::getValue).containsAny(1f);
 
         ValidationResult validationResult = validator.validate(t);
 
@@ -119,7 +119,7 @@ class ContainsAnyTest {
         Target t = new Target(new float[] {1f, 5f});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForFloatArray(Target::getValue).containsAnyOf(Collections.emptyList());
+        validator.ruleForFloatArray(Target::getValue).containsAny(Collections.emptyList());
 
         ValidationResult validationResult = validator.validate(t);
 
@@ -131,7 +131,7 @@ class ContainsAnyTest {
         Target t = new Target(new float[] {1f});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForFloatArray(Target::getValue).containsAnyOf(5f);
+        validator.ruleForFloatArray(Target::getValue).containsAny(5f);
 
         ValidationResult validationResult = validator.validate(t);
 
@@ -141,7 +141,7 @@ class ContainsAnyTest {
     @Test
     void shouldThrowExceptionWhenGivenValuesIsNull() {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        assertThrows(NullPointerException.class, () -> validator.ruleForFloatArray(Target::getValue).containsAnyOf((Iterable<Float>) null));
+        assertThrows(NullPointerException.class, () -> validator.ruleForFloatArray(Target::getValue).containsAny((Iterable<Float>) null));
     }
 
 }

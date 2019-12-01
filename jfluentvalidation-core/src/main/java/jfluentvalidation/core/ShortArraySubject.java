@@ -62,12 +62,12 @@ public class ShortArraySubject<T> extends AbstractArraySubject<ShortArraySubject
     }
 
     @Override
-    public ShortArraySubject<T> containsAnyOf(Short... values) {
-        return containsAnyOf(Arrays.asList(values));
+    public ShortArraySubject<T> containsAny(Short... values) {
+        return containsAny(Arrays.asList(values));
     }
 
     @Override
-    public ShortArraySubject<T> containsAnyOf(Iterable<Short> values) {
+    public ShortArraySubject<T> containsAny(Iterable<Short> values) {
         rule.addConstraint(new ContainsAnyShortConstraint<>(values));
         return myself;
     }

@@ -23,10 +23,10 @@ public interface ArraySubject<S extends ArraySubject<S, A, E>, A, E> {
     S contains(E element);
 
     @CanIgnoreReturnValue
-    S containsAnyOf(E... values);
+    S containsAny(E... values);
 
     @CanIgnoreReturnValue
-    S containsAnyOf(Iterable<E> values);
+    S containsAny(Iterable<E> values);
 
     @CanIgnoreReturnValue
     S containsAll(E... expected);

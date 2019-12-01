@@ -17,7 +17,7 @@ class ContainsAnyTest {
         Target t = new Target(new String[] {"hello", "world"});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForObjectArray(Target::getValue).containsAnyOf("hello");
+        validator.ruleForObjectArray(Target::getValue).containsAny("hello");
 
         ValidationResult validationResult = validator.validate(t);
 
@@ -27,7 +27,7 @@ class ContainsAnyTest {
     @Test
     void shouldSupportLists() {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForObjectArray(Target::getValue).containsAnyOf(Collections.singletonList("hello"));
+        validator.ruleForObjectArray(Target::getValue).containsAny(Collections.singletonList("hello"));
     }
 
     @Test
@@ -35,7 +35,7 @@ class ContainsAnyTest {
         Target t = new Target(new String[] {"hello", "world"});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForObjectArray(Target::getValue).containsAnyOf("hello", "world");
+        validator.ruleForObjectArray(Target::getValue).containsAny("hello", "world");
 
         ValidationResult validationResult = validator.validate(t);
 
@@ -47,7 +47,7 @@ class ContainsAnyTest {
         Target t = new Target(new String[] {"hello", "world"});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForObjectArray(Target::getValue).containsAnyOf("world", "hello");
+        validator.ruleForObjectArray(Target::getValue).containsAny("world", "hello");
 
         ValidationResult validationResult = validator.validate(t);
 
@@ -59,7 +59,7 @@ class ContainsAnyTest {
         Target t = new Target(new String[] {"hello", "hello"});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForObjectArray(Target::getValue).containsAnyOf("hello");
+        validator.ruleForObjectArray(Target::getValue).containsAny("hello");
 
         ValidationResult validationResult = validator.validate(t);
 
@@ -71,7 +71,7 @@ class ContainsAnyTest {
         Target t = new Target(new String[] {"hello", "hello"});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForObjectArray(Target::getValue).containsAnyOf("hello", "world");
+        validator.ruleForObjectArray(Target::getValue).containsAny("hello", "world");
 
         ValidationResult validationResult = validator.validate(t);
 
@@ -83,7 +83,7 @@ class ContainsAnyTest {
         Target t = new Target(new String[] {"hello", "hello"});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForObjectArray(Target::getValue).containsAnyOf("hello", "hello");
+        validator.ruleForObjectArray(Target::getValue).containsAny("hello", "hello");
 
         ValidationResult validationResult = validator.validate(t);
 
@@ -95,7 +95,7 @@ class ContainsAnyTest {
         Target t = new Target(new String[0]);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForObjectArray(Target::getValue).containsAnyOf(Collections.emptyList());
+        validator.ruleForObjectArray(Target::getValue).containsAny(Collections.emptyList());
 
         ValidationResult validationResult = validator.validate(t);
 
@@ -107,7 +107,7 @@ class ContainsAnyTest {
         Target t = new Target(null);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForObjectArray(Target::getValue).containsAnyOf("hello");
+        validator.ruleForObjectArray(Target::getValue).containsAny("hello");
 
         ValidationResult validationResult = validator.validate(t);
 
@@ -119,7 +119,7 @@ class ContainsAnyTest {
         Target t = new Target(new String[] {"hello", "world"});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForObjectArray(Target::getValue).containsAnyOf(Collections.emptyList());
+        validator.ruleForObjectArray(Target::getValue).containsAny(Collections.emptyList());
 
         ValidationResult validationResult = validator.validate(t);
 
@@ -131,7 +131,7 @@ class ContainsAnyTest {
         Target t = new Target(new String[] {"hello"});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForObjectArray(Target::getValue).containsAnyOf("world");
+        validator.ruleForObjectArray(Target::getValue).containsAny("world");
 
         ValidationResult validationResult = validator.validate(t);
 
@@ -141,7 +141,7 @@ class ContainsAnyTest {
     @Test
     void shouldThrowExceptionWhenGivenValuesIsNull() {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        assertThrows(NullPointerException.class, () -> validator.ruleForObjectArray(Target::getValue).containsAnyOf((Iterable<String>) null));
+        assertThrows(NullPointerException.class, () -> validator.ruleForObjectArray(Target::getValue).containsAny((Iterable<String>) null));
     }
 
 }

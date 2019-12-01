@@ -17,7 +17,7 @@ class ContainsAnyTest {
         Target t = new Target(new long[] {1L, 5L});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForLongArray(Target::getValue).containsAnyOf(1L);
+        validator.ruleForLongArray(Target::getValue).containsAny(1L);
 
         ValidationResult validationResult = validator.validate(t);
 
@@ -27,7 +27,7 @@ class ContainsAnyTest {
     @Test
     void shouldSupportLists() {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForLongArray(Target::getValue).containsAnyOf(Collections.singletonList(1L));
+        validator.ruleForLongArray(Target::getValue).containsAny(Collections.singletonList(1L));
     }
 
     @Test
@@ -35,7 +35,7 @@ class ContainsAnyTest {
         Target t = new Target(new long[] {1L, 5L});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForLongArray(Target::getValue).containsAnyOf(1L, 5L);
+        validator.ruleForLongArray(Target::getValue).containsAny(1L, 5L);
 
         ValidationResult validationResult = validator.validate(t);
 
@@ -47,7 +47,7 @@ class ContainsAnyTest {
         Target t = new Target(new long[] {1L, 5L});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForLongArray(Target::getValue).containsAnyOf(5L, 1L);
+        validator.ruleForLongArray(Target::getValue).containsAny(5L, 1L);
 
         ValidationResult validationResult = validator.validate(t);
 
@@ -59,7 +59,7 @@ class ContainsAnyTest {
         Target t = new Target(new long[] {1L, 1L});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForLongArray(Target::getValue).containsAnyOf(1L);
+        validator.ruleForLongArray(Target::getValue).containsAny(1L);
 
         ValidationResult validationResult = validator.validate(t);
 
@@ -71,7 +71,7 @@ class ContainsAnyTest {
         Target t = new Target(new long[] {1L, 1L});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForLongArray(Target::getValue).containsAnyOf(1L, 5L);
+        validator.ruleForLongArray(Target::getValue).containsAny(1L, 5L);
 
         ValidationResult validationResult = validator.validate(t);
 
@@ -83,7 +83,7 @@ class ContainsAnyTest {
         Target t = new Target(new long[] {1L, 1L});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForLongArray(Target::getValue).containsAnyOf(1L, 1L);
+        validator.ruleForLongArray(Target::getValue).containsAny(1L, 1L);
 
         ValidationResult validationResult = validator.validate(t);
 
@@ -95,7 +95,7 @@ class ContainsAnyTest {
         Target t = new Target(new long[0]);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForLongArray(Target::getValue).containsAnyOf(Collections.emptyList());
+        validator.ruleForLongArray(Target::getValue).containsAny(Collections.emptyList());
 
         ValidationResult validationResult = validator.validate(t);
 
@@ -107,7 +107,7 @@ class ContainsAnyTest {
         Target t = new Target(null);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForLongArray(Target::getValue).containsAnyOf(1L);
+        validator.ruleForLongArray(Target::getValue).containsAny(1L);
 
         ValidationResult validationResult = validator.validate(t);
 
@@ -119,7 +119,7 @@ class ContainsAnyTest {
         Target t = new Target(new long[] {1L, 5L});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForLongArray(Target::getValue).containsAnyOf(Collections.emptyList());
+        validator.ruleForLongArray(Target::getValue).containsAny(Collections.emptyList());
 
         ValidationResult validationResult = validator.validate(t);
 
@@ -131,7 +131,7 @@ class ContainsAnyTest {
         Target t = new Target(new long[] {1L});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForLongArray(Target::getValue).containsAnyOf(5L);
+        validator.ruleForLongArray(Target::getValue).containsAny(5L);
 
         ValidationResult validationResult = validator.validate(t);
 
@@ -141,7 +141,7 @@ class ContainsAnyTest {
     @Test
     void shouldThrowExceptionWhenGivenValuesIsNull() {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        assertThrows(NullPointerException.class, () -> validator.ruleForLongArray(Target::getValue).containsAnyOf((Iterable<Long>) null));
+        assertThrows(NullPointerException.class, () -> validator.ruleForLongArray(Target::getValue).containsAny((Iterable<Long>) null));
     }
 
 }

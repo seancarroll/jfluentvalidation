@@ -62,12 +62,12 @@ public class CharArraySubject<T> extends AbstractArraySubject<CharArraySubject<T
     }
 
     @Override
-    public CharArraySubject<T> containsAnyOf(Character... values) {
-        return containsAnyOf(Arrays.asList(values));
+    public CharArraySubject<T> containsAny(Character... values) {
+        return containsAny(Arrays.asList(values));
     }
 
     @Override
-    public CharArraySubject<T> containsAnyOf(Iterable<Character> values) {
+    public CharArraySubject<T> containsAny(Iterable<Character> values) {
         rule.addConstraint(new ContainsAnyCharConstraint<>(values));
         return myself;
     }

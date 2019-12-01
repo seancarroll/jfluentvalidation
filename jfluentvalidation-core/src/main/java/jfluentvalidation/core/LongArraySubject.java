@@ -62,12 +62,12 @@ public class LongArraySubject<T> extends AbstractArraySubject<LongArraySubject<T
     }
 
     @Override
-    public LongArraySubject<T> containsAnyOf(Long... values) {
-        return containsAnyOf(Arrays.asList(values));
+    public LongArraySubject<T> containsAny(Long... values) {
+        return containsAny(Arrays.asList(values));
     }
 
     @Override
-    public LongArraySubject<T> containsAnyOf(Iterable<Long> values) {
+    public LongArraySubject<T> containsAny(Iterable<Long> values) {
         rule.addConstraint(new ContainsAnyLongConstraint<>(values));
         return myself;
     }

@@ -67,12 +67,12 @@ public class ByteArraySubject<T> extends AbstractArraySubject<ByteArraySubject<T
     }
 
     @Override
-    public ByteArraySubject<T> containsAnyOf(Byte... values) {
-        return containsAnyOf(Arrays.asList(values));
+    public ByteArraySubject<T> containsAny(Byte... values) {
+        return containsAny(Arrays.asList(values));
     }
 
     @Override
-    public ByteArraySubject<T> containsAnyOf(Iterable<Byte> values) {
+    public ByteArraySubject<T> containsAny(Iterable<Byte> values) {
         rule.addConstraint(new ContainsAnyByteConstraint<>(values));
         return myself;
     }

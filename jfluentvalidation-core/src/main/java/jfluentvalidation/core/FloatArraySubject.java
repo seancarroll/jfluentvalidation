@@ -103,12 +103,12 @@ public class FloatArraySubject<T> extends AbstractArraySubject<FloatArraySubject
     }
 
     @Override
-    public FloatArraySubject<T> containsAnyOf(Float... values) {
-        return containsAnyOf(Arrays.asList(values));
+    public FloatArraySubject<T> containsAny(Float... values) {
+        return containsAny(Arrays.asList(values));
     }
 
     @Override
-    public FloatArraySubject<T> containsAnyOf(Iterable<Float> values) {
+    public FloatArraySubject<T> containsAny(Iterable<Float> values) {
         rule.addConstraint(new ContainsAnyFloatConstraint<>(values));
         return myself;
     }

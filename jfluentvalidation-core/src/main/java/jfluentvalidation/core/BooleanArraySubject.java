@@ -62,12 +62,12 @@ public class BooleanArraySubject<T> extends AbstractArraySubject<BooleanArraySub
     }
 
     @Override
-    public BooleanArraySubject<T> containsAnyOf(Boolean... values) {
-        return containsAnyOf(Arrays.asList(values));
+    public BooleanArraySubject<T> containsAny(Boolean... values) {
+        return containsAny(Arrays.asList(values));
     }
 
     @Override
-    public BooleanArraySubject<T> containsAnyOf(Iterable<Boolean> values) {
+    public BooleanArraySubject<T> containsAny(Iterable<Boolean> values) {
         rule.addConstraint(new ContainsAnyBooleanConstraint<>(values));
         return myself;
     }

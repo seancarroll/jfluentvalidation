@@ -62,12 +62,12 @@ public class DoubleArraySubject<T> extends AbstractArraySubject<DoubleArraySubje
     }
 
     @Override
-    public DoubleArraySubject<T> containsAnyOf(Double... values) {
-        return containsAnyOf(Arrays.asList(values));
+    public DoubleArraySubject<T> containsAny(Double... values) {
+        return containsAny(Arrays.asList(values));
     }
 
     @Override
-    public DoubleArraySubject<T> containsAnyOf(Iterable<Double> values) {
+    public DoubleArraySubject<T> containsAny(Iterable<Double> values) {
         rule.addConstraint(new ContainsAnyDoubleConstraint<>(values));
         return myself;
     }

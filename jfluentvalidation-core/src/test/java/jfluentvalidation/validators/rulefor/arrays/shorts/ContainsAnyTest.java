@@ -19,7 +19,7 @@ class ContainsAnyTest {
         Target t = new Target(new short[] {1, FIVE});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForShortArray(Target::getValue).containsAnyOf(ONE);
+        validator.ruleForShortArray(Target::getValue).containsAny(ONE);
 
         ValidationResult validationResult = validator.validate(t);
 
@@ -29,7 +29,7 @@ class ContainsAnyTest {
     @Test
     void shouldSupportLists() {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForShortArray(Target::getValue).containsAnyOf(Collections.singletonList(ONE));
+        validator.ruleForShortArray(Target::getValue).containsAny(Collections.singletonList(ONE));
     }
 
     @Test
@@ -37,7 +37,7 @@ class ContainsAnyTest {
         Target t = new Target(new short[] {ONE, FIVE});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForShortArray(Target::getValue).containsAnyOf(ONE, FIVE);
+        validator.ruleForShortArray(Target::getValue).containsAny(ONE, FIVE);
 
         ValidationResult validationResult = validator.validate(t);
 
@@ -49,7 +49,7 @@ class ContainsAnyTest {
         Target t = new Target(new short[] {ONE, FIVE});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForShortArray(Target::getValue).containsAnyOf(FIVE, ONE);
+        validator.ruleForShortArray(Target::getValue).containsAny(FIVE, ONE);
 
         ValidationResult validationResult = validator.validate(t);
 
@@ -61,7 +61,7 @@ class ContainsAnyTest {
         Target t = new Target(new short[] {ONE, ONE});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForShortArray(Target::getValue).containsAnyOf(ONE);
+        validator.ruleForShortArray(Target::getValue).containsAny(ONE);
 
         ValidationResult validationResult = validator.validate(t);
 
@@ -73,7 +73,7 @@ class ContainsAnyTest {
         Target t = new Target(new short[] {ONE, ONE});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForShortArray(Target::getValue).containsAnyOf(ONE, FIVE);
+        validator.ruleForShortArray(Target::getValue).containsAny(ONE, FIVE);
 
         ValidationResult validationResult = validator.validate(t);
 
@@ -85,7 +85,7 @@ class ContainsAnyTest {
         Target t = new Target(new short[] {ONE, ONE});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForShortArray(Target::getValue).containsAnyOf(ONE, ONE);
+        validator.ruleForShortArray(Target::getValue).containsAny(ONE, ONE);
 
         ValidationResult validationResult = validator.validate(t);
 
@@ -97,7 +97,7 @@ class ContainsAnyTest {
         Target t = new Target(new short[0]);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForShortArray(Target::getValue).containsAnyOf(Collections.emptyList());
+        validator.ruleForShortArray(Target::getValue).containsAny(Collections.emptyList());
 
         ValidationResult validationResult = validator.validate(t);
 
@@ -109,7 +109,7 @@ class ContainsAnyTest {
         Target t = new Target(null);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForShortArray(Target::getValue).containsAnyOf(ONE);
+        validator.ruleForShortArray(Target::getValue).containsAny(ONE);
 
         ValidationResult validationResult = validator.validate(t);
 
@@ -121,7 +121,7 @@ class ContainsAnyTest {
         Target t = new Target(new short[] {ONE, FIVE});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForShortArray(Target::getValue).containsAnyOf(Collections.emptyList());
+        validator.ruleForShortArray(Target::getValue).containsAny(Collections.emptyList());
 
         ValidationResult validationResult = validator.validate(t);
 
@@ -133,7 +133,7 @@ class ContainsAnyTest {
         Target t = new Target(new short[] {ONE});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForShortArray(Target::getValue).containsAnyOf(FIVE);
+        validator.ruleForShortArray(Target::getValue).containsAny(FIVE);
 
         ValidationResult validationResult = validator.validate(t);
 
@@ -143,7 +143,7 @@ class ContainsAnyTest {
     @Test
     void shouldThrowExceptionWhenGivenValuesIsNull() {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        assertThrows(NullPointerException.class, () -> validator.ruleForShortArray(Target::getValue).containsAnyOf((Iterable<Short>) null));
+        assertThrows(NullPointerException.class, () -> validator.ruleForShortArray(Target::getValue).containsAny((Iterable<Short>) null));
     }
 
 }

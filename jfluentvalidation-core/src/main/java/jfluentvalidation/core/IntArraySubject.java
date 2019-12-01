@@ -62,12 +62,12 @@ public class IntArraySubject<T> extends AbstractArraySubject<IntArraySubject<T>,
     }
 
     @Override
-    public IntArraySubject<T> containsAnyOf(Integer... values) {
-        return containsAnyOf(Arrays.asList(values));
+    public IntArraySubject<T> containsAny(Integer... values) {
+        return containsAny(Arrays.asList(values));
     }
 
     @Override
-    public IntArraySubject<T> containsAnyOf(Iterable<Integer> values) {
+    public IntArraySubject<T> containsAny(Iterable<Integer> values) {
         rule.addConstraint(new ContainsAnyIntConstraint<>(values));
         return myself;
     }

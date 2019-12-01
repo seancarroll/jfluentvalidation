@@ -69,13 +69,13 @@ public class IterableSubject<T, E> extends AbstractIterableSubject<IterableSubje
     }
 
     @CanIgnoreReturnValue
-    public final IterableSubject<T, E> containsAnyOf(E... values) {
+    public final IterableSubject<T, E> containsAny(E... values) {
         rule.addConstraint(new ContainsAnyConstraint<>(Arrays.asList(values)));
         return myself;
     }
 
     @CanIgnoreReturnValue
-    public final IterableSubject<T, E> containsAnyOf(Iterable<E> values) {
+    public final IterableSubject<T, E> containsAny(Iterable<E> values) {
         rule.addConstraint(new ContainsAnyConstraint<>(values));
         return myself;
     }
