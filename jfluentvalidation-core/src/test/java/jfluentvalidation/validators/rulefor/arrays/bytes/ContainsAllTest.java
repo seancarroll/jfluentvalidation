@@ -8,6 +8,7 @@ import java.util.Collections;
 
 import static jfluentvalidation.validators.rulefor.arrays.bytes.Bytes.FIVE;
 import static jfluentvalidation.validators.rulefor.arrays.bytes.Bytes.ONE;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -104,4 +105,15 @@ class ContainsAllTest {
         assertFalse(validationResult.isValid());
     }
 
+    @Test
+    void shouldHaveAppropriateErrorMessage() {
+        Target t = new Target(new byte[] {ONE});
+
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        validator.ruleForByteArray(Target::getValue).containsAll(ONE, FIVE);
+
+        ValidationResult validationResult = validator.validate(t);
+
+        assertEquals("value must contain [1, 5] but could not find [5].", validationResult.getViolations().get(0).getErrorMessage());
+    }
 }

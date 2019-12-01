@@ -8,6 +8,8 @@ import java.util.Collections;
 
 import static jfluentvalidation.validators.rulefor.arrays.shorts.Shorts.FIVE;
 import static jfluentvalidation.validators.rulefor.arrays.shorts.Shorts.ONE;
+import static jfluentvalidation.validators.rulefor.arrays.shorts.Shorts.TEN;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -102,5 +104,17 @@ class ContainsAllTest {
         ValidationResult validationResult = validator.validate(t);
 
         assertFalse(validationResult.isValid());
+    }
+
+    @Test
+    void shouldHaveAppropriateErrorMessage() {
+        Target t = new Target(new short[] {1});
+
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        validator.ruleForShortArray(Target::getValue).containsAll(ONE, FIVE, TEN);
+
+        ValidationResult validationResult = validator.validate(t);
+
+        assertEquals("value must contain [1, 5, 10] but could not find [5, 10].", validationResult.getViolations().get(0).getErrorMessage());
     }
 }

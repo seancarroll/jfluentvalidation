@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Collections;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -102,4 +103,15 @@ class ContainsAllTest {
         assertFalse(validationResult.isValid());
     }
 
+    @Test
+    void shouldHaveAppropriateErrorMessage() {
+        Target t = new Target(new float[] {1});
+
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        validator.ruleForFloatArray(Target::getValue).containsAll(1f, 2f, 3f);
+
+        ValidationResult validationResult = validator.validate(t);
+
+        assertEquals("value must contain [1.0, 2.0, 3.0] but could not find [2.0, 3.0].", validationResult.getViolations().get(0).getErrorMessage());
+    }
 }

@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Collections;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -104,4 +105,15 @@ class ContainsAllTest {
         assertFalse(validationResult.isValid());
     }
 
+    @Test
+    void shouldHaveAppropriateErrorMessage() {
+        Target t = new Target(new String[] {"hello"});
+
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        validator.ruleForObjectArray(Target::getValue).containsAll("hello", "world", "foo");
+
+        ValidationResult validationResult = validator.validate(t);
+
+        assertEquals("value must contain [hello, world, foo] but could not find [world, foo].", validationResult.getViolations().get(0).getErrorMessage());
+    }
 }
