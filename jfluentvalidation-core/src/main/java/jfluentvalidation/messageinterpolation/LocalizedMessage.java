@@ -1,5 +1,7 @@
 package jfluentvalidation.messageinterpolation;
 
+import com.google.common.base.Objects;
+
 import java.util.Locale;
 
 public class LocalizedMessage {
@@ -30,9 +32,7 @@ public class LocalizedMessage {
 
     @Override
     public int hashCode() {
-        int result = message.hashCode();
-        result = 31 * result + locale.hashCode();
-        return result;
+        return Objects.hashCode(message, locale);
     }
 }
 
