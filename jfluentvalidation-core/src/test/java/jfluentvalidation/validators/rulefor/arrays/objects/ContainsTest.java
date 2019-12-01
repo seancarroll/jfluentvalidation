@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ContainsTest {
@@ -36,9 +35,15 @@ class ContainsTest {
     }
 
     @Test
-    void shouldThrowExceptionWhenGivenIsNull() {
+    void shouldNotReturnFailureWhenGivenIsNullAndPresentInActual() {
+        Target t = new Target(new String[]{"hello", "world", null});
+
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        assertThrows(NullPointerException.class, () -> validator.ruleForObjectArray(Target::getValue).contains(null));
+        validator.ruleForObjectArray(Target::getValue).contains(null);
+
+        ValidationResult validationResult = validator.validate(t);
+
+        assertTrue(validationResult.isValid());
     }
 
     @Test
