@@ -36,10 +36,6 @@ public class ValidationResult {
         return violations.isEmpty();
     }
 
-    public boolean hasFailures() {
-        return !violations.isEmpty();
-    }
-
     /**
      *
      * @return

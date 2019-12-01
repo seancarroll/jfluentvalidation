@@ -15,8 +15,8 @@ import java.util.function.Predicate;
 import static jfluentvalidation.constraints.charsequence.CharSequenceConstraints.isLowerCase;
 import static jfluentvalidation.constraints.charsequence.CharSequenceConstraints.length;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ValidatorTests {
 
@@ -74,7 +74,7 @@ class ValidatorTests {
         PersonValidator validator = new PersonValidator();
 
         ValidationResult validationResult = validator.validate(person);
-        assertFalse(validationResult.hasFailures());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -85,7 +85,7 @@ class ValidatorTests {
 
         ValidationResult validationResult = validator.validate(person);
 
-        assertFalse(validationResult.hasFailures());
+        assertTrue(validationResult.isValid());
     }
 
     @Test

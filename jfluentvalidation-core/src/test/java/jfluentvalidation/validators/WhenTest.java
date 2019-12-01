@@ -18,7 +18,7 @@ class WhenTest {
 
         ValidationResult validationResult = validator.validate(person);
 
-        assertTrue(validationResult.hasFailures());
+        assertFalse(validationResult.isValid());
     }
 
     @Test
@@ -30,7 +30,7 @@ class WhenTest {
 
         ValidationResult validationResult = validator.validate(person);
 
-        assertFalse(validationResult.hasFailures());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -63,7 +63,7 @@ class WhenTest {
 
         Person sean = new Person("sean", 32);
         ValidationResult validationResultForSean = validator.validate(sean);
-        assertFalse(validationResultForSean.hasFailures());
+        assertTrue(validationResultForSean.isValid());
 
         Person bobby = new Person("bobby", 36);
         ValidationResult validationResultForBobby = validator.validate(bobby);

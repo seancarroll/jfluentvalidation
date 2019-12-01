@@ -41,7 +41,7 @@ public interface Validator<T> {
      */
     default void validateAndThrow(ValidationContext validationContext, List<String> ruleSet) {
         ValidationResult result = validate(validationContext, ruleSet);
-        if (result.hasFailures()) {
+        if (!result.isValid()) {
             throw new ValidationException(result.getViolations());
         }
     }
