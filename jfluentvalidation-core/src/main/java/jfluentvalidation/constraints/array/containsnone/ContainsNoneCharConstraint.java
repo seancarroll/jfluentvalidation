@@ -18,7 +18,7 @@ public class ContainsNoneCharConstraint<T> extends AbstractConstraint<T, char[]>
     private final Collection<Character> excluded;
 
     public ContainsNoneCharConstraint(Iterable<Character> excluded) {
-        super(DefaultMessages.ITERABLE_CONTAINS_NONE_IN);
+        super(DefaultMessages.ITERABLE_CONTAINS_NONE);
         this.excluded = Iterables.toCollection(Ensure.notNull(excluded));
     }
 
@@ -47,6 +47,6 @@ public class ContainsNoneCharConstraint<T> extends AbstractConstraint<T, char[]>
 
     @Override
     public void addParametersToContext(RuleContext<T, char[]> context) {
-        context.getMessageContext().appendArgument("values", excluded);
+        context.getMessageContext().appendArgument("excluded", excluded);
     }
 }

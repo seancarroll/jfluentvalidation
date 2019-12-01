@@ -40,4 +40,9 @@ public class CharArrayExactLengthConstraint<T> extends AbstractConstraint<T, cha
         int len = context.getPropertyValue().length;
         return len == lengthSupplier.getAsInt();
     }
+
+    @Override
+    public void addParametersToContext(RuleContext<T, char[]> context) {
+        context.getMessageContext().appendArgument("length", lengthSupplier.getAsInt());
+    }
 }

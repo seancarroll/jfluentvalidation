@@ -40,4 +40,9 @@ public class ByteArrayExactLengthConstraint<T> extends AbstractConstraint<T, byt
         int len = context.getPropertyValue().length;
         return len == lengthSupplier.getAsInt();
     }
+
+    @Override
+    public void addParametersToContext(RuleContext<T, byte[]> context) {
+        context.getMessageContext().appendArgument("length", lengthSupplier.getAsInt());
+    }
 }

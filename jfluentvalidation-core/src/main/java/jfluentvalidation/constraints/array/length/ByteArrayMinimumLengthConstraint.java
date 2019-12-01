@@ -22,4 +22,9 @@ public class ByteArrayMinimumLengthConstraint<T> extends AbstractConstraint<T, b
         int len = context.getPropertyValue().length;
         return MoreArrays.hasMinLength(len, min);
     }
+
+    @Override
+    public void addParametersToContext(RuleContext<T, byte[]> context) {
+        context.getMessageContext().appendArgument("min", min);
+    }
 }

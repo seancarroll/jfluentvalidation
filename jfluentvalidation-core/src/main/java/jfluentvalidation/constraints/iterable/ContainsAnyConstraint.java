@@ -20,7 +20,7 @@ public class ContainsAnyConstraint<T, P> extends AbstractConstraint<T, Iterable<
     private final Iterable<P> values;
 
     public ContainsAnyConstraint(Iterable<P> values) {
-        super(DefaultMessages.ITERABLE_CONTAINS_ANY_IN);
+        super(DefaultMessages.ITERABLE_CONTAINS_ANY);
         this.values = Ensure.notNull(values);
     }
 

@@ -37,4 +37,9 @@ public class ObjectArrayExactLengthConstraint<T, E> extends AbstractConstraint<T
         }
         return context.getPropertyValue().length == lengthSupplier.getAsInt();
     }
+
+    @Override
+    public void addParametersToContext(RuleContext<T, E[]> context) {
+        context.getMessageContext().appendArgument("length", lengthSupplier.getAsInt());
+    }
 }

@@ -14,7 +14,7 @@ public class ContainsAnyBooleanConstraint<T> extends AbstractConstraint<T, boole
     private final Iterable<Boolean> values;
 
     public ContainsAnyBooleanConstraint(Iterable<Boolean> values) {
-        super(DefaultMessages.ITERABLE_CONTAINS_ANY_IN);
+        super(DefaultMessages.ITERABLE_CONTAINS_ANY);
         this.values = Ensure.notNull(values);
     }
 
@@ -37,5 +37,10 @@ public class ContainsAnyBooleanConstraint<T> extends AbstractConstraint<T, boole
         }
 
         return false;
+    }
+
+    @Override
+    public void addParametersToContext(RuleContext<T, boolean[]> context) {
+        context.getMessageContext().appendArgument("values", values);
     }
 }

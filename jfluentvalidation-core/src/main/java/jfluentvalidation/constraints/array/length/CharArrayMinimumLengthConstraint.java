@@ -22,4 +22,9 @@ public class CharArrayMinimumLengthConstraint<T> extends AbstractConstraint<T, c
         int len = context.getPropertyValue().length;
         return MoreArrays.hasMinLength(len, min);
     }
+
+    @Override
+    public void addParametersToContext(RuleContext<T, char[]> context) {
+        context.getMessageContext().appendArgument("min", min);
+    }
 }

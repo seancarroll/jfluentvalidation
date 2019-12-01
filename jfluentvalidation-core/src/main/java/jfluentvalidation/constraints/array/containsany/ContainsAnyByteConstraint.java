@@ -14,7 +14,7 @@ public class ContainsAnyByteConstraint<T> extends AbstractConstraint<T, byte[]> 
     private final Iterable<Byte> values;
 
     public ContainsAnyByteConstraint(Iterable<Byte> values) {
-        super(DefaultMessages.ITERABLE_CONTAINS_ANY_IN);
+        super(DefaultMessages.ITERABLE_CONTAINS_ANY);
         this.values = Ensure.notNull(values);
     }
 
@@ -39,4 +39,8 @@ public class ContainsAnyByteConstraint<T> extends AbstractConstraint<T, byte[]> 
         return false;
     }
 
+    @Override
+    public void addParametersToContext(RuleContext<T, byte[]> context) {
+        context.getMessageContext().appendArgument("values", values);
+    }
 }

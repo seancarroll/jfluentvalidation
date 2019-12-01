@@ -18,7 +18,7 @@ public class ContainsAllDoubleConstraint<T> extends AbstractConstraint<T, double
     private final Iterable<Double> values;
 
     public ContainsAllDoubleConstraint(Iterable<Double> values) {
-        super(DefaultMessages.ITERABLE_CONTAINS_ALL_IN);
+        super(DefaultMessages.ITERABLE_CONTAINS_ALL);
         this.values = Ensure.notNull(values);
     }
 
@@ -40,4 +40,8 @@ public class ContainsAllDoubleConstraint<T> extends AbstractConstraint<T, double
         return notFound.isEmpty();
     }
 
+    @Override
+    public void addParametersToContext(RuleContext<T, double[]> context) {
+        context.getMessageContext().appendArgument("expected", values);
+    }
 }

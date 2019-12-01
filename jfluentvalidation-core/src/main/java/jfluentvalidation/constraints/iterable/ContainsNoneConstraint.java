@@ -28,7 +28,7 @@ public class ContainsNoneConstraint<T, P> extends AbstractConstraint<T, Iterable
     private final Collection<? super P> excluded;
 
     public ContainsNoneConstraint(Iterable<? super P> excluded) {
-        super(DefaultMessages.ITERABLE_CONTAINS_NONE_IN);
+        super(DefaultMessages.ITERABLE_CONTAINS_NONE);
         this.excluded = Iterables.toCollection(Ensure.notNull(excluded));
     }
 

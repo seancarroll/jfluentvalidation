@@ -14,7 +14,7 @@ public class ContainsAnyObjectConstraint<T, E> extends AbstractConstraint<T, E[]
     private final Iterable<E> values;
 
     public ContainsAnyObjectConstraint(Iterable<E> values) {
-        super(DefaultMessages.ITERABLE_CONTAINS_ANY_IN);
+        super(DefaultMessages.ITERABLE_CONTAINS_ANY);
         this.values = Ensure.notNull(values);
     }
 
@@ -38,5 +38,10 @@ public class ContainsAnyObjectConstraint<T, E> extends AbstractConstraint<T, E[]
         }
 
         return false;
+    }
+
+    @Override
+    public void addParametersToContext(RuleContext<T, E[]> context) {
+        context.getMessageContext().appendArgument("values", values);
     }
 }

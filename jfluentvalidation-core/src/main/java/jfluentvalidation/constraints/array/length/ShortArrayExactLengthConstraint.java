@@ -40,4 +40,9 @@ public class ShortArrayExactLengthConstraint<T> extends AbstractConstraint<T, sh
         int len = context.getPropertyValue().length;
         return len == lengthSupplier.getAsInt();
     }
+
+    @Override
+    public void addParametersToContext(RuleContext<T, short[]> context) {
+        context.getMessageContext().appendArgument("length", lengthSupplier.getAsInt());
+    }
 }

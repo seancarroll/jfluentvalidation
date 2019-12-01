@@ -22,4 +22,9 @@ public class FloatArrayMinimumLengthConstraint<T> extends AbstractConstraint<T, 
         int len = context.getPropertyValue().length;
         return MoreArrays.hasMinLength(len, min);
     }
+
+    @Override
+    public void addParametersToContext(RuleContext<T, float[]> context) {
+        context.getMessageContext().appendArgument("min", min);
+    }
 }

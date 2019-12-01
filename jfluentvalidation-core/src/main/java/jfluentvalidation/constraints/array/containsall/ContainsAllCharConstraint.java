@@ -18,7 +18,7 @@ public class ContainsAllCharConstraint<T> extends AbstractConstraint<T, char[]> 
     private final Iterable<Character> values;
 
     public ContainsAllCharConstraint(Iterable<Character> values) {
-        super(DefaultMessages.ITERABLE_CONTAINS_ALL_IN);
+        super(DefaultMessages.ITERABLE_CONTAINS_ALL);
         this.values = Ensure.notNull(values);
     }
 
@@ -40,4 +40,8 @@ public class ContainsAllCharConstraint<T> extends AbstractConstraint<T, char[]> 
         return notFound.isEmpty();
     }
 
+    @Override
+    public void addParametersToContext(RuleContext<T, char[]> context) {
+        context.getMessageContext().appendArgument("expected", values);
+    }
 }

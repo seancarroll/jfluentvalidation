@@ -17,7 +17,7 @@ public class ContainsNoneDoubleConstraint<T> extends AbstractConstraint<T, doubl
     private final Collection<Double> excluded;
 
     public ContainsNoneDoubleConstraint(Iterable<Double> excluded) {
-        super(DefaultMessages.ITERABLE_CONTAINS_NONE_IN);
+        super(DefaultMessages.ITERABLE_CONTAINS_NONE);
         this.excluded = Iterables.toCollection(Ensure.notNull(excluded));
     }
 
@@ -46,6 +46,6 @@ public class ContainsNoneDoubleConstraint<T> extends AbstractConstraint<T, doubl
 
     @Override
     public void addParametersToContext(RuleContext<T, double[]> context) {
-        context.getMessageContext().appendArgument("values", excluded);
+        context.getMessageContext().appendArgument("excluded", excluded);
     }
 }

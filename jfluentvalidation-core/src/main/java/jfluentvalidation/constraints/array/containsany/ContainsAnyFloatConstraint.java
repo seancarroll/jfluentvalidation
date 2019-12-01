@@ -14,7 +14,7 @@ public class ContainsAnyFloatConstraint<T> extends AbstractConstraint<T, float[]
     private final Iterable<Float> values;
 
     public ContainsAnyFloatConstraint(Iterable<Float> values) {
-        super(DefaultMessages.ITERABLE_CONTAINS_ANY_IN);
+        super(DefaultMessages.ITERABLE_CONTAINS_ANY);
         this.values = Ensure.notNull(values);
     }
 
@@ -39,4 +39,8 @@ public class ContainsAnyFloatConstraint<T> extends AbstractConstraint<T, float[]
         return false;
     }
 
+    @Override
+    public void addParametersToContext(RuleContext<T, float[]> context) {
+        context.getMessageContext().appendArgument("values", values);
+    }
 }

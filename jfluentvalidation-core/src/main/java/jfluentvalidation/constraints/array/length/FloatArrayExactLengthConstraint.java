@@ -40,4 +40,9 @@ public class FloatArrayExactLengthConstraint<T> extends AbstractConstraint<T, fl
         int len = context.getPropertyValue().length;
         return len == lengthSupplier.getAsInt();
     }
+
+    @Override
+    public void addParametersToContext(RuleContext<T, float[]> context) {
+        context.getMessageContext().appendArgument("length", lengthSupplier.getAsInt());
+    }
 }

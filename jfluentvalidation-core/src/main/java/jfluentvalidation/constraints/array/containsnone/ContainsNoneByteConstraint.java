@@ -18,7 +18,7 @@ public class ContainsNoneByteConstraint<T> extends AbstractConstraint<T, byte[]>
     private final Collection<Byte> excluded;
 
     public ContainsNoneByteConstraint(Iterable<Byte> excluded) {
-        super(DefaultMessages.ITERABLE_CONTAINS_NONE_IN);
+        super(DefaultMessages.ITERABLE_CONTAINS_NONE);
         this.excluded = Iterables.toCollection(Ensure.notNull(excluded));
     }
 
@@ -47,6 +47,6 @@ public class ContainsNoneByteConstraint<T> extends AbstractConstraint<T, byte[]>
 
     @Override
     public void addParametersToContext(RuleContext<T, byte[]> context) {
-        context.getMessageContext().appendArgument("values", excluded);
+        context.getMessageContext().appendArgument("excluded", excluded);
     }
 }

@@ -22,4 +22,9 @@ public class DoubleArrayMinimumLengthConstraint<T> extends AbstractConstraint<T,
         int len = context.getPropertyValue().length;
         return MoreArrays.hasMinLength(len, min);
     }
+
+    @Override
+    public void addParametersToContext(RuleContext<T, double[]> context) {
+        context.getMessageContext().appendArgument("min", min);
+    }
 }

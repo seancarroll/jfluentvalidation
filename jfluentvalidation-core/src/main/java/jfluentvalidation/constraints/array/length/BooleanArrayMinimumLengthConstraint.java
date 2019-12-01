@@ -22,4 +22,9 @@ public class BooleanArrayMinimumLengthConstraint<T> extends AbstractConstraint<T
         int len = context.getPropertyValue().length;
         return MoreArrays.hasMinLength(len, min);
     }
+
+    @Override
+    public void addParametersToContext(RuleContext<T, boolean[]> context) {
+        context.getMessageContext().appendArgument("min", min);
+    }
 }

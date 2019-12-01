@@ -22,4 +22,9 @@ public class ShortArrayMaximumLengthConstraint<T> extends AbstractConstraint<T, 
         int len = context.getPropertyValue().length;
         return MoreArrays.hasMaxLength(len, max);
     }
+
+    @Override
+    public void addParametersToContext(RuleContext<T, short[]> context) {
+        context.getMessageContext().appendArgument("max", max);
+    }
 }

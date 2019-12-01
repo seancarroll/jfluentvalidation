@@ -14,7 +14,7 @@ public class ContainsAnyLongConstraint<T> extends AbstractConstraint<T, long[]> 
     private final Iterable<Long> values;
 
     public ContainsAnyLongConstraint(Iterable<Long> values) {
-        super(DefaultMessages.ITERABLE_CONTAINS_ANY_IN);
+        super(DefaultMessages.ITERABLE_CONTAINS_ANY);
         this.values = Ensure.notNull(values);
     }
 
@@ -39,4 +39,8 @@ public class ContainsAnyLongConstraint<T> extends AbstractConstraint<T, long[]> 
         return false;
     }
 
+    @Override
+    public void addParametersToContext(RuleContext<T, long[]> context) {
+        context.getMessageContext().appendArgument("values", values);
+    }
 }

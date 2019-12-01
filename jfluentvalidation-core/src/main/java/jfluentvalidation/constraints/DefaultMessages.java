@@ -85,11 +85,11 @@ public class DefaultMessages {
     public static final String INPUTSTREAM_HAS_SAME_CONTENT_AS = "{jfluentvalidation.constraints.inputstream.HasSameContentAs.message}";
 
 
-    public static final String ITERABLE_CONTAINS_ALL_IN = "{jfluentvalidation.constraints.iterable.ContainsAllIn.message}";
-    public static final String ITERABLE_CONTAINS_ANY_IN = "{jfluentvalidation.constraints.iterable.ContainsAnyIn.message}";
+    public static final String ITERABLE_CONTAINS_ALL = "{jfluentvalidation.constraints.iterable.ContainsAll.message}";
+    public static final String ITERABLE_CONTAINS_ANY = "{jfluentvalidation.constraints.iterable.ContainsAny.message}";
     public static final String ITERABLE_CONTAINS = "{jfluentvalidation.constraints.iterable.Contains.message}";
     public static final String ITERABLE_CONTAINS_EXACTLY_ELEMENTS_IN = "{jfluentvalidation.constraints.iterable.ContainsExactlyElementsIn.message}";
-    public static final String ITERABLE_CONTAINS_NONE_IN = "{jfluentvalidation.constraints.iterable.ContainsNoneIn.message}";
+    public static final String ITERABLE_CONTAINS_NONE = "{jfluentvalidation.constraints.iterable.ContainsNone.message}";
     public static final String ITERABLE_DOES_NOT_CONTAIN = "{jfluentvalidation.constraints.iterable.DoesNotContain.message}";
     public static final String ITERABLE_ITEM = "{jfluentvalidation.constraints.iterable.Item.message}";
     // TODO: this name sucks

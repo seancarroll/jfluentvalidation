@@ -17,7 +17,7 @@ public class ContainsNoneBooleanConstraint<T> extends AbstractConstraint<T, bool
     private final Collection<Boolean> excluded;
 
     public ContainsNoneBooleanConstraint(Iterable<Boolean> excluded) {
-        super(DefaultMessages.ITERABLE_CONTAINS_NONE_IN);
+        super(DefaultMessages.ITERABLE_CONTAINS_NONE);
         this.excluded = Iterables.toCollection(Ensure.notNull(excluded));
     }
 
@@ -46,6 +46,6 @@ public class ContainsNoneBooleanConstraint<T> extends AbstractConstraint<T, bool
 
     @Override
     public void addParametersToContext(RuleContext<T, boolean[]> context) {
-        context.getMessageContext().appendArgument("values", excluded);
+        context.getMessageContext().appendArgument("excluded", excluded);
     }
 }

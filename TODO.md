@@ -1,5 +1,5 @@
 TODO:
-- [ ] validation failure messages
+- [ ] validation failure messages. Should include appropriate tests.
 - [ ] tests verify static method for each validation...I want to make sure we can use all appropriate validations with ruleForEach
 - [ ] add tests for bytes / charsequence / stringbuffer / stringbuilder
 - [ ] Instead of returning a list of failures return an wrapper object. 

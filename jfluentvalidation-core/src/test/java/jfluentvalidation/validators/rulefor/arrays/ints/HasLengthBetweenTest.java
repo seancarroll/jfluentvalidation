@@ -4,6 +4,7 @@ import jfluentvalidation.ValidationResult;
 import jfluentvalidation.validators.DefaultValidator;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -86,5 +87,29 @@ class HasLengthBetweenTest {
     void shouldThrowIllegalArgumentExceptionWhenGivenMinIsGreaterThanMax() {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         assertThrows(IllegalArgumentException.class, () -> validator.ruleForIntArray(Target::getValue).hasLengthBetween(6, 5));
+    }
+
+    @Test
+    void shouldHaveAppropriateErrorMessageForInclusiveMinAndMax() {
+        Target t = new Target(new int[] {1});
+
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        validator.ruleForIntArray(Target::getValue).hasLengthBetween(10, 20);
+
+        ValidationResult validationResult = validator.validate(t);
+
+        assertEquals("value must be between 10 and 20 characters.", validationResult.getViolations().get(0).getErrorMessage());
+    }
+
+    @Test
+    void shouldHaveAppropriateErrorMessageForExclusiveMinAndMax() {
+        Target t = new Target(new int[] {1});
+
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        validator.ruleForIntArray(Target::getValue).hasLengthBetween(10, 20, false, false);
+
+        ValidationResult validationResult = validator.validate(t);
+
+        assertEquals("value must be between 10 (exclusive) and 20 (exclusive) characters.", validationResult.getViolations().get(0).getErrorMessage());
     }
 }

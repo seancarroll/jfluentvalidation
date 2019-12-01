@@ -18,7 +18,7 @@ public class ContainsAllFloatConstraint<T> extends AbstractConstraint<T, float[]
     private final Iterable<Float> values;
 
     public ContainsAllFloatConstraint(Iterable<Float> values) {
-        super(DefaultMessages.ITERABLE_CONTAINS_ALL_IN);
+        super(DefaultMessages.ITERABLE_CONTAINS_ALL);
         this.values = Ensure.notNull(values);
     }
 
@@ -40,4 +40,8 @@ public class ContainsAllFloatConstraint<T> extends AbstractConstraint<T, float[]
         return notFound.isEmpty();
     }
 
+    @Override
+    public void addParametersToContext(RuleContext<T, float[]> context) {
+        context.getMessageContext().appendArgument("expected", values);
+    }
 }

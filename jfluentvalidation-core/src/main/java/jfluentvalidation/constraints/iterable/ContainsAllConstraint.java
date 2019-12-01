@@ -34,7 +34,7 @@ public class ContainsAllConstraint<T, P> extends AbstractConstraint<T, Iterable<
     private final Iterable<P> values;
 
     public ContainsAllConstraint(Iterable<P> expectedIterable) {
-        super(DefaultMessages.ITERABLE_CONTAINS_ALL_IN);
+        super(DefaultMessages.ITERABLE_CONTAINS_ALL);
         this.values = Ensure.notNull(expectedIterable);
     }
 

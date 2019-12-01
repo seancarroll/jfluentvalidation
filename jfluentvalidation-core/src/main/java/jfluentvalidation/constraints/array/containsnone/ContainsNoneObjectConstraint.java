@@ -17,7 +17,7 @@ public class ContainsNoneObjectConstraint<T, P> extends AbstractConstraint<T, P[
     private final Collection<P> excluded;
 
     public ContainsNoneObjectConstraint(Iterable<P> excluded) {
-        super(DefaultMessages.ITERABLE_CONTAINS_NONE_IN);
+        super(DefaultMessages.ITERABLE_CONTAINS_NONE);
         this.excluded = Iterables.toCollection(Ensure.notNull(excluded));
     }
 
@@ -46,6 +46,6 @@ public class ContainsNoneObjectConstraint<T, P> extends AbstractConstraint<T, P[
 
     @Override
     public void addParametersToContext(RuleContext<T, P[]> context) {
-        context.getMessageContext().appendArgument("values", excluded);
+        context.getMessageContext().appendArgument("excluded", excluded);
     }
 }

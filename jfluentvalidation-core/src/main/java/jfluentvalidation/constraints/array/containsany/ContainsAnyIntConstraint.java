@@ -14,7 +14,7 @@ public class ContainsAnyIntConstraint<T> extends AbstractConstraint<T, int[]> {
     private final Iterable<Integer> values;
 
     public ContainsAnyIntConstraint(Iterable<Integer> values) {
-        super(DefaultMessages.ITERABLE_CONTAINS_ANY_IN);
+        super(DefaultMessages.ITERABLE_CONTAINS_ANY);
         this.values = Ensure.notNull(values);
     }
 
@@ -39,4 +39,8 @@ public class ContainsAnyIntConstraint<T> extends AbstractConstraint<T, int[]> {
         return false;
     }
 
+    @Override
+    public void addParametersToContext(RuleContext<T, int[]> context) {
+        context.getMessageContext().appendArgument("values", values);
+    }
 }

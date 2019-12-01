@@ -40,4 +40,9 @@ public class DoubleArrayExactLengthConstraint<T> extends AbstractConstraint<T, d
         int len = context.getPropertyValue().length;
         return len == lengthSupplier.getAsInt();
     }
+
+    @Override
+    public void addParametersToContext(RuleContext<T, double[]> context) {
+        context.getMessageContext().appendArgument("length", lengthSupplier.getAsInt());
+    }
 }

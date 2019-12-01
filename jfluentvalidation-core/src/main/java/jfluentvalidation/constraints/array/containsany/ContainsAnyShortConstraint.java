@@ -14,7 +14,7 @@ public class ContainsAnyShortConstraint<T> extends AbstractConstraint<T, short[]
     private final Iterable<Short> values;
 
     public ContainsAnyShortConstraint(Iterable<Short> values) {
-        super(DefaultMessages.ITERABLE_CONTAINS_ANY_IN);
+        super(DefaultMessages.ITERABLE_CONTAINS_ANY);
         this.values = Ensure.notNull(values);
     }
 
@@ -39,4 +39,8 @@ public class ContainsAnyShortConstraint<T> extends AbstractConstraint<T, short[]
         return false;
     }
 
+    @Override
+    public void addParametersToContext(RuleContext<T, short[]> context) {
+        context.getMessageContext().appendArgument("values", values);
+    }
 }

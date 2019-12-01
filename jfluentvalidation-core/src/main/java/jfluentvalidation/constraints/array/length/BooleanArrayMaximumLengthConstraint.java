@@ -22,4 +22,9 @@ public class BooleanArrayMaximumLengthConstraint<T> extends AbstractConstraint<T
         int len = context.getPropertyValue().length;
         return MoreArrays.hasMaxLength(len, max);
     }
+
+    @Override
+    public void addParametersToContext(RuleContext<T, boolean[]> context) {
+        context.getMessageContext().appendArgument("max", max);
+    }
 }

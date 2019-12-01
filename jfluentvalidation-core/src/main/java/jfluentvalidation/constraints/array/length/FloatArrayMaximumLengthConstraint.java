@@ -22,4 +22,9 @@ public class FloatArrayMaximumLengthConstraint<T> extends AbstractConstraint<T, 
         int len = context.getPropertyValue().length;
         return MoreArrays.hasMaxLength(len, max);
     }
+
+    @Override
+    public void addParametersToContext(RuleContext<T, float[]> context) {
+        context.getMessageContext().appendArgument("max", max);
+    }
 }

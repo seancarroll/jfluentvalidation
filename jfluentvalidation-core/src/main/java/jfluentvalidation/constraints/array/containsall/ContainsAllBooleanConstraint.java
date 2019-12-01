@@ -18,7 +18,7 @@ public class ContainsAllBooleanConstraint<T> extends AbstractConstraint<T, boole
     private final Iterable<Boolean> values;
 
     public ContainsAllBooleanConstraint(Iterable<Boolean> values) {
-        super(DefaultMessages.ITERABLE_CONTAINS_ALL_IN);
+        super(DefaultMessages.ITERABLE_CONTAINS_ALL);
         this.values = Ensure.notNull(values);
     }
 
@@ -40,4 +40,8 @@ public class ContainsAllBooleanConstraint<T> extends AbstractConstraint<T, boole
         return notFound.isEmpty();
     }
 
+    @Override
+    public void addParametersToContext(RuleContext<T, boolean[]> context) {
+        context.getMessageContext().appendArgument("expected", values);
+    }
 }

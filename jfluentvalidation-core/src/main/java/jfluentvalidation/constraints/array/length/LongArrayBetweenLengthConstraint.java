@@ -30,4 +30,12 @@ public class LongArrayBetweenLengthConstraint<T> extends AbstractConstraint<T, l
         int len = context.getPropertyValue().length;
         return MoreArrays.hasLengthBetween(len, min, max, minInclusive, maxInclusive);
     }
+
+    @Override
+    public void addParametersToContext(RuleContext<T, long[]> context) {
+        context.getMessageContext().appendArgument("min", min);
+        context.getMessageContext().appendArgument("max", max);
+        context.getMessageContext().appendArgument("minInclusive", minInclusive);
+        context.getMessageContext().appendArgument("maxInclusive", maxInclusive);
+    }
 }

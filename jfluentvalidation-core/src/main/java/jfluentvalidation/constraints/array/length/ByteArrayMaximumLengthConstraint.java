@@ -22,4 +22,9 @@ public class ByteArrayMaximumLengthConstraint<T> extends AbstractConstraint<T, b
         int len = context.getPropertyValue().length;
         return MoreArrays.hasMaxLength(len, max);
     }
+
+    @Override
+    public void addParametersToContext(RuleContext<T, byte[]> context) {
+        context.getMessageContext().appendArgument("max", max);
+    }
 }
