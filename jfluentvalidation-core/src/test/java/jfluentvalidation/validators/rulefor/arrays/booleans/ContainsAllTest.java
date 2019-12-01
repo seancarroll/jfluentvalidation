@@ -17,7 +17,7 @@ class ContainsAllTest {
         Target t = new Target(new boolean[] {true, false});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForBooleanArray(Target::getValue).containsAllOf(true, false);
+        validator.ruleForBooleanArray(Target::getValue).containsAll(true, false);
 
         ValidationResult validationResult = validator.validate(t);
 
@@ -29,7 +29,7 @@ class ContainsAllTest {
         Target t = new Target(new boolean[] {true, false});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForBooleanArray(Target::getValue).containsAllOf(false, true);
+        validator.ruleForBooleanArray(Target::getValue).containsAll(false, true);
 
         ValidationResult validationResult = validator.validate(t);
 
@@ -41,7 +41,7 @@ class ContainsAllTest {
         Target t = new Target(new boolean[] {true, true});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForBooleanArray(Target::getValue).containsAllOf(true);
+        validator.ruleForBooleanArray(Target::getValue).containsAll(true);
 
         ValidationResult validationResult = validator.validate(t);
 
@@ -53,7 +53,7 @@ class ContainsAllTest {
         Target t = new Target(new boolean[] {true, true});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForBooleanArray(Target::getValue).containsAllOf(true, true);
+        validator.ruleForBooleanArray(Target::getValue).containsAll(true, true);
 
         ValidationResult validationResult = validator.validate(t);
 
@@ -65,7 +65,7 @@ class ContainsAllTest {
         Target t = new Target(new boolean[0]);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForBooleanArray(Target::getValue).containsAllOf(Collections.emptyList());
+        validator.ruleForBooleanArray(Target::getValue).containsAll(Collections.emptyList());
 
         ValidationResult validationResult = validator.validate(t);
 
@@ -75,7 +75,7 @@ class ContainsAllTest {
     @Test
     void shouldThrowExceptionWhenExpectedValuesIsNull() {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        assertThrows(NullPointerException.class, () -> validator.ruleForBooleanArray(Target::getValue).containsAllOf((Iterable<Boolean>) null));
+        assertThrows(NullPointerException.class, () -> validator.ruleForBooleanArray(Target::getValue).containsAll((Iterable<Boolean>) null));
     }
 
     @Test
@@ -83,7 +83,7 @@ class ContainsAllTest {
         Target t = new Target(null);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForBooleanArray(Target::getValue).containsAllOf(true);
+        validator.ruleForBooleanArray(Target::getValue).containsAll(true);
 
         ValidationResult validationResult = validator.validate(t);
 
@@ -95,7 +95,7 @@ class ContainsAllTest {
         Target t = new Target(new boolean[] {true});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForBooleanArray(Target::getValue).containsAllOf(false);
+        validator.ruleForBooleanArray(Target::getValue).containsAll(false);
 
         ValidationResult validationResult = validator.validate(t);
 

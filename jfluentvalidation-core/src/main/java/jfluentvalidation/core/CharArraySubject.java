@@ -2,7 +2,7 @@ package jfluentvalidation.core;
 
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import jfluentvalidation.constraints.array.contains.ContainsCharConstraint;
-import jfluentvalidation.constraints.array.containsallof.ContainsAllOfCharConstraint;
+import jfluentvalidation.constraints.array.containsall.ContainsAllCharConstraint;
 import jfluentvalidation.constraints.array.containsany.ContainsAnyCharConstraint;
 import jfluentvalidation.constraints.array.containsnone.ContainsNoneCharConstraint;
 import jfluentvalidation.constraints.array.empty.IsEmptyCharArrayConstraint;
@@ -73,13 +73,13 @@ public class CharArraySubject<T> extends AbstractArraySubject<CharArraySubject<T
     }
 
     @Override
-    public CharArraySubject<T> containsAllOf(Character... expected) {
-        return containsAllOf(Arrays.asList(expected));
+    public CharArraySubject<T> containsAll(Character... expected) {
+        return containsAll(Arrays.asList(expected));
     }
 
     @Override
-    public CharArraySubject<T> containsAllOf(Iterable<Character> expected) {
-        rule.addConstraint(new ContainsAllOfCharConstraint<>(expected));
+    public CharArraySubject<T> containsAll(Iterable<Character> expected) {
+        rule.addConstraint(new ContainsAllCharConstraint<>(expected));
         return myself;
     }
 

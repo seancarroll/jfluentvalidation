@@ -2,7 +2,7 @@ package jfluentvalidation.core;
 
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import jfluentvalidation.constraints.array.contains.ContainsIntConstraint;
-import jfluentvalidation.constraints.array.containsallof.ContainsAllOfIntConstraint;
+import jfluentvalidation.constraints.array.containsall.ContainsAllIntConstraint;
 import jfluentvalidation.constraints.array.containsany.ContainsAnyIntConstraint;
 import jfluentvalidation.constraints.array.containsnone.ContainsNoneIntConstraint;
 import jfluentvalidation.constraints.array.empty.IsEmptyIntArrayConstraint;
@@ -73,13 +73,13 @@ public class IntArraySubject<T> extends AbstractArraySubject<IntArraySubject<T>,
     }
 
     @Override
-    public IntArraySubject<T> containsAllOf(Integer... expected) {
-        return containsAllOf(Arrays.asList(expected));
+    public IntArraySubject<T> containsAll(Integer... expected) {
+        return containsAll(Arrays.asList(expected));
     }
 
     @Override
-    public IntArraySubject<T> containsAllOf(Iterable<Integer> expected) {
-        rule.addConstraint(new ContainsAllOfIntConstraint<>(expected));
+    public IntArraySubject<T> containsAll(Iterable<Integer> expected) {
+        rule.addConstraint(new ContainsAllIntConstraint<>(expected));
         return myself;
     }
 

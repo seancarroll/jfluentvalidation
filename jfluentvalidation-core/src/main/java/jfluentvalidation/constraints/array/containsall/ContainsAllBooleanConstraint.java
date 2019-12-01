@@ -1,4 +1,4 @@
-package jfluentvalidation.constraints.array.containsallof;
+package jfluentvalidation.constraints.array.containsall;
 
 import jfluentvalidation.common.Iterables;
 import jfluentvalidation.common.MoreArrays;
@@ -13,22 +13,22 @@ import java.util.Set;
 import static java.util.Arrays.stream;
 import static java.util.stream.Collectors.toCollection;
 
-public class ContainsAllOfIntConstraint<T> extends AbstractConstraint<T, int[]> {
+public class ContainsAllBooleanConstraint<T> extends AbstractConstraint<T, boolean[]> {
 
-    private final Iterable<Integer> values;
+    private final Iterable<Boolean> values;
 
-    public ContainsAllOfIntConstraint(Iterable<Integer> values) {
+    public ContainsAllBooleanConstraint(Iterable<Boolean> values) {
         super(DefaultMessages.ITERABLE_CONTAINS_ALL_IN);
         this.values = Ensure.notNull(values);
     }
 
     @Override
-    public boolean isValid(RuleContext<T, int[]> context) {
+    public boolean isValid(RuleContext<T, boolean[]> context) {
         if (context.getPropertyValue() == null) {
             return true;
         }
 
-        Integer[] valuesAsArray = Iterables.toArray(values, Integer.class);
+        Boolean[] valuesAsArray = Iterables.toArray(values, Boolean.class);
         Set<Object> notFound = stream(valuesAsArray)
             .filter(value -> !MoreArrays.contains(context.getPropertyValue(), value))
             .collect(toCollection(LinkedHashSet::new));

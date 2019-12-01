@@ -1,4 +1,4 @@
-package jfluentvalidation.constraints.array.containsallof;
+package jfluentvalidation.constraints.array.containsall;
 
 import jfluentvalidation.common.Iterables;
 import jfluentvalidation.common.MoreArrays;
@@ -13,11 +13,11 @@ import java.util.Set;
 import static java.util.Arrays.stream;
 import static java.util.stream.Collectors.toCollection;
 
-public class ContainsAllOfCharConstraint<T> extends AbstractConstraint<T, char[]> {
+public class ContainsAllCharConstraint<T> extends AbstractConstraint<T, char[]> {
 
     private final Iterable<Character> values;
 
-    public ContainsAllOfCharConstraint(Iterable<Character> values) {
+    public ContainsAllCharConstraint(Iterable<Character> values) {
         super(DefaultMessages.ITERABLE_CONTAINS_ALL_IN);
         this.values = Ensure.notNull(values);
     }

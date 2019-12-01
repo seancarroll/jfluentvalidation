@@ -2,7 +2,7 @@ package jfluentvalidation.core;
 
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import jfluentvalidation.constraints.array.contains.ContainsLongConstraint;
-import jfluentvalidation.constraints.array.containsallof.ContainsAllOfLongConstraint;
+import jfluentvalidation.constraints.array.containsall.ContainsAllLongConstraint;
 import jfluentvalidation.constraints.array.containsany.ContainsAnyLongConstraint;
 import jfluentvalidation.constraints.array.containsnone.ContainsNoneLongConstraint;
 import jfluentvalidation.constraints.array.empty.IsEmptyLongArrayConstraint;
@@ -73,13 +73,13 @@ public class LongArraySubject<T> extends AbstractArraySubject<LongArraySubject<T
     }
 
     @Override
-    public LongArraySubject<T> containsAllOf(Long... expected) {
-        return containsAllOf(Arrays.asList(expected));
+    public LongArraySubject<T> containsAll(Long... expected) {
+        return containsAll(Arrays.asList(expected));
     }
 
     @Override
-    public LongArraySubject<T> containsAllOf(Iterable<Long> expected) {
-        rule.addConstraint(new ContainsAllOfLongConstraint<>(expected));
+    public LongArraySubject<T> containsAll(Iterable<Long> expected) {
+        rule.addConstraint(new ContainsAllLongConstraint<>(expected));
         return myself;
     }
 

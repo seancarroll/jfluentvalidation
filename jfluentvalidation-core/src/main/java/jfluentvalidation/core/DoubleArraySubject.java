@@ -2,7 +2,7 @@ package jfluentvalidation.core;
 
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import jfluentvalidation.constraints.array.contains.ContainsDoubleConstraint;
-import jfluentvalidation.constraints.array.containsallof.ContainsAllOfDoubleConstraint;
+import jfluentvalidation.constraints.array.containsall.ContainsAllDoubleConstraint;
 import jfluentvalidation.constraints.array.containsany.ContainsAnyDoubleConstraint;
 import jfluentvalidation.constraints.array.containsnone.ContainsNoneDoubleConstraint;
 import jfluentvalidation.constraints.array.empty.IsEmptyDoubleArrayConstraint;
@@ -73,13 +73,13 @@ public class DoubleArraySubject<T> extends AbstractArraySubject<DoubleArraySubje
     }
 
     @Override
-    public DoubleArraySubject<T> containsAllOf(Double... expected) {
-        return containsAllOf(Arrays.asList(expected));
+    public DoubleArraySubject<T> containsAll(Double... expected) {
+        return containsAll(Arrays.asList(expected));
     }
 
     @Override
-    public DoubleArraySubject<T> containsAllOf(Iterable<Double> expected) {
-        rule.addConstraint(new ContainsAllOfDoubleConstraint<>(expected));
+    public DoubleArraySubject<T> containsAll(Iterable<Double> expected) {
+        rule.addConstraint(new ContainsAllDoubleConstraint<>(expected));
         return myself;
     }
 

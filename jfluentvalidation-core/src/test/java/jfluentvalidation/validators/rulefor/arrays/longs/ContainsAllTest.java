@@ -17,7 +17,7 @@ class ContainsAllTest {
         Target t = new Target(new long[] {1L, 5L});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForLongArray(Target::getValue).containsAllOf(1L, 5L);
+        validator.ruleForLongArray(Target::getValue).containsAll(1L, 5L);
 
         ValidationResult validationResult = validator.validate(t);
 
@@ -29,7 +29,7 @@ class ContainsAllTest {
         Target t = new Target(new long[] {1L, 5L});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForLongArray(Target::getValue).containsAllOf(5L, 1L);
+        validator.ruleForLongArray(Target::getValue).containsAll(5L, 1L);
 
         ValidationResult validationResult = validator.validate(t);
 
@@ -41,7 +41,7 @@ class ContainsAllTest {
         Target t = new Target(new long[] {1L, 1L});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForLongArray(Target::getValue).containsAllOf(1L);
+        validator.ruleForLongArray(Target::getValue).containsAll(1L);
 
         ValidationResult validationResult = validator.validate(t);
 
@@ -53,7 +53,7 @@ class ContainsAllTest {
         Target t = new Target(new long[] {1L, 5L});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForLongArray(Target::getValue).containsAllOf(1L, 1L);
+        validator.ruleForLongArray(Target::getValue).containsAll(1L, 1L);
 
         ValidationResult validationResult = validator.validate(t);
 
@@ -65,7 +65,7 @@ class ContainsAllTest {
         Target t = new Target(new long[0]);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForLongArray(Target::getValue).containsAllOf(Collections.emptyList());
+        validator.ruleForLongArray(Target::getValue).containsAll(Collections.emptyList());
 
         ValidationResult validationResult = validator.validate(t);
 
@@ -75,7 +75,7 @@ class ContainsAllTest {
     @Test
     void shouldThrowExceptionWhenExpectedValuesIsNull() {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        assertThrows(NullPointerException.class, () -> validator.ruleForLongArray(Target::getValue).containsAllOf((Iterable<Long>) null));
+        assertThrows(NullPointerException.class, () -> validator.ruleForLongArray(Target::getValue).containsAll((Iterable<Long>) null));
     }
 
     @Test
@@ -83,7 +83,7 @@ class ContainsAllTest {
         Target t = new Target(null);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForLongArray(Target::getValue).containsAllOf(1L);
+        validator.ruleForLongArray(Target::getValue).containsAll(1L);
 
         ValidationResult validationResult = validator.validate(t);
 
@@ -95,7 +95,7 @@ class ContainsAllTest {
         Target t = new Target(new long[] {1L});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForLongArray(Target::getValue).containsAllOf(5L);
+        validator.ruleForLongArray(Target::getValue).containsAll(5L);
 
         ValidationResult validationResult = validator.validate(t);
 

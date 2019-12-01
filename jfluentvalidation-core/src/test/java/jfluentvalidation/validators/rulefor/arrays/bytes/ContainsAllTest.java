@@ -19,7 +19,7 @@ class ContainsAllTest {
         Target t = new Target(new byte[] {ONE, FIVE});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForByteArray(Target::getValue).containsAllOf(ONE, FIVE);
+        validator.ruleForByteArray(Target::getValue).containsAll(ONE, FIVE);
 
         ValidationResult validationResult = validator.validate(t);
 
@@ -31,7 +31,7 @@ class ContainsAllTest {
         Target t = new Target(new byte[] {ONE, FIVE});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForByteArray(Target::getValue).containsAllOf(FIVE, ONE);
+        validator.ruleForByteArray(Target::getValue).containsAll(FIVE, ONE);
 
         ValidationResult validationResult = validator.validate(t);
 
@@ -43,7 +43,7 @@ class ContainsAllTest {
         Target t = new Target(new byte[] {ONE, ONE});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForByteArray(Target::getValue).containsAllOf(ONE);
+        validator.ruleForByteArray(Target::getValue).containsAll(ONE);
 
         ValidationResult validationResult = validator.validate(t);
 
@@ -55,7 +55,7 @@ class ContainsAllTest {
         Target t = new Target(new byte[] {ONE, FIVE});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForByteArray(Target::getValue).containsAllOf(ONE, ONE);
+        validator.ruleForByteArray(Target::getValue).containsAll(ONE, ONE);
 
         ValidationResult validationResult = validator.validate(t);
 
@@ -67,7 +67,7 @@ class ContainsAllTest {
         Target t = new Target(new byte[0]);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForByteArray(Target::getValue).containsAllOf(Collections.emptyList());
+        validator.ruleForByteArray(Target::getValue).containsAll(Collections.emptyList());
 
         ValidationResult validationResult = validator.validate(t);
 
@@ -77,7 +77,7 @@ class ContainsAllTest {
     @Test
     void shouldThrowExceptionWhenExpectedValuesIsNull() {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        assertThrows(NullPointerException.class, () -> validator.ruleForByteArray(Target::getValue).containsAllOf((Iterable<Byte>) null));
+        assertThrows(NullPointerException.class, () -> validator.ruleForByteArray(Target::getValue).containsAll((Iterable<Byte>) null));
     }
 
     @Test
@@ -85,7 +85,7 @@ class ContainsAllTest {
         Target t = new Target(null);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForByteArray(Target::getValue).containsAllOf(ONE);
+        validator.ruleForByteArray(Target::getValue).containsAll(ONE);
 
         ValidationResult validationResult = validator.validate(t);
 
@@ -97,7 +97,7 @@ class ContainsAllTest {
         Target t = new Target(new byte[] {ONE});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForByteArray(Target::getValue).containsAllOf(FIVE);
+        validator.ruleForByteArray(Target::getValue).containsAll(FIVE);
 
         ValidationResult validationResult = validator.validate(t);
 

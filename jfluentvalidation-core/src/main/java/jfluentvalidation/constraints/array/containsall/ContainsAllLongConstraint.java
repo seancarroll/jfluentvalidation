@@ -1,4 +1,4 @@
-package jfluentvalidation.constraints.array.containsallof;
+package jfluentvalidation.constraints.array.containsall;
 
 import jfluentvalidation.common.Iterables;
 import jfluentvalidation.common.MoreArrays;
@@ -13,22 +13,22 @@ import java.util.Set;
 import static java.util.Arrays.stream;
 import static java.util.stream.Collectors.toCollection;
 
-public class ContainsAllOfShortConstraint<T> extends AbstractConstraint<T, short[]> {
+public class ContainsAllLongConstraint<T> extends AbstractConstraint<T, long[]> {
 
-    private final Iterable<Short> values;
+    private final Iterable<Long> values;
 
-    public ContainsAllOfShortConstraint(Iterable<Short> values) {
+    public ContainsAllLongConstraint(Iterable<Long> values) {
         super(DefaultMessages.ITERABLE_CONTAINS_ALL_IN);
         this.values = Ensure.notNull(values);
     }
 
     @Override
-    public boolean isValid(RuleContext<T, short[]> context) {
+    public boolean isValid(RuleContext<T, long[]> context) {
         if (context.getPropertyValue() == null) {
             return true;
         }
 
-        Short[] valuesAsArray = Iterables.toArray(values, Short.class);
+        Long[] valuesAsArray = Iterables.toArray(values, Long.class);
         Set<Object> notFound = stream(valuesAsArray)
             .filter(value -> !MoreArrays.contains(context.getPropertyValue(), value))
             .collect(toCollection(LinkedHashSet::new));

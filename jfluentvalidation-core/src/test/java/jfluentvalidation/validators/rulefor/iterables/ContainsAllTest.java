@@ -18,7 +18,7 @@ class ContainsAllTest {
         Target t = new Target(Arrays.asList("hello", "world", "foo"));
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForIterable(Target::getValue).containsAllOf("hello");
+        validator.ruleForIterable(Target::getValue).containsAll("hello");
 
         ValidationResult validationResult = validator.validate(t);
 
@@ -30,7 +30,7 @@ class ContainsAllTest {
         Target t = new Target(Arrays.asList("hello", "world", "foo"));
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForIterable(Target::getValue).containsAllOf("foo", "hello");
+        validator.ruleForIterable(Target::getValue).containsAll("foo", "hello");
 
         ValidationResult validationResult = validator.validate(t);
 
@@ -42,7 +42,7 @@ class ContainsAllTest {
         Target t = new Target(Arrays.asList("hello", "hello"));
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForIterable(Target::getValue).containsAllOf("hello");
+        validator.ruleForIterable(Target::getValue).containsAll("hello");
 
         ValidationResult validationResult = validator.validate(t);
 
@@ -54,7 +54,7 @@ class ContainsAllTest {
         Target t = new Target(Arrays.asList("hello", "hello"));
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForIterable(Target::getValue).containsAllOf("hello", "hello");
+        validator.ruleForIterable(Target::getValue).containsAll("hello", "hello");
 
         ValidationResult validationResult = validator.validate(t);
 
@@ -66,7 +66,7 @@ class ContainsAllTest {
         Target t = new Target(Collections.singletonList(""));
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForIterable(Target::getValue).containsAllOf("");
+        validator.ruleForIterable(Target::getValue).containsAll("");
 
         ValidationResult validationResult = validator.validate(t);
 
@@ -76,7 +76,7 @@ class ContainsAllTest {
     @Test
     void shouldThrowExceptionWhenExpectedValuesIsNull() {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        assertThrows(NullPointerException.class, () -> validator.ruleForIterable(Target::getValue).containsAllOf((Iterable<String>) null));
+        assertThrows(NullPointerException.class, () -> validator.ruleForIterable(Target::getValue).containsAll((Iterable<String>) null));
     }
 
     @Test
@@ -84,7 +84,7 @@ class ContainsAllTest {
         Target t = new Target(null);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForIterable(Target::getValue).containsAllOf("hello", "hello");
+        validator.ruleForIterable(Target::getValue).containsAll("hello", "hello");
 
         ValidationResult validationResult = validator.validate(t);
 
@@ -96,7 +96,7 @@ class ContainsAllTest {
         Target t = new Target(Arrays.asList("hello", "world", "foo"));
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForIterable(Target::getValue).containsAllOf("hello", "bar");
+        validator.ruleForIterable(Target::getValue).containsAll("hello", "bar");
 
         ValidationResult validationResult = validator.validate(t);
 

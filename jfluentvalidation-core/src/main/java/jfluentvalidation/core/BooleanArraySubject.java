@@ -2,7 +2,7 @@ package jfluentvalidation.core;
 
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import jfluentvalidation.constraints.array.contains.ContainsBooleanConstraint;
-import jfluentvalidation.constraints.array.containsallof.ContainsAllOfBooleanConstraint;
+import jfluentvalidation.constraints.array.containsall.ContainsAllBooleanConstraint;
 import jfluentvalidation.constraints.array.containsany.ContainsAnyBooleanConstraint;
 import jfluentvalidation.constraints.array.containsnone.ContainsNoneBooleanConstraint;
 import jfluentvalidation.constraints.array.empty.IsEmptyBooleanArrayConstraint;
@@ -73,13 +73,13 @@ public class BooleanArraySubject<T> extends AbstractArraySubject<BooleanArraySub
     }
 
     @Override
-    public BooleanArraySubject<T> containsAllOf(Boolean... expected) {
-        return containsAllOf(Arrays.asList(expected));
+    public BooleanArraySubject<T> containsAll(Boolean... expected) {
+        return containsAll(Arrays.asList(expected));
     }
 
     @Override
-    public BooleanArraySubject<T> containsAllOf(Iterable<Boolean> expected) {
-        rule.addConstraint(new ContainsAllOfBooleanConstraint<>(expected));
+    public BooleanArraySubject<T> containsAll(Iterable<Boolean> expected) {
+        rule.addConstraint(new ContainsAllBooleanConstraint<>(expected));
         return myself;
     }
 

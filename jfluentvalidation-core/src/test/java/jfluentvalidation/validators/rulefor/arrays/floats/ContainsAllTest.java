@@ -17,7 +17,7 @@ class ContainsAllTest {
         Target t = new Target(new float[] {1f, 5f});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForFloatArray(Target::getValue).containsAllOf(1f, 5f);
+        validator.ruleForFloatArray(Target::getValue).containsAll(1f, 5f);
 
         ValidationResult validationResult = validator.validate(t);
 
@@ -29,7 +29,7 @@ class ContainsAllTest {
         Target t = new Target(new float[] {1f, 5f});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForFloatArray(Target::getValue).containsAllOf(5f, 1f);
+        validator.ruleForFloatArray(Target::getValue).containsAll(5f, 1f);
 
         ValidationResult validationResult = validator.validate(t);
 
@@ -41,7 +41,7 @@ class ContainsAllTest {
         Target t = new Target(new float[] {1f, 1f});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForFloatArray(Target::getValue).containsAllOf(1f);
+        validator.ruleForFloatArray(Target::getValue).containsAll(1f);
 
         ValidationResult validationResult = validator.validate(t);
 
@@ -53,7 +53,7 @@ class ContainsAllTest {
         Target t = new Target(new float[] {1f, 5f});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForFloatArray(Target::getValue).containsAllOf(1f, 1f);
+        validator.ruleForFloatArray(Target::getValue).containsAll(1f, 1f);
 
         ValidationResult validationResult = validator.validate(t);
 
@@ -65,7 +65,7 @@ class ContainsAllTest {
         Target t = new Target(new float[0]);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForFloatArray(Target::getValue).containsAllOf(Collections.emptyList());
+        validator.ruleForFloatArray(Target::getValue).containsAll(Collections.emptyList());
 
         ValidationResult validationResult = validator.validate(t);
 
@@ -75,7 +75,7 @@ class ContainsAllTest {
     @Test
     void shouldThrowExceptionWhenExpectedValuesIsNull() {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        assertThrows(NullPointerException.class, () -> validator.ruleForFloatArray(Target::getValue).containsAllOf((Iterable<Float>) null));
+        assertThrows(NullPointerException.class, () -> validator.ruleForFloatArray(Target::getValue).containsAll((Iterable<Float>) null));
     }
 
     @Test
@@ -83,7 +83,7 @@ class ContainsAllTest {
         Target t = new Target(null);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForFloatArray(Target::getValue).containsAllOf(1f);
+        validator.ruleForFloatArray(Target::getValue).containsAll(1f);
 
         ValidationResult validationResult = validator.validate(t);
 
@@ -95,7 +95,7 @@ class ContainsAllTest {
         Target t = new Target(new float[] {1f});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForFloatArray(Target::getValue).containsAllOf(5f);
+        validator.ruleForFloatArray(Target::getValue).containsAll(5f);
 
         ValidationResult validationResult = validator.validate(t);
 
