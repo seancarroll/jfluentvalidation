@@ -8,7 +8,8 @@ import jfluentvalidation.constraints.array.containsnone.ContainsNoneBooleanConst
 import jfluentvalidation.constraints.array.empty.IsEmptyBooleanArrayConstraint;
 import jfluentvalidation.constraints.array.isnotnullorempty.IsNotNullOrEmptyBoolenArrayConstraint;
 import jfluentvalidation.constraints.array.length.ArrayExactLengthConstraint;
-import jfluentvalidation.constraints.array.length.ArrayLengthConstraint;
+import jfluentvalidation.constraints.array.length.BooleanArrayBetweenLengthConstraint;
+import jfluentvalidation.constraints.array.length.BooleanArrayExactLengthConstraint;
 import jfluentvalidation.constraints.array.length.BooleanArrayMaximumLengthConstraint;
 import jfluentvalidation.constraints.array.length.BooleanArrayMinimumLengthConstraint;
 import jfluentvalidation.constraints.array.notempty.IsNotEmptyBooleanArrayConstraint;
@@ -123,25 +124,25 @@ public class BooleanArraySubject<T> extends AbstractArraySubject<BooleanArraySub
 
     @Override
     public BooleanArraySubject<T> hasLengthBetween(int min, int max, boolean inclusiveStart, boolean inclusiveEnd) {
-        rule.addConstraint(new ArrayLengthConstraint<>(min, max, inclusiveStart, inclusiveEnd));
+        rule.addConstraint(new BooleanArrayBetweenLengthConstraint<>(min, max, inclusiveStart, inclusiveEnd));
         return myself;
     }
 
     @Override
     public BooleanArraySubject<T> hasSameLengthAs(Iterable<Boolean> other) {
-        rule.addConstraint(new ArrayExactLengthConstraint<>(other));
+        rule.addConstraint(new BooleanArrayExactLengthConstraint<>(other));
         return myself;
     }
 
     @Override
     public BooleanArraySubject<T> hasSameLengthAs(Boolean[] other) {
-        rule.addConstraint(new ArrayExactLengthConstraint<>(other));
+        rule.addConstraint(new BooleanArrayExactLengthConstraint<>(other));
         return myself;
     }
 
     @CanIgnoreReturnValue
     public BooleanArraySubject<T> hasSameLengthAs(boolean[] other) {
-        rule.addConstraint(new ArrayExactLengthConstraint<>(other));
+        rule.addConstraint(new BooleanArrayExactLengthConstraint<>(other));
         return myself;
     }
 }

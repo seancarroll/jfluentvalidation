@@ -36,6 +36,9 @@ public class BooleanArrayExactLengthConstraint<T> extends AbstractConstraint<T, 
 
     @Override
     public boolean isValid(RuleContext<T, boolean[]> context) {
+        if (context.getPropertyValue() == null) {
+            return true;
+        }
         int len = context.getPropertyValue().length;
         return len == (length != null ? length : lengthSupplier.getAsInt());
     }
