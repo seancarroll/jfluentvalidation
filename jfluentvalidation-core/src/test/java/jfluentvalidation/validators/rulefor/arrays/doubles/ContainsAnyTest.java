@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Collections;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -142,5 +143,17 @@ class ContainsAnyTest {
     void shouldThrowExceptionWhenGivenValuesIsNull() {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         assertThrows(NullPointerException.class, () -> validator.ruleForDoubleArray(Target::getValue).containsAny((Iterable<Double>) null));
+    }
+
+    @Test
+    void shouldHaveAppropriateErrorMessage() {
+        Target t = new Target(new double[] {1d});
+
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        validator.ruleForDoubleArray(Target::getValue).containsAny(2d, 3d);
+
+        ValidationResult validationResult = validator.validate(t);
+
+        assertEquals("value must contain at least one of the following: [2.0, 3.0] but none were found.", validationResult.getViolations().get(0).getErrorMessage());
     }
 }

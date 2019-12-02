@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Collections;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -144,4 +145,15 @@ class ContainsAnyTest {
         assertThrows(NullPointerException.class, () -> validator.ruleForCharArray(Target::getValue).containsAny((Iterable<Character>) null));
     }
 
+    @Test
+    void shouldHaveAppropriateErrorMessage() {
+        Target t = new Target(new char[] {'a'});
+
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        validator.ruleForCharArray(Target::getValue).containsAny('b', 'c');
+
+        ValidationResult validationResult = validator.validate(t);
+
+        assertEquals("value must contain at least one of the following: [b, c] but none were found.", validationResult.getViolations().get(0).getErrorMessage());
+    }
 }

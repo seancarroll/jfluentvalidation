@@ -8,6 +8,8 @@ import java.util.Collections;
 
 import static jfluentvalidation.validators.rulefor.arrays.bytes.Bytes.FIVE;
 import static jfluentvalidation.validators.rulefor.arrays.bytes.Bytes.ONE;
+import static jfluentvalidation.validators.rulefor.arrays.bytes.Bytes.TEN;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -146,4 +148,15 @@ class ContainsAnyTest {
         assertThrows(NullPointerException.class, () -> validator.ruleForByteArray(Target::getValue).containsAny((Iterable<Byte>) null));
     }
 
+    @Test
+    void shouldHaveAppropriateErrorMessage() {
+        Target t = new Target(new byte[] {ONE});
+
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        validator.ruleForByteArray(Target::getValue).containsAny(FIVE, TEN);
+
+        ValidationResult validationResult = validator.validate(t);
+
+        assertEquals("value must contain at least one of the following: [5, 10] but none were found.", validationResult.getViolations().get(0).getErrorMessage());
+    }
 }
