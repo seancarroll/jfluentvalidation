@@ -68,4 +68,5 @@ class ContainsTest {
         ValidationResult validationResult = validator.validate(t);
 
         assertEquals("value must contain world.", validationResult.getViolations().get(0).getErrorMessage());
-    }}
+    }
+}

@@ -63,4 +63,5 @@ class ContainsTest {
         ValidationResult validationResult = validator.validate(t);
 
         assertEquals("value must contain b.", validationResult.getViolations().get(0).getErrorMessage());
-    }}
+    }
+}
