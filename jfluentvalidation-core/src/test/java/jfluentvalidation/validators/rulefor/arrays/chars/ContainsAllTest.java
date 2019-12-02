@@ -112,6 +112,6 @@ class ContainsAllTest {
 
         ValidationResult validationResult = validator.validate(t);
 
-        assertEquals("value must contain [a, b] but could not find [b, c].", validationResult.getViolations().get(0).getErrorMessage());
+        assertEquals("value must contain [a, b, c] but could not find [b, c].", validationResult.getViolations().get(0).getErrorMessage());
     }
 }
