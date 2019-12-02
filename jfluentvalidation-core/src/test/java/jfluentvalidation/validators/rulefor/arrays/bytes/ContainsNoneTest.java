@@ -10,6 +10,7 @@ import static jfluentvalidation.validators.rulefor.arrays.bytes.Bytes.FIVE;
 import static jfluentvalidation.validators.rulefor.arrays.bytes.Bytes.ONE;
 import static jfluentvalidation.validators.rulefor.arrays.bytes.Bytes.TEN;
 import static jfluentvalidation.validators.rulefor.arrays.bytes.Bytes.ZERO;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -56,5 +57,17 @@ class ContainsNoneTest {
     void shouldThrowExceptionWhenGivenIsNull() {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         assertThrows(NullPointerException.class, () -> validator.ruleForByteArray(Target::getValue).containsNone((List<Byte>) null));
+    }
+
+    @Test
+    void shouldHaveAppropriateErrorMessage() {
+        Target t = new Target(new byte[] {ONE, FIVE});
+
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        validator.ruleForByteArray(Target::getValue).containsNone(ZERO, ONE, TEN);
+
+        ValidationResult validationResult = validator.validate(t);
+
+        assertEquals("value must not contain [0, 1, 10] but found the following: [1].", validationResult.getViolations().get(0).getErrorMessage());
     }
 }

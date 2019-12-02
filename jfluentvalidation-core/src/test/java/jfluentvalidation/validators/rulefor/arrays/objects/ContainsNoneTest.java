@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -52,5 +53,17 @@ class ContainsNoneTest {
     void shouldThrowExceptionWhenGivenIsNull() {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         assertThrows(NullPointerException.class, () -> validator.ruleForObjectArray(Target::getValue).containsNone((List<String>) null));
+    }
+
+    @Test
+    void shouldHaveAppropriateErrorMessage() {
+        Target t = new Target(new String[] {"hello"});
+
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        validator.ruleForObjectArray(Target::getValue).containsNone("hello", "world");
+
+        ValidationResult validationResult = validator.validate(t);
+
+        assertEquals("value must not contain [hello, world] but found the following: [hello].", validationResult.getViolations().get(0).getErrorMessage());
     }
 }

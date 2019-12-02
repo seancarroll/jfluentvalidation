@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -52,5 +53,17 @@ class ContainsNoneTest {
     void shouldThrowExceptionWhenGivenIsNull() {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         assertThrows(NullPointerException.class, () -> validator.ruleForFloatArray(Target::getValue).containsNone((List<Float>) null));
+    }
+
+    @Test
+    void shouldHaveAppropriateErrorMessage() {
+        Target t = new Target(new float[] {1, 5});
+
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        validator.ruleForFloatArray(Target::getValue).containsNone(1f, 5f, 10f);
+
+        ValidationResult validationResult = validator.validate(t);
+
+        assertEquals("value must not contain [1.0, 5.0, 10.0] but found the following: [1.0, 5.0].", validationResult.getViolations().get(0).getErrorMessage());
     }
 }
