@@ -1,15 +1,7 @@
 package jfluentvalidation.core;
 
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
-import jfluentvalidation.constraints.net.url.HasAnchorConstraint;
-import jfluentvalidation.constraints.net.url.HasAuthorityConstraint;
-import jfluentvalidation.constraints.net.url.HasHostConstraint;
-import jfluentvalidation.constraints.net.url.HasNoParameterConstraint;
-import jfluentvalidation.constraints.net.url.HasParameterConstraint;
-import jfluentvalidation.constraints.net.url.HasPathConstraint;
-import jfluentvalidation.constraints.net.url.HasPortConstraint;
-import jfluentvalidation.constraints.net.url.HasProtocolConstraint;
-import jfluentvalidation.constraints.net.url.HasQueryConstraint;
+import jfluentvalidation.constraints.net.url.*;
 import jfluentvalidation.rules.PropertyRule;
 
 import java.net.URL;
@@ -57,7 +49,7 @@ public class UrlSubject<T> extends Subject<UrlSubject<T>, T, URL> {
      */
     @CanIgnoreReturnValue
     public UrlSubject<T> hasNoPath() {
-        rule.addConstraint(new HasPathConstraint<>(""));
+        rule.addConstraint(new HasNoPathConstraint<>());
         return myself;
     }
 
@@ -80,7 +72,7 @@ public class UrlSubject<T> extends Subject<UrlSubject<T>, T, URL> {
      */
     @CanIgnoreReturnValue
     public UrlSubject<T> hasNoPort() {
-        rule.addConstraint(new HasPortConstraint<>(-1));
+        rule.addConstraint(new HasNoPortConstraint<>());
         return myself;
     }
 
@@ -127,7 +119,7 @@ public class UrlSubject<T> extends Subject<UrlSubject<T>, T, URL> {
      */
     @CanIgnoreReturnValue
     public UrlSubject<T> hasNoQuery() {
-        rule.addConstraint(new HasQueryConstraint<>(null));
+        rule.addConstraint(new HasNoQueryConstraint<>());
         return myself;
     }
 
@@ -150,7 +142,7 @@ public class UrlSubject<T> extends Subject<UrlSubject<T>, T, URL> {
      */
     @CanIgnoreReturnValue
     public UrlSubject<T> hasNoAnchor() {
-        rule.addConstraint(new HasAnchorConstraint<>(null));
+        rule.addConstraint(new HasNoAnchorConstraint<>());
         return myself;
     }
 

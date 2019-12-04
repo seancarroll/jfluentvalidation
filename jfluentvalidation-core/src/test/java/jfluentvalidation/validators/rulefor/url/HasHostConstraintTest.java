@@ -7,33 +7,22 @@ import org.junit.jupiter.api.Test;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class HasHostConstraintTest {
 
     @Test
-    void shouldReturnFailureWhenActualHostIsNotPresentAndExpectedIsNotNull() throws MalformedURLException {
-        Profile p = new Profile(new URL("http://"));
-
-        DefaultValidator<Profile> validator = new DefaultValidator<>(Profile.class);
-        validator.ruleForUrl(Profile::getWebsite).hasHost("something");
-
-        ValidationResult validationResult = validator.validate(p);
-
-        assertFalse(validationResult.isValid());
-    }
-
-    @Test
-    void shouldReturnFailureWhenActualHostDoesNotMatchExpected() throws MalformedURLException {
+    void shouldNotReturnFailureWhenActualUrlHasExpectedHost() throws MalformedURLException {
         Profile p = new Profile(new URL("http://example.com"));
 
         DefaultValidator<Profile> validator = new DefaultValidator<>(Profile.class);
-        validator.ruleForUrl(Profile::getWebsite).hasHost("other.com");
+        validator.ruleForUrl(Profile::getWebsite).hasHost("example.com");
 
         ValidationResult validationResult = validator.validate(p);
 
-        assertFalse(validationResult.isValid());
+        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -61,6 +50,30 @@ class HasHostConstraintTest {
     }
 
     @Test
+    void shouldReturnFailureWhenActualHostIsNotPresentAndExpectedIsNotNull() throws MalformedURLException {
+        Profile p = new Profile(new URL("http://"));
+
+        DefaultValidator<Profile> validator = new DefaultValidator<>(Profile.class);
+        validator.ruleForUrl(Profile::getWebsite).hasHost("something");
+
+        ValidationResult validationResult = validator.validate(p);
+
+        assertFalse(validationResult.isValid());
+    }
+
+    @Test
+    void shouldReturnFailureWhenActualHostDoesNotMatchExpected() throws MalformedURLException {
+        Profile p = new Profile(new URL("http://example.com"));
+
+        DefaultValidator<Profile> validator = new DefaultValidator<>(Profile.class);
+        validator.ruleForUrl(Profile::getWebsite).hasHost("other.com");
+
+        ValidationResult validationResult = validator.validate(p);
+
+        assertFalse(validationResult.isValid());
+    }
+
+    @Test
     void shouldReturnFailureWhenActualUrlHasNoHostAndExpectedIsNull() throws MalformedURLException {
         Profile p = new Profile(new URL("http://"));
 
@@ -73,15 +86,14 @@ class HasHostConstraintTest {
     }
 
     @Test
-    void shouldNotReturnFailureWhenActualUrlHasExpectedHost() throws MalformedURLException {
+    void shouldHaveAppropriateErrorMessage() throws MalformedURLException {
         Profile p = new Profile(new URL("http://example.com"));
 
         DefaultValidator<Profile> validator = new DefaultValidator<>(Profile.class);
-        validator.ruleForUrl(Profile::getWebsite).hasHost("example.com");
+        validator.ruleForUrl(Profile::getWebsite).hasHost("other.com");
 
         ValidationResult validationResult = validator.validate(p);
 
-        assertTrue(validationResult.isValid());
+        assertEquals("website must have host other.com.", validationResult.getViolations().get(0).getErrorMessage());
     }
-
 }

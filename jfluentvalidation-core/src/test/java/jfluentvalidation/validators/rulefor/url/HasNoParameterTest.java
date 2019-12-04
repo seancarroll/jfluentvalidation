@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -49,6 +50,42 @@ class HasNoParameterTest {
     }
 
     @Test
+    void shouldNotReturnFailureWhenActualUrlDoesNotHaveExpectedParameter() throws MalformedURLException {
+        Profile p = new Profile(new URL("http://example.com?foo=bar"));
+
+        DefaultValidator<Profile> validator = new DefaultValidator<>(Profile.class);
+        validator.ruleForUrl(Profile::getWebsite).hasNoParameters("blah");
+
+        ValidationResult validationResult = validator.validate(p);
+
+        assertTrue(validationResult.isValid());
+    }
+
+    @Test
+    void shouldNotReturnFailureIfParameterWithValueIsPresentWithoutValue() throws MalformedURLException {
+        Profile p = new Profile(new URL("http://example.com?foo"));
+
+        DefaultValidator<Profile> validator = new DefaultValidator<>(Profile.class);
+        validator.ruleForUrl(Profile::getWebsite).hasNoParameters("foo", "bar");
+
+        ValidationResult validationResult = validator.validate(p);
+
+        assertTrue(validationResult.isValid());
+    }
+
+    @Test
+    void shouldNotReturnFailureIfParameterWithValueIsPresentWithDifferentValue() throws MalformedURLException {
+        Profile p = new Profile(new URL("http://example.com?foo=bar"));
+
+        DefaultValidator<Profile> validator = new DefaultValidator<>(Profile.class);
+        validator.ruleForUrl(Profile::getWebsite).hasNoParameters("foo", "baz");
+
+        ValidationResult validationResult = validator.validate(p);
+
+        assertTrue(validationResult.isValid());
+    }
+
+    @Test
     void shouldReturnFailureWhenActualUrlWhenAtLeastOneParameterIsPresent() throws MalformedURLException {
         Profile p = new Profile(new URL("http://example.com?foo=bar"));
 
@@ -70,18 +107,6 @@ class HasNoParameterTest {
         ValidationResult validationResult = validator.validate(p);
 
         assertFalse(validationResult.isValid());
-    }
-
-    @Test
-    void shouldNotReturnFailureWhenActualUrlDoesNotHaveExpectedParameter() throws MalformedURLException {
-        Profile p = new Profile(new URL("http://example.com?foo=bar"));
-
-        DefaultValidator<Profile> validator = new DefaultValidator<>(Profile.class);
-        validator.ruleForUrl(Profile::getWebsite).hasNoParameters("blah");
-
-        ValidationResult validationResult = validator.validate(p);
-
-        assertTrue(validationResult.isValid());
     }
 
     @Test
@@ -133,30 +158,6 @@ class HasNoParameterTest {
     }
 
     @Test
-    void shouldNotReturnFailureIfParameterWithValueIsPresentWithoutValue() throws MalformedURLException {
-        Profile p = new Profile(new URL("http://example.com?foo"));
-
-        DefaultValidator<Profile> validator = new DefaultValidator<>(Profile.class);
-        validator.ruleForUrl(Profile::getWebsite).hasNoParameters("foo", "bar");
-
-        ValidationResult validationResult = validator.validate(p);
-
-        assertTrue(validationResult.isValid());
-    }
-
-    @Test
-    void shouldNotReturnFailureIfParameterWithValueIsPresentWithDifferentValue() throws MalformedURLException {
-        Profile p = new Profile(new URL("http://example.com?foo=bar"));
-
-        DefaultValidator<Profile> validator = new DefaultValidator<>(Profile.class);
-        validator.ruleForUrl(Profile::getWebsite).hasNoParameters("foo", "baz");
-
-        ValidationResult validationResult = validator.validate(p);
-
-        assertTrue(validationResult.isValid());
-    }
-
-    @Test
     void shouldReturnFailureIfParameterWithValueIsPresent() throws MalformedURLException {
         Profile p = new Profile(new URL("http://example.com?foo=bar"));
 
@@ -166,5 +167,29 @@ class HasNoParameterTest {
         ValidationResult validationResult = validator.validate(p);
 
         assertFalse(validationResult.isValid());
+    }
+
+    @Test
+    void shouldHaveAppropriateErrorMessageForParameter() throws MalformedURLException {
+        Profile p = new Profile(new URL("http://example.com?foo"));
+
+        DefaultValidator<Profile> validator = new DefaultValidator<>(Profile.class);
+        validator.ruleForUrl(Profile::getWebsite).hasNoParameters("foo");
+
+        ValidationResult validationResult = validator.validate(p);
+
+        assertEquals("website must not have parameter foo.", validationResult.getViolations().get(0).getErrorMessage());
+    }
+
+    @Test
+    void shouldHaveAppropriateErrorMessageForParameterWithValue() throws MalformedURLException {
+        Profile p = new Profile(new URL("http://example.com?foo=bar"));
+
+        DefaultValidator<Profile> validator = new DefaultValidator<>(Profile.class);
+        validator.ruleForUrl(Profile::getWebsite).hasNoParameters("foo", "bar");
+
+        ValidationResult validationResult = validator.validate(p);
+
+        assertEquals("website must not have parameter foo with value bar.", validationResult.getViolations().get(0).getErrorMessage());
     }
 }

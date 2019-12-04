@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -48,4 +49,15 @@ class HasNoQueryTest {
         assertFalse(validationResult.isValid());
     }
 
+    @Test
+    void shouldHaveAppropriateErrorMessage() throws MalformedURLException {
+        Profile p = new Profile(new URL("http://example.com?foo=bar"));
+
+        DefaultValidator<Profile> validator = new DefaultValidator<>(Profile.class);
+        validator.ruleForUrl(Profile::getWebsite).hasNoQuery();
+
+        ValidationResult validationResult = validator.validate(p);
+
+        assertEquals("website must not have query parameters.", validationResult.getViolations().get(0).getErrorMessage());
+    }
 }

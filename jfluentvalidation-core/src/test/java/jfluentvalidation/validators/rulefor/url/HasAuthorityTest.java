@@ -7,11 +7,11 @@ import org.junit.jupiter.api.Test;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class HasAuthorityTest {
-
 
     @Test
     void shouldNotReturnFailureWhenActualUrlHasExpectedAuthority() throws MalformedURLException {
@@ -95,5 +95,17 @@ class HasAuthorityTest {
         ValidationResult validationResult = validator.validate(p);
 
         assertFalse(validationResult.isValid());
+    }
+
+    @Test
+    void shouldHaveAppropriateErrorMessage() throws MalformedURLException {
+        Profile p = new Profile(new URL("http://example.com:8080"));
+
+        DefaultValidator<Profile> validator = new DefaultValidator<>(Profile.class);
+        validator.ruleForUrl(Profile::getWebsite).hasAuthority("example.com:8081");
+
+        ValidationResult validationResult = validator.validate(p);
+
+        assertEquals("website must have authority example.com:8081.", validationResult.getViolations().get(0).getErrorMessage());
     }
 }
