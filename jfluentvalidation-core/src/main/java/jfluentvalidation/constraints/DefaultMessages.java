@@ -116,12 +116,16 @@ public class DefaultMessages {
     public static final String NET_HAS_AUTHORITY = "{jfluentvalidation.constraints.net.HasAuthority.message}";
     public static final String NET_HAS_HOST = "{jfluentvalidation.constraints.net.HasHost.message}";
     public static final String NET_HAS_NO_PARAMETER = "{jfluentvalidation.constraints.net.HasNoParameter.message}";
+    public static final String NET_HAS_NO_PATH = "{jfluentvalidation.constraints.net.HasNoPath.message}";
+    public static final String NET_HAS_NO_PORT = "{jfluentvalidation.constraints.net.HasNoPort.message}";
+    public static final String NET_HAS_NO_QUERY = "{jfluentvalidation.constraints.net.HasNoQuery.message}";
     public static final String NET_HAS_PARAMETER = "{jfluentvalidation.constraints.net.HasParameter.message}";
     public static final String NET_HAS_PATH = "{jfluentvalidation.constraints.net.HasPath.message}";
     public static final String NET_HAS_PORT = "{jfluentvalidation.constraints.net.HasPort.message}";
     public static final String NET_HAS_QUERY = "{jfluentvalidation.constraints.net.HasQuery.message}";
 
     public static final String URL_HAS_ANCHOR = "{jfluentvalidation.constraints.net.url.HasAnchor.message}";
+    public static final String URL_HAS_NO_ANCHOR = "{jfluentvalidation.constraints.net.url.HasNoAnchor.message}";
     public static final String URL_HAS_PROTOCOL = "{jfluentvalidation.constraints.net.url.HasProtocol.message}";
 
     private DefaultMessages() {
