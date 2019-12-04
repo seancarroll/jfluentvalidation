@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -166,5 +167,29 @@ class HasNoParameterTest {
         ValidationResult validationResult = validator.validate(m);
 
         assertFalse(validationResult.isValid());
+    }
+
+    @Test
+    void shouldHaveAppropriateErrorMessageForParameter() throws URISyntaxException {
+        Media m = new Media(new URI("http://example.com?foo=bar&foo=blah"));
+
+        DefaultValidator<Media> validator = new DefaultValidator<>(Media.class);
+        validator.ruleForUri(Media::getContentLocation).hasNoParameters("foo");
+
+        ValidationResult validationResult = validator.validate(m);
+
+        assertEquals("contentLocation must not have parameter foo.", validationResult.getViolations().get(0).getErrorMessage());
+    }
+
+    @Test
+    void shouldHaveAppropriateErrorMessageForParameterWithValue() throws URISyntaxException {
+        Media m = new Media(new URI("http://example.com?foo=bar"));
+
+        DefaultValidator<Media> validator = new DefaultValidator<>(Media.class);
+        validator.ruleForUri(Media::getContentLocation).hasNoParameters("foo", "bar");
+
+        ValidationResult validationResult = validator.validate(m);
+
+        assertEquals("contentLocation must not have parameter foo with value bar.", validationResult.getViolations().get(0).getErrorMessage());
     }
 }

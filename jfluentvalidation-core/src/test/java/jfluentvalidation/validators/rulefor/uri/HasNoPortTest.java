@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -48,4 +49,15 @@ class HasNoPortTest {
         assertFalse(validationResult.isValid());
     }
 
+    @Test
+    void shouldHaveAppropriateErrorMessage() throws URISyntaxException {
+        Media m = new Media(new URI("http://example.com:80"));
+
+        DefaultValidator<Media> validator = new DefaultValidator<>(Media.class);
+        validator.ruleForUri(Media::getContentLocation).hasNoPort();
+
+        ValidationResult validationResult = validator.validate(m);
+
+        assertEquals("contentLocation must not specify a port.", validationResult.getViolations().get(0).getErrorMessage());
+    }
 }

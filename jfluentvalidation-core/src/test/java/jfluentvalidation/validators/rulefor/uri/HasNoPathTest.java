@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -26,14 +27,25 @@ class HasNoPathTest {
 
     @Test
     void shouldReturnFailureWhenPathIsPresent() throws URISyntaxException {
-        Media p = new Media(new URI("http://example.com/pages"));
+        Media m = new Media(new URI("http://example.com/pages"));
 
         DefaultValidator<Media> validator = new DefaultValidator<>(Media.class);
         validator.ruleForUri(Media::getContentLocation).hasNoPath();
 
-        ValidationResult validationResult = validator.validate(p);
+        ValidationResult validationResult = validator.validate(m);
 
         assertFalse(validationResult.isValid());
     }
 
+    @Test
+    void shouldHaveAppropriateErrorMessage() throws URISyntaxException {
+        Media m = new Media(new URI("http://example.com/pages"));
+
+        DefaultValidator<Media> validator = new DefaultValidator<>(Media.class);
+        validator.ruleForUri(Media::getContentLocation).hasNoPath();
+
+        ValidationResult validationResult = validator.validate(m);
+
+        assertEquals("contentLocation must not have a path.", validationResult.getViolations().get(0).getErrorMessage());
+    }
 }

@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -82,5 +83,17 @@ class HasQueryTest {
         ValidationResult validationResult = validator.validate(m);
 
         assertFalse(validationResult.isValid());
+    }
+
+    @Test
+    void shouldHaveAppropriateErrorMessage() throws URISyntaxException {
+        Media m = new Media(new URI("http://example.com"));
+
+        DefaultValidator<Media> validator = new DefaultValidator<>(Media.class);
+        validator.ruleForUri(Media::getContentLocation).hasQuery("foo=bar");
+
+        ValidationResult validationResult = validator.validate(m);
+
+        assertEquals("contentLocation must have query equal to foo=bar.", validationResult.getViolations().get(0).getErrorMessage());
     }
 }

@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -46,5 +47,17 @@ class HasHostConstraintTest {
         ValidationResult validationResult = validator.validate(m);
 
         assertFalse(validationResult.isValid());
+    }
+
+    @Test
+    void shouldHaveAppropriateErrorMessage() throws URISyntaxException {
+        Media m = new Media(new URI("http://example.com"));
+
+        DefaultValidator<Media> validator = new DefaultValidator<>(Media.class);
+        validator.ruleForUri(Media::getContentLocation).hasHost("other.com");
+
+        ValidationResult validationResult = validator.validate(m);
+
+        assertEquals("contentLocation must have host other.com.", validationResult.getViolations().get(0).getErrorMessage());
     }
 }

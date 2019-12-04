@@ -1,13 +1,7 @@
 package jfluentvalidation.core;
 
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
-import jfluentvalidation.constraints.net.uri.HasAuthorityConstraint;
-import jfluentvalidation.constraints.net.uri.HasHostConstraint;
-import jfluentvalidation.constraints.net.uri.HasNoParameterConstraint;
-import jfluentvalidation.constraints.net.uri.HasParameterConstraint;
-import jfluentvalidation.constraints.net.uri.HasPathConstraint;
-import jfluentvalidation.constraints.net.uri.HasPortConstraint;
-import jfluentvalidation.constraints.net.uri.HasQueryConstraint;
+import jfluentvalidation.constraints.net.uri.*;
 import jfluentvalidation.rules.PropertyRule;
 
 import java.net.URI;
@@ -43,7 +37,7 @@ public class UriSubject<T> extends AbstractComparableSubject<UriSubject<T>, T, U
      */
     @CanIgnoreReturnValue
     public UriSubject<T> hasNoPath() {
-        rule.addConstraint(new HasPathConstraint<>(""));
+        rule.addConstraint(new HasNoPathConstraint<>());
         return myself;
     }
 
@@ -66,7 +60,7 @@ public class UriSubject<T> extends AbstractComparableSubject<UriSubject<T>, T, U
      */
     @CanIgnoreReturnValue
     public UriSubject<T> hasNoPort() {
-        rule.addConstraint(new HasPortConstraint<>(-1));
+        rule.addConstraint(new HasNoPortConstraint<>());
         return myself;
     }
 
@@ -113,7 +107,7 @@ public class UriSubject<T> extends AbstractComparableSubject<UriSubject<T>, T, U
      */
     @CanIgnoreReturnValue
     public UriSubject<T> hasNoQuery() {
-        rule.addConstraint(new HasQueryConstraint<>(null));
+        rule.addConstraint(new HasNoQueryConstraint<>());
         return myself;
     }
 
