@@ -100,8 +100,10 @@ public class ResourceBundleMessageInterpolator {
         for (Token t : tokens) {
             if (t.isParameter()) {
                 String placeHolderKey = removeCurlyBraces(t.getValue());
+                // allow place holder value to be null and we'll include "null" in the resolved message.
+                boolean contains = context.containsKey(placeHolderKey);
                 Object placeHolderValue = context.get(placeHolderKey);
-                String resolvedToken = placeHolderValue == null
+                String resolvedToken = placeHolderValue == null && !contains
                     ? t.getValue()
                     : replacePlaceholderWithValue(t.getValue(), placeHolderKey, placeHolderValue);
                 resolvedMessages.add(resolvedToken);
@@ -136,7 +138,7 @@ public class ResourceBundleMessageInterpolator {
 
     private static String replacePlaceholderWithValue(String template, String key, Object value) {
         String placeholder = getPlaceholder(key);
-        return template.replace(placeholder, value == null ? "" : value.toString());
+        return template.replace(placeholder, value == null ? "null" : value.toString());
     }
 
     private static String getPlaceholder(String key) {
