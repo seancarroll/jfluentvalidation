@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -96,5 +97,17 @@ class HasContentTest {
             // things such as git dont like it when the file is not readable so put it back into a readable state
             file.setReadable(true);
         }
+    }
+
+    @Test
+    void shouldHaveAppropriateErrorMessage() {
+        Target t = new Target(new File("src/test/resources/Test.txt"));
+
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        validator.ruleForFile(Target::getFile).hasContent("Some words and other stuff.");
+
+        ValidationResult validationResult = validator.validate(t);
+
+        assertEquals("file must have content 'Some words and other stuff.' with charset UTF-8.", validationResult.getViolations().get(0).getErrorMessage());
     }
 }

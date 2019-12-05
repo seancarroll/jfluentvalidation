@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -64,4 +65,19 @@ class HasNameTest {
         assertFalse(validationResult.isValid());
     }
 
+    @Test
+    void shouldHaveAppropriateErrorMessage() {
+        File actual = mock(File.class);
+        when(actual.isFile()).thenReturn(true);
+        when(actual.getName()).thenReturn("tmp.txt");
+
+        Target t = new Target(actual);
+
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        validator.ruleForFile(Target::getFile).hasName("tmp2.txt");
+
+        ValidationResult validationResult = validator.validate(t);
+
+        assertEquals("file must have name tmp2.txt.", validationResult.getViolations().get(0).getErrorMessage());
+    }
 }

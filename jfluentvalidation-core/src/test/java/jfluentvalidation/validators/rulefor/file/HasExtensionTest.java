@@ -8,6 +8,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import java.io.File;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -81,5 +82,21 @@ class HasExtensionTest {
         ValidationResult validationResult = validator.validate(t);
 
         assertFalse(validationResult.isValid());
+    }
+
+    @Test
+    void shouldHaveAppropriateErrorMessage() {
+        File actual = mock(File.class);
+        when(actual.isFile()).thenReturn(true);
+        when(actual.getName()).thenReturn("file.txt");
+
+        Target t = new Target(actual);
+
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        validator.ruleForFile(Target::getFile).hasExtension("pdf");
+
+        ValidationResult validationResult = validator.validate(t);
+
+        assertEquals("file must have extension pdf.", validationResult.getViolations().get(0).getErrorMessage());
     }
 }
