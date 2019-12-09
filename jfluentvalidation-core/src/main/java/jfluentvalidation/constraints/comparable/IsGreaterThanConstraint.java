@@ -28,4 +28,9 @@ public class IsGreaterThanConstraint<T, P extends Comparable<? super P>> extends
         }
         return context.getPropertyValue().compareTo(other) > 0;
     }
+
+    @Override
+    public void addParametersToContext(RuleContext<T, P> context) {
+        context.getMessageContext().appendArgument("value", other);
+    }
 }

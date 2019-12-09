@@ -25,4 +25,9 @@ public class IsNotEqualAccordingToCompareToConstraint<T, P extends Comparable<? 
         }
         return context.getPropertyValue().compareTo(other) != 0;
     }
+
+    @Override
+    public void addParametersToContext(RuleContext<T, P> context) {
+        context.getMessageContext().appendArgument("value", other);
+    }
 }

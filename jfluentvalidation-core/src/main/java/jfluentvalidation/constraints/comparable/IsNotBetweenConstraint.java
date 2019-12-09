@@ -45,4 +45,11 @@ public class IsNotBetweenConstraint<T, P extends Comparable<? super P>> extends 
         return !Comparables.isBetween(context.getPropertyValue(), start, end, inclusiveStart, inclusiveEnd);
     }
 
+    @Override
+    public void addParametersToContext(RuleContext<T, P> context) {
+        context.getMessageContext().appendArgument("start", start);
+        context.getMessageContext().appendArgument("end", end);
+        context.getMessageContext().appendArgument("inclusiveStart", inclusiveStart);
+        context.getMessageContext().appendArgument("inclusiveEnd", inclusiveEnd);
+    }
 }
