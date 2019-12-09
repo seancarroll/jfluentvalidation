@@ -73,5 +73,15 @@ class HasAuthorityTest {
         assertFalse(validationResult.isValid());
     }
 
+    @Test
+    void shouldHaveAppropriateErrorMessage() throws URISyntaxException {
+        Media m = new Media(new URI("http://example.com:8080"));
 
+        DefaultValidator<Media> validator = new DefaultValidator<>(Media.class);
+        validator.ruleForUri(Media::getContentLocation).hasAuthority("example.com:8081");
+
+        ValidationResult validationResult = validator.validate(m);
+
+        assertEquals("contentLocation must have authority example.com:8081.", validationResult.getViolations().get(0).getErrorMessage());
+    }
 }
