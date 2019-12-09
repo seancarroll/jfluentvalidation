@@ -4,6 +4,7 @@ import jfluentvalidation.ValidationResult;
 import jfluentvalidation.validators.DefaultValidator;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -84,7 +85,7 @@ class IsEqualToTest {
     }
 
     @Test
-    void shouldReturnFailureWhenActualOverriddenEqualsDoesNotMatcheGiven() {
+    void shouldReturnFailureWhenActualOverriddenEqualsDoesNotMatchGiven() {
         Target t = new Target(new IdOverriddenEquals("some-id"));
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
@@ -93,5 +94,17 @@ class IsEqualToTest {
         ValidationResult validationResult = validator.validate(t);
 
         assertFalse(validationResult.isValid());
+    }
+
+    @Test
+    void shouldHaveAppropriateErrorMessage() {
+        Target t = new Target(new IdOverriddenEquals("some-id"));
+
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        validator.ruleForObject(Target::getId).isEqualTo(new IdOverriddenEquals("other-id"));
+
+        ValidationResult validationResult = validator.validate(t);
+
+        assertEquals("id must be equal to other-id.", validationResult.getViolations().get(0).getErrorMessage());
     }
 }
