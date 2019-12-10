@@ -21,7 +21,7 @@ public abstract class AbstractIsNotCloseToConstraint<T, P extends Number & Compa
     }
 
     public AbstractIsNotCloseToConstraint(P other, P offset, boolean strict) {
-        super(DefaultMessages.IS_CLOSE_TO);
+        super(DefaultMessages.IS_NOT_CLOSE_TO);
         this.other = Ensure.notNull(other);
         this.offset = Ensure.notNull(offset);
         this.strict = strict;
