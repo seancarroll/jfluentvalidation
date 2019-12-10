@@ -34,5 +34,13 @@ public class LocalizedMessage {
     public int hashCode() {
         return Objects.hashCode(message, locale);
     }
+
+    @Override
+    public String toString() {
+        return "LocalizedMessage{" +
+            "message='" + message + '\'' +
+            ", locale=" + locale +
+            '}';
+    }
 }
 
