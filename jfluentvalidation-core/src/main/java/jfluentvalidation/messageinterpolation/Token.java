@@ -2,7 +2,7 @@ package jfluentvalidation.messageinterpolation;
 
 import jfluentvalidation.internal.Ensure;
 
-public class Token {
+class Token {
 
     /**
      * Meta character to designate an EL expression.
@@ -11,9 +11,10 @@ public class Token {
 
     private static final String PARAMETER_DESIGNATION_CHARACTER = "{";
 
+    private final String value;
     private boolean isParameter;
     private boolean isEL;
-    private String value;
+
 
     Token(String value) {
         this.value = Ensure.notNull(value);
