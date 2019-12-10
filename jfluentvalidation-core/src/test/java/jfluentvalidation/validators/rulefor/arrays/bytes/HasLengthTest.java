@@ -10,11 +10,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class HasLengthTest {
 
-    private final byte one = 1;
-
     @Test
     void shouldNotReturnFailureWhenActualLengthIsEqualToExpected() {
-        Target t = new Target(new byte[] {one});
+        Target t = new Target(new byte[] {1});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForByteArray(Target::getValue).hasLength(1);
@@ -38,7 +36,7 @@ class HasLengthTest {
 
     @Test
     void shouldReturnFailureWhenActualLengthIsNotEqualToExpected() {
-        Target t = new Target(new byte[] {one});
+        Target t = new Target(new byte[] {1});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForByteArray(Target::getValue).hasLength(2);
@@ -47,7 +45,6 @@ class HasLengthTest {
 
         assertFalse(validationResult.isValid());
     }
-
 
     @Test
     void shouldThrowIllegalArgumentExceptionWhenExpectedLengthIsNegative() {

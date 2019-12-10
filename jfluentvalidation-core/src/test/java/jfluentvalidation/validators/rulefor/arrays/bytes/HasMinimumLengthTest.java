@@ -9,11 +9,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class HasMinimumLengthTest {
 
-    private final byte one = 1;
-
     @Test
     void shouldNotReturnFailureWhenActualLengthIsEqualToMin() {
-        Target t = new Target(new byte[] {one});
+        Target t = new Target(new byte[] {1});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForByteArray(Target::getValue).hasMinimumLength(1);
@@ -25,7 +23,7 @@ class HasMinimumLengthTest {
 
     @Test
     void shouldNotReturnFailureWhenActualLengthIsGreaterThanMin() {
-        Target t = new Target(new byte[] {one, one});
+        Target t = new Target(new byte[] {1, 1});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForByteArray(Target::getValue).hasMinimumLength(1);
@@ -49,7 +47,7 @@ class HasMinimumLengthTest {
 
     @Test
     void shouldReturnFailureWhenActualLengthIsLessThanMinimum() {
-        Target t = new Target(new byte[] {one});
+        Target t = new Target(new byte[] {1});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForByteArray(Target::getValue).hasMinimumLength(2);

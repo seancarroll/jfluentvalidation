@@ -4,6 +4,7 @@ import jfluentvalidation.ValidationResult;
 import jfluentvalidation.validators.DefaultValidator;
 import org.junit.jupiter.api.Test;
 
+import static jfluentvalidation.validators.rulefor.arrays.bytes.Bytes.ONE;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -35,7 +36,7 @@ class IsEmptyTest {
 
     @Test
     void shouldReturnFailureWhenActualIsNotEmpty() {
-        Target t = new Target(new byte[]{(byte) 1});
+        Target t = new Target(new byte[]{ONE});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForByteArray(Target::getValue).isEmpty();

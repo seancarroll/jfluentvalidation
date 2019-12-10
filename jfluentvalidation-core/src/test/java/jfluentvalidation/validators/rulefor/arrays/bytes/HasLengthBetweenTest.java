@@ -10,11 +10,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class HasLengthBetweenTest {
 
-    private final byte one = 1;
-
     @Test
     void shouldNotReturnFailureWhenActualLengthIsGreaterThanMinAndLessThanMax() {
-        Target t = new Target(new byte[] {one});
+        Target t = new Target(new byte[] {1});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForByteArray(Target::getValue).hasLengthBetween(0, 5);
@@ -38,7 +36,7 @@ class HasLengthBetweenTest {
 
     @Test
     void shouldReturnFailureWhenActualLengthIsLessThanMin() {
-        Target t = new Target(new byte[] {one});
+        Target t = new Target(new byte[] {1});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForByteArray(Target::getValue).hasLengthBetween(10, 20);
@@ -50,7 +48,7 @@ class HasLengthBetweenTest {
 
     @Test
     void shouldReturnFailureWhenActualLengthEqualsMinAndInclusiveStartIsFalse() {
-        Target t = new Target(new byte[] {one});
+        Target t = new Target(new byte[] {1});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForByteArray(Target::getValue).hasLengthBetween(1, 5, false, true);
@@ -62,7 +60,7 @@ class HasLengthBetweenTest {
 
     @Test
     void shouldReturnFailureWhenActualLengthIsGreaterThanMax() {
-        Target t = new Target(new byte[] {one, one});
+        Target t = new Target(new byte[] {1, 1});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForByteArray(Target::getValue).hasLengthBetween(0, 1);
@@ -74,7 +72,7 @@ class HasLengthBetweenTest {
 
     @Test
     void shouldReturnFailureWhenActualLengthEqualsMaxAndInclusiveEndIsFalse() {
-        Target t = new Target(new byte[] {one, one});
+        Target t = new Target(new byte[] {1, 1});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForByteArray(Target::getValue).hasLengthBetween(0, 2, true, false);
