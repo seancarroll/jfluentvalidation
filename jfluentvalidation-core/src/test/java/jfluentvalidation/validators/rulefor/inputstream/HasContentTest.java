@@ -1,6 +1,5 @@
 package jfluentvalidation.validators.rulefor.inputstream;
 
-import jfluentvalidation.IORuntimeException;
 import jfluentvalidation.ValidationResult;
 import jfluentvalidation.validators.DefaultValidator;
 import org.junit.jupiter.api.Test;
@@ -9,6 +8,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UncheckedIOException;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -59,7 +59,7 @@ class HasContentTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForInputStream(Target::getInputStream).hasContent("stuff");
 
-        assertThrows(IORuntimeException.class, () -> validator.validate(t));
+        assertThrows(UncheckedIOException.class, () -> validator.validate(t));
     }
 
     @Test

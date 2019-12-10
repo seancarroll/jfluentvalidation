@@ -1,6 +1,5 @@
 package jfluentvalidation.validators.rulefor.inputstream;
 
-import jfluentvalidation.IORuntimeException;
 import jfluentvalidation.ValidationResult;
 import jfluentvalidation.validators.DefaultValidator;
 import org.junit.jupiter.api.Test;
@@ -8,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UncheckedIOException;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -58,7 +58,7 @@ class HasSameContentAsTest {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForInputStream(Target::getInputStream).hasSameContentAs(new ByteArrayInputStream(new byte[0]));
 
-        assertThrows(IORuntimeException.class, () -> validator.validate(t));
+        assertThrows(UncheckedIOException.class, () -> validator.validate(t));
     }
 
     @Test

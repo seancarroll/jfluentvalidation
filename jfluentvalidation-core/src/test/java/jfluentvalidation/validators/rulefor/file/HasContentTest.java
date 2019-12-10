@@ -1,11 +1,11 @@
 package jfluentvalidation.validators.rulefor.file;
 
-import jfluentvalidation.IORuntimeException;
 import jfluentvalidation.ValidationResult;
 import jfluentvalidation.validators.DefaultValidator;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
+import java.io.UncheckedIOException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -92,7 +92,7 @@ class HasContentTest {
             DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
             validator.ruleForFile(Target::getFile).hasContent("stuff");
 
-            assertThrows(IORuntimeException.class, () -> validator.validate(t));
+            assertThrows(UncheckedIOException.class, () -> validator.validate(t));
         } finally {
             // things such as git dont like it when the file is not readable so put it back into a readable state
             file.setReadable(true);

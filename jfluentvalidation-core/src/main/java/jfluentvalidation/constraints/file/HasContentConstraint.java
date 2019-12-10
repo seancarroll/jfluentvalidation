@@ -1,6 +1,5 @@
 package jfluentvalidation.constraints.file;
 
-import jfluentvalidation.IORuntimeException;
 import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.DefaultMessages;
 import jfluentvalidation.internal.Ensure;
@@ -9,6 +8,7 @@ import jfluentvalidation.validators.RuleContext;
 import javax.annotation.Nonnull;
 import java.io.File;
 import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 
@@ -47,7 +47,7 @@ public class HasContentConstraint<T> extends AbstractConstraint<T, File> {
 
         } catch (IOException e) {
             String msg = format("Unable to read contents of File %s", context.getPropertyValue().getName());
-            throw new IORuntimeException(msg, e);
+            throw new UncheckedIOException(msg, e);
         }
     }
 

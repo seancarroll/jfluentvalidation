@@ -1,6 +1,5 @@
 package jfluentvalidation.constraints.inputstream;
 
-import jfluentvalidation.IORuntimeException;
 import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.DefaultMessages;
 import jfluentvalidation.internal.Ensure;
@@ -9,6 +8,7 @@ import jfluentvalidation.validators.RuleContext;
 import javax.annotation.Nonnull;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UncheckedIOException;
 import java.util.List;
 import java.util.Objects;
 
@@ -45,7 +45,7 @@ public class HasSameContentAsConstraint<T> extends AbstractConstraint<T, InputSt
 
             return true;
         } catch (IOException e) {
-            throw new IORuntimeException("Unable to read contents of InputStream", e);
+            throw new UncheckedIOException("Unable to read contents of InputStream", e);
         }
     }
 
