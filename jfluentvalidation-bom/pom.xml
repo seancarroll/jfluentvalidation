@@ -20,7 +20,7 @@
     <properties>
         <byte-buddy.version>1.10.4</byte-buddy.version>
         <checker-qual.version>3.0.1</checker-qual.version>
-        <errorprone.version>2.3.3</errorprone.version>
+        <errorprone.version>2.3.4</errorprone.version>
         <!--TODO: can we avoid bringing in guava as a dependency?-->
         <guava.version>28.0-jre</guava.version>
         <hibernate-validator.version>6.1.0.Final</hibernate-validator.version>
