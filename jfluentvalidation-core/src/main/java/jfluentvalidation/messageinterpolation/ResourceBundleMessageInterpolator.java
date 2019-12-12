@@ -4,9 +4,7 @@ import jfluentvalidation.common.Strings;
 import org.mvel2.MVEL;
 import org.mvel2.integration.impl.MapVariableResolverFactory;
 
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.MissingResourceException;
@@ -100,7 +98,7 @@ public class ResourceBundleMessageInterpolator {
             ? tokenizedMessageCache.computeIfAbsent(resolvedMessage, rm -> new TokenizedMessage(resolvedMessage))
             : new TokenizedMessage(resolvedMessage);
 
-        List<String> resolvedMessages = new ArrayList<>();
+        StringBuilder resolvedMessageBuilder = new StringBuilder();
         for (Token t : tokenizedMessage.getTokens()) {
             if (t.isParameter()) {
                 String placeHolderKey = removeCurlyBraces(t.getValue());
@@ -110,19 +108,18 @@ public class ResourceBundleMessageInterpolator {
                 String resolvedToken = placeHolderValue == null && !contains
                     ? t.getValue()
                     : replacePlaceholderWithValue(t.getValue(), placeHolderKey, placeHolderValue);
-                resolvedMessages.add(resolvedToken);
+                resolvedMessageBuilder.append(resolvedToken);
             } else if (t.isEL()) {
                 // TODO: catch unresolvable property or identifier exception. Others?
                 // TODO: dont need to instantiate MapVariableResolverFactory every time
-                resolvedMessages.add(MVEL.evalToString(removeDollarAndCurlyBraces(t.getValue()), new MapVariableResolverFactory(context)));
+                resolvedMessageBuilder.append(MVEL.evalToString(removeDollarAndCurlyBraces(t.getValue()), new MapVariableResolverFactory(context)));
             } else {
-                resolvedMessages.add(t.getValue());
+                resolvedMessageBuilder.append(t.getValue());
             }
         }
 
         // TODO: replace escaped literals?
-        // TODO: probably can just build the string above without having to go through this separate loop again
-        return String.join("", resolvedMessages);
+        return resolvedMessageBuilder.toString();
     }
 
     private String resolveMessage(String message, Locale locale) {
