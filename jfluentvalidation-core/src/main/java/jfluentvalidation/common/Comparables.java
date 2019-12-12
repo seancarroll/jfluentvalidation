@@ -77,6 +77,8 @@ public final class Comparables {
      * @param end  the end value.
      * @param <T>
      * @return
+     *
+     * @see Comparables#isBetween(Comparable, Comparable, Comparable, boolean, boolean)
      */
     public static <T extends Comparable<? super T>> boolean isStrictlyBetween(T actual, T start, T end) {
         return isBetween(actual, start, end, false, false);

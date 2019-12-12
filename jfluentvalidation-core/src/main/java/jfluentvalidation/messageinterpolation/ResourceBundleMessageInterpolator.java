@@ -1,5 +1,6 @@
 package jfluentvalidation.messageinterpolation;
 
+import jfluentvalidation.common.Strings;
 import org.mvel2.MVEL;
 import org.mvel2.integration.impl.MapVariableResolverFactory;
 
@@ -32,6 +33,7 @@ public class ResourceBundleMessageInterpolator {
     private static final Pattern SLASH = Pattern.compile("\\\\", Pattern.LITERAL);
     private static final Pattern DOLLAR = Pattern.compile("\\$", Pattern.LITERAL);  // EL_DESIGNATOR
 
+    // TODO: might be worth replacing this with something more like Hibernate validator if this turns out to be too slow.
     private static final Pattern TOKEN_PATTERN = Pattern.compile("([^${]|(?<=\\\\)[${])+|\\$?\\{[^${]*}");
 
     /**
@@ -51,6 +53,8 @@ public class ResourceBundleMessageInterpolator {
 
     private ConcurrentHashMap<LocalizedMessage, String> localizedMessageCache;
 
+    private ConcurrentHashMap<String, TokenizedMessage> tokenizedMessageCache;
+
     private final Set<String> userBundles;
     private final Set<Locale> localesToInitialize;
     private final boolean cachingEnabled;
@@ -69,6 +73,7 @@ public class ResourceBundleMessageInterpolator {
         this.cachingEnabled = cachingEnabled;
         if (cachingEnabled) {
             localizedMessageCache = new ConcurrentHashMap<>();
+            tokenizedMessageCache = new ConcurrentHashMap<>();
         }
     }
 
@@ -76,6 +81,7 @@ public class ResourceBundleMessageInterpolator {
         return interpolate(key, context, defaultLocale);
     }
 
+    // TODO: this is slow...improve perf
     public String interpolate(String message, Map<String, Object> context, Locale locale) {
         // if the message does not contain any message parameter, no need to continue just return the unescaped message.
         // It avoids storing the message in the cache and a cache lookup.
@@ -83,21 +89,19 @@ public class ResourceBundleMessageInterpolator {
             return replaceEscapedLiterals(message);
         }
 
+        // TODO: I think hibernate validator cache stuff on start-up. verify
         final String resolvedMessage;
         // either retrieve message from cache, or if message is not yet there or caching is disabled
         resolvedMessage = cachingEnabled
             ? localizedMessageCache.computeIfAbsent(new LocalizedMessage(message, locale), lm -> resolveMessage(message, locale))
             : resolveMessage(message, locale);
 
-        Matcher matcher = TOKEN_PATTERN.matcher(resolvedMessage);
-        List<Token> tokens = new ArrayList<>();
-        while (matcher.find()) {
-            tokens.add(new Token(matcher.group()));
-        }
+        final TokenizedMessage tokenizedMessage = cachingEnabled
+            ? tokenizedMessageCache.computeIfAbsent(resolvedMessage, rm -> new TokenizedMessage(resolvedMessage))
+            : new TokenizedMessage(resolvedMessage);
 
-        // TODO: clean up
         List<String> resolvedMessages = new ArrayList<>();
-        for (Token t : tokens) {
+        for (Token t : tokenizedMessage.getTokens()) {
             if (t.isParameter()) {
                 String placeHolderKey = removeCurlyBraces(t.getValue());
                 // allow place holder value to be null and we'll include "null" in the resolved message.
@@ -109,18 +113,21 @@ public class ResourceBundleMessageInterpolator {
                 resolvedMessages.add(resolvedToken);
             } else if (t.isEL()) {
                 // TODO: catch unresolvable property or identifier exception. Others?
+                // TODO: dont need to instantiate MapVariableResolverFactory every time
                 resolvedMessages.add(MVEL.evalToString(removeDollarAndCurlyBraces(t.getValue()), new MapVariableResolverFactory(context)));
             } else {
                 resolvedMessages.add(t.getValue());
             }
         }
 
-        // TODO: replace escaped?
+        // TODO: replace escaped literals?
+        // TODO: probably can just build the string above without having to go through this separate loop again
         return String.join("", resolvedMessages);
     }
 
     private String resolveMessage(String message, Locale locale) {
         try {
+            // TODO: need to allow users to override our resource bundle
             // Grab default bundle
             // Grab user bundles...Resolve any message parameters by using them as key for the resource bundle _ValidationMessages_. If
             // this bundle contains an entry for a given message parameter, that parameter will be replaced in the
@@ -138,7 +145,7 @@ public class ResourceBundleMessageInterpolator {
 
     private static String replacePlaceholderWithValue(String template, String key, Object value) {
         String placeholder = getPlaceholder(key);
-        return template.replace(placeholder, value == null ? "null" : value.toString());
+        return Strings.replace(template, placeholder, value == null ? "null" : value.toString());
     }
 
     private static String getPlaceholder(String key) {
