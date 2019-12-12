@@ -4,6 +4,7 @@ import jfluentvalidation.ValidationResult;
 import jfluentvalidation.validators.DefaultValidator;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -118,4 +119,27 @@ class IsBetweenTest {
         assertFalse(validationResult.isValid());
     }
 
+    @Test
+    void shouldHaveAppropriateErrorMessageForInclusiveMinAndMax() {
+        Target t = new Target(6);
+
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        validator.ruleForInteger(Target::getNumber).isBetween(0, 5);
+
+        ValidationResult validationResult = validator.validate(t);
+
+        assertEquals("number must be between 0 and 5.", validationResult.getViolations().get(0).getErrorMessage());
+    }
+
+    @Test
+    void shouldHaveAppropriateErrorMessageForExclusiveMinAndMax() {
+        Target t = new Target(6);
+
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        validator.ruleForInteger(Target::getNumber).isBetween(0, 5, false, false);
+
+        ValidationResult validationResult = validator.validate(t);
+
+        assertEquals("number must be between 0 (exclusive) and 5 (exclusive).", validationResult.getViolations().get(0).getErrorMessage());
+    }
 }
