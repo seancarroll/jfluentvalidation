@@ -52,5 +52,6 @@ public class IsCloseToCalendarConstraint<T> extends AbstractConstraint<T, Calend
     public void addParametersToContext(RuleContext<T, Calendar> context) {
         context.getMessageContext().appendArgument("other", other);
         context.getMessageContext().appendArgument("offsetValue", offsetValue);
+        context.getMessageContext().appendArgument("strict", strict);
     }
 }

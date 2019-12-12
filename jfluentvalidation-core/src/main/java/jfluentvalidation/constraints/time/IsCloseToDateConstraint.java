@@ -52,5 +52,6 @@ public class IsCloseToDateConstraint<T> extends AbstractConstraint<T, Date> {
     public void addParametersToContext(RuleContext<T, Date> context) {
         context.getMessageContext().appendArgument("other", other);
         context.getMessageContext().appendArgument("offsetValue", offsetValue);
+        context.getMessageContext().appendArgument("strict", strict);
     }
 }

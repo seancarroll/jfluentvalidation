@@ -59,5 +59,6 @@ public class IsCloseToConstraint<T, P extends Temporal> extends AbstractConstrai
         context.getMessageContext().appendArgument("other", other);
         context.getMessageContext().appendArgument("offsetValue", offsetValue);
         context.getMessageContext().appendArgument("offsetUnit", offsetUnit);
+        context.getMessageContext().appendArgument("strict", strict);
     }
 }

@@ -58,5 +58,6 @@ public class IsNotCloseToConstraint<T, P extends Temporal> extends AbstractConst
         context.getMessageContext().appendArgument("other", other);
         context.getMessageContext().appendArgument("offsetValue", offsetValue);
         context.getMessageContext().appendArgument("offsetUnit", offsetUnit);
+        context.getMessageContext().appendArgument("strict", strict);
     }
 }
