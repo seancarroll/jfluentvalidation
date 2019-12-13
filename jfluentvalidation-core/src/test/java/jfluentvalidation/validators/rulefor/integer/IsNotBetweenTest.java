@@ -146,7 +146,6 @@ class IsNotBetweenTest {
 
         ValidationResult validationResult = validator.validate(t);
 
-
         assertEquals("number must not be between 0 (exclusive) and 5 (exclusive).", validationResult.getViolations().get(0).getErrorMessage());
     }
 }

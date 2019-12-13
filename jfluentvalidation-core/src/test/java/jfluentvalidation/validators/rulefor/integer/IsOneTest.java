@@ -56,4 +56,5 @@ class IsOneTest {
         ValidationResult validationResult = validator.validate(t);
 
         assertEquals("number must be equal to 1.", validationResult.getViolations().get(0).getErrorMessage());
-    }}
+    }
+}
