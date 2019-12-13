@@ -8,6 +8,7 @@ import static java.math.BigDecimal.ONE;
 import static java.math.BigDecimal.TEN;
 import static java.math.BigDecimal.ZERO;
 import static jfluentvalidation.validators.rulefor.bigdecimals.Constants.FIVE;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -98,4 +99,15 @@ class IsStrictlyBetweenTest {
         assertFalse(validationResult.isValid());
     }
 
+    @Test
+    void shouldHaveAppropriateErrorMessageForExclusiveMinAndMax() {
+        Target t = new Target(TEN);
+
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        validator.ruleForBigDecimal(Target::getNumber).isStrictlyBetween(ZERO, FIVE);
+
+        ValidationResult validationResult = validator.validate(t);
+
+        assertEquals("number must be between 0 (exclusive) and 5 (exclusive).", validationResult.getViolations().get(0).getErrorMessage());
+    }
 }
