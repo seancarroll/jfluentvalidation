@@ -123,6 +123,7 @@ class IsNotBetweenTest {
         assertFalse(validationResult.isValid());
     }
 
+    @Test
     void shouldHaveAppropriateErrorMessageForInclusiveMinAndMax() {
         Target t = new Target(ONE);
 
