@@ -12,6 +12,7 @@ import static java.math.BigInteger.ONE;
 import static java.math.BigInteger.TEN;
 import static java.math.BigInteger.ZERO;
 import static jfluentvalidation.validators.rulefor.bigintegers.Constants.FIVE;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -118,5 +119,30 @@ class IsNotCloseToTest {
     void shouldThrowWhenOffsetIsNull() {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         assertThrows(NullPointerException.class, () -> validator.ruleForBigInteger(Target::getNumber).isNotCloseTo(ZERO, null, false));
+    }
+
+    @Test
+    void shouldHaveAppropriateErrorMessage() {
+        Target t = new Target(ONE);
+
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        validator.ruleForBigInteger(Target::getNumber).isNotCloseTo(ZERO, ONE, false);
+
+        ValidationResult validationResult = validator.validate(t);
+
+
+        assertEquals("number must not be close to 0 by less than 1.", validationResult.getViolations().get(0).getErrorMessage());
+    }
+
+    @Test
+    void shouldHaveAppropriateErrorMessageForStrictOffset() {
+        Target t = new Target(ONE);
+
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        validator.ruleForBigInteger(Target::getNumber).isNotCloseTo(FIVE, TEN, true);
+
+        ValidationResult validationResult = validator.validate(t);
+
+        assertEquals("number must not be close to 5 by strictly less than 10.", validationResult.getViolations().get(0).getErrorMessage());
     }
 }

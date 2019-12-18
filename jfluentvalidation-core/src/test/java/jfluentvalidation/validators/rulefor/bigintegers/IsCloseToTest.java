@@ -8,6 +8,10 @@ import org.junit.jupiter.params.provider.CsvSource;
 
 import java.math.BigInteger;
 
+import static java.math.BigInteger.ONE;
+import static java.math.BigInteger.ZERO;
+import static jfluentvalidation.validators.rulefor.bigintegers.Constants.FIVE;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -95,7 +99,7 @@ class IsCloseToTest {
         Target t = new Target(null);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForBigInteger(Target::getNumber).isCloseTo(BigInteger.ZERO, BigInteger.ONE, false);
+        validator.ruleForBigInteger(Target::getNumber).isCloseTo(ZERO, ONE, false);
 
         ValidationResult validationResult = validator.validate(t);
 
@@ -105,14 +109,37 @@ class IsCloseToTest {
     @Test
     void shouldThrowExceptionWhenExpectedIsNull() {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        assertThrows(NullPointerException.class, () -> validator.ruleForBigInteger(Target::getNumber).isCloseTo(null, BigInteger.ONE, false));
+        assertThrows(NullPointerException.class, () -> validator.ruleForBigInteger(Target::getNumber).isCloseTo(null, ONE, false));
 
     }
 
     @Test
     void shouldThrowExceptionWhenOffsetIsNull() {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        assertThrows(NullPointerException.class, () -> validator.ruleForBigInteger(Target::getNumber).isCloseTo(BigInteger.ZERO, null, false));
+        assertThrows(NullPointerException.class, () -> validator.ruleForBigInteger(Target::getNumber).isCloseTo(ZERO, null, false));
     }
 
+    @Test
+    void shouldHaveAppropriateErrorMessage() {
+        Target t = new Target(ONE);
+
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        validator.ruleForBigInteger(Target::getNumber).isCloseTo(FIVE, ONE, false);
+
+        ValidationResult validationResult = validator.validate(t);
+
+        assertEquals("number must be close to 5 by less than 1.", validationResult.getViolations().get(0).getErrorMessage());
+    }
+
+    @Test
+    void shouldHaveAppropriateErrorMessageForStrictOffset() {
+        Target t = new Target(ONE);
+
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        validator.ruleForBigInteger(Target::getNumber).isCloseTo(ZERO, ONE, true);
+
+        ValidationResult validationResult = validator.validate(t);
+
+        assertEquals("number must be close to 0 by strictly less than 1.", validationResult.getViolations().get(0).getErrorMessage());
+    }
 }

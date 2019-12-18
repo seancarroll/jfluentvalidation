@@ -8,6 +8,7 @@ import static java.math.BigInteger.ONE;
 import static java.math.BigInteger.TEN;
 import static java.math.BigInteger.ZERO;
 import static jfluentvalidation.validators.rulefor.bigintegers.Constants.FIVE;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -122,4 +123,27 @@ class IsNotBetweenTest {
         assertFalse(validationResult.isValid());
     }
 
+    @Test
+    void shouldHaveAppropriateErrorMessageForInclusiveMinAndMax() {
+        Target t = new Target(ONE);
+
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        validator.ruleForBigInteger(Target::getNumber).isNotBetween(ZERO, FIVE);
+
+        ValidationResult validationResult = validator.validate(t);
+
+        assertEquals("number must not be between 0 and 5.", validationResult.getViolations().get(0).getErrorMessage());
+    }
+
+    @Test
+    void shouldHaveAppropriateErrorMessageForExclusiveMinAndMax() {
+        Target t = new Target(ONE);
+
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        validator.ruleForBigInteger(Target::getNumber).isNotBetween(ZERO, FIVE, false, false);
+
+        ValidationResult validationResult = validator.validate(t);
+
+        assertEquals("number must not be between 0 (exclusive) and 5 (exclusive).", validationResult.getViolations().get(0).getErrorMessage());
+    }
 }
