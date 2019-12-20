@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -118,5 +119,30 @@ class IsNotCloseToTest {
     void shouldThrowWhenOffsetIsNull() {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         assertThrows(NullPointerException.class, () -> validator.ruleForFloat(Target::getNumber).isNotCloseTo(0f, null, false));
+    }
+
+    @Test
+    void shouldHaveAppropriateErrorMessage() {
+        Target t = new Target(1f);
+
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        validator.ruleForFloat(Target::getNumber).isNotCloseTo(2f, 1f, false);
+
+        ValidationResult validationResult = validator.validate(t);
+
+
+        assertEquals("number must not be close to 2.0 by less than 1.0.", validationResult.getViolations().get(0).getErrorMessage());
+    }
+
+    @Test
+    void shouldHaveAppropriateErrorMessageForStrictOffset() {
+        Target t = new Target(1f);
+
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        validator.ruleForFloat(Target::getNumber).isNotCloseTo(2f, 10f, true);
+
+        ValidationResult validationResult = validator.validate(t);
+
+        assertEquals("number must not be close to 2.0 by strictly less than 10.0.", validationResult.getViolations().get(0).getErrorMessage());
     }
 }

@@ -4,6 +4,7 @@ import jfluentvalidation.ValidationResult;
 import jfluentvalidation.validators.DefaultValidator;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -55,5 +56,17 @@ class IsNotNegativeTest {
         ValidationResult validationResult = validator.validate(t);
 
         assertFalse(validationResult.isValid());
+    }
+
+    @Test
+    void shouldHaveAppropriateErrorMessage() {
+        Target t = new Target(-1f);
+
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        validator.ruleForFloat(Target::getNumber).isNotNegative();
+
+        ValidationResult validationResult = validator.validate(t);
+
+        assertEquals("number must be greater than or equal to 0.0.", validationResult.getViolations().get(0).getErrorMessage());
     }
 }
