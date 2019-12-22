@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import static jfluentvalidation.validators.rulefor.shorts.Constants.NEGATIVE_ONE;
 import static jfluentvalidation.validators.rulefor.shorts.Constants.ONE;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -47,4 +48,15 @@ class IsPositiveTest {
         assertFalse(validationResult.isValid());
     }
 
+    @Test
+    void shouldHaveAppropriateErrorMessage() {
+        Target t = new Target(NEGATIVE_ONE);
+
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        validator.ruleForShort(Target::getNumber).isPositive();
+
+        ValidationResult validationResult = validator.validate(t);
+
+        assertEquals("number must be greater than 0.", validationResult.getViolations().get(0).getErrorMessage());
+    }
 }

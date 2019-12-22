@@ -8,7 +8,9 @@ import org.junit.jupiter.params.provider.CsvSource;
 
 import static jfluentvalidation.validators.rulefor.shorts.Constants.FIVE;
 import static jfluentvalidation.validators.rulefor.shorts.Constants.ONE;
+import static jfluentvalidation.validators.rulefor.shorts.Constants.TEN;
 import static jfluentvalidation.validators.rulefor.shorts.Constants.ZERO;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -134,4 +136,28 @@ class IsNotCloseToTest {
         assertTrue(validationResult.isValid());
     }
 
+    @Test
+    void shouldHaveAppropriateErrorMessage() {
+        Target t = new Target(ONE);
+
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        validator.ruleForShort(Target::getNumber).isNotCloseTo(ZERO, ONE, false);
+
+        ValidationResult validationResult = validator.validate(t);
+
+
+        assertEquals("number must not be close to 0 by less than 1.", validationResult.getViolations().get(0).getErrorMessage());
+    }
+
+    @Test
+    void shouldHaveAppropriateErrorMessageForStrictOffset() {
+        Target t = new Target(ONE);
+
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        validator.ruleForShort(Target::getNumber).isNotCloseTo(FIVE, TEN, true);
+
+        ValidationResult validationResult = validator.validate(t);
+
+        assertEquals("number must not be close to 5 by strictly less than 10.", validationResult.getViolations().get(0).getErrorMessage());
+    }
 }

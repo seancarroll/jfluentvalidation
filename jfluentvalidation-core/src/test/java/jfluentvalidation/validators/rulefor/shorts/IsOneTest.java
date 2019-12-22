@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import static jfluentvalidation.validators.rulefor.shorts.Constants.ONE;
 import static jfluentvalidation.validators.rulefor.shorts.Constants.ZERO;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -45,5 +46,17 @@ class IsOneTest {
         ValidationResult validationResult = validator.validate(t);
 
         assertFalse(validationResult.isValid());
+    }
+
+    @Test
+    void shouldHaveAppropriateErrorMessage() {
+        Target t = new Target(ZERO);
+
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        validator.ruleForShort(Target::getNumber).isOne();
+
+        ValidationResult validationResult = validator.validate(t);
+
+        assertEquals("number must be equal to 1.", validationResult.getViolations().get(0).getErrorMessage());
     }
 }

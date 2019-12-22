@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import static jfluentvalidation.validators.rulefor.shorts.Constants.FIVE;
 import static jfluentvalidation.validators.rulefor.shorts.Constants.TEN;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -59,4 +60,15 @@ class IsLessThanTest {
         assertFalse(validationResult.isValid());
     }
 
+    @Test
+    void shouldHaveAppropriateErrorMessage() {
+        Target t = new Target(TEN);
+
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        validator.ruleForShort(Target::getNumber).isLessThan(FIVE);
+
+        ValidationResult validationResult = validator.validate(t);
+
+        assertEquals("number must be less than 5.", validationResult.getViolations().get(0).getErrorMessage());
+    }
 }
