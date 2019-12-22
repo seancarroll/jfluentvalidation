@@ -77,18 +77,7 @@ public class ObjectArraySubject<T, E> extends AbstractArraySubject<ObjectArraySu
         rule.addConstraint(new ObjectArrayBetweenLengthConstraint<>(min, max, inclusiveStart, inclusiveEnd));
         return myself;
     }
-
-
-    //    /**
-//     * Assert that the actual array has the same size as the other array.
-//     *
-//     * @param info contains information about the assertion.
-//     * @param actual the given array.
-//     * @param other the group to compare
-//     * @throws AssertionError if the actual group is {@code null}.
-//     * @throws AssertionError if the other group is {@code null}.
-//     * @throws AssertionError if the actual group does not have the same size.
-//     */
+    
     @Override
     public ObjectArraySubject<T, E> hasSameLengthAs(Iterable<E> other) {
         rule.addConstraint(new ObjectArrayExactLengthConstraint<>(other));

@@ -31,9 +31,6 @@ public class ResourceBundleMessageInterpolator {
     private static final Pattern SLASH = Pattern.compile("\\\\", Pattern.LITERAL);
     private static final Pattern DOLLAR = Pattern.compile("\\$", Pattern.LITERAL);  // EL_DESIGNATOR
 
-    // TODO: might be worth replacing this with something more like Hibernate validator if this turns out to be too slow.
-    private static final Pattern TOKEN_PATTERN = Pattern.compile("([^${]|(?<=\\\\)[${])+|\\$?\\{[^${]*}");
-
     /**
      * Default property name placeholder
      */
