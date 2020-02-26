@@ -14,6 +14,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+import static java.lang.Math.abs;
+
 /**
  *
  */
@@ -202,4 +204,13 @@ public final class Dates {
     public static Calendar calendarFromClock(Clock clock) {
         return GregorianCalendar.from(ZonedDateTime.now(clock));
     }
+
+    public static long absDiff(Date first, Date second) {
+        return abs(first.getTime() - second.getTime());
+    }
+
+    public static long absDiff(Calendar first, Calendar second) {
+        return abs(first.getTime().getTime() - second.getTime().getTime());
+    }
+
 }
