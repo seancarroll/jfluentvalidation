@@ -7,6 +7,7 @@ import jfluentvalidation.constraints.time.IsAfterOrEqualCalendarConstraint;
 import jfluentvalidation.constraints.time.IsBeforeCalendarConstraint;
 import jfluentvalidation.constraints.time.IsBeforeOrEqualCalendarConstraint;
 import jfluentvalidation.constraints.time.IsCloseToCalendarConstraint;
+import jfluentvalidation.constraints.time.IsNotCloseToCalendarConstraint;
 import jfluentvalidation.constraints.time.IsTodayCalendarConstraint;
 import jfluentvalidation.rules.PropertyRule;
 
@@ -104,4 +105,9 @@ public class CalendarSubject<T>
         return myself;
     }
 
+    @CanIgnoreReturnValue
+    public CalendarSubject<T> isNotCloseTo(Calendar other, long offset, boolean strict) {
+        rule.addConstraint(new IsNotCloseToCalendarConstraint<>(other, offset, strict));
+        return myself;
+    }
 }
