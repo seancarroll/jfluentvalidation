@@ -8,7 +8,7 @@ import jfluentvalidation.validators.RuleContext;
 import javax.annotation.Nonnull;
 import java.util.Calendar;
 
-import static java.lang.Math.abs;
+import static jfluentvalidation.common.Dates.absDiff;
 
 /**
  * Constraint that the actual value is close to the expected one by less than the given offset.
@@ -22,6 +22,7 @@ public class IsCloseToCalendarConstraint<T> extends AbstractConstraint<T, Calend
     private final boolean strict;
 
     // offsetValue - millis
+    // TODO: can we use a value with an appropriate temporal?
     public IsCloseToCalendarConstraint(@Nonnull Calendar other, long offsetValue, boolean strict) {
         super(DefaultMessages.IS_CLOSE_TO);
         this.other = Ensure.notNull(other);
@@ -41,10 +42,6 @@ public class IsCloseToCalendarConstraint<T> extends AbstractConstraint<T, Calend
         }
 
         return absDiff <= offsetValue;
-    }
-
-    private static long absDiff(Calendar first, Calendar second) {
-        return abs(first.getTime().getTime() - second.getTime().getTime());
     }
 
     // TODO: consistent messages between Date/Calendar/Temporal isCloseTo? what about numbers?
