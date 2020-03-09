@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import java.time.ZonedDateTime;
 
 import static jfluentvalidation.TimeZones.TZ_CHICAGO;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -67,5 +68,17 @@ class IsInTheFutureTest extends AbstractCalendarTest {
         ValidationResult validationResult = validator.validate(t);
 
         assertFalse(validationResult.isValid());
+    }
+
+    @Test
+    void shouldHaveAppropriateErrorMessage() {
+        Target t = new Target(before);
+
+        DefaultValidator<Target> validator = getValidator();
+        validator.ruleForCalendar(Target::getDate).isInTheFuture();
+
+        ValidationResult validationResult = validator.validate(t);
+
+        assertEquals("date must be a future date.", validationResult.getViolations().get(0).getErrorMessage());
     }
 }

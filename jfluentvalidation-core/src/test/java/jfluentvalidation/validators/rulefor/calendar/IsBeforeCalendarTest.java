@@ -8,6 +8,7 @@ import java.time.ZonedDateTime;
 import java.util.Calendar;
 
 import static jfluentvalidation.TimeZones.TZ_CHICAGO;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -73,5 +74,17 @@ class IsBeforeCalendarTest extends AbstractCalendarTest {
     void shouldThrowExceptionWhenGivenDateIsNull() {
         DefaultValidator<Target> validator = getValidator();
         assertThrows(NullPointerException.class, () -> validator.ruleForCalendar(Target::getDate).isBefore(null));
+    }
+
+    @Test
+    void shouldHaveAppropriateErrorMessage() {
+        Target p = new Target(reference);
+
+        DefaultValidator<Target> validator = getValidator();
+        validator.ruleForCalendar(Target::getDate).isBefore(reference);
+
+        ValidationResult validationResult = validator.validate(p);
+
+        assertEquals("date must be before 2019-08-07 09:00:00.", validationResult.getViolations().get(0).getErrorMessage());
     }
 }

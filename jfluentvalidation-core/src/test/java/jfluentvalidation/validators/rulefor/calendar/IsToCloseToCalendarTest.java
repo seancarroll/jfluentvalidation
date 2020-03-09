@@ -9,6 +9,7 @@ import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 
 import static jfluentvalidation.TimeZones.TZ_CHICAGO;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -88,4 +89,27 @@ class IsToCloseToCalendarTest extends AbstractCalendarTest {
         assertFalse(validationResult.isValid());
     }
 
+    @Test
+    void shouldHaveAppropriateErrorMessage() {
+        Target t = new Target(reference);
+
+        DefaultValidator<Target> validator = getValidator();
+        validator.ruleForCalendar(Target::getDate).isCloseTo(before, TimeUnit.HOURS.toMillis(1), false);
+
+        ValidationResult validationResult = validator.validate(t);
+
+        assertEquals("date must be close to 2019-08-07 09:00:00 by less than 1000 ms.", validationResult.getViolations().get(0).getErrorMessage());
+    }
+
+    @Test
+    void shouldHaveAppropriateErrorMessageForStrictOffset() {
+        Target t = new Target(reference);
+
+        DefaultValidator<Target> validator = getValidator();
+        validator.ruleForCalendar(Target::getDate).isCloseTo(before, TimeUnit.DAYS.toMillis(1), true);
+
+        ValidationResult validationResult = validator.validate(t);
+
+        assertEquals("date must be close to 2019-08-07 09:00:00 by strictly less than 86400000 ms.", validationResult.getViolations().get(0).getErrorMessage());
+    }
 }
