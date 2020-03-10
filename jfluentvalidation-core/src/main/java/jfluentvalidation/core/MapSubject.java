@@ -123,7 +123,6 @@ public class MapSubject<T, K, V> extends Subject<MapSubject<T, K, V>, T, Map<K, 
         return myself;
     }
 
-    // aka containsOnly
     @CanIgnoreReturnValue
     public final MapSubject<T, K, V> containsExactlyEntriesInAnyOrder(Map<?, ?> expected) {
         // TODO: implement
