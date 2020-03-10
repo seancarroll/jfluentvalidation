@@ -28,7 +28,7 @@
         <mvel2.version>2.4.7.Final</mvel2.version>
 
         <objenesis.version>3.1</objenesis.version>
-        <slf4j.version>1.7.28</slf4j.version>
+        <slf4j.version>1.7.30</slf4j.version>
         <spring.version>2.1.2.RELEASE</spring.version>
         <validation-api.version>2.0.1.Final</validation-api.version>
     </properties>
