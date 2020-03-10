@@ -5,6 +5,7 @@ import jfluentvalidation.constraints.time.IsAfterLocalDateConstraint;
 import jfluentvalidation.constraints.time.IsAfterOrEqualLocalDateConstraint;
 import jfluentvalidation.constraints.time.IsBeforeLocalDateConstraint;
 import jfluentvalidation.constraints.time.IsBeforeOrEqualLocalDateConstraint;
+import jfluentvalidation.constraints.time.IsInTheFutureLocalDateConstraint;
 import jfluentvalidation.constraints.time.IsTodayLocalDateConstraint;
 import jfluentvalidation.rules.PropertyRule;
 
@@ -80,7 +81,7 @@ public class LocalDateSubject<T>
 
     @CanIgnoreReturnValue
     public LocalDateSubject<T> isInTheFuture() {
-        rule.addConstraint(new IsAfterLocalDateConstraint<>(() -> LocalDate.now(rule.getRuleOptions().getClockReference())));
+        rule.addConstraint(new IsInTheFutureLocalDateConstraint<>(() -> LocalDate.now(rule.getRuleOptions().getClockReference())));
         return myself;
     }
 

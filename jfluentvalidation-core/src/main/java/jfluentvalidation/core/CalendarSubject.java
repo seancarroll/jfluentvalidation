@@ -7,6 +7,7 @@ import jfluentvalidation.constraints.time.IsAfterOrEqualCalendarConstraint;
 import jfluentvalidation.constraints.time.IsBeforeCalendarConstraint;
 import jfluentvalidation.constraints.time.IsBeforeOrEqualCalendarConstraint;
 import jfluentvalidation.constraints.time.IsCloseToCalendarConstraint;
+import jfluentvalidation.constraints.time.IsInTheFutureCalendarConstraint;
 import jfluentvalidation.constraints.time.IsNotCloseToCalendarConstraint;
 import jfluentvalidation.constraints.time.IsTodayCalendarConstraint;
 import jfluentvalidation.rules.PropertyRule;
@@ -54,7 +55,7 @@ public class CalendarSubject<T>
 
     @CanIgnoreReturnValue
     public CalendarSubject<T> isInTheFuture() {
-        rule.addConstraint(new IsAfterCalendarConstraint<>(() -> calendarFromClock(rule.getRuleOptions().getClockReference())));
+        rule.addConstraint(new IsInTheFutureCalendarConstraint<>(() -> calendarFromClock(rule.getRuleOptions().getClockReference())));
         return myself;
     }
 

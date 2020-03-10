@@ -21,7 +21,11 @@ public class IsAfterOffsetDateTimeConstraint<T> extends AbstractConstraint<T, Of
     }
 
     public IsAfterOffsetDateTimeConstraint(Supplier<OffsetDateTime> other) {
-        super(DefaultMessages.TIME_IS_AFTER);
+        this(DefaultMessages.TIME_IS_AFTER, other);
+    }
+
+    IsAfterOffsetDateTimeConstraint(String errorMessage, Supplier<OffsetDateTime> other) {
+        super(errorMessage);
         this.other = other;
     }
 

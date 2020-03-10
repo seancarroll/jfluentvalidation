@@ -17,7 +17,11 @@ public class IsAfterDateConstraint<T> extends AbstractConstraint<T, Date> {
     }
 
     public IsAfterDateConstraint(Supplier<Date> other) {
-        super(DefaultMessages.TIME_IS_AFTER);
+        this(DefaultMessages.TIME_IS_AFTER, other);
+    }
+
+    IsAfterDateConstraint(String errorMessage, Supplier<Date> other) {
+        super(errorMessage);
         this.other = other;
     }
 

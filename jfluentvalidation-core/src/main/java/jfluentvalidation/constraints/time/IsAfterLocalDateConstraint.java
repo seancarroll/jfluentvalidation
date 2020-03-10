@@ -21,7 +21,11 @@ public class IsAfterLocalDateConstraint<T> extends AbstractConstraint<T, LocalDa
     }
 
     public IsAfterLocalDateConstraint(Supplier<LocalDate> other) {
-        super(DefaultMessages.TIME_IS_AFTER);
+        this(DefaultMessages.TIME_IS_AFTER, other);
+    }
+
+    IsAfterLocalDateConstraint(String errorMessage, Supplier<LocalDate> other) {
+        super(errorMessage);
         this.other = other;
     }
 

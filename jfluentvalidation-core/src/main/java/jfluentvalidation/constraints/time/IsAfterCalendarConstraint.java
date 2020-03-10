@@ -25,7 +25,11 @@ public class IsAfterCalendarConstraint<T> extends AbstractConstraint<T, Calendar
     }
 
     public IsAfterCalendarConstraint(Supplier<Calendar> other) {
-        super(DefaultMessages.TIME_IS_AFTER);
+        this(DefaultMessages.TIME_IS_AFTER, other);
+    }
+
+    IsAfterCalendarConstraint(String errorMessage, Supplier<Calendar> other) {
+        super(errorMessage);
         this.other = other;
     }
 

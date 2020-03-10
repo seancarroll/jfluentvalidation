@@ -5,6 +5,7 @@ import jfluentvalidation.constraints.time.IsAfterOrEqualZonedDateTimeConstraint;
 import jfluentvalidation.constraints.time.IsAfterZonedDateTimeConstraint;
 import jfluentvalidation.constraints.time.IsBeforeOrEqualZonedDateTimeConstraint;
 import jfluentvalidation.constraints.time.IsBeforeZonedDateTimeConstraint;
+import jfluentvalidation.constraints.time.IsInTheFutureZonedDateTimeConstraint;
 import jfluentvalidation.constraints.time.IsTodayZonedDateTimeConstraint;
 import jfluentvalidation.rules.PropertyRule;
 
@@ -71,7 +72,7 @@ public class ZonedDateTimeSubject<T>
 
     @CanIgnoreReturnValue
     public ZonedDateTimeSubject<T> isInTheFuture() {
-        rule.addConstraint(new IsAfterZonedDateTimeConstraint<>(() -> ZonedDateTime.now(rule.getRuleOptions().getClockReference())));
+        rule.addConstraint(new IsInTheFutureZonedDateTimeConstraint<>(() -> ZonedDateTime.now(rule.getRuleOptions().getClockReference())));
         return myself;
     }
 

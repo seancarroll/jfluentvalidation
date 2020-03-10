@@ -5,6 +5,7 @@ import jfluentvalidation.constraints.time.IsAfterLocalTimeConstraint;
 import jfluentvalidation.constraints.time.IsAfterOrEqualLocalTimeConstraint;
 import jfluentvalidation.constraints.time.IsBeforeLocalTimeConstraint;
 import jfluentvalidation.constraints.time.IsBeforeOrEqualLocalTimeConstraint;
+import jfluentvalidation.constraints.time.IsInTheFutureLocalTimeConstraint;
 import jfluentvalidation.rules.PropertyRule;
 
 import java.time.LocalTime;
@@ -59,7 +60,7 @@ public class LocalTimeSubject<T>
 
     @CanIgnoreReturnValue
     public LocalTimeSubject<T> isInTheFuture() {
-        rule.addConstraint(new IsAfterLocalTimeConstraint<>(() -> LocalTime.now(rule.getRuleOptions().getClockReference())));
+        rule.addConstraint(new IsInTheFutureLocalTimeConstraint<>(() -> LocalTime.now(rule.getRuleOptions().getClockReference())));
         return myself;
     }
 

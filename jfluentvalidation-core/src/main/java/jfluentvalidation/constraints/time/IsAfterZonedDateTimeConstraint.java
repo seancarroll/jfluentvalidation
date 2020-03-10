@@ -6,6 +6,7 @@ import jfluentvalidation.constraints.DefaultMessages;
 import jfluentvalidation.validators.RuleContext;
 
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.function.Supplier;
 
 /**
@@ -14,6 +15,8 @@ import java.util.function.Supplier;
  */
 public class IsAfterZonedDateTimeConstraint<T> extends AbstractConstraint<T, ZonedDateTime> {
 
+    private static final DateTimeFormatter FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
     private final Supplier<ZonedDateTime> other;
 
     public IsAfterZonedDateTimeConstraint(ZonedDateTime other) {
@@ -21,7 +24,11 @@ public class IsAfterZonedDateTimeConstraint<T> extends AbstractConstraint<T, Zon
     }
 
     public IsAfterZonedDateTimeConstraint(Supplier<ZonedDateTime> other) {
-        super(DefaultMessages.TIME_IS_AFTER);
+        this(DefaultMessages.TIME_IS_AFTER, other);
+    }
+
+    IsAfterZonedDateTimeConstraint(String errorMessage, Supplier<ZonedDateTime> other) {
+        super(errorMessage);
         this.other = other;
     }
 
@@ -37,7 +44,7 @@ public class IsAfterZonedDateTimeConstraint<T> extends AbstractConstraint<T, Zon
             // doing this here instead of using addParametersToContext because there are instances were we are
             // getting a supplier for the current date/time and if we do it in addParametersToContext we will
             // get a slightly different values than what we used for the comparison
-            context.getMessageContext().appendArgument("other", otherValue);
+            context.getMessageContext().appendArgument("other", otherValue.format(FORMAT));
         }
 
         return isAfter;

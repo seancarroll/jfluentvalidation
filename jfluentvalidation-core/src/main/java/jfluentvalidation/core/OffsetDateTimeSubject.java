@@ -5,6 +5,7 @@ import jfluentvalidation.constraints.time.IsAfterOffsetDateTimeConstraint;
 import jfluentvalidation.constraints.time.IsAfterOrEqualOffsetDateTimeConstraint;
 import jfluentvalidation.constraints.time.IsBeforeOffsetDateTimeConstraint;
 import jfluentvalidation.constraints.time.IsBeforeOrEqualOffsetDateTimeConstraint;
+import jfluentvalidation.constraints.time.IsInTheFutureOffsetDateTimeConstraint;
 import jfluentvalidation.constraints.time.IsTodayOffsetDateTimeConstraint;
 import jfluentvalidation.rules.PropertyRule;
 
@@ -69,7 +70,7 @@ public class OffsetDateTimeSubject<T>
 
     @CanIgnoreReturnValue
     public OffsetDateTimeSubject<T> isInTheFuture() {
-        rule.addConstraint(new IsAfterOffsetDateTimeConstraint<>(() -> OffsetDateTime.now(rule.getRuleOptions().getClockReference())));
+        rule.addConstraint(new IsInTheFutureOffsetDateTimeConstraint<>(() -> OffsetDateTime.now(rule.getRuleOptions().getClockReference())));
         return myself;
     }
 
