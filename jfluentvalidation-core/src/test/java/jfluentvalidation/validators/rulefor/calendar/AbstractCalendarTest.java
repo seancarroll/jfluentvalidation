@@ -24,7 +24,7 @@ public abstract class AbstractCalendarTest {
         before = (Calendar) reference.clone();
         before.add(Calendar.DATE, -1);
 
-        after = Calendar.getInstance();
+        after = (Calendar) reference.clone();
         after.add(Calendar.DATE, 1);
     }
 
