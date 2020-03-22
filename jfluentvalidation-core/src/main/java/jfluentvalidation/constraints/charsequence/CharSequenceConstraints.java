@@ -144,6 +144,14 @@ public final class CharSequenceConstraints {
         return new MatchesConstraint(pattern);
     }
 
+    public static DoesNotMatchConstraint doesNotMatch(CharSequence sequence) {
+        return new DoesNotMatchConstraint(sequence);
+    }
+
+    public static DoesNotMatchConstraint doesNotMatch(Pattern pattern) {
+        return new DoesNotMatchConstraint(pattern);
+    }
+
     // TODO: do we want to add option to ignore case?
     public static StartsWithConstraint startsWith(CharSequence prefix) {
         return new StartsWithConstraint<>(prefix);

@@ -219,19 +219,20 @@ public abstract class AbstractCharSequenceSubject<S extends AbstractCharSequence
     }
 
     @Override
-    public S doesNotMatch(CharSequence regex) {
-        // TODO: implement
-        return myself;
-    }
-
-    @Override
     public S matches(Pattern pattern) {
         rule.addConstraint(CharSequenceConstraints.matches(pattern));
         return myself;
     }
 
     @Override
+    public S doesNotMatch(CharSequence regex) {
+        rule.addConstraint(CharSequenceConstraints.doesNotMatch(regex));
+        return myself;
+    }
+
+    @Override
     public S doesNotMatch(Pattern pattern) {
+        rule.addConstraint(CharSequenceConstraints.doesNotMatch(pattern));
         return myself;
     }
 
