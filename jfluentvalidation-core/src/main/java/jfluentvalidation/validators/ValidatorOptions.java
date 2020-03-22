@@ -6,6 +6,7 @@ import javax.validation.ClockProvider;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 
 /**
  * Global Validator runtime options...I dont really like the statics here
@@ -36,6 +37,12 @@ public class ValidatorOptions {
 
     public static SimpleDateFormat getSimpleDateFormat() {
         return new SimpleDateFormat(DATE_FORMAT);
+    }
+
+    public static String format(Calendar cal) {
+        SimpleDateFormat simpleDateFormat = getSimpleDateFormat();
+        simpleDateFormat.setCalendar(cal);
+        return simpleDateFormat.format(cal.getTime());
     }
 
     // should this be similar to hibernate validator ValidatorFactoryBean
