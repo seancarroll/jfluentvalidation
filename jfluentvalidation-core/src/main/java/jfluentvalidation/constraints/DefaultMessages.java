@@ -36,6 +36,7 @@ public class DefaultMessages {
     public static final String CHARSEQUENCE_CONTAINS_SUBSEQUENCE = "{jfluentvalidation.constraints.charsequence.ContainsSubsequence.message}";
     public static final String CHARSEQUENCE_CONTAINS_WHITESPACES = "{jfluentvalidation.constraints.charsequence.ContainsWhitespaces.message}";
     public static final String CHARSEQUENCE_DOES_NOT_CONTAIN_ANY_WHITESPACES = "{jfluentvalidation.constraints.charsequence.DoesNotContainAnyWhitespaces.message}";
+    public static final String CHARSEQUENCE_DOES_NOT_END_WITH = "{jfluentvalidation.constraints.charsequence.DoesNotEndWith.message}";
     public static final String CHARSEQUENCE_ENDS_WITH = "{jfluentvalidation.constraints.charsequence.EndsWith.message}";
     public static final String CHARSEQUENCE_HAS_LENGTH_BETWEEN = "{jfluentvalidation.constraints.charsequence.HasLengthBetween.message}";
     public static final String CHARSEQUENCE_HAS_LENGTH = "{jfluentvalidation.constraints.charsequence.HasLength.message}";

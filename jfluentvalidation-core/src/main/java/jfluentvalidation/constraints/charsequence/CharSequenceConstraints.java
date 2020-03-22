@@ -54,6 +54,10 @@ public final class CharSequenceConstraints {
         return DOES_NOT_CONTAIN_ANY_WHITESPACES_CONSTRAINT;
     }
 
+    public static DoesNotEndWithConstraint doesNotEndWith(CharSequence suffix) {
+        return new DoesNotEndWithConstraint<>(suffix);
+    }
+
     public static EndsWithConstraint endsWith(CharSequence suffix) {
         return new EndsWithConstraint<>(suffix);
     }

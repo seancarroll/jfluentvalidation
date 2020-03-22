@@ -208,7 +208,7 @@ public abstract class AbstractCharSequenceSubject<S extends AbstractCharSequence
 
     @Override
     public S doesNotEndWith(CharSequence suffix) {
-        // TODO: implement
+        rule.addConstraint(CharSequenceConstraints.doesNotEndWith(suffix));
         return myself;
     }
 
