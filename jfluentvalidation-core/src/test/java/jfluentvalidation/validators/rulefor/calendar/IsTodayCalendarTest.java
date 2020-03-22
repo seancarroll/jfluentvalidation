@@ -65,6 +65,6 @@ class IsTodayCalendarTest extends AbstractCalendarTest {
 
         ValidationResult validationResult = validator.validate(t);
 
-        assertEquals("date must be a today's date.", validationResult.getViolations().get(0).getErrorMessage());
+        assertEquals("date must be today's date.", validationResult.getViolations().get(0).getErrorMessage());
     }
 }

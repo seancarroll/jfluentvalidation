@@ -11,9 +11,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class IsInThePastTest extends AbstractCalendarTest {
+class IsInThePastCalendarTest extends AbstractCalendarTest {
 
-    IsInThePastTest() {
+    IsInThePastCalendarTest() {
         super(ZonedDateTime.of(
             2019, 8, 7, 9, 0, 0, 0,
             TZ_CHICAGO)
@@ -79,6 +79,6 @@ class IsInThePastTest extends AbstractCalendarTest {
 
         ValidationResult validationResult = validator.validate(t);
 
-        assertEquals("date must be a past date.", validationResult.getViolations().get(0).getErrorMessage());
+        assertEquals("date must be a date in the past.", validationResult.getViolations().get(0).getErrorMessage());
     }
 }

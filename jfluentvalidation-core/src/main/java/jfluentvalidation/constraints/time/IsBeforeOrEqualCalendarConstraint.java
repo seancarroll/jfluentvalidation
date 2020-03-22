@@ -6,6 +6,7 @@ import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.DefaultMessages;
 import jfluentvalidation.internal.Ensure;
 import jfluentvalidation.validators.RuleContext;
+import jfluentvalidation.validators.ValidatorOptions;
 
 import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
@@ -55,7 +56,7 @@ public class IsBeforeOrEqualCalendarConstraint<T> extends AbstractConstraint<T, 
             // doing this here instead of using addParametersToContext because there are instances were we are
             // getting a supplier for the current date/time and if we do it in addParametersToContext we will
             // get a slightly different values than what we used for the comparison
-            context.getMessageContext().appendArgument("other", otherValue);
+            context.getMessageContext().appendArgument("other", ValidatorOptions.getSimpleDateFormat().format(otherValue.getTime()));
         }
 
         return isBeforeOrEqual;

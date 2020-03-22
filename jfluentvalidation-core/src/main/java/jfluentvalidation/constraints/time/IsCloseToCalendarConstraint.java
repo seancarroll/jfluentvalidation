@@ -4,6 +4,7 @@ import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.DefaultMessages;
 import jfluentvalidation.internal.Ensure;
 import jfluentvalidation.validators.RuleContext;
+import jfluentvalidation.validators.ValidatorOptions;
 
 import javax.annotation.Nonnull;
 import java.util.Calendar;
@@ -47,8 +48,8 @@ public class IsCloseToCalendarConstraint<T> extends AbstractConstraint<T, Calend
     // TODO: consistent messages between Date/Calendar/Temporal isCloseTo? what about numbers?
     @Override
     public void addParametersToContext(RuleContext<T, Calendar> context) {
-        context.getMessageContext().appendArgument("other", other);
-        context.getMessageContext().appendArgument("offsetValue", offsetValue);
+        context.getMessageContext().appendArgument("other", ValidatorOptions.getSimpleDateFormat().format(other.getTime()));
+        context.getMessageContext().appendArgument("offset", offsetValue);
         context.getMessageContext().appendArgument("strict", strict);
     }
 }

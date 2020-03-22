@@ -98,7 +98,7 @@ class IsToCloseToCalendarTest extends AbstractCalendarTest {
 
         ValidationResult validationResult = validator.validate(t);
 
-        assertEquals("date must be close to 2019-08-07 09:00:00 by less than 1000 ms.", validationResult.getViolations().get(0).getErrorMessage());
+        assertEquals("date must be close to 2019-08-06 09:00:00 by less than 3600000.", validationResult.getViolations().get(0).getErrorMessage());
     }
 
     @Test
@@ -110,6 +110,6 @@ class IsToCloseToCalendarTest extends AbstractCalendarTest {
 
         ValidationResult validationResult = validator.validate(t);
 
-        assertEquals("date must be close to 2019-08-07 09:00:00 by strictly less than 86400000 ms.", validationResult.getViolations().get(0).getErrorMessage());
+        assertEquals("date must be close to 2019-08-06 09:00:00 by strictly less than 86400000.", validationResult.getViolations().get(0).getErrorMessage());
     }
 }

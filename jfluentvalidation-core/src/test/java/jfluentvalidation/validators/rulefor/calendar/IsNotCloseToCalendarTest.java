@@ -12,9 +12,9 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class IsNotCloseToTest extends AbstractCalendarTest {
+class IsNotCloseToCalendarTest extends AbstractCalendarTest {
 
-    IsNotCloseToTest() {
+    IsNotCloseToCalendarTest() {
         super(ZonedDateTime.of(
             2019, 6, 15, 8, 0, 0, 0,
             TZ_CHICAGO));

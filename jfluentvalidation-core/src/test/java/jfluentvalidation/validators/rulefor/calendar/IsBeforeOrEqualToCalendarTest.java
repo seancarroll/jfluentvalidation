@@ -85,6 +85,6 @@ class IsBeforeOrEqualToCalendarTest extends AbstractCalendarTest {
 
         ValidationResult validationResult = validator.validate(p);
 
-        assertEquals("date must be before or equal to 2019-08-07 09:00:00.", validationResult.getViolations().get(0).getErrorMessage());
+        assertEquals("date must be before or equal to 2019-08-06 09:00:00.", validationResult.getViolations().get(0).getErrorMessage());
     }
 }
