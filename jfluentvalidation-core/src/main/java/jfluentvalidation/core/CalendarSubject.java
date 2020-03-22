@@ -8,6 +8,7 @@ import jfluentvalidation.constraints.time.IsBeforeCalendarConstraint;
 import jfluentvalidation.constraints.time.IsBeforeOrEqualCalendarConstraint;
 import jfluentvalidation.constraints.time.IsCloseToCalendarConstraint;
 import jfluentvalidation.constraints.time.IsInTheFutureCalendarConstraint;
+import jfluentvalidation.constraints.time.IsInThePastCalendarConstraint;
 import jfluentvalidation.constraints.time.IsNotCloseToCalendarConstraint;
 import jfluentvalidation.constraints.time.IsTodayCalendarConstraint;
 import jfluentvalidation.rules.PropertyRule;
@@ -59,6 +60,7 @@ public class CalendarSubject<T>
         return myself;
     }
 
+    // TODO: do we need both isInTheFutureOrPresent and isInTheFutureOrToday
     @CanIgnoreReturnValue
     public CalendarSubject<T> isInTheFutureOrPresent() {
         rule.addConstraint(new IsAfterOrEqualCalendarConstraint<>(() -> calendarFromClock(rule.getRuleOptions().getClockReference())));
@@ -67,15 +69,15 @@ public class CalendarSubject<T>
 
     @CanIgnoreReturnValue
     public CalendarSubject<T> isInTheFutureOrToday() {
-        rule.addConstraint(new IsAfterOrEqualCalendarConstraint<>(() ->
-            Dates.truncateTime(calendarFromClock(rule.getRuleOptions().getClockReference())), ChronoUnit.DAYS)
+        rule.addConstraint(new IsInTheFutureCalendarConstraint<>(() ->
+            Dates.truncateTime(calendarFromClock(rule.getRuleOptions().getClockReference())))
         );
         return myself;
     }
 
     @CanIgnoreReturnValue
     public CalendarSubject<T> isInThePast() {
-        rule.addConstraint(new IsBeforeCalendarConstraint<>(() -> calendarFromClock(rule.getRuleOptions().getClockReference())));
+        rule.addConstraint(new IsInThePastCalendarConstraint<>(() -> calendarFromClock(rule.getRuleOptions().getClockReference())));
         return myself;
     }
 
