@@ -79,6 +79,6 @@ class IsInTheFutureTest extends AbstractCalendarTest {
 
         ValidationResult validationResult = validator.validate(t);
 
-        assertEquals("date must be a future date.", validationResult.getViolations().get(0).getErrorMessage());
+        assertEquals("date must be a date in the future", validationResult.getViolations().get(0).getErrorMessage());
     }
 }
