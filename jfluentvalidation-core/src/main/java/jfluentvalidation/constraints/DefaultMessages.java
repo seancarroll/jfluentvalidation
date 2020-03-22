@@ -112,6 +112,8 @@ public class DefaultMessages {
     public static final String TIME_IS_BEFORE = "{jfluentvalidation.constraints.time.IsBefore.message}";
     public static final String TIME_IS_BEFORE_OR_EQUAL = "{jfluentvalidation.constraints.time.IsBeforeOrEqual.message}";
     public static final String TIME_IS_IN_FUTURE = "{jfluentvalidation.constraints.time.IsInTheFuture.message}";
+    public static final String TIME_IS_IN_FUTURE_OR_PRESENT = "{jfluentvalidation.constraints.time.IsInTheFuture.message}";
+    public static final String TIME_IS_IN_PAST = "{jfluentvalidation.constraints.time.IsInThePast.message}";
     public static final String TIME_IS_TODAY = "{jfluentvalidation.constraints.time.IsToday.message}";
 
     public static final String NET_HAS_AUTHORITY = "{jfluentvalidation.constraints.net.HasAuthority.message}";

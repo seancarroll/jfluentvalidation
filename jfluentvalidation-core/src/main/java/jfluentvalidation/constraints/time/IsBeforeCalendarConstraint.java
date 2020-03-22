@@ -4,6 +4,7 @@ import jfluentvalidation.common.Suppliers;
 import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.DefaultMessages;
 import jfluentvalidation.validators.RuleContext;
+import jfluentvalidation.validators.ValidatorOptions;
 
 import java.util.Calendar;
 import java.util.function.Supplier;
@@ -21,7 +22,11 @@ public class IsBeforeCalendarConstraint<T> extends AbstractConstraint<T, Calenda
     }
 
     public IsBeforeCalendarConstraint(Supplier<Calendar> other) {
-        super(DefaultMessages.TIME_IS_BEFORE);
+        this(DefaultMessages.TIME_IS_BEFORE, other);
+    }
+
+    IsBeforeCalendarConstraint(String errorMessage, Supplier<Calendar> other) {
+        super(errorMessage);
         this.other = other;
     }
 
@@ -37,7 +42,7 @@ public class IsBeforeCalendarConstraint<T> extends AbstractConstraint<T, Calenda
             // doing this here instead of using addParametersToContext because there are instances were we are
             // getting a supplier for the current date/time and if we do it in addParametersToContext we will
             // get a slightly different values than what we used for the comparison
-            context.getMessageContext().appendArgument("other", otherValue);
+            context.getMessageContext().appendArgument("other", ValidatorOptions.getSimpleDateFormat().format(otherValue.getTime()));
         }
 
         return isBefore;
