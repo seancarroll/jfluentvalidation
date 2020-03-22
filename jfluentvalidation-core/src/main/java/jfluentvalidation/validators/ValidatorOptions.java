@@ -24,12 +24,10 @@ public class ValidatorOptions {
     public static Duration TEMPORAL_VALIDATION_TOLERANCE = Duration.ZERO;
     private static String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
     private static DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(DATE_FORMAT);
-    private static SimpleDateFormat SIMPLE_DATE_FORMAT = new SimpleDateFormat(DATE_FORMAT);
 
     public static void setDateFormat(String format) {
         DATE_FORMAT = format;
         DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(DATE_FORMAT);
-        SIMPLE_DATE_FORMAT = new SimpleDateFormat(DATE_FORMAT);
     }
 
     public static DateTimeFormatter getDateTimeFormatter() {
@@ -37,7 +35,7 @@ public class ValidatorOptions {
     }
 
     public static SimpleDateFormat getSimpleDateFormat() {
-        return SIMPLE_DATE_FORMAT;
+        return new SimpleDateFormat(DATE_FORMAT);
     }
 
     // should this be similar to hibernate validator ValidatorFactoryBean
