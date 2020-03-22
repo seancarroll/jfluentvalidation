@@ -76,7 +76,6 @@ public class ResourceBundleMessageInterpolator {
         return interpolate(key, context, defaultLocale);
     }
 
-    // TODO: this is slow...improve perf
     public String interpolate(String message, Map<String, Object> context, Locale locale) {
         // if the message does not contain any message parameter, no need to continue just return the unescaped message.
         // It avoids storing the message in the cache and a cache lookup.
@@ -84,7 +83,6 @@ public class ResourceBundleMessageInterpolator {
             return replaceEscapedLiterals(message);
         }
 
-        // TODO: I think hibernate validator cache stuff on start-up. verify
         final String resolvedMessage;
         // either retrieve message from cache, or if message is not yet there or caching is disabled
         resolvedMessage = cachingEnabled

@@ -180,32 +180,6 @@ public class MapSubject<T, K, V> extends Subject<MapSubject<T, K, V>, T, Map<K, 
         return myself;
     }
 
-    // TODO: add methods
-    // doesNotContainKey
-    // doesNotContainKeys
-    // containsOnlyKeys
-    // containsValue
-    // containsValues
-    // doesNotContainValue
-    // containsOnly(Map.Entry<? extends K, ? extends V>... entries)
-    // isEqualTo
-    // isIn(Iterable<?> values)
-    // isIn(Object... values)
-    // isNotEqualTo
-    // isNotIn(Iterable<?> values)
-    // isNotIn(Object...values)
-    // hasEntrySatisfying(K key, Condition<? super V> valueCondition)
-    // hasEntrySatisfying(K key, Consumer<? super V> valueRequirements)
-    // hasEntrySatisfying(Condition<? super Map.Entry<K, V>> entryCondition)
-    // hasEntrySatisfying(Condition<? super K> keyCondition, Condition<? super V> valueCondition)
-    // hasKeySatisfying(Condition<? super K> keyCondition)
-    // hasValueSatisfying(Condition<? super V> valueCondition)
-
-
-    // TODO: I'm not sure this makes sense given what would a Constraint for an Entry look like?
-    // Perhaps we do soemthing like assertj's satisfy/satisfyrequirements
-
-
     /**
      *
      * @param constraintsToAdd
