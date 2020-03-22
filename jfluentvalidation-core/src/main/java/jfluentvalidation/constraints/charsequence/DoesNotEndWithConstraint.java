@@ -15,7 +15,7 @@ public class DoesNotEndWithConstraint<T, A extends CharSequence> extends Abstrac
     private final CharSequence suffix;
 
     public DoesNotEndWithConstraint(CharSequence suffix) {
-        super(DefaultMessages.CHARSEQUENCE_ENDS_WITH);
+        super(DefaultMessages.CHARSEQUENCE_DOES_NOT_END_WITH);
         this.suffix = Ensure.notNull(suffix);
     }
 
