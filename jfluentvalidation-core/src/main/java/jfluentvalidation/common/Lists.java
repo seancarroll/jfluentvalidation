@@ -1,10 +1,15 @@
 package jfluentvalidation.common;
 
+import jfluentvalidation.internal.Ensure;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+
+import static java.lang.reflect.Array.getLength;
 
 /**
  *
@@ -118,4 +123,17 @@ public class Lists {
         }
         return list;
     }
+
+    public static <T> List<T> asList(Object array) {
+        Ensure.notNull(array);
+        Ensure.isArray(array, "array");
+
+        int length = getLength(array);
+        List<T> list = new ArrayList<>(length);
+        for (int i = 0; i < length; i++) {
+            list.add((T) Array.get(array, i));
+        }
+        return list;
+    }
+
 }

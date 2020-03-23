@@ -4,6 +4,7 @@ import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import jfluentvalidation.constraints.array.contains.ContainsIntConstraint;
 import jfluentvalidation.constraints.array.containsall.ContainsAllIntConstraint;
 import jfluentvalidation.constraints.array.containsany.ContainsAnyIntConstraint;
+import jfluentvalidation.constraints.array.containsexactly.ContainsExactlyConstraint;
 import jfluentvalidation.constraints.array.containsnone.ContainsNoneIntConstraint;
 import jfluentvalidation.constraints.array.empty.IsEmptyIntArrayConstraint;
 import jfluentvalidation.constraints.array.isnotnullorempty.IsNotNullOrEmptyIntArrayConstraint;
@@ -85,12 +86,14 @@ public class IntArraySubject<T> extends AbstractArraySubject<IntArraySubject<T>,
 
     @Override
     public IntArraySubject<T> containsExactly(Integer... exactly) {
-        return null;
+        rule.addConstraint(new ContainsExactlyConstraint<>(exactly));
+        return myself;
     }
 
     @Override
     public IntArraySubject<T> containsExactly(Iterable<Integer> expected) {
-        return null;
+        rule.addConstraint(new ContainsExactlyConstraint<>(expected));
+        return myself;
     }
 
     @Override

@@ -1,6 +1,7 @@
 package jfluentvalidation.internal;
 
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
+import jfluentvalidation.common.MoreArrays;
 
 /**
  *
@@ -144,4 +145,12 @@ public final class Ensure {
         }
         return sequences;
     }
+
+    public static Object isArray(Object o, String argumentName) {
+        if (!MoreArrays.isArray(o)) {
+            throw new IllegalArgumentException(argumentName + "must be an array");
+        }
+        return o;
+    }
+
 }
