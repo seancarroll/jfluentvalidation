@@ -48,7 +48,7 @@ public class IsCloseToCalendarConstraint<T> extends AbstractConstraint<T, Calend
     // TODO: consistent messages between Date/Calendar/Temporal isCloseTo? what about numbers?
     @Override
     public void addParametersToContext(RuleContext<T, Calendar> context) {
-        context.getMessageContext().appendArgument("other", ValidatorOptions.getSimpleDateFormat().format(other.getTime()));
+        context.getMessageContext().appendArgument("other", ValidatorOptions.format(other));
         context.getMessageContext().appendArgument("offset", offsetValue);
         context.getMessageContext().appendArgument("strict", strict);
     }
