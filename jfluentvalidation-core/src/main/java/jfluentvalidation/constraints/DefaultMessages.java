@@ -25,6 +25,9 @@ public class DefaultMessages {
     public static final String ARRAY_MINIMUM_LENGTH = "{jfluentvalidation.constraints.array.length.BooleanArrayMinimumLength.message}";
 
 
+    public static final String CHARACTER_IS_LOWER_CASE = "{jfluentvalidation.constraints.character.IsLowerCase.message}";
+    public static final String CHARACTER_IS_UPPER_CASE = "{jfluentvalidation.constraints.character.IsUpperCase.message}";
+
     // TODO: is this the same as other contains?
     public static final String CHARSEQUENCE_CONTAINS = "{jfluentvalidation.constraints.charsequence.Contains.message}";
     public static final String CHARSEQUENCE_CONTAINS_IGNORE_CASE = "{jfluentvalidation.constraints.charsequence.ContainsIgnoreCase.message}";

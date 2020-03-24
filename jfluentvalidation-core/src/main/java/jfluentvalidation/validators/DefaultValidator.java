@@ -222,6 +222,17 @@ public class DefaultValidator<T> implements Validator<T> {
      * @param func  Function representing the property to validate
      * @return the created subject.
      */
+    public CharacterSubject<T> ruleForCharacter(SerializableFunction<T, Character> func) {
+        PropertyRule<T, Character> rule = addNewPropertyRule(func);
+        return new CharacterSubject<>(rule);
+    }
+
+    /**
+     * Defines a validation rule for a specify property.
+     *
+     * @param func  Function representing the property to validate
+     * @return the created subject.
+     */
     public CharArraySubject<T> ruleForCharArray(SerializableFunction<T, char[]> func) {
         PropertyRule<T, char[]> rule = addNewPropertyRule(func);
         return new CharArraySubject<>(rule);
