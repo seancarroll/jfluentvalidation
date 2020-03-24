@@ -58,7 +58,7 @@ class IsUpperCaseTest {
     }
 
     @Test
-    void shouldReturnFailureWhenActualIsUpperCase() {
+    void shouldReturnFailureWhenActualIsNotUpperCase() {
         Target t = new Target("hello");
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
