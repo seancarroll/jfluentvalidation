@@ -3,6 +3,7 @@ package jfluentvalidation.core;
 import jfluentvalidation.constraints.array.contains.ContainsObjectConstraint;
 import jfluentvalidation.constraints.array.containsall.ContainsAllObjectConstraint;
 import jfluentvalidation.constraints.array.containsany.ContainsAnyObjectConstraint;
+import jfluentvalidation.constraints.array.containsexactly.ContainsExactlyConstraint;
 import jfluentvalidation.constraints.array.containsnone.ContainsNoneObjectConstraint;
 import jfluentvalidation.constraints.array.empty.IsEmptyObjectArrayConstraint;
 import jfluentvalidation.constraints.array.isnotnullorempty.IsNotNullOrEmptyObjectArrayConstraint;
@@ -77,7 +78,7 @@ public class ObjectArraySubject<T, E> extends AbstractArraySubject<ObjectArraySu
         rule.addConstraint(new ObjectArrayBetweenLengthConstraint<>(min, max, inclusiveStart, inclusiveEnd));
         return myself;
     }
-    
+
     @Override
     public ObjectArraySubject<T, E> hasSameLengthAs(Iterable<E> other) {
         rule.addConstraint(new ObjectArrayExactLengthConstraint<>(other));
@@ -119,13 +120,14 @@ public class ObjectArraySubject<T, E> extends AbstractArraySubject<ObjectArraySu
     }
 
     @Override
-    public ObjectArraySubject<T, E> containsExactly(E... exactly) {
-        return null;
+    public ObjectArraySubject<T, E> containsExactly(E... expected) {
+        return containsExactly(Arrays.asList(expected));
     }
 
     @Override
     public ObjectArraySubject<T, E> containsExactly(Iterable<E> expected) {
-        return null;
+        rule.addConstraint(new ContainsExactlyConstraint<>(expected));
+        return myself;
     }
 
     @Override

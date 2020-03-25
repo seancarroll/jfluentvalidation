@@ -85,9 +85,8 @@ public class IntArraySubject<T> extends AbstractArraySubject<IntArraySubject<T>,
     }
 
     @Override
-    public IntArraySubject<T> containsExactly(Integer... exactly) {
-        rule.addConstraint(new ContainsExactlyConstraint<>(exactly));
-        return myself;
+    public IntArraySubject<T> containsExactly(Integer... expected) {
+        return containsExactly(Arrays.asList(expected));
     }
 
     @Override

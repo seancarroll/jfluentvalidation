@@ -4,6 +4,7 @@ import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import jfluentvalidation.constraints.array.contains.ContainsBooleanConstraint;
 import jfluentvalidation.constraints.array.containsall.ContainsAllBooleanConstraint;
 import jfluentvalidation.constraints.array.containsany.ContainsAnyBooleanConstraint;
+import jfluentvalidation.constraints.array.containsexactly.ContainsExactlyConstraint;
 import jfluentvalidation.constraints.array.containsnone.ContainsNoneBooleanConstraint;
 import jfluentvalidation.constraints.array.empty.IsEmptyBooleanArrayConstraint;
 import jfluentvalidation.constraints.array.isnotnullorempty.IsNotNullOrEmptyBoolenArrayConstraint;
@@ -85,13 +86,14 @@ public class BooleanArraySubject<T> extends AbstractArraySubject<BooleanArraySub
     }
 
     @Override
-    public BooleanArraySubject<T> containsExactly(Boolean... exactly) {
-        return null;
+    public BooleanArraySubject<T> containsExactly(Boolean... expected) {
+        return containsExactly(Arrays.asList(expected));
     }
 
     @Override
     public BooleanArraySubject<T> containsExactly(Iterable<Boolean> expected) {
-        return null;
+        rule.addConstraint(new ContainsExactlyConstraint<>(expected));
+        return myself;
     }
 
     @Override

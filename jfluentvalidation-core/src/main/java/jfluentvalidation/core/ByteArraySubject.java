@@ -4,6 +4,7 @@ import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import jfluentvalidation.constraints.array.contains.ContainsByteConstraint;
 import jfluentvalidation.constraints.array.containsall.ContainsAllByteConstraint;
 import jfluentvalidation.constraints.array.containsany.ContainsAnyByteConstraint;
+import jfluentvalidation.constraints.array.containsexactly.ContainsExactlyConstraint;
 import jfluentvalidation.constraints.array.containsnone.ContainsNoneByteConstraint;
 import jfluentvalidation.constraints.array.empty.IsEmptyByteArrayConstraint;
 import jfluentvalidation.constraints.array.isnotnullorempty.IsNotNullOrEmptyByteArrayConstraint;
@@ -89,13 +90,14 @@ public class ByteArraySubject<T> extends AbstractArraySubject<ByteArraySubject<T
     }
 
     @Override
-    public ByteArraySubject<T> containsExactly(Byte... exactly) {
-        return null;
+    public ByteArraySubject<T> containsExactly(Byte... expected) {
+        return containsExactly(Arrays.asList(expected));
     }
 
     @Override
     public ByteArraySubject<T> containsExactly(Iterable<Byte> expected) {
-        return null;
+        rule.addConstraint(new ContainsExactlyConstraint<>(expected));
+        return myself;
     }
 
     @Override

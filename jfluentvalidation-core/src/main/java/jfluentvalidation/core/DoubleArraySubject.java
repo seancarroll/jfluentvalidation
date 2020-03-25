@@ -4,6 +4,7 @@ import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import jfluentvalidation.constraints.array.contains.ContainsDoubleConstraint;
 import jfluentvalidation.constraints.array.containsall.ContainsAllDoubleConstraint;
 import jfluentvalidation.constraints.array.containsany.ContainsAnyDoubleConstraint;
+import jfluentvalidation.constraints.array.containsexactly.ContainsExactlyConstraint;
 import jfluentvalidation.constraints.array.containsnone.ContainsNoneDoubleConstraint;
 import jfluentvalidation.constraints.array.empty.IsEmptyDoubleArrayConstraint;
 import jfluentvalidation.constraints.array.isnotnullorempty.IsNotNullOrEmptyDoubleArrayConstraint;
@@ -84,13 +85,14 @@ public class DoubleArraySubject<T> extends AbstractArraySubject<DoubleArraySubje
     }
 
     @Override
-    public DoubleArraySubject<T> containsExactly(Double... exactly) {
-        return null;
+    public DoubleArraySubject<T> containsExactly(Double... expected) {
+        return containsExactly(Arrays.asList(expected));
     }
 
     @Override
     public DoubleArraySubject<T> containsExactly(Iterable<Double> expected) {
-        return null;
+        rule.addConstraint(new ContainsExactlyConstraint<>(expected));
+        return myself;
     }
 
     @Override

@@ -4,6 +4,7 @@ import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import jfluentvalidation.constraints.array.contains.ContainsLongConstraint;
 import jfluentvalidation.constraints.array.containsall.ContainsAllLongConstraint;
 import jfluentvalidation.constraints.array.containsany.ContainsAnyLongConstraint;
+import jfluentvalidation.constraints.array.containsexactly.ContainsExactlyConstraint;
 import jfluentvalidation.constraints.array.containsnone.ContainsNoneLongConstraint;
 import jfluentvalidation.constraints.array.empty.IsEmptyLongArrayConstraint;
 import jfluentvalidation.constraints.array.isnotnullorempty.IsNotNullOrEmptyLongArrayConstraint;
@@ -84,13 +85,14 @@ public class LongArraySubject<T> extends AbstractArraySubject<LongArraySubject<T
     }
 
     @Override
-    public LongArraySubject<T> containsExactly(Long... exactly) {
-        return null;
+    public LongArraySubject<T> containsExactly(Long... expected) {
+        return containsExactly(Arrays.asList(expected));
     }
 
     @Override
     public LongArraySubject<T> containsExactly(Iterable<Long> expected) {
-        return null;
+        rule.addConstraint(new ContainsExactlyConstraint<>(expected));
+        return myself;
     }
 
     @Override

@@ -4,6 +4,7 @@ import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import jfluentvalidation.constraints.array.contains.ContainsCharConstraint;
 import jfluentvalidation.constraints.array.containsall.ContainsAllCharConstraint;
 import jfluentvalidation.constraints.array.containsany.ContainsAnyCharConstraint;
+import jfluentvalidation.constraints.array.containsexactly.ContainsExactlyConstraint;
 import jfluentvalidation.constraints.array.containsnone.ContainsNoneCharConstraint;
 import jfluentvalidation.constraints.array.empty.IsEmptyCharArrayConstraint;
 import jfluentvalidation.constraints.array.isnotnullorempty.IsNotNullOrEmptyCharArrayConstraint;
@@ -84,13 +85,14 @@ public class CharArraySubject<T> extends AbstractArraySubject<CharArraySubject<T
     }
 
     @Override
-    public CharArraySubject<T> containsExactly(Character... exactly) {
-        return null;
+    public CharArraySubject<T> containsExactly(Character... expected) {
+        return containsExactly(Arrays.asList(expected));
     }
 
     @Override
     public CharArraySubject<T> containsExactly(Iterable<Character> expected) {
-        return null;
+        rule.addConstraint(new ContainsExactlyConstraint<>(expected));
+        return myself;
     }
 
     @Override
