@@ -20,7 +20,7 @@ import java.lang.reflect.Method;
  */
 public class PropertyNameExtractor {
 
-    // TODO: cache for byte buddy proxies?
+    // TODO: cache for byte buddy proxies? Checkout bytebuddy TypeCache
 
     private static final PropertyNameExtractor INSTANCE = new PropertyNameExtractor();
 
@@ -130,12 +130,15 @@ public class PropertyNameExtractor {
 
             name = getPropertyName(method);
 
-            // TODO: check out Guava Defaults
             Class<?> returnType = method.getReturnType();
             if (returnType == byte.class) {
                 return (byte) 0;
             } else if (returnType == char.class) {
                 return (char) 0;
+            } else if (returnType == double.class) {
+                return (double) 0;
+            } else if (returnType == float.class) {
+                return (float) 0;
             } else if (returnType == int.class) {
                 return 0;
             } else if (returnType == short.class) {
