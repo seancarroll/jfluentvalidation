@@ -1,5 +1,7 @@
 package jfluentvalidation.core;
 
+import com.google.common.collect.Lists;
+import com.google.common.primitives.Booleans;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import jfluentvalidation.constraints.array.contains.ContainsBooleanConstraint;
 import jfluentvalidation.constraints.array.containsall.ContainsAllBooleanConstraint;
@@ -90,9 +92,14 @@ public class BooleanArraySubject<T> extends AbstractArraySubject<BooleanArraySub
         return containsExactly(Arrays.asList(expected));
     }
 
+    public BooleanArraySubject<T> containsExactly(boolean[] expected) {
+        rule.addConstraint(new ContainsExactlyConstraint<>(Booleans.asList(expected)));
+        return myself;
+    }
+
     @Override
     public BooleanArraySubject<T> containsExactly(Iterable<Boolean> expected) {
-        rule.addConstraint(new ContainsExactlyConstraint<>(expected));
+        rule.addConstraint(new ContainsExactlyConstraint<>(Lists.newArrayList(expected)));
         return myself;
     }
 

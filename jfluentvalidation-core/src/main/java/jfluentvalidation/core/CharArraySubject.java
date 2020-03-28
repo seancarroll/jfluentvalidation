@@ -1,5 +1,7 @@
 package jfluentvalidation.core;
 
+import com.google.common.collect.Lists;
+import com.google.common.primitives.Chars;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import jfluentvalidation.constraints.array.contains.ContainsCharConstraint;
 import jfluentvalidation.constraints.array.containsall.ContainsAllCharConstraint;
@@ -89,9 +91,14 @@ public class CharArraySubject<T> extends AbstractArraySubject<CharArraySubject<T
         return containsExactly(Arrays.asList(expected));
     }
 
+    public CharArraySubject<T> containsExactly(char[] expected) {
+        rule.addConstraint(new ContainsExactlyConstraint<>(Chars.asList(expected)));
+        return myself;
+    }
+
     @Override
     public CharArraySubject<T> containsExactly(Iterable<Character> expected) {
-        rule.addConstraint(new ContainsExactlyConstraint<>(expected));
+        rule.addConstraint(new ContainsExactlyConstraint<>(Lists.newArrayList(expected)));
         return myself;
     }
 

@@ -18,7 +18,7 @@ class ContainsAnyTest {
 
     @Test
     void shouldNotReturnFailureWhenActualContainsGivenValues() {
-        Target t = new Target(new short[] {1, FIVE});
+        Target t = new Target(new short[] {ONE, FIVE});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForShortArray(Target::getValue).containsAny(ONE);

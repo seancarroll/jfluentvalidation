@@ -12,26 +12,13 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
-/**
- * TODO: From Google Truth...we want similar behavior
- * Checks that a subject contains exactly the provided objects or fails.
- *
- * <p>Multiplicity is respected. For example, an object duplicated exactly 3 times in the
- * parameters asserts that the object must likewise be duplicated exactly 3 times in the subject.
- *
- * <p>To also test that the contents appear in the given order, make a call to {@code inOrder()}
- * on the object returned by this method.
- *
- * <p>To test that the iterable contains the same elements as an array, prefer {@link
- * #containsExactlyElementsIn(Object[])}. It makes clear that the given array is a list of
- * elements, not an element itself. This helps human readers and avoids a compiler warning.
- */
+// TODO: have a base class for array, iterable, map???
 public class ContainsExactlyConstraint<T, P> extends AbstractConstraint<T, Iterable<? super P>> {
 
     private final Iterable<P> expected;
 
     public ContainsExactlyConstraint(Iterable<P> expected) {
-        super(DefaultMessages.ITERABLE_CONTAINS_EXACTLY_ELEMENTS_IN);
+        super(DefaultMessages.ITERABLE_CONTAINS_EXACTLY);
         this.expected = Ensure.notNull(expected);
     }
 
@@ -50,7 +37,10 @@ public class ContainsExactlyConstraint<T, P> extends AbstractConstraint<T, Itera
             int i = 0;
             for (P elementFromActual : actual) {
                 if (!Objects.equals(elementFromActual, expectedAsList.get(i))) {
-                    context.getMessageContext().appendArgument("differentOrder", elementFromActual);
+                    context.getMessageContext().appendArgument("differentOrderElement", elementFromActual);
+                    context.getMessageContext().appendArgument("indexOfDifferentElement", i);
+                    context.getMessageContext().appendArgument("missingValues", null);
+                    context.getMessageContext().appendArgument("unexpectedValues", null);
                     return false;
                 }
                 i++;
@@ -58,13 +48,12 @@ public class ContainsExactlyConstraint<T, P> extends AbstractConstraint<T, Itera
             return true;
         }
 
-        if (diff.hasMissing()) {
-            context.getMessageContext().appendArgument("missingValues", diff.getMissing());
-        }
+        // need to set all values to avoid UnresolvablePropertyException when evaluating validation message
+        context.getMessageContext().appendArgument("differentOrderElement", null);
+        context.getMessageContext().appendArgument("indexOfDifferentElement", null);
+        context.getMessageContext().appendArgument("missingValues", diff.getMissing().isEmpty() ? null : diff.getMissing());
+        context.getMessageContext().appendArgument("unexpectedValues", diff.getUnexpected().isEmpty() ? null : diff.getUnexpected());
 
-        if (diff.hasUnexpected()) {
-            context.getMessageContext().appendArgument("unexpectedValues", diff.getUnexpected());
-        }
 
         return false;
     }

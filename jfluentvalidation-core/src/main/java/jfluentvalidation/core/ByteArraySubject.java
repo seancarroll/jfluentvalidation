@@ -1,5 +1,7 @@
 package jfluentvalidation.core;
 
+import com.google.common.collect.Lists;
+import com.google.common.primitives.Bytes;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import jfluentvalidation.constraints.array.contains.ContainsByteConstraint;
 import jfluentvalidation.constraints.array.containsall.ContainsAllByteConstraint;
@@ -94,9 +96,14 @@ public class ByteArraySubject<T> extends AbstractArraySubject<ByteArraySubject<T
         return containsExactly(Arrays.asList(expected));
     }
 
+    public ByteArraySubject<T> containsExactly(byte[] expected) {
+        rule.addConstraint(new ContainsExactlyConstraint<>(Bytes.asList(expected)));
+        return myself;
+    }
+
     @Override
     public ByteArraySubject<T> containsExactly(Iterable<Byte> expected) {
-        rule.addConstraint(new ContainsExactlyConstraint<>(expected));
+        rule.addConstraint(new ContainsExactlyConstraint<>(Lists.newArrayList(expected)));
         return myself;
     }
 

@@ -1,5 +1,6 @@
 package jfluentvalidation.core;
 
+import com.google.common.collect.Lists;
 import jfluentvalidation.constraints.array.contains.ContainsObjectConstraint;
 import jfluentvalidation.constraints.array.containsall.ContainsAllObjectConstraint;
 import jfluentvalidation.constraints.array.containsany.ContainsAnyObjectConstraint;
@@ -126,7 +127,7 @@ public class ObjectArraySubject<T, E> extends AbstractArraySubject<ObjectArraySu
 
     @Override
     public ObjectArraySubject<T, E> containsExactly(Iterable<E> expected) {
-        rule.addConstraint(new ContainsExactlyConstraint<>(expected));
+        rule.addConstraint(new ContainsExactlyConstraint<>(Lists.newArrayList(expected)));
         return myself;
     }
 

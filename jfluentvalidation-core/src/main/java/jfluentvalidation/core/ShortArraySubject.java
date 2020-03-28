@@ -1,5 +1,7 @@
 package jfluentvalidation.core;
 
+import com.google.common.collect.Lists;
+import com.google.common.primitives.Shorts;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import jfluentvalidation.constraints.array.contains.ContainsShortConstraint;
 import jfluentvalidation.constraints.array.containsall.ContainsAllShortConstraint;
@@ -86,12 +88,18 @@ public class ShortArraySubject<T> extends AbstractArraySubject<ShortArraySubject
 
     @Override
     public ShortArraySubject<T> containsExactly(Short... expected) {
-        return containsExactly(expected);
+        rule.addConstraint(new ContainsExactlyConstraint<>(Arrays.asList(expected)));
+        return myself;
+    }
+
+    public ShortArraySubject<T> containsExactly(short[] expected) {
+        rule.addConstraint(new ContainsExactlyConstraint<>(Shorts.asList(expected)));
+        return myself;
     }
 
     @Override
     public ShortArraySubject<T> containsExactly(Iterable<Short> expected) {
-        rule.addConstraint(new ContainsExactlyConstraint<>(expected));
+        rule.addConstraint(new ContainsExactlyConstraint<>(Lists.newArrayList(expected)));
         return myself;
     }
 

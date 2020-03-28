@@ -1,5 +1,7 @@
 package jfluentvalidation.core;
 
+import com.google.common.collect.Lists;
+import com.google.common.primitives.Doubles;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import jfluentvalidation.constraints.array.contains.ContainsDoubleConstraint;
 import jfluentvalidation.constraints.array.containsall.ContainsAllDoubleConstraint;
@@ -89,9 +91,14 @@ public class DoubleArraySubject<T> extends AbstractArraySubject<DoubleArraySubje
         return containsExactly(Arrays.asList(expected));
     }
 
+    public DoubleArraySubject<T> containsExactly(double[] expected) {
+        rule.addConstraint(new ContainsExactlyConstraint<>(Doubles.asList(expected)));
+        return myself;
+    }
+
     @Override
     public DoubleArraySubject<T> containsExactly(Iterable<Double> expected) {
-        rule.addConstraint(new ContainsExactlyConstraint<>(expected));
+        rule.addConstraint(new ContainsExactlyConstraint<>(Lists.newArrayList(expected)));
         return myself;
     }
 

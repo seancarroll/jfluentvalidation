@@ -1,5 +1,7 @@
 package jfluentvalidation.core;
 
+import com.google.common.collect.Lists;
+import com.google.common.primitives.Floats;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import jfluentvalidation.constraints.array.contains.ContainsFloatConstraint;
 import jfluentvalidation.constraints.array.containsall.ContainsAllFloatConstraint;
@@ -130,9 +132,14 @@ public class FloatArraySubject<T> extends AbstractArraySubject<FloatArraySubject
         return containsExactly(Arrays.asList(expected));
     }
 
+    public FloatArraySubject<T> containsExactly(float[] expected) {
+        rule.addConstraint(new ContainsExactlyConstraint<>(Floats.asList(expected)));
+        return myself;
+    }
+
     @Override
     public FloatArraySubject<T> containsExactly(Iterable<Float> expected) {
-        rule.addConstraint(new ContainsExactlyConstraint<>(expected));
+        rule.addConstraint(new ContainsExactlyConstraint<>(Lists.newArrayList(expected)));
         return myself;
     }
 

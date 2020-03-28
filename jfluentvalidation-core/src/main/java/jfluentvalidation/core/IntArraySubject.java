@@ -1,5 +1,7 @@
 package jfluentvalidation.core;
 
+import com.google.common.collect.Lists;
+import com.google.common.primitives.Ints;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import jfluentvalidation.constraints.array.contains.ContainsIntConstraint;
 import jfluentvalidation.constraints.array.containsall.ContainsAllIntConstraint;
@@ -86,12 +88,18 @@ public class IntArraySubject<T> extends AbstractArraySubject<IntArraySubject<T>,
 
     @Override
     public IntArraySubject<T> containsExactly(Integer... expected) {
-        return containsExactly(Arrays.asList(expected));
+        rule.addConstraint(new ContainsExactlyConstraint<>(Arrays.asList(expected)));
+        return myself;
+    }
+
+    public IntArraySubject<T> containsExactly(int[] expected) {
+        rule.addConstraint(new ContainsExactlyConstraint<>(Ints.asList(expected)));
+        return myself;
     }
 
     @Override
     public IntArraySubject<T> containsExactly(Iterable<Integer> expected) {
-        rule.addConstraint(new ContainsExactlyConstraint<>(expected));
+        rule.addConstraint(new ContainsExactlyConstraint<>(Lists.newArrayList(expected)));
         return myself;
     }
 

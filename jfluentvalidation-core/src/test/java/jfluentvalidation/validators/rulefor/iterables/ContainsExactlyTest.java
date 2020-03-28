@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import java.util.Arrays;
 import java.util.Collections;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -68,26 +69,41 @@ class ContainsExactlyTest {
     }
 
     @Test
+    void shouldReturnFailureWhenArraysHaveDifferentSizes() {
+        Target t = new Target(Arrays.asList("hello", "world", "foo"));
+
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        validator.ruleForIterable(Target::getValue).containsExactly("hello", "world");
+
+        ValidationResult validationResult = validator.validate(t);
+
+        assertFalse(validationResult.isValid());
+        assertEquals("value elements were not expected [foo]", validationResult.getViolations().get(0).getErrorMessage());
+    }
+
+    @Test
     void shouldReturnFailureWhenActualDoesNotContainGivenValuesExactly() {
         Target t = new Target(Arrays.asList("hello", "world", "foo"));
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForIterable(Target::getValue).containsExactly(Arrays.asList("hello", "world"));
+        validator.ruleForIterable(Target::getValue).containsExactly(Arrays.asList("hello", "world", "baz"));
 
         ValidationResult validationResult = validator.validate(t);
 
         assertFalse(validationResult.isValid());
+        assertEquals("value missing the following elements [baz] and the following elements were not expected [foo]", validationResult.getViolations().get(0).getErrorMessage());
     }
 
     @Test
     void shouldReturnFailureWhenActualNotContainGivenValuesInDifferentOrder() {
-        Target t = new Target(Arrays.asList("hello", "world", "foo"));
+        Target t = new Target(Arrays.asList("hello", "world"));
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForIterable(Target::getValue).containsExactly(Arrays.asList("hello", "foo", "world"));
+        validator.ruleForIterable(Target::getValue).containsExactly(Arrays.asList("world", "hello"));
 
         ValidationResult validationResult = validator.validate(t);
 
         assertFalse(validationResult.isValid());
+        assertEquals("value have the same elements but not in the same order, at index 0 actual element was hello", validationResult.getViolations().get(0).getErrorMessage());
     }
 }

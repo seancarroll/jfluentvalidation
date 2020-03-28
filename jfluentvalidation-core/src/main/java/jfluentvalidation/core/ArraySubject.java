@@ -35,7 +35,7 @@ public interface ArraySubject<S extends ArraySubject<S, A, E>, A, E> {
     S containsAll(Iterable<E> expected);
 
     @CanIgnoreReturnValue
-    S containsExactly(E... exactly);
+    S containsExactly(E... expected);
 
     @CanIgnoreReturnValue
     S containsExactly(Iterable<E> expected);

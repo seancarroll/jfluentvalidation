@@ -1,4 +1,4 @@
-package jfluentvalidation.validators.rulefor.arrays.ints;
+package jfluentvalidation.validators.rulefor.arrays.shorts;
 
 import com.google.common.collect.Sets;
 import jfluentvalidation.ValidationResult;
@@ -7,6 +7,10 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Collections;
 
+import static jfluentvalidation.validators.rulefor.arrays.shorts.Shorts.FIVE;
+import static jfluentvalidation.validators.rulefor.arrays.shorts.Shorts.ONE;
+import static jfluentvalidation.validators.rulefor.arrays.shorts.Shorts.TEN;
+import static jfluentvalidation.validators.rulefor.arrays.shorts.Shorts.ZERO;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -17,10 +21,10 @@ class ContainsExactlyTest {
 
     @Test
     void shouldNotReturnFailureWhenActualContainsGivenValuesExactly() {
-        Target t = new Target(new int[] {1, 5});
+        Target t = new Target(new short[]{ONE, FIVE});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForIntArray(Target::getValue).containsExactly(1, 5);
+        validator.ruleForShortArray(Target::getValue).containsExactly(ONE, FIVE);
 
         ValidationResult validationResult = validator.validate(t);
 
@@ -30,21 +34,21 @@ class ContainsExactlyTest {
     @Test
     void shouldSupportGivenAsArray() {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        assertDoesNotThrow(() -> validator.ruleForIntArray(Target::getValue).containsExactly(new int[] {1, 5}));
+        assertDoesNotThrow(() -> validator.ruleForShortArray(Target::getValue).containsExactly(new short[]{ONE, FIVE}));
     }
 
     @Test
     void shouldSupportGivenAsIterable() {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        assertDoesNotThrow(() -> validator.ruleForIntArray(Target::getValue).containsExactly(Sets.newHashSet(1, 5)));
+        assertDoesNotThrow(() -> validator.ruleForShortArray(Target::getValue).containsExactly(Sets.newHashSet(ONE, FIVE)));
     }
 
     @Test
     void shouldNotReturnFailureWhenActualAndGivenValuesAreEmpty() {
-        Target t = new Target(new int[0]);
+        Target t = new Target(new short[0]);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForIntArray(Target::getValue).containsExactly(Collections.emptyList());
+        validator.ruleForShortArray(Target::getValue).containsExactly(Collections.emptyList());
 
         ValidationResult validationResult = validator.validate(t);
 
@@ -53,10 +57,10 @@ class ContainsExactlyTest {
 
     @Test
     void shouldReturnFailureWhenActualContainsGivenValuesExactlyButInDifferentOrder() {
-        Target t = new Target(new int[] {1, 5});
+        Target t = new Target(new short[]{ONE, FIVE});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForIntArray(Target::getValue).containsExactly(5, 1);
+        validator.ruleForShortArray(Target::getValue).containsExactly(FIVE, ONE);
 
         ValidationResult validationResult = validator.validate(t);
 
@@ -66,24 +70,23 @@ class ContainsExactlyTest {
 
     @Test
     void shouldReturnFailureWhenArraysHaveDifferentSizes() {
-        Target t = new Target(new int[] {1, 5, 7});
+        Target t = new Target(new short[] {ONE, FIVE, TEN});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForIntArray(Target::getValue).containsExactly(1, 5);
+        validator.ruleForShortArray(Target::getValue).containsExactly(ONE, FIVE);
 
         ValidationResult validationResult = validator.validate(t);
 
         assertFalse(validationResult.isValid());
-        assertEquals("value elements were not expected [7]", validationResult.getViolations().get(0).getErrorMessage());
-
+        assertEquals("value elements were not expected [10]", validationResult.getViolations().get(0).getErrorMessage());
     }
 
     @Test
     void shouldReturnFailureWhenExpectedValuesIsEmptyAndActualIsNot() {
-        Target t = new Target(new int[] {1, 5, 7});
+        Target t = new Target(new short[]{ONE, FIVE});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForIntArray(Target::getValue).containsExactly(Collections.emptyList());
+        validator.ruleForShortArray(Target::getValue).containsExactly(Collections.emptyList());
 
         ValidationResult validationResult = validator.validate(t);
 
@@ -93,7 +96,7 @@ class ContainsExactlyTest {
     @Test
     void shouldThrowExceptionWhenExpectedValuesIsNull() {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        assertThrows(NullPointerException.class, () -> validator.ruleForIntArray(Target::getValue).containsExactly((Iterable<Integer>) null));
+        assertThrows(NullPointerException.class, () -> validator.ruleForShortArray(Target::getValue).containsExactly((Iterable<Short>) null));
     }
 
     @Test
@@ -101,7 +104,7 @@ class ContainsExactlyTest {
         Target t = new Target(null);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForIntArray(Target::getValue).containsExactly(Collections.emptyList());
+        validator.ruleForShortArray(Target::getValue).containsExactly(Collections.emptyList());
 
         ValidationResult validationResult = validator.validate(t);
 
@@ -110,23 +113,23 @@ class ContainsExactlyTest {
 
     @Test
     void shouldReturnFailureWhenActualDoesNotContainGivenValuesExactly() {
-        Target t = new Target(new int[] {1, 5, 7});
+        Target t = new Target(new short[] {ZERO, ONE, FIVE});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForIntArray(Target::getValue).containsExactly(1, 5, 9);
+        validator.ruleForShortArray(Target::getValue).containsExactly(ZERO, ONE, TEN);
 
         ValidationResult validationResult = validator.validate(t);
 
         assertFalse(validationResult.isValid());
-        assertEquals("value missing the following elements [9] and the following elements were not expected [7]", validationResult.getViolations().get(0).getErrorMessage());
+        assertEquals("value missing the following elements [10] and the following elements were not expected [5]", validationResult.getViolations().get(0).getErrorMessage());
     }
 
     @Test
     void shouldReturnFailureWhenActualContainsAllGivenValuesButSizeIsDifferent() {
-        Target t = new Target(new int[] {1, 5, 7});
+        Target t = new Target(new short[] {ONE, FIVE});
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForIntArray(Target::getValue).containsExactly(1, 5, 7, 7);
+        validator.ruleForShortArray(Target::getValue).containsExactly(ONE, FIVE, FIVE);
 
         ValidationResult validationResult = validator.validate(t);
 
