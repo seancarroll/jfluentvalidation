@@ -110,6 +110,11 @@ public class FloatArraySubject<T> extends AbstractArraySubject<FloatArraySubject
         return containsAny(Arrays.asList(values));
     }
 
+    public FloatArraySubject<T> containsAny(float[] expected) {
+        rule.addConstraint(new ContainsAnyFloatConstraint<>(Floats.asList(expected)));
+        return myself;
+    }
+
     @Override
     public FloatArraySubject<T> containsAny(Iterable<Float> values) {
         rule.addConstraint(new ContainsAnyFloatConstraint<>(values));
@@ -119,6 +124,11 @@ public class FloatArraySubject<T> extends AbstractArraySubject<FloatArraySubject
     @Override
     public FloatArraySubject<T> containsAll(Float... expected) {
         return containsAll(Arrays.asList(expected));
+    }
+
+    public FloatArraySubject<T> containsAll(float[] expected) {
+        rule.addConstraint(new ContainsAllFloatConstraint<>(Floats.asList(expected)));
+        return myself;
     }
 
     @Override
@@ -146,6 +156,11 @@ public class FloatArraySubject<T> extends AbstractArraySubject<FloatArraySubject
     @Override
     public FloatArraySubject<T> containsNone(Float... values) {
         return containsNone(Arrays.asList(values));
+    }
+
+    public FloatArraySubject<T> containsNone(float[] expected) {
+        rule.addConstraint(new ContainsNoneFloatConstraint<>(Floats.asList(expected)));
+        return myself;
     }
 
     @Override

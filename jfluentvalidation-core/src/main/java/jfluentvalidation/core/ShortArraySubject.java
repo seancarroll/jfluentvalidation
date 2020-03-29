@@ -69,6 +69,11 @@ public class ShortArraySubject<T> extends AbstractArraySubject<ShortArraySubject
         return containsAny(Arrays.asList(values));
     }
 
+    public ShortArraySubject<T> containsAny(short[] expected) {
+        rule.addConstraint(new ContainsAnyShortConstraint<>(Shorts.asList(expected)));
+        return myself;
+    }
+
     @Override
     public ShortArraySubject<T> containsAny(Iterable<Short> values) {
         rule.addConstraint(new ContainsAnyShortConstraint<>(values));
@@ -78,6 +83,11 @@ public class ShortArraySubject<T> extends AbstractArraySubject<ShortArraySubject
     @Override
     public ShortArraySubject<T> containsAll(Short... expected) {
         return containsAll(Arrays.asList(expected));
+    }
+
+    public ShortArraySubject<T> containsAll(short[] expected) {
+        rule.addConstraint(new ContainsAllShortConstraint<>(Shorts.asList(expected)));
+        return myself;
     }
 
     @Override
@@ -106,6 +116,11 @@ public class ShortArraySubject<T> extends AbstractArraySubject<ShortArraySubject
     @Override
     public ShortArraySubject<T> containsNone(Short... values) {
         return containsNone(Arrays.asList(values));
+    }
+
+    public ShortArraySubject<T> containsNone(short[] expected) {
+        rule.addConstraint(new ContainsNoneShortConstraint<>(Shorts.asList(expected)));
+        return myself;
     }
 
     @Override

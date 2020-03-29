@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Collections;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -23,6 +24,19 @@ class ContainsAllTest {
         ValidationResult validationResult = validator.validate(t);
 
         assertTrue(validationResult.isValid());
+    }
+
+    @Test
+    void shouldSupportGivenAsArray() {
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        assertDoesNotThrow(() -> validator.ruleForIntArray(Target::getValue).containsAll(new int[] {1, 5}));
+    }
+
+    @Test
+    void shouldSupportGivenAsIterable() {
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        Iterable<Integer> iterable = Collections.singletonList(1);
+        assertDoesNotThrow(() -> validator.ruleForIntArray(Target::getValue).containsAll(iterable));
     }
 
     @Test

@@ -1,6 +1,5 @@
 package jfluentvalidation.validators.rulefor.arrays.longs;
 
-import com.google.common.collect.Sets;
 import jfluentvalidation.ValidationResult;
 import jfluentvalidation.validators.DefaultValidator;
 import org.junit.jupiter.api.Test;
@@ -36,7 +35,8 @@ class ContainsExactlyTest {
     @Test
     void shouldSupportGivenAsIterable() {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        assertDoesNotThrow(() -> validator.ruleForLongArray(Target::getValue).containsExactly(Sets.newHashSet(1L, 5L)));
+        Iterable<Long> iterable = Collections.singletonList(1L);
+        assertDoesNotThrow(() -> validator.ruleForLongArray(Target::getValue).containsExactly(iterable));
     }
 
     @Test

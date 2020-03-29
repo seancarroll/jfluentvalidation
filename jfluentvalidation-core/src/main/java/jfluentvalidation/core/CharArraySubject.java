@@ -69,6 +69,11 @@ public class CharArraySubject<T> extends AbstractArraySubject<CharArraySubject<T
         return containsAny(Arrays.asList(values));
     }
 
+    public CharArraySubject<T> containsAny(char[] expected) {
+        rule.addConstraint(new ContainsAnyCharConstraint<>(Chars.asList(expected)));
+        return myself;
+    }
+
     @Override
     public CharArraySubject<T> containsAny(Iterable<Character> values) {
         rule.addConstraint(new ContainsAnyCharConstraint<>(values));
@@ -78,6 +83,11 @@ public class CharArraySubject<T> extends AbstractArraySubject<CharArraySubject<T
     @Override
     public CharArraySubject<T> containsAll(Character... expected) {
         return containsAll(Arrays.asList(expected));
+    }
+
+    public CharArraySubject<T> containsAll(char[] expected) {
+        rule.addConstraint(new ContainsAllCharConstraint<>(Chars.asList(expected)));
+        return myself;
     }
 
     @Override
@@ -105,6 +115,11 @@ public class CharArraySubject<T> extends AbstractArraySubject<CharArraySubject<T
     @Override
     public CharArraySubject<T> containsNone(Character... values) {
         return containsNone(Arrays.asList(values));
+    }
+
+    public CharArraySubject<T> containsNone(char[] expected) {
+        rule.addConstraint(new ContainsNoneCharConstraint<>(Chars.asList(expected)));
+        return myself;
     }
 
     @Override

@@ -8,6 +8,7 @@ import java.util.Collections;
 
 import static jfluentvalidation.validators.rulefor.arrays.bytes.Bytes.FIVE;
 import static jfluentvalidation.validators.rulefor.arrays.bytes.Bytes.ONE;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -25,6 +26,19 @@ class ContainsAllTest {
         ValidationResult validationResult = validator.validate(t);
 
         assertTrue(validationResult.isValid());
+    }
+
+    @Test
+    void shouldSupportGivenAsArray() {
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        assertDoesNotThrow(() -> validator.ruleForByteArray(Target::getValue).containsAll(new byte[]{ONE, FIVE}));
+    }
+
+    @Test
+    void shouldSupportGivenAsIterable() {
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        Iterable<Byte> iterable = Collections.singletonList(ONE);
+        assertDoesNotThrow(() -> validator.ruleForByteArray(Target::getValue).containsAll(iterable));
     }
 
     @Test

@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Collections;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -26,9 +27,16 @@ class ContainsAnyTest {
     }
 
     @Test
-    void shouldSupportLists() {
+    void shouldSupportGivenAsArray() {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForCharArray(Target::getValue).containsAny(Collections.singletonList('a'));
+        assertDoesNotThrow(() -> validator.ruleForCharArray(Target::getValue).containsAny(new char[] {'a', 'b'}));
+    }
+
+    @Test
+    void shouldSupportGivenAsIterable() {
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        Iterable<Character> iterable = Collections.singletonList('a');
+        assertDoesNotThrow(() -> validator.ruleForCharArray(Target::getValue).containsAny(iterable));
     }
 
     @Test

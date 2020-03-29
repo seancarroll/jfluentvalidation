@@ -1,6 +1,5 @@
 package jfluentvalidation.validators.rulefor.arrays.ints;
 
-import com.google.common.collect.Sets;
 import jfluentvalidation.ValidationResult;
 import jfluentvalidation.validators.DefaultValidator;
 import org.junit.jupiter.api.Test;
@@ -36,7 +35,8 @@ class ContainsExactlyTest {
     @Test
     void shouldSupportGivenAsIterable() {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        assertDoesNotThrow(() -> validator.ruleForIntArray(Target::getValue).containsExactly(Sets.newHashSet(1, 5)));
+        Iterable<Integer> iterable = Collections.singletonList(1);
+        assertDoesNotThrow(() -> validator.ruleForIntArray(Target::getValue).containsExactly(iterable));
     }
 
     @Test

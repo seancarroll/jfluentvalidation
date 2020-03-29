@@ -4,12 +4,14 @@ import jfluentvalidation.ValidationResult;
 import jfluentvalidation.validators.DefaultValidator;
 import org.junit.jupiter.api.Test;
 
+import java.util.Collections;
 import java.util.List;
 
 import static jfluentvalidation.validators.rulefor.arrays.bytes.Bytes.FIVE;
 import static jfluentvalidation.validators.rulefor.arrays.bytes.Bytes.ONE;
 import static jfluentvalidation.validators.rulefor.arrays.bytes.Bytes.TEN;
 import static jfluentvalidation.validators.rulefor.arrays.bytes.Bytes.ZERO;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -27,6 +29,19 @@ class ContainsNoneTest {
         ValidationResult validationResult = validator.validate(t);
 
         assertTrue(validationResult.isValid());
+    }
+
+    @Test
+    void shouldSupportGivenAsArray() {
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        assertDoesNotThrow(() -> validator.ruleForByteArray(Target::getValue).containsNone(new byte[]{ONE, FIVE}));
+    }
+
+    @Test
+    void shouldSupportGivenAsIterable() {
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        Iterable<Byte> iterable = Collections.singletonList(ONE);
+        validator.ruleForByteArray(Target::getValue).containsNone(iterable);
     }
 
     @Test

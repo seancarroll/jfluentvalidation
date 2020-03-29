@@ -70,6 +70,11 @@ public class BooleanArraySubject<T> extends AbstractArraySubject<BooleanArraySub
         return containsAny(Arrays.asList(values));
     }
 
+    public BooleanArraySubject<T> containsAny(boolean[] expected) {
+        rule.addConstraint(new ContainsAnyBooleanConstraint<>(Booleans.asList(expected)));
+        return myself;
+    }
+
     @Override
     public BooleanArraySubject<T> containsAny(Iterable<Boolean> values) {
         rule.addConstraint(new ContainsAnyBooleanConstraint<>(values));
@@ -79,6 +84,11 @@ public class BooleanArraySubject<T> extends AbstractArraySubject<BooleanArraySub
     @Override
     public BooleanArraySubject<T> containsAll(Boolean... expected) {
         return containsAll(Arrays.asList(expected));
+    }
+
+    public BooleanArraySubject<T> containsAll(boolean[] expected) {
+        rule.addConstraint(new ContainsAllBooleanConstraint<>(Booleans.asList(expected)));
+        return myself;
     }
 
     @Override
@@ -106,6 +116,11 @@ public class BooleanArraySubject<T> extends AbstractArraySubject<BooleanArraySub
     @Override
     public BooleanArraySubject<T> containsNone(Boolean... values) {
         return containsNone(Arrays.asList(values));
+    }
+
+    public BooleanArraySubject<T> containsNone(boolean[] expected) {
+        rule.addConstraint(new ContainsNoneBooleanConstraint<>(Booleans.asList(expected)));
+        return myself;
     }
 
     @Override

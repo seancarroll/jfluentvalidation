@@ -69,6 +69,11 @@ public class LongArraySubject<T> extends AbstractArraySubject<LongArraySubject<T
         return containsAny(Arrays.asList(values));
     }
 
+    public LongArraySubject<T> containsAny(long[] expected) {
+        rule.addConstraint(new ContainsAnyLongConstraint<>(Longs.asList(expected)));
+        return myself;
+    }
+
     @Override
     public LongArraySubject<T> containsAny(Iterable<Long> values) {
         rule.addConstraint(new ContainsAnyLongConstraint<>(values));
@@ -78,6 +83,11 @@ public class LongArraySubject<T> extends AbstractArraySubject<LongArraySubject<T
     @Override
     public LongArraySubject<T> containsAll(Long... expected) {
         return containsAll(Arrays.asList(expected));
+    }
+
+    public LongArraySubject<T> containsAll(long[] expected) {
+        rule.addConstraint(new ContainsAllLongConstraint<>(Longs.asList(expected)));
+        return myself;
     }
 
     @Override
@@ -106,6 +116,11 @@ public class LongArraySubject<T> extends AbstractArraySubject<LongArraySubject<T
     @Override
     public LongArraySubject<T> containsNone(Long... values) {
         return containsNone(Arrays.asList(values));
+    }
+
+    public LongArraySubject<T> containsNone(long[] expected) {
+        rule.addConstraint(new ContainsNoneLongConstraint<>(Longs.asList(expected)));
+        return myself;
     }
 
     @Override

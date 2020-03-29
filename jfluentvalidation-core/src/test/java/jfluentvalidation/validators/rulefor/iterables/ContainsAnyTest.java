@@ -28,9 +28,10 @@ class ContainsAnyTest {
     }
 
     @Test
-    void shouldSupportLists() {
+    void shouldSupportIterable() {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForIterable(Target::getValue).containsAny(Collections.singletonList("hello"));
+        Iterable<String> iterable = Collections.singletonList("hello");
+        validator.ruleForIterable(Target::getValue).containsAny(iterable);
     }
 
     @Test

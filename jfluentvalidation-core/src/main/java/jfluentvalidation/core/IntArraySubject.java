@@ -69,6 +69,11 @@ public class IntArraySubject<T> extends AbstractArraySubject<IntArraySubject<T>,
         return containsAny(Arrays.asList(values));
     }
 
+    public IntArraySubject<T> containsAny(int[] expected) {
+        rule.addConstraint(new ContainsAnyIntConstraint<>(Ints.asList(expected)));
+        return myself;
+    }
+
     @Override
     public IntArraySubject<T> containsAny(Iterable<Integer> values) {
         rule.addConstraint(new ContainsAnyIntConstraint<>(values));
@@ -78,6 +83,11 @@ public class IntArraySubject<T> extends AbstractArraySubject<IntArraySubject<T>,
     @Override
     public IntArraySubject<T> containsAll(Integer... expected) {
         return containsAll(Arrays.asList(expected));
+    }
+
+    public IntArraySubject<T> containsAll(int[] expected) {
+        rule.addConstraint(new ContainsAllIntConstraint<>(Ints.asList(expected)));
+        return myself;
     }
 
     @Override
@@ -106,6 +116,11 @@ public class IntArraySubject<T> extends AbstractArraySubject<IntArraySubject<T>,
     @Override
     public IntArraySubject<T> containsNone(Integer... values) {
         return containsNone(Arrays.asList(values));
+    }
+
+    public IntArraySubject<T> containsNone(int[] expected) {
+        rule.addConstraint(new ContainsNoneIntConstraint<>(Ints.asList(expected)));
+        return myself;
     }
 
     @Override

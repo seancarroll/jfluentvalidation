@@ -74,6 +74,11 @@ public class ByteArraySubject<T> extends AbstractArraySubject<ByteArraySubject<T
         return containsAny(Arrays.asList(values));
     }
 
+    public ByteArraySubject<T> containsAny(byte[] expected) {
+        rule.addConstraint(new ContainsAnyByteConstraint<>(Bytes.asList(expected)));
+        return myself;
+    }
+
     @Override
     public ByteArraySubject<T> containsAny(Iterable<Byte> values) {
         rule.addConstraint(new ContainsAnyByteConstraint<>(values));
@@ -83,6 +88,11 @@ public class ByteArraySubject<T> extends AbstractArraySubject<ByteArraySubject<T
     @Override
     public ByteArraySubject<T> containsAll(Byte... expected) {
         return containsAll(Arrays.asList(expected));
+    }
+
+    public ByteArraySubject<T> containsAll(byte[] expected) {
+        rule.addConstraint(new ContainsAllByteConstraint<>(Bytes.asList(expected)));
+        return myself;
     }
 
     @Override
@@ -110,6 +120,11 @@ public class ByteArraySubject<T> extends AbstractArraySubject<ByteArraySubject<T
     @Override
     public ByteArraySubject<T> containsNone(Byte... values) {
         return containsNone(Arrays.asList(values));
+    }
+
+    public ByteArraySubject<T> containsNone(byte[] expected) {
+        rule.addConstraint(new ContainsNoneByteConstraint<>(Bytes.asList(expected)));
+        return myself;
     }
 
     @Override

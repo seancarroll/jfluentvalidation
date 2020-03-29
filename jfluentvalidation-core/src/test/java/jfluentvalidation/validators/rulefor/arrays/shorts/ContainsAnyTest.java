@@ -9,6 +9,7 @@ import java.util.Collections;
 import static jfluentvalidation.validators.rulefor.arrays.shorts.Shorts.FIVE;
 import static jfluentvalidation.validators.rulefor.arrays.shorts.Shorts.ONE;
 import static jfluentvalidation.validators.rulefor.arrays.shorts.Shorts.TEN;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -29,9 +30,16 @@ class ContainsAnyTest {
     }
 
     @Test
-    void shouldSupportLists() {
+    void shouldSupportGivenAsArray() {
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
-        validator.ruleForShortArray(Target::getValue).containsAny(Collections.singletonList(ONE));
+        assertDoesNotThrow(() -> validator.ruleForShortArray(Target::getValue).containsAny(new short[]{ONE, FIVE}));
+    }
+
+    @Test
+    void shouldSupportGivenAsIterable() {
+        DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
+        Iterable<Short> iterable = Collections.singletonList(ONE);
+        assertDoesNotThrow(() -> validator.ruleForShortArray(Target::getValue).containsAny(iterable));
     }
 
     @Test
