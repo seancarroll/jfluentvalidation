@@ -19,34 +19,15 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
 
-        <guava.version>28.1-jre</guava.version>
         <log4j.version>2.12.1</log4j.version>
         <typetools.version>0.6.1</typetools.version>
     </properties>
-
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>com.seanthomascarroll.jfluentvalidation</groupId>
-                <artifactId>jfluentvalidation-bom</artifactId>
-                <version>${project.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
 
     <dependencies>
 
         <dependency>
             <groupId>net.bytebuddy</groupId>
             <artifactId>byte-buddy</artifactId>
-        </dependency>
-
-        <!-- TODO: remove. should only need for benchmark -->
-        <dependency>
-            <groupId>org.hibernate.validator</groupId>
-            <artifactId>hibernate-validator</artifactId>
         </dependency>
         <dependency>
             <groupId>org.glassfish</groupId>
@@ -60,7 +41,6 @@
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-            <version>${guava.version}</version>
         </dependency>
 
         <dependency>
@@ -85,7 +65,10 @@
             <artifactId>typetools</artifactId>
             <version>${typetools.version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
@@ -100,6 +83,5 @@
             </plugin>
         </plugins>
     </build>
-
 
 </project>

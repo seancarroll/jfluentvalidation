@@ -1,6 +1,6 @@
 package jfluentvalidation.constraints.charsequence;
 
-import org.hibernate.validator.internal.util.DomainNameUtil;
+import jfluentvalidation.internal.DomainNameUtil;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
