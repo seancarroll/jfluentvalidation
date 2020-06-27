@@ -20,9 +20,9 @@ interface MethodReferenceReflection {
         }
     }
 
-    default Class<?> getContainingClass() {
+    default Class<?> getContainingClass(SerializedLambda lambda) {
         try {
-            String className = serialized().getImplClass().replace("/", ".");
+            String className = lambda.getImplClass().replace("/", ".");
             return Class.forName(className);
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -31,7 +31,7 @@ interface MethodReferenceReflection {
 
     default Method method() {
         SerializedLambda lambda = serialized();
-        Class<?> containingClass = getContainingClass();
+        Class<?> containingClass = getContainingClass(lambda);
         return Arrays.stream(containingClass.getDeclaredMethods())
             .filter(method -> Objects.equals(method.getName(), lambda.getImplMethodName())) // TODO: check parameter types to deal with overloads
             .findFirst()
