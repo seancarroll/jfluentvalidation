@@ -107,6 +107,7 @@ public class ResourceBundleMessageInterpolator {
             } else if (t.isEL()) {
                 // TODO: catch unresolvable property or identifier exception. Others?
                 // TODO: dont need to instantiate MapVariableResolverFactory every time
+                // TODO: compile expressions and cache them?
                 resolvedMessageBuilder.append(MVEL.evalToString(removeDollarAndCurlyBraces(t.getValue()), new MapVariableResolverFactory(context)));
             } else {
                 resolvedMessageBuilder.append(t.getValue());

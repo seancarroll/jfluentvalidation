@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Objects;
 
 import static java.util.Collections.unmodifiableList;
+import static jfluentvalidation.common.Lists.newArrayList;
 import static jfluentvalidation.common.MoreCollections.safeContains;
 
 // TODO: verify not a complete rip off of apache commons or guava
@@ -96,7 +97,7 @@ public final class Iterables {
     public static <T> List<T> subtract(Iterable<T> first, Iterable<T> second) {
         List<T> missingInFirst = new ArrayList<>();
         // use a copy to deal correctly with potential duplicates
-        List<T> copyOfSecond = Lists.newArrayList(second);
+        List<T> copyOfSecond = newArrayList(second);
         for (T elementInFirst : first) {
             if (Iterables.contains(copyOfSecond, elementInFirst)) {
                 // remove the element otherwise a duplicate would be found in the case if there is one in actual

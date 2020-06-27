@@ -6,8 +6,6 @@ import jfluentvalidation.validators.RuleContext;
 
 import static java.lang.Character.isWhitespace;
 
-// TODO: implement!
-
 /**
  *
  * @param <T>  type of instance to validate.

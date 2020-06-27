@@ -13,6 +13,16 @@ import static jfluentvalidation.common.Maps.containsEntry;
 import static jfluentvalidation.common.Maps.entry;
 import static jfluentvalidation.common.Maps.toMap;
 
+// TODO: have a base class for array, iterable, map???
+// TODO: test this
+
+/**
+ * Check that the actual map contains only the given entries and nothing else, in order.
+ *
+ * @param <T>
+ * @param <K>
+ * @param <V>
+ */
 public class ContainsExactlyConstraint<T, K, V> extends AbstractConstraint<T, Map<K, V>> {
 
     // TODO: also allow another map?
@@ -55,6 +65,7 @@ public class ContainsExactlyConstraint<T, K, V> extends AbstractConstraint<T, Ma
                 // this check is a bit harder to do with a map. see what options we have
                 if (!Objects.equals(keyFromActual, entries[index].getKey())) {
                     Map.Entry<K, V> actualEntry = entry(keyFromActual, context.getPropertyValue().get(keyFromActual));
+                    // TODO: set name of argument
                     context.getMessageContext().appendArgument("", actualEntry);
                     return false;
                 }
@@ -73,7 +84,7 @@ public class ContainsExactlyConstraint<T, K, V> extends AbstractConstraint<T, Ma
                                                            Map.Entry<? extends K, ? extends V>[] entries,
                                                            Set<Map.Entry<? extends K, ? extends V>> notExpected,
                                                            Set<Map.Entry<? extends K, ? extends V>> notFound) {
-        
+
 //        Does Sets.intersection help at all?
 //        // We're using the fact that Sets.intersection keeps the order of the first set.
 //        List<?> expectedKeyOrder =

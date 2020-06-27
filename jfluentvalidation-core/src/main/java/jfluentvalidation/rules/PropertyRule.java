@@ -98,6 +98,7 @@ public class PropertyRule<T, P> implements Rule<T, P> {
         return ruleOptions;
     }
 
+    // TODO: test this...
     // TODO: swap out boolean with enum
     // I think there are two separate scenarios for the when clause
     // 1. targeting the instance to validate and used as part of the validator when grouping

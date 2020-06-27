@@ -1,6 +1,10 @@
 package jfluentvalidation.validators;
 
 // FluentValidation ValidatorMetadata / PropertyValidatorOptions
+
+/**
+ *
+ */
 public class ConstraintOptions {
 
     private String errorMessage;
