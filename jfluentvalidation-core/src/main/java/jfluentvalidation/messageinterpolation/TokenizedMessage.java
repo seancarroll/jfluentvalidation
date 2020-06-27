@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static org.hibernate.validator.internal.util.CollectionHelper.newArrayList;
+import static jfluentvalidation.common.Lists.newArrayList;
 
 public class TokenizedMessage {
     // TODO: replace this with something similar to hibernate validator...assuming its quicker but need to verify
