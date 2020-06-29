@@ -1,9 +1,18 @@
 package jfluentvalidation.common;
 
+import com.google.common.primitives.Booleans;
+import com.google.common.primitives.Bytes;
+import com.google.common.primitives.Chars;
+import com.google.common.primitives.Doubles;
+import com.google.common.primitives.Floats;
+import com.google.common.primitives.Ints;
+import com.google.common.primitives.Longs;
+import com.google.common.primitives.Shorts;
 import jfluentvalidation.internal.Ensure;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
@@ -134,6 +143,36 @@ public class Lists {
             list.add((T) Array.get(array, i));
         }
         return list;
+    }
+
+    public static List<?> toList(Object o) {
+        Ensure.isArray(o, "object must be an array");
+
+        Class<?> clazz = o.getClass().getComponentType();
+
+        if (!clazz.isPrimitive()) {
+            return Arrays.asList((Object[])o);
+        }
+
+        if (clazz == byte.class) {
+            return Bytes.asList((byte[])o);
+        } else if (clazz == char.class) {
+            return Chars.asList((char[])o);
+        } else if (clazz == double.class) {
+            return Doubles.asList((double[])o);
+        } else if (clazz == float.class) {
+            return Floats.asList((float[])o);
+        } else if (clazz == int.class) {
+            return Ints.asList((int[])o);
+        } else if (clazz == long.class) {
+            return Longs.asList((long[])o);
+        } else if (clazz == short.class) {
+            return Shorts.asList((short[])o);
+        } else if (clazz == boolean.class) {
+            return Booleans.asList((boolean[])o);
+        }
+
+        throw new RuntimeException("could not convert object to list");
     }
 
 }
