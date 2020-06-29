@@ -16,6 +16,7 @@ import static jfluentvalidation.common.Maps.entry;
 import static jfluentvalidation.common.MoreArrays.array;
 
 /**
+ * Constraints for {@link Map} typed subjects.
  *
  * @param <T>  the target type supported by an implementation.
  * @param <K>  the type of keys maintained by the map
@@ -47,8 +48,9 @@ public class MapSubject<T, K, V> extends Subject<MapSubject<T, K, V>, T, Map<K, 
     }
 
     /**
+     * Verifies that the number of values in the {@link Map} is equal to the expected size.
      *
-     * @param expectedSize
+     * @param expectedSize  the expected number of values in the map.
      * @return  {@code this} subject.
      */
     @CanIgnoreReturnValue
@@ -58,11 +60,13 @@ public class MapSubject<T, K, V> extends Subject<MapSubject<T, K, V>, T, Map<K, 
     }
 
     /**
+     * Verifies that the {@link Map} contains the given entries, in any order.
      *
-     * @param entries
+     * @param entries  the given entries.
      * @return  {@code this} subject.
      * @throws NullPointerException if entries is {@code null}.
      */
+    @SafeVarargs
     @CanIgnoreReturnValue
     public final MapSubject<T, K, V> contains(@Nonnull Map.Entry<? extends K, ? extends V>... entries) {
         rule.addConstraint(new ContainsEntriesConstraint<>(entries));
@@ -70,9 +74,10 @@ public class MapSubject<T, K, V> extends Subject<MapSubject<T, K, V>, T, Map<K, 
     }
 
     /**
+     * Verifies that the {@link Map} contains the given entry.
      *
-     * @param key
-     * @param value
+     * @param key  the given key
+     * @param value  the given value
      * @return  {@code this} subject.
      */
     @CanIgnoreReturnValue
@@ -82,8 +87,9 @@ public class MapSubject<T, K, V> extends Subject<MapSubject<T, K, V>, T, Map<K, 
     }
 
     /**
+     * Verifies that the {@link Map} contains the given keys.
      *
-     * @param keys
+     * @param keys  the given keys
      * @return  {@code this} subject.
      * @throws NullPointerException if keys is {@code null}.
      */
@@ -95,8 +101,9 @@ public class MapSubject<T, K, V> extends Subject<MapSubject<T, K, V>, T, Map<K, 
     }
 
     /**
+     * Verifies that the {@link Map} contains the given values.
      *
-     * @param values
+     * @param values  the given values
      * @return  {@code this} subject.
      * @throws NullPointerException if values is {@code null}.
      */
@@ -108,18 +115,27 @@ public class MapSubject<T, K, V> extends Subject<MapSubject<T, K, V>, T, Map<K, 
     }
 
     /**
+     * Verifies that the {@link Map} contains exactly the given entries in order.
      *
+     * @param entries  the given entries.
      * @return  {@code this} subject.
      */
+    @SafeVarargs
     @CanIgnoreReturnValue
     public final MapSubject<T, K, V> containsExactly(Map.Entry<? extends K, ? extends V>... entries) {
         rule.addConstraint(new ContainsExactlyConstraint<>(entries));
         return myself;
     }
 
+    /**
+     * Same as {@link #containsExactly(Map.Entry[])}.
+     *
+     * @param map  the given {@link Map}.
+     * @return  {@code this} subject.
+     */
     @CanIgnoreReturnValue
-    public final MapSubject<T, K, V> containsExactly(Map<? extends K, ? extends V> expectedMap) {
-        rule.addConstraint(new ContainsExactlyConstraint<>(expectedMap));
+    public final MapSubject<T, K, V> containsExactly(Map<? extends K, ? extends V> map) {
+        rule.addConstraint(new ContainsExactlyConstraint<>(map));
         return myself;
     }
 

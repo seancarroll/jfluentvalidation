@@ -52,10 +52,6 @@ public class ContainsExactlyConstraint<T, K, V> extends AbstractConstraint<T, Ma
             return true;
         }
 
-//        if (context.getPropertyValue().size() != entries.length) {
-//            return false;
-//        }
-
         Set<Map.Entry<? extends K, ? extends V>> notFound = new LinkedHashSet<>();
         Set<Map.Entry<? extends K, ? extends V>> notExpected = new LinkedHashSet<>();
 
@@ -69,8 +65,8 @@ public class ContainsExactlyConstraint<T, K, V> extends AbstractConstraint<T, Ma
                     Map.Entry<K, V> actualEntry = entry(keyFromActual, context.getPropertyValue().get(keyFromActual));
                     context.getMessageContext().appendArgument("differentOrderElement", actualEntry);
                     context.getMessageContext().appendArgument("indexOfDifferentElement", index);
-//                    context.getMessageContext().appendArgument("missingValues", null);
-//                    context.getMessageContext().appendArgument("unexpectedValues", null);
+                    context.getMessageContext().appendArgument("missingValues", null);
+                    context.getMessageContext().appendArgument("unexpectedValues", null);
                     return false;
                 }
                 index++;
@@ -80,8 +76,8 @@ public class ContainsExactlyConstraint<T, K, V> extends AbstractConstraint<T, Ma
         }
 
         // need to set all values to avoid UnresolvablePropertyException when evaluating validation message
-//        context.getMessageContext().appendArgument("differentOrderElement", null);
-//        context.getMessageContext().appendArgument("indexOfDifferentElement", null);
+        context.getMessageContext().appendArgument("differentOrderElement", null);
+        context.getMessageContext().appendArgument("indexOfDifferentElement", null);
         context.getMessageContext().appendArgument("missingValues", notFound.isEmpty() ? null : notFound);
         context.getMessageContext().appendArgument("unexpectedValues", notExpected.isEmpty() ? null : notExpected);
 

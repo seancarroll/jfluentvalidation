@@ -6,6 +6,7 @@ package jfluentvalidation.core;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 
 /**
+ * Constraints for {@link Number} typed subjects.
  *
  * @param <S>  the self-type, allowing {@code this}-returning methods to avoid needing subclassing.
  *             Additional details can be found at &quot;<a href="http://bit.ly/1IZIRcY" target="_blank">Emulating 'self types' using Java Generics to simplify fluent API implementation</a>&quot;

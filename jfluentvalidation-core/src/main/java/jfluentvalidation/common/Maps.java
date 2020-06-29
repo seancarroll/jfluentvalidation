@@ -43,8 +43,8 @@ public class Maps {
             && Objects.equals(actual.get(entry.getKey()), entry.getValue());
     }
 
-    public static <K, V> Map<K, V> toMap(Map.Entry<? extends K, ? extends V>[] entries) {
-        Map<K, V> map = new LinkedHashMap<>(entries.length);
+    public static <K, V> LinkedHashMap<K, V> toMap(Map.Entry<? extends K, ? extends V>[] entries) {
+        LinkedHashMap<K, V> map = new LinkedHashMap<>(entries.length);
         for (Map.Entry<? extends K, ? extends V> entry : entries) {
             map.put(entry.getKey(), entry.getValue());
         }
