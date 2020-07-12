@@ -28,6 +28,8 @@ public class PropertyRule<T, P> implements Rule<T, P> {
     protected Function<T, P> propertyFunc;
     protected String propertyName;
     protected RuleOptions ruleOptions;
+
+    // TODO: ResourceBundleMessageInterpolator could be a singleton?
     private ResourceBundleMessageInterpolator interpolator = new ResourceBundleMessageInterpolator();
     private List<Constraint<T, P>> constraints = new ArrayList<>();
     private Constraint<T, P> currentConstraint;
@@ -48,10 +50,6 @@ public class PropertyRule<T, P> implements Rule<T, P> {
     @Override
     public List<ValidationFailure> validate(ValidationContext<T> context) {
         List<ValidationFailure> failures = new ArrayList<>();
-
-        // TODO: whats the difference between context.getPropertyValue() and propertyFunc.apply(context.getInstanceToValidate())
-        // I would think context.getProperty would give us the appropriate value without having to do the func
-        // TODO: fix this
         P propertyValue = propertyFunc.apply(context.getInstanceToValidate());
         for (Constraint<T, P> constraint : constraints) {
             // TODO: is this the best way to handle this?
@@ -62,7 +60,10 @@ public class PropertyRule<T, P> implements Rule<T, P> {
                 ruleContext.getMessageContext().appendPropertyValue(ruleContext.getPropertyValue());
                 constraint.addParametersToContext(ruleContext);
 
-                String resolvedMessage = interpolator.interpolate(constraint.getOptions().getErrorMessage(), ruleContext.getMessageContext().getPlaceholderValues());
+                String resolvedMessage = interpolator.interpolate(
+                    constraint.getOptions().getErrorMessage(),
+                    ruleContext.getMessageContext().getPlaceholderValues()
+                );
 
                 failures.add(new ValidationFailure(propertyName, resolvedMessage, propertyValue));
             }

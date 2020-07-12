@@ -3,7 +3,7 @@ package jfluentvalidation.validators;
 import jfluentvalidation.messageinterpolation.MessageContext;
 import jfluentvalidation.rules.Rule;
 
-// QUESTION: would ConstraintContext be a better name?
+// TODO: QUESTION: would ConstraintContext be a better name?
 /**
  *
  * @param <T>
