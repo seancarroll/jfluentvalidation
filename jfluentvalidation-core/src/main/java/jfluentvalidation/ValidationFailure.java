@@ -2,6 +2,8 @@ package jfluentvalidation;
 
 import com.google.common.base.MoreObjects;
 
+// TODO: add property path field?
+
 /**
  *
  */
