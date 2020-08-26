@@ -3,7 +3,7 @@ package jfluentvalidation.constraints.file;
 import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.DefaultMessages;
 import jfluentvalidation.internal.Ensure;
-import jfluentvalidation.validators.RuleContext;
+import jfluentvalidation.validators.ConstraintContext;
 
 import javax.annotation.Nonnull;
 import java.io.File;
@@ -22,7 +22,7 @@ public class HasNameConstraint<T> extends AbstractConstraint<T, File> {
     }
 
     @Override
-    public boolean isValid(RuleContext<T, File> context) {
+    public boolean isValid(ConstraintContext<T, File> context) {
         if (context.getPropertyValue() == null) {
             return true;
         }
@@ -30,7 +30,7 @@ public class HasNameConstraint<T> extends AbstractConstraint<T, File> {
     }
 
     @Override
-    public void addParametersToContext(RuleContext<T, File> context) {
+    public void addParametersToContext(ConstraintContext<T, File> context) {
         context.getMessageContext().appendArgument("name", expected);
     }
 }

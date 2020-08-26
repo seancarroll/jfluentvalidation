@@ -5,7 +5,7 @@ import jfluentvalidation.SerializableFunction;
 import jfluentvalidation.ValidationFailure;
 import jfluentvalidation.constraints.Constraint;
 import jfluentvalidation.messageinterpolation.ResourceBundleMessageInterpolator;
-import jfluentvalidation.validators.RuleContext;
+import jfluentvalidation.validators.ConstraintContext;
 import jfluentvalidation.validators.RuleOptions;
 import jfluentvalidation.validators.ValidationContext;
 
@@ -40,7 +40,7 @@ public class MapPropertyRule<T, K, V> extends PropertyRule<T, Map<K, V>> {
 
         for (Constraint<T, Map<K, V>> constraint : getConstraints()) {
             // TODO: is this the best way to handle this?
-            RuleContext<T, Map<K, V>> ruleContext = new RuleContext<>(context, this);
+            ConstraintContext<T, Map<K, V>> ruleContext = new ConstraintContext<>(context, this);
             boolean isValid = constraint.isValid(ruleContext);
             if (!isValid) {
                 ruleContext.getMessageContext().appendPropertyName(ruleContext.getRule().getPropertyName());
@@ -61,7 +61,7 @@ public class MapPropertyRule<T, K, V> extends PropertyRule<T, Map<K, V>> {
                     // TODO: this is yucky. need to fix/clean up/improve
                     ValidationContext<?> childContext = new ValidationContext<>(e);
                     PropertyRule<T, Object> rule = new PropertyRule<>(null, propertyName, ruleOptions);
-                    RuleContext ruleContext = new RuleContext(childContext, rule, e);
+                    ConstraintContext ruleContext = new ConstraintContext(childContext, rule, e);
                     boolean isValid = itemConstraint.getConstraint().isValid(ruleContext);
                     if (!isValid) {
                         // TODO: how to include index in message

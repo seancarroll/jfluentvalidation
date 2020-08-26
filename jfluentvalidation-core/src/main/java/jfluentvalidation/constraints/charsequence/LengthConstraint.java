@@ -3,7 +3,7 @@ package jfluentvalidation.constraints.charsequence;
 import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.DefaultMessages;
 import jfluentvalidation.internal.Ensure;
-import jfluentvalidation.validators.RuleContext;
+import jfluentvalidation.validators.ConstraintContext;
 
 // TODO: do we need this along with all the other Length constraints?
 
@@ -25,7 +25,7 @@ public class LengthConstraint<T, A extends CharSequence> extends AbstractConstra
     }
 
     @Override
-    public boolean isValid(RuleContext<T, A> validationContext) {
+    public boolean isValid(ConstraintContext<T, A> validationContext) {
         // TODO: I like this because we can use it for exact length, greater than, and less than
         // however doesn't work if we want add inclusive start/end
         int length = validationContext.getPropertyValue().length();
@@ -37,7 +37,7 @@ public class LengthConstraint<T, A extends CharSequence> extends AbstractConstra
     }
 
     @Override
-    public void addParametersToContext(RuleContext<T, A> context) {
+    public void addParametersToContext(ConstraintContext<T, A> context) {
         context.getMessageContext().appendArgument("min", min);
         context.getMessageContext().appendArgument("max", max);
     }

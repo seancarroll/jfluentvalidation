@@ -5,7 +5,7 @@ import jfluentvalidation.ValidationFailure;
 import jfluentvalidation.common.MoreArrays;
 import jfluentvalidation.constraints.Constraint;
 import jfluentvalidation.messageinterpolation.ResourceBundleMessageInterpolator;
-import jfluentvalidation.validators.RuleContext;
+import jfluentvalidation.validators.ConstraintContext;
 import jfluentvalidation.validators.RuleOptions;
 import jfluentvalidation.validators.ValidationContext;
 
@@ -43,7 +43,7 @@ public class CollectionPropertyRule<T, P, E> extends PropertyRule<T, P> {
         Collection<E> collectionPropertyValue = toCollection(propertyValue);
         for (Constraint<?, ? extends P> constraint : getConstraints()) {
             // TODO: is this the best way to handle this?
-            RuleContext ruleContext = new RuleContext(context, this);
+            ConstraintContext ruleContext = new ConstraintContext(context, this);
             boolean isValid = constraint.isValid(ruleContext);
             if (!isValid) {
                 ruleContext.getMessageContext().appendPropertyName(ruleContext.getRule().getPropertyName());
@@ -63,7 +63,7 @@ public class CollectionPropertyRule<T, P, E> extends PropertyRule<T, P> {
                 for (E e : collectionPropertyValue) {
                     ValidationContext childContext = new ValidationContext<>(e);
                     PropertyRule<T, E> rule = new PropertyRule<>(null, propertyName, ruleOptions);
-                    RuleContext ruleContext = new RuleContext(childContext, rule, e);
+                    ConstraintContext ruleContext = new ConstraintContext(childContext, rule, e);
                     boolean isValid = itemConstraint.isValid(ruleContext);
                     if (!isValid) {
                         ruleContext.getMessageContext().appendPropertyName(ruleContext.getRule().getPropertyName());

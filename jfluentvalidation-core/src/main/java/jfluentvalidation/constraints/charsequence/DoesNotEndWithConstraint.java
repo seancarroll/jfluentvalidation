@@ -3,7 +3,7 @@ package jfluentvalidation.constraints.charsequence;
 import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.DefaultMessages;
 import jfluentvalidation.internal.Ensure;
-import jfluentvalidation.validators.RuleContext;
+import jfluentvalidation.validators.ConstraintContext;
 
 /**
  * Check that the given {@code CharSequence} being validated does not end with the given suffix.
@@ -20,7 +20,7 @@ public class DoesNotEndWithConstraint<T, A extends CharSequence> extends Abstrac
     }
 
     @Override
-    public boolean isValid(RuleContext<T, A> context) {
+    public boolean isValid(ConstraintContext<T, A> context) {
         if (context.getPropertyValue() == null) {
             return true;
         }
@@ -28,7 +28,7 @@ public class DoesNotEndWithConstraint<T, A extends CharSequence> extends Abstrac
     }
 
     @Override
-    public void addParametersToContext(RuleContext<T, A> context) {
+    public void addParametersToContext(ConstraintContext<T, A> context) {
         context.getMessageContext().appendArgument("suffix", suffix);
     }
 }

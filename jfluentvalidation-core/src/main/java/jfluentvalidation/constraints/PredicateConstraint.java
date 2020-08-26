@@ -1,6 +1,6 @@
 package jfluentvalidation.constraints;
 
-import jfluentvalidation.validators.RuleContext;
+import jfluentvalidation.validators.ConstraintContext;
 
 import java.util.function.Predicate;
 
@@ -23,7 +23,7 @@ public class PredicateConstraint<T, P> extends AbstractConstraint<T, P> {
     }
 
     @Override
-    public boolean isValid(RuleContext<T, P> validationContext) {
+    public boolean isValid(ConstraintContext<T, P> validationContext) {
         return predicate.test(validationContext.getPropertyValue());
     }
 

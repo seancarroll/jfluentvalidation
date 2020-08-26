@@ -3,7 +3,7 @@ package jfluentvalidation.constraints.iterable;
 import jfluentvalidation.common.Iterables;
 import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.DefaultMessages;
-import jfluentvalidation.validators.RuleContext;
+import jfluentvalidation.validators.ConstraintContext;
 
 /**
  * Verifies that the given <code>{@link Iterable}</code> does not contain the given element.
@@ -22,7 +22,7 @@ public class DoesNotContainConstraint<T, P> extends AbstractConstraint<T, Iterab
     }
 
     @Override
-    public boolean isValid(RuleContext<T, Iterable<? super P>> context) {
+    public boolean isValid(ConstraintContext<T, Iterable<? super P>> context) {
         if (context.getPropertyValue() == null) {
             return true;
         }

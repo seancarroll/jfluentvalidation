@@ -3,13 +3,12 @@ package jfluentvalidation.validators;
 import jfluentvalidation.messageinterpolation.MessageContext;
 import jfluentvalidation.rules.Rule;
 
-// TODO: QUESTION: would ConstraintContext be a better name?
 /**
  *
  * @param <T>
  * @param <P>
  */
-public class RuleContext<T, P> {
+public class ConstraintContext<T, P> {
 
     private final ValidationContext<T> validationContext;
     private final Rule<T, P> rule;
@@ -21,7 +20,7 @@ public class RuleContext<T, P> {
      * @param validationContext
      * @param rule
      */
-    public RuleContext(ValidationContext<T> validationContext, Rule<T, P> rule) {
+    public ConstraintContext(ValidationContext<T> validationContext, Rule<T, P> rule) {
         this.validationContext = validationContext;
         this.rule = rule;
         this.propertyValue = rule.getPropertyFunc().apply(validationContext.getInstanceToValidate());
@@ -34,7 +33,7 @@ public class RuleContext<T, P> {
      * @param rule
      * @param propertyValue
      */
-    public RuleContext(ValidationContext<T> validationContext, Rule<T, P> rule, P propertyValue) {
+    public ConstraintContext(ValidationContext<T> validationContext, Rule<T, P> rule, P propertyValue) {
         this.validationContext = validationContext;
         this.rule = rule;
         this.propertyValue = propertyValue;

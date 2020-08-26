@@ -3,7 +3,7 @@ package jfluentvalidation.constraints.time;
 import jfluentvalidation.common.Suppliers;
 import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.DefaultMessages;
-import jfluentvalidation.validators.RuleContext;
+import jfluentvalidation.validators.ConstraintContext;
 
 import java.time.LocalDate;
 import java.util.function.Supplier;
@@ -26,7 +26,7 @@ public class IsBeforeLocalDateConstraint<T> extends AbstractConstraint<T, LocalD
     }
 
     @Override
-    public boolean isValid(RuleContext<T, LocalDate> context) {
+    public boolean isValid(ConstraintContext<T, LocalDate> context) {
         if (context.getPropertyValue() == null) {
             return true;
         }

@@ -2,7 +2,7 @@ package jfluentvalidation.constraints.map;
 
 import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.DefaultMessages;
-import jfluentvalidation.validators.RuleContext;
+import jfluentvalidation.validators.ConstraintContext;
 
 import java.util.Map;
 
@@ -20,7 +20,7 @@ public class IsNotEmptyConstraint<T, K, V> extends AbstractConstraint<T, Map<K, 
     }
 
     @Override
-    public boolean isValid(RuleContext<T, Map<K, V>> context) {
+    public boolean isValid(ConstraintContext<T, Map<K, V>> context) {
         if (context.getPropertyValue() == null) {
             return true;
         }

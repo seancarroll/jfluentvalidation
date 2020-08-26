@@ -4,7 +4,7 @@ import jfluentvalidation.common.Iterables;
 import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.DefaultMessages;
 import jfluentvalidation.internal.Ensure;
-import jfluentvalidation.validators.RuleContext;
+import jfluentvalidation.validators.ConstraintContext;
 
 import java.lang.reflect.Array;
 import java.util.function.IntSupplier;
@@ -33,7 +33,7 @@ public class ArrayExactLengthConstraint<T, A> extends AbstractConstraint<T, A> {
     }
 
     @Override
-    public boolean isValid(RuleContext<T, A> context) {
+    public boolean isValid(ConstraintContext<T, A> context) {
         if (context.getPropertyValue() == null) {
             return true;
         }

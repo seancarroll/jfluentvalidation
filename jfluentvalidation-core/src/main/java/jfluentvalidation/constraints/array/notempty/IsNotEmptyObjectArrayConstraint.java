@@ -2,7 +2,7 @@ package jfluentvalidation.constraints.array.notempty;
 
 import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.DefaultMessages;
-import jfluentvalidation.validators.RuleContext;
+import jfluentvalidation.validators.ConstraintContext;
 
 /**
  *
@@ -15,7 +15,7 @@ public class IsNotEmptyObjectArrayConstraint<T, E> extends AbstractConstraint<T,
     }
 
     @Override
-    public boolean isValid(RuleContext<T, E[]> context) {
+    public boolean isValid(ConstraintContext<T, E[]> context) {
         if (context.getPropertyValue() == null) {
             return true;
         }

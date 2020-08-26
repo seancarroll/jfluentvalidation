@@ -4,7 +4,7 @@ import jfluentvalidation.common.Strings;
 import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.DefaultMessages;
 import jfluentvalidation.internal.Ensure;
-import jfluentvalidation.validators.RuleContext;
+import jfluentvalidation.validators.ConstraintContext;
 
 // TODO: allow custom comparison strategy
 
@@ -23,7 +23,7 @@ public class ContainsOnlyOnceConstraint<T, A extends CharSequence> extends Abstr
     }
 
     @Override
-    public boolean isValid(RuleContext<T, A> validationContext) {
+    public boolean isValid(ConstraintContext<T, A> validationContext) {
         if (Strings.isNull(validationContext.getPropertyValue())) {
             return true;
         }
@@ -46,7 +46,7 @@ public class ContainsOnlyOnceConstraint<T, A extends CharSequence> extends Abstr
     }
 
     @Override
-    public void addParametersToContext(RuleContext<T, A> context) {
+    public void addParametersToContext(ConstraintContext<T, A> context) {
         context.getMessageContext().appendArgument("value", sequence);
     }
 }

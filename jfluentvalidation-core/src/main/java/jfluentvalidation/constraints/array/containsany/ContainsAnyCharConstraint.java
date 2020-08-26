@@ -3,7 +3,7 @@ package jfluentvalidation.constraints.array.containsany;
 import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.DefaultMessages;
 import jfluentvalidation.internal.Ensure;
-import jfluentvalidation.validators.RuleContext;
+import jfluentvalidation.validators.ConstraintContext;
 
 import java.util.List;
 
@@ -19,7 +19,7 @@ public class ContainsAnyCharConstraint<T> extends AbstractConstraint<T, char[]> 
     }
 
     @Override
-    public boolean isValid(RuleContext<T, char[]> context) {
+    public boolean isValid(ConstraintContext<T, char[]> context) {
         if (context.getPropertyValue() == null) {
             return true;
         }
@@ -40,7 +40,7 @@ public class ContainsAnyCharConstraint<T> extends AbstractConstraint<T, char[]> 
     }
 
     @Override
-    public void addParametersToContext(RuleContext<T, char[]> context) {
+    public void addParametersToContext(ConstraintContext<T, char[]> context) {
         context.getMessageContext().appendArgument("values", values);
     }
 }

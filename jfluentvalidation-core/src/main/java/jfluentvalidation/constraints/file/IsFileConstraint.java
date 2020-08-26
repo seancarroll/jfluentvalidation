@@ -2,7 +2,7 @@ package jfluentvalidation.constraints.file;
 
 import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.DefaultMessages;
-import jfluentvalidation.validators.RuleContext;
+import jfluentvalidation.validators.ConstraintContext;
 
 import java.io.File;
 
@@ -17,7 +17,7 @@ public class IsFileConstraint<T> extends AbstractConstraint<T, File> {
     }
 
     @Override
-    public boolean isValid(RuleContext<T, File> context) {
+    public boolean isValid(ConstraintContext<T, File> context) {
         if (context.getPropertyValue() == null) {
             return true;
         }

@@ -3,7 +3,7 @@ package jfluentvalidation.constraints.time;
 import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.DefaultMessages;
 import jfluentvalidation.internal.Ensure;
-import jfluentvalidation.validators.RuleContext;
+import jfluentvalidation.validators.ConstraintContext;
 
 import javax.annotation.Nonnull;
 import java.util.Date;
@@ -30,7 +30,7 @@ public class IsCloseToDateConstraint<T> extends AbstractConstraint<T, Date> {
     }
 
     @Override
-    public boolean isValid(RuleContext<T, Date> context) {
+    public boolean isValid(ConstraintContext<T, Date> context) {
         if (context.getPropertyValue() == null) {
             return true;
         }
@@ -45,7 +45,7 @@ public class IsCloseToDateConstraint<T> extends AbstractConstraint<T, Date> {
 
     // TODO: consistent messages between Date/Calendar/Temporal isCloseTo? what about numbers?
     @Override
-    public void addParametersToContext(RuleContext<T, Date> context) {
+    public void addParametersToContext(ConstraintContext<T, Date> context) {
         context.getMessageContext().appendArgument("other", other);
         context.getMessageContext().appendArgument("offsetValue", offsetValue);
         context.getMessageContext().appendArgument("strict", strict);

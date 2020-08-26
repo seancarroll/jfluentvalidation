@@ -2,7 +2,7 @@ package jfluentvalidation.constraints.net.uri;
 
 import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.DefaultMessages;
-import jfluentvalidation.validators.RuleContext;
+import jfluentvalidation.validators.ConstraintContext;
 
 import java.net.URI;
 import java.util.List;
@@ -34,7 +34,7 @@ public class HasNoParameterConstraint<T> extends AbstractConstraint<T, URI> {
     }
 
     @Override
-    public boolean isValid(RuleContext<T, URI> context) {
+    public boolean isValid(ConstraintContext<T, URI> context) {
         if (name == null) {
             return getParameters(context.getPropertyValue().getQuery()).isEmpty();
         }
@@ -51,7 +51,7 @@ public class HasNoParameterConstraint<T> extends AbstractConstraint<T, URI> {
     }
 
     @Override
-    public void addParametersToContext(RuleContext<T, URI> context) {
+    public void addParametersToContext(ConstraintContext<T, URI> context) {
         context.getMessageContext().appendArgument("ParameterName", name);
         context.getMessageContext().appendArgument("ParameterValue", value);
     }

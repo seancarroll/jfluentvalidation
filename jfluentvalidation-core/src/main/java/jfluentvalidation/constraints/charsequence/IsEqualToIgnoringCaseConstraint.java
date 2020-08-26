@@ -2,7 +2,7 @@ package jfluentvalidation.constraints.charsequence;
 
 import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.DefaultMessages;
-import jfluentvalidation.validators.RuleContext;
+import jfluentvalidation.validators.ConstraintContext;
 
 /**
  * Checks that the given {@code CharSequence} being validated equals the given sequence, ignoring case.
@@ -19,7 +19,7 @@ public class IsEqualToIgnoringCaseConstraint<T, A extends CharSequence> extends 
     }
 
     @Override
-    public boolean isValid(RuleContext<T, A> context) {
+    public boolean isValid(ConstraintContext<T, A> context) {
         if (context.getPropertyValue() == null) {
             return other == null;
         }
@@ -30,7 +30,7 @@ public class IsEqualToIgnoringCaseConstraint<T, A extends CharSequence> extends 
     }
 
     @Override
-    public void addParametersToContext(RuleContext<T, A> context) {
+    public void addParametersToContext(ConstraintContext<T, A> context) {
         context.getMessageContext().appendArgument("other", other);
     }
 }

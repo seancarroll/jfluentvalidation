@@ -3,7 +3,7 @@ package jfluentvalidation.constraints.array.contains;
 import jfluentvalidation.common.MoreArrays;
 import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.DefaultMessages;
-import jfluentvalidation.validators.RuleContext;
+import jfluentvalidation.validators.ConstraintContext;
 
 public class ContainsShortConstraint<T> extends AbstractConstraint<T, short[]> {
 
@@ -15,7 +15,7 @@ public class ContainsShortConstraint<T> extends AbstractConstraint<T, short[]> {
     }
 
     @Override
-    public boolean isValid(RuleContext<T, short[]> context) {
+    public boolean isValid(ConstraintContext<T, short[]> context) {
         if (context.getPropertyValue() == null) {
             return true;
         }
@@ -23,7 +23,7 @@ public class ContainsShortConstraint<T> extends AbstractConstraint<T, short[]> {
     }
 
     @Override
-    public void addParametersToContext(RuleContext<T, short[]> context) {
+    public void addParametersToContext(ConstraintContext<T, short[]> context) {
         context.getMessageContext().appendArgument("element", element);
     }
 }

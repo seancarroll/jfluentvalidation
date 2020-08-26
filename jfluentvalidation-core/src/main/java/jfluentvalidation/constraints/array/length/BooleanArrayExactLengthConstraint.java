@@ -5,7 +5,7 @@ import jfluentvalidation.common.MoreArrays;
 import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.DefaultMessages;
 import jfluentvalidation.internal.Ensure;
-import jfluentvalidation.validators.RuleContext;
+import jfluentvalidation.validators.ConstraintContext;
 
 import java.lang.reflect.Array;
 import java.util.function.IntSupplier;
@@ -35,7 +35,7 @@ public class BooleanArrayExactLengthConstraint<T> extends AbstractConstraint<T, 
 
 
     @Override
-    public boolean isValid(RuleContext<T, boolean[]> context) {
+    public boolean isValid(ConstraintContext<T, boolean[]> context) {
         if (context.getPropertyValue() == null) {
             return true;
         }
@@ -44,7 +44,7 @@ public class BooleanArrayExactLengthConstraint<T> extends AbstractConstraint<T, 
     }
 
     @Override
-    public void addParametersToContext(RuleContext<T, boolean[]> context) {
+    public void addParametersToContext(ConstraintContext<T, boolean[]> context) {
         context.getMessageContext().appendArgument("length", (length != null ? length : lengthSupplier.getAsInt()));
     }
 }

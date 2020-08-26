@@ -4,7 +4,7 @@ import jfluentvalidation.common.Suppliers;
 import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.DefaultMessages;
 import jfluentvalidation.internal.Ensure;
-import jfluentvalidation.validators.RuleContext;
+import jfluentvalidation.validators.ConstraintContext;
 
 import java.time.OffsetDateTime;
 import java.time.temporal.ChronoUnit;
@@ -38,7 +38,7 @@ public class IsBeforeOrEqualOffsetDateTimeConstraint<T> extends AbstractConstrai
     }
 
     @Override
-    public boolean isValid(RuleContext<T, OffsetDateTime> context) {
+    public boolean isValid(ConstraintContext<T, OffsetDateTime> context) {
         if (context.getPropertyValue() == null) {
             return true;
         }

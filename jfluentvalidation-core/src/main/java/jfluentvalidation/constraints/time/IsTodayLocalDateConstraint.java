@@ -3,7 +3,7 @@ package jfluentvalidation.constraints.time;
 import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.DefaultMessages;
 import jfluentvalidation.internal.Ensure;
-import jfluentvalidation.validators.RuleContext;
+import jfluentvalidation.validators.ConstraintContext;
 
 import java.time.Clock;
 import java.time.LocalDate;
@@ -23,7 +23,7 @@ public class IsTodayLocalDateConstraint<T> extends AbstractConstraint<T, LocalDa
     }
 
     @Override
-    public boolean isValid(RuleContext<T, LocalDate> context) {
+    public boolean isValid(ConstraintContext<T, LocalDate> context) {
         if (context.getPropertyValue() == null) {
             return true;
         }

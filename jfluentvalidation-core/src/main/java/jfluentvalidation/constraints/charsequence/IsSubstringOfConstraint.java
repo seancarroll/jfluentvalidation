@@ -3,7 +3,7 @@ package jfluentvalidation.constraints.charsequence;
 import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.DefaultMessages;
 import jfluentvalidation.internal.Ensure;
-import jfluentvalidation.validators.RuleContext;
+import jfluentvalidation.validators.ConstraintContext;
 
 /**
  *
@@ -21,7 +21,7 @@ public class IsSubstringOfConstraint<T, A extends CharSequence> extends Abstract
     // TODO: comparison strategy? Something like insensitive the following for case insensitive?
     // Pattern.compile(Pattern.quote(s2), Pattern.CASE_INSENSITIVE).matcher(s1).find();
     @Override
-    public boolean isValid(RuleContext<T, A> context) {
+    public boolean isValid(ConstraintContext<T, A> context) {
         if (context.getPropertyValue() == null) {
             return true;
         }
@@ -29,7 +29,7 @@ public class IsSubstringOfConstraint<T, A extends CharSequence> extends Abstract
     }
 
     @Override
-    public void addParametersToContext(RuleContext<T, A> context) {
+    public void addParametersToContext(ConstraintContext<T, A> context) {
         context.getMessageContext().appendArgument("sequence", sequence);
     }
 }

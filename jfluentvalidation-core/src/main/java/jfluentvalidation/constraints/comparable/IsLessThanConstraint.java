@@ -3,7 +3,7 @@ package jfluentvalidation.constraints.comparable;
 import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.DefaultMessages;
 import jfluentvalidation.internal.Ensure;
-import jfluentvalidation.validators.RuleContext;
+import jfluentvalidation.validators.ConstraintContext;
 
 import javax.annotation.Nonnull;
 
@@ -22,7 +22,7 @@ public class IsLessThanConstraint<T, P extends Comparable<? super P>> extends Ab
     }
 
     @Override
-    public boolean isValid(RuleContext<T, P> context) {
+    public boolean isValid(ConstraintContext<T, P> context) {
         if (context.getPropertyValue() == null) {
             return true;
         }
@@ -30,7 +30,7 @@ public class IsLessThanConstraint<T, P extends Comparable<? super P>> extends Ab
     }
 
     @Override
-    public void addParametersToContext(RuleContext<T, P> context) {
+    public void addParametersToContext(ConstraintContext<T, P> context) {
         context.getMessageContext().appendArgument("value", other);
     }
 }

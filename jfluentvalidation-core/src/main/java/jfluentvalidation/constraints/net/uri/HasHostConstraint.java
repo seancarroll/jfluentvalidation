@@ -2,7 +2,7 @@ package jfluentvalidation.constraints.net.uri;
 
 import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.DefaultMessages;
-import jfluentvalidation.validators.RuleContext;
+import jfluentvalidation.validators.ConstraintContext;
 
 import java.net.URI;
 import java.util.Objects;
@@ -22,7 +22,7 @@ public class HasHostConstraint<T> extends AbstractConstraint<T, URI> {
     }
 
     @Override
-    public boolean isValid(RuleContext<T, URI> context) {
+    public boolean isValid(ConstraintContext<T, URI> context) {
         if (context.getPropertyValue() == null) {
             return true;
         }
@@ -30,7 +30,7 @@ public class HasHostConstraint<T> extends AbstractConstraint<T, URI> {
     }
 
     @Override
-    public void addParametersToContext(RuleContext<T, URI> context) {
+    public void addParametersToContext(ConstraintContext<T, URI> context) {
         context.getMessageContext().appendArgument("value", expected);
     }
 }

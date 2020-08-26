@@ -3,7 +3,7 @@ package jfluentvalidation.constraints.inputstream;
 import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.DefaultMessages;
 import jfluentvalidation.internal.Ensure;
-import jfluentvalidation.validators.RuleContext;
+import jfluentvalidation.validators.ConstraintContext;
 
 import javax.annotation.Nonnull;
 import java.io.BufferedReader;
@@ -30,7 +30,7 @@ public class HasContentConstraint<T> extends AbstractConstraint<T, InputStream> 
     }
 
     @Override
-    public boolean isValid(RuleContext<T, InputStream> context) {
+    public boolean isValid(ConstraintContext<T, InputStream> context) {
         try {
             if (context.getPropertyValue() == null) {
                 return true;
@@ -56,7 +56,7 @@ public class HasContentConstraint<T> extends AbstractConstraint<T, InputStream> 
     }
 
     @Override
-    public void addParametersToContext(RuleContext<T, InputStream> context) {
+    public void addParametersToContext(ConstraintContext<T, InputStream> context) {
         context.getMessageContext().appendArgument("content", expected);
     }
 }

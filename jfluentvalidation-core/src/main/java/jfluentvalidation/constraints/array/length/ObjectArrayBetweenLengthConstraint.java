@@ -4,7 +4,7 @@ import jfluentvalidation.common.MoreArrays;
 import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.DefaultMessages;
 import jfluentvalidation.internal.Ensure;
-import jfluentvalidation.validators.RuleContext;
+import jfluentvalidation.validators.ConstraintContext;
 
 public class ObjectArrayBetweenLengthConstraint<T, E> extends AbstractConstraint<T, E[]> {
 
@@ -23,7 +23,7 @@ public class ObjectArrayBetweenLengthConstraint<T, E> extends AbstractConstraint
     }
 
     @Override
-    public boolean isValid(RuleContext<T, E[]> context) {
+    public boolean isValid(ConstraintContext<T, E[]> context) {
         if (context.getPropertyValue() == null) {
             return true;
         }
@@ -32,7 +32,7 @@ public class ObjectArrayBetweenLengthConstraint<T, E> extends AbstractConstraint
     }
 
     @Override
-    public void addParametersToContext(RuleContext<T, E[]> context) {
+    public void addParametersToContext(ConstraintContext<T, E[]> context) {
         context.getMessageContext().appendArgument("min", min);
         context.getMessageContext().appendArgument("max", max);
         context.getMessageContext().appendArgument("minInclusive", minInclusive);

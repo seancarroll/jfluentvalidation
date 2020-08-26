@@ -2,7 +2,7 @@ package jfluentvalidation.constraints.array.nullorempty;
 
 import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.DefaultMessages;
-import jfluentvalidation.validators.RuleContext;
+import jfluentvalidation.validators.ConstraintContext;
 
 public class IsNullOrEmptyIntArrayConstraint<T> extends AbstractConstraint<T, int[]> {
 
@@ -11,7 +11,7 @@ public class IsNullOrEmptyIntArrayConstraint<T> extends AbstractConstraint<T, in
     }
 
     @Override
-    public boolean isValid(RuleContext<T, int[]> context) {
+    public boolean isValid(ConstraintContext<T, int[]> context) {
         return context.getPropertyValue() == null || context.getPropertyValue().length == 0;
     }
 }

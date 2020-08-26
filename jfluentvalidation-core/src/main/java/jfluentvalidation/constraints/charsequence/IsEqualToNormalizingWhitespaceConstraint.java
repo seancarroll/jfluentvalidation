@@ -2,7 +2,7 @@ package jfluentvalidation.constraints.charsequence;
 
 import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.DefaultMessages;
-import jfluentvalidation.validators.RuleContext;
+import jfluentvalidation.validators.ConstraintContext;
 
 import static java.lang.Character.isWhitespace;
 
@@ -20,7 +20,7 @@ public class IsEqualToNormalizingWhitespaceConstraint<T, A extends CharSequence>
     }
 
     @Override
-    public boolean isValid(RuleContext<T, A> context) {
+    public boolean isValid(ConstraintContext<T, A> context) {
         if (context.getPropertyValue() == null) {
             return expected == null;
         }
@@ -48,7 +48,7 @@ public class IsEqualToNormalizingWhitespaceConstraint<T, A extends CharSequence>
     }
 
     @Override
-    public void addParametersToContext(RuleContext<T, A> context) {
+    public void addParametersToContext(ConstraintContext<T, A> context) {
         context.getMessageContext().appendArgument("expected", expected);
     }
 }

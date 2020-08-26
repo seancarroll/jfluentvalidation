@@ -4,7 +4,7 @@ import jfluentvalidation.common.Iterables;
 import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.DefaultMessages;
 import jfluentvalidation.internal.Ensure;
-import jfluentvalidation.validators.RuleContext;
+import jfluentvalidation.validators.ConstraintContext;
 
 import java.util.function.IntSupplier;
 
@@ -36,7 +36,7 @@ public class HasSizeConstraint<T, P> extends AbstractConstraint<T, Iterable<? su
     }
 
     @Override
-    public boolean isValid(RuleContext<T, Iterable<? super P>> context) {
+    public boolean isValid(ConstraintContext<T, Iterable<? super P>> context) {
         if (context.getPropertyValue() == null) {
             return true;
         }
@@ -46,7 +46,7 @@ public class HasSizeConstraint<T, P> extends AbstractConstraint<T, Iterable<? su
     }
 
     @Override
-    public void addParametersToContext(RuleContext<T, Iterable<? super P>> context) {
+    public void addParametersToContext(ConstraintContext<T, Iterable<? super P>> context) {
         context.getMessageContext().appendArgument("size", sizeSupplier != null ? sizeSupplier.getAsInt() : expectedSize);
     }
 }

@@ -3,7 +3,7 @@ package jfluentvalidation.constraints.charsequence;
 import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.DefaultMessages;
 import jfluentvalidation.internal.Ensure;
-import jfluentvalidation.validators.RuleContext;
+import jfluentvalidation.validators.ConstraintContext;
 
 import java.util.regex.Pattern;
 
@@ -26,7 +26,7 @@ public class DoesNotMatchConstraint<T, A extends CharSequence> extends AbstractC
     }
 
     @Override
-    public boolean isValid(RuleContext<T, A> context) {
+    public boolean isValid(ConstraintContext<T, A> context) {
         if (context.getPropertyValue() == null) {
             return true;
         }
@@ -34,7 +34,7 @@ public class DoesNotMatchConstraint<T, A extends CharSequence> extends AbstractC
     }
 
     @Override
-    public void addParametersToContext(RuleContext<T, A> context) {
+    public void addParametersToContext(ConstraintContext<T, A> context) {
         context.getMessageContext().appendArgument("pattern", pattern);
     }
 }

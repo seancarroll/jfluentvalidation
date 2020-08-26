@@ -2,7 +2,7 @@ package jfluentvalidation.constraints.character;
 
 import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.DefaultMessages;
-import jfluentvalidation.validators.RuleContext;
+import jfluentvalidation.validators.ConstraintContext;
 
 import static java.lang.Character.isUpperCase;
 
@@ -18,7 +18,7 @@ public class IsUpperCaseConstraint<T> extends AbstractConstraint<T, Character> {
     }
 
     @Override
-    public boolean isValid(RuleContext<T, Character> validationContext) {
+    public boolean isValid(ConstraintContext<T, Character> validationContext) {
         // TODO: should this use locale?
         Character val = validationContext.getPropertyValue();
         if (val == null) {

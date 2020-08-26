@@ -101,6 +101,9 @@ public class DefaultMessages {
     public static final String ITERABLE_ITERABLE_TEM = "{jfluentvalidation.constraints.iterable.IterableItem.message}";
 
 
+
+    public static final String COLLECTION_EMPTY = "{jfluentvalidation.constraints.collection.Empty.message}";
+
     public static final String MAP_CONTAINS_ENTRIES = "{jfluentvalidation.constraints.map.ContainsEntries.message}";
     public static final String MAP_CONTAINS_KEYS = "{jfluentvalidation.constraints.map.ContainsKeys.message}";
     public static final String MAP_CONTAINS_VALUES = "{jfluentvalidation.constraints.map.ContainsValues.message}";

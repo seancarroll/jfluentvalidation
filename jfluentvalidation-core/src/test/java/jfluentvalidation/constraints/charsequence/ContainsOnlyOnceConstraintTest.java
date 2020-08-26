@@ -1,6 +1,6 @@
 package jfluentvalidation.constraints.charsequence;
 
-import jfluentvalidation.validators.RuleContext;
+import jfluentvalidation.validators.ConstraintContext;
 import jfluentvalidation.validators.ValidationContext;
 import org.junit.jupiter.api.Test;
 
@@ -15,35 +15,35 @@ class ContainsOnlyOnceConstraintTest {
     @Test
     void shouldReturnIsValidWhenActualIsNull() {
         ContainsOnlyOnceConstraint constraint = new ContainsOnlyOnceConstraint("blue");
-        RuleContext context = new RuleContext(new ValidationContext("credit"), null, null);
+        ConstraintContext context = new ConstraintContext(new ValidationContext("credit"), null, null);
         assertTrue(constraint.isValid(context));
     }
 
     @Test
     void shouldReturnTrueWhenActualContainsGivenStringOnlyOnce() {
         ContainsOnlyOnceConstraint constraint = new ContainsOnlyOnceConstraint("red");
-        RuleContext context = new RuleContext(new ValidationContext("credit"), null, "red blue");
+        ConstraintContext context = new ConstraintContext(new ValidationContext("credit"), null, "red blue");
         assertTrue(constraint.isValid(context));
     }
 
     @Test
     void shouldReturnFalseWhenActualContainsGivenStringMoreThanOnce() {
         ContainsOnlyOnceConstraint constraint = new ContainsOnlyOnceConstraint("red");
-        RuleContext context = new RuleContext(new ValidationContext("credit"), null, "red blue red");
+        ConstraintContext context = new ConstraintContext(new ValidationContext("credit"), null, "red blue red");
         assertFalse(constraint.isValid(context));
     }
 
     @Test
     void shouldReturnFalseWhenActualContainsSequenceOnlyOnceButDifferentCase() {
         ContainsOnlyOnceConstraint constraint = new ContainsOnlyOnceConstraint("Red");
-        RuleContext context = new RuleContext(new ValidationContext("credit"), null, "red");
+        ConstraintContext context = new ConstraintContext(new ValidationContext("credit"), null, "red");
         assertFalse(constraint.isValid(context));
     }
 
     @Test
     void shouldReturnFalseWhenActualDoesNotContainString() {
         ContainsOnlyOnceConstraint constraint = new ContainsOnlyOnceConstraint("blue");
-        RuleContext context = new RuleContext(new ValidationContext("credit"), null, "red");
+        ConstraintContext context = new ConstraintContext(new ValidationContext("credit"), null, "red");
         assertFalse(constraint.isValid(context));
     }
 

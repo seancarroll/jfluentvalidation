@@ -3,7 +3,7 @@ package jfluentvalidation.constraints.iterable;
 import jfluentvalidation.common.Iterables;
 import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.DefaultMessages;
-import jfluentvalidation.validators.RuleContext;
+import jfluentvalidation.validators.ConstraintContext;
 
 /**
  * Check that the given {@code Iterable} being validated is not empty.
@@ -18,7 +18,7 @@ public class IsNotEmptyConstraint<T, P> extends AbstractConstraint<T, Iterable<?
     }
 
     @Override
-    public boolean isValid(RuleContext<T, Iterable<? super P>> context) {
+    public boolean isValid(ConstraintContext<T, Iterable<? super P>> context) {
         if (context.getPropertyValue() == null) {
             return true;
         }

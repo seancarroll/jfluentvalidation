@@ -3,7 +3,7 @@ package jfluentvalidation.constraints.time;
 import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.DefaultMessages;
 import jfluentvalidation.internal.Ensure;
-import jfluentvalidation.validators.RuleContext;
+import jfluentvalidation.validators.ConstraintContext;
 
 import java.time.Clock;
 import java.util.Date;
@@ -25,7 +25,7 @@ public class IsTodayDateConstraint<T> extends AbstractConstraint<T, Date> {
     }
 
     @Override
-    public boolean isValid(RuleContext<T, Date> context) {
+    public boolean isValid(ConstraintContext<T, Date> context) {
         if (context.getPropertyValue() == null) {
             return true;
         }

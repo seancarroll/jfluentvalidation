@@ -1,6 +1,6 @@
 package jfluentvalidation.constraints;
 
-import jfluentvalidation.validators.RuleContext;
+import jfluentvalidation.validators.ConstraintContext;
 
 import java.util.function.Predicate;
 
@@ -32,7 +32,7 @@ public class SoftConstraint<T, P> extends AbstractConstraint<T, P> {
     }
 
     @Override
-    public boolean isValid(RuleContext<T, P> validationContext) {
+    public boolean isValid(ConstraintContext<T, P> validationContext) {
         if (condition.test(validationContext.getInstanceToValidate())) {
             return innerConstraint.isValid(validationContext);
         }

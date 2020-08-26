@@ -3,7 +3,7 @@ package jfluentvalidation.constraints.array.containsany;
 import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.DefaultMessages;
 import jfluentvalidation.internal.Ensure;
-import jfluentvalidation.validators.RuleContext;
+import jfluentvalidation.validators.ConstraintContext;
 
 import java.util.Arrays;
 import java.util.List;
@@ -19,7 +19,7 @@ public class ContainsAnyObjectConstraint<T, E> extends AbstractConstraint<T, E[]
     }
 
     @Override
-    public boolean isValid(RuleContext<T, E[]> context) {
+    public boolean isValid(ConstraintContext<T, E[]> context) {
         if (context.getPropertyValue() == null) {
             return true;
         }
@@ -41,7 +41,7 @@ public class ContainsAnyObjectConstraint<T, E> extends AbstractConstraint<T, E[]
     }
 
     @Override
-    public void addParametersToContext(RuleContext<T, E[]> context) {
+    public void addParametersToContext(ConstraintContext<T, E[]> context) {
         context.getMessageContext().appendArgument("values", values);
     }
 }

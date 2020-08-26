@@ -5,7 +5,7 @@ import jfluentvalidation.common.MoreArrays;
 import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.DefaultMessages;
 import jfluentvalidation.internal.Ensure;
-import jfluentvalidation.validators.RuleContext;
+import jfluentvalidation.validators.ConstraintContext;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -23,7 +23,7 @@ public class ContainsAllDoubleConstraint<T> extends AbstractConstraint<T, double
     }
 
     @Override
-    public boolean isValid(RuleContext<T, double[]> context) {
+    public boolean isValid(ConstraintContext<T, double[]> context) {
         if (context.getPropertyValue() == null) {
             return true;
         }
@@ -41,7 +41,7 @@ public class ContainsAllDoubleConstraint<T> extends AbstractConstraint<T, double
     }
 
     @Override
-    public void addParametersToContext(RuleContext<T, double[]> context) {
+    public void addParametersToContext(ConstraintContext<T, double[]> context) {
         context.getMessageContext().appendArgument("expected", values);
     }
 }

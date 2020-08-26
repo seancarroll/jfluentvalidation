@@ -2,7 +2,7 @@ package jfluentvalidation.constraints.charsequence;
 
 import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.DefaultMessages;
-import jfluentvalidation.validators.RuleContext;
+import jfluentvalidation.validators.ConstraintContext;
 
 // TODO: given we have multiple of these based on type need to either change the name to include the type we are comparing
 // or I guess we could make this take an object and have logic to determine type and perform the appropriate validation
@@ -22,7 +22,7 @@ public class HasSameLengthAsConstraint<T, A extends CharSequence> extends Abstra
     }
 
     @Override
-    public boolean isValid(RuleContext<T, A> context) {
+    public boolean isValid(ConstraintContext<T, A> context) {
         if (context.getPropertyValue() == null) {
             return true;
         }
@@ -30,7 +30,7 @@ public class HasSameLengthAsConstraint<T, A extends CharSequence> extends Abstra
     }
 
     @Override
-    public void addParametersToContext(RuleContext<T, A> context) {
+    public void addParametersToContext(ConstraintContext<T, A> context) {
         context.getMessageContext().appendArgument("other", other);
     }
 }

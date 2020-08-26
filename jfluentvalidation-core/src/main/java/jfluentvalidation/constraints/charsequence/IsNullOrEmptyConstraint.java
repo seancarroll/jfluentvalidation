@@ -2,7 +2,7 @@ package jfluentvalidation.constraints.charsequence;
 
 import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.DefaultMessages;
-import jfluentvalidation.validators.RuleContext;
+import jfluentvalidation.validators.ConstraintContext;
 
 public class IsNullOrEmptyConstraint<T, A extends CharSequence> extends AbstractConstraint<T, A> {
 
@@ -11,7 +11,7 @@ public class IsNullOrEmptyConstraint<T, A extends CharSequence> extends Abstract
     }
 
     @Override
-    public boolean isValid(RuleContext<T, A> context) {
+    public boolean isValid(ConstraintContext<T, A> context) {
         return context.getPropertyValue() == null || context.getPropertyValue().toString().isEmpty();
     }
 }

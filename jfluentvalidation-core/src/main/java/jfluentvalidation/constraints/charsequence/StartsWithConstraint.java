@@ -3,7 +3,7 @@ package jfluentvalidation.constraints.charsequence;
 import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.DefaultMessages;
 import jfluentvalidation.internal.Ensure;
-import jfluentvalidation.validators.RuleContext;
+import jfluentvalidation.validators.ConstraintContext;
 
 /**
  * Checks that the given {@code CharSequence} being validated starts with the given prefix.
@@ -26,7 +26,7 @@ public class StartsWithConstraint<T, A extends CharSequence> extends AbstractCon
     }
 
     @Override
-    public boolean isValid(RuleContext<T, A> context) {
+    public boolean isValid(ConstraintContext<T, A> context) {
         // TODO: this probably should be based on a comparison strategy
         if (context.getPropertyValue() == null) {
             return true;
@@ -36,7 +36,7 @@ public class StartsWithConstraint<T, A extends CharSequence> extends AbstractCon
 
 
     @Override
-    public void addParametersToContext(RuleContext<T, A> context) {
+    public void addParametersToContext(ConstraintContext<T, A> context) {
         context.getMessageContext().appendArgument("prefix", prefix);
         context.getMessageContext().appendArgument("offset", offset);
     }

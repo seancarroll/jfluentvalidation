@@ -3,7 +3,7 @@ package jfluentvalidation.constraints.numbers;
 import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.DefaultMessages;
 import jfluentvalidation.internal.Ensure;
-import jfluentvalidation.validators.RuleContext;
+import jfluentvalidation.validators.ConstraintContext;
 
 import java.util.Objects;
 
@@ -28,7 +28,7 @@ public abstract class AbstractIsCloseToConstraint<T, P extends Number & Comparab
     }
 
     @Override
-    public boolean isValid(RuleContext<T, P> context) {
+    public boolean isValid(ConstraintContext<T, P> context) {
         if (context.getPropertyValue() == null) {
             return true;
         }
@@ -47,7 +47,7 @@ public abstract class AbstractIsCloseToConstraint<T, P extends Number & Comparab
     }
 
     @Override
-    public void addParametersToContext(RuleContext<T, P> context) {
+    public void addParametersToContext(ConstraintContext<T, P> context) {
         context.getMessageContext().appendArgument("other", other);
         context.getMessageContext().appendArgument("offset", offset);
         context.getMessageContext().appendArgument("strict", strict);

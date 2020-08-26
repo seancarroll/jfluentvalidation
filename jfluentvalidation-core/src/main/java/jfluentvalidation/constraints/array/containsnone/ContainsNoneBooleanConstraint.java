@@ -4,7 +4,7 @@ import jfluentvalidation.common.Iterables;
 import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.DefaultMessages;
 import jfluentvalidation.internal.Ensure;
-import jfluentvalidation.validators.RuleContext;
+import jfluentvalidation.validators.ConstraintContext;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -22,7 +22,7 @@ public class ContainsNoneBooleanConstraint<T> extends AbstractConstraint<T, bool
     }
 
     @Override
-    public boolean isValid(RuleContext<T, boolean[]> context) {
+    public boolean isValid(ConstraintContext<T, boolean[]> context) {
         if (context.getPropertyValue() == null) {
             return true;
         }
@@ -45,7 +45,7 @@ public class ContainsNoneBooleanConstraint<T> extends AbstractConstraint<T, bool
     }
 
     @Override
-    public void addParametersToContext(RuleContext<T, boolean[]> context) {
+    public void addParametersToContext(ConstraintContext<T, boolean[]> context) {
         context.getMessageContext().appendArgument("excluded", excluded);
     }
 }

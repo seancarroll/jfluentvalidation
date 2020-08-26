@@ -2,7 +2,7 @@ package jfluentvalidation.constraints.object;
 
 import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.DefaultMessages;
-import jfluentvalidation.validators.RuleContext;
+import jfluentvalidation.validators.ConstraintContext;
 
 /**
  * Check that the given {@code Object} being validated is not {@code null}.
@@ -17,7 +17,7 @@ public class IsNotNullConstraint<T, P> extends AbstractConstraint<T, P> {
     }
 
     @Override
-    public boolean isValid(RuleContext<T, P> context) {
+    public boolean isValid(ConstraintContext<T, P> context) {
         return context.getPropertyValue() != null;
     }
 

@@ -4,7 +4,7 @@ import jfluentvalidation.common.Comparables;
 import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.DefaultMessages;
 import jfluentvalidation.internal.Ensure;
-import jfluentvalidation.validators.RuleContext;
+import jfluentvalidation.validators.ConstraintContext;
 
 // TODO: length constraint where the users specify inclusive/exclusive boundaries
 
@@ -31,7 +31,7 @@ public class HasLengthBetweenConstraint<T, A extends CharSequence> extends Abstr
     }
 
     @Override
-    public boolean isValid(RuleContext<T, A> context) {
+    public boolean isValid(ConstraintContext<T, A> context) {
         if (context.getPropertyValue() == null) {
             return true;
         }
@@ -40,7 +40,7 @@ public class HasLengthBetweenConstraint<T, A extends CharSequence> extends Abstr
     }
 
     @Override
-    public void addParametersToContext(RuleContext<T, A> context) {
+    public void addParametersToContext(ConstraintContext<T, A> context) {
         context.getMessageContext().appendArgument("min", min);
         context.getMessageContext().appendArgument("max", max);
         context.getMessageContext().appendArgument("inclusiveStart", inclusiveStart);

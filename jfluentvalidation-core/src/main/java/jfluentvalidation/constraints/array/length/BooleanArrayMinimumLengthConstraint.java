@@ -3,7 +3,7 @@ package jfluentvalidation.constraints.array.length;
 import jfluentvalidation.common.MoreArrays;
 import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.DefaultMessages;
-import jfluentvalidation.validators.RuleContext;
+import jfluentvalidation.validators.ConstraintContext;
 
 public class BooleanArrayMinimumLengthConstraint<T> extends AbstractConstraint<T, boolean[]> {
 
@@ -15,7 +15,7 @@ public class BooleanArrayMinimumLengthConstraint<T> extends AbstractConstraint<T
     }
 
     @Override
-    public boolean isValid(RuleContext<T, boolean[]> context) {
+    public boolean isValid(ConstraintContext<T, boolean[]> context) {
         if (context.getPropertyValue() == null) {
             return true;
         }
@@ -24,7 +24,7 @@ public class BooleanArrayMinimumLengthConstraint<T> extends AbstractConstraint<T
     }
 
     @Override
-    public void addParametersToContext(RuleContext<T, boolean[]> context) {
+    public void addParametersToContext(ConstraintContext<T, boolean[]> context) {
         context.getMessageContext().appendArgument("min", min);
     }
 }

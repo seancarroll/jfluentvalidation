@@ -5,7 +5,7 @@ import jfluentvalidation.common.Suppliers;
 import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.DefaultMessages;
 import jfluentvalidation.internal.Ensure;
-import jfluentvalidation.validators.RuleContext;
+import jfluentvalidation.validators.ConstraintContext;
 import jfluentvalidation.validators.ValidatorOptions;
 
 import java.time.temporal.ChronoUnit;
@@ -40,7 +40,7 @@ public class IsBeforeOrEqualCalendarConstraint<T> extends AbstractConstraint<T, 
     }
 
     @Override
-    public boolean isValid(RuleContext<T, Calendar> context) {
+    public boolean isValid(ConstraintContext<T, Calendar> context) {
         if (context.getPropertyValue() == null) {
             return true;
         }

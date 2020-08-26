@@ -3,7 +3,7 @@ package jfluentvalidation.constraints.map;
 import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.DefaultMessages;
 import jfluentvalidation.internal.Ensure;
-import jfluentvalidation.validators.RuleContext;
+import jfluentvalidation.validators.ConstraintContext;
 
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -42,7 +42,7 @@ public class ContainsExactlyConstraint<T, K, V> extends AbstractConstraint<T, Ma
 
 
     @Override
-    public boolean isValid(RuleContext<T, Map<K, V>> context) {
+    public boolean isValid(ConstraintContext<T, Map<K, V>> context) {
         // TODO: is this appropriate for this constraint?
         if (context.getPropertyValue() == null) {
             return true;

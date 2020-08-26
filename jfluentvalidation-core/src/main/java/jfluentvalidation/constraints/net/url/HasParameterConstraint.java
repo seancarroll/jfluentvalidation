@@ -2,7 +2,7 @@ package jfluentvalidation.constraints.net.url;
 
 import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.DefaultMessages;
-import jfluentvalidation.validators.RuleContext;
+import jfluentvalidation.validators.ConstraintContext;
 
 import java.net.URL;
 import java.util.List;
@@ -33,7 +33,7 @@ public class HasParameterConstraint<T> extends AbstractConstraint<T, URL> {
     }
 
     @Override
-    public boolean isValid(RuleContext<T, URL> context) {
+    public boolean isValid(ConstraintContext<T, URL> context) {
         Map<String, List<String>> parameters = getParameters(context.getPropertyValue().getQuery());
         boolean containsName = parameters.containsKey(name);
 
@@ -45,7 +45,7 @@ public class HasParameterConstraint<T> extends AbstractConstraint<T, URL> {
     }
 
     @Override
-    public void addParametersToContext(RuleContext<T, URL> context) {
+    public void addParametersToContext(ConstraintContext<T, URL> context) {
         context.getMessageContext().appendArgument("ParameterName", name);
         context.getMessageContext().appendArgument("ParameterValue", value);
     }

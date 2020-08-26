@@ -3,7 +3,7 @@ package jfluentvalidation.constraints.charsequence;
 import jfluentvalidation.common.Strings;
 import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.DefaultMessages;
-import jfluentvalidation.validators.RuleContext;
+import jfluentvalidation.validators.ConstraintContext;
 
 /**
  * Check that the given {@code CharSequence} being validated contains one or more whitespace characters.
@@ -17,7 +17,7 @@ public class ContainsWhitespacesConstraint<T, A extends CharSequence> extends Ab
     }
 
     @Override
-    public boolean isValid(RuleContext<T, A> context) {
+    public boolean isValid(ConstraintContext<T, A> context) {
         return !Strings.isNullOrEmpty(context.getPropertyValue()) && Strings.containsWhitespaces(context.getPropertyValue());
     }
 }

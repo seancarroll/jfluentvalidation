@@ -3,7 +3,7 @@ package jfluentvalidation.constraints.iterable;
 import jfluentvalidation.common.Iterables;
 import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.DefaultMessages;
-import jfluentvalidation.validators.RuleContext;
+import jfluentvalidation.validators.ConstraintContext;
 
 /**
  * Checks that the subject contains the given element
@@ -22,7 +22,7 @@ public class ContainsConstraint<T, P> extends AbstractConstraint<T, Iterable<? s
     }
 
     @Override
-    public boolean isValid(RuleContext<T, Iterable<? super P>> context) {
+    public boolean isValid(ConstraintContext<T, Iterable<? super P>> context) {
         if (context.getPropertyValue() == null) {
             return true;
         }

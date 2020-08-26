@@ -2,7 +2,7 @@ package jfluentvalidation.constraints.object;
 
 import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.DefaultMessages;
-import jfluentvalidation.validators.RuleContext;
+import jfluentvalidation.validators.ConstraintContext;
 
 import java.util.Objects;
 
@@ -22,12 +22,12 @@ public class IsEqualToConstraint<T, P> extends AbstractConstraint<T, P> {
     }
 
     @Override
-    public boolean isValid(RuleContext<T, P> context) {
+    public boolean isValid(ConstraintContext<T, P> context) {
         return Objects.equals(context.getPropertyValue(), other);
     }
 
     @Override
-    public void addParametersToContext(RuleContext<T, P> context) {
+    public void addParametersToContext(ConstraintContext<T, P> context) {
         context.getMessageContext().appendArgument("other", other);
     }
 }

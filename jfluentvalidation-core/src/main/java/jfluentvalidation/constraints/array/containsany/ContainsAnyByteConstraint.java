@@ -3,7 +3,7 @@ package jfluentvalidation.constraints.array.containsany;
 import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.DefaultMessages;
 import jfluentvalidation.internal.Ensure;
-import jfluentvalidation.validators.RuleContext;
+import jfluentvalidation.validators.ConstraintContext;
 
 import java.util.List;
 
@@ -19,7 +19,7 @@ public class ContainsAnyByteConstraint<T> extends AbstractConstraint<T, byte[]> 
     }
 
     @Override
-    public boolean isValid(RuleContext<T, byte[]> context) {
+    public boolean isValid(ConstraintContext<T, byte[]> context) {
         if (context.getPropertyValue() == null) {
             return true;
         }
@@ -40,7 +40,7 @@ public class ContainsAnyByteConstraint<T> extends AbstractConstraint<T, byte[]> 
     }
 
     @Override
-    public void addParametersToContext(RuleContext<T, byte[]> context) {
+    public void addParametersToContext(ConstraintContext<T, byte[]> context) {
         context.getMessageContext().appendArgument("values", values);
     }
 }

@@ -3,7 +3,7 @@ package jfluentvalidation.constraints.time;
 import jfluentvalidation.common.Suppliers;
 import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.DefaultMessages;
-import jfluentvalidation.validators.RuleContext;
+import jfluentvalidation.validators.ConstraintContext;
 
 import java.time.LocalTime;
 import java.util.function.Supplier;
@@ -30,7 +30,7 @@ public class IsAfterLocalTimeConstraint<T> extends AbstractConstraint<T, LocalTi
     }
 
     @Override
-    public boolean isValid(RuleContext<T, LocalTime> context) {
+    public boolean isValid(ConstraintContext<T, LocalTime> context) {
         if (context.getPropertyValue() == null) {
             return true;
         }

@@ -6,7 +6,7 @@ import jfluentvalidation.ValidationFailure;
 import jfluentvalidation.constraints.Constraint;
 import jfluentvalidation.constraints.SoftConstraint;
 import jfluentvalidation.messageinterpolation.ResourceBundleMessageInterpolator;
-import jfluentvalidation.validators.RuleContext;
+import jfluentvalidation.validators.ConstraintContext;
 import jfluentvalidation.validators.RuleOptions;
 import jfluentvalidation.validators.ValidationContext;
 
@@ -53,7 +53,7 @@ public class PropertyRule<T, P> implements Rule<T, P> {
         P propertyValue = propertyFunc.apply(context.getInstanceToValidate());
         for (Constraint<T, P> constraint : constraints) {
             // TODO: is this the best way to handle this?
-            RuleContext<T, P> ruleContext = new RuleContext<>(context, this);
+            ConstraintContext<T, P> ruleContext = new ConstraintContext<>(context, this);
             boolean isValid = constraint.isValid(ruleContext);
             if (!isValid) {
                 ruleContext.getMessageContext().appendPropertyName(ruleContext.getRule().getPropertyName());

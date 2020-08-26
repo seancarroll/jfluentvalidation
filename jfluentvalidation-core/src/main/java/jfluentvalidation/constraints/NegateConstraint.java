@@ -1,6 +1,6 @@
 package jfluentvalidation.constraints;
 
-import jfluentvalidation.validators.RuleContext;
+import jfluentvalidation.validators.ConstraintContext;
 
 // TODO: not sure how to handle error messages.
 // this might not be a good idea and we might not even need it.
@@ -16,7 +16,7 @@ public abstract class NegateConstraint<T, P> extends AbstractConstraint<T, P> {
     }
 
     @Override
-    public boolean isValid(RuleContext<T, P> context) {
+    public boolean isValid(ConstraintContext<T, P> context) {
         return !innerConstraint.isValid(context);
     }
 }

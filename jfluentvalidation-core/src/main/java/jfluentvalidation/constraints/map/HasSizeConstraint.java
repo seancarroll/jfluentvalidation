@@ -3,7 +3,7 @@ package jfluentvalidation.constraints.map;
 import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.DefaultMessages;
 import jfluentvalidation.internal.Ensure;
-import jfluentvalidation.validators.RuleContext;
+import jfluentvalidation.validators.ConstraintContext;
 
 import java.util.Map;
 
@@ -24,7 +24,7 @@ public class HasSizeConstraint<T, K, V> extends AbstractConstraint<T, Map<K, V>>
     }
 
     @Override
-    public boolean isValid(RuleContext<T, Map<K, V>> context) {
+    public boolean isValid(ConstraintContext<T, Map<K, V>> context) {
         if (context.getPropertyValue() == null) {
             return true;
         }
@@ -32,7 +32,7 @@ public class HasSizeConstraint<T, K, V> extends AbstractConstraint<T, Map<K, V>>
     }
 
     @Override
-    public void addParametersToContext(RuleContext<T, Map<K, V>> context) {
+    public void addParametersToContext(ConstraintContext<T, Map<K, V>> context) {
         context.getMessageContext().appendArgument("size", size);
     }
 }

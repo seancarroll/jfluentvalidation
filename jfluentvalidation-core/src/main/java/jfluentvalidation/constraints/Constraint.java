@@ -1,7 +1,7 @@
 package jfluentvalidation.constraints;
 
 import jfluentvalidation.validators.ConstraintOptions;
-import jfluentvalidation.validators.RuleContext;
+import jfluentvalidation.validators.ConstraintContext;
 
 /**
  * Defines the logic to validate a given constraint for a given object type {@code T}
@@ -49,7 +49,7 @@ public interface Constraint<T, P> {
      * @param context The validation context
      * @return {@code false} if {@code value} does not pass the constraint
      */
-    boolean isValid(RuleContext<T, P> context);
+    boolean isValid(ConstraintContext<T, P> context);
 
     // TODO: could we do
     // <T> boolean isValid(RuleContext<T, P> context);
@@ -77,6 +77,6 @@ public interface Constraint<T, P> {
 
     ConstraintOptions getOptions();
 
-    void addParametersToContext(RuleContext<T, P> context);
+    void addParametersToContext(ConstraintContext<T, P> context);
 
 }

@@ -3,7 +3,7 @@ package jfluentvalidation.constraints.net.url;
 import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.DefaultMessages;
 import jfluentvalidation.internal.Ensure;
-import jfluentvalidation.validators.RuleContext;
+import jfluentvalidation.validators.ConstraintContext;
 
 import javax.annotation.Nonnull;
 import java.net.URL;
@@ -22,7 +22,7 @@ public class HasPathConstraint<T> extends AbstractConstraint<T, URL> {
     }
 
     @Override
-    public boolean isValid(RuleContext<T, URL> context) {
+    public boolean isValid(ConstraintContext<T, URL> context) {
         if (context.getPropertyValue() == null) {
             return true;
         }
@@ -30,7 +30,7 @@ public class HasPathConstraint<T> extends AbstractConstraint<T, URL> {
     }
 
     @Override
-    public void addParametersToContext(RuleContext<T, URL> context) {
+    public void addParametersToContext(ConstraintContext<T, URL> context) {
         context.getMessageContext().appendArgument("value", expected);
     }
 }

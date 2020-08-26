@@ -3,7 +3,7 @@ package jfluentvalidation.constraints.time;
 import jfluentvalidation.constraints.AbstractConstraint;
 import jfluentvalidation.constraints.DefaultMessages;
 import jfluentvalidation.internal.Ensure;
-import jfluentvalidation.validators.RuleContext;
+import jfluentvalidation.validators.ConstraintContext;
 
 import java.time.Clock;
 import java.util.Calendar;
@@ -26,7 +26,7 @@ public class IsTodayCalendarConstraint<T> extends AbstractConstraint<T, Calendar
     }
 
     @Override
-    public boolean isValid(RuleContext<T, Calendar> context) {
+    public boolean isValid(ConstraintContext<T, Calendar> context) {
         if (context.getPropertyValue() == null) {
             return true;
         }
