@@ -43,14 +43,14 @@ public class CollectionPropertyRule<T, P, E> extends PropertyRule<T, P> {
         Collection<E> collectionPropertyValue = toCollection(propertyValue);
         for (Constraint<?, ? extends P> constraint : getConstraints()) {
             // TODO: is this the best way to handle this?
-            ConstraintContext ruleContext = new ConstraintContext(context, this);
-            boolean isValid = constraint.isValid(ruleContext);
+            ConstraintContext constraintContext = new ConstraintContext(context, this);
+            boolean isValid = constraint.isValid(constraintContext);
             if (!isValid) {
-                ruleContext.getMessageContext().appendPropertyName(ruleContext.getRule().getPropertyName());
-                ruleContext.getMessageContext().appendPropertyValue(ruleContext.getPropertyValue());
-                constraint.addParametersToContext(ruleContext);
+                constraintContext.getMessageContext().appendPropertyName(constraintContext.getRule().getPropertyName());
+                constraintContext.getMessageContext().appendPropertyValue(constraintContext.getPropertyValue());
+                constraint.addParametersToContext(constraintContext);
                 // TODO: locale?
-                String resolvedMessage = interpolator.interpolate(constraint.getOptions().getErrorMessage(), ruleContext.getMessageContext().getPlaceholderValues());
+                String resolvedMessage = interpolator.interpolate(constraint.getOptions().getErrorMessage(), constraintContext.getMessageContext().getPlaceholderValues());
                 failures.add(new ValidationFailure(getPropertyName(), resolvedMessage, propertyValue));
             }
         }
@@ -63,15 +63,15 @@ public class CollectionPropertyRule<T, P, E> extends PropertyRule<T, P> {
                 for (E e : collectionPropertyValue) {
                     ValidationContext childContext = new ValidationContext<>(e);
                     PropertyRule<T, E> rule = new PropertyRule<>(null, propertyName, ruleOptions);
-                    ConstraintContext ruleContext = new ConstraintContext(childContext, rule, e);
-                    boolean isValid = itemConstraint.isValid(ruleContext);
+                    ConstraintContext constraintContext = new ConstraintContext(childContext, rule, e);
+                    boolean isValid = itemConstraint.isValid(constraintContext);
                     if (!isValid) {
-                        ruleContext.getMessageContext().appendPropertyName(ruleContext.getRule().getPropertyName());
-                        ruleContext.getMessageContext().appendArgument("index", i);
-                        ruleContext.getMessageContext().appendPropertyValue(ruleContext.getPropertyValue());
-                        itemConstraint.addParametersToContext(ruleContext);
+                        constraintContext.getMessageContext().appendPropertyName(constraintContext.getRule().getPropertyName());
+                        constraintContext.getMessageContext().appendArgument("index", i);
+                        constraintContext.getMessageContext().appendPropertyValue(constraintContext.getPropertyValue());
+                        itemConstraint.addParametersToContext(constraintContext);
                         // TODO: locale?
-                        String resolvedMessage = interpolator.interpolate(itemConstraint.getOptions().getErrorMessage(), ruleContext.getMessageContext().getPlaceholderValues());
+                        String resolvedMessage = interpolator.interpolate(itemConstraint.getOptions().getErrorMessage(), constraintContext.getMessageContext().getPlaceholderValues());
 
                         failures.add(new ValidationFailure(getPropertyName(), resolvedMessage, e));
                     }

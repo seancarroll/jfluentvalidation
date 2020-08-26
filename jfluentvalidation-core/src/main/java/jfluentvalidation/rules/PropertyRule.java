@@ -53,16 +53,16 @@ public class PropertyRule<T, P> implements Rule<T, P> {
         P propertyValue = propertyFunc.apply(context.getInstanceToValidate());
         for (Constraint<T, P> constraint : constraints) {
             // TODO: is this the best way to handle this?
-            ConstraintContext<T, P> ruleContext = new ConstraintContext<>(context, this);
-            boolean isValid = constraint.isValid(ruleContext);
+            ConstraintContext<T, P> constraintContext = new ConstraintContext<>(context, this);
+            boolean isValid = constraint.isValid(constraintContext);
             if (!isValid) {
-                ruleContext.getMessageContext().appendPropertyName(ruleContext.getRule().getPropertyName());
-                ruleContext.getMessageContext().appendPropertyValue(ruleContext.getPropertyValue());
-                constraint.addParametersToContext(ruleContext);
+                constraintContext.getMessageContext().appendPropertyName(constraintContext.getRule().getPropertyName());
+                constraintContext.getMessageContext().appendPropertyValue(constraintContext.getPropertyValue());
+                constraint.addParametersToContext(constraintContext);
 
                 String resolvedMessage = interpolator.interpolate(
                     constraint.getOptions().getErrorMessage(),
-                    ruleContext.getMessageContext().getPlaceholderValues()
+                    constraintContext.getMessageContext().getPlaceholderValues()
                 );
 
                 failures.add(new ValidationFailure(propertyName, resolvedMessage, propertyValue));

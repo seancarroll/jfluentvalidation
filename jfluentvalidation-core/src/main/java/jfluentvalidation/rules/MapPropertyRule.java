@@ -40,13 +40,13 @@ public class MapPropertyRule<T, K, V> extends PropertyRule<T, Map<K, V>> {
 
         for (Constraint<T, Map<K, V>> constraint : getConstraints()) {
             // TODO: is this the best way to handle this?
-            ConstraintContext<T, Map<K, V>> ruleContext = new ConstraintContext<>(context, this);
-            boolean isValid = constraint.isValid(ruleContext);
+            ConstraintContext<T, Map<K, V>> constraintContext = new ConstraintContext<>(context, this);
+            boolean isValid = constraint.isValid(constraintContext);
             if (!isValid) {
-                ruleContext.getMessageContext().appendPropertyName(ruleContext.getRule().getPropertyName());
-                ruleContext.getMessageContext().appendPropertyValue(ruleContext.getPropertyValue());
-                constraint.addParametersToContext(ruleContext);
-                String resolvedMessage = interpolator.interpolate(constraint.getOptions().getErrorMessage(), ruleContext.getMessageContext().getPlaceholderValues());
+                constraintContext.getMessageContext().appendPropertyName(constraintContext.getRule().getPropertyName());
+                constraintContext.getMessageContext().appendPropertyValue(constraintContext.getPropertyValue());
+                constraint.addParametersToContext(constraintContext);
+                String resolvedMessage = interpolator.interpolate(constraint.getOptions().getErrorMessage(), constraintContext.getMessageContext().getPlaceholderValues());
                 failures.add(new ValidationFailure(getPropertyName(), resolvedMessage, propertyValue));
             }
         }
@@ -61,16 +61,16 @@ public class MapPropertyRule<T, K, V> extends PropertyRule<T, Map<K, V>> {
                     // TODO: this is yucky. need to fix/clean up/improve
                     ValidationContext<?> childContext = new ValidationContext<>(e);
                     PropertyRule<T, Object> rule = new PropertyRule<>(null, propertyName, ruleOptions);
-                    ConstraintContext ruleContext = new ConstraintContext(childContext, rule, e);
-                    boolean isValid = itemConstraint.getConstraint().isValid(ruleContext);
+                    ConstraintContext constraintContext = new ConstraintContext(childContext, rule, e);
+                    boolean isValid = itemConstraint.getConstraint().isValid(constraintContext);
                     if (!isValid) {
                         // TODO: how to include index in message
-                        ruleContext.getMessageContext().appendPropertyName(ruleContext.getRule().getPropertyName());
-                        ruleContext.getMessageContext().appendArgument("index", i);
-                        ruleContext.getMessageContext().appendPropertyValue(ruleContext.getPropertyValue());
-                        itemConstraint.getConstraint().addParametersToContext(ruleContext);
+                        constraintContext.getMessageContext().appendPropertyName(constraintContext.getRule().getPropertyName());
+                        constraintContext.getMessageContext().appendArgument("index", i);
+                        constraintContext.getMessageContext().appendPropertyValue(constraintContext.getPropertyValue());
+                        itemConstraint.getConstraint().addParametersToContext(constraintContext);
 
-                        String resolvedMessage = interpolator.interpolate(itemConstraint.getConstraint().getOptions().getErrorMessage(), ruleContext.getMessageContext().getPlaceholderValues());
+                        String resolvedMessage = interpolator.interpolate(itemConstraint.getConstraint().getOptions().getErrorMessage(), constraintContext.getMessageContext().getPlaceholderValues());
 
                         failures.add(new ValidationFailure(getPropertyName(), resolvedMessage, e));
                     }
