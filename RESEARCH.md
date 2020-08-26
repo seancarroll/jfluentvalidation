@@ -1,4 +1,6 @@
-# Hibernate Validator 
+# Research
+
+## Hibernate Validator 
 
 hibernate validator classes
 - AbstractValidationContext
@@ -12,8 +14,14 @@ hibernate validator classes
 - ConstraintDef
 - ConstraintMapping
 
+Hibernate Validator does allow you to specify validations for each item in a list. 
+Take a look and see what they do.
 
-fluentvalidation
+## fluentvalidation
 - ValidatorMetadata
 - PropertyValidatorContext
 - DefaultValidatorOptions
+
+## Validot
+
+https://github.com/bartoszlenar/Validot
