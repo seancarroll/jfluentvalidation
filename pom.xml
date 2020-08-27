@@ -25,7 +25,7 @@
         <assertj.version>3.16.1</assertj.version>
         <mockito.version>3.3.3</mockito.version>
 
-        <byte-buddy.version>1.10.12</byte-buddy.version>
+        <byte-buddy.version>1.10.14</byte-buddy.version>
         <checker-qual.version>3.0.1</checker-qual.version>
         <errorprone.version>2.3.4</errorprone.version>
         <guava.version>29.0-jre</guava.version>
