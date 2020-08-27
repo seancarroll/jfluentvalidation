@@ -31,7 +31,8 @@
         <guava.version>29.0-jre</guava.version>
         <hibernate-validator.version>6.1.0.Final</hibernate-validator.version>
         <javax.el.version>3.0.0</javax.el.version>
-        <mvel2.version>2.4.8.Final</mvel2.version>
+        <!-- TODO: performance test mvel2 with jakarta el-->
+        <mvel2.version>2.4.9.Final</mvel2.version>
         <objenesis.version>3.1</objenesis.version>
         <slf4j.version>1.7.30</slf4j.version>
         <spring.version>2.1.2.RELEASE</spring.version>
