@@ -3,7 +3,7 @@ package jfluentvalidation.constraints.array;
 import jfluentvalidation.constraints.array.length.ArrayExactLengthConstraint;
 import jfluentvalidation.constraints.array.length.BooleanArrayExactLengthConstraint;
 import jfluentvalidation.rules.PropertyRule;
-import jfluentvalidation.validators.RuleContext;
+import jfluentvalidation.validators.ConstraintContext;
 import jfluentvalidation.validators.RuleOptions;
 import jfluentvalidation.validators.ValidationContext;
 import org.openjdk.jmh.annotations.Benchmark;
@@ -32,7 +32,7 @@ public class LengthBenchmark {
         }
     }
 
-    RuleContext<Foo, boolean[]> ruleContext;
+    ConstraintContext<Foo, boolean[]> ruleContext;
     BooleanArrayExactLengthConstraint booleanArrayExactLengthConstraintAlternative;
     ArrayExactLengthConstraint arrayExactLengthConstraint;
     BooleanArrayExactLengthConstraint booleanArrayExactLengthConstraint;
@@ -44,7 +44,7 @@ public class LengthBenchmark {
         Foo f = new Foo(new boolean[5]);
 
         PropertyRule propertyRule = new PropertyRule(foo -> f.bar, "bar", new RuleOptions());
-        ruleContext = new RuleContext<>(new ValidationContext(f), propertyRule);
+        ruleContext = new ConstraintContext<>(new ValidationContext(f), propertyRule);
 
         booleanArrayExactLengthConstraintAlternative = new BooleanArrayExactLengthConstraint(5);
         arrayExactLengthConstraint = new ArrayExactLengthConstraint(5);
