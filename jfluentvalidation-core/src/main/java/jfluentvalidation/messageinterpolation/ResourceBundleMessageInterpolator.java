@@ -5,6 +5,7 @@ import org.mvel2.MVEL;
 import org.mvel2.integration.impl.MapVariableResolverFactory;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.MissingResourceException;
@@ -50,6 +51,9 @@ public class ResourceBundleMessageInterpolator {
 
     private ConcurrentHashMap<String, TokenizedMessage> tokenizedMessageCache;
 
+    private final ConcurrentHashMap<String, List<Token>> tokenizedParameterMessages;
+    private final ConcurrentHashMap<String, List<Token>> tokenizedELMessages;
+
     private final Set<String> userBundles;
     private final Set<Locale> localesToInitialize;
     private final boolean cachingEnabled;
@@ -69,6 +73,12 @@ public class ResourceBundleMessageInterpolator {
         if (cachingEnabled) {
             localizedMessageCache = new ConcurrentHashMap<>();
             tokenizedMessageCache = new ConcurrentHashMap<>();
+
+            tokenizedParameterMessages = new ConcurrentHashMap<>();
+            tokenizedELMessages = new ConcurrentHashMap<>();
+        } else {
+            tokenizedParameterMessages = null;
+            tokenizedELMessages = null;
         }
     }
 
@@ -170,6 +180,119 @@ public class ResourceBundleMessageInterpolator {
             resolvedMessage = DOLLAR.matcher(resolvedMessage).replaceAll(Matcher.quoteReplacement("$"));
         }
         return resolvedMessage;
+    }
+
+
+    public String interpolateV2(String message, Map<String, Object> context) {
+        Locale locale = Locale.getDefault();
+
+        // if the message does not contain any message parameter, no need to continue just return the unescaped message.
+        // It avoids storing the message in the cache and a cache lookup.
+        if (message.indexOf('{') < 0) {
+            return replaceEscapedLiterals(message);
+        }
+
+        String resolvedMessage;
+
+        // either retrieve message from cache, or if message is not yet there or caching is disabled
+        resolvedMessage = cachingEnabled
+            ? localizedMessageCache.computeIfAbsent(new LocalizedMessage(message, locale), lm -> resolveMessageV2(message, locale))
+            : resolveMessageV2(message, locale);
+
+        // there's no need for steps 2-3 unless there's `{param}`/`${expr}` in the message
+        if (resolvedMessage.indexOf('{') > -1) {
+
+            // TODO: does this really need to be two passes?
+
+            // resolve parameter expressions (step 2)
+            resolvedMessage = interpolateExpression(
+                new TokenIterator(getParameterTokens(resolvedMessage, tokenizedParameterMessages, InterpolationTermType.PARAMETER)),
+                context,
+                locale
+            );
+
+            // resolve EL expressions (step 3)
+            resolvedMessage = interpolateExpression(
+                new TokenIterator(getParameterTokens(resolvedMessage, tokenizedELMessages, InterpolationTermType.EL)),
+                context,
+                locale
+            );
+        }
+
+        // last but not least we have to take care of escaped literals
+        resolvedMessage = replaceEscapedLiterals(resolvedMessage);
+
+        return resolvedMessage;
+
+    }
+
+    // TODO: from hibernate...work into existing logic
+    private String resolveParameter(String parameterName, ResourceBundle bundle, Locale locale, boolean recursive) {
+        String parameterValue;
+        try {
+            if (bundle != null) {
+                parameterValue = bundle.getString(removeCurlyBraces(parameterName));
+                if (recursive) {
+                    parameterValue = interpolateBundleMessage(parameterValue, bundle, locale, recursive);
+                }
+            } else {
+                parameterValue = parameterName;
+            }
+        } catch (MissingResourceException e) {
+            // return parameter itself
+            parameterValue = parameterName;
+        }
+        return parameterValue;
+    }
+
+    private List<Token> getParameterTokens(String resolvedMessage, ConcurrentHashMap<String, List<Token>> cache, InterpolationTermType termType) {
+        if (cachingEnabled) {
+            return cache.computeIfAbsent(
+                resolvedMessage,
+                rm -> new TokenCollector(resolvedMessage, termType).getTokenList()
+            );
+        } else {
+            return new TokenCollector(resolvedMessage, termType).getTokenList();
+        }
+    }
+
+    private String resolveMessageV2(String message, Locale locale) {
+        ResourceBundle bundle = ResourceBundle.getBundle(DEFAULT_VALIDATION_MESSAGES, locale);
+        return interpolateBundleMessage(
+            message,
+            bundle,
+            locale,
+            false
+        );
+    }
+
+    private String interpolateExpression(TokenIterator tokenIterator, Map<String, Object> context, Locale locale) {
+        while (tokenIterator.hasMoreInterpolationTerms()) {
+            String term = tokenIterator.nextInterpolationTerm();
+
+            String resolvedExpression = interpolate(context, locale, term);
+            tokenIterator.replaceCurrentInterpolationTerm(resolvedExpression);
+        }
+        return tokenIterator.getInterpolatedMessage();
+    }
+
+    public String interpolate(Map<String, Object> context, Locale locale, String term) {
+        InterpolationTerm expression = new InterpolationTerm(term, locale, new MapVariableResolverFactory(context));
+        return expression.interpolate(context);
+    }
+
+    // TODO: from hibernate validator...incorporate
+    private String interpolateBundleMessage(String message, ResourceBundle bundle, Locale locale, boolean recursive) {
+        TokenCollector tokenCollector = new TokenCollector(message, InterpolationTermType.PARAMETER);
+        TokenIterator tokenIterator = new TokenIterator(tokenCollector.getTokenList());
+        while (tokenIterator.hasMoreInterpolationTerms()) {
+            String term = tokenIterator.nextInterpolationTerm();
+            String resolvedParameterValue = resolveParameter(
+                term, bundle, locale, recursive
+            );
+            tokenIterator.replaceCurrentInterpolationTerm(resolvedParameterValue);
+        }
+        return tokenIterator.getInterpolatedMessage();
     }
 
 }
