@@ -32,4 +32,11 @@ public final class InterpolationHelper {
             .replaceAll(Matcher.quoteReplacement(String.valueOf(ESCAPE_CHARACTER)) + "$1");
     }
 
+    public static String removeCurlyBraces(String parameter) {
+        return parameter.substring(1, parameter.length() - 1);
+    }
+
+    public static String removeDollarAndCurlyBraces(String parameter) {
+        return parameter.substring(2, parameter.length() - 1);
+    }
 }

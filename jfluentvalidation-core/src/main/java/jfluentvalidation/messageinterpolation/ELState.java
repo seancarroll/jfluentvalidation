@@ -7,17 +7,12 @@
 
 package jfluentvalidation.messageinterpolation;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import static jfluentvalidation.messageinterpolation.InterpolationHelper.EL_DESIGNATOR;
 
 /**
  * Forked from Hibernate Validator.
  */
 public class ELState implements ParserState {
-
-    private static final Logger LOG = LoggerFactory.getLogger(ELState.class);
 
     @Override
     public void terminate(TokenCollector tokenCollector) {

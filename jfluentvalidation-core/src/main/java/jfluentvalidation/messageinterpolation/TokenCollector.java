@@ -72,25 +72,20 @@ public class TokenCollector {
         char currentCharacter = originalMessageDescriptor.charAt(currentPosition);
         currentPosition++;
         switch (currentCharacter) {
-            case BEGIN_TERM: {
+            case BEGIN_TERM:
                 currentParserState.handleBeginTerm(currentCharacter, this);
                 break;
-            }
-            case END_TERM: {
+            case END_TERM:
                 currentParserState.handleEndTerm(currentCharacter, this);
                 break;
-            }
-            case EL_DESIGNATOR: {
+            case EL_DESIGNATOR:
                 currentParserState.handleELDesignator(currentCharacter, this);
                 break;
-            }
-            case ESCAPE_CHARACTER: {
+            case ESCAPE_CHARACTER:
                 currentParserState.handleEscapeCharacter(currentCharacter, this);
                 break;
-            }
-            default: {
+            default:
                 currentParserState.handleNonMetaCharacter(currentCharacter, this);
-            }
         }
     }
 

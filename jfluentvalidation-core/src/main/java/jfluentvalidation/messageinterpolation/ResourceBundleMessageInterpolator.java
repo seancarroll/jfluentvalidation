@@ -164,14 +164,6 @@ public class ResourceBundleMessageInterpolator {
         }
     }
 
-    private static String removeCurlyBraces(String parameter) {
-        return parameter.substring(1, parameter.length() - 1);
-    }
-
-    private static String removeDollarAndCurlyBraces(String parameter) {
-        return parameter.substring(2, parameter.length() - 1);
-    }
-
     private static String replaceEscapedLiterals(String resolvedMessage) {
         if (resolvedMessage.indexOf('\\') > -1) {
             resolvedMessage = LEFT_BRACE.matcher(resolvedMessage).replaceAll("{");

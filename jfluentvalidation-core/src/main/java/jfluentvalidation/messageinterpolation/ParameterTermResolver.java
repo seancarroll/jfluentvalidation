@@ -9,6 +9,8 @@ package jfluentvalidation.messageinterpolation;
 import java.util.Arrays;
 import java.util.Map;
 
+import static jfluentvalidation.messageinterpolation.InterpolationHelper.removeCurlyBraces;
+
 /**
  * Forked from Hibernate Validator.
  */
@@ -22,10 +24,6 @@ public class ParameterTermResolver implements TermResolver {
 
     private Object getVariable(Map<String, Object> context, String parameter) {
         return context.get(parameter);
-    }
-
-    private String removeCurlyBraces(String parameter) {
-        return parameter.substring(1, parameter.length() - 1);
     }
 
     private String resolveExpression(Object variable) {

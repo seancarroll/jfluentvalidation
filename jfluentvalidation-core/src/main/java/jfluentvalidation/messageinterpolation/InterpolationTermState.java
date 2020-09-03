@@ -6,9 +6,6 @@
  */
 package jfluentvalidation.messageinterpolation;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import static jfluentvalidation.messageinterpolation.InterpolationHelper.BEGIN_TERM;
 
 /**
@@ -16,15 +13,12 @@ import static jfluentvalidation.messageinterpolation.InterpolationHelper.BEGIN_T
  */
 public class InterpolationTermState implements ParserState {
 
-    private final Logger LOG = LoggerFactory.getLogger(InterpolationTermState.class);
-
     @Override
     public void terminate(TokenCollector tokenCollector) {
         throw new InvalidMessageException(
             tokenCollector.getOriginalMessageDescriptor(),
             BEGIN_TERM
         );
-
     }
 
     @Override

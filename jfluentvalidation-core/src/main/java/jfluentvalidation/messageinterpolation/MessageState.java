@@ -6,15 +6,10 @@
  */
 package jfluentvalidation.messageinterpolation;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 /**
  * Forked from Hibernate Validator.
  */
 public class MessageState implements ParserState {
-
-    private static final Logger LOG = LoggerFactory.getLogger(MessageState.class);
 
     @Override
     public void terminate(TokenCollector tokenCollector) {

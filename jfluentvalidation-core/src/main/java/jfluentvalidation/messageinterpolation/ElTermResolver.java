@@ -12,15 +12,12 @@ import org.mvel2.integration.impl.MapVariableResolverFactory;
 import java.util.Locale;
 import java.util.Map;
 
+import static jfluentvalidation.messageinterpolation.InterpolationHelper.removeDollarAndCurlyBraces;
+
 /**
  * Forked from Hibernate Validator.
  */
 public class ElTermResolver implements TermResolver {
-
-    /**
-     * Name under which the currently validate value is bound to the EL context.
-     */
-    private static final String VALIDATED_VALUE_NAME = "validatedValue";
 
     /**
      * The locale for which to interpolate the expression.
@@ -48,7 +45,5 @@ public class ElTermResolver implements TermResolver {
         return MVEL.evalToString(removeDollarAndCurlyBraces(expression), factory);
     }
 
-    private static String removeDollarAndCurlyBraces(String parameter) {
-        return parameter.substring(2, parameter.length() - 1);
-    }
+
 }
