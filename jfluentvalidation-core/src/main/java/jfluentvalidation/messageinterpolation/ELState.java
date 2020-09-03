@@ -34,8 +34,8 @@ public class ELState implements ParserState {
 
         // TODO: dont append either EL_DESIGNATOR or character (which is '{')
         // as we have to remove them anyway to resolve the EL expression
-//        tokenCollector.appendToToken(EL_DESIGNATOR);
-//        tokenCollector.appendToToken(character);
+        tokenCollector.appendToToken(EL_DESIGNATOR);
+        tokenCollector.appendToToken(character);
         tokenCollector.makeELToken();
         tokenCollector.transitionState(new InterpolationTermState());
     }
