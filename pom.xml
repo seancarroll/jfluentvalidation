@@ -28,7 +28,7 @@
         <byte-buddy.version>1.10.14</byte-buddy.version>
         <checker-qual.version>3.0.1</checker-qual.version>
         <errorprone.version>2.3.4</errorprone.version>
-        <guava.version>29.0-jre</guava.version>
+        <guava.version>30.0-android</guava.version>
         <hibernate-validator.version>6.1.0.Final</hibernate-validator.version>
         <javax.el.version>3.0.0</javax.el.version>
         <!-- TODO: performance test mvel2 with jakarta el-->
@@ -316,7 +316,7 @@
                         <id>enforce</id>
                         <configuration>
                             <rules>
-                                <DependencyConvergence />
+                                <DependencyConvergence/>
                                 <bannedDependencies>
                                     <excludes>
                                         <!-- This should not exist as it will force SLF4J calls to be delegated to log4j -->
