@@ -8,7 +8,6 @@ import org.assertj.core.data.MapEntry;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.provider.Arguments;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Stream;
 
@@ -24,10 +23,7 @@ class DoesNotContainTest {
 
     @Test
     void shouldNotReturnFailureWhenActualDoesNotContainGivenEntries() {
-        Target t = new Target(new HashMap<String, String>() {{
-            put("hello", "world");
-            put("foo", "bar");
-        }});
+        Target t = new Target(Map.of("hello", "world", "foo", "bar"));
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForMap(Target::getMap).doesNotContain(array(entry("name", "sean")));
@@ -65,10 +61,7 @@ class DoesNotContainTest {
 
     @Test
     void shouldReturnFailureWhenGivenEntryIsNull() {
-        Target t = new Target(new HashMap<String, String>() {{
-            put("hello", "world");
-            put("foo", "bar");
-        }});
+        Target t = new Target(Map.of("hello", "world", "foo", "bar"));
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForMap(Target::getMap).doesNotContain((Map.Entry<? extends String, ? extends String>) null);
@@ -80,10 +73,7 @@ class DoesNotContainTest {
 
     @Test
     void shouldReturnFailureWhenActualContainsGivenEntry() {
-        Target t = new Target(new HashMap<String, String>() {{
-            put("hello", "world");
-            put("foo", "bar");
-        }});
+        Target t = new Target(Map.of("hello", "world", "foo", "bar"));
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForMap(Target::getMap).doesNotContain(array(entry("hello", "world"), entry("name", "sean")));

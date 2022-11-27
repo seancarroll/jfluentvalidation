@@ -4,7 +4,7 @@ import jfluentvalidation.ValidationResult;
 import jfluentvalidation.validators.DefaultValidator;
 import org.junit.jupiter.api.Test;
 
-import java.util.HashMap;
+import java.util.Map;
 
 import static jfluentvalidation.constraints.charsequence.CharSequenceConstraints.isLowerCase;
 import static jfluentvalidation.constraints.charsequence.CharSequenceConstraints.isUpperCase;
@@ -15,10 +15,7 @@ class ForEachKeyTest {
 
     @Test
     void success() {
-        Target t = new Target(new HashMap<String, String>() {{
-            put("foo", "bar");
-            put("hello", "world");
-        }});
+        Target t = new Target(Map.of("hello", "world", "foo", "bar"));
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForMap(Target::getMap).forEachKey(isLowerCase());
@@ -30,10 +27,7 @@ class ForEachKeyTest {
 
     @Test
     void failure() {
-        Target t = new Target(new HashMap<String, String>() {{
-            put("foo", "bar");
-            put("hello", "world");
-        }});
+        Target t = new Target(Map.of("hello", "world", "foo", "bar"));
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForMap(Target::getMap).forEachKey(isUpperCase());

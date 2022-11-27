@@ -5,6 +5,7 @@ import jfluentvalidation.validators.DefaultValidator;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -13,9 +14,7 @@ class ContainsEntryTest {
 
     @Test
     void shouldNotReturnFailureWhenActualContainsGivenEntry() {
-        Target t = new Target(new HashMap<String, String>() {{
-            put("hello", "world");
-        }});
+        Target t = new Target(Map.of("hello", "world"));
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForMap(Target::getMap).containsEntry("hello", "world");
@@ -39,7 +38,7 @@ class ContainsEntryTest {
 
     @Test
     void shouldNotReturnFailureWhenEntryIsNullAndGivenIsNull() {
-        Target t = new Target(new HashMap<String, String>() {{
+        Target t = new Target(new HashMap<>() {{
             put(null, null);
         }});
 
@@ -53,9 +52,7 @@ class ContainsEntryTest {
 
     @Test
     void shouldReturnFailureWhenActualDoesNotContainKey() {
-        Target t = new Target(new HashMap<String, String>() {{
-            put("hello", "world");
-        }});
+        Target t = new Target(Map.of("hello", "world"));
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForMap(Target::getMap).containsEntry("foo", "world");
@@ -67,9 +64,7 @@ class ContainsEntryTest {
 
     @Test
     void shouldReturnFailureWhenActualDoesNotContainValue() {
-        Target t = new Target(new HashMap<String, String>() {{
-            put("hello", "world");
-        }});
+        Target t = new Target(Map.of("hello", "world"));
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForMap(Target::getMap).containsEntry("hello", "foo");

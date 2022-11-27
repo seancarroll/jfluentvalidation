@@ -8,6 +8,7 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -20,10 +21,7 @@ class DoesNotContainKeysTest {
 
     @Test
     void shouldNotReturnFailureWhenActualDoesNotContainGivenKeys() {
-        Target t = new Target(new HashMap<String, String>() {{
-            put("hello", "world");
-            put("foo", "bar");
-        }});
+        Target t = new Target(Map.of("hello", "world", "foo", "bar"));
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForMap(Target::getMap).doesNotContainKeys("baz");
@@ -53,7 +51,7 @@ class DoesNotContainKeysTest {
 
     @Test
     void shouldReturnFailureWhenGivenKeyIsNull() {
-        Target t = new Target(new HashMap<String, String>() {{
+        Target t = new Target(new HashMap<>() {{
             put("hello", "world");
             put("foo", "bar");
         }});
@@ -69,10 +67,7 @@ class DoesNotContainKeysTest {
     @ParameterizedTest
     @MethodSource("shouldReturnFailureWhenActualContainsAtLeastOneGivenKeySource")
     void shouldReturnFailureWhenActualContainsAtLeastOneGivenKey(String[] keys) {
-        Target t = new Target(new HashMap<String, String>() {{
-            put("hello", "world");
-            put("foo", "bar");
-        }});
+        Target t = new Target(Map.of("hello", "world", "foo", "bar"));
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForMap(Target::getMap).doesNotContainKeys(keys);

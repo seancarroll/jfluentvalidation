@@ -12,6 +12,7 @@ import jfluentvalidation.validators.ValidationContext;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -130,7 +131,7 @@ public class CollectionPropertyRule<T, P, E> extends PropertyRule<T, P> {
     // https://stackoverflow.com/questions/2651632/how-to-check-if-an-object-is-a-collection-type-in-java
     private Collection<E> toCollection(P propertyValue) {
         if (propertyValue == null) {
-            return null;
+            return Collections.emptyList();
         }
 
         if (propertyValue instanceof List) {

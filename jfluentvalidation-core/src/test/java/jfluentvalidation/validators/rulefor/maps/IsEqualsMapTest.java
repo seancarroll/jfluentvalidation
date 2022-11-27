@@ -27,16 +27,12 @@ class IsEqualsMapTest {
 
     @Test
     void shouldNotReturnFailureWhenActualRepresentsTheSameMappingAsGiven() {
-        Map<String, String> actual = new HashMap<String, String>() {{
-            put("key1", "value1");
-        }};
+        Map<String, String> actual = Map.of("key1", "value1");
         Target t = new Target(actual);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
 
-        Map<String, String> other = new HashMap<String, String>() {{
-            put("key1", "value1");
-        }};
+        Map<String, String> other = Map.of("key1", "value1");
         validator.ruleForMap(Target::getMap).isEqualTo(other);
 
         ValidationResult validationResult = validator.validate(t);
@@ -58,16 +54,12 @@ class IsEqualsMapTest {
 
     @Test
     void shouldReturnFailureWhenActualDoesNotRepresentTheSameMappingAsGiven() {
-        Map<String, String> actual = new HashMap<String, String>() {{
-            put("key1", "value1");
-        }};
+        Map<String, String> actual = Map.of("key1", "value1");
         Target t = new Target(actual);
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
 
-        Map<String, String> other = new HashMap<String, String>() {{
-            put("Key1", "Value1");
-        }};
+        Map<String, String> other = Map.of("Key1", "Value1");
         validator.ruleForMap(Target::getMap).isEqualTo(other);
 
         ValidationResult validationResult = validator.validate(t);

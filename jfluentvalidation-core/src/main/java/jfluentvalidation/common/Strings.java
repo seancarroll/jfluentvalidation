@@ -95,6 +95,7 @@ public final class Strings {
 
     /**
      * JDK 8 String.replace is terribly slow. Use this as a replacement until at least JDK 9 at which point we can remove.
+     * TODO: remove when using jdk > 8
      *
      * @param source
      * @param os

@@ -33,16 +33,6 @@ public class ResourceBundleMessageInterpolator {
     private static final Pattern DOLLAR = Pattern.compile("\\$", Pattern.LITERAL);  // EL_DESIGNATOR
 
     /**
-     * Default property name placeholder
-     */
-    private static final String PROPERTY_NAME = "PropertyName";
-
-    /**
-     * Default property value placeholder
-     */
-    private static final String PROPERTY_VALUE = "PropertyValue";
-
-    /**
      * The default locale in the current JVM.
      */
     private final Locale defaultLocale;
@@ -73,7 +63,6 @@ public class ResourceBundleMessageInterpolator {
         if (cachingEnabled) {
             localizedMessageCache = new ConcurrentHashMap<>();
             tokenizedMessageCache = new ConcurrentHashMap<>();
-
             tokenizedParameterMessages = new ConcurrentHashMap<>();
             tokenizedELMessages = new ConcurrentHashMap<>();
         } else {
@@ -192,7 +181,6 @@ public class ResourceBundleMessageInterpolator {
     private String interpolateExpression(TokenIterator tokenIterator, Map<String, Object> context, Locale locale) {
         while (tokenIterator.hasMoreInterpolationTerms()) {
             String term = tokenIterator.nextInterpolationTerm();
-
             String resolvedExpression = interpolate(context, locale, term);
             tokenIterator.replaceCurrentInterpolationTerm(resolvedExpression);
         }

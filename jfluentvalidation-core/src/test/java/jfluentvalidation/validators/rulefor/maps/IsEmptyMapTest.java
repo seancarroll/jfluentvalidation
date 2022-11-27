@@ -5,6 +5,7 @@ import jfluentvalidation.validators.DefaultValidator;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -37,9 +38,7 @@ class IsEmptyMapTest {
 
     @Test
     void shouldReturnFailureWhenActualIsNotEmpty() {
-        Target t = new Target(new HashMap<String, String>() {{
-            put("hello", "world");
-        }});
+        Target t = new Target(Map.of("hello", "world", "foo", "bar"));
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForMap(Target::getMap).isEmpty();

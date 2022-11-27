@@ -45,5 +45,4 @@ public class ElTermResolver implements TermResolver {
         return MVEL.evalToString(removeDollarAndCurlyBraces(expression), factory);
     }
 
-
 }

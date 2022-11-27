@@ -13,6 +13,8 @@ import jfluentvalidation.rules.PropertyRule;
 import jfluentvalidation.rules.Rule;
 import jfluentvalidation.rules.RuleCollection;
 import jfluentvalidation.rules.RuleSet;
+import jfluentvalidation.serializable.BooleanSerializableFunction;
+import jfluentvalidation.serializable.StringSerializableFunction;
 import net.jodah.typetools.TypeResolver;
 
 import javax.validation.ClockProvider;
@@ -156,6 +158,16 @@ public class DefaultValidator<T> implements Validator<T> {
         return new BigDecimalSubject<>(rule);
     }
 
+//    public BigDecimalSubject<T> ruleFor(BigDecimalSerializableFunction<T> func) {
+//        PropertyRule<T, BigDecimal> rule = addNewPropertyRule(func);
+//        return new BigDecimalSubject<>(rule);
+//    }
+//
+//    public BigIntegerSubject<T> ruleFor(BigIntegerSerializableFunction<T> func) {
+//        PropertyRule<T, BigInteger> rule = addNewPropertyRule(func);
+//        return new BigIntegerSubject<>(rule);
+//    }
+
     /**
      *
      * @param func The Function representing the property to validate
@@ -228,7 +240,7 @@ public class DefaultValidator<T> implements Validator<T> {
     }
 
     /**
-     * Defines a validation rule for a specify property.
+     * Defines a validation rule for a specific property.
      *
      * @param func  Function representing the property to validate
      * @return the created subject.
@@ -477,6 +489,16 @@ public class DefaultValidator<T> implements Validator<T> {
     public StringSubject<T> ruleForString(SerializableFunction<T, String> func) {
         PropertyRule<T, String> rule = addNewPropertyRule(func);
         return new StringSubject<>(rule);
+    }
+
+    public StringSubject<T> rule(StringSerializableFunction<T> func) {
+        PropertyRule<T, String> rule = addNewPropertyRule(func);
+        return new StringSubject<>(rule);
+    }
+
+    public BooleanSubject<T> rule(BooleanSerializableFunction<T> func) {
+        PropertyRule<T, Boolean> rule = addNewPropertyRule(func);
+        return new BooleanSubject<>(rule);
     }
 
     /**

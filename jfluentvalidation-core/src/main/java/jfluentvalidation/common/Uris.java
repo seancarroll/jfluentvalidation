@@ -32,7 +32,7 @@ public final class Uris {
         if (query == null) {
             return Collections.emptyMap();
         }
-        // TODO: This is probably not the most performant and we should maybe look at making it better
+
         return AMPERSAND_PATTERN.splitAsStream(query)
             .map(s -> Arrays.copyOf(s.split("="), 2))
             .collect(groupingBy(s -> decode(s[0]), mapping(s -> decode(s[1]), toList())));

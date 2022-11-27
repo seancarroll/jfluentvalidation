@@ -18,10 +18,8 @@ class ContainsTest {
 
     @Test
     void shouldNotReturnFailureWhenActualContainsGivenEntry() {
-        Target t = new Target(new HashMap<String, String>() {{
-            put("hello", "world");
-            put("foo", "bar");
-        }});
+
+        Target t = new Target(Map.of("hello", "world", "foo", "bar"));
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForMap(Target::getMap).contains(array(entry("hello", "world")));
@@ -33,11 +31,7 @@ class ContainsTest {
 
     @Test
     void shouldNotReturnFailureWhenActualContainsGivenEntriesInDifferentOrder() {
-        Target t = new Target(new HashMap<String, String>() {{
-            put("hello", "world");
-            put("foo", "bar");
-            put("name", "sean");
-        }});
+        Target t = new Target(Map.of("hello", "world", "foo", "bar", "name", "sean"));
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForMap(Target::getMap).contains(array(entry("name", "sean"), entry("hello", "world")));
@@ -49,10 +43,7 @@ class ContainsTest {
 
     @Test
     void shouldNotReturnFailureWhenActualContainsAllGivenEntries() {
-        Target t = new Target(new HashMap<String, String>() {{
-            put("hello", "world");
-            put("foo", "bar");
-        }});
+        Target t = new Target(Map.of("hello", "world", "foo", "bar"));
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForMap(Target::getMap).contains(array(entry("hello", "world"), entry("foo", "bar")));
@@ -96,9 +87,7 @@ class ContainsTest {
     @SuppressWarnings("unchecked")
     @Test
     void shouldReturnFailureWhenGivenEntriesIsEmpty() {
-        Target t = new Target(new HashMap<String, String>() {{
-            put("hello", "world");
-        }});
+        Target t = new Target(Map.of("hello", "world"));
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForMap(Target::getMap).contains(new MapEntry[0]);
@@ -111,9 +100,7 @@ class ContainsTest {
     @SuppressWarnings("unchecked")
     @Test
     void shouldReturnFailureWhenGivenEntryIsNull() {
-        Target t = new Target(new HashMap<String, String>() {{
-            put("hello", "world");
-        }});
+        Target t = new Target(Map.of("hello", "world"));
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForMap(Target::getMap).contains(new MapEntry[]{null});
@@ -125,10 +112,7 @@ class ContainsTest {
 
     @Test
     void shouldReturnFailureWhenActualDoesNotContainEntries() {
-        Target t = new Target(new HashMap<String, String>() {{
-            put("hello", "world");
-            put("foo", "bar");
-        }});
+        Target t = new Target(Map.of("hello", "world", "foo", "bar"));
 
         DefaultValidator<Target> validator = new DefaultValidator<>(Target.class);
         validator.ruleForMap(Target::getMap).contains(array(entry("hello", "world"), entry("name", "sean")));
